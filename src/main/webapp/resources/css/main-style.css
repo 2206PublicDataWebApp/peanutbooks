@@ -1,0 +1,105 @@
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+
+main {
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+}
+
+#carouselExampleCaptions {
+    width: 80%;
+    margin: 0 auto;
+
+}
+
+.carousel-item {
+    overflow: hidden;
+    height: 30rem;
+
+}
+
+
+.carousel-caption {
+    color: black !important;
+
+    text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;
+}
+
+@media (max-width:500px) {
+    .carousel-item {
+        height: 20rem;
+
+    }
+
+    .carousel-item img {
+        position: relative;
+        top: -15rem;
+        left: -10rem;
+    }
+
+}
+
+#recommand-category {
+    background-color: #FFD384;
+    text-align: left;
+    height: 3rem;
+    padding: 0.8rem 2%;
+    margin-top: 5rem;
+}
+
+.category-name {
+    padding: 1rem;
+    padding-bottom:0.5rem;
+    padding-left: 5rem !important;
+    font-size: 1.2rem;
+
+}
+
+#main-recommand {
+    margin: 0 auto;
+    width: 90%;
+}
+
+#reco-text-1 {
+    font-size: 2rem;
+    padding: 1rem;
+}
+
+
+#ori-text-1 {
+    font-size: 2rem;
+    padding: 1rem;
+}
+
+#recommnad-pic-1 {
+    height: 20rem;
+    overflow: hidden;
+    border: .5em solid white;
+
+}
+
+
+#recommnad-pic-1 img {
+    width: 100%;
+
+}
+
+.cate-img {
+    overflow: hidden;
+    height: 25rem;
+    padding: 2rem 5.5rem;
+    padding-top:0.5rem;
+    text-align: center;
+}
+
+.cate-img img {
+    width: 100%;
+}
+
+.book-name {
+    text-align: center;
+}
+
+@media (max-width:500px) {
+    .cate-img {
+        padding: 2rem;
+    }
+}

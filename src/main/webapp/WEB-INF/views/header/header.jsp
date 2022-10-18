@@ -54,7 +54,7 @@
             </div>
            
         </div>
-        <hr>
+       
         <div id="menu-bar">
             <ul>
                 <li>이달의 추천</li>

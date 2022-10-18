@@ -47,10 +47,15 @@ public class HomeController {
 	
 	@RequestMapping(value = "/header", method = RequestMethod.GET)
 	public String header() {
-
-		
-
-		
+	
 		return "/header/header";
 	}
+	
+	@RequestMapping(value = "/main", method = RequestMethod.GET)
+	public String main() {
+	
+		return "/main";
+	}
+	
+	
 }
