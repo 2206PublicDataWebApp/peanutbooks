@@ -1,0 +1,93 @@
+
+main{
+    margin: 0;
+	margin-top : 7rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;   
+ 
+}
+section{ 
+    padding:20px;
+    width: 30rem;
+    margin: 0 auto;
+    border: 1px solid rgba(128, 128, 128, 0.123) ;
+    border-radius: 3em;
+    display: flex;
+    flex-direction:column;
+    align-items: center; 
+    justify-content: space-around;
+
+}
+
+main div{    
+    margin:0 auto;
+    padding: 0;    
+    width:100%; 
+    text-align:center;     
+}
+
+
+main button{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 80%;
+    height: 60px;
+    background:#fff9b0;
+    font-size: large;
+    font-weight: bold;
+    border: 1px solid white ;
+    border-radius: 0.5em;
+    box-shadow: 3px 3px #f7d669;
+
+}
+
+main table{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+    width: 80%; 
+    border-bottom: 1px solid gray;    
+    margin-left: auto;
+    margin-right: auto;
+}
+.payName{ 
+    width: 100%;        
+    text-align: left;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 50px;
+}
+main td{    
+    padding-bottom: 10px;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+@media (max-width:500px) {
+main td{
+	font-size:1rem;
+}	
+}
+.payOne{
+    width: 20%;
+    text-align: right;
+}
+.payTwo{
+    width: 40%;
+    text-align: right;
+}
+.history1{
+    text-align: right;
+}
+
+.history2{
+    text-align: right;
+}
+#orderCheck{
+    width: 80%;
+    border: 1px solid gainsboro;
+    border-radius: 0.5em;
+}
+#history,#pay{
+    display: none;
+}

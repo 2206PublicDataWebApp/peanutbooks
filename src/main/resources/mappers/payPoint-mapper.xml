@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="payPoint_Mapper">
+	<!--pay 결제 관련 매핑  -->
+	<resultMap type="Pay" id="payResultMap">
+  		<id property="orderNo" column="orderNo"/> <!--id   -->
+		<result  property="orderNo" column="ORDER_NO"/> 	
+		<result  property="payPoint" column="PAY_POINT"/> 
+		<result  property="orderStatus" column="ORDER_STATUS"/> 
+		<result  property="memberId" column="MEMBERI_ID"/> 
+		<result  property="memberEmail" column="MEMBER_EMAIL"/> 
+		<result  property="orderContents" column="ORDER_CONTENTS"/> 
+  	</resultMap>
+  	<!--주문 확정내용 입력  -->
+  	<insert id="insertPay">
+		 INSERT INTO PAY VALUES((#{orderNo}||'-'||SQN_PAY_NO.NEXTVAL), ${payPoint},default,#{memberId},#{memberEmail},#{orderContents})
+	</insert>
+	<!--확정된 주문번호 가져오기 입력된것중 가장 마지막 값을 가져오게 됨  -->
+	<select id="selectOrderNo" resultMap="payResultMap">
+		SELECT * FROM(
+ 		 SELECT * FROM PAY WHERE MEMBER_ID=#{memberId} AND ORDER_NO LIKE #{orderNo}||'%' AND PAY_POINT= #{payPoint} ORDER BY ROWNUM DESC)
+ 		 WHERE ROWNUM =1	
+	</select>
+	<!--주문성공시 orderStatus 값 변경  -->
+	<update id="updataOrder">
+		UPDATE PAY SET ORDER_STATUS='Y' WHERE ORDER_NO=#{orderNo};
+	
+	</update>
+	
+	
+	<!--작가 정산관련 부분  -->
+	<resultMap type="WriterPay" id="WriterPayResultMap">
+  		<id property="memberId" column="MEMBER_ID"/> <!--id   -->
+		<result  property="memberId" column="MEMBER_ID"/> 	
+		<result  property="seriesNo" column="SERIES_NO"/> 	
+		<result  property="ori_bookNo" column="ORI_BOOK_NO"/> 
+		<result  property="putDate" column="PUT_DATE"/> 
+		<result  property="bankName" column="BANK_NAME"/> 
+		<result  property="bankNo" column="BANK_NO"/> 
+		<result  property="payment" column="PAYMENT"/> 
+		<result  property="bankStatus" column="BANK_STATUS"/> 
+  	</resultMap>
+  	<!-- 작가 결제 요청시 저장 -->
+    <insert id="putWriterPay">
+    	INSERT INTO POINTCHANGE_TBL VALUES(#{memberId},${seriesNo},${ori_bookNo},DEFAULT,#{bankName},${bankNo},${payment},DEFAULT)    	
+    </insert>
+    
+    <!--작가정산리스트 출력 -->
+    
+    
+    
+    
+    <select id="selectOrderNo" resultMap="WriterPayResultMap">
+		SELECT * FROM(
+ 		 SELECT * FROM PAY WHERE MEMBER_ID=#{memberId} AND ORDER_NO LIKE #{orderNo}||'%' AND PAY_POINT= #{payPoint} ORDER BY ROWNUM DESC)
+ 		 	
+	</select>
+  	
+  	
+  	
+  	
+  	<resultMap type="SeasonTicket" id="seasonTicketResultMap">
+  		<id property="memberId" column="MEMBER_ID"/> <!--id   -->
+		<result  property="orderName" column="ORDER_NAME"/> 
+		<result  property="orderDate" column="ORDER_DATE"/> 
+		<result  property="orderNo" column="ORDER_NO"/> 	
+		<result  property="contents" column="CONTENTS"/> 
+		<result  property="lastDate" column="LAST_DATE"/> 
+  	</resultMap>
+<!-- 	<insert id="insertSSticket">
+		 INSERT  INTO SEASONTICKET_TBL  VALUES(#{memberId},#{orderName},SYSDATE,SQN_ORDER_NO.NEXTVAL,#{contents},ADD_MONTHS(SYSDATE,1)
+	</insert>
+	 구독권 마지막 일자 시간 조회  
+	<select id="LastSSticket" resultType="string">
+		SELECT TO_CHAR(LAST_DATE+1/(60*24),'YYYY-MM-DD HH24:MI:SS') FROM SEASONTICKET_TBL		
+	</select>
+	 -->
+  </mapper>
