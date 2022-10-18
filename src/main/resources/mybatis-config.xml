@@ -3,7 +3,23 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+	<typeAliases>
+		<!--은정꺼  -->
+		<typeAlias type="com.kh.Recipe.consult.domain.ConsultServer" alias="ConsultServer" />
+		<typeAlias type="com.kh.Recipe.consult.domain.Consult" alias="Consult" />
+		<typeAlias type="com.kh.Recipe.consult.domain.SwitchChat" alias="SwitchChat" />
+		<typeAlias type="com.kh.Recipe.pay.domain.SeasonTicket" alias="SeasonTicket" />
+		<typeAlias type="com.kh.Recipe.pay.domain.Pay" alias="Pay" />
+		<typeAlias type="com.kh.Recipe.pay.domain.WriterPay" alias="WriterPay" />
+		<!--은정꺼 끝  -->
+	</typeAliases>
+
 <mappers>
-<mapper resource="/mappers/originbook-mapper.xml"/>
-</mappers>
+	<mapper resource="/mappers/originbook-mapper.xml"/>
+	<!--은정꺼  -->
+	<mapper resource="mappers/consult-mapper.xml" />
+	<mapper resource="mappers/member-mapper.xml" />	
+	<mapper resource="mappers/payPoint-mapper.xml" />
+	<!--은정꺼 끝  -->
+	</mappers>
 </configuration>
