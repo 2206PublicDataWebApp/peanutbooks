@@ -23,7 +23,7 @@ import com.books.peanut.consult.domain.Consult;
 import com.books.peanut.consult.domain.ConsultServer;
 import com.books.peanut.consult.domain.SwitchChat;
 import com.books.peanut.consult.service.ConsultService;
-import com.books.peanut.member.domain.Member;
+//import com.books.peanut.member.domain.Member;
 
 @Controller
 public class ConsultController {
@@ -53,19 +53,19 @@ public class ConsultController {
 	public ModelAndView showChat(ModelAndView mv
 			, HttpSession session, HttpServletRequest request) {	
 
-			Member member = (Member) session.getAttribute("loginUser");
+			//Member member = (Member) session.getAttribute("loginUser");
 			try {				
 				SwitchChat switchChat=new SwitchChat();
-				if(member == null){
+				//if(member == null){
 					mv.setViewName("redirect:/home.kh");
-				}
+				//}
 				String memberId = "일용자";
-				String memberEmail = member.getMemberEmail();
+				//String memberEmail = member.getMemberEmail();
 				String swichbtn = switchChat.getOn_off();
 
 				mv.addObject("swichbtn", swichbtn);
 				mv.addObject("memberId", memberId);
-				mv.addObject("memberEmail", memberEmail);
+				//mv.addObject("memberEmail", memberEmail);
 				mv.setViewName("/consult/userChat");
 			
 			} catch (Exception e) {
@@ -171,15 +171,15 @@ public class ConsultController {
 	@RequestMapping(value = "/consult/move.kh", method = RequestMethod.GET)
 	public ModelAndView move(ModelAndView mv, HttpSession session) {
 
-		Member member = (Member) session.getAttribute("loginUser");
+		//Member member = (Member) session.getAttribute("loginUser");
 		
-		if(!(member.getMemberEmail().equals("manager"))) {
+		//if(!(member.getMemberEmail().equals("manager"))) {
 			
 			mv.addObject("msg","관리자가 아닙니다");
 			mv.setViewName("/error");
-		} else {		
+	//	} else {		
 			mv.setViewName("/consult/consultingList");
-		}
+	//	}
 		return mv;
 	}
 

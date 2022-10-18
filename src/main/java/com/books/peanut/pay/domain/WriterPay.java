@@ -9,7 +9,7 @@ public class WriterPay {
 	private Date putDate;
 	private String bankName;
 	private int bankNo;
-	private int payment;
+	private String payment;
 	private String bankStatus;
 	
 	public WriterPay() {

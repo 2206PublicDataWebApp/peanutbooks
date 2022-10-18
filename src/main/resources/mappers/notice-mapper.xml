@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="NoticeMapper">
+	<resultMap type="Notice" id="noticeResultMap">
+		<id		column="NOTICE_NO" 	    property="noticeNo" />
+		<result column="NOTICE_WRITER"  property="noticeWriter" />
+		<result column="NOTICE_CATEGORY"  property="noticeCategory" />
+		<result column="NOTICE_TITLE"  property="noticeTitle" />
+		<result column="NOTICE_CONTENTS"  property="noticeContents" />
+		<result column="NOTICE_COUNT"  property="notictCount" />
+		<result column="N_CREATEDATE"  property="nCreateDate" />
+		<result column="N_UPDATEDATE"  property="nUdateDate" />
+		<result column="NOTICE_DELIVER"  property="nDeliver" />
+		<result column="NOTICE_STATUS"  property="nStatus" />
+		<result column="NOTICE_FILENAME01"  property="nFilename01" />
+		<result column="NOTICE_RENAME01"  property="nRename01" />
+		<result column="NOTICE_FILEPATH01"  property="nFilepath01" />
+		<result column="NOTICE_FILENAME01"  property="nFilename02" />
+		<result column="NOTICE_RENAME01"  property="nRename02" />
+		<result column="NOTICE_FILEPATH01"  property="nFilepath02" />
+		<result column="NOTICE_FILENAME01"  property="nFilename03" />
+		<result column="NOTICE_RENAME01"  property="nRename03" />
+		<result column="NOTICE_FILEPATH01"  property="nFilepath03" />
+	</resultMap>
+	<insert id="indertNotice">
+		INSERT INTO NOTICE_TBL
+		VALUES(SEQ_NOTICE.NEXTVAL, #{noticeWriter }, #{noticeCatagory }, #{noticeTitle }, #{noticeContents }
+		, DEFAULT, DEFAULT,DEFAULT,DEFAULT,DEFAULT,#{nFilename01 },#{nRename01 }, #{nFilepath01 }
+		, #{nFilename02 },#{nRename02 }, #{nFilepath02 }, ,#{nFilename03 },#{nRename03 }, #{nFilepath03 })
+	</insert>
+</mapper>
