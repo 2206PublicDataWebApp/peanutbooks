@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="ConsultMapper">
+  <!--채팅기록 -->
+  	<resultMap type="Consult" id="clientResultMap">
+  		<id property="consultNo" column="CONSULT_NO"/> 
+		<result  property="consultNo" column="CONSULT_NO"/> 
+		<result  property="titleNo" column="TITLE_NO"/> 
+		<result  property="cNickName" column="C_NICKNAME"/> 
+		<result  property="cTitle" column="C_TITLE"/> 
+		<result  property="cContexts" column="C_CONTEXTS"/>
+		<result  property="cDate" column="C_DATE"/> 
+
+  	</resultMap>
+  	<!-- 관리자 리스트-->
+  	  <resultMap type="ConsultServer" id="ChatResultMap">
+  		<id property="titleNo" column="TITLE_NO"/> 
+		<result  property="titleNo" column="TITLE_NO"/> 
+		<result  property="csNickName" column="CS_NICKNAME"/> 
+		<result  property="csMail" column="CS_MAIL"/>
+		<result  property="csTitle" column="CS_TITLE"/> 
+		<result  property="csDate" column="CS_DATE"/> 
+		<result  property="csResult" column="CS_RESULT"/> 
+		<result  property="csFileName" column="CS_FILENAME"/> 
+		<result  property="csFileRename" column="CS_FILERENAME"/> 
+		<result  property="csFilePath" column="CS_FILEPATH"/> 
+  	</resultMap>
+  	<resultMap type="SwitchChat" id="SwitchChatMap">
+  		<id property="on_off" column="ON_OFF"/> 
+		<result  property="on_off" column="ON_OFF"/> 
+	</resultMap>
+  	<!-- 채팅버튼 리스트 -->
+  		
+ <!--서버 매핑  --> 
+	 <!--채팅 시작 버튼 변경여부  -->
+	 <update id="switchUpdate">
+		UPDATE SWITCHCHAT SET ON_OFF=#{on_off}
+	 </update>
+	 
+	 <select id="switchbtncheck" resultType="string">
+	 	SELECT ON_OFF FROM SWITCHCHAT
+	 </select>
+
+  	<!--채팅리스트전체 조회  -->
+  	<select id="chatList"  resultMap="ChatResultMap">
+  		SELECT * FROM SERVERCONSULT_TBL ORDER BY TITLE_NO DESC
+  	</select>
+  	
+<!--   	titleNo 조회 -->
+  	<select id="serchtitleNo" resultType="_int">
+  		SELECT MAX(TITLE_NO) FROM SERVERCONSULT_TBL WHERE CS_NICKNAME=#{csNickName} AND CS_TITLE = #{csTitle} AND CS_MAIL=#{csMail} AND CS_RESULT IS NULL
+   	</select>
+
+  	<!-- 신규 상담건 조회 -->
+  	 <select id="chatNewList"  resultMap="ChatResultMap">
+  		SELECT * FROM SERVERCONSULT_TBL WHERE CS_DATE > #{requestTime}  ORDER BY TITLE_NO DESC
+  	</select>
+  	<update id="reportUpdate">
+  		 UPDATE SERVERCONSULT_TBL SET CS_RESULT =#{csResult} WHERE TITLE_NO =#{titleNo}
+  	</update>  	
+ <!--써버 종료  -->
+ 
+ <!--고객 매핑  -->
+ 	<!-- 고객채팅 접수 저장 -->
+ 	<insert id="reseciptChat">
+ 		INSERT INTO SERVERCONSULT_TBL VALUES (SEQ_SERVERCHAT_NO.NEXTVAL,#{csNickName},#{csTitle},#{csMail},SYSDATE,DEFAULT,DEFAULT,DEFAULT,DEFAULT)
+ 	</insert>
+ 
+ 	<!-- 고객과 관리자 채팅 내용저장. -->
+	<insert id="inClientChat">
+    	INSERT INTO CONSULT_TBL VALUES (SEQ_CHAT_NO.NEXTVAL,#{titleNo},#{cNickName},#{cContexts},SYSDATE,#{cEmail})
+  	</insert>
+ 	<!-- 실시간 채팅 리스트조회--> 
+ 	<select id="nowSelectChat" resultMap="clientResultMap">
+ 		SELECT * FROM CONSULT_TBL WHERE TITLE_NO=#{titleNo} 
+ 	</select> 	
+ <!--고객 완료.  --> 
+ </mapper>
