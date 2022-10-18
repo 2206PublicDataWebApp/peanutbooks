@@ -6,12 +6,12 @@
 	<typeAliases>
 
 		<!--은정꺼  -->
-		<typeAlias type="com.kh.Recipe.consult.domain.ConsultServer" alias="ConsultServer" />
-		<typeAlias type="com.kh.Recipe.consult.domain.Consult" alias="Consult" />
-		<typeAlias type="com.kh.Recipe.consult.domain.SwitchChat" alias="SwitchChat" />
-		<typeAlias type="com.kh.Recipe.pay.domain.SeasonTicket" alias="SeasonTicket" />
-		<typeAlias type="com.kh.Recipe.pay.domain.Pay" alias="Pay" />
-		<typeAlias type="com.kh.Recipe.pay.domain.WriterPay" alias="WriterPay" />
+		<typeAlias type="com.books.peanut.consult.domain.ConsultServer" alias="ConsultServer" />
+		<typeAlias type="com.books.peanut.consult.domain.Consult" alias="Consult" />
+		<typeAlias type="com.books.peanut.consult.domain.SwitchChat" alias="SwitchChat" />
+		<typeAlias type="com.books.peanut.pay.domain.SeasonTicket" alias="SeasonTicket" />
+		<typeAlias type="com.books.peanut.pay.domain.Pay" alias="Pay" />
+		<typeAlias type="com.books.peanut.pay.domain.WriterPay" alias="WriterPay" />
 		<!--은정꺼 끝  -->
 		
 		<typeAlias type="com.books.peanut.notice.domain.Notice" alias="Notice"/>
@@ -22,9 +22,8 @@
 <mappers>
 	<mapper resource="/mappers/originbook-mapper.xml"/>
 	<!--은정꺼  -->
-	<mapper resource="mappers/consult-mapper.xml" />
-	<mapper resource="mappers/member-mapper.xml" />	
-	<mapper resource="mappers/payPoint-mapper.xml" />
+	<mapper resource="/mappers/consult-mapper.xml" />
+
 	<!--은정꺼 끝  -->
 		<mapper resource="/mappers/originbook-mapper.xml"/>
 		<mapper resource="/mappers/notice-mapper.xml"/>
