@@ -87,21 +87,21 @@
 					</div>
 					<div class="second-category row">
 						<div class="category-name">동화</div>
-						<div class="col-md-4">
+						<div class="col-4">
 							<div class="cate-img">
 								<img src="./resources/img/main/landscape-g2a33940ce_1280.jpg"
 									class="rounded" alt="">
 							</div>
 							<div class="book-name">제목</div>
 						</div>
-						<div class="col-md-4">
+						<div class="col-4">
 							<div class="cate-img">
 								<img src="./resources/img/main/landscape-g2a33940ce_1280.jpg"
 									class="rounded" alt="">
 							</div>
 							<div class="book-name">제목</div>
 						</div>
-						<div class="col-md-4">
+						<div class="col-4">
 							<div class="cate-img">
 								<img src="./resources/img/main/landscape-g2a33940ce_1280.jpg"
 									class="rounded" alt="">
@@ -113,21 +113,21 @@
 
 					<div class="third-category row">
 						<div class="category-name">역사</div>
-						<div class="col-md-4">
+						<div class="col-4">
 							<div class="cate-img">
 								<img src="./resources/img/main/landscape-g2a33940ce_1280.jpg"
 									class="rounded" alt="">
 							</div>
 							<div class="book-name">제목</div>
 						</div>
-						<div class="col-md-4">
+						<div class="col-4">
 							<div class="cate-img">
 								<img src="./resources/img/main/landscape-g2a33940ce_1280.jpg"
 									class="rounded" alt="">
 							</div>
 							<div class="book-name">제목</div>
 						</div>
-						<div class="col-md-4">
+						<div class="col-4">
 							<div class="cate-img">
 								<img src="./resources/img/main/landscape-g2a33940ce_1280.jpg"
 									class="rounded" alt="">
@@ -169,21 +169,21 @@
 					</div>
 					<div class="second-category row">
 						<div class="category-name">동화</div>
-						<div class="col-md-4">
+						<div class="col-4">
 							<div class="cate-img">
 								<img src="./resources/img/main/landscape-g2a33940ce_1280.jpg"
 									class="rounded" alt="">
 							</div>
 							<div class="book-name">제목</div>
 						</div>
-						<div class="col-md-4">
+						<div class="col-4">
 							<div class="cate-img">
 								<img src="./resources/img/main/landscape-g2a33940ce_1280.jpg"
 									class="rounded" alt="">
 							</div>
 							<div class="book-name">제목</div>
 						</div>
-						<div class="col-md-4">
+						<div class="col-4">
 							<div class="cate-img">
 								<img src="./resources/img/main/landscape-g2a33940ce_1280.jpg"
 									class="rounded" alt="">
@@ -195,21 +195,21 @@
 
 					<div class="third-category row">
 						<div class="category-name">시</div>
-						<div class="col-md-4">
+						<div class="col-4">
 							<div class="cate-img">
 								<img src="./resources/img/main/landscape-g2a33940ce_1280.jpg"
 									class="rounded" alt="">
 							</div>
 							<div class="book-name">제목</div>
 						</div>
-						<div class="col-md-4">
+						<div class="col-4">
 							<div class="cate-img">
 								<img src="./resources/img/main/landscape-g2a33940ce_1280.jpg"
 									class="rounded" alt="">
 							</div>
 							<div class="book-name">제목</div>
 						</div>
-						<div class="col-md-4">
+						<div class="col-4">
 							<div class="cate-img">
 								<img src="./resources/img/main/landscape-g2a33940ce_1280.jpg"
 									class="rounded" alt="">

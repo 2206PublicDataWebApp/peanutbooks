@@ -33,7 +33,19 @@ main {
         position: relative;
         top: -15rem;
         left: -10rem;
+        widht:100%;
     }
+    
+    #carouselExampleCaptions {
+    width: 100%;
+    margin: 0 auto;
+
+	}
+	
+	#slid-img{
+	width:100%
+	}
+    
 
 }
 
@@ -100,6 +112,17 @@ main {
 
 @media (max-width:500px) {
     .cate-img {
-        padding: 2rem;
+        padding: 0rem;
+        padding-top:0.2rem;
+    }
+    .category-name{
+    font-size:1.5rem;
+    padding-bottom:0;
+    padding-top:1.5rem;
+    padding-left:1rem !important;
+  
+    }
+    .category-area .cate-img{
+    height:10rem;
     }
 }

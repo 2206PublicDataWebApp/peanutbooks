@@ -69,7 +69,6 @@ header li {
 }
 
 #menu-bar {
-    display: none;
     width: 100% !important;
 
 }
@@ -81,7 +80,7 @@ header li {
 #menu-bar li {
     font-size: 0.8rem;
     padding-left: 0.5rem;
-    background-color: bisque;
+
     float: none;
     justify-content: flex-end;
     padding-right: 0.5rem;

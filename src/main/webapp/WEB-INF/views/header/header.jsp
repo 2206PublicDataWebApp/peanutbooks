@@ -39,9 +39,9 @@
                     <img src="/resources/img/header/icons8-book (3).png" alt="" id="book-icon">
                     <img src="/resources/img/header/icons8-peanut-48 (6).png" alt="" id="p-icon">
                     <img src="/resources/img/header/icons8-user.png" alt="" id="user-icon">
-                    <!--관리자 체크해서 나타남
-                    <img src="../header/header/icons8-monarch-48.png" alt="" id="admin-icon" style="display:;">
-                    -->
+                    <!--관리자 체크해서 나타남-->
+                    <img src="/resources/img/header/icons8-monarch-48.png" alt="" id="admin-icon" style="display:;">
+                    
                 </div>
                 <div class="d-md-none d-block col-1" id="togglemenu">
                     <div>

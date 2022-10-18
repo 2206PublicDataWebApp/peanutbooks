@@ -10,6 +10,7 @@ var adminPage = document.querySelector('#admin-tooltip-area');
 mypage.style.display = 'none';
 point.style.display='none';
 adminPage.style.display='none';
+ menubar.style.display = 'none';
 
 
 
@@ -20,12 +21,16 @@ user.onclick = function () {
         menubar.style.display = 'none';
         point.style.display = 'none';
         adminPage.style.display = 'none';
+        document.querySelector('#user-icon').src = '/resources/img/header/icons8-user-yellow.png';
+        document.querySelector('#p-icon').src = '/resources/img/header/icons8-peanut-48 (6).png';
+         document.querySelector('#admin-icon').src = '/resources/img/header/icons8-monarch-48.png';
 
 
     } else {
         mypage.style.animation = 'fade-out 1s'
         
         mypage.style.display = 'none';
+        document.querySelector('#user-icon').src = '/resources/img/header/icons8-user.png';
 
     }
 
@@ -37,10 +42,14 @@ picon.onclick = function () {
         menubar.style.display = 'none';
         mypage.style.display = 'none';
         adminPage.style.display = 'none';
+        document.querySelector('#p-icon').src = '/resources/img/header/icons8-peanut-48 (6)-yellow.png';
+        document.querySelector('#user-icon').src = '/resources/img/header/icons8-user.png';
+        document.querySelector('#admin-icon').src = '/resources/img/header/icons8-monarch-48.png';
 
 
     } else {
         point.style.animation = 'fade-out 0.2s ease-out forwards'
+        document.querySelector('#p-icon').src = '/resources/img/header/icons8-peanut-48 (6).png';
        
         point.style.display = 'none';
     }
@@ -53,11 +62,17 @@ menu.onclick = function () {
         point.style.display = 'none';
         mypage.style.display = 'none';
         adminPage.style.display = 'none';
+         document.querySelector('#p-icon').src = '/resources/img/header/icons8-peanut-48 (6).png';
+        document.querySelector('#user-icon').src = '/resources/img/header/icons8-user.png';
+        document.querySelector('#admin-icon').src = '/resources/img/header/icons8-monarch-48.png';
+        
+      
 
     } else {
         menubar.style.animation = 'fade-out 0.2s ease-out forwards'
        
         menubar.style.display = 'none'
+        
 
     }
 }
@@ -69,12 +84,16 @@ admin.onclick = function () {
         mypage.style.display = 'none';
         menubar.style.display = 'none';
         point.style.display = 'none';
+        document.querySelector('#admin-icon').src = '/resources/img/header/icons8-monarch-48-yellow.png';
+        document.querySelector('#p-icon').src = '/resources/img/header/icons8-peanut-48 (6).png';
+        document.querySelector('#user-icon').src = '/resources/img/header/icons8-user.png';
 
 
     } else {
         adminPage.style.animation = 'fade-out 0.2s ease-out forwards'
         
         adminPage.style.display = 'none';
+        document.querySelector('#admin-icon').src = '/resources/img/header/icons8-monarch-48.png';
     }
 
 }
