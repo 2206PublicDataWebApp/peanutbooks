@@ -1,0 +1,363 @@
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+
+header {
+    margin: 0 auto;
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+    font-size: 1.2rem;
+    position: fixed;
+    background-color: white;
+    width: 100%;
+    z-index: 100;
+
+
+}
+
+
+
+header hr {
+    margin: 0;
+}
+
+#logo {
+    height: 5rem;
+    margin-top: 0.5rem;
+}
+
+
+#header-area {
+    align-items: baseline;
+
+}
+
+#header-menu {
+    align-items: baseline;
+}
+
+header .col-md-6 {
+    text-align: right;
+}
+
+.menu-font {
+    padding: 0 1rem !important;
+}
+
+#login-icon {
+    width: 2.5rem;
+    height: auto;
+}
+
+@media (max-width:500px) {
+    #logo {
+        width: 100%;
+        height: auto;
+        margin-top: 0.5rem;
+    }
+
+    #login-icon {
+        width: 2rem;
+        height: auto;
+        padding-top: 2rem;
+
+    }
+
+    .menu-font {
+        font-size: 1rem;
+        padding: 0 !important;
+    }
+
+    #login-icon-area{
+        text-align: center;
+    }
+}
+
+
+@font-face {
+    font-family: 'GangwonEdu_OTFBoldA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+#main {
+    background-image: url(/resources/img/landscape-g963b9f6b9_1920.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 45rem;
+    padding-top: 5rem;
+    background-attachment: fixed;
+}
+
+main img {
+    width: auto;
+    height: 40rem;
+}
+
+#logo {
+    padding: 0.5rem;
+}
+
+#main-text #main-title {
+    font-family: 'GangwonEdu_OTFBoldA';
+    font-size: 5rem;
+}
+
+#main-title2 {
+    font-family: 'GangwonEdu_OTFBoldA';
+    font-size: 1.5rem;
+
+}
+
+#main-line {
+    align-items: baseline;
+    justify-content: center;
+}
+
+
+.accordion-button {
+    font-size: 1.2rem !important;
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+}
+
+.accordion-item {
+    margin-bottom: 1rem;
+}
+
+#section2-title {
+    font-family: 'GangwonEdu_OTFBoldA';
+    font-size: 2rem;
+    text-align: center;
+    margin-top: 3rem;
+}
+
+#section2 {
+    width: 100%;
+    margin-bottom: 2rem;
+
+}
+
+.book-cover-area img {
+    height: 15rem;
+    width: auto;
+    margin-top: 0.5rem;
+}
+
+.book-cover-area {
+    overflow: hidden;
+    width: 100%;
+    height: 15rem;
+}
+
+#faq {
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+    background-color: #FFD384;
+    padding: 2rem;
+}
+
+#faq-title {
+    font-family: 'GangwonEdu_OTFBoldA';
+    text-align: center;
+    font-size: 2.5rem;
+    padding: 1rem;
+
+}
+
+main {
+    height: auto;
+    min-height: 100%;
+    padding-bottom: 5rem;
+
+}
+
+footer {
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+    height: 5rem;
+    position: relative;
+    transform: translateY(-100%);
+    padding-top: 1rem;
+}
+
+#menubar {
+    width: 2rem;
+    height: auto;
+    padding-top: 2.2rem;
+
+}
+
+#menubar-area {
+    text-align: center;
+}
+
+#menu-text {
+    align-items: baseline;
+}
+
+#footer-title-text {
+    padding-left: 1rem;
+    font-size: 1.5rem;
+    font-weight: bolder;
+}
+
+#footer-title-text1 {
+    font-size: 1rem;
+}
+
+#footer-title-text1 img {
+    width: 2rem;
+    height: auto;
+}
+
+#footer-text-area {
+    color: rgb(54, 54, 54);
+    font-size: 0.8rem;
+    font-weight: 400;
+    padding: 0.5rem 0;
+}
+
+footer a {
+    text-decoration: none;
+    color: rgb(54, 54, 54);
+}
+
+#text-area-2 {
+    font-size: 0.8rem;
+}
+#toggle-menu{
+    display: none;
+
+}
+
+@media (max-width:500px) {
+
+    main img {
+        width: 100%;
+        height: auto;
+    }
+
+    #main-text {
+        margin: 2rem;
+    }
+
+    #main-title {
+
+        font-size: 3rem !important;
+    }
+
+    #main-title2 {
+
+        font-size: 1rem !important;
+    }
+
+    #section2-title {
+        font-size: 1.5rem;
+    }
+
+    #footer-title-text1 img {
+        width: 2rem;
+        height: auto;
+    }
+
+    .accordion-button {
+        font-size: 1rem !important;
+
+
+    }
+    .menu-font{
+        padding-left: 0.5rem;
+    }
+
+
+}
+
+#book-cover-area1{
+    background-image: url('/resources/img/main-book-cover/cover1.png');
+    background-size: 80%;
+    background-repeat: repeat-x;
+    height: 17rem;
+    animation: moveImg 50s normal linear infinite;
+}
+
+#book-cover-area2{
+    background-image: url('/resources/img/main-book-cover/cover2.png');
+    background-size: 80%;
+    background-repeat: repeat-x;
+    height: 17rem;
+    animation: moveImg 50s reverse linear infinite;
+}
+
+#book-cover-area3{
+    background-image: url('/resources/img/main-book-cover/cover3.png');
+    background-size: 80%;
+    background-repeat: repeat-x;
+    height: 17rem;
+    animation: moveImg 50s normal linear infinite;
+}
+
+@keyframes moveImg{
+    0%{
+        background-position: 0px center;
+    }
+    100%{
+        background-position: -400% center;
+    }
+}
+
+@media (max-width:500px){
+    #book-cover-area1{
+        background-size: 200%;
+        height: 10rem;
+    }
+    #book-cover-area2{
+        background-size: 200%;
+        height: 10rem;
+    }
+    #book-cover-area3{
+        background-size: 200%;
+        height: 10rem;
+    }
+
+}
+
+
+@media (min-width:2000px){
+    #book-cover-area1{
+       
+        height: 23rem;
+    }
+    #book-cover-area2{
+    
+        height: 23rem;
+    }
+    #book-cover-area3{
+        
+        height: 23rem;
+    }
+
+}
+
+#main-text{
+    animation: ontext 2s linear;
+}
+
+@keyframes ontext{
+    0%{
+        opacity: 0%;
+        transform: translateY(1.5rem);
+
+    }
+    100%{
+        opacity: 100%;
+        transform: translateY(0rem);
+    }
+}
+
+@keyframes Rontext{
+    0%{
+        opacity: 100%;
+        transform: translateY(1.5rem);
+
+    }
+    100%{
+        opacity: 0%;
+        transform: translateY(0rem);
+    }
+}
