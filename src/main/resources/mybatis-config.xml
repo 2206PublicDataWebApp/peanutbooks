@@ -3,7 +3,13 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-<mappers>
-<mapper resource="/mappers/originbook-mapper.xml"/>
-</mappers>
+	<typeAliases>
+		<typeAlias type="com.books.peanut.notice.domain.Notice" alias="Notice"/>
+		<!-- <typeAlias type="com.books.peanut.qna.domain.Qna" alias="Qna"/> -->
+	</typeAliases>
+	<mappers>
+		<mapper resource="/mappers/originbook-mapper.xml"/>
+		<mapper resource="/mappers/notice-mapper.xml"/>
+		<mapper resource="/mappers/qna-mapper.xml"/>
+	</mappers>
 </configuration>
