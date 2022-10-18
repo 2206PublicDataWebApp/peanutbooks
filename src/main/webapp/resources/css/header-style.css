@@ -1,0 +1,285 @@
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+
+header {
+    margin: 0 auto;
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+    font-size: 1.2rem;
+    position: fixed;
+    background-color: white;
+    width: 100%;
+
+
+}
+
+main {
+    height: auto;
+    min-height: 100%;
+    padding-bottom: 5rem;
+
+
+}
+
+footer {
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+    height: 5rem;
+    position: relative;
+    transform: translateY(-100%);
+    padding-top: 1rem;
+}
+
+header hr {
+    margin: 0;
+}
+
+
+
+#logo {
+    height: 4.5rem;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+header li {
+    list-style: none;
+    float: left;
+    padding-left: 3rem;
+    font-size: 1rem;
+    padding-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+#header-area {
+    align-items: flex-end
+}
+
+#header-menu-icon {
+    text-align: right;
+}
+
+#header-menu-icon img,
+#togglemenu img {
+    width: 2rem;
+    height: auto;
+    padding-bottom: 0.5rem;
+    padding-right: 0.5rem;
+    margin-right: 1.5rem;
+}
+
+#menu-bar {
+    display: none;
+    width: 100% !important;
+
+}
+
+#menu-bar ul {
+    padding: 0;
+}
+
+#menu-bar li {
+    font-size: 0.8rem;
+    padding-left: 0.5rem;
+    background-color: bisque;
+    float: none;
+    justify-content: flex-end;
+    padding-right: 0.5rem;
+    display: flex;
+
+
+}
+
+@media (max-width:500px) {
+    #logo {
+        width: 120%;
+        height: auto;
+        margin-top: 0.5rem;
+    }
+
+    #header-menu-icon img {
+        width: 2.2rem;
+        margin-right: 0.3rem;
+    }
+    
+    #menu-bar li{
+        font-size: 1.2rem;
+    }
+
+
+}
+
+#mypage {
+
+    margin-top: 1rem;
+    height: 13rem;
+    width: 10rem;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid darkgray;
+
+    text-align: center;
+
+}
+
+#mypage-tooltip-area {
+    position: absolute;
+    width: 100%;
+    right: 0;
+    left: 0;
+    
+}
+
+#name-space {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+#subscribe {
+    font-size: 0.6rem;
+    padding-bottom: 0.3rem;
+}
+
+#icon-tooltip {
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+    justify-content: flex-end;
+}
+
+#mypage-icon-area>.col-4 {
+    font-size: 0.3rem;
+    text-align: center;
+    padding: 0.2rem;
+
+}
+
+#mypage-icon-area img {
+    width: 2.2rem;
+
+
+}
+
+#logout-area {
+    font-size: 0.7rem;
+}
+
+#logout {
+    width: 100%;
+    height: 2rem;
+    border: 1px;
+}
+
+#point-tooltip-area {
+    position: absolute;
+
+    right: 0;
+    left: 0;
+   
+}
+
+#point-icon-tooltip {
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+    justify-content: flex-end;
+
+}
+
+
+#point {
+
+    margin-top: 1rem;
+    height: 8rem;
+    width: 12rem;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid darkgray;
+
+    text-align: center;
+
+}
+
+#now-point {
+    text-align: center;
+    font-size: 0.8rem;
+    background-color: #FFD384;
+    margin: 0.7rem;
+}
+
+#point-icon-area {
+    font-size: 0.7rem;
+}
+
+#point-icon-area img {
+    width: 2.2rem;
+}
+
+#point-icon-area .col-4 {
+    padding: 0;
+}
+
+#point #name-space {
+    margin-top: 0.5rem;
+}
+
+
+#admin {
+
+    margin-top: 1rem;
+    height: 13rem;
+    width: 10rem;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid darkgray;
+
+    text-align: center;
+
+}
+
+#admin-tooltip-area {
+    position: absolute;
+    width: 100%;
+    right: 0;
+    left: 0;
+
+    
+}
+
+#name-space {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+#subscribe {
+    font-size: 0.6rem;
+    padding-bottom: 0.3rem;
+}
+
+#admin-icon-tooltip {
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+    justify-content: flex-end;
+}
+
+#admin-icon-area>.col-4 {
+    font-size: 0.3rem;
+    text-align: center;
+    padding: 0.2rem;
+
+}
+
+#admin-icon-area img {
+    width: 2.2rem;
+
+
+}
+
+@keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+  
+    }
+    to {
+      opacity: 0;
+    }
+  }

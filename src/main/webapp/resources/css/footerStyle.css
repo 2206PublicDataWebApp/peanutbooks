@@ -1,0 +1,51 @@
+
+footer {
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+    height: 5rem;
+    position: relative;
+    padding-top: 1rem;
+}
+#footer-title-text{
+    padding-left: 1rem;
+    font-size: 1.5rem;
+    font-weight: bolder;
+}
+
+#footer-title-text1{
+    font-size:1rem;
+}
+
+#footer-title-text1 img{
+    width: 2rem;
+    height: auto;
+}
+#footer-text-area{
+    color:rgb(54, 54, 54);
+    font-size: 0.8rem;
+    font-weight: 400;
+    padding: 0.5rem 0;
+}
+footer a{
+    text-decoration: none;
+    color: rgb(54, 54, 54);
+}
+
+#text-area-2{
+    font-size: 0.8rem;
+}
+
+@media (max-width:500px) {
+
+
+    #footer-title-text1 img{
+        width: 2rem;
+        height: auto;
+    }
+    .accordion-button{
+    font-size: 1rem !important;
+
+
+    }
+
+
+}
