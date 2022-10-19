@@ -9,20 +9,19 @@
 	<resultMap type="Pay" id="payResultMap">
   		<id property="orderNo" column="orderNo"/> <!--id   -->
 		<result  property="orderNo" column="ORDER_NO"/> 	
-		<result  property="payPoint" column="PAY_POINT"/> 
+		<result  property="pay" column="PAY"/> 
 		<result  property="orderStatus" column="ORDER_STATUS"/> 
-		<result  property="memberId" column="MEMBERI_ID"/> 
-		<result  property="memberEmail" column="MEMBER_EMAIL"/> 
+		<result  property="memberId" column="MEMBERI_ID"/> 		
 		<result  property="orderContents" column="ORDER_CONTENTS"/> 
   	</resultMap>
   	<!--주문 확정내용 입력  -->
   	<insert id="insertPay">
-		 INSERT INTO PAY VALUES((#{orderNo}||'-'||SQN_PAY_NO.NEXTVAL), ${payPoint},default,#{memberId},#{memberEmail},#{orderContents})
+		 INSERT INTO PAY VALUES((#{orderNo}||'-'||SQN_PAY_NO.NEXTVAL), ${pay},default,#{memberId},#{orderContents})
 	</insert>
 	<!--확정된 주문번호 가져오기 입력된것중 가장 마지막 값을 가져오게 됨  -->
-	<select id="selectOrderNo" resultMap="payResultMap">
+	<select id="selectOdNo" resultMap="payResultMap">
 		SELECT * FROM(
- 		 SELECT * FROM PAY WHERE MEMBER_ID=#{memberId} AND ORDER_NO LIKE #{orderNo}||'%' AND PAY_POINT= #{payPoint} ORDER BY ROWNUM DESC)
+ 		 SELECT * FROM PAY WHERE MEMBER_ID=#{memberId} AND ORDER_NO LIKE #{orderNo}||'%' AND PAY= #{pay} ORDER BY ROWNUM DESC)
  		 WHERE ROWNUM =1	
 	</select>
 	<!--주문성공시 orderStatus 값 변경  -->
@@ -43,22 +42,20 @@
 		<result  property="bankNo" column="BANK_NO"/> 
 		<result  property="payment" column="PAYMENT"/> 
 		<result  property="bankStatus" column="BANK_STATUS"/> 
+		<result  property="wrpayNo" column="WRPAY_NO"/> 
+		<result  property="changeP" column="CHANGE_P"/> 
   	</resultMap>
   	<!-- 작가 결제 요청시 저장 -->
-    <insert id="putWriterPay">
-    	INSERT INTO POINTCHANGE_TBL VALUES(#{memberId},${seriesNo},${ori_bookNo},DEFAULT,#{bankName},${bankNo},${payment},DEFAULT)    	
+    <insert id="receiptWriterPay">
+    	INSERT INTO POINTCHANGE_TBL VALUES(#{memberId},${seriesNo},${ori_bookNo},DEFAULT,#{bankName},#{bankNo},${payment},DEFAULT, SQN_WRITERPAY_NO.NEXTVAL, ${changeP})    	
     </insert>
     
     <!--작가정산리스트 출력 -->
+    <select id="wrList" resultMap="WriterPayResultMap">
+    	SELECT * FROM POINTCHANGE_TBL
+    </select>
     
-    
-    
-    
-    <select id="selectOrderNo" resultMap="WriterPayResultMap">
-		SELECT * FROM(
- 		 SELECT * FROM PAY WHERE MEMBER_ID=#{memberId} AND ORDER_NO LIKE #{orderNo}||'%' AND PAY_POINT= #{payPoint} ORDER BY ROWNUM DESC)
- 		 	
-	</select>
+  
   	
   	
   	

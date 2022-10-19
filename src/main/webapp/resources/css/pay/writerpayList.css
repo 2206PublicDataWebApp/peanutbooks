@@ -1,0 +1,139 @@
+body{width:100%;}
+
+h1{
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 2rem;
+}
+#putMain{
+    width: 100%;
+    margin: 0 auto;
+    padding-top:3rem;
+    font:400 14px 'Calibri','Arial';
+    font-size: 1rem;
+    text-align: center;
+    
+}
+
+table             { 
+    border-spacing: 1; 
+    border-collapse: collapse; 
+    background:white;
+    border-radius:6px;
+    overflow:hidden;
+    max-width:800px; 
+    width:100%;
+    margin:0 auto;
+    position:relative;    
+}  
+    thead tr       { 
+      height:60px;
+      background:#FFED86;
+      font-size: 0.8em;
+      text-align: center;
+    }
+    
+    tbody tr        { 
+        height:48px; border-bottom:1px solid #E3F1D5 ;
+    
+    }   
+  @media screen and (max-width: 48em) { 
+     table:before{ 
+        width:48em;
+        padding-left: 5px;
+    }
+    table colgroup,      
+    table thead {display: none;}
+    table td{display: block;text-align: left}
+    table td:first-child,
+    table td:last-child{
+        display: table-cell;
+        width: 80px;
+        border: 1px solid E3F1D5;
+        text-align:center;       
+    } 
+    table td:before{padding:0 0 0 10px; display:inline-block;width:50%;}
+    table td:nth-child(2):before{content:"고객ID";}
+    table td:nth-child(3):before{content:"시리즈번호";}
+    table td:nth-child(4):before{content:"책번호";}
+    table td:nth-child(5):before{content:"정산땅콩";}
+    table td:nth-child(6):before{content:"정산금액";}
+    table td:nth-child(7):before{content:"접수일";}
+    table td:nth-child(8):before{content:"지급은행";}
+    table td:nth-child(9):before{content:"지급계좌";}
+    table tbody tr td button{
+        width: 80%;
+        height: 150px;
+        background:#FFED86;
+        border-style: none;
+        font-size: 1.5rem;
+    }    
+    /* table.colgroup{display: none;}
+    table th, td{display: block; float: left;  box-sizing: border-box;}
+   
+    table th{width: 30%; background:#FFED86; color:white ;font-weight: bold;}
+    table td{width: 70%;}
+     */
+  }  
+    
+
+
+/* 페이징  */
+.page_wrap {
+	text-align: center;
+	font-size: 0;
+    margin-top: 20px;
+}
+
+.page_nation {
+	display: inline-block;
+}
+
+.page_nation .none {
+	display: none;
+}
+
+.page_nation a {
+	display: block;
+	margin: 0 3px;
+	float: left;
+	border: 1px solid #e6e6e6;
+	width: 28px;
+	height: 28px;
+	line-height: 28px;
+	text-align: center;
+	background-color: #fff;
+	font-size: 13px;
+	color: #999999;
+	text-decoration: none;
+}
+
+.page_nation .arrow {
+	border: 1px solid #ccc;
+}
+
+.page_nation .pprev {
+	background: #f8f8f8  no-repeat center center;
+	margin-left: 0;
+}
+
+.page_nation .prev {
+	background: #f8f8f8  no-repeat center center;
+	margin-right: 7px;
+}
+
+.page_nation .next {
+	background: #f8f8f8  no-repeat center center;
+	margin-left: 7px;
+}
+
+.page_nation .nnext {
+	background: #f8f8f8 no-repeat center center;
+	margin-right: 0;
+}
+
+.page_nation a.active {
+	background-color: #42454c;
+	color: #fff;
+	border: 1px solid #42454c;
+}

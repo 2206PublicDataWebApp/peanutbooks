@@ -13,8 +13,8 @@
 <!--header 항시 출력 부분 -->
 <div class="header">
 	<div class="InputText">
-		<P id="nickName">${cNickName} 의 문의입니다</P>
-		<p style="color: white;">주제 : ${csTitle }</p>
+		<P id="nickName">${cMemberId} 의 문의입니다</P>
+		<p >주제 : ${csTitle }</p>
 		<input type="hidden" name="titleNo" id="titleNo" />	
 	</div>
 	<div class="btn"><input type="button" onClick="chatfinish();" value="종료" id="chatfinish"></div>
@@ -47,7 +47,7 @@ $('.context').scrollTop=$('.context').scrollHeight;
 		/* 전송버튼을 클릭하면 */
 		var titleNo= ${param.titleNo};
 		var msg={								//json형식으로 데이터set
-			cNickName: "임시관리자",
+			cMemberId: "임시관리자",
 			cContexts:$('#magText').val(),
 			cEmail: "test_admin",
 			titleNo: titleNo
@@ -87,8 +87,8 @@ $('.context').scrollTop=$('.context').scrollHeight;
 					//console.log(data); 			
 					console.log("리스트 수신성공: " + result);
 					for ( var i in result) {
-						addChat(result[i].cNickName, result[i].cContexts,result[i].cDate);
-						console.log(result[i].cNickName);
+						addChat(result[i].cMemberId, result[i].cContexts,result[i].cDate);
+						console.log(result[i].cMemberId);
 					}
 				
 				},
@@ -98,18 +98,18 @@ $('.context').scrollTop=$('.context').scrollHeight;
 			});
 		}
 
-		function addChat(cNickName, cContext, cDate) {
-			console.log("데이터 올림 확인 : " + cNickName);
-			if(cNickName==='임시관리자'){
+		function addChat(cMemberId, cContext, cDate) {
+			console.log("데이터 올림 확인 : " + cMemberId);
+			if(cMemberId==='임시관리자'){
 				 $('#after').append('<div class="right" >'
-	                 	   +'<h5 >'+cNickName+'</h5>'
+	                 	   +'<h5 >'+cMemberId+'</h5>'
 	                       +'<div class="middleBox"><span class="dateBox">'+cDate+'</span>'
 	                       +'<span class="contextBox">'+ cContext +'</span></div></div>');
 					
 
 			}else{
 				 $('#after').append('<div class="left">'
-	                 	   +'<h5 >'+cNickName+'</h5>'
+	                 	   +'<h5 >'+cMemberId+'</h5>'
 	                       +'<div class="middleBox"><span class="dateBox">'+cDate+'</span>'
 	                       +'<span class="contextBox">'+ cContext +'</span></div></div>');		
 			}			
@@ -132,11 +132,9 @@ $('.context').scrollTop=$('.context').scrollHeight;
 				success : function(data) {					
 						console.log("data:"+data);
 						if(data.result>0){
-							clearInterval(printer);
-							console.log("3번");					
+							clearInterval(printer);												
 							self.close();
-						}else {
-							console.log("3");
+						}else {							
 							alert("종료 되지 않았습니다. 다시 해주세요");		
 						
 						};
@@ -144,8 +142,7 @@ $('.context').scrollTop=$('.context').scrollHeight;
 				error: function(e) {
 					alert('error : ' + e);
 				}
-			});		
-			console.log("4번");
+			});	
 		};
 	}
 

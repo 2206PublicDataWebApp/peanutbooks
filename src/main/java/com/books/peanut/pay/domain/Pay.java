@@ -2,24 +2,22 @@ package com.books.peanut.pay.domain;
 
 public class Pay {
 	private String orderNo;
-	private int payPoint;
+	private int pay;
 	private String orderStatus;
-	private String memberId;
-	private String memberEmail;
-	private String orderContents;
+	private String memberId;	
+	private String orderContents;	
 	
 	public Pay() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Pay(String orderNo, int payPoint, String orderStatus, String memberId, String memberEmail, String orderContents) {
+	public Pay(String orderNo, int pay, String orderStatus, String memberId, String orderContents) {
 		super();
 		this.orderNo = orderNo;
-		this.payPoint = payPoint;
+		this.pay = pay;
 		this.orderStatus = orderStatus;
 		this.memberId = memberId;
-		this.memberEmail = memberEmail;
 		this.orderContents = orderContents;
 	}
 
@@ -31,12 +29,12 @@ public class Pay {
 		this.orderNo = orderNo;
 	}
 
-	public int getPayPoint() {
-		return payPoint;
+	public int getPay() {
+		return pay;
 	}
 
-	public void setPayPoint(int payPoint) {
-		this.payPoint = payPoint;
+	public void setPay(int pay) {
+		this.pay = pay;
 	}
 
 	public String getOrderStatus() {
@@ -55,14 +53,6 @@ public class Pay {
 		this.memberId = memberId;
 	}
 
-	public String getMemberEmail() {
-		return memberEmail;
-	}
-
-	public void setMemberEmail(String memberEmail) {
-		this.memberEmail = memberEmail;
-	}
-
 	public String getOrderContents() {
 		return orderContents;
 	}
@@ -73,17 +63,9 @@ public class Pay {
 
 	@Override
 	public String toString() {
-		return "Pay [orderNo=" + orderNo + ", payPoint=" + payPoint + ", orderStatus=" + orderStatus + ", memberId=" + memberId
-				+ ", memberEmail=" + memberEmail + ", orderContents=" + orderContents + "]";
+		return "Pay [orderNo=" + orderNo + ", pay=" + pay + ", orderStatus=" + orderStatus + ", memberId=" + memberId
+				+ ", orderContents=" + orderContents + "]";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 }
