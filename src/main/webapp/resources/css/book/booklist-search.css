@@ -1,0 +1,122 @@
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+main {
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  
+}
+
+@font-face {
+    font-family: 'SANGJUGyeongcheonIsland';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2112@1.0/SANGJUGyeongcheonIsland.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+#title-area{
+	font-family: 'SANGJUGyeongcheonIsland';
+    background-image:
+    linear-gradient(
+        to bottom,
+        rgba(232, 232, 232, 0.3),
+        rgba(255, 255, 255, 1)),
+    url('/resources/img/book/bible-g309f775c8_1920.jpg');
+    background-size: cover;
+    font-size: 3rem;
+    padding:3rem 0 4rem 0;
+}
+
+hr{
+    padding: 0;
+    margin:0;
+}
+
+.books-list-area img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0.5rem;
+}
+
+.books-list-area img:hover{
+    transform: scale(1.1);
+    transition: 0.2s;
+}
+.books-list-area .col-md-2 .book-img{
+    height: 17rem;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    
+}
+.list-title{
+padding: 1rem;
+}
+.sort-icon{
+    text-align: right;
+    font-size:0.8rem
+}
+.book-title{
+    text-align: center;
+}
+.text-truncat{
+    display: inline-block;
+}
+main .row{
+    justify-content: space-around;
+    padding-bottom: 1rem;
+}
+
+.book-img{
+    padding:0 !important;
+}
+
+@media (max-width:500px) {
+    .books-list-area .col-md-2 .book-img{
+        height: 10rem;
+        padding: 0.2rem;
+    }
+    #title-area{
+    font-size:1.5rem;
+    }
+    
+}
+main .row{
+	justify-content: space-around;
+	padding:0.2rem !important;
+	padding-bottom:0.5rem !important;
+}
+
+
+.page-header {
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: normal;
+    border-bottom: 1px solid #ddd;
+    margin: 30px 0
+  }
+  #pagination {
+    margin: 0;
+    padding: 0;
+    text-align: center
+  }
+  #pagination li {
+    display: inline
+  }
+  #pagination li a {
+    display: inline-block;
+    text-decoration: none;
+    padding: 5px 10px;
+    color: #000
+  }
+  
+  #pagination li a:hover {
+    background-color: #FFF9B0;
+    transition: background-color 0.4s;
+    border-radius: 0.5rem;
+  } 
+  
+  #pagination .active{
+    background-color: #FFD384;
+    border-radius: 0.5rem;
+  
+  }

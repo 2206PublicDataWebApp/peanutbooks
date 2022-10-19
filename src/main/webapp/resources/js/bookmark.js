@@ -1,0 +1,1 @@
+document.querySelector('#book-icon').src='/resources/img/header/icons8-book%20(3)-yellow.png'

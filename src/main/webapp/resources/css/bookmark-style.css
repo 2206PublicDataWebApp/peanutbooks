@@ -1,0 +1,188 @@
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+main {
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+}
+
+#bookmark-title {
+  font-size: 1.5rem;
+  padding: 1rem;
+}
+
+#bookmark-haed-button button {
+  font-size: 0.8rem;
+  width: 4rem;
+  background-color: lightgrey;
+  border: 0;
+}
+
+#bookmark-haed-button {
+  padding-bottom: 2rem;
+  padding-left: 1rem;
+}
+
+#bookmark-search-area {
+  padding-bottom: 0;
+  align-items: flex-end;
+  padding-left: 1rem;
+}
+
+#gubun {
+  font-size: 0.9rem;
+  padding: 1rem;
+  padding-bottom: 0;
+
+}
+
+
+
+.search {
+  width: 100%;
+  position: relative;
+  display: flex;
+
+}
+
+.searchTerm {
+  width: 100%;
+  border: 1px solid lightgray;
+  border-right: none;
+  padding: 5px;
+  height: 1.5rem;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #FFD384;
+  font-size: 0.8rem;
+}
+
+.searchTerm:focus {
+  color: black;
+}
+
+.searchButton {
+  width: 40px;
+  height: 1.5rem;
+  border: 1px solid lightgray;
+  background-color: lightgray;
+
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+
+}
+
+.bi-search {
+  margin-bottom: 0.8rem;
+
+}
+
+
+#list-firstline {
+  font-size: 0.9rem;
+  padding-left: 2rem;
+}
+
+#list-firstline .col-md-3,.book-name {
+  text-align: center;
+}
+
+.one-book-pic{
+  overflow: hidden;
+  width: auto;
+  height: 20rem;
+  text-align: center;
+  border-radius: 0.5rem;
+}
+.one-book-pic img{
+  height: 100%;
+  width:100%;
+  object-fit: cover;
+}
+  
+  
+  #one-book-area{
+    padding: 2rem 3rem;
+  }
+    
+
+/*Resize the wrap to see the search bar change!*/
+
+@media (max-width:500px) {
+  #gubun{
+    text-align: center;
+  }
+  .searchButton {
+    height: 3rem;
+  }
+
+  .searchTerm {
+    height: 3rem;
+  }
+
+  #gubun {
+    font-size: 1.2rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .bi-search {
+    margin-bottom: 0.5rem;
+
+  }
+  #list-firstline {
+    font-size: 1rem;
+    padding: 0;
+ 
+  }
+
+  #one-book-area{
+    padding: 1rem 1rem;
+  }
+  .one-book-pic{
+    height: 15rem;
+  }
+
+  
+}
+
+
+.page-header {
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: normal;
+  border-bottom: 1px solid #ddd;
+  margin: 30px 0
+}
+#pagination {
+  margin: 0;
+  padding: 0;
+  text-align: center
+}
+#pagination li {
+  display: inline
+}
+#pagination li a {
+  display: inline-block;
+  text-decoration: none;
+  padding: 5px 10px;
+  color: #000
+}
+
+#pagination li a:hover {
+  background-color: #FFF9B0;
+  transition: background-color 0.4s;
+  border-radius: 0.5rem;
+} 
+
+#pagination .active{
+  background-color: #FFD384;
+  border-radius: 0.5rem;
+
+}
+
+#bookmark-haed-button button:hover{
+  background-color: #FFD384;
+
+}

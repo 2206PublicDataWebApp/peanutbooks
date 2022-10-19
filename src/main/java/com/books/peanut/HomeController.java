@@ -56,6 +56,39 @@ public class HomeController {
 	
 		return "/main";
 	}
+	@RequestMapping(value = "/bookmark", method = RequestMethod.GET)
+	public String bookmark() {
+		
+		return "/book/bookmark";
+	}
+	@RequestMapping(value = "/bookserach", method = RequestMethod.GET)
+	public String booksearch() {
+		
+		return "/book/bookSearch";
+	}
+	
+	@RequestMapping(value = "/adminheader", method = RequestMethod.GET)
+	public String adminheader() {
+		
+		return "/header/adminheader";
+	}
+	@RequestMapping(value = "/oribooklist", method = RequestMethod.GET)
+	public String oribooklist() {
+		
+		return "/book/booklist-ori";
+	}
+	
+	@RequestMapping(value = "/norbooklist", method = RequestMethod.GET)
+	public String norbooklist() {
+		
+		return "/book/booklist-nor";
+	}
+	
+	@RequestMapping(value = "/searchbooklist", method = RequestMethod.GET)
+	public String searchbooklist() {
+		
+		return "/book/booklist-search";
+	}
 	
 	
 }

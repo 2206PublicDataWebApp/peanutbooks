@@ -4,10 +4,8 @@ main {
     font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 }
 
-#carouselExampleCaptions {
-    width: 80%;
-    margin: 0 auto;
-
+#section-outside{
+	
 }
 
 .carousel-item {
@@ -23,31 +21,18 @@ main {
     text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;
 }
 
-@media (max-width:500px) {
-    .carousel-item {
-        height: 20rem;
-
-    }
-
-    .carousel-item img {
-        position: relative;
-        top: -15rem;
-        left: -10rem;
-        widht:100%;
-    }
-    
-    #carouselExampleCaptions {
-    width: 100%;
-    margin: 0 auto;
-
-	}
-	
 	#slid-img{
 	width:100%
 	}
-    
 
-}
+.carousel-item img{
+    height: 100% !important;
+    width: 100% !important;
+    object-fit: cover !important;
+	}
+	
+
+
 
 #recommand-category {
     background-color: #FFD384;
@@ -91,38 +76,116 @@ main {
 
 #recommnad-pic-1 img {
     width: 100%;
+    height:100%;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    
 
 }
 
 .cate-img {
     overflow: hidden;
     height: 25rem;
-    padding: 2rem 5.5rem;
+    padding: 0.5rem;
+    border-radius: 1rem;
     padding-top:0.5rem;
     text-align: center;
 }
 
 .cate-img img {
-    width: 100%;
+    height: 100% ;
+    width: 100% ;
+    object-fit: cover;
+    
 }
 
 .book-name {
     text-align: center;
 }
+ .cate-img:hover{
+	transform: scale(1.1);
+	transition : 0.2s;
+}
 
-@media (max-width:500px) {
+main img{
+	    box-shadow: 0 5px 5px rgba(0,0,0,0.18),0 4px 5px 0 rgba(0,0,0,0.15);
+}
+
+
+ main{
+    padding-top:4.5rem !important; 
+    }
+    
+    @font-face {
+    font-family: 'GangwonEdu_OTFBoldA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+    #one-text{
+    background-image:url('/resources/img/main/teacup-g35f438ceb_1280.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 20rem;   
+    border-radius: 0.5rem;
+    font-family: 'GangwonEdu_OTFBoldA';
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    text-align:center;
+    background-position-y: 30%;
+}
+
+#comment{
+	background-color: rgba( 255, 255, 255, 0.7 );
+	box-shadow: 10px 5px 5px gray;
+	border-radius: 1rem;
+	padding:5rem 2rem;
+	
+}
+
+#article3{
+	margin-top:2rem;
+}
+
+@keyframes ontext{
+    0%{
+        opacity: 0%;
+        transform: translateY(1.5rem);
+
+    }
+    100%{
+        opacity: 100%;
+        transform: translateY(0rem);
+    }
+}
+    
+    
+    @media (max-width:500px) {
     .cate-img {
-        padding: 0rem;
+    padding:0;
         padding-top:0.2rem;
     }
     .category-name{
     font-size:1.5rem;
     padding-bottom:0;
-    padding-top:1.5rem;
     padding-left:1rem !important;
   
     }
     .category-area .cate-img{
-    height:10rem;
+    height:15rem;
     }
+    main{
+    padding-top:1rem !important; 
+    }
+    #comment{
+    padding:1rem;
+    
+    }
+    #comment h4{
+    font-size:1rem;
+    }
+
 }
+    

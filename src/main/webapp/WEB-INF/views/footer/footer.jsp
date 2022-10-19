@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="col-9" id="footer-title-text">
                    땅콩북스
-                <div id="footer-text-area">yu-jin,yang &nbsp; | &nbsp;  woo-young,yang  &nbsp; |&nbsp;  eunjeong,shin &nbsp;|&nbsp;  hana,nam
+                <div id="footer-text-area">yu-jin, Yang &nbsp; | &nbsp;  woo-young, Yang  &nbsp; |&nbsp;  eunjeong, Shin &nbsp;|&nbsp;  hana, Nam
                     <br>
                     땅콩북스의 모든 도서는 원저작자에게 저작권이 있으며 무단사용시 법적 책임을 질 수 있습니다. 땅콩북스의 도서를 허가없이 사용할 경우 생기는 일에 대해서는 일절 책임지지 않습니다.
 

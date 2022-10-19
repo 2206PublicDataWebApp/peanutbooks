@@ -1,0 +1,100 @@
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+
+main {
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  
+}
+
+.search {
+    width: 100%;
+    position: relative;
+    display: flex;
+  
+  }
+  
+  .searchTerm {
+    width: 80%;
+    border: 1px solid lightgray;
+    border-right: none;
+    padding: 5px;
+    height: 2.1rem;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    color: #FFD384;
+    font-size: 0.8rem;
+  }
+  
+  .searchTerm:focus {
+    color: black;
+  }
+  
+  .searchButton {
+    width: 40px;
+    height: 1.5rem;
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    padding-top: 1rem;
+    text-align: center;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;
+    padding-top: 2rem;
+    position: relative;
+  
+  }
+  
+  #searchbar {
+  display: flex;
+ 
+  }
+  .bi-search {
+    position: absolute;
+    top: 15%;
+    left:20%;
+  }
+
+  #serch-category{
+    font-size: 0.8rem;
+    margin: 1rem;
+
+  }
+
+  .area-title{
+    font-size: 1.5rem;
+    font-weight: bolder;
+    margin: 1rem 0;
+  }
+  .tagbax{
+    border-radius: 0.5rem;
+    border: 1px solid lightgray;
+    padding: 0.5rem 2rem;
+    margin: 0.5rem 0.5rem;
+    display: inline-block;
+  }
+  #tagbox-area{
+    width: 100%;
+    text-align: center;
+  }
+
+  main .card-body{
+    padding-bottom: 0;
+  }
+
+  #category-one .col-md-4{
+    overflow: hidden;
+    height: 10rem;
+  }
+  
+  #category-one .col-md-4 img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .cate-area-title{
+    font-size: 1.5rem;
+    text-align: center;
+    margin: 1rem;
+
+  }

@@ -18,7 +18,7 @@ main {
     min-height: 100%;
     padding-bottom: 5rem;
      z-index:10;
-     padding-top:5.2rem;
+     padding-top:8rem
 }
 
 footer {
@@ -263,6 +263,27 @@ header li {
 
 
 }
+
+header ul:nth-chiild(1){
+	display:flex;
+	align-items: center;
+	margin-bottom: 0.5rem;
+}
+header li{
+	padding:0 1.5rem ;
+
+}
+
+#admintext{
+	font-size:0.8rem;
+	border-radius:0.5rem;
+	background-color:#FF577F;
+	color:white;    
+	margin-top: 2px;
+	
+	
+}
+
 
 @keyframes fade-in {
     from {
