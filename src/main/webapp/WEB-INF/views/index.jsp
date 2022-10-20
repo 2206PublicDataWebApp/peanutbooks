@@ -35,20 +35,20 @@
                     <div class="row" id="menu-text">
                         <div class="col-md-8 col-d-none"></div>
                         <div class="col-md-2 col-6 menu-font">도서문의</div>
-                        <div class="col-md-2 col-6 menu-font">회원가입</div>
+                        <div class="col-md-2 col-6 menu-font"><a href="/member/joinView.pb">회원가입</a></div>
 
                     </div>
 
 
                 </div>
                 <div class="col-md-1 col-4" id="login-icon-area">
-                    <img src="/resources/img/icons8-login-64.png" id="login-icon">
+                    <a href="/member/loginView.pb"><img src="/resources/img/icons8-login-64.png" id="login-icon"></a>
                 </div>
             </div>
         </div>
         <div id="toggle-menu">
             <div class="col-md-2 col-6 menu-font ps-4">도서문의</div>
-            <div class="col-md-2 col-6 menu-font ps-4">회원가입</div>
+            <div class="col-md-2 col-6 menu-font ps-4"><a href="/member/joinView.pb">회원가입</a></div>
         </div>
 
 

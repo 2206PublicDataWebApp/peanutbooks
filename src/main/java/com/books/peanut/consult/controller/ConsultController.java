@@ -22,7 +22,7 @@ import com.books.peanut.consult.domain.Consult;
 import com.books.peanut.consult.domain.ConsultServer;
 import com.books.peanut.consult.domain.SwitchChat;
 import com.books.peanut.consult.service.ConsultService;
-import com.books.peanut.ejmember.domain.Member;
+import com.books.peanut.member.domain.Member;
 
 
 @Controller
