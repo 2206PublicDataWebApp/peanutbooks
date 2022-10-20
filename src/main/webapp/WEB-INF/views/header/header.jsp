@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -68,7 +69,7 @@
         <div class="row" id="icon-tooltip">
             <div class="col-md-2" id="mypage">
                 <div id="name-space">
-                    이용자님 환영합니다!
+                    ${sessionScope.loginMember.mNickname}님 환영합니다!
                 </div>
                 <div id="subscribe">
                     구독<br>
@@ -174,10 +175,10 @@
         <div class="row" id="point-icon-tooltip">
             <div class="col-md-2" id="point">
                 <div id="name-space">
-                    이용자님
+                    ${sessionScope.loginMember.mNickname}님
                 </div>
                 <div id="now-point">
-                    200땅콩
+                    ${sessionScope.loginMember.mPoint}땅콩
                 </div>
                 <div id="point-icon-area" class="row">
                     <div class="col-4">

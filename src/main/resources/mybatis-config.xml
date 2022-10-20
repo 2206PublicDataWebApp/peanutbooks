@@ -4,30 +4,27 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-
 		<!--은정꺼  -->
-		<typeAlias type="com.books.peanut.consult.domain.ConsultServer" alias="ConsultServer" />
-		<typeAlias type="com.books.peanut.consult.domain.Consult" alias="Consult" />
-		<typeAlias type="com.books.peanut.consult.domain.SwitchChat" alias="SwitchChat" />
-		<typeAlias type="com.books.peanut.pay.domain.SeasonTicket" alias="SeasonTicket" />
-		<typeAlias type="com.books.peanut.pay.domain.Pay" alias="Pay" />
-		<typeAlias type="com.books.peanut.pay.domain.WriterPay" alias="WriterPay" />
+		<typeAlias type="com.books.peanut.consult.domain.ConsultServer" alias="ConsultServer"/>
+		<typeAlias type="com.books.peanut.consult.domain.Consult" alias="Consult"/>
+		<typeAlias type="com.books.peanut.consult.domain.SwitchChat" alias="SwitchChat"/>
+		<typeAlias type="com.books.peanut.pay.domain.SeasonTicket" alias="SeasonTicket"/>
+		<typeAlias type="com.books.peanut.pay.domain.Pay" alias="Pay"/>
+		<typeAlias type="com.books.peanut.pay.domain.WriterPay" alias="WriterPay"/>
 		<!--은정꺼 끝  -->
-		
 		<typeAlias type="com.books.peanut.notice.domain.Notice" alias="Notice"/>
 		<!-- <typeAlias type="com.books.peanut.qna.domain.Qna" alias="Qna"/> -->
-
+		<typeAlias type="com.books.peanut.member.domain.Member" alias="Member"/>
 	</typeAliases>
-
-<mappers>
-	<mapper resource="/mappers/originbook-mapper.xml"/>
-	<!--은정꺼  -->
-	<mapper resource="/mappers/consult-mapper.xml" />
-
-	<!--은정꺼 끝  -->
+	
+	<mappers>
+		<mapper resource="/mappers/originbook-mapper.xml"/>
+		<!--은정꺼  -->
+		<mapper resource="/mappers/consult-mapper.xml"/>
+		<!--은정꺼 끝  -->
 		<mapper resource="/mappers/originbook-mapper.xml"/>
 		<mapper resource="/mappers/notice-mapper.xml"/>
 		<mapper resource="/mappers/qna-mapper.xml"/>
-
+		<mapper resource="/mappers/member-mapper.xml"/>
 	</mappers>
 </configuration>

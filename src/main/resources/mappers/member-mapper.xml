@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MemberMapper">
+	<resultMap type="Member" id="memberResultMap">
+		<id property="memberId" column="MEMBER_ID"/> <!-- 회원 아이디 -->
+		<result property="memberPw" column="MEMBER_PW"/> <!-- 회원 비밀번호 -->
+		<result property="mNickname" column="M_NICKNAME"/> <!-- 회원 별명 -->
+		<result property="mEmail" column="M_EMAIL"/> <!-- 회원 이메일 -->
+		<result property="emailYN" column="EMAIL_YN"/> <!-- 이메일 인증 여부 -->
+		<result property="joinDate" column="JOIN_DATE"/> <!-- 회원 등록일 -->
+		<result property="deleteYN" column="DELETE_YN"/> <!-- 회원 탈퇴 여부 -->
+		<result property="mPoint" column="M_POINT"/> <!-- 회원 포인트(땅콩) -->
+		<result property="subYN" column="SUB_YN"/> <!-- 월 구독 여부 -->
+		<result property="naverId" column="NAVER_ID"/> <!-- 네이버 아이디 -->
+		<result property="kakaoId" column="KAKAO_ID"/> <!-- 카카오 아이디 -->
+		<result property="accType" column="ACC_TYPE"/> <!-- 계정 종류(일반/네이버/카카오) -->
+		<result property="adminYN" column="ADMIN_YN"/> <!-- 관리자 여부 -->
+	</resultMap>
+	<!-- 회원가입 -->
+	<insert id="insertMember">
+		INSERT INTO MEMBER_TBL VALUES(#{memberId}, #{memberPw}, #{mNickname}, #{mEmail}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, NULL, NULL, NULL, DEFAULT)
+	</insert>
+	<!-- 별명 유효성 검사 -->
+	<select id="checkNickname" resultType="_int">
+		SELECT COUNT(*) FROM MEMBER_TBL WHERE M_NICKNAME = #{mNickname} AND DELETE_YN = 'N'
+	</select>
+	<!-- 아이디 유효성 검사 -->
+	<select id="checkId" resultType="_int">
+		SELECT COUNT(*) FROM MEMBER_TBL WHERE MEMBER_ID = #{memberId} AND DELETE_YN = 'N'
+	</select>
+	<!-- 로그인 -->
+	<select id="selectLoginMember" resultMap="memberResultMap">
+		SELECT * FROM MEMBER_TBL WHERE MEMBER_ID = #{memberId} AND MEMBER_PW = #{memberPw}
+	</select>
+</mapper>

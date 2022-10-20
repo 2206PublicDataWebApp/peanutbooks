@@ -1,0 +1,248 @@
+@charset "UTF-8";
+* { font-family: 'Spoqa Han Sans Neo', 'sans-serif'; }
+/* 데이터 유효성 체크 */
+p.guide{
+	display: none;
+	font-size: 12px;
+}
+p.ok{
+	color: #14aaff;
+}
+p.error{
+	color: red;
+}
+/* 로그인 */
+body{ /* 전체 */
+    margin: 0;
+    overflow: hidden;
+}
+.row{ /* 부트스트랩 관련 */
+    height: 50rem;
+}
+#login-img{ /* 로그인 화면 이미지 */
+    background-image: url(../img/member/kindle.jpg);
+    background-attachment: fixed;
+    background-size: cover;
+    float: left;
+    overflow: hidden;
+}
+#login-area{ /* 로그인 입력 폼 영역 */
+    text-align: center;
+    margin-top: 80px;
+}
+#login-hl{ /* 로그인 제목 */
+    font-size: 24px;
+    margin-top: 0;
+    margin-bottom: 50px;
+}
+.login-inputs{ /* 로그인 모든 입력 칸 */
+    height: 40px;
+    width: 80%;
+    border-color: lightgray;
+    border-style: solid;
+    border-radius: 3px;
+    border-width: 0.5px;
+}
+#login-id{ /* 로그인 아이디 입력 칸 */
+    margin-bottom: 10px;
+}
+#login-pw{ /* 로그인 비밀번호 입력 칸 */
+    margin-bottom: 30px;
+}
+#login-btn{ /* 로그인 버튼 */
+    background-color: #ffeb60;
+    border: 0;
+    width: 81%;
+    height: 40px;
+    margin-bottom: 30px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+#login-others a{ /* 아이디 찾기 등 */
+    text-decoration: none;
+    color: gray;
+    font-size: 14px;
+}
+#login-others{
+    margin-bottom: 30px;
+}
+#login-hr{ /* 로그인 구분 선 */
+    width: 80%;
+    padding-bottom: 20px;
+    margin: 0 auto;
+}
+#login-social img{ /* 소셜 로그인 이미지 */
+    width: 40px;
+    height: 40px;
+}
+#naver-icon{
+    margin-right: 10px;
+}
+@media (max-width: 500px){
+    #login-img{
+        display: none;
+    }
+    #login-area{
+        width: 100%;
+        height: 100%;
+    }
+    /* 회원가입 */
+    #join-area{
+        width: 100%;
+        height: 100%;
+    }
+}
+@media (max-width: 1000px){
+    #login-area{
+        width: 100%;
+        height: 100%;
+    }
+    #findid-area{
+        width: 100%;
+        height: 100%;
+    }
+    #idresult-area{
+        width: 100%;
+        height: 100%;
+    }
+}
+
+/* 회원가입 */
+#pn-logo img{ /* 땅콩북스 로고 이미지 */
+    width: 160px;
+    height: 100px;
+}
+#pn-logo{ /* 땅콩북스 로고 영역 */
+    margin-top: 50px;
+    margin-bottom: 50px;
+    text-align: center;
+}
+#join-area{ /* 회원가입 폼 영역 */
+    float: left;
+}
+#input-area{ /* 회원가입 입력 폼 영역 */
+    width: 80%;
+    margin: 0 auto;
+}
+.join-inputs{ /* 회원가입 입력 칸 */
+    height: 40px;
+    width: 100%;
+    border-color: lightgray;
+    border-style: solid;
+    border-radius: 3px;
+    border-width: 0.5px;
+    margin-bottom: 20px;
+}
+#join-btn{ /* 회원가입 버튼 */
+    background-color: #ffeb60;
+    border: 0;
+    width: 100%;
+    height: 40px;
+    margin-bottom: 100px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+#join-email{ /* 회원가입 이메일 입력 칸 */
+    margin-bottom: 50px;
+}
+@media (max-width: 1100px){
+    #join-area{
+        width: 100%;
+        height: 100%;
+    }
+}
+
+/* 회원가입 인증 메일 발송 후 */
+#msg-area{ /* 회원가입 메일 인증 사진 아닌 부분 */
+    width: 80%;
+    margin: 0 auto;
+    padding-top: 20px;
+}
+#msg-area p{ /* 안내 메시지 영역 */
+    margin-bottom: 30px;
+}
+
+/* 아이디 찾기 */
+#findid-hl{ /* 아이디 찾기 제목 */
+    font-size: 24px;
+    margin-bottom: 70px;
+    text-align: center;
+}
+#findid-area{ /* 아이디 찾기 입력 영역 */
+    margin-top: 80px;
+}
+#input-area{
+    position: relative;
+}
+#email-btn{
+    position: absolute;
+    margin: 0 auto;
+    right: 10px;
+    top: 35px;
+    bottom: 0;
+    height: 30px;
+    border: 0;
+    border-radius: 4px;
+}
+#email-input{
+    height: 50px;
+    width: 100%;
+    border-color: lightgray;
+    border-style: solid;
+    border-radius: 3px;
+    border-width: 0.5px;
+    margin-bottom: 20px;;
+}
+
+/* 아이디 찾기 결과 */
+#idresult{
+    background-color: #f5f5f5;
+    width: 80%;
+    margin: 0 auto;
+    height: 50px;
+    font-weight: bold;
+    display: table;
+    border-radius: 3px;
+    margin-bottom: 30px;
+}
+#idresult p{
+    vertical-align: middle;
+    display: table-cell;
+}
+#idresult-area{
+    margin-top: 80px;
+    text-align: center;
+}
+#idresult-area a{
+    text-decoration: none;
+}
+#idresult-msg{
+    font-weight: bold;
+}
+
+/* 비밀번호 재설정 */
+.newpw-inputs{
+    height: 40px;
+    width: 100%;
+    border-color: lightgray;
+    border-style: solid;
+    border-radius: 3px;
+    border-width: 0.5px;
+    margin-bottom: 20px;
+}
+#newpw-area{
+    margin-top: 80px;
+}
+#newpw-input{
+    width: 80%;
+    margin: 0 auto;
+}
+#check-btn{
+    background-color: #ffeb60;
+    border: 0;
+    width: 100%;
+    height: 40px;
+    margin-bottom: 30px;
+    border-radius: 3px;
+    font-weight: bold;
+}
