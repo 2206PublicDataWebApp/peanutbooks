@@ -14,15 +14,7 @@
 </head>
 <body>
 <!--관리자일 경우 들어갈수 있도록 다시한번 체크  -->
-<div>   	
-	<div>
-	   <div id="headTwo">               
-	      <button onclick="location.href='/search/move.kh';" value="검색"><img src="../resources/image/search.svg" style="width: 50px; background-color: #fff;"></button>
-	      <button onclick="location.href='/home.kh';"value="홈"><img src="../resources/image/house-door.svg" style="width: 50px; background-color: #fff;"></button>	    
-	      <button onclick="location.href='/home.kh';" value="로그인"><img src="../resources/image/person.svg" style="width: 50px; background-color: #fff;"></button>
-	   </div>
-	</div>
-</div>
+<br>
 <div>	
     <label class="switch">
         <input id="checkbox" type="checkbox" value="true" >
@@ -56,38 +48,6 @@
                </table>
 		</div>
 	</div>
-	  <footer class="footer">
-        <div class="footer_inner">
-            <div class="footer_content_first">
-                <div class="footer_content left">
-                    <p class="title">고객센터</p>
-                    <p class="tel">02-123-4567</p>
-                    <p class="work_time">오전 10시 ~ 오후 5시 (주말, 공휴일 제외)</p>
-                    <div>
-                        <button>
-                            1:1 문의하기
-                        </button>
-                        <button>
-                            공지사항!
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="footer_content right">
-                
-                
-                    <p class="title">(주)편스토랑</p>              
-
-                    <p class="footer_content_sub_txt">                        
-                        법인명 : (주)편스토랑  |  사업자등록번호 : 000-00-00000  | 벤처기업 : 제 20220923103호
-                        <br>특허 제 00-000000호  |  통신판매업신고 : 2022-서울종로구-0000  |   개인정보보호책임자 : 송신애
-                        <br>주소 : 서울 종로구 어딘가 159, KH 정보교육원 3층 |  대표이사 :  공석
-                        <br>제휴/협력 문의 : asdf@asdf.com  | 
-                    </p>
-                </div>
-                </div>
-        </div>
-    </footer>
 
 
     <script>    
@@ -107,8 +67,7 @@
   		         dataType:"json",
   		         success:function(result) {
   		        	
-  		        	 if(result.result=="성공"){		         
-  		        		console.log("채팅접수가 시작됩니다.");     		    			
+  		        	 if(result.result=="성공"){    		        		     		    			
 				            printer = setInterval(printList,5000); 
   		        	 }else{
   	   		    		 console.log("접수 오류입니다. 다시 진행부탁드립니다.");		        		 
@@ -140,13 +99,13 @@
       		         dataType:"json",
       		         success:function(result) {      		        	
       		        	 if(result.result=="성공"){		         
-      		        		console.log("채팅접수를 마감합니다.");         		    			
+      		        		alert("채팅접수를 마감합니다.");         		    			
       		        	 }else{
-      		        		console.log("상담종료 오류입니다. 다시 진행부탁드립니다.");		        		 
+      		        		alert("상담종료 오류입니다. 다시 진행부탁드립니다.");		        		 
       		        	 };
       		         },
       		         error:function(e){
-      		        	 alert('error'+e);
+      		        	 alert('error'+e);      		        	 
       				 },
       		        	 
       		     });
@@ -167,11 +126,11 @@
          	 for (var i in result){
             	   var a='<tr>'+
             			'<td name="info'+i+'" scope="row">'+result[i].titleNo+'</td>'+
-                		'<td name="info'+i+'" scope="row">'+result[i].csNickName+'</td>'+
+                		'<td name="info'+i+'" scope="row">'+result[i].csMemberId+'</td>'+
                         '<td name="info'+i+'" scope="row">'+result[i].csTitle+'</td>'+                            
                         '<td name="info'+i+'" scope="row">'+result[i].csDate+'</td>'+ 
                         '<td name="info'+i+'" scope="row">'+result[i].csResult+'</td>';
-			    if(result[i].csResult==null){
+			    if(result[i].csResult=='N'){
 			    		count+=1;
             			a+='<td><input type="button" onclick="serverchat('+i+');" value="상담시작"></td>';
                 }else{
@@ -190,13 +149,13 @@
      function serverchat(i){  
     	
     	var	titleNo=$('[name="info'+i+'"]').eq(0).text();
-    	var	csNickName=$('[name="info'+i+'"]').eq(1).text();
+    	var	csMemberId=$('[name="info'+i+'"]').eq(1).text();
     	var	csTitle = $('[name="info'+i+'"]').eq(2).text();    		
     	
 	 /*  location.href="/serverchat/start.kh?titleNo"+titleNo+"&cNickName="+cNickName+"&csTitle="+csTitle;   */ 	
 	 var windo="status=no ,toolbar=no,scrollbars=no, menubar=no,resizable=no,titlebar=no, width=550,height=650";
 
-	 window.open("/serverchat/start.kh?titleNo="+titleNo+"&csNickName="+csNickName+"&csTitle="+csTitle,"PopupWin",windo);	
+	 window.open("/serverchat/start.kh?titleNo="+titleNo+"&csMemberId="+csMemberId+"&csTitle="+csTitle,"PopupWin",windo);	
   }
  
 </script>

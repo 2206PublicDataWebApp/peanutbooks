@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!--은정 임시 매퍼 입니다.  -->
+  <mapper namespace="MemberMapper">
+  	<resultMap type="Member" id="memberResultMap">
+  		<id property="memberId" column="MEMBER_ID"/> <!--id   -->
+		<result  property="memberId" column="MEMBER_ID"/> 
+		<result  property="memberPw" column="MEMBER_PW"/> 
+		<result  property="mEmail" column="M_EMAIL"/> 
+  	</resultMap>
+	<insert id="insertMember">
+		INSERT INTO MEMBER_TBL VALUES(#{memberId}, #{mEmail},#{memberPw})
+	</insert>
+	  
+	<select id="selectLoginOne" resultMap="memberResultMap">
+		SELECT MEMBER_ID, MEMBER_PW, M_EMAIL FROM MEMBER_TBL
+  		WHERE M_EMAIL=#{mEmail} AND MEMBER_PW=#{memberPw} 
+	</select>
+  </mapper>

@@ -8,17 +8,20 @@ public class WriterPay {
 	private int ori_bookNo;
 	private Date putDate;
 	private String bankName;
-	private int bankNo;
+	private String bankNo;
 	private String payment;
 	private String bankStatus;
+	private int wrpayNo;
+	private int changeP;
 	
+
+
 	public WriterPay() {
-		super();
-		// TODO Auto-generated constructor stub
+		super();		
 	}
 
-	public WriterPay(String memberId, int seriesNo, int ori_bookNo, Date putDate, String bankName, int bankNo,
-			String payment, String bankStatus) {
+	public WriterPay(String memberId, int seriesNo, int ori_bookNo, Date putDate, String bankName, String bankNo,
+			String payment, String bankStatus,int wrpayNo, int changeP) {
 		super();
 		this.memberId = memberId;
 		this.seriesNo = seriesNo;
@@ -28,6 +31,8 @@ public class WriterPay {
 		this.bankNo = bankNo;
 		this.payment = payment;
 		this.bankStatus = bankStatus;
+		this.wrpayNo = wrpayNo;
+		this.changeP = changeP;
 	}
 
 	public String getMemberId() {
@@ -70,11 +75,11 @@ public class WriterPay {
 		this.bankName = bankName;
 	}
 
-	public int getBankNo() {
+	public String getBankNo() {
 		return bankNo;
 	}
 
-	public void setBankNo(int bankNo) {
+	public void setBankNo(String bankNo) {
 		this.bankNo = bankNo;
 	}
 
@@ -94,11 +99,28 @@ public class WriterPay {
 		this.bankStatus = bankStatus;
 	}
 
+	public int getWrpayNo() {
+		return changeP;
+	}
+	
+	public void setWrpayNo(int wrpayNo) {
+		this.wrpayNo = wrpayNo;
+	}
+	
+	public int getChangeP() {
+		return changeP;
+	}
+	public void setChangeP(int changeP) {
+		this.changeP = changeP;
+	}
+	
+
 	@Override
 	public String toString() {
 		return "WriterPay [memberId=" + memberId + ", seriesNo=" + seriesNo + ", ori_bookNo=" + ori_bookNo
 				+ ", putDate=" + putDate + ", bankName=" + bankName + ", bankNo=" + bankNo + ", payment=" + payment
-				+ ", bankStatus=" + bankStatus + "]";
+				+ ", bankStatus=" + bankStatus + ", wrpayNo=" + wrpayNo + ", changeP" + changeP
+				+"]";
 	}
 	
 	

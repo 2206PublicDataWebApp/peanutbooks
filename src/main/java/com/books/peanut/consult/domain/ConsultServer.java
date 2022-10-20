@@ -4,34 +4,35 @@ import java.util.Date;
 
 public class ConsultServer {
 	private int titleNo;    //titleNo로 변경된다.
-	private String csNickName;
-	private String csMail;
+	private String csMemberId;
 	private String csTitle;
 	private Date csDate;
+	private String csMail;
 	private String csResult;
-	private String csFileName;
-	private String csFileRename;
-	private String csFilePath;
-	
-
-	
+	public ConsultServer() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public ConsultServer(int titleNo, String csMemberId, String csTitle, Date csDate, String csMail, String csResult) {
+		super();
+		this.titleNo = titleNo;
+		this.csMemberId = csMemberId;
+		this.csTitle = csTitle;
+		this.csDate = csDate;
+		this.csMail = csMail;
+		this.csResult = csResult;
+	}
 	public int getTitleNo() {
 		return titleNo;
 	}
 	public void setTitleNo(int titleNo) {
 		this.titleNo = titleNo;
 	}
-	public String getCsNickName() {
-		return csNickName;
+	public String getCsMemberId() {
+		return csMemberId;
 	}
-	public void setCsNickName(String csNickName) {
-		this.csNickName = csNickName;
-	}
-	public String getCsMail() {
-		return csMail;
-	}
-	public void setCsMail(String csMail) {
-		this.csMail = csMail;
+	public void setCsMemberId(String csMemberId) {
+		this.csMemberId = csMemberId;
 	}
 	public String getCsTitle() {
 		return csTitle;
@@ -45,37 +46,25 @@ public class ConsultServer {
 	public void setCsDate(Date csDate) {
 		this.csDate = csDate;
 	}
+	public String getCsMail() {
+		return csMail;
+	}
+	public void setCsMail(String csMail) {
+		this.csMail = csMail;
+	}
 	public String getCsResult() {
 		return csResult;
 	}
 	public void setCsResult(String csResult) {
 		this.csResult = csResult;
 	}
-	public String getCsFileName() {
-		return csFileName;
-	}
-	public void setCsFileName(String csFileName) {
-		this.csFileName = csFileName;
-	}
-	public String getCsFileRename() {
-		return csFileRename;
-	}
-	public void setCsFileRename(String csFileRename) {
-		this.csFileRename = csFileRename;
-	}
-	public String getCsFilePath() {
-		return csFilePath;
-	}
-	public void setCsFilePath(String csFilePath) {
-		this.csFilePath = csFilePath;
-	}
 	@Override
 	public String toString() {
-		return "ConsultServer [titleNo=" + titleNo + ", csNickName=" + csNickName + ", csMail=" + csMail
-				+ ", csTitle=" + csTitle + ", csDate=" + csDate + ", csResult=" + csResult + ", csFileName="
-				+ csFileName + ", csFileRename=" + csFileRename + ", csFilePath=" + csFilePath + "]";
+		return "ConsultServer [titleNo=" + titleNo + ", csMemberId=" + csMemberId + ", csTitle=" + csTitle + ", csDate="
+				+ csDate + ", csMail=" + csMail + ", csResult=" + csResult + "]";
 	}
-
 	
+	
+
 	
 }

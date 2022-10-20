@@ -1,7 +1,6 @@
 package com.books.peanut.consult.controller;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
+
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -23,7 +22,8 @@ import com.books.peanut.consult.domain.Consult;
 import com.books.peanut.consult.domain.ConsultServer;
 import com.books.peanut.consult.domain.SwitchChat;
 import com.books.peanut.consult.service.ConsultService;
-//import com.books.peanut.member.domain.Member;
+import com.books.peanut.ejmember.domain.Member;
+
 
 @Controller
 public class ConsultController {
@@ -53,19 +53,19 @@ public class ConsultController {
 	public ModelAndView showChat(ModelAndView mv
 			, HttpSession session, HttpServletRequest request) {	
 
-			//Member member = (Member) session.getAttribute("loginUser");
+			Member member = (Member) session.getAttribute("loginUser");
 			try {				
 				SwitchChat switchChat=new SwitchChat();
-				//if(member == null){
-					mv.setViewName("redirect:/home.kh");
-				//}
-				String memberId = "일용자";
-				//String memberEmail = member.getMemberEmail();
-				String swichbtn = switchChat.getOn_off();
+				if(member == null){
+					mv.setViewName("redirect:/ej.kh");
+				}
+				//String memberId = member.getMemberId();
+				//String mEmail = member.getmEmail();
+				//String swichbtn = switchChat.getOn_off();
 
-				mv.addObject("swichbtn", swichbtn);
-				mv.addObject("memberId", memberId);
-				//mv.addObject("memberEmail", memberEmail);
+				mv.addObject("swichbtn", switchChat.getOn_off());
+				mv.addObject("memberId", member.getMemberId());
+				mv.addObject("mEmail", member.getmEmail());
 				mv.setViewName("/consult/userChat");
 			
 			} catch (Exception e) {
@@ -82,14 +82,14 @@ public class ConsultController {
 	// 채팅 상담접수
 	@ResponseBody
 	@RequestMapping(value = "/client/afterChat.kh", method = RequestMethod.POST)
-	public String clientChat(String cNickName, String csTitle, String cEmail, @ModelAttribute ConsultServer conServer) {
-		conServer.setCsNickName(cNickName);
+	public String clientChat(String cMemberId, String csTitle, String cEmail, @ModelAttribute ConsultServer conServer) {
+		conServer.setCsMemberId(cMemberId);
 		conServer.setCsTitle(csTitle);
 		conServer.setCsMail(cEmail);
-//		System.out.println("고객상담접수:"+conServer.toString());
+	
 		int result = cService.receiptChat(conServer);//상담접수하고
 		int titleNo= cService.serchTitleNo(conServer); //접수번호 가져오기
-//		System.out.println("titleNo:"+titleNo);
+
 		JSONObject jsonObj = new JSONObject();
 		if (result >= 0) {
 			jsonObj.put("resultMsg", "success");
@@ -106,23 +106,20 @@ public class ConsultController {
 	@ResponseBody
 	@RequestMapping(value = "/client/start.kh", method = RequestMethod.POST)
 	public String clientChat(
-			String cNickName, String cContexts, String cEmail, int titleNo) {
-//		System.out.println("채팅내용 DB로 저장 cContext :" + cContexts);
+			String cMemberId, String cContexts, String cEmail, int titleNo) {
+
 		Consult consult = new Consult();
-		consult.setcNickName(cNickName);
+		consult.setcMemberId(cMemberId);
 		consult.setcContexts(cContexts);
 		consult.setcEmail(cEmail);
 		consult.setTitleNo(titleNo);
 
 		int result = cService.inputChat(consult);
 		JSONObject jsonObj = new JSONObject();
-		
-		//JSONObject jsonObj = new JSONObject();
-		if(result >= 0) {
-			//jsonObj.put("resultMsg", "success");			
+
+		if(result >= 0) {			
 			jsonObj.put("status", "success");
-		} else {
-			//jsonObj.put("resultMsg", "error");			
+		} else {					
 			jsonObj.put("status", "error");
 
 		}
@@ -138,15 +135,13 @@ public class ConsultController {
 	
 		List<Consult> conList = cService.nowChatList(titleNo);		
 		JSONArray jsonArr = new JSONArray();
-		//JSONObject jsonObj = new JSONObject();
-		System.out.println("리스트 전달 1번");
-		// 리스트 자체를 array이로 넘김
+
 		if (!(conList.isEmpty())) {
 			for( int i=0; i<conList.size(); i++) { //for Each문, conList에 있는 객체를 하나씩 거내서 객체
 				Consult consult = conList.get(i);				
 				JSONObject jsonObj = new JSONObject();
-				jsonObj.put("cNickName",consult.getcNickName()); 
-				System.out.println("리스트 전달 2번 : "+consult.getcNickName());
+				jsonObj.put("cMemberId",consult.getcMemberId()); 
+			
 				jsonObj.put("cContexts", consult.getcContexts());
 				//데이트형 문자열로 바꾸기
 				SimpleDateFormat format1=new SimpleDateFormat("HH:mm:ss");
@@ -154,7 +149,7 @@ public class ConsultController {
 				cDate=format1.format(consult.getcDate());		
 				
 				jsonObj.put("cDate",cDate); // 데이트형 문자열로 바꿔서 가져오기!
-				System.out.println("리스트 전달 2번 : "+cDate);
+			
 				jsonArr.add(jsonObj);				
 			}		
 	
@@ -168,18 +163,18 @@ public class ConsultController {
 
 
   //관리자가 리스트 페이지 들어와서 관리페이지로 올때. 
-	@RequestMapping(value = "/consult/move.kh", method = RequestMethod.GET)
+	@RequestMapping(value = "/chat/move.kh", method = RequestMethod.GET)
 	public ModelAndView move(ModelAndView mv, HttpSession session) {
 
-		//Member member = (Member) session.getAttribute("loginUser");
+		Member member = (Member) session.getAttribute("loginUser");
 		
-		//if(!(member.getMemberEmail().equals("manager"))) {
+	//	if(!(member.getMemberId().equals("manager"))) {
 			
-			mv.addObject("msg","관리자가 아닙니다");
+	//		mv.addObject("msg","관리자가 아닙니다");
 			mv.setViewName("/error");
 	//	} else {		
 			mv.setViewName("/consult/consultingList");
-	//	}
+//		}
 		return mv;
 	}
 
@@ -202,20 +197,15 @@ public class ConsultController {
 				ConsultServer consultServer = chatList.get(i);	
 
 				jsonObj.put("titleNo",consultServer.getTitleNo());
-				jsonObj.put("csNickName",consultServer.getCsNickName());
+				jsonObj.put("csNickName",consultServer.getCsMemberId());
 				jsonObj.put("csMail",consultServer.getCsMail());
 				jsonObj.put("csTitle",consultServer.getCsTitle());
 				//데이트형 문자열로 바꾸기
 				SimpleDateFormat format1=new SimpleDateFormat("yy.MM.dd HH:mm:ss");
-				String csDate="";					 
-				csDate=format1.format(consultServer.getCsDate());				
+				String csDate=format1.format(consultServer.getCsDate());				
 				jsonObj.put("csDate",csDate);
 				///////////
 				jsonObj.put("csResult",consultServer.getCsResult());
-				jsonObj.put("csFileName",consultServer.getCsFileName());
-				jsonObj.put("csFileRename",consultServer.getCsFileRename());
-				jsonObj.put("csFilePath",consultServer.getCsFilePath());
-
 				jsonArr.add(jsonObj);			
 				jsonObj = new JSONObject();
 			}
@@ -223,7 +213,6 @@ public class ConsultController {
 		}else {
 		  //jsonObj.put("resultMsg", "error");
 		}
-//		System.out.println("리스트 전달 마지막");
 		
 		return jsonArr.toJSONString();	
 		
@@ -238,7 +227,7 @@ public class ConsultController {
 				@RequestParam("titleNo") Integer titleNo) {
 			try {				
 				mv.addObject("csTitle", csTitle);
-				mv.addObject("cNickName", csNickName);
+				mv.addObject("cMemberId", csNickName);
 				mv.addObject("titleNo", titleNo);
 				mv.setViewName("/consult/managerChat");
 			}catch (Exception e) {
@@ -285,14 +274,7 @@ public class ConsultController {
 				jsonObj.put("result", "실패");
 			}
 			return jsonObj.toJSONString();
-	}
-//편의점 조회하러 가기	
-	@RequestMapping(value = "/peon/peon.kh", method = RequestMethod.GET)
-	public ModelAndView movepeon(ModelAndView mv) {
-		mv.setViewName("consult/pyeonFind");
-		return mv;
-	}
-	
+	}	
 	
 
 	}

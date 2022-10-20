@@ -1,6 +1,7 @@
 package com.books.peanut.pay.payController;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -8,6 +9,7 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.books.peanut.pay.domain.Pay;
+import com.books.peanut.pay.domain.WriterPay;
 import com.books.peanut.pay.payService.PayService;
 
 @Controller
@@ -37,12 +40,11 @@ public class ControllerPay {
 // 주문 번호 만들어서 보내기
 	@ResponseBody
 	@RequestMapping(value = "/pay/orderIN.kh", produces = "application/json;charset=utf-8", method=RequestMethod.POST)
-	public String orderIn(String orderNo,String payPoint,String memberId, String memberEmail, String orderContents) {			 
+	public String orderIn(String orderNo,String payMoney,String memberId, String orderContents) {			 
 		Pay pay=new Pay();
 		pay.setOrderNo(orderNo);
-		pay.setPayPoint(Integer.valueOf(payPoint));
-		pay.setMemberId(memberId);
-		pay.setMemberEmail(memberEmail);
+		pay.setPay(Integer.valueOf(payMoney));
+		pay.setMemberId(memberId);		
 		pay.setOrderContents(orderContents);
 		int result=pService.orderin(pay);
 		
@@ -70,22 +72,56 @@ public class ControllerPay {
 		}
 	}
 	//땅콩리스트
-	@RequestMapping(value="/peanet/list.kh", method=RequestMethod.GET)
+	@RequestMapping(value="/peanut/listStart.kh", method=RequestMethod.GET)
 	public ModelAndView peanetListGo( ModelAndView mv){
-		mv.setViewName("/peanetPay/peanetList");
+		mv.setViewName("/peanetPay/peanutList");
 		return mv;
 		
 	}
-	//작가 정산리스트
+	//작가 정산요청 화면 이동
+	@RequestMapping(value="/writer/writerStart.kh", method=RequestMethod.GET)
+	public ModelAndView writerPutGo( ModelAndView mv,String memberId){
+			mv.addObject("memberId", memberId);
+			mv.setViewName("/peanetPay/WriterPay");
+			return mv;		
+	}
+	//작가 정산요청 접수
+	@ResponseBody
+	@RequestMapping(value="/writer/receipt.kh", method=RequestMethod.POST)
+	public String writerPayReceipt(@ModelAttribute WriterPay writerP) {
+		int result = pService.writerReceipt(writerP);
+		if(result>0) {
+			return "success";
+		}else {
+			return "failure";
+		}
+		
+	}
+		
+	//작가 정산리스트 화면으로가기
 	@RequestMapping(value="/writer/list.kh", method=RequestMethod.GET)
 	public ModelAndView writerListGo( ModelAndView mv){
-		mv.setViewName("/peanetPay/WriterPay");
-		return mv;
-		
+			mv.setViewName("/peanetPay/writerPayList");
+			return mv;		
 	}
+	//작가 정산리스트 요청
+	@ResponseBody
+	@RequestMapping(value="/writer/listprint.kh", produces="application/json;charset=UTF-8", method=RequestMethod.GET)
+	public String writerList(){
+		List<WriterPay> wrList=pService.wrListPrint();
+		if(wrList.isEmpty()) {
+			JSONObject json=new JSONObject();
+			json.put("error", "error");
+			return json.toJSONString();
+		}else {
+			Gson gson=new Gson();
+			return gson.toJson(wrList);		
+		}
+  }
+	
 	@ExceptionHandler({NullPointerException.class, SQLException.class})
 	public String errorHandler() {
-		return "redirect:/home.kh";		
+		return "redirect:/er.kh";		
 	}
 	
 }

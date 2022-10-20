@@ -1,15 +1,20 @@
-@charset "UTF-8";body{
-    padding-top: 30px;
-    width: 100%;
+@charset "UTF-8";
+
+body{
+    width: 100%; 
 }
 
-section{    
-    max-width: 800px;   
+section{
     margin: 0 auto; 
+    max-width: 800px;      
     display: block; 
+	padding-top:9rem;
+	min-height:100%;
+	padding-bottom: 200px;
 }
 h1{
-    text-align: center;
+    text-align: center;   
+    padding-bottom: 20px;
     font-size: 30px;
     font-weight: bold;
 }
@@ -19,8 +24,7 @@ table{
     padding-left: 30px;    
     border-collapse: separate;
     border-spacing: 0 10px;
-    font-size: 20px; 
-    
+    font-size: 20px;     
    
 }
 
@@ -50,25 +54,28 @@ td input:focus {
 
 
 .btn{
-    max-width: 400px;
-    text-align: center;
+    width: 100%;
     margin: 0 auto;
-    margin-top: 20px;
-    
+    margin-top: 30px; 
+    display:block; 
+	text-align:center; 
+	font-size:20px;
 }
-button{
+button{	
+	text-align:center;
     width: 400px;
     background:#fff9b0;
     color:black; 
     border:none;
     position:relative;
-    height:60px;
-    font-size:1.6em;
+    font-size:20px;
+    height:60px;    
     padding:0 2em;
     cursor:pointer;
     transition:800ms ease all;
     outline:none;
     border-radius: 0.5em;
+    
   }
   button:hover{
     background:#ff884b;
@@ -78,17 +85,20 @@ button{
     content:'';
     position:absolute;
     top:0;
-    right:0;
+    right:0; 
     height:2px;
     width:0;
     background: #ff884b;
     transition:400ms ease all;
+    
   }
   button:after{
     right:inherit;
     top:inherit;
     left:0;
     bottom:0;
+    text-align: center;
+   
   }
   button:hover:before,button:hover:after{
     width:100%;

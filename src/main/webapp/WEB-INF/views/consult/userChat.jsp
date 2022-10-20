@@ -16,7 +16,7 @@
 	<!--header 항시 출력 부분 -->
 	<div class="header">
 		<div>
-			<P id="nickName">${memberNickName}</p>
+			<P id="nickName">${memberId}</p>
 			<p>의 채팅상담</P>
 			<input type="hidden" name="memberEmail" value="${memberEmail}">
 			<input type="hidden" name="titleNo" id="titleNo" />			
@@ -34,7 +34,7 @@
 			<table width="100%">
 				<tr>
 					<td><input type="text" name="cTitle" id="inTitle" /></td>
-					<td><button id="centerbtn" onclick="(beforeChat('${memberNickName}','${memberEmail}')) ;" value="접수">접수</button></td>
+					<td><button id="centerbtn" onclick="(beforeChat('${memberId}','${memberEmail}')) ;" value="접수">접수</button></td>
 					
 				</tr>
 			</table>
@@ -59,10 +59,10 @@
 	<script>
 	$('.context').scrollTop=$('.context').scrollHeight;
 		//상담접수
-		function beforeChat(memberNickName, memberEmail) {
+		function beforeChat(memberId, memberEmail) {
 
 			var afterMsg = {
-				cNickName : memberNickName,
+				cMemberId : memberId,
 				cEmail : memberEmail,
 				csTitle : $('#inTitle').val()
 			};
@@ -95,13 +95,13 @@
 		$('#getResult').click(function() { /* 전송버튼을 클릭하면 */
 			$("#before").css("display","none");
 			var msg = { //json형식으로 데이터set 	
-				cNickName : $('#nickName').html(),
+				cMemberId : $('#nickName').html(),
 				cContexts : $('#usertext').val(),
 				cEmail : $('[name=memberEmail]').val(),
 				titleNo : $('#titleNo').val()
 			};
 			$('#usertext').val('');
-			console.log("채팅전송내역:" + msg.cNickName + ", " + msg.cContexts + ", " + msg.cEmail + ", " + msg.titleNo);
+			console.log("채팅전송내역:" + msg.cMemberId + ", " + msg.cContexts + ", " + msg.cEmail + ", " + msg.titleNo);
 			$.ajax({								/*{} 객체를 의미함 key: value값을 ,로 구분하여 객체의 속성이 만들어짐 */
 				url:"/client/start.kh",	/* url파일로 접근, 컨트롤러에서 대기중인 url주소 */
 				dataType:'json',					/* 검사/net/응답을 보면{"result",true:,"msg":"보낸 메세지...input의 text임"}) 받은걸 자바스크립트가 알아서 변환해준다. */
@@ -137,8 +137,7 @@
 					//console.log(data); 			
 				
 					for ( var i in result) {
-						addChat(result[i].cNickName, result[i].cContexts,result[i].cDate);
-						console.log(result[i].cNickName);
+						addChat(result[i].cMemberId, result[i].cContexts,result[i].cDate);						
 					}
 				
 				},
@@ -149,19 +148,19 @@
 		}
 
 
-		function addChat(cNickName, cContext, cDate) {
-			console.log("데이터 올림 확인 : " + cNickName);
-			if(cNickName!='manager'){
+		function addChat(cMemberId, cContext, cDate) {
+			console.log("데이터 올림 확인 : " + cMemberId);
+			if(cMemberId!='manager'){
 				 $('#after').append(
 					 '<div class="right">'
-                 	   +'<h5 >'+cNickName+'</h5>'
+                 	   +'<h5 >'+cMemberId+'</h5>'
                        +'<div class="middleBox"><span class="contextBox">'+ cContext +'</span>'
                        +'<span class="dateBox">'+cDate+'</span></div></div>');
 
 			}else{
 				 $('#after').append(
 						 '<div class="left" >'
-	                 	   +'<h5 >'+cNickName+'</h5>'
+	                 	   +'<h5 >'+cMemberId+'</h5>'
 	                       +'<div class="middleBox"><span class="contextBox">'+ cContext +'</span>'
 	                       +'<span class="dateBox">'+cDate+'</span></div></div>');				
 			}
@@ -173,7 +172,8 @@
 
 			if (confirm("정말로 종료하시겠습니까?")) {
 				clearInterval(printer);
-				location.href = "/home.kh/";
+				self.close();
+				//location.href = "/";
 			}
 		}
 	</script>
