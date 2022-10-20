@@ -3,7 +3,6 @@
 
 main {
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
-  
 }
 
 @font-face {
@@ -24,7 +23,8 @@ main {
     background-size: cover;
     font-size: 3rem;
     padding:3rem 0 4rem 0;
-}
+
+    }
 
 .list-title{
     font-size: 1.5rem;
