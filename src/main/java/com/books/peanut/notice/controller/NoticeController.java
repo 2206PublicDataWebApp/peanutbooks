@@ -1,8 +1,9 @@
 package com.books.peanut.notice.controller;
 
 import java.io.File;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,13 +14,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.books.peanut.notice.domain.Notice;
 import com.books.peanut.notice.service.NoticeService;
-import com.google.gson.JsonObject;
 
 
 @Controller
@@ -33,70 +32,188 @@ public class NoticeController {
 	public String reviewWriteView(HttpSession session) {
 		//Member loginUser = (Member)session.getAttribute("loginUser");
 		//if(loginUser ! = null) {
-			return "/notice/noticeWrite";
+			return "/notice/noticeWriteForm";
 		//}
 		//return "redirect:/notice/list.kh";
 	}
 	
+	//공지사항 게시물 등록
 	@RequestMapping(value="/notice/register.kh", method=RequestMethod.POST)
-	public ModelAndView noticeWrite(
+	public ModelAndView registerNotice(
 			ModelAndView mv
-			, @ModelAttribute Notice notice) {
-		//공지사항 작성 후 insert
-		int result = nService.registeNotice(notice);
+			, @ModelAttribute Notice notice
+			, @RequestParam(value="uploadFile", required=false) MultipartFile uploadFile
+			,HttpServletRequest request) {
+		
 		try {
-			if(result >0 ) {
-				mv.setViewName("redirect: /notice/list.kh? currentPage=1");
-			}else {
-				mv.addObject("msg", "공지사항 입력에 실패하였습니다.").setViewName("/common/errorPage");
+			System.out.println(uploadFile);
+			String noticeFilename = uploadFile.getOriginalFilename();
+			if(!noticeFilename.equals("")) {
+				// 파일 업로드 
+				String root = request.getSession().getServletContext().getRealPath("resources");
+				String savePath = root + "\\nuploadFiles";
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+				String noticeFileRename 
+				= sdf.format(new Date(System.currentTimeMillis()))+"."
+						+noticeFilename.substring(noticeFilename.lastIndexOf(".")+1);
+				// 파일이름 설정
+				System.out.println(notice.toString());
+				File file = new File(savePath);
+				if(!file.exists()) {
+					file.mkdir();
+				}
+				
+				uploadFile.transferTo(new File(savePath+"\\"+noticeFileRename)); 
+				// 파일을 buploadFiles 경로에 저장하는 메소드
+				String noticeFilepath = savePath+"\\"+noticeFileRename;
+				notice.setNoticeFilename(noticeFilename);
+				notice.setNoticeFileRename(noticeFileRename);
+				notice.setNoticeFilepath(noticeFilepath);
+				
 			}
+			int result = nService.registeNotice(notice);
+			mv.setViewName("redirect:/notice/list.kh");
 		} catch (Exception e) {
-			mv.addObject("msg", e.getMessage()).setViewName("/common/errorPage");
+			e.printStackTrace();
+			mv.addObject("msg", e.getMessage());
+			mv.setViewName("/common/errorPage");
 		}
-				return mv;
+		return mv;
 		
 	}
-	
-	@ResponseBody
-	@RequestMapping(value="/notice/uploadSummernoteImageFile", method = RequestMethod.POST)
-	public JsonObject uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile
-			, HttpServletRequest request) {
-		JsonObject jsonObj = new JsonObject();
+
+
+	//공지사항 전체 리스트
+	@RequestMapping(value="/notice/list.kh", method = RequestMethod.GET)
+	public ModelAndView noticeListView(
+			ModelAndView mv
+			//, @ModelAttribute Notice notce
+			, @RequestParam(value="page", required = false) Integer page)
+//			, HttpServletRequest request) 
+	{
 		try {
-			//업로드한 파일을 MultipartFile로 받는다.
-			
-			//1. 파일 이름과 경로를 설정
-			String originalFileName = multipartFile.getOriginalFilename();
-			String root = request.getSession().getServletContext().getRealPath("resources");
-			String savePath = root + "\\image\\notice\\summerImageFiles";
-			
-			//2.파일이름이 중복되지 않도록 재정의 해준다.
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-			String extension = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
-			String boardFileRename = sdf.format(new Date(System.currentTimeMillis())) + "." + extension;
-			
-			//3.저장할 경로의 폴더(디렉토리)가 없으면 새로 만든다.
-			File targetFile = new File(savePath);
-			if (!targetFile.exists()) {
-				targetFile.mkdir();
+			//페이징
+			int currentPage = (page != null) ? page : 1;
+			int totalCount = nService.getTotalCount("", "");
+			int noticeLimit = 10;
+			int naviLimit = 5;
+			int maxPage;
+			int startNavi;
+			int endNavi;
+
+			maxPage = (int) ((double) totalCount / noticeLimit + 0.9);
+			startNavi = ((int) ((double) currentPage / naviLimit + 0.9) - 1) * naviLimit + 1;
+			endNavi = startNavi + naviLimit - 1;
+			if (maxPage < endNavi) {
+				endNavi = maxPage;
 			}
-			
-			//4.설정한경로에 재정의한 이름으로 파일을 저장한다.
-			multipartFile.transferTo(new File(savePath + "\\" + boardFileRename));
-			
-			//5.ajax의 success로 리턴해줄 json오브젝트에 프로퍼티를 저장해준다.
-			// 1)썸머노트의 insertImage 설정값에 넣어줄 파일의 경로.
-			// 2)원래 파일이름
-			// 3)ajax 성공여부
-			jsonObj.addProperty("url", "/resources/image/notice/summerImageFiles/" + boardFileRename);
-			jsonObj.addProperty("originName", originalFileName);
-			jsonObj.addProperty("responseCode", "success");
+			List<Notice> nList = nService.printAllNotice(currentPage, noticeLimit);
+			if(!nList.isEmpty()) {
+				mv.addObject("urlVal", "list");
+				mv.addObject("maxPage", maxPage);
+				mv.addObject("currentPage", currentPage);
+				mv.addObject("startNavi", startNavi);
+				mv.addObject("endNavi", endNavi);
+				mv.addObject("nList", nList);
+	
+			}
+			mv.setViewName("notice/noticeListView");
 			
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			mv.addObject("msg", e.getMessage());
+			mv.setViewName("/common/errorPage");
 		}
-		return jsonObj;
-		
+		return mv;
 	}
 	
+	//공지사항 상세보기
+	@RequestMapping(value="/notice/noticeDetailView.kh", method=RequestMethod.GET)
+	public ModelAndView noticeDetailView(
+			ModelAndView mv
+			, @RequestParam("noticeNo") Integer noticeNo
+			, @RequestParam("page") int page) {
+		try {
+			Notice notice = nService.printOneByNo(noticeNo);
+			mv.addObject("notice", notice);
+			mv.addObject("page", page);
+			mv.setViewName("notice/noticeDetailView");
+		} catch (Exception e) {
+			mv.addObject("msg", e.toString());
+			mv.setViewName("common/errorPage");
+		}
+		return mv;
+	}
+	
+	//공지사항 게시글 삭제
+	@RequestMapping(value="/notice/remove.kh", method=RequestMethod.GET)
+	public String noticeRemove(
+			HttpSession session
+			, @RequestParam("page") Integer page
+			, @RequestParam("noticeNo") Integer noticeNo) {
+		try {
+			int result = nService.removeOneByNo(noticeNo);
+			if(result > 0) {
+				return "redirect:/notice/list.kh?page="+page;
+			}
+		} catch (Exception e) {
+			return "common/errorPage";
+		}
+		return "redirect:/notice/list.kh?page="+page;
+	}
+	
+	//공지사항 수정화면
+	@RequestMapping(value="/notice/modifyView.kh", method=RequestMethod.GET)
+	public ModelAndView noticeModifyView(
+			ModelAndView mv
+			, @RequestParam("page") int page
+			, @RequestParam("noticeNo") Integer noticeNo) {
+		try {
+			Notice notice = nService.printOneByNo(noticeNo);
+			mv.addObject("notice", notice);
+			mv.addObject("page", page);
+			mv.setViewName("/notice/noticeModifyForm");
+		} catch (Exception e) {
+			mv.addObject("msg", e.getMessage());
+			mv.setViewName("common/errorPage");
+		}
+		return mv;
+	}
+	//공지사항 수정
+	@RequestMapping(value="/notice/modify.kh", method=RequestMethod.POST)
+	public ModelAndView boardModify(
+			@ModelAttribute Notice notice
+			, ModelAndView mv
+			,@RequestParam(value="reloadFile", required=false) MultipartFile reloadFile
+			,@RequestParam("page") Integer page
+			,HttpServletRequest request) {
+		try {
+			String noticeFilename = reloadFile.getOriginalFilename();
+			if(reloadFile != null && !noticeFilename.equals("")) {
+				// 수정, 1. 대체(replace) / 2. 삭제 후 저장
+				// 파일삭제
+				String root = request.getSession().getServletContext().getRealPath("resources");
+				String savedPath = root + "\\nUploadFiles";
+				//Board bOne = bService.printOneByNo(board.getBoardNo());
+				File file = new File(savedPath + "\\" + notice.getNoticeFileRename());
+				if(file.exists()) {
+					file.delete();
+				}
+				// 파일 다시 저장
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+				String noticeFileRename = sdf.format(new Date(System.currentTimeMillis()))
+						+ "." + noticeFilename.substring(noticeFilename.lastIndexOf(".")+1);
+				String noticeFilepath = savedPath + "\\" + noticeFileRename;
+				reloadFile.transferTo(new File(noticeFilepath));
+				notice.setNoticeFilename(noticeFilename);
+				notice.setNoticeFileRename(noticeFileRename);
+				notice.setNoticeFilepath(noticeFilepath);
+			}
+			int result = nService.modifyNotice(notice);
+			mv.setViewName("redirect:/notice/list.kh?page="+page);
+		} catch (Exception e) {
+			mv.addObject("msg", e.toString()).setViewName("common/errorPage");
+		}
+		return mv;
+	}
 }

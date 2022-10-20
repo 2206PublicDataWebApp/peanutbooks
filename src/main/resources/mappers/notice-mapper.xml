@@ -9,25 +9,55 @@
 		<result column="NOTICE_CATEGORY"  property="noticeCategory" />
 		<result column="NOTICE_TITLE"  property="noticeTitle" />
 		<result column="NOTICE_CONTENTS"  property="noticeContents" />
-		<result column="NOTICE_COUNT"  property="notictCount" />
+		<result column="NOTICE_COUNT"  property="nCount" />
 		<result column="N_CREATEDATE"  property="nCreateDate" />
-		<result column="N_UPDATEDATE"  property="nUdateDate" />
-		<result column="NOTICE_DELIVER"  property="nDeliver" />
-		<result column="NOTICE_STATUS"  property="nStatus" />
-		<result column="NOTICE_FILENAME01"  property="nFilename01" />
-		<result column="NOTICE_RENAME01"  property="nRename01" />
-		<result column="NOTICE_FILEPATH01"  property="nFilepath01" />
-		<result column="NOTICE_FILENAME01"  property="nFilename02" />
-		<result column="NOTICE_RENAME01"  property="nRename02" />
-		<result column="NOTICE_FILEPATH01"  property="nFilepath02" />
-		<result column="NOTICE_FILENAME01"  property="nFilename03" />
-		<result column="NOTICE_RENAME01"  property="nRename03" />
-		<result column="NOTICE_FILEPATH01"  property="nFilepath03" />
+		<result column="N_UPDATEDATE"  property="nUpdateDate" />
+		<result column="N_DELIVER"  property="nDeliver" />
+		<result column="N_STATUS"  property="nStatus" />
+		<result column="NOTICE_FILENAME"  property="noticeFilename" />
+		<result column="NOTICE_FILERENAME"  property="noticeFileRename" />
+		<result column="NOTICE_FILEPATH"  property="noticeFilepath" />
+
 	</resultMap>
-	<insert id="indertNotice">
+	<insert id="insertNotice">
 		INSERT INTO NOTICE_TBL
-		VALUES(SEQ_NOTICE.NEXTVAL, #{noticeWriter }, #{noticeCatagory }, #{noticeTitle }, #{noticeContents }
-		, DEFAULT, DEFAULT,DEFAULT,DEFAULT,DEFAULT,#{nFilename01 },#{nRename01 }, #{nFilepath01 }
-		, #{nFilename02 },#{nRename02 }, #{nFilepath02 }, ,#{nFilename03 },#{nRename03 }, #{nFilepath03 })
+		VALUES(SEQ_NOTICENO.NEXTVAL, #{noticeWriter}, #{noticeCategory}, #{noticeTitle}, #{noticeContents}
+		, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT,#{noticeFilename},#{noticeFileRename}, #{noticeFilepath})
 	</insert>
+	<delete id="deleteNotice">
+		DELETE FROM NOTICE_TBL WHERE NOTICE_NO = #{noticeNo}
+	</delete>
+	<update id="updateNotice">
+		UPDATE NOTICE_TBL SET NOTICE_TITLE = #{noticeTitle}, NOTICE_CONTENTS = #{noticeContents}, NOTICE_FILENAME = #{noticeFilename }, NOTICE_RENAME = #{noticeFileRename}, NOTICE_FILEPATH = #{noticeFilepath}, N_UPDATEDATE = DEFAULT
+		WHERE NOTICE_NO = #{noticeNo}
+	</update>
+	<select id="selectTotalCount" resultType="_int">
+		SELECT COUNT(*) FROM NOTICE_TBL 
+		<where>
+			<if test="searchCondition.toString() == 'title'">
+				NOTICE_TITLE LIKE '%'||#{searchValue}||'%'
+			</if>
+			<if test="searchCondition.toString() == 'contents'">
+				NOTICE_CONTENTS LIKE '%'||#{searchValue}||'%'
+			</if>
+			<if test="searchCondition.toString() == 'writer'">
+				NOTICE_WRITER LIKE '%'||#{searchValue}||'%'
+			</if>
+			<if test="searchCondition.toString() == 'all'">
+				NOTICE_TITLE LIKE '%'||#{searchValue}||'%'
+				OR NOTICE_CONTENTS LIKE '%'||#{searchValue}||'%'
+				OR NOTICE_WRITER LIKE '%'||#{searchValue}||'%'
+			</if>
+			AND N_STATUS = 'Y'
+		</where>
+	</select>
+	<select id="selectAllNotice" resultMap="noticeResultMap">
+		SELECT * FROM NOTICE_TBL WHERE N_STATUS = 'Y' ORDER BY NOTICE_NO DESC
+	</select>
+	<select id="selectOneByNo" resultMap="noticeResultMap">
+		SELECT * FROM NOTICE_TBL WHERE NOTICE_NO = #{noticeNo } AND N_STATUS = 'Y'
+	</select>
+	<update id="updateCount">
+		UPDATE NOTICE_TBL SET NOTICE_COUNT = NOTICE_COUNT + 1 WHERE NOTICE_NO = #{noticeNo}
+	</update>
 </mapper>
