@@ -36,36 +36,40 @@ public class NoticeController {
 		//}
 		//return "redirect:/notice/list.kh";
 	}
+	
 	//공지사항 게시물 등록
 	@RequestMapping(value="/notice/register.kh", method=RequestMethod.POST)
 	public ModelAndView registerNotice(
 			ModelAndView mv
 			, @ModelAttribute Notice notice
 			, @RequestParam(value="uploadFile", required=false) MultipartFile uploadFile
-			, HttpServletRequest request){
-		//공지사항 작성 후 insert
+			,HttpServletRequest request) {
+		
 		try {
 			System.out.println(uploadFile);
 			String noticeFilename = uploadFile.getOriginalFilename();
-			System.out.println(noticeFilename);
 			if(!noticeFilename.equals("")) {
-				
+				// 파일 업로드 
 				String root = request.getSession().getServletContext().getRealPath("resources");
-				String savePath = root + "\\nUploadFiles";   // 파일 저장경로 설정
+				String savePath = root + "\\nuploadFiles";
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-				String noticeFileRename = sdf.format(new Date(System.currentTimeMillis()))+"."
+				String noticeFileRename 
+				= sdf.format(new Date(System.currentTimeMillis()))+"."
 						+noticeFilename.substring(noticeFilename.lastIndexOf(".")+1);
-				
+				// 파일이름 설정
+				System.out.println(notice.toString());
 				File file = new File(savePath);
 				if(!file.exists()) {
 					file.mkdir();
 				}
-				uploadFile.transferTo(new File(savePath+"\\"+noticeFileRename));
-				// 파일을 nUploadFiles 경로에 저장하는 메소드
+				
+				uploadFile.transferTo(new File(savePath+"\\"+noticeFileRename)); 
+				// 파일을 buploadFiles 경로에 저장하는 메소드
 				String noticeFilepath = savePath+"\\"+noticeFileRename;
 				notice.setNoticeFilename(noticeFilename);
 				notice.setNoticeFileRename(noticeFileRename);
 				notice.setNoticeFilepath(noticeFilepath);
+				
 			}
 			int result = nService.registeNotice(notice);
 			mv.setViewName("redirect:/notice/list.kh");

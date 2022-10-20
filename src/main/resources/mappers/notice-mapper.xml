@@ -9,6 +9,7 @@
 		<result column="NOTICE_CATEGORY"  property="noticeCategory" />
 		<result column="NOTICE_TITLE"  property="noticeTitle" />
 		<result column="NOTICE_CONTENTS"  property="noticeContents" />
+		<result column="NOTICE_COUNT"  property="nCount" />
 		<result column="N_CREATEDATE"  property="nCreateDate" />
 		<result column="N_UPDATEDATE"  property="nUpdateDate" />
 		<result column="N_DELIVER"  property="nDeliver" />
@@ -16,7 +17,6 @@
 		<result column="NOTICE_FILENAME"  property="noticeFilename" />
 		<result column="NOTICE_FILERENAME"  property="noticeFileRename" />
 		<result column="NOTICE_FILEPATH"  property="noticeFilepath" />
-		<result column="NOTICE_COUNT"  property="nCount" />
 
 	</resultMap>
 	<insert id="insertNotice">
