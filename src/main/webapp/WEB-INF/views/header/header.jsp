@@ -201,7 +201,7 @@
         </div>
       </div>
 
-
+	<hr>
     </header>
 
     <script src="/resources/js/headerJs.js"></script>

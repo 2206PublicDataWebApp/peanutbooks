@@ -19,7 +19,6 @@
 
     <footer>
         <div class="container" id="footer-area">
-           
             <div class="row">
                 <div class="col-9" id="footer-title-text">
                    땅콩북스
