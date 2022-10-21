@@ -1,5 +1,6 @@
 package com.books.peanut.pay.store;
 
+import java.util.Date;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -24,5 +25,9 @@ public interface StorePay {
 	public int peanutTableInput(SqlSessionTemplate session,PeanutPoint pp);
 	//seasonticket table입력
 	public int seasonticketInput(SqlSessionTemplate session, SeasonTicket st);
+	//member  구독권 y/n 변경
+	public int memberStChange(SqlSessionTemplate session,String memberId);
+	// 로그인시 구독권 여부 및 날짜 확인하는 부분
+	public String seasonTicketDate(SqlSessionTemplate session, String memberId);
 
 }

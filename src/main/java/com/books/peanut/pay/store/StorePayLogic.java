@@ -59,12 +59,21 @@ public class StorePayLogic implements StorePay{
 	//seasomticket table입력
 	@Override
 	public int seasonticketInput(SqlSessionTemplate session, SeasonTicket st) {
-//		HashMap<String, String> hMap=new HashMap<String, String>();
-//		hMap.put("orderNo",orderNo);
-//		hMap.put("memberId",memberId);
-		int p_t_input=session.insert("payPoint_Mapper.insertSSticket",st);
+
+		int p_t_input = session.insert("payPoint_Mapper.insertSSticket",st);
 		return p_t_input;
 	}
-	
+	//member  구독권 y/n 변경
+	@Override
+	public int memberStChange(SqlSessionTemplate session,String memberId) {
+		int m_st_YN = session.update("payPoint_Mapper.updateMemberSSticket",memberId);
+		return m_st_YN;
+	}
+	// 로그인시 구독권 여부 및 날짜 확인하는 부분
+	@Override
+	public String seasonTicketDate(SqlSessionTemplate session, String memberId) {
+		String lastDate = session.selectOne("payPoint_Mapper.selectLastSSticket",memberId);		
+		return lastDate;		
+	}	
 
 }

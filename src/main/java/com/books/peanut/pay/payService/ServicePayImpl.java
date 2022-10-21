@@ -1,5 +1,6 @@
 package com.books.peanut.pay.payService;
 
+import java.util.Date;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -59,6 +60,18 @@ public class ServicePayImpl implements PayService {
 	public int seasonticketInput(SeasonTicket st) {
 		int p_t_input=pStore.seasonticketInput(session,st);
 		return p_t_input;
+	}
+	//member  구독권 y/n 변경
+	@Override
+	public int memberStChange(String memberId) {
+		int m_st_YN=pStore.memberStChange(session,memberId);
+		return m_st_YN;
+	}
+	// 로그인시 구독권 여부 및 날짜 확인하는 부분
+	@Override
+	public String seasonTicketDate(String memberId) {
+		String lastDate = pStore.seasonTicketDate(session,memberId);		
+		return lastDate;		
 	}
 	
 

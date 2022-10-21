@@ -20,6 +20,8 @@
 	integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
 	crossorigin="anonymous"></script>
 <link rel="shortcut icon" href="/resources/img/icons8-book-32.png">
+  <script src="../resources/js/jquery-3.6.0.min.js" ></script>
+
 
 </head>
 
@@ -59,7 +61,9 @@
 
 				</div>
 
+
 			</div>
+
 
 
 		</div>
@@ -76,11 +80,15 @@
 		<div class="container" id="mypage-tooltip-area">
 			<div class="row" id="icon-tooltip">
 				<div class="col-md-2" id="mypage">
-					<div id="name-space">${sessionScope.loginMember.mNickname}님
-						환영합니다!</div>
-					<div id="subscribe">
-						구독<br> 2022년 11월 30일까지
-					</div>
+					<div id="name-space">
+                    ${sessionScope.loginMember.mNickname}님 환영합니다!
+                </div>
+                <c:if test="${!empty sessionScope.lastDate}" >
+	                <div id="subscribe">
+	                	    구독<br>
+	                    ${sessionScope.lastDate } 까지
+	                </div>
+                </c:if>   
 					<div id="mypage-icon-area" class="row">
 						<div class="col-4">
 							<img src="/resources/img/header/icons8-notification-64.png"
@@ -177,27 +185,34 @@
 
 
 
-		<div class="container" id="point-tooltip-area">
-			<div class="row" id="point-icon-tooltip">
-				<div class="col-md-2" id="point">
-					<div id="name-space">${sessionScope.loginMember.mNickname}님</div>
-					<div id="now-point">${sessionScope.loginMember.mPoint}땅콩</div>
-					<div id="point-icon-area" class="row">
-						<div class="col-4">
-							<img src="/resources/img/header/icons8-page-52.png" alt="">
-							<br>이용내역
-						</div>
-						<div class="col-4">
-							<img src="/resources/img/header/icons8-android-l-battery-48.png"
-								alt=""> <br>땅콩충전
-						</div>
-						<div class="col-4">
+      <div class="container" id="point-tooltip-area">
+        <div class="row" id="point-icon-tooltip">
+            <div class="col-md-2" id="point">
+                <div id="name-space">
+                    ${sessionScope.loginMember.mNickname}님
+                </div>
+                <div id="now-point">
+                    ${sessionScope.loginMember.mPoint}땅콩
+                </div>
+                <div id="point-icon-area" class="row">
+                    <div class="col-4">
+                        <img src="/resources/img/header/icons8-page-52.png" alt="">
+                        <br>이용내역
+                    </div>
+                    <div class="col-4" >                    	
+                        <img src="/resources/img/header/icons8-android-l-battery-48.png" alt="" id="peanutIn">
+                        <br>땅콩충전
+                    </div>
+                    <div class="col-4">                    	
+                        <img src="/resources/img/header/icons8-change-48.png" alt="" onclick="peanutList('${sessionScope.loginMember.memberId}');">
+                        <br>땅콩교환
+                    </div>
 
-							<img src="/resources/img/header/icons8-change-48.png" alt="">
-							<br>땅콩교환
-						</div>
+
+							
 
 					</div>
+
 
 				</div>
 
@@ -206,7 +221,22 @@
 
 	</header>
 
-	<script src="/resources/js/headerJs.js"></script>
+    <script src="/resources/js/headerJs.js"></script>
+    <script type="text/javascript">
+    
+	 	/*결제 관련   */
+		 $("#peanutIn").on("click",function(){
+			 var mid="${sessionScope.loginMember.memberId}";
+			 if(mid==''){
+				 alert("로그인후 가능합니다");
+			 }else{
+				 location.href="/pay/start.kh";
+			 };
+		 })
+   
+    </script>
+    
+
 </body>
 
 </html>

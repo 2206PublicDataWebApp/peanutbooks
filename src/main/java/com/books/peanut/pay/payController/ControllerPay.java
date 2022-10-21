@@ -1,6 +1,7 @@
 package com.books.peanut.pay.payController;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -24,11 +25,12 @@ import com.books.peanut.pay.payService.PayService;
 
 @Controller
 public class ControllerPay {
+	
 	@Autowired
 	public PayService pService;
-	
-	
-//결제 창으로 이동
+
+
+	//결제 창으로 이동
 	@RequestMapping(value="/pay/start.kh", method=RequestMethod.GET)
 	public ModelAndView payGo(			
 			ModelAndView mv
@@ -72,13 +74,15 @@ public class ControllerPay {
 		payApi.setOrderNo(orderNo);
 		int result = pService.orderSuccess(payApi);
 		int p_t_input;
+		int m_st_YN=1;
 		if (result > 0) {
 			if (table.equals("seasonticket")) {
 				SeasonTicket st = new SeasonTicket();
 				st.setOrderNo(orderNo);
 				st.setMemberId(memberId);
-
 				p_t_input = pService.seasonticketInput(st);
+				m_st_YN = pService.memberStChange(memberId);
+				
 			} else {
 				PeanutPoint pp = new PeanutPoint();
 				pp.setMemberId(memberId);
@@ -91,7 +95,7 @@ public class ControllerPay {
 			return "failure";
 		}
 
-		if (p_t_input > 0) {
+		if ((p_t_input > 0) && (m_st_YN > 0) ) {
 			return "success";
 		} else {
 			return "failure";
@@ -147,11 +151,18 @@ public class ControllerPay {
 			Gson gson = new Gson();
 			return gson.toJson(wrList);
 		}
-	}
+	}	
+//	// 로그인시 구독권 여부 및 날짜 확인하는 부분
+//	public String seasonTicketDate(String memberId) {
+//		String lastDate = pService.seasonTicketDate(memberId);		
+//		return lastDate;
+//	}
 	
 	@ExceptionHandler({NullPointerException.class, SQLException.class})
 	public String errorHandler() {
 		return "redirect:/er.kh";		
 	}
-	
+
+
+
 }

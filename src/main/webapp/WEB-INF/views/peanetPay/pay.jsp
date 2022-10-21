@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,45 +32,45 @@
 						<td colspan="3" class="payName">구독권</td>
 					</tr>
 					<tr>
-						<label id="seasonticket">
-							<td class="payOne"><input type="radio" name="seasonticket"
-								value="10000"></td>
-							<td class="payTwo">한달이용권</td>
-							<td class="payTwo" name="pay" value="10000">10,000원</td>
-						</label>
+						<td class="payOne"><label for="seasonticket"><input
+								type="radio" id="seasonticket" name="payName" value="10000"></label></td>
+						<td class="payTwo" name="seasonticket"><label
+							for="seasonticket">한달이용권</label></td>
+						<td class="payTwo" value="10000"><label
+							for="seasonticket">10,000원</label></td>
 					</tr>
-
 				</table>
 			</div>
 
 			<div id="peanetCharge">
-				<table>
+				<table>			
 					<tr>
 						<td colspan="3" class="payName">땅콩충전</td>
 					</tr>
 					<tr>
-						<label id="peanutpoint100">
-							<td class="payOne"><input type="radio" id="peanutpoint100" name="peanetpoint"
-								value="10000"></td>
-							<td class="payTwo">100 땅콩</td>
-							<td class="payTwo">10,000원</td>
-						</label>
+
+						<td class="payOne"><label for="peanutpoint100"><input
+								type="radio" id="peanutpoint100" name="payName" value="10000"></label></td>
+						<td class="payTwo" name="peanetpoint"><label
+							for="peanutpoint100">100 땅콩</label></td>
+						<td class="payTwo"><label for="peanutpoint100">10,000원</label></td>
+
 					</tr>
 					<tr>
-						<label id="peanutpoint200">
-							<td class="payOne"><input type="radio" id="peanutpoint200" name="peanetpoint"
-								value="10000"></td>
-							<td class="payTwo">200 땅콩</td>
-							<td class="payTwo">20,000원</td>
-						</label>
+
+						<td class="payOne"><label for="peanutpoint200"><input
+								type="radio" id="peanutpoint200" name="payName" value="20000"></label></td>
+						<td class="payTwo" name="peanetpoint"><label
+							for="peanutpoint200">200 땅콩</label></td>
+						<td class="payTwo"><label for="peanutpoint200">20,000원</label></td>
+
 					</tr>
 					<tr>
-						<label id="peanutpoint300">
-							<td class="payOne"><input type="radio" id="peanutpoint300" name="peanetpoint"
-								value="10000"></td>
-							<td class="payTwo">300 땅콩</td>
-							<td class="payTwo">30,000원</td>
-						</label>
+						<td class="payOne"><label for="peanutpoint300"><input
+								type="radio" id="peanutpoint300" name="payName" value="30000"></label></td>
+						<td class="payTwo" name="peanetpoint"><label
+							for="peanutpoint300">300 땅콩</label></td>
+						<td class="payTwo"><label for="peanutpoint300">30,000원</label></td>
 					</tr>
 
 				</table>
@@ -98,7 +99,7 @@
                 </table>     
             
             
-                <div id="orderCheck">
+                <div id="listCheck">
                     <p>주문내용을 확인하셨습니까? </p>
                     <p>구독권은 구매후 취소불가합니다.</p>
                     <p>땅콩은 구매후 15일 안에 사용하지 않을 경우만 </p>
@@ -114,120 +115,137 @@
 
 <script type="text/javascript">
 
-	    var orderName="";  //결제 분류명
-	    var payMoney="";  // 결제할 값
+	    var orderName='';  //결제 분류명
+	    var payMoney='';  // 결제할 값
 	    var d=new Date();
-	    var dm="";         // 년월일 합칠 변수
-	    var orderNo="";   //주문번호 분류명과 날짜 합친것
-	    var orderContents="" // 주문내용
-	    var merchant_uid=""; //결제 주문번호 넣을 곳
-	    var memberId= "${sessionScope.loginMember.memberId}";
-	    var mEmail= "${sessionScope.loginMember.mEmail}";  
+	    var dm='';         // 년월일 합칠 변수
+	    var orderNo='';   //주문번호 분류명과 날짜 합친것
+	    var orderContents='' // 주문내용
+	    var merchant_uid=''; //결제 주문번호 넣을 곳
+	    var memberId= '${sessionScope.loginMember.memberId}';
+	    var mEmail= '${sessionScope.loginMember.mEmail}';  
 	    
-	$("#ordercheck").on("click", function(){
-	    if ($("#history").css("display","none")){
-		    $("#ordercheck").css("background-color","red");
-		    $("#ordercheck").css("color","#fff");
-		    $("#ordercheck").html("주문취소");    
-		    $("#history").show();
-		    $("#pay").show();
-		    
-		  } else{           
-		    $("#ordercheck").css("background-color","#fff9b0");
-		    $("#ordercheck").css("color","black");
-		    $("#ordercheck").html("주문확정"); 
-		    $("#history").hide();   
-		    $("#pay").hide();  
-		   }
+	    $('#seasonticket').on('click', function(){
+	    	if(!${empty sessionScope.lastDate}){
+				alert("구독권 만료후 구매 부탁드립니다. 이용해 주셔서 감사합니다.");
+				$('#seasonticket').prop("checked",false);
+			};
+	    })
 	    
-	    orderName=$('input[type="radio"]:checked').attr('name');  //결제 분류명
+	    
+	    
+	    $('#ordercheck').on('click', function(){
+	
+		    if ($('#history').css('display')=='none'){
+			    $('#ordercheck').css('background-color','red');
+			    $('#ordercheck').css('color','#fff');
+			    $('#ordercheck').html('주문취소');    
+			    $('#history').css('display','block');
+			    $('#pay').css('display','block');
+			    orderList(); 
+			    
+			  } else{           
+			    location.href='/pay/start.kh';
+			  }	
+				
+	})
+	
+	function orderList(){
+	    
+	    orderName=$('input[type="radio"]:checked').parent().parent().next().attr('name');  //결제 분류명
 	    payMoney=$('input[type="radio"]:checked').val();  // 결제할 값   	    
 	    dm=String(d.getFullYear());
 	    dm+=String(d.getMonth()+1);
 	    dm+=String(d.getDate());
 	    orderNo=orderName+"-"+dm;                        //주문번호 분류명과 날짜 합친것
-	    orderContents=$('input[type="radio"]:checked').parent().next().text()+"구매"; // 주문내용
+	    orderContents=$('input[type="radio"]:checked').parent().parent().next().text()+"구매"; // 주문내용
 	    
 	    $.ajax({
-	    	url:"/pay/orderIN.kh",
-	    	type:"post",
-	    	dataType:"json",
+	    	url:'/pay/orderIN.kh',
+	    	type:'post',
+	    	dataType:'json',
 	    	data:{
-	    		"orderNo":orderNo,
-	    		"memberId":memberId,
-	    		"orderContents":orderContents,	    		
-	    		"payMoney":payMoney
+	    		'orderNo':orderNo,
+	    		'memberId':memberId,
+	    		'orderContents':orderContents,	    		
+	    		'payMoney':payMoney
 	    	},
 	    	success:function(pay){          //주문번호 받아오기
-	    		$("#oderno").html(pay.orderNo);
-	    		$("#contents").html(pay.orderContents);
-	    		$("#paymoney").html(pay.pay+"원");
-	    		$("#paymoney").val(pay.pay);
+	    		$('#oderno').html(pay.orderNo);
+	    		$('#contents').html(pay.orderContents);
+	    		$('#paymoney').html(pay.pay+'원');
+	    		$('#paymoney').val(pay.pay);
 	    	
 	    	},
 	    	error : function(data){
 	    		console.log(data);
-	    		alert("주문실패: 잠시후 다시 부탁드립니다!"+data.statusText);
+	    		alert('주문실패: 잠시후 다시 부탁드립니다!'+data.statusText);
 	    	}
 	    })
 	    
-	})
+	}
+	
 	// -------------------------------------*********주문 확정 후 번호 받아 오기
 	var IMP = window.IMP; 
-	IMP.init("imp01477151");
+	IMP.init('imp01477151');
 	
 	function requestPay() {
-	    IMP.request_pay({
-	        pg : 'html5_inicis',
-	        pay_method : 'card',
-	        merchant_uid: merchant_uid,   //주문번호 
-	        name : orderContents,             //주문내용
-	        amount : 1000,                 //주문금액
-	        buyer_email :mEmail,       // 고객이메일
-	        buyer_name : memberId,         // 고객id
-	        buyer_tel : "01011112222",        //고객연락처
-	        buyer_addr : '서울특별시 강남구 삼성동', //고객주소
-	        buyer_postcode : '123-456'
-	    }, function (rsp) { // callback
-	        if (rsp.success) {                // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
-	        	// jQuery로 HTTP 요청
-	            $.ajax({
-	                url: "/pay/success.kh", // 예: https://www.myservice.com/payments/complete
-	                type: "POST",
-	               // headers: { "Content-Type": "application/json" },
-	                data: {
-	                    "imp_uid": rsp.imp_uid,//결제번호
-	                    "orderNo": $("#oderno").html(),	                    
-              		    "memberId":memberId,
-              		    "pay": $("#paymoney").val()	                  		  
-              		  },              		 
-              		 success:function(result){
-               		  alert("result");
-               		  location.href="/ej.kh";
-               		 },
-	               	 error:function(e){
-	               		 console.log(e)
-	           		  alert("에러: 관리자에게 문의하세요");
-	           	  	 }
-	            }).done(function (data) {  
-	            	//가맹점 서버 결제 aip성공시 로직
-	            	switch(data.status) {
-		            case  "vbankIssued":
-		              // 가상계좌 발급 시 로직
-		              break;
-		            case "success":
-		              // 결제 성공 시 로직
-		              break;
-		          }
-	            });
-	        } else {
-	        	alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg); 
-	        	location.href="/pay/start.kh";
-	        }
-	    });
-                          
-	}
+		
+	if ($('#payCheck').is(':checked')) {
+			IMP.request_pay({
+				pg : 'html5_inicis',
+				pay_method : 'card',
+				merchant_uid : merchant_uid, //주문번호 
+				name : orderContents, //주문내용
+				amount : 1000, //주문금액
+				buyer_email : mEmail, // 고객이메일
+				buyer_name : memberId, // 고객id
+				buyer_tel : '01011112222', //고객연락처
+				buyer_addr : '서울특별시 강남구 삼성동', //고객주소
+				buyer_postcode : '123-456'
+			}, function(rsp) { // callback
+				if (rsp.success) { // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
+					// jQuery로 HTTP 요청
+					$.ajax({
+						url : '/pay/success.kh', // 예: https://www.myservice.com/payments/complete
+						type : 'POST',
+						// headers: { 'Content-Type': 'application/json' },
+						data : {
+							'imp_uid' : rsp.imp_uid,//결제번호
+							'orderNo' : $('#oderno').html(),
+							'memberId' : memberId,
+							'pay' : $('#paymoney').val()
+						},
+						success : function(result) {
+							alert('결제 성공');
+							location.href = '/';
+						},
+						error : function(e) {
+							console.log(e)
+							alert('에러: 관리자에게 문의하세요');
+						}
+					}).done(function(data) {
+						//가맹점 서버 결제 aip성공시 로직
+						switch (data.status) {
+						case 'vbankIssued':
+							// 가상계좌 발급 시 로직
+							break;
+						case 'success':
+							// 결제 성공 시 로직
+							break;
+						}
+					});
+				} else {
+					alert('결제에 실패하였습니다. 에러 내용: ' + rsp.error_msg);
+					location.href = '/pay/start.kh';
+				}
+			});
+			
+		} else {
+			alert("동의 체크 후 결제 가능합니다.");
+		}
 
+	}
 </script>
 </body>
 </html>
