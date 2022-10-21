@@ -24,6 +24,7 @@
 </head>
 
 <body>
+	<jsp:include page="../header/header.jsp" />
     <main>
         <section class="container">
             <article>
@@ -121,7 +122,7 @@
         </section>
 
     </main>
-
+	<jsp:include page="../footer/footer.jsp" />
 </body>
 <script src="/resources/js/book/bookregist.js"></script>
 

@@ -45,4 +45,17 @@
       </props>
      </property>
     </bean>
+    
+    
+    <!-- 	파일 업로드 관련 빈 등록 MultipartResolver 오타조심!!!-->	
+
+	<bean id="multipartResolver
+	" class="org.springframework.web.multipart.commons.CommonsMultipartResolver
+	">
+	<property name="maxUploadSize" value="100000000"></property>
+<!--최대용량설정-->
+	<property name="maxInMemorySize" value="100000000"></property>
+<!--사용 메모리 설정-->
+	</bean>
+	
 </beans>

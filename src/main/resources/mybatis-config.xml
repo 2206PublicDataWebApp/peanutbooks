@@ -25,11 +25,15 @@
 		<typeAlias type="com.books.peanut.notice.domain.Notice" alias="Notice"/>
 		<typeAlias type="com.books.peanut.qna.domain.Qna" alias="Qna"/>
 		<typeAlias type="com.books.peanut.member.domain.Member" alias="Member"/>
+			
+		<typeAlias type="com.books.peanut.book.domain.WriterProfile" alias="writerProfile"/>
+		
 	</typeAliases>
 
 
 <mappers>
 	<mapper resource="/mappers/originbook-mapper.xml"/>
+	<mapper resource="/mappers/writer-mapper.xml"/>
 	
 	<!--은정꺼  -->
 	<mapper resource="/mappers/consult-mapper.xml" />

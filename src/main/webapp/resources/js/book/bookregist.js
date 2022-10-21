@@ -57,7 +57,7 @@ $('#summernote').summernote({
   });
 
   document.querySelector('.note-editable').onblur = function(){
-    var textarea = document.querySelector('[ name="Contents"]');
+    var textarea = document.querySelector('[ name="contents"]');
     var textvalue = document.querySelector('.note-editable');
         textarea.value = textvalue .innerHTML;
         }

@@ -19,10 +19,18 @@ main {
     height: 2rem;
     border-radius: 0.5rem;
 }
+#profile button:hover{
+	background-color : #FFD384;
+}
 #wirte>img{
     margin: 1rem 2rem;
     height: 2.5rem;
 }
+
+#wirte>img:hover{
+	cursor: pointer;
+}
+
 
 #title{
     margin: 1.5rem;

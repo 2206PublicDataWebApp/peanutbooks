@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+        <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -18,9 +19,11 @@
 </head>
 
 <body>
+
 	<jsp:include page="../header/header.jsp" />
 
 <main>
+<form action="/book/profileregist.do" method="post" enctype="multipart/form-data">
     <section class="container">
 
         <article id="header-area">
@@ -30,7 +33,7 @@
                     <img class="headerimg">
                     <label class="input-file-button float-md-start"> 
                         <img src="/resources/img/book/icons8-camera-96.png" alt="" id="camera1">
-                         <input type="file" name="recipePicture" class="isFile" style="display: none"
+                         <input type="file" name="headerPicture" class="isFile" style="display: none"
                             accept="image/jpeg, image/png, image/jpg" onchange="imgView(this);">
                     </label>
     
@@ -49,7 +52,7 @@
                         <img class="detailImg mx-auto">
                         <label class="input-file-button float-md-start"> 
                             <img src="/resources/img/book/icons8-camera-96.png" alt="" id="camera">
-                             <input type="file" name="recipePicture" class="isFile" style="display: none"
+                             <input type="file" name="profilePicture" class="isFile" style="display: none"
                                 accept="image/jpeg, image/png, image/jpg" onchange="imgView(this);">
                         </label>
         
@@ -64,17 +67,18 @@
                         작가명
                     </div>
                     <div id="name">
-                        이용자
+                        ${loginMember.mNickname }
                     </div>
                 </div>
                 <div id="wirter-text">
                     소개
-                    <textarea name="" id=""rows="6" placeholder="소개를 입력하세요" required></textarea>
+                    <textarea name="info" id=""rows="6" placeholder="소개를 입력하세요" required maxlength="500"></textarea>
                     <button>등록</button>
                 </div>
             </div>
         </article>
     </section>
+    </form>
 
 </main>
 

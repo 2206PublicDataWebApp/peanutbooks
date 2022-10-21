@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,13 +25,27 @@
 	<main>
 		<section class="container">
 			<article id="profile-area" class="row">
+
+
 				<div class="col-md-6" id="profile">
-					<button>작가 프로필등록</button>
+					<c:if test="${oneWriter == null }">
+						<button onclick="location.href='/book/writerView.do'">작가
+							프로필등록</button>
+					</c:if>
+
+					<c:if test="${oneWriter != null }">
+						<button onclick="location.href='/book/modifyView.do'">작가
+							프로필수정</button>
+					</c:if>
+
 				</div>
+
+
 				<div class="col-md-6" id="wirte">
-					<img src="/resources/img/book/icons8-write-48.png" alt="">
+					<img src="/resources/img/book/icons8-write-48.png" alt="" onclick="location.href='/book/bookRegistView.do'">
 					새로운 시리즈 등록
 				</div>
+
 			</article>
 			<hr>
 			<article id="list-area" class="row">
@@ -51,4 +66,5 @@
 	</main>
 	<jsp:include page="../footer/footer.jsp" />
 </body>
+<script type="text/javascript" src="/resources/js/book/writemenu.js"></script>
 </html>

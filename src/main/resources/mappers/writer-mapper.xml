@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="wirterMapper">
+  
+  
+  
+ <!--  작가 프로필 쿼리문 -->
+  <insert id="insertProfile">
+  insert into writer_profile values(#{memberId}, #{mainPic}, #{headPic}, #{info}, #{mainPicRename}, #{headPicRename})
+  
+  </insert>
+  
+  <update id="updateProfile">
+  update writer_profile set MAIN_PIC = #{mainPic}, HEAD_PIC = #{headPic},  MAIN_PIC_RENAME=#{mainPicRename}, HEAD_PIC_RENAME=#{headPicRename}, info=#{info} where member_id =#{memberId} 
+  </update>
+
+  
+  <resultMap type="writerProfile" id="wrtierProfileResultMap">
+  	<id property="memberId" column="member_id"/>
+  	<result property="mainPic" column="MAIN_PIC"/>
+  	<result property="headPic" column="HEAD_PIC"/>
+  	<result property="mainPicRename" column="MAIN_PIC_RENAME"/>
+  	<result property="headPicRename" column="HEAD_PIC_RENAME"/>
+  	<result property="info" column="INFO"/>
+  </resultMap>
+  
+  <select id="selectOneMember" resultMap="wrtierProfileResultMap">
+  	select * from writer_profile where member_id = #{memberId}
+  </select>
+  
+  
+<!--   오리지널 북 쿼리문 -->
+<insert id="insertBook">
+ insert into origin_book values(oribookseq.nextval,#{bookTitle},#{bookInfo},#{category},default,#{cover},#{coverRename},default,0,#{memberId},default)
+</insert>
+
+<!-- 오리지널 시리즈 쿼리문 -->
+<insert id="insertSeries"></insert>
+
+<!-- 해시태그 쿼리문 -->
+<insert id="insertTag"></insert>
+
+
+  
+  
+  </mapper>
