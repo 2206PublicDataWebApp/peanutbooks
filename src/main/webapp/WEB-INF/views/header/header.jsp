@@ -38,26 +38,7 @@
 						<li>피넛 오리지널</li>
 					</ul>
 
-<<<<<<< HEAD
-				</div>
-				<div class="col-md-4 col-7" id="header-menu-icon">
-					<img src="/resources/img/header/icons8-search (2).png" alt=""
-						id="search-icon"> <img
-						src="/resources/img/header/icons8-book (3).png" alt=""
-						id="book-icon"> <img
-						src="/resources/img/header/icons8-peanut-48 (6).png" alt=""
-						id="p-icon"> <img
-						src="/resources/img/header/icons8-user.png" alt="" id="user-icon"
-						<c:if test="${loginMember.adminYN=='Y' }">style="display:none;"</c:if>>
-					<!--관리자 체크해서 나타남-->
-					<img src="/resources/img/header/icons8-monarch-48.png" alt=""
-						id="admin-icon"
-						<c:if test="${loginMember.adminYN=='N' }">style="display:none;"</c:if>>
 
-				</div>
-				<div class="d-md-none d-block col-1" id="togglemenu">
-					<div>
-=======
                 </div>
                 <div class="col-md-4 col-7" id="header-menu-icon">
                     <img src="/resources/img/header/icons8-search (2).png" alt="" id="search-icon">
@@ -75,28 +56,13 @@
                     <div>
                         <img src="/resources/img/header/icons8-menu-60.png">    
                     </div>
->>>>>>> refs/remotes/origin/1021-4
-
-						<img src="/resources/img/header/icons8-menu-60.png">
-					</div>
 
 				</div>
 
 			</div>
 
-<<<<<<< HEAD
+
 		</div>
-=======
-                    <div class="col-4">
-                        <a href="/qna/writeView.kh"><img src="/resources/img/header/icons8-headphone-64.png" alt="">
-                        <br>1:1문의</a>
-                    </div>
-                    <div class="col-4">
-                        <img src="/resources/img/header/icons8-chat-50.png" alt="">
-                        <br>채팅상담
-                    </div>
-                    <div class="col-4">
->>>>>>> refs/remotes/origin/1021-4
 
 		<div id="menu-bar">
 			<ul>
@@ -192,20 +158,15 @@
 
 						<div class="col-4">
 
-							<img src="/resources/img/header/icons8-laptop-60.png" alt="">
-							<br>관리자
-						</div>
+							<a href="/adminMain.kh"><img src="/resources/img/header/icons8-laptop-60.png" alt=""></a>
+                        <br>관리자
+                    </div>
 
-<<<<<<< HEAD
 					</div>
 					<div id="logout-area">
 						<button id="logout">로그아웃</button>
 					</div>
-=======
-                         <a href="/adminMain.kh"><img src="/resources/img/header/icons8-laptop-60.png" alt=""></a>
-                        <br>관리자
-                    </div>
->>>>>>> refs/remotes/origin/1021-4
+
 
 				</div>
 
