@@ -52,7 +52,11 @@ public class MemberController {
 		return mv;
 	}
 	
-	// 별명 유효성 검사
+	/**
+	 * 별명 유효성 검사
+	 * @param mNickname
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value="/member/checkNickname.pb", method=RequestMethod.GET)
 	public String checkNickname(
@@ -60,12 +64,30 @@ public class MemberController {
 		int result = mService.checkNickname(mNickname);
 		return String.valueOf(result);
 	}
-	// 아이디 유효성 검사
+	
+	/**
+	 * 아이디 유효성 검사
+	 * @param memberId
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value="/member/checkId.pb", method=RequestMethod.GET)
 	public String checkId(
 			@RequestParam("memberId") String memberId) {
 		int result = mService.checkId(memberId);
+		return String.valueOf(result);
+	}
+	
+	/**
+	 * 이메일 유효성 검사
+	 * @param mEmail
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/member/checkEmail.pb", method=RequestMethod.GET)
+	public String checkEmail(
+			@RequestParam("mEmail") String mEmail) {
+		int result = mService.checkEmail(mEmail);
 		return String.valueOf(result);
 	}
 	
@@ -103,5 +125,50 @@ public class MemberController {
 			mv.addObject("msg", e.toString()).setViewName("common/errorPage"); // 에러 확인용
 		}
 		return mv;
+	}
+	
+	/**
+	 * 아이디 찾기 화면
+	 * @return
+	 */
+	@RequestMapping(value="/member/forgotId.pb", method=RequestMethod.GET)
+	public String forgotIdView() {
+		return "member/forgotId";
+	}
+	
+	/**
+	 * 아이디 찾기 - 결과 화면
+	 * @return
+	 */
+	@RequestMapping(value="/member/idResult.pb", method=RequestMethod.GET)
+	public String idResultView() {
+		return "member/idResult";
+	}
+	
+	/**
+	 * 비밀번호 재설정 화면
+	 * @return
+	 */
+	@RequestMapping(value="/member/forgotPw.pb", method=RequestMethod.GET)
+	public String forgotPwView() {
+		return "member/forgotPw";
+	}
+	
+	/**
+	 * 비밀번호 재설정 - 새 비밀번호 입력 화면
+	 * @return
+	 */
+	@RequestMapping(value="/member/resetPw.pb", method=RequestMethod.GET)
+	public String resetPwView() {
+		return "member/resetPw";
+	}
+	
+	/**
+	 * 이메일 인증 확인 화면
+	 * @return
+	 */
+	@RequestMapping(value="/member/confirmEmailView.pb", method=RequestMethod.GET)
+	public String confirmEmailView() {
+		return "member/confirmEmail";
 	}
 }

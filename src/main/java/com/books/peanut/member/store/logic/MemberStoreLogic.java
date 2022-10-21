@@ -26,6 +26,12 @@ public class MemberStoreLogic implements MemberStore{
 		int result = session.selectOne("MemberMapper.checkId", memberId);
 		return result;
 	}
+	// 이메일 유효성 검사
+	@Override
+	public int checkEmail(SqlSession session, String mEmail) {
+		int result = session.selectOne("MemberMapper.checkEmail", mEmail);
+		return result;
+	}
 	// 로그인
 	@Override
 	public Member selectLoginMember(SqlSession session, Member member) {

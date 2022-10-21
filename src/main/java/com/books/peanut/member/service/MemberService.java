@@ -9,6 +9,8 @@ public interface MemberService {
 	int checkNickname(String mNickname);
 	// 아이디 유효성 검사
 	int checkId(String memberId);
+	// 이메일 유효성 검사
+	int checkEmail(String mEmail);
 	// 로그인
 	Member loginMember(Member member);
 	

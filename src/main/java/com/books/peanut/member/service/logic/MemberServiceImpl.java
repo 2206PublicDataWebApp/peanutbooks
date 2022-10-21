@@ -33,6 +33,12 @@ public class MemberServiceImpl implements MemberService{
 		int result = mStore.checkId(session, memberId);
 		return result;
 	}
+	// 이메일 유효성 검사
+	@Override
+	public int checkEmail(String mEmail) {
+		int result = mStore.checkEmail(session, mEmail);
+		return result;
+	}
 	// 로그인
 	@Override
 	public Member loginMember(Member member) {

@@ -30,6 +30,10 @@
 	<select id="checkId" resultType="_int">
 		SELECT COUNT(*) FROM MEMBER_TBL WHERE MEMBER_ID = #{memberId} AND DELETE_YN = 'N'
 	</select>
+	<!-- 이메일 유효성 검사 -->
+	<select id="checkEmail" resultType="_int">
+		SELECT COUNT(*) FROM MEMBER_TBL WHERE M_EMAIL = #{mEmail} AND DELETE_YN = 'N'
+	</select>
 	<!-- 로그인 -->
 	<select id="selectLoginMember" resultMap="memberResultMap">
 		SELECT * FROM MEMBER_TBL WHERE MEMBER_ID = #{memberId} AND MEMBER_PW = #{memberPw}

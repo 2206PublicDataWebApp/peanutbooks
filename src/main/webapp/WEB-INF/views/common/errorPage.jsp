@@ -4,10 +4,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>에러 페이지</title>
 </head>
 <body>
+<<<<<<< HEAD
 	<h1>에러메세지</h1>
 	<h3>${msg }</h3>
 </body>
+=======
+	<h1>에러 메시지</h1>
+	<h3>${msg}</h3>
+</body>
+>>>>>>> refs/remotes/origin/yujin221020
 </html>
