@@ -53,9 +53,9 @@ public class LogicStore implements ConsultStore{
 	}
 ////on/off으로 변경
 	@Override
-	public int changebutten(SqlSessionTemplate session,String on_off) {
+	public int changebutten(SqlSessionTemplate session,String on_off) {	
 		int num=session.update("ConsultMapper.switchUpdate",on_off);
-		return num;
+				return num;
 	}
 //버튼값 받기
 	@Override

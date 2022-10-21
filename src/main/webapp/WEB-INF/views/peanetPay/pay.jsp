@@ -24,47 +24,59 @@
 
     <main>        
         <section>
-        <input type="hidden" value="${sessionScope.loginUser}">
-            <div id="ssTicket">
-                <table>
-                    <tr>
-                        <td colspan="3" class="payName">구독권</td>
-                    </tr> 
-                    <tr>
-                        <td class="payOne"><input type="radio" name="seasonticket" value="10000"></td>
-                        <td class="payTwo" >한달이용권</td>
-                        <td class="payTwo" name="pay" value="10000">10,000원</td>
-                    </tr>
-              
-                </table>
-            </div>
-            
-            <div id="peanetCharge">
-                <table>
-                    <tr>
-                        <td colspan="3" class="payName">땅콩충전</td>
-                    </tr>
-                    <tr>
-                        <td class="payOne"><input type="radio" name="peanetpoint" value="10000"></td>
-                        <td class="payTwo" >100 땅콩</td>
-                        <td class="payTwo" >10,000원</td>
-                    </tr>
-                    <tr>
-                        <td class="payOne"><input type="radio" name="peanetpoint" value="20000"></td>
-                        <td class="payTwo" >200 땅콩</td>
-                        <td class="payTwo"> 20,000원</td>
-                    </tr>
-                    <tr>
-                        <td class="payOne"><input type="radio" name="peanetpoint" value="30000"></td>
-                        <td class="payTwo" >300 땅콩</td>
-                        <td class="payTwo" >30,000원</td>
-                    </tr>
-              
-                </table>             
-                
-            </div>
+        <input type="hidden" value="${sessionScope.loginMember}">
+			<div id="ssTicket">
+				<table>
+					<tr>
+						<td colspan="3" class="payName">구독권</td>
+					</tr>
+					<tr>
+						<label id="seasonticket">
+							<td class="payOne"><input type="radio" name="seasonticket"
+								value="10000"></td>
+							<td class="payTwo">한달이용권</td>
+							<td class="payTwo" name="pay" value="10000">10,000원</td>
+						</label>
+					</tr>
 
-            <div id="Confirmation"><button id="ordercheck">주문확정</button></div>
+				</table>
+			</div>
+
+			<div id="peanetCharge">
+				<table>
+					<tr>
+						<td colspan="3" class="payName">땅콩충전</td>
+					</tr>
+					<tr>
+						<label id="peanutpoint100">
+							<td class="payOne"><input type="radio" id="peanutpoint100" name="peanetpoint"
+								value="10000"></td>
+							<td class="payTwo">100 땅콩</td>
+							<td class="payTwo">10,000원</td>
+						</label>
+					</tr>
+					<tr>
+						<label id="peanutpoint200">
+							<td class="payOne"><input type="radio" id="peanutpoint200" name="peanetpoint"
+								value="10000"></td>
+							<td class="payTwo">200 땅콩</td>
+							<td class="payTwo">20,000원</td>
+						</label>
+					</tr>
+					<tr>
+						<label id="peanutpoint300">
+							<td class="payOne"><input type="radio" id="peanutpoint300" name="peanetpoint"
+								value="10000"></td>
+							<td class="payTwo">300 땅콩</td>
+							<td class="payTwo">30,000원</td>
+						</label>
+					</tr>
+
+				</table>
+
+			</div>
+
+			<div id="Confirmation"><button id="ordercheck">주문확정</button></div>
             <div id="history">
                 <table>                  
                     <tr>
@@ -80,7 +92,7 @@
                     </tr>
                     <tr>
                         <td class="history1">구매금액 : </td>
-                        <td class="history2" id="paymoney"></td>
+                        <td class="history2" id="paymoney" value=""></td>
                     </tr>
               
                 </table>     
@@ -109,8 +121,8 @@
 	    var orderNo="";   //주문번호 분류명과 날짜 합친것
 	    var orderContents="" // 주문내용
 	    var merchant_uid=""; //결제 주문번호 넣을 곳
-	    var memberId= "${sessionScope.loginUser.memberId}";
-	    var mEmail= "${sessionScope.loginUser.mEmail}";  
+	    var memberId= "${sessionScope.loginMember.memberId}";
+	    var mEmail= "${sessionScope.loginMember.mEmail}";  
 	    
 	$("#ordercheck").on("click", function(){
 	    if ($("#history").css("display","none")){
@@ -129,7 +141,7 @@
 		   }
 	    
 	    orderName=$('input[type="radio"]:checked').attr('name');  //결제 분류명
-	    payMoney=$('input[type="radio"]:checked').val();  // 결제할 값    
+	    payMoney=$('input[type="radio"]:checked').val();  // 결제할 값   	    
 	    dm=String(d.getFullYear());
 	    dm+=String(d.getMonth()+1);
 	    dm+=String(d.getDate());
@@ -150,6 +162,7 @@
 	    		$("#oderno").html(pay.orderNo);
 	    		$("#contents").html(pay.orderContents);
 	    		$("#paymoney").html(pay.pay+"원");
+	    		$("#paymoney").val(pay.pay);
 	    	
 	    	},
 	    	error : function(data){
@@ -169,7 +182,7 @@
 	        pay_method : 'card',
 	        merchant_uid: merchant_uid,   //주문번호 
 	        name : orderContents,             //주문내용
-	        amount : payMoney,                 //주문금액
+	        amount : 1000,                 //주문금액
 	        buyer_email :mEmail,       // 고객이메일
 	        buyer_name : memberId,         // 고객id
 	        buyer_tel : "01011112222",        //고객연락처
@@ -179,39 +192,38 @@
 	        if (rsp.success) {                // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
 	        	// jQuery로 HTTP 요청
 	            $.ajax({
-	                url: "{서버의 결제 정보를 받는 endpoint}", // 예: https://www.myservice.com/payments/complete
-	                method: "POST",
-	                headers: { "Content-Type": "application/json" },
+	                url: "/pay/success.kh", // 예: https://www.myservice.com/payments/complete
+	                type: "POST",
+	               // headers: { "Content-Type": "application/json" },
 	                data: {
-	                    imp_uid: rsp.imp_uid,
-	                    merchant_uid: rsp.merchant_uid
-	                }
-	            }).done(function (data) {  //////////////////******결제 응답처리
-	            	 switch(data.status) {
-	                 case "vbankIssued":
-	                   // 가상계좌 발급 시 로직
-	                   break;
-	                 case "success":
-	                	 alert("결제성공");
-	                  $.ajax({
-	                	  url:"/pay/success.kh",
-	                	  type:"get",
-	                	  data:{"orderNo":merchant_uid },
-	                	  success:function(result){
-	                		  alert("결제저장성공");
-	                		  
-	                	  },
-	                	  error:function(){
-	                		  alert("결제저장 실패: 관리자에게 문의하세요");
-	                	  }
-	                  });
-	                   break;
-	               }
-	             });
+	                    "imp_uid": rsp.imp_uid,//결제번호
+	                    "orderNo": $("#oderno").html(),	                    
+              		    "memberId":memberId,
+              		    "pay": $("#paymoney").val()	                  		  
+              		  },              		 
+              		 success:function(result){
+               		  alert("result");
+               		  location.href="/ej.kh";
+               		 },
+	               	 error:function(e){
+	               		 console.log(e)
+	           		  alert("에러: 관리자에게 문의하세요");
+	           	  	 }
+	            }).done(function (data) {  
+	            	//가맹점 서버 결제 aip성공시 로직
+	            	switch(data.status) {
+		            case  "vbankIssued":
+		              // 가상계좌 발급 시 로직
+		              break;
+		            case "success":
+		              // 결제 성공 시 로직
+		              break;
+		          }
+	            });
 	        } else {
 	        	alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg); 
 	        	location.href="/pay/start.kh";
-	        	}
+	        }
 	    });
                           
 	}

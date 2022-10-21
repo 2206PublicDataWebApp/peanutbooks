@@ -15,10 +15,10 @@
 
 <P>  The time on the server is ${serverTime}. </P>
 
- <c:if test="${sessionScope.loginUser ne null }">
+ <c:if test="${sessionScope.loginMember ne null }">
  		<table align="right">
  			<tr>
- 				 <td colspan="2">${loginUser.memberId}님 환영합니다</td> 
+ 				 <td colspan="2">${loginMember.memberId}님 환영합니다</td> 
  					
  			</tr>
  			<tr>
@@ -28,12 +28,12 @@
  		</table>
  </c:if>
 
-<c:if test="${empty loginUser }">
+<c:if test="${empty loginMember }">
 		<form action="/member/login.kh" method="post">
 		 	<table align="right">
 			 	<tr>
-			 		<td>이메일 : </td>
-			 		<td><input type="text" name="mEmail"></td>
+			 		<td>ID : </td>
+			 		<td><input type="text" name="memberId"></td>
 			 		<td rowspan="2">
 			 			<input type="submit" value="로그인">
 			 		</td>
@@ -52,11 +52,11 @@
 
   </c:if>
 
-	<button onclick="startChat('${loginUser.memberId}');">채팅상담</button>
+	<button onclick="startChat('${loginMember.memberId}');">채팅상담</button>
 	<button onclick="location.href='/manager.kh';">관리자 페이지</button>
-	<button onclick="payStart('${loginUser.memberId}');">결제 페이지</button>
-	<button onclick="peanutList('${loginUser.memberId}');">땅콩사용페이지</button>
-	<button onclick="writerPay('${loginUser.memberId}')">작가 정산요청</button>
+	<button onclick="payStart('${loginMember.memberId}');">결제 페이지</button>
+	<button onclick="peanutList('${loginMember.memberId}');">땅콩사용페이지</button>
+	<button onclick="writerPay('${loginMember.memberId}')">작가 정산요청</button>
 <script>
 	//고객채팅창가기
 	function startChat(memberId) {
@@ -69,7 +69,7 @@
 					type:'get',	 			           			                         	
 					success:function(result){  			/* 이벤트 핸들러 result에 서버가 보낸준 값이 리턴됨. */
 						console.log("버튼확인성공:"+result);
-						 if(result.switchbtn=='N'){
+						 if(result.switchbtn.trim()=='N'){
 							 alert("관리자가 준비되지 않았습니다. 잠시후 부탁드립니다.");  //버튼값이 n이면 그냥 종료
 						 }else{
 							 chatbtnSuccess(memberId)                                //y이면 로그인 확인

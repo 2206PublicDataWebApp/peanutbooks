@@ -18,8 +18,8 @@
 		<div>
 			<P id="nickName">${memberId}</p>
 			<p>의 채팅상담</P>
-			<input type="hidden" name="memberEmail" value="${memberEmail}">
-			<input type="hidden" name="titleNo" id="titleNo" />			
+			<input type="hidden" name="mEmail" value="${mEmail}">
+			<input type="hidden" name="titleNo" id="titleNo" value="${titleNo}"/>			
 		</div>
 
 		<div class="btn">
@@ -34,7 +34,7 @@
 			<table width="100%">
 				<tr>
 					<td><input type="text" name="cTitle" id="inTitle" /></td>
-					<td><button id="centerbtn" onclick="(beforeChat('${memberId}','${memberEmail}')) ;" value="접수">접수</button></td>
+					<td><button id="centerbtn" onclick="beforeChat('${memberId}','${mEmail}') ;" value="접수">접수</button></td>
 					
 				</tr>
 			</table>
@@ -58,12 +58,13 @@
 	</div>
 	<script>
 	$('.context').scrollTop=$('.context').scrollHeight;
-		//상담접수
-		function beforeChat(memberId, memberEmail) {
+	var printer;
+	//상담접수
+		function beforeChat(memberId, mEmail) {
 
 			var afterMsg = {
 				cMemberId : memberId,
-				cEmail : memberEmail,
+				cEmail : mEmail,
 				csTitle : $('#inTitle').val()
 			};
 			//console.log("화면 접수성공: " + afterMsg);
@@ -81,100 +82,105 @@
 							"다른 상담으로 인해 대시시간이 요소될수 있는 점 양해 부탁드립니다..")
 
 					$('#titleNo').val(result.titleNo);
-					printer=setInterval(collList,4000);
+					printer = setInterval(collList, 500);
 
 				},
-				error: function(e) {
+				error : function(e) {
 					alert(1);
 				}
-			})
+			});
 
 		}
 
 		// 고객이 관리자와 채팅 시작
-		$('#getResult').click(function() { /* 전송버튼을 클릭하면 */
-			$("#before").css("display","none");
-			var msg = { //json형식으로 데이터set 	
-				cMemberId : $('#nickName').html(),
-				cContexts : $('#usertext').val(),
-				cEmail : $('[name=memberEmail]').val(),
-				titleNo : $('#titleNo').val()
-			};
-			$('#usertext').val('');
-			console.log("채팅전송내역:" + msg.cMemberId + ", " + msg.cContexts + ", " + msg.cEmail + ", " + msg.titleNo);
-			$.ajax({								/*{} 객체를 의미함 key: value값을 ,로 구분하여 객체의 속성이 만들어짐 */
-				url:"/client/start.kh",	/* url파일로 접근, 컨트롤러에서 대기중인 url주소 */
-				dataType:'json',					/* 검사/net/응답을 보면{"result",true:,"msg":"보낸 메세지...input의 text임"}) 받은걸 자바스크립트가 알아서 변환해준다. */
-				type:'post',						/* 폼에서 메소드형식을 생각하면됨 */
-				data:msg,							/* 서버로 부터 받은 msg의 val를 메세지변수에 넣음 */
-				success:function(result){  			/* 이벤트 핸들러 result에 서버가 보낸준 값이 리턴됨. */
-					console.log("채팅전송성공:"+result);
-					
-				},
-				error: function(e) {
-					alert('error : ' + e);
-				},
-			});
-		})
-		
 
-		//DB에서 데이터 가져와서 화면에 출력해주기
+		$('#getResult').click(
+				function() {
+					$("#before").css("display", "none");
+					var msg = { //json형식으로 데이터set 	
+						cMemberId : $('#nickName').html(),
+						cContexts : $('#usertext').val(),
+						cEmail : $('[name=mEmail]').val(),
+						titleNo : $('#titleNo').val()
+					};
+					$('#usertext').val('');
+					console.log("채팅전송내역:" + msg.cMemberId + ", "
+							+ msg.cContexts + ", " + msg.cEmail + ", "
+							+ msg.titleNo);
+					$.ajax({
+						url : "/client/start.kh",
+						dataType : 'json',
+						type : 'post',
+						data : msg,
+						success : function(result) {
+							console.log("채팅전송성공:" + result);
 
-		//var time = setInterval(collList, 3000) //2000했더니 바쁘다..
+						},
+						error : function(e) {
+							alert('error : ' + e);
+						}
+					});
+				})
+
+		//DB에서 데이터 가져와서 화면에 출력해주기		
 		function collList() {
 			console.log("출력준비");
 			$('#after').html('');
-			
+
 			$.ajax({
 				url : "/client/listprint.kh",
-				type : 'post',		
+				type : 'post',
 				data : {
-				 titleNo : $("#titleNo").val()
+					titleNo : $("#titleNo").val()
 				},
 				success : function(result) {
-					console.log("리스트 수신성공: " + result);
-					//var data = JSON.parse(result);  //배열로 온것을 파싱한다.
-					//console.log(data); 			
-				
 					for ( var i in result) {
-						addChat(result[i].cMemberId, result[i].cContexts,result[i].cDate);						
-					}
-				
+						var $chat = $('#after > div[data-consultNo="' + result[i].consultNo + '"]');
+						if ($chat.length < 1) {						
+							addChat(result[i].cousultNo, result[i].cMemberId,
+									result[i].cContexts, result[i].cDate);	
+						};
+					};
 				},
-				error: function(e) {
+				error : function(e) {
 					alert('error : ' + e);
 				}
 			});
 		}
 
-
-		function addChat(cMemberId, cContext, cDate) {
+		function addChat(consultNo,cMemberId, cContext, cDate) {
 			console.log("데이터 올림 확인 : " + cMemberId);
-			if(cMemberId!='manager'){
-				 $('#after').append(
-					 '<div class="right">'
-                 	   +'<h5 >'+cMemberId+'</h5>'
-                       +'<div class="middleBox"><span class="contextBox">'+ cContext +'</span>'
-                       +'<span class="dateBox">'+cDate+'</span></div></div>');
+			if (cMemberId != 'admin') {
+				$('#after').append(
+								'<div class="right" data-consultNo="' + consultNo + '">'
+										+ '<h5 >' + cMemberId + '</h5>'
+										+ '<div class="middleBox"><span class="contextBox">'
+										+ cContext + '</span>'
+										+ '<span class="dateBox">' + cDate
+										+ '</span></div></div>');
 
-			}else{
-				 $('#after').append(
-						 '<div class="left" >'
-	                 	   +'<h5 >'+cMemberId+'</h5>'
-	                       +'<div class="middleBox"><span class="contextBox">'+ cContext +'</span>'
-	                       +'<span class="dateBox">'+cDate+'</span></div></div>');				
+			} else {
+				$('#after').append(
+						'<div class="left" data-consultNo="' + consultNo + '">'
+								+ '<h5 >' + cMemberId + '</h5>'
+								+ '<div class="middleBox"><span class="contextBox">'
+								+ cContext + '</span>'
+								+ '<span class="dateBox">' + cDate
+								+ '</span></div></div>');
 			}
-			// $('#after').scrollTop($('#after')[0].scrollHeight);
-			$('#after').scrollTop=$('#after').scrollHeight
 		}
 		//종료 버튼 누를경우
 		function chatfinish() {
 
 			if (confirm("정말로 종료하시겠습니까?")) {
 				clearInterval(printer);
-				self.close();
-				//location.href = "/";
-			}
+				setTimeout(function(){
+					printer=false;
+					self.close();
+				},50);
+			} else {
+				alert("종료 되지 않았습니다. 다시 부탁드립니다.");
+			};
 		}
 	</script>
 </body>

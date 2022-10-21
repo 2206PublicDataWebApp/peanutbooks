@@ -37,7 +37,7 @@
                 <thead class="table-light">
                     <tr>
                         <th scope="col">번호</th>
-                        <th scope="col">고객닉네임</th>
+                        <th scope="col">고객ID</th>
                         <th scope="col">문의주제</th>
                         <th scope="col">신청시간</th>
                         <th scope="col">상담결과</th>
@@ -99,7 +99,8 @@
       		         dataType:"json",
       		         success:function(result) {      		        	
       		        	 if(result.result=="성공"){		         
-      		        		alert("채팅접수를 마감합니다.");         		    			
+      		        		alert("채팅접수를 마감합니다.");
+      		        		$('#count').html('');
       		        	 }else{
       		        		alert("상담종료 오류입니다. 다시 진행부탁드립니다.");		        		 
       		        	 };

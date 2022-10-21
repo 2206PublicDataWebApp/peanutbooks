@@ -42,111 +42,111 @@
 	</div>
 
 <script >
-$('.context').scrollTop=$('.context').scrollHeight;
+	$('.context').scrollTop=$('.context').scrollHeight;
+	
+	var printer;
 	$('#getResult').click(function(){
 		/* 전송버튼을 클릭하면 */
-		var titleNo= ${param.titleNo};
-		var msg={								//json형식으로 데이터set
-			cMemberId: "임시관리자",
-			cContexts:$('#magText').val(),
-			cEmail: "test_admin",
-			titleNo: titleNo
+		var titleNo = ${param.titleNo};
+		var msg = { 
+			cMemberId : 'admin',
+			cContexts : $('#magText').val(),
+			cEmail : 'test_admin',
+			titleNo : titleNo
 		};
 		$('#magText').val('');
-		$.ajax({							/*{} 객체를 의미함 key: value값을 ,로 구분하여 객체의 속성이 만들어짐 */	
-			url:"/client/start.kh",	/* url파일로 접근, 컨트롤러에서 대기중인 url주소 */
-			dataType:'json',					/* 검사/net/응답을 보면{"result",true:,"msg":"보낸 메세지...input의 text임"}) 받은걸 자바스크립트가 알아서 변환해준다. */
-			type:'POST',						/* 폼에서 메소드형식을 생각하면됨 */
-			data:msg,                           /* 서버로 부터 받은 msg의 val를 메세지변수에 넣음 */		
-			success:function(result){  			/* 이벤트 핸들러 result에 서버가 보낸준 값이 리턴됨. */
-				console.log("채팅전송성공:"+result);
-				printer=setInterval(collList,5000);
+		$.ajax({ 
+			url : '/client/start.kh', 
+			dataType : 'json', 
+			type : 'POST', 
+			data : msg, 
+			success : function(result) { 				
+				if(!printer){
+					printer = setInterval(collList, 500);
+				}
 			},
-			error: function(e) {
-				alert('error:'+e);
+			error : function(e) {
+				alert('error:' + e);
 			},
 		});
-		
-		
-	})
+	});
+
 
 	function collList() {
-			console.log("출력준비");
-			var titleNo=${param.titleNo};
-			$('#after').html('');
-			
-			$.ajax({
-				url : "/client/listprint.kh",
-				type : 'post',		
-				data : {
-				 titleNo : titleNo
-				},
-				success : function(result) {
-					console.log("리스트 수신성공: " + result);
-					//var data = JSON.parse(result);  //배열로 온것을 파싱한다.
-					//console.log(data); 			
-					console.log("리스트 수신성공: " + result);
-					for ( var i in result) {
-						addChat(result[i].cMemberId, result[i].cContexts,result[i].cDate);
-						console.log(result[i].cMemberId);
+		console.log("출력준비");
+		var titleNo = ${param.titleNo};
+		$('#after').html('');
+
+		$.ajax({
+			url : "/client/listprint.kh",
+			type : 'post',
+			data : {titleNo : titleNo},
+			success : function(result) {
+				for ( var i in result) {
+					var $chat = $('#after > div[data-consultNo="' + result[i].consultNo + '"]');
+					if ($chat.length < 1) {						
+						addChat(result[i].cousultNo, result[i].cMemberId,
+								result[i].cContexts, result[i].cDate);						
 					}
-				
-				},
-				error: function(e) {
-					alert('error : ' + e);
 				}
-			});
-		}
-
-		function addChat(cMemberId, cContext, cDate) {
-			console.log("데이터 올림 확인 : " + cMemberId);
-			if(cMemberId==='임시관리자'){
-				 $('#after').append('<div class="right" >'
-	                 	   +'<h5 >'+cMemberId+'</h5>'
-	                       +'<div class="middleBox"><span class="dateBox">'+cDate+'</span>'
-	                       +'<span class="contextBox">'+ cContext +'</span></div></div>');
-					
-
-			}else{
-				 $('#after').append('<div class="left">'
-	                 	   +'<h5 >'+cMemberId+'</h5>'
-	                       +'<div class="middleBox"><span class="dateBox">'+cDate+'</span>'
-	                       +'<span class="contextBox">'+ cContext +'</span></div></div>');		
-			}			
-		}
-		
-	//종료 버튼 누를경우
-	function chatfinish() {
-		var titleNo= ${param.titleNo};
-		if (confirm("정말로 종료하시겠습니까?")) {			
-			var csResult=prompt('상담결과를 입력하세요.');
-			console.log("종료구문확인1");
-			$.ajax({
-				url : "/consult/finish.kh",
-				type : 'post',		
-				data : {
-				 titleNo : titleNo,
-				 csResult:csResult				
-				},
-				
-				success : function(data) {					
-						console.log("data:"+data);
-						if(data.result>0){
-							clearInterval(printer);												
-							self.close();
-						}else {							
-							alert("종료 되지 않았습니다. 다시 해주세요");		
-						
-						};
-				},					
-				error: function(e) {
-					alert('error : ' + e);
-				}
-			});	
-		};
+			},
+			error : function(e) {
+				alert('error : ' + e);
+			}
+		});
 	}
 
+	function addChat(consultNo, cMemberId, cContext, cDate) {
+		var consultNo = 0;		
+		if (cMemberId === 'admin') {
+			$('#after').append(
+					'<div class="right" data-consultNo="' + consultNo + '">'
+							+ '<h5 >' + cMemberId + '</h5>'
+							+ '<div class="middleBox"><span class="dateBox">'
+							+ cDate + '</span>' + '<span class="contextBox">'
+							+ cContext + '</span></div></div>');
 
+		} else {
+			$('#after').append(
+					'<div class="left" data-consultNo="' + consultNo + '">'
+							+ '<h5 >' + cMemberId + '</h5>'
+							+ '<div class="middleBox"><span class="dateBox">'
+							+ cDate + '</span>' + '<span class="contextBox">'
+							+ cContext + '</span></div></div>');
+		}
+	}
+
+	//종료 버튼 누를경우
+	function chatfinish() {
+		var titleNo = ${param.titleNo};
+		if (confirm("정말로 종료하시겠습니까?")) {
+			var csResult = prompt('상담결과를 입력하세요.');
+			$.ajax({
+				url : "/consult/finish.kh",
+				type : "post",
+				dataType : "json",
+				data : {
+					titleNo : titleNo,
+					csResult : csResult
+				},
+				success : function(data) {
+					if (data.result > 0) {
+						clearInterval(printer);
+						setTimeout(function() {
+							printer = false;
+							self.close();
+						}, 50)
+					} else {
+						alert("종료 되지 않았습니다. 다시 해주세요");
+
+					};
+				},
+				error : function(e) {
+					alert('error : ' + e.statusText);
+				}
+			});
+		};
+	}
 </script>
 </body>
 </html>

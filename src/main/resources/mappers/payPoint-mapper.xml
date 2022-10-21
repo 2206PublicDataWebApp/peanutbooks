@@ -7,16 +7,17 @@
   <mapper namespace="payPoint_Mapper">
 	<!--pay 결제 관련 매핑  -->
 	<resultMap type="Pay" id="payResultMap">
-  		<id property="orderNo" column="orderNo"/> <!--id   -->
+  		<id property="orderNo" column="orderNo"/> 
 		<result  property="orderNo" column="ORDER_NO"/> 	
 		<result  property="pay" column="PAY"/> 
 		<result  property="orderStatus" column="ORDER_STATUS"/> 
 		<result  property="memberId" column="MEMBERI_ID"/> 		
 		<result  property="orderContents" column="ORDER_CONTENTS"/> 
+		<result  property="imp_uid" column="IMP_UID"/> 
   	</resultMap>
   	<!--주문 확정내용 입력  -->
   	<insert id="insertPay">
-		 INSERT INTO PAY VALUES((#{orderNo}||'-'||SQN_PAY_NO.NEXTVAL), ${pay},default,#{memberId},#{orderContents})
+		 INSERT INTO PAY VALUES((#{orderNo}||'-'||SQN_PAY_NO.NEXTVAL), ${pay},default,#{memberId},#{orderContents},'')
 	</insert>
 	<!--확정된 주문번호 가져오기 입력된것중 가장 마지막 값을 가져오게 됨  -->
 	<select id="selectOdNo" resultMap="payResultMap">
@@ -26,7 +27,7 @@
 	</select>
 	<!--주문성공시 orderStatus 값 변경  -->
 	<update id="updataOrder">
-		UPDATE PAY SET ORDER_STATUS='Y' WHERE ORDER_NO=#{orderNo};
+		UPDATE PAY SET ORDER_STATUS='Y', IMP_UID=#{imp_uid} WHERE ORDER_NO=#{orderNo}
 	
 	</update>
 	
@@ -46,34 +47,48 @@
 		<result  property="changeP" column="CHANGE_P"/> 
   	</resultMap>
   	<!-- 작가 결제 요청시 저장 -->
-    <insert id="receiptWriterPay">
-    	INSERT INTO POINTCHANGE_TBL VALUES(#{memberId},${seriesNo},${ori_bookNo},DEFAULT,#{bankName},#{bankNo},${payment},DEFAULT, SQN_WRITERPAY_NO.NEXTVAL, ${changeP})    	
+    <insert id="insertreceiptWP">
+    	INSERT INTO POINTCHANGE_TBL VALUES(#{memberId},#{seriesNo},#{ori_bookNo},DEFAULT,#{bankName},#{bankNo},${payment},DEFAULT, SQN_WRITERPAY_NO.NEXTVAL, ${changeP})    	
     </insert>
     
     <!--작가정산리스트 출력 -->
-    <select id="wrList" resultMap="WriterPayResultMap">
+    <select id="selectwrList" resultMap="WriterPayResultMap">
     	SELECT * FROM POINTCHANGE_TBL
     </select>
     
   
+  <!--땅콩 포인트 관련  -->	
+  	<resultMap type="PeanutPoint" id="peanutResultMap">
+  		<id property="peanutNo" column="PEANUT_NO"/> <!--id   -->
+		<result  property="peanutNo" column="PEANUT_NO"/> 
+		<result  property="ppDate" column="PP_DATE"/> 
+		<result  property="peanutPoint" column="PEANUT_POINT"/> 	
+		<result  property="ppStatus" column="PP_STATUS"/> 
+		<result  property="bookNo" column="BOOK_NO"/>
+		<result  property="bookName" column="BOOK_NAME"/>
+		 <result  property="memberId" column="MEMBER_ID"/>
+		<result  property="orderNo" column="ORDER_NO"/>   
+  	</resultMap>
   	
-  	
-  	
+  	<insert id="insertPeanut">
+  		 INSERT INTO PEANUTPOINT_TBL VALUES (SQN_PEANUT_NO.NEXTVAL,SYSDATE,${peanutPoint},'Y',DEFAULT,DEFAULT,#{memberId},#{orderNo})
+  	</insert>
+  
   	
   	<resultMap type="SeasonTicket" id="seasonTicketResultMap">
-  		<id property="memberId" column="MEMBER_ID"/> <!--id   -->
-		<result  property="orderName" column="ORDER_NAME"/> 
-		<result  property="orderDate" column="ORDER_DATE"/> 
+  		<id property="orderNo" column="ORDER_NO"/> 
 		<result  property="orderNo" column="ORDER_NO"/> 	
-		<result  property="contents" column="CONTENTS"/> 
+		<result  property="orderDate" column="ORDER_DATE"/> 
 		<result  property="lastDate" column="LAST_DATE"/> 
+		<result  property="memberId" column="MEMBER_ID"/> 
   	</resultMap>
-<!-- 	<insert id="insertSSticket">
-		 INSERT  INTO SEASONTICKET_TBL  VALUES(#{memberId},#{orderName},SYSDATE,SQN_ORDER_NO.NEXTVAL,#{contents},ADD_MONTHS(SYSDATE,1)
+  	<!--결제후 구독권 등록  -->
+ 	<insert id="insertSSticket">
+		 INSERT  INTO SEASONTICKET_TBL  VALUES(#{orderNo}, SYSDATE,ADD_MONTHS(SYSDATE,1),#{memberId})
 	</insert>
-	 구독권 마지막 일자 시간 조회  
-	<select id="LastSSticket" resultType="string">
+	<!--  구독권 마지막 일자 시간 조회 -->  
+	<select id="selectLastSSticket" resultType="string">
 		SELECT TO_CHAR(LAST_DATE+1/(60*24),'YYYY-MM-DD HH24:MI:SS') FROM SEASONTICKET_TBL		
 	</select>
-	 -->
+	
   </mapper>

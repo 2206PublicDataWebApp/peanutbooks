@@ -4,82 +4,73 @@ import java.util.Date;
 
 public class SeasonTicket{
 	private String memberId;
-	private String orderName;
+	private String orderNo;
 	private Date orderDate;
-	private int orderNo;
-	private String contents;
 	private Date lastDate;
+
 	
 	public SeasonTicket() {
 		super();		
 	}
 
-	public SeasonTicket(String memberId, String orderName, Date orderDate, int orderNo, String contents,
-			Date lastDate) {
+
+	public SeasonTicket(String memberId, String orderNo, Date orderDate, Date lastDate) {
 		super();
 		this.memberId = memberId;
-		this.orderName = orderName;
-		this.orderDate = orderDate;
 		this.orderNo = orderNo;
-		this.contents = contents;
+		this.orderDate = orderDate;
 		this.lastDate = lastDate;
 	}
+
 
 	public String getMemberId() {
 		return memberId;
 	}
 
+
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
 
-	public String getOrderName() {
-		return orderName;
+
+	public String getOrderNo() {
+		return orderNo;
 	}
 
-	public void setOrderName(String orderName) {
-		this.orderName = orderName;
+
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
 	}
+
 
 	public Date getOrderDate() {
 		return orderDate;
 	}
 
+
 	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;
 	}
 
-	public int getOrderNo() {
-		return orderNo;
-	}
-
-	public void setOrderNo(int orderNo) {
-		this.orderNo = orderNo;
-	}
-
-	public String getContents() {
-		return contents;
-	}
-
-	public void setContents(String contents) {
-		this.contents = contents;
-	}
 
 	public Date getLastDate() {
 		return lastDate;
 	}
 
+
 	public void setLastDate(Date lastDate) {
 		this.lastDate = lastDate;
 	}
 
+
 	@Override
 	public String toString() {
-		return "SeasonTicket [memberId=" + memberId + ", orderName=" + orderName + ", orderDate=" + orderDate
-				+ ", orderNo=" + orderNo + ", contents=" + contents + ", lastDate=" + lastDate + "]";
+		return "SeasonTicket [memberId=" + memberId + ", orderNo=" + orderNo + ", orderDate=" + orderDate
+				+ ", lastDate=" + lastDate + "]";
 	}
+
 	
-	
+		
 	
 	
 }

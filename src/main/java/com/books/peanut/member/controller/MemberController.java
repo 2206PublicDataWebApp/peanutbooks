@@ -104,4 +104,25 @@ public class MemberController {
 		}
 		return mv;
 	}
+	//은정이가 잠깐 사용할 예정
+	@RequestMapping(value="/member/login.kh", method=RequestMethod.POST)
+	public ModelAndView memberLogin2(
+			@ModelAttribute Member member,
+			ModelAndView mv,
+			HttpServletRequest request) {
+		try {
+			Member loginMember = mService.loginMember(member);
+			if(loginMember != null) {
+				HttpSession session = request.getSession();
+				session.setAttribute("loginMember", loginMember); // session에 로그인한 회원의 모든 정보(loginMember) 저장
+				mv.addObject("loginMember", loginMember);  //추가함//
+				mv.setViewName("redirect:/ej.kh");
+			} else {
+				mv.setViewName("error");
+			}
+		} catch (Exception e) {
+			mv.addObject("msg", e.toString()).setViewName("error"); // 에러 확인용
+		}
+		return mv;
+	}
 }
