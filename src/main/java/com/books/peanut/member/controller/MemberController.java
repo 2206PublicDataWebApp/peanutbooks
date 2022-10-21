@@ -42,9 +42,9 @@ public class MemberController {
 		try {
 			int result = mService.registerMember(member);
 			if(result > 0) {
-				mv.setViewName("redirect:/"); // 로그인 전 메인 페이지로 이동
+				mv.setViewName("redirect:/"); // 회원가입 성공 시 로그인 전 메인 페이지로 이동
 			} else {
-				mv.setViewName("redirect:/member/joinView.pb"); // 회원가입 페이지로 이동(임시)
+				mv.setViewName("redirect:/member/joinView.pb"); // 회원가입 실패 시 회원가입 페이지로 이동(임시)
 			}
 		} catch (Exception e) {
 			mv.addObject("msg", e.toString()).setViewName("common/errorPage"); // 에러 확인용
@@ -117,9 +117,33 @@ public class MemberController {
 			if(loginMember != null) {
 				HttpSession session = request.getSession();
 				session.setAttribute("loginMember", loginMember); // session에 로그인한 회원의 모든 정보(loginMember) 저장
-				mv.setViewName("redirect:/main"); // 로그인 후 메인 페이지로 이동
+				mv.setViewName("redirect:/main"); // 로그인 성공 시 로그인 후 메인 페이지로 이동
 			} else {
-				mv.setViewName("redirect:/member/loginView.pb"); // 로그인 페이지로 이동(임시)
+				mv.setViewName("redirect:/member/loginView.pb"); // 로그인 실패 시 로그인 페이지로 이동(임시)
+			}
+		} catch (Exception e) {
+			mv.addObject("msg", e.toString()).setViewName("common/errorPage"); // 에러 확인용
+		}
+		return mv;
+	}
+	
+	/**
+	 * 로그아웃 기능
+	 * @param mv
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/member/logout.pb", method=RequestMethod.GET)
+	public ModelAndView memberLogout(
+			ModelAndView mv,
+			HttpServletRequest request) {
+		try {
+			HttpSession session = request.getSession();
+			if(session != null) {
+				session.invalidate();
+				mv.setViewName("redirect:/"); // 로그아웃 성공 시 로그인 전 메인 페이지로 이동
+			}else {
+				mv.setViewName("redirect:/main"); // 로그아웃 실패 시 로그인 후 메인 페이지로 이동(임시)
 			}
 		} catch (Exception e) {
 			mv.addObject("msg", e.toString()).setViewName("common/errorPage"); // 에러 확인용
@@ -170,6 +194,15 @@ public class MemberController {
 	@RequestMapping(value="/member/confirmEmailView.pb", method=RequestMethod.GET)
 	public String confirmEmailView() {
 		return "member/confirmEmail";
+	}
+	
+	/**
+	 * 정보 관리 화면
+	 * @return
+	 */
+	@RequestMapping(value="/member/memberInfo.pb", method=RequestMethod.GET)
+	public String memberInfoView() {
+		return "member/memberInfo";
 	}
 	
 
