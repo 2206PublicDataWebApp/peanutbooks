@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.books.peanut.member.domain.Member;
 import com.books.peanut.notice.domain.Notice;
 import com.books.peanut.notice.service.NoticeService;
 
@@ -30,11 +31,11 @@ public class NoticeController {
 	//공지사항 작성 페이지 이동
 	@RequestMapping(value="/notice/writeView.kh", method=RequestMethod.GET)
 	public String reviewWriteView(HttpSession session) {
-		//Member loginUser = (Member)session.getAttribute("loginUser");
-		//if(loginUser ! = null) {
+		Member loginMember = (Member)session.getAttribute("loginMember");
+		if(loginMember != null) {
 			return "/notice/noticeWriteForm";
-		//}
-		//return "redirect:/notice/list.kh";
+		}
+		return "member/login";
 	}
 	
 	//공지사항 게시물 등록
