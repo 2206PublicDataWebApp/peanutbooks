@@ -9,19 +9,20 @@
 <!-- jQuery, bootstrap  -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<!-- summernote css/js -->
-  <script src="/resources/js/summernote-lite.js"></script>
-  <script src="/resources/js/summernote/lang/summernote-ko-KR.js"></script>
-  <link rel="stylesheet" href="/resources/css/summernote-lite.css">
-  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 </head>
  <style>
-	.container {
-		width: 70%;
-		max-width: 1000px;
-		margin: 0 auto;
+	.btn {
+	  appearance: none;
+	    -webkit-appearance: none;
+	  font-family: sans-serif;
+	  cursor: pointer;
+	  padding: 12px;
+	  min-width: 150px;
+	  border: none;
+	    -webkit-transition: background-color 100ms linear;
+	    -ms-transition: background-color 100ms linear;
+	     transition: background-color 100ms linear;
 	}
 </style> 
 <body>
@@ -68,17 +69,27 @@
 			</tr>
 			<tr>
 				<td  class="col-2" scope="col" align="center">첨부파일</td>
-				<td><img alt="본문이미지" src="/resources/nUploadFiles/${notice.noticeFileRename }"></td>
+				<td>
+				<c:if test="${!empty notice.noticeFileRename }">
+					<a href=""  onclick="fnImgPop(this.src)"><img alt="본문이미지" 
+					src="/resources/nuploadFiles/${notice.noticeFileRename }" 
+					style="width:200px; height:200px;" onclick="fnImgPop(this.src)"></a>
+				</c:if>
+				<c:if test="${empty notice.noticeFileRename }">
+					<input type="file" name="uploadFile">
+				</c:if>
+				</td>
 			</tr>
 			<tr>
-				<td colspan="2" align="center">
-					<input onclick="noticeModify(${notice.noticeNo }, ${page});" type="button" value="수정" class='btn btn-dark'>
-					<input onclick="noticeRemove(${notice.noticeNo }, ${page});" type="button" value="삭제" class='btn btn-dark'>
-					<button type="button" onclick="location.href='/notice/list.kh'" class='btn btn-dark'>목록</button> 
+				<td colspan="2" align="center" style="border:none;">
+					<input onclick="noticeModify(${notice.noticeNo }, ${page});" type="button" value="수정" class="btn btn-warning btn-sm">
+					<input onclick="noticeRemove(${notice.noticeNo }, ${page});" type="button" value="삭제" class="btn btn-warning btn-sm">
+					<button type="button" onclick="location.href='/notice/list.kh'" class="btn btn-warning btn-sm">목록</button> 
 					 
 				</td>
 			</tr>
 		</table>
+		
 </div>
 <br><br>
 </main>
@@ -96,8 +107,17 @@
 		}
 	}
 
+	function fnImgPop(url){
+		var img = new Image();
+		img.src = url;
+		var img_width = img.width;
+		var win_width = img.width+25;
+		var img_height = img.height;
+		var win = img.height+30;
+		var OpenWindow = window.open('','_blank', 'width = '+img_width+', height = '+img_height+', menubars = no, scrollbars = auto');
+		OpenWindow.document.write("<style>body{margin:0px;}</style><img src='"+url+"' width='"+win_width+"'>");
+	 }
 </script>
-
 <!-- Footer -->
 <jsp:include page="../footer/footer.jsp"></jsp:include>
 <!-- Footer -->

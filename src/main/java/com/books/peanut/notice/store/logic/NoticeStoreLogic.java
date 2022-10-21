@@ -62,5 +62,39 @@ public class NoticeStoreLogic implements NoticeStore {
 		return result;
 	}
 
+	@Override
+	public List<Notice> selectAllByValue(
+			SqlSession session
+			, String searchCondition
+			, String searchValue
+			, int currentPage, int noticeLimit) {
+		int offset = (currentPage-1)*noticeLimit;
+		RowBounds rowBounds 
+		= new RowBounds(offset, noticeLimit);
+		HashMap<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("searchCondition", searchCondition);
+		paramMap.put("searchValue", searchValue);
+		List<Notice> nList 
+		= session.selectList("NoticeMapper.selectAllByValue"
+				, paramMap, rowBounds);
+		return nList;
+	}
+
+	@Override
+	public List<Notice> selectAllByCategory(
+			SqlSession session
+			, String noticeCategory
+			, int currentPage, int categoryLimit) {
+		int offset = (currentPage-1)*categoryLimit;
+		RowBounds rowBounds 
+		= new RowBounds(offset, categoryLimit);
+		HashMap<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("noticeCategory", noticeCategory);
+		List<Notice> nList 
+		= session.selectList("NoticeMapper.selectAllCategory"
+				, paramMap, rowBounds);
+		return nList;
+	}
+
 }
 

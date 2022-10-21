@@ -9,7 +9,6 @@
 <!-- jQuery, bootstrap  -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
  <style>
@@ -18,7 +17,20 @@
 		max-width: 1000px;
 		margin: 0 auto;
 	}
+	.btn {
+	  appearance: none;
+	    -webkit-appearance: none;
+	  font-family: sans-serif;
+	  cursor: pointer;
+	  padding: 12px;
+	  min-width: 150px;
+	  border: none;
+	    -webkit-transition: background-color 100ms linear;
+	    -ms-transition: background-color 100ms linear;
+	     transition: background-color 100ms linear;
+	}
 </style> 
+
 <body>
 <!-- header start -->
 <jsp:include page="../header/header.jsp"></jsp:include>
@@ -74,17 +86,35 @@
 				<td  class="col-2" scope="col" align="center">내용</td>
 				<td> <textarea class="form-control" id="exampleFormControlTextarea1" cols="50" rows="20" name="noticeContents">${notice.noticeContents }</textarea>  </td>
 			</tr>
+		<c:if test="${!empty notice.noticeFileRename }">
 			<tr>
 				<td  class="col-2" scope="col" align="center">첨부파일</td>
+				<td>
+					<a href=""  onclick="fnImgPop(this.src)"><img alt="본문이미지" 
+					src="/resources/nuploadFiles/${notice.noticeFileRename }" 
+					style="width:200px; height:200px;" onclick="fnImgPop(this.src)"></a>
+				</td>
+			</tr>
+			<tr>
+				<td  class="col-2" scope="col" align="center">첨부파일 수정</td>
 				<td>
 					<input type="file" name="reloadFile">
 					<a href="#">${notice.noticeFilename }</a>
 				</td>
 			</tr>
+		</c:if>
+		<c:if test="${empty notice.noticeFileRename }">
+			<tr>
+				<td>첨부파일</td>
+				<td>
+					<input type="file" name="reloadFile">
+				</td>
+			</tr>
+		</c:if>
 			<tr>
 				<td colspan="2" align="center">
-					<input onclick="noticeCheck();" type="button" value="수정" class='btn btn-dark'>
-					<button type="button" onclick="location.href='/notice/list.kh'" class='btn btn-dark'>목록</button> 
+					<input onclick="noticeCheck();" type="button" value="수정" class="btn btn-warning btn-sm">
+					<button type="button" onclick="location.href='/notice/list.kh'" class="btn btn-warning btn-sm">목록</button> 
 					 
 				</td>
 			</tr>
