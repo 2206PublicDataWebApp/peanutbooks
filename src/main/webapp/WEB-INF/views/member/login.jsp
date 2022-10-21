@@ -4,6 +4,8 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 반응형 화면 -->
 	<title>땅콩북스: 로그인</title>
 	<link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="../resources/css/member.css">
@@ -20,7 +22,7 @@
 	            <div id="login-pw"><input class="login-inputs" type="password" placeholder="비밀번호" name="memberPw"></div>
 	            <div><button id="login-btn" type="submit">로그인</button></div>
 	            <div id="login-others">
-	                <a href="#">아이디 찾기</a> | <a href="#"> 비밀번호 재설정 </a> | <a href="#">회원가입</a>
+	                <a href="/member/forgotId.pb">아이디 찾기</a> | <a href="/member/forgotPw.pb"> 비밀번호 재설정 </a> | <a href="/member/joinView.pb">회원가입</a>
 	            </div>
 	            <div><hr id="login-hr"></div>
 	            <div id="login-social">

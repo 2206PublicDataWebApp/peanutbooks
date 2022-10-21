@@ -11,6 +11,8 @@ public interface MemberStore {
 	public int checkNickname(SqlSession session, String mNickname);
 	// 아이디 유효성 검사
 	public int checkId(SqlSession session, String memberId);
+	// 이메일 유효성 검사
+	public int checkEmail(SqlSession session, String mEmail);
 	// 로그인
 	public Member selectLoginMember(SqlSession session, Member member);
 

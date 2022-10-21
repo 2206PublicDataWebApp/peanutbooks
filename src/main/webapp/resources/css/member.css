@@ -1,20 +1,20 @@
 @charset "UTF-8";
 * { font-family: 'Spoqa Han Sans Neo', 'sans-serif'; }
 /* 데이터 유효성 체크 */
-p.guide{
+.guide{
 	display: none;
 	font-size: 12px;
 }
-p.ok{
+.ok{
 	color: #14aaff;
 }
-p.error{
+.error{
 	color: red;
 }
 /* 로그인 */
 body{ /* 전체 */
     margin: 0;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 .row{ /* 부트스트랩 관련 */
     height: 50rem;
@@ -133,18 +133,30 @@ body{ /* 전체 */
     border-width: 0.5px;
     margin-bottom: 20px;
 }
-#join-btn{ /* 회원가입 버튼 */
+/* .join-btn{
+	display: none;
+} */
+#join-btn{ /* 회원가입 버튼(활성) */
     background-color: #ffeb60;
     border: 0;
     width: 100%;
     height: 40px;
+    margin-top: 50px;
     margin-bottom: 100px;
     border-radius: 3px;
     font-weight: bold;
 }
-#join-email{ /* 회원가입 이메일 입력 칸 */
-    margin-bottom: 50px;
-}
+/* button:disabled{ 비활성 버튼
+	background-color: #f3f3f3;
+	color: #b3b3b3;
+    border: 0;
+    width: 100%;
+    height: 40px;
+    margin-top: 50px;
+    margin-bottom: 100px;
+    border-radius: 3px;
+    font-weight: bold;
+} */
 @media (max-width: 1100px){
     #join-area{
         width: 100%;
@@ -168,13 +180,13 @@ body{ /* 전체 */
     margin-bottom: 70px;
     text-align: center;
 }
-#findid-area{ /* 아이디 찾기 입력 영역 */
+#findid-area{ /* 아이디 찾기 폼 영역 전체*/
     margin-top: 80px;
 }
-#input-area{
+#input-area{ /* 이메일 입력 영역(레이블까지) */
     position: relative;
 }
-#email-btn{
+#email-btn{ /* 인증 요청 버튼 */
     position: absolute;
     margin: 0 auto;
     right: 10px;
@@ -184,7 +196,7 @@ body{ /* 전체 */
     border: 0;
     border-radius: 4px;
 }
-#email-input{
+#email-input{ /* 이메일 입력 칸 */
     height: 50px;
     width: 100%;
     border-color: lightgray;
@@ -195,7 +207,7 @@ body{ /* 전체 */
 }
 
 /* 아이디 찾기 결과 */
-#idresult{
+#idresult{ /* 아이디 출력 영역 */
     background-color: #f5f5f5;
     width: 80%;
     margin: 0 auto;
@@ -205,23 +217,23 @@ body{ /* 전체 */
     border-radius: 3px;
     margin-bottom: 30px;
 }
-#idresult p{
+#idresult p{ /* 아이디 값 */
     vertical-align: middle;
     display: table-cell;
 }
-#idresult-area{
+#idresult-area{ /* 아이디 결과 영역 전체 */
     margin-top: 80px;
     text-align: center;
 }
-#idresult-area a{
+#idresult-area a{ /* 비밀번호 재설정으로 */
     text-decoration: none;
 }
-#idresult-msg{
+#idresult-msg{ /* 아이디 있없 안내 */
     font-weight: bold;
 }
 
 /* 비밀번호 재설정 */
-.newpw-inputs{
+.newpw-inputs{ /* 비밀번호 입력 칸 */
     height: 40px;
     width: 100%;
     border-color: lightgray;
@@ -230,14 +242,14 @@ body{ /* 전체 */
     border-width: 0.5px;
     margin-bottom: 20px;
 }
-#newpw-area{
+#newpw-area{ /* 비밀번호 재설정 영역 전체 */
     margin-top: 80px;
 }
-#newpw-input{
+#newpw-input{ /* 레이블까지 비밀번호 입력 영역만 */
     width: 80%;
     margin: 0 auto;
 }
-#check-btn{
+#check-btn{ /* 확인 버튼 */
     background-color: #ffeb60;
     border: 0;
     width: 100%;
