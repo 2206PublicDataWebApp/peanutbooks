@@ -16,8 +16,14 @@ body{ /* 전체 */
     margin: 0;
     overflow-x: hidden;
 }
+html,body{
+	 height: 100% !important;
+}
 .row{ /* 부트스트랩 관련 */
-    height: 50rem;
+	height: 100% !important;
+}
+form{
+	 height: 100% !important;
 }
 #login-img{ /* 로그인 화면 이미지 */
     background-image: url(../img/member/kindle.jpg);
@@ -257,4 +263,38 @@ body{ /* 전체 */
     margin-bottom: 30px;
     border-radius: 3px;
     font-weight: bold;
+}
+
+/* 내 정보 관리 */
+.info-header{ /* 내 정보 관리 고정 바 영역 */
+	border-top: solid 1px lightgray;
+    border-bottom: solid 1px lightgray;
+    text-align: center;
+    font-weight: bold;
+    height: 44px;
+    line-height: 44px;
+    position: fixed;
+    width: 100%;
+    background-color: white;
+}
+.menu-area{ /* 고정 바 아래 메뉴 영역 전체 */
+    width: 700px;
+    margin: 0 auto;
+    padding-top: 44px;
+    padding-left: 0px;
+	padding-left: 16px;
+    padding-right: 16px;
+}
+.info-menu{ /* 메뉴 영역 하나 */
+	padding: 16px;
+	border-bottom: solid 1px lightgray;
+}
+.menu-item{ /* 메뉴 글자, 화살표 */
+    display: inline-block;
+}
+.arrow{ /* 메뉴 화살표*/
+    float: right;
+}
+.menu1{ /* 맨 위 첫번째 메뉴 영역 */
+    padding-top: 16px;
 }

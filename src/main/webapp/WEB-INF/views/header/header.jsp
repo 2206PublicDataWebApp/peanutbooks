@@ -121,13 +121,14 @@
 
 					</div>
 					<div id="logout-area">
-						<button id="logout">로그아웃</button>
+						<button onclick="location.href='/member/logout.pb';" id="logout">로그아웃</button>
 					</div>
 
 				</div>
 
 			</div>
 		</div>
+
 
 
 		<!--관리자 툴팁-->
