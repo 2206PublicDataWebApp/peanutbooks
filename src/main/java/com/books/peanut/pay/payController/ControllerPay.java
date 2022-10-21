@@ -17,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.books.peanut.pay.domain.Pay;
+import com.books.peanut.pay.domain.PeanutPoint;
+import com.books.peanut.pay.domain.SeasonTicket;
 import com.books.peanut.pay.domain.WriterPay;
 import com.books.peanut.pay.payService.PayService;
 
@@ -31,10 +33,9 @@ public class ControllerPay {
 	public ModelAndView payGo(			
 			ModelAndView mv
 			, HttpSession session){		
-		//mv.addObject("member", session.getAttribute("loginUser"));
+		mv.addObject("member", session.getAttribute("loginUser"));
 		mv.setViewName("/peanetPay/pay");
-		return mv;
-		
+		return mv;		
 	}
 	
 // 주문 번호 만들어서 보내기
@@ -51,7 +52,6 @@ public class ControllerPay {
 	
 		if(result>0) {
 			pay=pService.orderNoOne(pay);			
-			
 			return new Gson().toJson(pay);
 			
 		}else {
@@ -61,16 +61,45 @@ public class ControllerPay {
 		}	
 		
 	}
+	// API결제 성공시 데이터 DB전달
 	@ResponseBody
-	@RequestMapping(value="/pay/success.kh", method=RequestMethod.GET)
-	public String psySussess(String orderNo){
-		int result=pService.orderSuccess(orderNo);
-		if(result>0) {
+	@RequestMapping(value="/pay/success.kh", method=RequestMethod.POST)
+	public String paySussess(String orderNo, String memberId, Integer pay, String imp_uid, Pay payApi) {
+		String[] arr = orderNo.split("-");
+		String table = arr[0];
+		payApi.setImp_uid(imp_uid);
+		payApi.setMemberId(memberId);
+		payApi.setOrderNo(orderNo);
+		int result = pService.orderSuccess(payApi);
+		int p_t_input;
+		if (result > 0) {
+			if (table.equals("seasonticket")) {
+				SeasonTicket st = new SeasonTicket();
+				st.setOrderNo(orderNo);
+				st.setMemberId(memberId);
+
+				p_t_input = pService.seasonticketInput(st);
+			} else {
+				PeanutPoint pp = new PeanutPoint();
+				pp.setMemberId(memberId);
+				pp.setOrderNo(orderNo);
+				pp.setPeanutPoint(pay / 100);
+				p_t_input = pService.peanutTableInput(pp);
+			}
+
+		} else {
+			return "failure";
+		}
+
+		if (p_t_input > 0) {
 			return "success";
-		}else {
-			return "error";
+		} else {
+			return "failure";
 		}
 	}
+	
+	
+///////////////////////////////////////////////////////////////////	
 	//땅콩리스트
 	@RequestMapping(value="/peanut/listStart.kh", method=RequestMethod.GET)
 	public ModelAndView peanetListGo( ModelAndView mv){
@@ -104,20 +133,21 @@ public class ControllerPay {
 			mv.setViewName("/peanetPay/writerPayList");
 			return mv;		
 	}
+	
 	//작가 정산리스트 요청
 	@ResponseBody
 	@RequestMapping(value="/writer/listprint.kh", produces="application/json;charset=UTF-8", method=RequestMethod.GET)
 	public String writerList(){
-		List<WriterPay> wrList=pService.wrListPrint();
-		if(wrList.isEmpty()) {
-			JSONObject json=new JSONObject();
+		List<WriterPay> wrList = pService.wrListPrint();
+		if (wrList.isEmpty()) {
+			JSONObject json = new JSONObject();
 			json.put("error", "error");
 			return json.toJSONString();
-		}else {
-			Gson gson=new Gson();
-			return gson.toJson(wrList);		
+		} else {
+			Gson gson = new Gson();
+			return gson.toJson(wrList);
 		}
-  }
+	}
 	
 	@ExceptionHandler({NullPointerException.class, SQLException.class})
 	public String errorHandler() {

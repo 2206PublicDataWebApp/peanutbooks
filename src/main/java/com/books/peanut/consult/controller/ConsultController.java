@@ -26,7 +26,7 @@ import com.books.peanut.member.domain.Member;
 
 
 @Controller
-public class ConsultController {
+	public class ConsultController {
 	@Autowired
 	private ConsultService cService;
 	
@@ -35,14 +35,13 @@ public class ConsultController {
 	@RequestMapping(value = "/client/chatCheck.kh", method = RequestMethod.GET)
 	public String checkChat() {
 		SwitchChat switchChat = new SwitchChat();
-		String switchbtn =cService.selechbtn();
-		switchChat.setOn_off(switchbtn);
+		String switchbtn = cService.selechbtn();
+		switchChat.setOn_off(switchbtn.trim());
 		JSONObject jsonObj = new JSONObject();
-		if (!(switchbtn.isEmpty())) {			
+		if (!(switchbtn.isEmpty())) {
 			jsonObj.put("switchbtn", switchbtn);
 		} else {
 			jsonObj.put("resultMsg", "error");
-
 		}
 		return jsonObj.toJSONString();
 	}
@@ -50,33 +49,26 @@ public class ConsultController {
 
 	// chat을 위한 한명의 정보 받아오기
 	@RequestMapping(value = "/consult/chatbefore.kh", method = RequestMethod.GET)
-	public ModelAndView showChat(ModelAndView mv
-			, HttpSession session, HttpServletRequest request) {	
+	public ModelAndView showChat(ModelAndView mv, HttpSession session, HttpServletRequest request) {
 
-			Member member = (Member) session.getAttribute("loginUser");
-			try {				
-				SwitchChat switchChat=new SwitchChat();
-				if(member == null){
-					mv.setViewName("redirect:/ej.kh");
-				}
-				//String memberId = member.getMemberId();
-				//String mEmail = member.getmEmail();
-				//String swichbtn = switchChat.getOn_off();
-
-				mv.addObject("swichbtn", switchChat.getOn_off());
-				mv.addObject("memberId", member.getMemberId());
-				mv.addObject("mEmail", member.getmEmail());
-				mv.setViewName("/consult/userChat");
-			
-			} catch (Exception e) {
-			
-				mv.addObject("msg", e.getMessage());
+		Member member = (Member) session.getAttribute("loginMember");
+		try {
+			SwitchChat switchChat = new SwitchChat();
+			if (member == null) {
+				mv.setViewName("redirect:/ej.kh");
 			}
-	
+
+			mv.addObject("swichbtn", switchChat.getOn_off());
+			mv.addObject("memberId", member.getMemberId());
+			mv.addObject("mEmail", member.getmEmail());
+			mv.setViewName("/consult/userChat");
+
+		} catch (Exception e) {
+			mv.addObject("msg", e.getMessage());
+		}
+
 		return mv;
 	}
-
-	// 고객채팅 시작
 
 	
 	// 채팅 상담접수
@@ -86,9 +78,9 @@ public class ConsultController {
 		conServer.setCsMemberId(cMemberId);
 		conServer.setCsTitle(csTitle);
 		conServer.setCsMail(cEmail);
-	
-		int result = cService.receiptChat(conServer);//상담접수하고
-		int titleNo= cService.serchTitleNo(conServer); //접수번호 가져오기
+
+		int result = cService.receiptChat(conServer);
+		int titleNo = cService.serchTitleNo(conServer); 
 
 		JSONObject jsonObj = new JSONObject();
 		if (result >= 0) {
@@ -96,17 +88,14 @@ public class ConsultController {
 			jsonObj.put("titleNo", titleNo);
 		} else {
 			jsonObj.put("resultMsg", "error");
-
 		}
-
 		return jsonObj.toJSONString();
 	}
 
 	// 채팅DB 보내기
 	@ResponseBody
 	@RequestMapping(value = "/client/start.kh", method = RequestMethod.POST)
-	public String clientChat(
-			String cMemberId, String cContexts, String cEmail, int titleNo) {
+	public String clientChat(String cMemberId, String cContexts, String cEmail, int titleNo) {
 
 		Consult consult = new Consult();
 		consult.setcMemberId(cMemberId);
@@ -117,18 +106,16 @@ public class ConsultController {
 		int result = cService.inputChat(consult);
 		JSONObject jsonObj = new JSONObject();
 
-		if(result >= 0) {			
+		if (result >= 0) {
 			jsonObj.put("status", "success");
-		} else {					
+		} else {
 			jsonObj.put("status", "error");
 
-		}
-		// 제이슨으로 다시 화면에 전송함...
+		}		
 		return jsonObj.toJSONString();
 	}
 
 	// 채팅내역 실시간 화면으로전송해주기
-
 	@ResponseBody
 	@RequestMapping(value = "/client/listprint.kh", produces="application/json;charset=UTF-8", method = RequestMethod.POST)
 	public String clientChat(@RequestParam("titleNo") int titleNo) {
@@ -137,24 +124,20 @@ public class ConsultController {
 		JSONArray jsonArr = new JSONArray();
 
 		if (!(conList.isEmpty())) {
-			for( int i=0; i<conList.size(); i++) { //for Each문, conList에 있는 객체를 하나씩 거내서 객체
+			for( int i=0; i<conList.size(); i++) { 
 				Consult consult = conList.get(i);				
 				JSONObject jsonObj = new JSONObject();
-				jsonObj.put("cMemberId",consult.getcMemberId()); 
-			
+				jsonObj.put("consultNo",consult.getConsultNo()); 	
+				jsonObj.put("cMemberId",consult.getcMemberId()); 			
 				jsonObj.put("cContexts", consult.getcContexts());
 				//데이트형 문자열로 바꾸기
 				SimpleDateFormat format1=new SimpleDateFormat("HH:mm:ss");
 				String cDate="";					 
-				cDate=format1.format(consult.getcDate());		
-				
-				jsonObj.put("cDate",cDate); // 데이트형 문자열로 바꿔서 가져오기!
-			
+				cDate=format1.format(consult.getcDate());					
+				jsonObj.put("cDate",cDate); 
 				jsonArr.add(jsonObj);				
-			}		
-	
+			}	
 		}
-		System.out.println("리스트 전달 마지막");
 		
 		return jsonArr.toJSONString();
 	}
@@ -166,116 +149,103 @@ public class ConsultController {
 	@RequestMapping(value = "/chat/move.kh", method = RequestMethod.GET)
 	public ModelAndView move(ModelAndView mv, HttpSession session) {
 
-		Member member = (Member) session.getAttribute("loginUser");
-		
-	//	if(!(member.getMemberId().equals("manager"))) {
-			
-	//		mv.addObject("msg","관리자가 아닙니다");
-			mv.setViewName("/error");
-	//	} else {		
-			mv.setViewName("/consult/consultingList");
-//		}
+		Member member = (Member) session.getAttribute("loginMember");
+		mv.setViewName("/consult/consultingList");
+
 		return mv;
 	}
 
-
 //관리자 전체 리스트 가져오는 것
 	@ResponseBody
-	@RequestMapping(value = "/consult/chatSession.kh", produces="application/json;charset=UTF-8", method = RequestMethod.GET)
-	public String managerList() {		
+	@RequestMapping(value = "/consult/chatSession.kh", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
+	public String managerList() {
 
-		List<ConsultServer> chatList  = cService.printAllChat();	
+		List<ConsultServer> chatList = cService.printAllChat();
 		JSONObject jsonObj = new JSONObject();
-		JSONArray jsonArr = new JSONArray();		
+		JSONArray jsonArr = new JSONArray();
 
-		//on버튼으로 변경
-		String chatbtn="Y";
-		int chatbutton=cService.changebutten(chatbtn);
-		
-		if (!(chatList.isEmpty())) {
-			for( int i=0; i<chatList.size(); i++) { //for Each문, conList에 있는 객체를 하나씩 거내서 객체
-				ConsultServer consultServer = chatList.get(i);	
+		// on버튼으로 변경
+		String on_off = "Y";
+		int chatbutton = cService.changebutten(on_off);
 
-				jsonObj.put("titleNo",consultServer.getTitleNo());
-				jsonObj.put("csNickName",consultServer.getCsMemberId());
-				jsonObj.put("csMail",consultServer.getCsMail());
-				jsonObj.put("csTitle",consultServer.getCsTitle());
-				//데이트형 문자열로 바꾸기
-				SimpleDateFormat format1=new SimpleDateFormat("yy.MM.dd HH:mm:ss");
-				String csDate=format1.format(consultServer.getCsDate());				
-				jsonObj.put("csDate",csDate);
+		if (!(chatList.isEmpty()) && chatbutton > 0) {
+			for (int i = 0; i < chatList.size(); i++) {
+				ConsultServer consultServer = chatList.get(i);
+
+				jsonObj.put("titleNo", consultServer.getTitleNo());
+				jsonObj.put("csMebmerId", consultServer.getCsMemberId());
+				jsonObj.put("csMail", consultServer.getCsMail());
+				jsonObj.put("csTitle", consultServer.getCsTitle());
+				// 데이트형 문자열로 바꾸기
+				SimpleDateFormat format1 = new SimpleDateFormat("yy.MM.dd HH:mm:ss");
+				String csDate = format1.format(consultServer.getCsDate());
+				jsonObj.put("csDate", csDate);
 				///////////
-				jsonObj.put("csResult",consultServer.getCsResult());
-				jsonArr.add(jsonObj);			
+				jsonObj.put("csResult", consultServer.getCsResult());
+				jsonArr.add(jsonObj);
 				jsonObj = new JSONObject();
 			}
-			
-		}else {
-		  //jsonObj.put("resultMsg", "error");
+
+			return jsonArr.toJSONString();
+		} else {
+			jsonObj.put("resultMsg", "error");
+			return jsonObj.toJSONString();
 		}
-		
-		return jsonArr.toJSONString();	
-		
 	}
 	
 	// 관리자 상담 시작하기
-		@RequestMapping(value = "serverchat/start.kh", method = RequestMethod.GET)
-		public ModelAndView serverChat(ModelAndView mv,
-				HttpServletRequest request,
-				@RequestParam("csNickName") String csNickName,
-				@RequestParam("csTitle") String csTitle,
-				@RequestParam("titleNo") Integer titleNo) {
-			try {				
-				mv.addObject("csTitle", csTitle);
-				mv.addObject("cMemberId", csNickName);
-				mv.addObject("titleNo", titleNo);
-				mv.setViewName("/consult/managerChat");
-			}catch (Exception e) {
-				mv.addObject("msg",e.toString());
-				mv.setViewName("/error");		
-			}
-
-			return mv;
+	@RequestMapping(value = "serverchat/start.kh", method = RequestMethod.GET)
+	public ModelAndView serverChat(ModelAndView mv, HttpServletRequest request,
+			@RequestParam("csMemberId") String csMemberId, @RequestParam("csTitle") String csTitle,
+			@RequestParam("titleNo") Integer titleNo) {
+		try {
+			mv.addObject("csTitle", csTitle);
+			mv.addObject("cMemberId", csMemberId);
+			mv.addObject("titleNo", titleNo);
+			mv.setViewName("/consult/managerChat");
+		} catch (Exception e) {
+			mv.addObject("msg", e.toString());
+			mv.setViewName("/error");
 		}
+
+		return mv;
+	}
 
 	//관리자 상담종료 한기
 	@ResponseBody
-	@RequestMapping(value = "/consult/finish.kh", produces="application/json;charset=UTF-8", method = RequestMethod.POST)
-	public String managerList(			
-		    @RequestParam("csResult") String csResult,
-		    @RequestParam("titleNo") Integer titleNo		    
-			) {
-			ConsultServer conServer=new ConsultServer();
-			JSONObject jsonObj = new JSONObject();
-				
-				conServer.setTitleNo(titleNo);
-				conServer.setCsResult(csResult);		
-			
-			int result=cService.chatFinish(conServer );	
-				if(result>0) {
-					jsonObj.put("result", result);
-				}else {
-					jsonObj.put("result",result);
-				}
-			return jsonObj.toJSONString();
-			}	
+	@RequestMapping(value = "/consult/finish.kh", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
+	public String managerList(@RequestParam("csResult") String csResult, @RequestParam("titleNo") Integer titleNo) {
+		ConsultServer conServer = new ConsultServer();
+		JSONObject jsonObj = new JSONObject();
+
+		conServer.setTitleNo(titleNo);
+		conServer.setCsResult(csResult);
+
+		int result = cService.chatFinish(conServer);
+		if (result > 0) {
+			jsonObj.put("result", result);
+		} else {
+			jsonObj.put("result", result);
+		}
+		return jsonObj.toJSONString();
+	}
+
 	//관리자 체크리스트에서 종료로 변경할때 채팅 on/off 변경
 	@ResponseBody
 	@RequestMapping(value = "/manager/chatbtn.kh", method = RequestMethod.GET)
-	public String chatbtn(@RequestParam("on_off") String on_off) {										
-			JSONObject jsonObj = new JSONObject();
-			System.out.println(on_off);
-			
-			int result=cService.changebutten(on_off);
-			System.out.println(result);
-			if(result>0) {
-				jsonObj.put("result", "성공");						
-			}else {
-				jsonObj.put("result", "실패");
-			}
-			return jsonObj.toJSONString();
+	public String chatbtn(@RequestParam("on_off") String on_off) {
+		JSONObject jsonObj = new JSONObject();
+		System.out.println(on_off);
+
+		int result = cService.changebutten(on_off);
+		System.out.println(result);
+		if (result > 0) {
+			jsonObj.put("result", "성공");
+		} else {
+			jsonObj.put("result", "실패");
+		}
+		return jsonObj.toJSONString();
 	}	
-	
 
 	}
 

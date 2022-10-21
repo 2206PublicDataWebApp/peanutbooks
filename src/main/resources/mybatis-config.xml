@@ -19,6 +19,7 @@
 		<typeAlias type="com.books.peanut.pay.domain.SeasonTicket" alias="SeasonTicket" />
 		<typeAlias type="com.books.peanut.pay.domain.Pay" alias="Pay" />
 		<typeAlias type="com.books.peanut.pay.domain.WriterPay" alias="WriterPay" />
+		<typeAlias type="com.books.peanut.pay.domain.PeanutPoint" alias="PeanutPoint" />
 
 		<!--은정꺼 끝  -->
 		<typeAlias type="com.books.peanut.notice.domain.Notice" alias="Notice"/>

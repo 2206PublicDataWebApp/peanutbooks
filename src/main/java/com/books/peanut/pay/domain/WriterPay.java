@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class WriterPay {
 	private String memberId;
-	private int seriesNo;
-	private int ori_bookNo;
+	private String seriesNo;
+	private String ori_bookNo;
 	private Date putDate;
 	private String bankName;
 	private String bankNo;
@@ -20,7 +20,7 @@ public class WriterPay {
 		super();		
 	}
 
-	public WriterPay(String memberId, int seriesNo, int ori_bookNo, Date putDate, String bankName, String bankNo,
+	public WriterPay(String memberId, String seriesNo, String ori_bookNo, Date putDate, String bankName, String bankNo,
 			String payment, String bankStatus,int wrpayNo, int changeP) {
 		super();
 		this.memberId = memberId;
@@ -43,19 +43,19 @@ public class WriterPay {
 		this.memberId = memberId;
 	}
 
-	public int getSeriesNo() {
+	public String getSeriesNo() {
 		return seriesNo;
 	}
 
-	public void setSeriesNo(int seriesNo) {
+	public void setSeriesNo(String seriesNo) {
 		this.seriesNo = seriesNo;
 	}
 
-	public int getOri_bookNo() {
+	public String getOri_bookNo() {
 		return ori_bookNo;
 	}
 
-	public void setOri_bookNo(int ori_bookNo) {
+	public void setOri_bookNo(String ori_bookNo) {
 		this.ori_bookNo = ori_bookNo;
 	}
 

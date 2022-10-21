@@ -48,7 +48,7 @@
   	
 <!--   	titleNo 조회 -->
   	<select id="serchtitleNo" resultType="_int">
-  		SELECT MAX(TITLE_NO) FROM CHATSERVER_TBL WHERE CS_MEMBERID=#{csMemberId} AND CS_TITLE = #{csTitle} AND CS_MAIL=#{csMail} AND CS_RESULT IS NULL
+  		SELECT MAX(TITLE_NO) FROM CHATSERVER_TBL WHERE CS_MEMBERID=#{csMemberId} AND CS_TITLE = #{csTitle} AND CS_MAIL=#{csMail} AND CS_RESULT ='N'
    	</select>
 
   	<!-- 신규 상담건 조회 -->
