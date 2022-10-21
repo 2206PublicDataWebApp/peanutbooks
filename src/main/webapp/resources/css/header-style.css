@@ -13,6 +13,11 @@ header {
 
 }
 
+a{
+	text-decoration: none !important;
+	color:black !important;
+}
+
 main {
     height: auto;
     min-height: 100%;

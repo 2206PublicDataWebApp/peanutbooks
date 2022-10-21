@@ -1,0 +1,52 @@
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+
+main {
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  
+}
+
+#profile-area{
+    margin: 1rem;
+    align-items: center;
+}
+#profile{
+    text-align: center;
+
+}
+#profile button{
+    border: 0;
+    width: 20rem;
+    height: 2rem;
+    border-radius: 0.5rem;
+}
+#wirte>img{
+    margin: 1rem 2rem;
+    height: 2.5rem;
+}
+
+#title{
+    margin: 1.5rem;
+    font-size: 1.5rem;
+}
+
+
+#book{
+    margin-bottom: 1rem;
+}
+#img{
+    height:  15rem;
+}
+
+#img img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 0.5rem;
+}
+ #check{
+    font-size: small;
+ }
+ #book-title{
+    font-size: 1.1rem;
+    font-weight: bolder;
+ }

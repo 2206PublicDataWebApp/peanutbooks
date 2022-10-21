@@ -3,6 +3,7 @@
 
 main {
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  padding-top:0 !important;
   
 }
 
@@ -23,7 +24,7 @@ main {
     url('/resources/img/book/bible-g309f775c8_1920.jpg');
     background-size: cover;
     font-size: 3rem;
-    padding:3rem 0 4rem 0;
+    padding:6rem 0 4rem 0;
 }
 
 hr{

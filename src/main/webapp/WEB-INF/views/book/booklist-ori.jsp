@@ -233,4 +233,5 @@
     </main>
     <jsp:include page="../footer/footer.jsp" />
 </body>
+<script type="text/javascript" src="/resources/js/book/booklist-ori.js"></script>
 </html>

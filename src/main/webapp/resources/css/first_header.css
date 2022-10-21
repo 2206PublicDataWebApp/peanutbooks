@@ -12,7 +12,10 @@ header {
 
 }
 
-
+a{
+	text-decoration: none !important;
+	color:black !important;
+}
 
 header hr {
     margin: 0;

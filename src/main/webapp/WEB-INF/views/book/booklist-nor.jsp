@@ -286,4 +286,5 @@
     
         <jsp:include page="../footer/footer.jsp" />
 </body>
+<script type="text/javascript" src="/resources/js/book/booklist-nor.js"></script>
 </html>

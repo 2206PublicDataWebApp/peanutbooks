@@ -1,0 +1,218 @@
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+
+
+main {
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+
+    margin-top: 2rem;
+}
+
+#info-area {
+    box-shadow: 5px 5px 5px gray;
+    justify-content: space-between;
+    border-radius: 0.5rem;
+    margin: 0 auto;
+    animation: ontext 1s linear;
+    margin-bottom: 5rem;
+}
+
+#info-area img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+}
+
+#pic-area {
+    margin: 0 auto;
+    width: 10rem;
+    height: 10rem;
+}
+
+#header-area {
+    height: 10rem;
+    margin-bottom: 3rem;
+    overflow: hidden;
+}
+
+#cover-area {
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+    background-image: url('/resources/img/main/landscape-g2a33940ce_1280.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    box-shadow: rgba(0, 0, 0, 0.7) -20px 0 20px 0 inset;
+    height: 50rem;
+     position: relative;
+}
+
+#cover-area {
+    padding: 0;
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+}
+
+#writer-area {
+    border-left: 1px solid gray;
+    padding: 0;
+    box-shadow: rgba(0, 0, 0, 0.7) 10px 0 20px 0 inset;
+
+
+}
+
+#header-area {
+    background-image: url('/resources/img/main/sailboat-g9d3a88421_1920.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    box-shadow: rgba(0, 0, 0, 0.7) 10px 0 20px 0 inset;
+
+}
+
+#writer-info,
+#wirter-history {
+    -webkit-line-clamp: 4 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    height: auto;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin: 1rem;
+}
+
+
+
+#name-area {
+    font-size: 1.5rem;
+}
+
+#wirter-history,
+#name-area,
+#writer-info {
+    padding: 0.5rem 10rem;
+
+}
+.step-text{
+    -webkit-line-clamp: 4 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    font-size: 0.9rem;
+}
+.step-date{
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+}
+.step{
+    font-size: large;
+}
+
+.step-img{
+    padding: 0.5rem;
+    height: 10rem;
+}
+.step-title{
+    font-size: 1.5rem;
+}
+.step-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.one-step{
+    box-shadow: gray 0.2rem 0.2rem 1rem;
+    margin-top: 1rem;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+#step-area{
+    margin-bottom: 2rem;
+}
+
+@font-face {
+    font-family: 'SANGJUGyeongcheonIsland';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2112@1.0/SANGJUGyeongcheonIsland.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+    #book-title{
+    font-family: 'SANGJUGyeongcheonIsland';
+    position: absolute;
+    background-color:rgba(240,240,240,0.5);
+    top:15%;
+    width :100%;
+    text-align:center;
+    font-size:3rem;
+    }
+
+@media (max-width:500px) {
+
+    #info-area,#cover-area,
+    #header-area,
+    #writer-area {
+        box-shadow: none;
+
+    }
+
+    #cover-area {
+        height: 25rem;
+        margin: 0 auto;
+        margin-bottom: 1rem;
+        border-radius: 0.5rem;
+        margin-bottom: 2rem;
+    }
+
+    #writer-area {
+        margin: 0 auto;
+        border: 0;
+       
+        border-radius: 0.5rem;
+        position: relative;
+    }
+
+
+    #name-area {
+        font-size: 1rem;
+        padding: 0;
+    }
+
+    #writer-info,
+    #wirter-history {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+        padding: 0;
+    }
+    #header-area{
+        height: 10rem;
+       
+    }
+    
+
+    
+    #step-area{
+        position: absolute;
+    }
+
+    .one-step{
+    margin-right: 0.5rem;
+    padding: 0.5rem;
+    }
+
+}
+
+@keyframes ontext{
+    0%{
+        opacity: 0%;
+        transform: translateY(1.5rem);
+
+    }
+    100%{
+        opacity: 100%;
+        transform: translateY(0rem);
+    }
+}

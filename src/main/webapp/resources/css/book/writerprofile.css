@@ -1,0 +1,97 @@
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+
+main {
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  padding-top: 6rem !important;
+
+}
+
+
+
+.detailImg{
+    width: 20rem;
+    height: 20rem;
+    background-image:url('/resources/img/book/icons8-cat-profile-96.png');
+    background-repeat: no-repeat;
+    background-size: cover; 
+    border-radius: 200px;
+    object-fit: cover;
+    border: 1px solid white;
+}
+
+.align-items-center{
+    position: relative;
+
+}
+
+#camera{
+    position: absolute;
+    left: 17rem;
+    top:17rem;
+    width: 3rem;
+    height: 3rem;
+}
+
+.headerimg{
+    width: 100%;
+    height: 10rem;
+    background-color: lightgray;
+    background-repeat: no-repeat;
+    background-size: cover; 
+      object-fit: cover;
+    border: 1px solid white;
+}
+
+
+
+#camera1{
+    position: absolute;
+    left: 95%;
+    top:7rem;
+    width: 3rem;
+    height: 3rem;
+}
+
+#profile{
+    margin: 5rem;
+}
+
+#name{
+    font-size: 2rem;
+    margin: 1rem;
+}
+
+#wirter-text textarea{
+    width: 100%;
+}
+
+
+#wirter-text button{
+    width: 100%;
+    border: 0;
+    border-radius: 0.5rem;
+    height: 2rem;
+}
+
+@media (max-width:500px) {
+    
+    #camera1{
+        left: 0%; 
+        width: 4rem;
+        height: 4rem;
+
+    }
+
+    #camera{
+        position: absolute;
+        left: 15rem;
+        top:17rem;
+        width: 4rem;
+        height: 4rem;
+    }
+    
+    #profile{
+        margin: 0 !important;
+    }
+    
+}

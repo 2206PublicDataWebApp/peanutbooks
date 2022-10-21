@@ -110,5 +110,65 @@ public class HomeController {
 		return "eunJeongmanagerPage";
 	}
 	
+	@RequestMapping(value = "/bookmain", method = RequestMethod.GET)
+	public String bookmain() {
+		
+		return "/book/bookmain";
+	}
+	@RequestMapping(value = "/bookstep", method = RequestMethod.GET)
+	public String bookstep() {
+		
+		return "/book/bookstep";
+	}
+	
+	@RequestMapping(value = "/bookdetail", method = RequestMethod.GET)
+	public String bookdetail() {
+		
+		return "/book/bookstep-detail";
+	}
+	
+	@RequestMapping(value = "/bookdetailen", method = RequestMethod.GET)
+	public String bookdetaile() {
+		
+		return "/book/bookstep-detail-en";
+	}
+	
+	@RequestMapping(value = "/writermenu", method = RequestMethod.GET)
+	public String writermenu() {
+		
+		return "/book/writermenu";
+	}
+	@RequestMapping(value = "/bookregist", method = RequestMethod.GET)
+	public String bookregist() {
+		
+		return "/book/bookregist";
+	}
+	@RequestMapping(value = "/bookmodify", method = RequestMethod.GET)
+	public String bookmodify() {
+		
+		return "/book/bookmodify";
+	}
+	@RequestMapping(value = "/bookmodifyadmin", method = RequestMethod.GET)
+	public String bookmodifyadmin() {
+		
+		return "/book/bookmodify-admin";
+	}
+	@RequestMapping(value = "/bookregistadmin", method = RequestMethod.GET)
+	public String bookregistadmin() {
+		
+		return "/book/bookregist-admin";
+	}
+	@RequestMapping(value = "/bookregistnext", method = RequestMethod.GET)
+	public String bookregistnext() {
+		
+		return "/book/bookregist-next";
+	}
+	@RequestMapping(value = "/booknextadmin", method = RequestMethod.GET)
+	public String booknextadmin() {
+		
+		return "/book/bookregist-nextAdmin";
+	}
+
+	
 	
 }
