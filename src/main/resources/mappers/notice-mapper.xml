@@ -28,7 +28,7 @@
 		DELETE FROM NOTICE_TBL WHERE NOTICE_NO = #{noticeNo}
 	</delete>
 	<update id="updateNotice">
-		UPDATE NOTICE_TBL SET NOTICE_TITLE = #{noticeTitle}, NOTICE_CONTENTS = #{noticeContents}, NOTICE_FILENAME = #{noticeFilename }, NOTICE_RENAME = #{noticeFileRename}, NOTICE_FILEPATH = #{noticeFilepath}, N_UPDATEDATE = DEFAULT
+		UPDATE NOTICE_TBL SET NOTICE_TITLE = #{noticeTitle}, NOTICE_CONTENTS = #{noticeContents}, NOTICE_FILENAME = #{noticeFilename }, NOTICE_FILERENAME = #{noticeFileRename}, NOTICE_FILEPATH = #{noticeFilepath}, N_UPDATEDATE = DEFAULT
 		WHERE NOTICE_NO = #{noticeNo}
 	</update>
 	<select id="selectTotalCount" resultType="_int">
@@ -40,16 +40,31 @@
 			<if test="searchCondition.toString() == 'contents'">
 				NOTICE_CONTENTS LIKE '%'||#{searchValue}||'%'
 			</if>
-			<if test="searchCondition.toString() == 'writer'">
-				NOTICE_WRITER LIKE '%'||#{searchValue}||'%'
+			<if test="searchCondition.toString() == 'all'">
+				NOTICE_TITLE LIKE '%'||#{searchValue}||'%'
+				OR NOTICE_CONTENTS LIKE '%'||#{searchValue}||'%'
+			</if>
+			AND N_STATUS = 'Y'
+		</where>
+	</select>
+	<select id="selectAllByValue" resultMap="noticeResultMap">
+		SELECT * FROM NOTICE_TBL 
+		<where>
+			<if test="searchCondition.toString() == 'title'">
+				NOTICE_TITLE LIKE '%'||#{searchValue}||'%'
+			</if>
+			<if test="searchCondition.toString() == 'contents'">
+				NOTICE_CONTENTS LIKE '%'||#{searchValue}||'%'
 			</if>
 			<if test="searchCondition.toString() == 'all'">
 				NOTICE_TITLE LIKE '%'||#{searchValue}||'%'
 				OR NOTICE_CONTENTS LIKE '%'||#{searchValue}||'%'
-				OR NOTICE_WRITER LIKE '%'||#{searchValue}||'%'
 			</if>
 			AND N_STATUS = 'Y'
 		</where>
+	</select>
+	<select id="selectAllCategory" resultMap="noticeResultMap">
+		SELECT * FROM NOTICE_TBL WHERE NOTICE_CATEGORY=#{noticeCategory} AND N_STATUS = 'Y' ORDER BY NOTICE_NO DESC
 	</select>
 	<select id="selectAllNotice" resultMap="noticeResultMap">
 		SELECT * FROM NOTICE_TBL WHERE N_STATUS = 'Y' ORDER BY NOTICE_NO DESC

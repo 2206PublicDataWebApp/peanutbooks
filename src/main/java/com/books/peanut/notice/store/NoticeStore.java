@@ -23,5 +23,12 @@ public interface NoticeStore {
 	public int deleteOneByNo(SqlSession session, int noticeNo);
 	//공지사항 수정
 	public int updateNotice(SqlSession session, Notice notice);
+	//공지사항 조건검색
+	public List<Notice> selectAllByValue(SqlSession session, 
+			String searchCondition, String searchValue,
+			int currentPage, int noticeLimit);
+	public List<Notice> selectAllByCategory(SqlSession session, 
+			String noticeCategory, int currentPage,
+			int categoryLimit);
 
 }

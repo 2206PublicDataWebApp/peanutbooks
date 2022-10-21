@@ -2,7 +2,27 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="qnaMapper">
-
-
+<mapper namespace="QnaMapper">
+	<resultMap type="Qna" id="qnaResultMap">
+		<id column="QNA_NO" property="qnaNo" />
+		<result column="QNA_CATEGORY" property="qnaCategory" />
+		<result column="QNA_TITLE" property="qnaTitle" />
+		<result column="QNA_CONTENTS" property="qnaContents" />
+		<result column="QNA_CREATEDATE" property="qCreateDate" />
+		<result column="QNA_UPDATEDATE" property="qUpdateDate" />
+		<result column="QNA_STATUS" property="qnaStatus" />
+		<result column="QNA_FILENAME01" property="qnaFilename01" />
+		<result column="QNA_FILERENAME01" property="qnaFileRename01" />
+		<result column="QNA_FILEPATH01" property="qnaFilepath01" />
+		<result column="QNA_FILENAME02" property="qnaFilename02" />
+		<result column="QNA_FILERENAME02" property="qnaFileRename02" />
+		<result column="QNA_FILEPATH02" property="qnaFilepath02" />
+		<result column="QNA_FILENAME03" property="qnaFilename03" />
+		<result column="QNA_FILERENAME03" property="qnaFileRename03" />
+		<result column="QNA_FILEPATH03" property="qnaFilepath03" />
+		<result column="ANSWER_WRITER" property="answerWriter" />
+		<result column="ANSWER_CONTENTS" property="answerContents" />
+		<result column="ANSWER_CREATEDATE" property="aCreateDate" />
+		<result column="ANSWER_UPDATEDATE" property="aUpdateDate" />
+	</resultMap>
 </mapper>

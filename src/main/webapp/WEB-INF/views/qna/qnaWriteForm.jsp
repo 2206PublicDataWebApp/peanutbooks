@@ -43,43 +43,43 @@
 <br><br>	
 <div class="container">
 
-	<h3 align="center">공지사항 작성</h3>
+	<h3 align="center">1:1 문의작성</h3>
 	<br><br>
 		
-	<form action="/notice/register.kh" method="post" enctype="multipart/form-data" name="noticeForm">
+	<form action="/qna/register.kh" method="post" enctype="multipart/form-data" name="qnaForm">
 		<table align="center" class="table col-10">
 			<tr>
 				<td  class="col-2" scope="col" align="center">선택</td>
 				<td>
-					<select name="noticeCategory"  class="form-select" aria-label="Default select example" >
-						<option selected>선택하세요.</option>
-						<option value="0" label="공지"></option>
-						<option value="1" label="업데이트"></option>
-						<option value="2" label="이벤트"></option>
-						<option value="3" label="안내"></option>
+					<select name="qnaCategory"  class="form-select" aria-label="Default select example" >
+						<option selected>문의유형 선택</option>
+						<option value="0" label="회원"></option>
+						<option value="1" label="포인트"></option>
+						<option value="2" label="도서"></option>
+						<option value="3" label="홈페이지 이용"></option>
 					</select>	
 				</td>
 			<tr>
 				<td  class="col-2" scope="col" align="center">작성자</td>
-				<td><input type="text" name="noticeWriter"  class="form-control" value="admin" readonly></td>
+				<td><input type="text" name="qnaWriter"  class="form-control" value="admin" readonly></td>
 			</tr>
 			<tr>
 				<td  class="col-2" scope="col" align="center">제목</td>
-				<td><input type="text" name="noticeTitle" onkeyup="titleLengthCk(this);" class="form-control"></td>
+				<td><input type="text" name="qnaTitle" onkeyup="titleLengthCk(this);" class="form-control"></td>
 			</tr>
 			<tr>
 				<td  class="col-2" scope="col" align="center">내용</td>
-				<td> <textarea class="form-control" id="exampleFormControlTextarea1" cols="50" rows="20" name="noticeContents"></textarea>  </td>
+				<td> <textarea class="form-control" id="exampleFormControlTextarea1" cols="50" rows="20" name="qnaContents"></textarea>  </td>
 			</tr>
 			<tr>
-				<td  class="col-2" scope="col" align="center">첨부파일</td>
+				<td  class="col-2" scope="col" align="center">첨부파일(선택)</td>
 				<td><input type="file" name="uploadFile"></td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
-					<input onclick="noticeCheck();" type="button" value="등록" class="btn btn-warning btn-sm">
+					<input onclick="qnaCheck();" type="button" value="등록" class="btn btn-warning btn-sm">
 					<input type="reset" value="취소" class="btn btn-warning btn-sm">
-					<button type="button" onclick="location.href='/notice/list.kh'" class="btn btn-warning btn-sm">목록</button> 
+					<button type="button" onclick="location.href='/qna/list.kh'" class="btn btn-warning btn-sm">목록</button> 
 					 
 				</td>
 			</tr>
@@ -98,18 +98,14 @@
 	 		thisInput.value = thisInput.value.substr(0,30);
 	 	}	
 	}
-	function noticeCheck() {
-		if(noticeForm.noticeTitle.value=="") { // document 를 생략해도 됨
+	function qnaCheck() {
+		if(qnaForm.qnaTitle.value=="") {
 	        alert("제목을 입력하세요!");
-	        noticeForm.noticeTitle.focus();
+	       qnaForm.qnaTitle.focus();
 	    	return false;
-	    }else if(noticeForm.noticeContents.value==""){
+	    }else if(qnaForm.qnaContents.value==""){
 	        alert("내용을 입력하세요");
-	        noticeForm.noticeContents.focus();
-	        return false;
-	    }else if(noticeForm.noticeCategory.value==""){
-	        alert("공지형식을 선택하세요");
-	        noticeForm.noticeCategory.focus();
+	        qnaForm.qnaContents.focus();
 	        return false;
 	    }
 		

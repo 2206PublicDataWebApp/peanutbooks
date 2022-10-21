@@ -2,7 +2,7 @@ package com.books.peanut.notice.service.logic;
 
 import java.util.List;
 
-import org.mybatis.spring.SqlSessionTemplate;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +15,9 @@ import com.books.peanut.notice.store.NoticeStore;
 @Service
 public class NoticeServiceImpl implements NoticeService{
 	@Autowired
-	NoticeStore nStore;
+	private NoticeStore nStore;
 	@Autowired
-	SqlSessionTemplate session;
+	private SqlSession session;
 
 	@Override
 	public int registeNotice(Notice notice) {
@@ -57,6 +57,28 @@ public class NoticeServiceImpl implements NoticeService{
 	public int modifyNotice(Notice notice) {
 		int result = nStore.updateNotice(session, notice);
 		return result;
+	}
+
+	@Override
+	public List<Notice> printAllByValue(
+			String searchCondition
+			, String searchValue
+			, int currentPage
+			, int noticeLimit) {
+		List<Notice> nList = nStore.selectAllByValue(session
+				, searchCondition, searchValue
+				, currentPage, noticeLimit);
+		return nList;
+	}
+
+	@Override
+	public List<Notice> printAllByCategory(
+			String noticeCategory
+			, int currentPage
+			, int categoryLimit) {
+		List<Notice> nList = nStore.selectAllByCategory(session
+				, noticeCategory, currentPage, categoryLimit);
+		return nList;
 	}
 
 

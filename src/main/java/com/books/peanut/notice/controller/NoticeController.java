@@ -46,18 +46,17 @@ public class NoticeController {
 			,HttpServletRequest request) {
 		
 		try {
-			System.out.println(uploadFile);
 			String noticeFilename = uploadFile.getOriginalFilename();
 			if(!noticeFilename.equals("")) {
 				// 파일 업로드 
 				String root = request.getSession().getServletContext().getRealPath("resources");
+				System.out.println(root);
 				String savePath = root + "\\nuploadFiles";
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 				String noticeFileRename 
 				= sdf.format(new Date(System.currentTimeMillis()))+"."
 						+noticeFilename.substring(noticeFilename.lastIndexOf(".")+1);
 				// 파일이름 설정
-				System.out.println(notice.toString());
 				File file = new File(savePath);
 				if(!file.exists()) {
 					file.mkdir();
@@ -87,10 +86,7 @@ public class NoticeController {
 	@RequestMapping(value="/notice/list.kh", method = RequestMethod.GET)
 	public ModelAndView noticeListView(
 			ModelAndView mv
-			//, @ModelAttribute Notice notce
-			, @RequestParam(value="page", required = false) Integer page)
-//			, HttpServletRequest request) 
-	{
+			, @RequestParam(value="page", required = false) Integer page){
 		try {
 			//페이징
 			int currentPage = (page != null) ? page : 1;
@@ -118,7 +114,6 @@ public class NoticeController {
 	
 			}
 			mv.setViewName("notice/noticeListView");
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			mv.addObject("msg", e.getMessage());
@@ -194,7 +189,6 @@ public class NoticeController {
 				// 파일삭제
 				String root = request.getSession().getServletContext().getRealPath("resources");
 				String savedPath = root + "\\nUploadFiles";
-				//Board bOne = bService.printOneByNo(board.getBoardNo());
 				File file = new File(savedPath + "\\" + notice.getNoticeFileRename());
 				if(file.exists()) {
 					file.delete();
@@ -216,4 +210,92 @@ public class NoticeController {
 		}
 		return mv;
 	}
+	//조건 검색
+	@RequestMapping(value="/notice/search.kh", method=RequestMethod.GET)
+	public ModelAndView noticeSearchList(
+			ModelAndView mv
+			, @RequestParam("searchCondition") String searchCondition
+			, @RequestParam("searchValue") String searchValue
+			, @RequestParam(value="page", required=false) Integer page) {
+				
+		try {
+			int currentPage = (page != null) ? page : 1;
+			int totalCount = nService.getTotalCount(searchCondition, searchValue);
+			int noticeLimit = 10;
+			int naviLimit = 5;
+			int maxPage;
+			int startNavi;
+			int endNavi;
+			maxPage = (int)((double)totalCount/noticeLimit + 0.9);
+			startNavi = ((int)((double)currentPage/naviLimit+0.9)-1)*naviLimit+1;
+			endNavi = startNavi + naviLimit - 1;
+			if(maxPage < endNavi) {
+				endNavi = maxPage;
+			}
+			List<Notice> nList = nService.printAllByValue(
+					searchCondition, searchValue, currentPage, noticeLimit);
+			if(!nList.isEmpty()) {
+				mv.addObject("nList", nList);
+			}else {
+				mv.addObject("nList", null);
+			}
+			mv.addObject("urlVal", "search");
+			mv.addObject("searchCondition", searchCondition);
+			mv.addObject("searchValue", searchValue);
+			mv.addObject("maxPage", maxPage);
+			mv.addObject("currentPage", currentPage);
+			mv.addObject("startNavi", startNavi);
+			mv.addObject("endNavi", endNavi);
+			mv.setViewName("notice/noticeListView");
+		} catch (Exception e) {
+			mv.addObject("msg", e.toString()).setViewName("common/errorPage");
+		}
+		return mv;
+		
+	}
+	//공지사항 전체 리스트
+	@RequestMapping(value="/notice/categoryCount.kh", method=RequestMethod.GET)
+	public ModelAndView noticeCategoryList(
+			ModelAndView mv
+			, @RequestParam("noticeCategory") String noticeCategory
+			, @RequestParam(value="page", required=false) Integer page) {
+			System.out.println(noticeCategory);
+		try {
+			int currentPage = (page != null) ? page : 1;
+			int totalCount = nService.getTotalCount("","");
+			int categoryLimit = 10;
+			int naviLimit = 5;
+			int maxPage;
+			int startNavi;
+			int endNavi;
+			System.out.println(totalCount);
+			maxPage = (int)((double)totalCount/categoryLimit + 0.9);
+			startNavi = ((int)((double)currentPage/naviLimit+0.9)-1)*naviLimit+1;
+			endNavi = startNavi + naviLimit - 1;
+			if(maxPage < endNavi) {
+				endNavi = maxPage;
+			}
+			List<Notice> nList = nService.printAllByCategory(noticeCategory, currentPage, categoryLimit);
+			if(!nList.isEmpty()) {
+				mv.addObject("nList", nList);
+			}else {
+				mv.addObject("nList", null);
+			}
+			System.out.println(nList);
+			mv.addObject("urlVal", "search");
+			mv.addObject("noticeCategory", noticeCategory);
+			mv.addObject("maxPage", maxPage);
+			mv.addObject("currentPage", currentPage);
+			mv.addObject("startNavi", startNavi);
+			mv.addObject("endNavi", endNavi);
+			mv.setViewName("notice/noticeListView");
+		} catch (Exception e) {
+			mv.addObject("msg", e.toString()).setViewName("common/errorPage");
+		}
+		return mv;
+		
+	}
+	
+	
+	
 }
