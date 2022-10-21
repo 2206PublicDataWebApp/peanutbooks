@@ -168,6 +168,13 @@ public class HomeController {
 		
 		return "/book/bookregist-nextAdmin";
 	}
+	
+	//관리자
+	@RequestMapping(value = "/adminMain", method = RequestMethod.GET)
+	public String adminMain() {
+		
+		return "/adminMain";
+	}
 
 	
 	

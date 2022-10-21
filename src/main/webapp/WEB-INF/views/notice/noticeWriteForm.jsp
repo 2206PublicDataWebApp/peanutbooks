@@ -45,7 +45,7 @@
 
 	<h3 align="center">공지사항 작성</h3>
 	<br><br>
-		
+	
 	<form action="/notice/register.kh" method="post" enctype="multipart/form-data" name="noticeForm">
 		<table align="center" class="table col-10">
 			<tr>
@@ -61,7 +61,7 @@
 				</td>
 			<tr>
 				<td  class="col-2" scope="col" align="center">작성자</td>
-				<td><input type="text" name="noticeWriter"  class="form-control" value="admin" readonly></td>
+				<td><input type="text" name="noticeWriter"  class="form-control" value="${sessionScope.loginMember.mNickname}" readonly></td>
 			</tr>
 			<tr>
 				<td  class="col-2" scope="col" align="center">제목</td>
@@ -76,7 +76,7 @@
 				<td><input type="file" name="uploadFile"></td>
 			</tr>
 			<tr>
-				<td colspan="2" align="center">
+				<td colspan="2" align="center" style="border:none;">
 					<input onclick="noticeCheck();" type="button" value="등록" class="btn btn-warning btn-sm">
 					<input type="reset" value="취소" class="btn btn-warning btn-sm">
 					<button type="button" onclick="location.href='/notice/list.kh'" class="btn btn-warning btn-sm">목록</button> 

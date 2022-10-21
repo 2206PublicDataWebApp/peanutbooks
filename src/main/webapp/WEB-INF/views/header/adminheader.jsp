@@ -42,11 +42,14 @@
 				</div>
 				<div class="col-md-4 col-7" id="header-menu-icon">
 					<img src="/resources/img/header/icons8-search (2).png" alt=""
-						id="search-icon"> <img
+						id="search-icon"> 
+					<img
 						src="/resources/img/header/icons8-book (3).png" alt=""
-						id="book-icon"> <img
+						id="book-icon"> 
+					<img
 						src="/resources/img/header/icons8-peanut-48 (6).png" alt=""
-						id="p-icon"> <img
+						id="p-icon"> 
+					<img
 						src="/resources/img/header/icons8-user.png" style="display: none;"alt="" id="user-icon">
 					<!--관리자 체크해서 나타남-->
 					<img src="/resources/img/header/icons8-monarch-48.png" alt=""
@@ -151,13 +154,13 @@
 						</div>
 						<div class="col-4">
 
-							<img src="/resources/img/header/icons8-noticeboard-50.png" alt="">
+							<a href="/notice/list.kh"><img src="/resources/img/header/icons8-noticeboard-50.png" alt=""></a>
 							<br>공지사항
 						</div>
 
 						<div class="col-4">
 
-							<img src="/resources/img/header/icons8-laptop-60.png" alt="">
+							<a href="/adminMain.kh"><img src="/resources/img/header/icons8-laptop-60.png" alt=""></a>
 							<br>관리자
 						</div>
 
