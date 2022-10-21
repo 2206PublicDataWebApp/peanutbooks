@@ -6,10 +6,7 @@
 <meta charset="UTF-8">
 <title>작가 정산 요청</title>
 <link rel="stylesheet" href="../resources/css/pay/writerPay.css">
-<script
-  src="https://code.jquery.com/jquery-3.6.1.js"
-  integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
-  crossorigin="anonymous"></script>
+<script src="../resources/js/jquery-3.6.0.min.js" ></script>
 </head>
 <body>
 <jsp:include page="../header/header.jsp"></jsp:include>

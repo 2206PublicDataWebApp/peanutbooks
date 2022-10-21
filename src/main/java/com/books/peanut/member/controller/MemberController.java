@@ -14,11 +14,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.books.peanut.member.domain.Member;
 import com.books.peanut.member.service.MemberService;
+import com.books.peanut.pay.domain.SeasonTicket;
+import com.books.peanut.pay.payService.PayService;
+
 
 @Controller
 public class MemberController {
 	@Autowired
 	private MemberService mService;
+	@Autowired
+	private PayService pService;
 	
 	/**
 	 * 회원가입 화면
@@ -117,6 +122,10 @@ public class MemberController {
 			if(loginMember != null) {
 				HttpSession session = request.getSession();
 				session.setAttribute("loginMember", loginMember); // session에 로그인한 회원의 모든 정보(loginMember) 저장
+				// 구독권 가져오는 부분
+				String lastDate = pService.seasonTicketDate(loginMember.getMemberId());			
+				session.setAttribute("lastDate", lastDate);
+				//구독권 가져오는부분 종료
 				mv.setViewName("redirect:/main"); // 로그인 후 메인 페이지로 이동
 			} else {
 				mv.setViewName("redirect:/member/loginView.pb"); // 로그인 페이지로 이동(임시)

@@ -7,6 +7,8 @@ public class SeasonTicket{
 	private String orderNo;
 	private Date orderDate;
 	private Date lastDate;
+	private String expiry_yn;
+	
 
 	
 	public SeasonTicket() {
@@ -14,13 +16,16 @@ public class SeasonTicket{
 	}
 
 
-	public SeasonTicket(String memberId, String orderNo, Date orderDate, Date lastDate) {
+
+	public SeasonTicket(String memberId, String orderNo, Date orderDate, Date lastDate, String expiry_yn) {
 		super();
 		this.memberId = memberId;
 		this.orderNo = orderNo;
 		this.orderDate = orderDate;
 		this.lastDate = lastDate;
+		this.expiry_yn = expiry_yn;
 	}
+
 
 
 	public String getMemberId() {
@@ -28,9 +33,11 @@ public class SeasonTicket{
 	}
 
 
+
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
+
 
 
 	public String getOrderNo() {
@@ -38,9 +45,11 @@ public class SeasonTicket{
 	}
 
 
+
 	public void setOrderNo(String orderNo) {
 		this.orderNo = orderNo;
 	}
+
 
 
 	public Date getOrderDate() {
@@ -48,9 +57,11 @@ public class SeasonTicket{
 	}
 
 
+
 	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;
 	}
+
 
 
 	public Date getLastDate() {
@@ -58,16 +69,35 @@ public class SeasonTicket{
 	}
 
 
+
 	public void setLastDate(Date lastDate) {
 		this.lastDate = lastDate;
 	}
 
 
+
+	public String getExpiry_yn() {
+		return expiry_yn;
+	}
+
+
+
+	public void setExpiry_yn(String expiry_yn) {
+		this.expiry_yn = expiry_yn;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "SeasonTicket [memberId=" + memberId + ", orderNo=" + orderNo + ", orderDate=" + orderDate
-				+ ", lastDate=" + lastDate + "]";
+				+ ", lastDate=" + lastDate + ", expiry_yn=" + expiry_yn + "]";
 	}
+	
+	
+
+
+	
 
 	
 		
