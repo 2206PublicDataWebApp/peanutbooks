@@ -19,6 +19,9 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
 	crossorigin="anonymous"></script>
+	 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <link rel="shortcut icon" href="/resources/img/icons8-book-32.png">
 
 
@@ -30,9 +33,10 @@
 
 		<div class="container">
 			<div class="row" id="header-area">
-				<div class="col-md-1 col-3"><a href="/">
-					<img src="/resources/img/logo/logo.png" id="logo" alt="" id="logo">
-				</a>
+				<div class="col-md-1 col-3">
+					<a href="/"> <img src="/resources/img/logo/logo.png" id="logo"
+						alt="" id="logo">
+					</a>
 				</div>
 				<div class="col-md-7 d-md-block d-none">
 					<ul>
@@ -42,23 +46,25 @@
 					</ul>
 
 
-                </div>
-                <div class="col-md-4 col-7" id="header-menu-icon">
-                    <img src="/resources/img/header/icons8-search (2).png" alt="" id="search-icon">
-                    <img src="/resources/img/header/icons8-book (3).png" alt="" id="book-icon">
-                    <img src="/resources/img/header/icons8-peanut-48 (6).png" alt="" id="p-icon">
-                    <img src="/resources/img/header/icons8-user.png" alt="" id="user-icon"
-                    <c:if test="${loginMember.adminYN=='Y' }">style="display:none;"</c:if>
-                    >
-                    <!--관리자 체크해서 나타남-->
-                    <img src="/resources/img/header/icons8-monarch-48.png" alt="" id="admin-icon"        
-                     <c:if test="${loginMember.adminYN=='N' }">style="display:none;"</c:if>
-                    >
-                </div>
-                <div class="d-md-none d-block col-1" id="togglemenu">
-                    <div>
-                        <img src="/resources/img/header/icons8-menu-60.png">    
-                    </div>
+				</div>
+				<div class="col-md-4 col-7" id="header-menu-icon">
+					<img src="/resources/img/header/icons8-search (2).png" alt=""
+						id="search-icon"> <img
+						src="/resources/img/header/icons8-book (3).png" alt=""
+						id="book-icon"> <img
+						src="/resources/img/header/icons8-peanut-48 (6).png" alt=""
+						id="p-icon"> <img
+						src="/resources/img/header/icons8-user.png" alt="" id="user-icon"
+						<c:if test="${loginMember.adminYN=='Y' }">style="display:none;"</c:if>>
+					<!--관리자 체크해서 나타남-->
+					<img src="/resources/img/header/icons8-monarch-48.png" alt=""
+						id="admin-icon"
+						<c:if test="${loginMember.adminYN=='N' }">style="display:none;"</c:if>>
+				</div>
+				<div class="d-md-none d-block col-1" id="togglemenu">
+					<div>
+						<img src="/resources/img/header/icons8-menu-60.png">
+					</div>
 
 				</div>
 
@@ -81,15 +87,13 @@
 		<div class="container" id="mypage-tooltip-area">
 			<div class="row" id="icon-tooltip">
 				<div class="col-md-2" id="mypage">
-					<div id="name-space">
-                    ${sessionScope.loginMember.mNickname}님 환영합니다!
-                </div>
-                <c:if test="${!empty sessionScope.lastDate}" >
-	                <div id="subscribe">
-	                	    구독<br>
-	                    ${sessionScope.lastDate } 까지
-	                </div>
-                </c:if>   
+					<div id="name-space">${sessionScope.loginMember.mNickname}님
+						환영합니다!</div>
+					<c:if test="${!empty sessionScope.lastDate}">
+						<div id="subscribe">
+							구독<br> ${sessionScope.lastDate } 까지
+						</div>
+					</c:if>
 					<div id="mypage-icon-area" class="row">
 						<div class="col-4">
 							<img src="/resources/img/header/icons8-notification-64.png"
@@ -168,9 +172,9 @@
 
 						<div class="col-4">
 
-							<a href="/adminMain.kh"><img src="/resources/img/header/icons8-laptop-60.png" alt=""></a>
-                        <br>관리자
-                    </div>
+							<a href="/adminMain.kh"><img
+								src="/resources/img/header/icons8-laptop-60.png" alt=""></a> <br>관리자
+						</div>
 
 					</div>
 					<div id="logout-area">
@@ -187,31 +191,28 @@
 
 
 
-      <div class="container" id="point-tooltip-area">
-        <div class="row" id="point-icon-tooltip">
-            <div class="col-md-2" id="point">
-                <div id="name-space">
-                    ${sessionScope.loginMember.mNickname}님
-                </div>
-                <div id="now-point">
-                    ${sessionScope.loginMember.mPoint}땅콩
-                </div>
-                <div id="point-icon-area" class="row">
-                    <div class="col-4">
-                        <img src="/resources/img/header/icons8-page-52.png" alt="">
-                        <br>이용내역
-                    </div>
-                    <div class="col-4" >                    	
-                        <img src="/resources/img/header/icons8-android-l-battery-48.png" alt="" id="peanutIn">
-                        <br>땅콩충전
-                    </div>
-                    <div class="col-4">                    	
-                        <img src="/resources/img/header/icons8-change-48.png" alt="" onclick="peanutList('${sessionScope.loginMember.memberId}');">
-                        <br>땅콩교환
-                    </div>
+		<div class="container" id="point-tooltip-area">
+			<div class="row" id="point-icon-tooltip">
+				<div class="col-md-2" id="point">
+					<div id="name-space">${sessionScope.loginMember.mNickname}님</div>
+					<div id="now-point">${sessionScope.loginMember.mPoint}땅콩</div>
+					<div id="point-icon-area" class="row">
+						<div class="col-4">
+							<img src="/resources/img/header/icons8-page-52.png" alt="">
+							<br>이용내역
+						</div>
+						<div class="col-4">
+							<img src="/resources/img/header/icons8-android-l-battery-48.png"
+								alt="" id="peanutIn"> <br>땅콩충전
+						</div>
+						<div class="col-4">
+							<img src="/resources/img/header/icons8-change-48.png" alt=""
+								onclick="peanutList('${sessionScope.loginMember.memberId}');">
+							<br>땅콩교환
+						</div>
 
 
-							
+
 
 					</div>
 
@@ -223,21 +224,20 @@
 
 	</header>
 
-    <script src="/resources/js/headerJs.js"></script>
-    <script type="text/javascript">
-    
-	 	/*결제 관련   */
-		 $("#peanutIn").on("click",function(){
-			 var mid="${sessionScope.loginMember.memberId}";
-			 if(mid==''){
-				 alert("로그인후 가능합니다");
-			 }else{
-				 location.href="/pay/start.kh";
-			 };
-		 })
-   
-    </script>
-    
+	<script src="/resources/js/headerJs.js"></script>
+	<script type="text/javascript">
+		/*결제 관련   */
+		$("#peanutIn").on("click", function() {
+			var mid = "${sessionScope.loginMember.memberId}";
+			if (mid == '') {
+				alert("로그인후 가능합니다");
+			} else {
+				location.href = "/pay/start.kh";
+			}
+			;
+		})
+	</script>
+
 
 </body>
 

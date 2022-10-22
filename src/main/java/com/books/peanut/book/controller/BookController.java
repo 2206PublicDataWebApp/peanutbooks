@@ -255,7 +255,10 @@ public class BookController {
 			oSeries.setSubPicRename("defaultImg");
 		}
 		
+		Member member = (Member)session.getAttribute("loginMember");
+		oBook.setMemberId(member.getMemberId());
 		oSeries.setSeriesNo(1);
+		oSeries.setPaidCheck("N");
 		hTag.setCategory("origin");
 		int result = bService.registeOriBook(oBook);
 		result += bService.registeTag(hTag);

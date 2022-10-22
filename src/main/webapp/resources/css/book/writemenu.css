@@ -13,6 +13,13 @@ main {
     text-align: center;
 
 }
+
+a{
+	display:inline-block;
+	height:100%;
+	width:100%;
+}
+
 #profile button{
     border: 0;
     width: 20rem;
@@ -27,7 +34,7 @@ main {
     height: 2.5rem;
 }
 
-#wirte>img:hover{
+#wirte:hover{
 	cursor: pointer;
 }
 

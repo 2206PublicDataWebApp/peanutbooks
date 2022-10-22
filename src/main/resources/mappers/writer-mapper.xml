@@ -33,14 +33,22 @@
   
 <!--   오리지널 북 쿼리문 -->
 <insert id="insertBook">
- insert into origin_book values(oribookseq.nextval,#{bookTitle},#{bookInfo},#{category},default,#{cover},#{coverRename},default,0,#{memberId},default)
+ insert into origin_book values(oribookseq.nextval,#{bookTitle},#{bookInfo},#{category},default,#{cover},#{coverRename},default,0,0,#{memberId})
+</insert>
+<!-- 책 승인 테이블에 추가 -->
+<insert id="insertPermission1">
+	insert into book_permission values(seq_permission.nextval,oribookseq.currval,null,null,null,null,#{seriesNo})
 </insert>
 
 <!-- 오리지널 시리즈 쿼리문 -->
-<insert id="insertSeries"></insert>
+<insert id="insertSeries1">
+	insert into ori_series values(#{seriesNo},oribookseq.currval,#{subPic},#{subPicRename},#{title},#{contents},null,default,null,0,#{paidCheck},0,default)
+</insert>
 
 <!-- 해시태그 쿼리문 -->
-<insert id="insertTag"></insert>
+<insert id="insertTag">
+	insert into hash_tag values(oribookseq.currval,#{category},#{hashTag1},#{hashTag2},#{hashTag3})
+</insert>
 
 
   

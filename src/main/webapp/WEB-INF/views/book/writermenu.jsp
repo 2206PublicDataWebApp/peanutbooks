@@ -41,8 +41,8 @@
 				</div>
 
 
-				<div class="col-md-6" id="wirte">
-					<img src="/resources/img/book/icons8-write-48.png" alt="" onclick="location.href='/book/bookRegistView.do'">
+				<div class="col-md-6" id="wirte" onclick="location.href='/book/bookRegistView.do'">
+					<img src="/resources/img/book/icons8-write-48.png" alt="" >
 					새로운 시리즈 등록
 				</div>
 

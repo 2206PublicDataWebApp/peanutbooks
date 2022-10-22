@@ -53,16 +53,17 @@ public class BookStoreLogic implements BookStore{
 	 */
 	@Override
 	public int insertTag(SqlSessionTemplate session, HashTag hTag) {
-		int result = session.insert("wirterMapper.insertSeries",hTag);
+		int result = session.insert("wirterMapper.insertTag",hTag);
 		return result;
 	}
 	
 	/**
-	 * 피넛 오리지널 시리즈 등록
+	 * 피넛 오리지널 시리즈 등록(1화)
 	 */
 	@Override
 	public int insertOriSeries(SqlSessionTemplate session, OriginBookSeries oSeries) {
-		int result = session.insert("wirterMapper.insertTag",oSeries);
+		int result = session.insert("wirterMapper.insertSeries1",oSeries);
+		result += session.insert("wirterMapper.insertPermission1",oSeries);
 		return result;
 	}
 
