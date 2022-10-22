@@ -178,6 +178,20 @@ transition : 0.5s;
 .view-relply .col-md-11{
   padding: 0.2rem 0 0.2rem 0;
 }
+#listbutton{
+	text-align:center;
+}
+#listbutton button{
+	width : 50%;
+	height:3rem;
+	border:0;
+	border-radius: 0.5rem;
+}
+
+#listbutton button:hover{
+	background-color:#FFD384;
+	transition : 0.5s;
+}
 
 
 @media (max-width:500px) {

@@ -27,6 +27,11 @@
 		<typeAlias type="com.books.peanut.member.domain.Member" alias="Member"/>
 			
 		<typeAlias type="com.books.peanut.book.domain.WriterProfile" alias="writerProfile"/>
+		<typeAlias type="com.books.peanut.book.domain.OriginBook" alias="OriginBook"/>
+		<typeAlias type="com.books.peanut.book.domain.OriginBookSeries" alias="OriginBookSeries"/>
+		<typeAlias type="com.books.peanut.book.domain.HashTag" alias="HashTag"/>
+		
+		<typeAlias type="com.books.peanut.book.domain.OriginBookReply" alias="OriginBookReply"/>
 		
 	</typeAliases>
 
@@ -34,6 +39,7 @@
 <mappers>
 	<mapper resource="/mappers/originbook-mapper.xml"/>
 	<mapper resource="/mappers/writer-mapper.xml"/>
+	<mapper resource="/mappers/bookReply-mapper.xml"/>
 	
 	<!--은정꺼  -->
 	<mapper resource="/mappers/consult-mapper.xml" />

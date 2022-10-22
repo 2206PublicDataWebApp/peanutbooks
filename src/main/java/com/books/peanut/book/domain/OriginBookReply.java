@@ -9,6 +9,17 @@ public class OriginBookReply {
 	private String memberId;
 	private String reContents;
 	private Date insertDate;
+	private String mNickName;
+	
+	
+	
+	
+	public String getmNickName() {
+		return mNickName;
+	}
+	public void setmNickName(String mNickName) {
+		this.mNickName = mNickName;
+	}
 	public int getReplyNo() {
 		return replyNo;
 	}

@@ -1,5 +1,7 @@
 package com.books.peanut.book.domain;
 
+import java.sql.Date;
+
 public class OriginBookSeries {
 	
 	private int seriesNo;
@@ -12,9 +14,53 @@ public class OriginBookSeries {
 	private int paidCount;
 	private String paidCheck;
 	private int viewCount;
+	private String checkPermission;
+	private String bookTitle;
+	private Date insertDate;
+	private Date modifyDate;
 	
 	
 	
+	public Date getInsertDate() {
+		return insertDate;
+	}
+
+
+	public void setInsertDate(Date insertDate) {
+		this.insertDate = insertDate;
+	}
+
+
+	public Date getModifyDate() {
+		return modifyDate;
+	}
+
+
+	public void setModifyDate(Date modifyDate) {
+		this.modifyDate = modifyDate;
+	}
+
+
+	public String getBookTitle() {
+		return bookTitle;
+	}
+
+
+	public void setBookTitle(String bookTitle) {
+		this.bookTitle = bookTitle;
+	}
+
+
+	public String getCheckPermission() {
+		return checkPermission;
+	}
+
+
+	public void setCheckPermission(String checkPermission) {
+		this.checkPermission = checkPermission;
+	}
+
+
 	@Override
 	public String toString() {
 		return "originBookSeries [seriesNo=" + seriesNo + ", bookNo=" + bookNo + ", subPic=" + subPic

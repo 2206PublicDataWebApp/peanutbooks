@@ -13,11 +13,9 @@ main {
     text-align: center;
 
 }
-
-a{
-	display:inline-block;
-	height:100%;
-	width:100%;
+#img:hover, #book-title:hover, #book-info:hover{
+	cursor: pointer;
+	
 }
 
 #profile button{

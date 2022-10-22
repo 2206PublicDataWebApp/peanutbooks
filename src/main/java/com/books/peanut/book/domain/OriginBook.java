@@ -16,6 +16,15 @@ public class OriginBook {
 	private int viewCount;
 	private String memberId;
 	private String checkPermission;
+	private String memberNickName;
+	
+	
+	public String getMemberNickName() {
+		return memberNickName;
+	}
+	public void setMemberNickName(String memberNickName) {
+		this.memberNickName = memberNickName;
+	}
 	public String getBookNo() {
 		return bookNo;
 	}

@@ -41,8 +41,9 @@
 				</div>
 
 
-				<div class="col-md-6" id="wirte" onclick="location.href='/book/bookRegistView.do'">
-					<img src="/resources/img/book/icons8-write-48.png" alt="" >
+				<div class="col-md-6" id="wirte"
+					onclick="location.href='/book/bookRegistView.do'">
+					<img src="/resources/img/book/icons8-write-48.png" alt="">
 					새로운 시리즈 등록
 				</div>
 
@@ -50,16 +51,36 @@
 			<hr>
 			<article id="list-area" class="row">
 				<div id="title">내 시리즈 목록</div>
-				<div id="book" class="col-md-3 col-6">
-					<div id="check">승인 대기 중</div>
-					<div id="img">
-						<img src="/resources/img/main/christmas-g4fdade62f_1280.jpg"
-							alt="">
-					</div>
-					<div id="book-title" class="text-truncate">멋진제목멋진제목멋진제목멋진제목멋진제목멋진제목멋진제목</div>
-					<div id="book-info" class="text-truncate">멋진 소개멋진 소개멋진 소개멋진
-						소개멋진 소개멋진 소개멋진 소개</div>
-				</div>
+
+				<!-- 내가 쓴 시리즈 출력 -->
+				<c:if test="${osList!=null }">
+					<!-- 시리즈 반복 -->
+					<c:forEach items="${osList }" var="oSeries">
+
+						<div id="book" class="col-md-3 col-6">
+						
+						<!-- 승인여부 체크 -->
+							<div id="check">
+							<c:if test="${oSeries.checkPermission == 'N' }">승인 대기중 </c:if>
+							<c:if test="${oSeries.checkPermission == 'Y' }">승인 완료 </c:if>
+							</div>
+							
+							<!-- 각 시리즈 삽화 출력 -->
+							<div id="img" onclick="location.href='/book/oriBookInfo?bookNo=${oSeries.bookNo }'">
+								
+								<img src="/resources/bookImg/${oSeries.subPicRename }"
+									alt="">
+							</div>
+							
+							<!-- 책이름 및 화수 시리즈 제목 출력 -->
+							<div id="book-title" class="text-truncate" onclick="location.href='/book/oriBookInfo?bookNo=${oSeries.bookNo }'">${oSeries.bookTitle }</div>
+							<div id="book-info" class="text-truncate" onclick="location.href='/book/oriBookInfo?bookNo=${oSeries.bookNo }'">${oSeries.seriesNo }화 ${oSeries.title }
+							</div>
+
+
+						</div>
+					</c:forEach><!-- 시리즈 반복문 종료 -->
+				</c:if><!-- 시리즈 출력 종료 -->
 
 			</article>
 		</section>

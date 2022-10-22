@@ -24,7 +24,7 @@
 	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
 </head>
-<body>
+<body onload="printReply(${oBook.bookNo})">
 	<jsp:include page="../header/header.jsp" />
 	<main>
 		<form action="/book/oribookRegist.do" method="post" enctype="multipart/form-data">
@@ -78,20 +78,20 @@
 						<div id="tag-area">
 							<h5>해시태그</h5>
 							<select name="hashTag1" id="">
-								<option value="">해시태그를 선택하세요</option>
+								<option value="none">해시태그를 선택하세요</option>
 								<option value="fantasy">판타지</option>
 								<option value="now">현대</option>
 								<option value="daily">일상</option>
 								<option value="history">역사</option>
 							</select> <select name="hashTag2" id="">
-								<option value="">해시태그를 선택하세요</option>
+								<option value="none">해시태그를 선택하세요</option>
 								<option value="child">어린이를 위한</option>
 								<option value="adult">어른을 위한</option>
 								<option value="woman">여성을 위한</option>
 								<option value="man">남성을 위한</option>
 								<option value="all">모두를 위한</option>
 							</select> <select name="hashTag3" id="">
-								<option value="">해시태그를 선택하세요</option>
+								<option value="none">해시태그를 선택하세요</option>
 								<option value="horror">겁쟁이 출입금지</option>
 								<option value="gag">배꼽 빠지는</option>
 								<option value="move">마음이 따뜻해 지는</option>

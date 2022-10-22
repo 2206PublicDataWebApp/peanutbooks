@@ -1,5 +1,7 @@
 package com.books.peanut.book.store.logic;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -65,6 +67,58 @@ public class BookStoreLogic implements BookStore{
 		int result = session.insert("wirterMapper.insertSeries1",oSeries);
 		result += session.insert("wirterMapper.insertPermission1",oSeries);
 		return result;
+	}
+	
+	/**
+	 * 사용자가 쓴 모든 오리지널 시리즈 가져오기
+	 */
+	@Override
+	public List<OriginBookSeries> selectAllOriSeries(String memberId, SqlSessionTemplate session) {
+		List<OriginBookSeries> osList = session.selectList("wirterMapper.selectOneMemberSeriese", memberId);
+		return osList;
+	}
+	
+	/**
+	 * 책 번호로 책 제목 가져오기(피넛 오리지널)
+	 */
+	@Override
+	public String selectBookTitle(String bookNo, SqlSessionTemplate session) {
+		String bookTitle = session.selectOne("wirterMapper.selectBookTitle",bookNo);
+		return bookTitle;
+	}
+	
+	/***
+	 * 오리지널 시리즈 책 정보 가져오기
+	 */
+	@Override
+	public OriginBook selectOneBook(SqlSessionTemplate session, String bookNo) {
+		OriginBook oBook = session.selectOne("wirterMapper.selectOneBook",bookNo);
+		return oBook;
+	}
+	
+	/**
+	 * 피넛 오리지널 하나의 모든 시리즈 제목 가져오기*/
+	@Override
+	public List<OriginBookSeries> selectSeriesTitle(SqlSessionTemplate session, String bookNo) {
+		List<OriginBookSeries> obList = session.selectList("wirterMapper.selecSeriesTitle",bookNo);
+		return obList;
+	}
+	
+	/**도서의 모든 태그 가져오기*/
+	@Override
+	public HashTag selectOneBookTag(String bookNo, String category,SqlSessionTemplate session) {
+		HashTag tag = new HashTag();
+		tag.setBookNo(bookNo);
+		tag.setCategory(category);
+		HashTag hTag =  session.selectOne("wirterMapper.selectOneBookTag", tag);
+		return hTag;
+	}
+	
+	/**회원 한명 닉네임 가져오기*/
+	@Override
+	public String selectOneMemberNick(SqlSessionTemplate session, String memberId) {
+		String mNick = session.selectOne("wirterMapper.oneMemberNick",memberId);
+		return mNick;
 	}
 
 	

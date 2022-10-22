@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
@@ -102,10 +103,19 @@ public class BookController {
 
 		} else {
 			Member member = (Member) session.getAttribute("loginMember");
+			// 작가 프로필 불러오기
 			WriterProfile oneWriter = bService.getProfile(member.getMemberId());
-
+			// 작가 프로필을 등록했을때는 작가 프로필을 전송함
 			if (oneWriter != null) {
 				mv.addObject("oneWriter", oneWriter);
+				// 지금까지 쓴 도서 리스트를 불러옴
+				List<OriginBookSeries> osList = bService.allOriSeries(member.getMemberId());
+				for (int i = 0; i < osList.size(); i++) {
+					String bookTitle = bService.getBookTitle(osList.get(i).getBookNo());
+					osList.get(i).setBookTitle(bookTitle);
+				}
+
+				mv.addObject("osList", osList);
 			}
 
 			mv.setViewName("/book/writermenu");
@@ -188,8 +198,8 @@ public class BookController {
 			wrtiePro.setMainPicRename("defaultImg");
 
 		}
-		
-		//프로필 헤더 사진 저장
+
+		// 프로필 헤더 사진 저장
 		String headPic = headerPic.getOriginalFilename();
 		if (!headPic.equals("")) {
 
@@ -239,8 +249,8 @@ public class BookController {
 			oBook.setCoverRename(coverPicRename);
 			oBook.setCover(mainPic);
 		} else {
-			oBook.setCoverRename("defaultImg");
-			oBook.setCover("defaultImg");
+			oBook.setCoverRename("defaultImg.jpg");
+			oBook.setCover("defaultImg.jpg");
 
 		}
 
@@ -251,11 +261,11 @@ public class BookController {
 			oSeries.setSubPic(subPic);
 			oSeries.setSubPicRename(subPicRename);
 		} else {
-			oSeries.setSubPic("defaultImg");
-			oSeries.setSubPicRename("defaultImg");
+			oSeries.setSubPic("defaultImg.jpg");
+			oSeries.setSubPicRename("defaultImg.jpg");
 		}
-		
-		Member member = (Member)session.getAttribute("loginMember");
+
+		Member member = (Member) session.getAttribute("loginMember");
 		oBook.setMemberId(member.getMemberId());
 		oSeries.setSeriesNo(1);
 		oSeries.setPaidCheck("N");
@@ -264,6 +274,7 @@ public class BookController {
 		result += bService.registeTag(hTag);
 		result += bService.registOriSeries(oSeries);
 
+		mv.setViewName("redirect:/book/writerMenu.do");
 		return mv;
 
 	}
@@ -333,9 +344,127 @@ public class BookController {
 
 	}
 
-	/* 사진삭제용 */
+	/**
+	 * 오리지널 북 책 소개 페이지로 연결
+	 * 
+	 * @param mv
+	 * @param session
+	 * @param bookNo
+	 * @return
+	 */
+	@RequestMapping(value = "/book/oriBookInfo", method = RequestMethod.GET)
+	public ModelAndView showOneOriBook(ModelAndView mv, HttpSession session, String bookNo) {
+
+		// 로그인 안하면 메인페이지로 보냄
+		if (session.getAttribute("loginMember") == null) {
+			mv.setViewName("redirect:/");
+		} else {
+			// 해당 책 가져오기
+			OriginBook oBook = bService.showOnebook(bookNo); // 도서 메인테이블
+			List<OriginBookSeries> osList = bService.getSeriesTitle(bookNo); // 도서 태그가져오기
+			String category = "origin";
+			HashTag hTag = bService.getBookTga(bookNo, category); // 도서 시리즈 이름만 가져오기
+			HashTag OneTag = changeKo(hTag);// 태그 한글로 변경
+			
+			String mNick = bService.getMemberNickName(oBook.getMemberId());// 작가 닉네임 가져오기
+			oBook.setMemberNickName(mNick);
+
+			logger.debug(hTag.toString());
+
+			mv.addObject("hTag", OneTag);
+			mv.addObject("oBook", oBook);
+			mv.addObject("osList", osList);
+			mv.setViewName("/book/bookmain");
+		}
+		return mv;
+
+	}
+
+	/** 해시태그 한글 변경 메소드 */
+	private HashTag changeKo(HashTag hTag) {
+
+		HashTag OneTag = new HashTag();
+		if (!hTag.getHashTag1().isEmpty()) {
+			switch (hTag.getHashTag1()) {
+			case "fantasy":
+				OneTag.setHashTag1("판타지");
+				break;
+			case "now":
+				OneTag.setHashTag1("현대");
+				break;
+			case "daily":
+				OneTag.setHashTag1("일상");
+				break;
+			case "history":
+				OneTag.setHashTag1("역사");
+				break;
+			default:
+				OneTag.setHashTag1("none");
+				break;
+			}
+		}
+		if (!hTag.getHashTag2().isEmpty()) {
+			switch (hTag.getHashTag2()) {
+			case "child":
+				OneTag.setHashTag2("어린이를 위한");
+				break;
+			case "adult":
+				OneTag.setHashTag2("어른을 위한");
+				break;
+			case "woman":
+				OneTag.setHashTag2("여성을 위한");
+				break;
+			case "man":
+				OneTag.setHashTag2("남성을 위한");
+				break;
+			case "all":
+				OneTag.setHashTag2("모두를 위한");
+				break;
+			default:
+				OneTag.setHashTag2("none");
+				break;
+			}
+		}
+		if (!hTag.getHashTag3().isEmpty()) {
+			switch (hTag.getHashTag3()) {
+			case "horror":
+				OneTag.setHashTag3("겁쟁이 출입금지");
+				break;
+			case "gag":
+				OneTag.setHashTag3("배꼽 빠지는");
+				break;
+			case "move":
+				OneTag.setHashTag3("마음이 따뜻해 지는");
+				break;
+			case "heart":
+				OneTag.setHashTag3("설레이는");
+				break;
+			case "tear":
+				OneTag.setHashTag3("눈물이 나는");
+				break;
+			case "popcorn":
+				OneTag.setHashTag3("팝콘각");
+				break;
+			case "cider":
+				OneTag.setHashTag3("사이다 마시는");
+				break;
+			default:
+				OneTag.setHashTag3("none");
+				break;
+			}
+		}
+
+		return OneTag;
+	}
+
+	/**
+	 * 수정 사진 삭제 메소드
+	 * 
+	 * @param request
+	 * @param rename
+	 */
 	private void fileDelete(HttpServletRequest request, String rename) {
-		if (!rename.equals("defaultImg")) {
+		if (!rename.equals("defaultImg.jpg")) {
 			String root = request.getSession().getServletContext().getRealPath("resources");// 저장된 파일의 경로를 가져온다.
 			String savedPath = root + "\\bookImg"; // 가져온 경로에 업로드 파일이 들어있는 폴더의 경로까지 더해줌
 			File file = new File(savedPath + "\\" + rename); // 이미 저장한 파일의 이름을 가져와야 한다.

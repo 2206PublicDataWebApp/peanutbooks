@@ -19,9 +19,6 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
 	crossorigin="anonymous"></script>
-	 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <link rel="shortcut icon" href="/resources/img/icons8-book-32.png">
 
 
@@ -227,15 +224,14 @@
 	<script src="/resources/js/headerJs.js"></script>
 	<script type="text/javascript">
 		/*결제 관련   */
-		$("#peanutIn").on("click", function() {
+		document.querySelector("#peanutIn").onclick= function() {
 			var mid = "${sessionScope.loginMember.memberId}";
 			if (mid == '') {
 				alert("로그인후 가능합니다");
 			} else {
 				location.href = "/pay/start.kh";
-			}
-			;
-		})
+			};
+		}
 	</script>
 
 
