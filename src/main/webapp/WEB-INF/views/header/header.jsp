@@ -20,7 +20,7 @@
 	integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
 	crossorigin="anonymous"></script>
 <link rel="shortcut icon" href="/resources/img/icons8-book-32.png">
-  <script src="../resources/js/jquery-3.6.0.min.js" ></script>
+
 
 
 </head>
@@ -30,8 +30,9 @@
 
 		<div class="container">
 			<div class="row" id="header-area">
-				<div class="col-md-1 col-3">
+				<div class="col-md-1 col-3"><a href="/">
 					<img src="/resources/img/logo/logo.png" id="logo" alt="" id="logo">
+				</a>
 				</div>
 				<div class="col-md-7 d-md-block d-none">
 					<ul>
