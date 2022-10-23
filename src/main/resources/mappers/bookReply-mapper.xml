@@ -7,4 +7,22 @@
 	<insert id="insertOriBookReply">
 	insert into origin_reply values(seq_orireplyno.nextval, #{bookNo}, #{memberId}, #{reContents}, default)
 	</insert>
+	
+	<resultMap type="OriginBookReply" id="obReplyResultMap">
+	<id property="replyNo" column="REPLY_NO"/>
+	<result property="bookNo" column="ORI_BOOK_NO"/>
+	<result property="memberId" column="MEMBERID"/>
+	<result property="reContents" column="RE_CONTETNS"/>
+	<result property="insertDate" column="INSERT_DATE"/>
+
+
+	</resultMap>
+	
+	<select id="selectAllOriReply" resultMap="obReplyResultMap">
+	select * from origin_reply where ORI_BOOK_NO = #{bookNo}
+	</select>
+	
+	<select id="countOriReply" resultType="_int">
+	select count(*) from origin_reply where ORI_BOOK_NO = #{bookNo}
+	</select>
 </mapper>

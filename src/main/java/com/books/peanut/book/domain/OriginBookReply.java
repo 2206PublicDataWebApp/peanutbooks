@@ -10,10 +10,46 @@ public class OriginBookReply {
 	private String reContents;
 	private Date insertDate;
 	private String mNickName;
+	private int endNavi;
+	private int startNavi;
+	private int maxPage;
+	private int totalCount;
+	private int currentPage;
 	
 	
 	
 	
+	
+	public int getCurrentPage() {
+		return currentPage;
+	}
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+	}
+	public int getTotalCount() {
+		return totalCount;
+	}
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
+	}
+	public int getEndNavi() {
+		return endNavi;
+	}
+	public void setEndNavi(int endNavi) {
+		this.endNavi = endNavi;
+	}
+	public int getStartNavi() {
+		return startNavi;
+	}
+	public void setStartNavi(int startNavi) {
+		this.startNavi = startNavi;
+	}
+	public int getMaxPage() {
+		return maxPage;
+	}
+	public void setMaxPage(int maxPage) {
+		this.maxPage = maxPage;
+	}
 	public String getmNickName() {
 		return mNickName;
 	}

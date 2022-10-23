@@ -1,7 +1,10 @@
 package com.books.peanut.book.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,7 +17,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.books.peanut.book.domain.OriginBookReply;
 import com.books.peanut.book.service.ReplyService;
+import com.books.peanut.book.service.logic.BookServiceImpl;
 import com.books.peanut.member.domain.Member;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 
 @Controller
 public class BookReplyController {
@@ -34,22 +41,96 @@ public class BookReplyController {
 	public String registReply(@ModelAttribute OriginBookReply obReply, HttpSession session) {
 
 		Member member = (Member) session.getAttribute("loginMember");
-		String msg = "";
-	
-			obReply.setMemberId(member.getMemberId());
-			int result = rService.registOneReply(obReply);
-			msg = "등록성공";
+
+
+		obReply.setMemberId(member.getMemberId());
+		int result = rService.registOneReply(obReply);
+		
 		
 		return result+"";
 	}
-	
+
+	/**
+	 * 피넛 오리지널 리플 불러오기
+	 * 
+	 * @param bookNo
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/book/originBookAllReply", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
-	public String AllReplyList(@RequestParam("bookNo") String bookNo) {
+	public String AllReplyList(@RequestParam("bookNo") String bookNo, @RequestParam(value="rPage", required = false) Integer rPage) {
+
+		//리플 수계산하기
+		int totalCount = rService.getTotalCount(bookNo);
+		//페이지당 출력될 변수 메소드로 가져오기
+		int boardLimit = 10;//출력될 리플수
+		String navi = boardList(rPage, totalCount, boardLimit);
+		int startNavi = Integer.parseInt(navi.split(",")[0]);
+		int endNavi = Integer.parseInt(navi.split(",")[1]);
+		int maxPage = Integer.parseInt(navi.split(",")[2]);
+		int currentPage = Integer.parseInt(navi.split(",")[3]);
 		
-		return "";
+		//리플목록 가져오기
+		List<OriginBookReply> obReply = rService.OriBookReply(bookNo, currentPage, boardLimit);
 		
+		obReply.get(0).setEndNavi(endNavi);
+		obReply.get(0).setStartNavi(startNavi);
+		obReply.get(0).setMaxPage(maxPage);
+		obReply.get(0).setCurrentPage(currentPage);
+		
+		
+		//가져온 리플목록에 닉네임 추가하기
+		for(int i=0; i<obReply.size(); i++ ) {
+			String mNickName = rService.getMemberNickName(obReply.get(i).getMemberId());
+			obReply.get(i).setmNickName(mNickName);
+		
+		}
+		
+		//가져온 리플목록 반환하기
+		if (!obReply.isEmpty()) {
+			
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			
+	
+			return gson.toJson(obReply);
+
+		}
+		
+		
+		return null;
+
 	}
+	
+	
+	/**페이징하기*/
+	public String boardList(Integer page, int totalCount, int boardLimit) {
+		//@RequestParam(value="page", required=false)의 값은 page이지만 
+		// required=false 필수값은 아니라는 뜻
+		
+		int currentPage = (page != null) ? page: 1;
+		//현재 페이지
+		//만약 page값이 없으면 기본형 1로 출력할것, 아니면 받아온 page의 값을 준다.
+		//삼항연상자 사용
+		
+		int naviLimit = 5; //한 화면에 출력할 게시판 페이지 수
+		int maxPage; //게시판의 총 페이지 수
+		int startNavi; //한 화면에 출력되는 게시판 페이지의 처음 수
+		int endNavi;//한 화면에 출력되는 게시판 페이지의 마지막 수
+		
+		maxPage =(int)((double)totalCount/boardLimit+0.9);
+		startNavi = ((int)((double)currentPage/naviLimit+0.9)-1)*naviLimit+1;
+		endNavi=startNavi+naviLimit-1;
+		
+		//endNavi가 maxNavi보다 커지는 오류방지
+		if(maxPage<endNavi) {
+			endNavi = maxPage;
+		}
+		
+		return startNavi+","+endNavi+","+maxPage+","+currentPage;
+	}
+	
+	
+	
 
 	/***
 	 * 에러페이지 연결

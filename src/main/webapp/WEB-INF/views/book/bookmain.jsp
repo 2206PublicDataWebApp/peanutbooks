@@ -24,7 +24,7 @@
 
 </head>
 
-<body>
+<body onload="printReply(${oBook.bookNo}, '${loginMember.memberId}',1);">
 	<jsp:include page="../header/header.jsp" />
 
 	<main>
@@ -139,7 +139,7 @@
 						<div class="container mt-1 view-relply">
 							<!--리플 한게 보이는 영역-->
 
-							<div class="row  d-flex justify-content-center repleOne">
+<!-- 							<div class="row  d-flex justify-content-center repleOne">
 
 								<div class="card p-3">
 
@@ -172,13 +172,15 @@
 									</div>
 
 
-								</div>
-
+	-->							</div>
+ 
 
 							</div>
 
 						</div>
 						<!--리플 한게 보이는 영역 끝-->
+						<!-- 페이징영역 -->
+						<div id="page" class =mt-1></div>
 
 						<div class="container mt-3 view-relply">
 
@@ -187,7 +189,7 @@
 									<textarea name="reContents" id="reply-text" rows="3"></textarea>
 								</div>
 								<div class="col-md-1 col-3 reply-button-area">
-									<button id="reply-button" onclick="replyRegist(${oBook.bookNo })">등록</button>
+									<button id="reply-button" onclick="replyRegist(${oBook.bookNo },'${loginMember.memberId}')">등록</button>
 								</div>
 
 							</div>

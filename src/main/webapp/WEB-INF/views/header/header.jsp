@@ -175,7 +175,7 @@
 
 					</div>
 					<div id="logout-area">
-						<button id="logout">로그아웃</button>
+						<button id="logout" onclick="location.href='/member/logout.pb';">로그아웃</button>
 					</div>
 
 

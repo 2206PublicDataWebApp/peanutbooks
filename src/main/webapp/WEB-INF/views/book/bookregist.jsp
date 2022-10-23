@@ -24,7 +24,7 @@
 	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
 </head>
-<body onload="printReply(${oBook.bookNo})">
+<body>
 	<jsp:include page="../header/header.jsp" />
 	<main>
 		<form action="/book/oribookRegist.do" method="post" enctype="multipart/form-data">
