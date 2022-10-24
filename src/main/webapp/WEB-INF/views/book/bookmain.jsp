@@ -62,12 +62,16 @@
 									<br> 내 서재
 								</div>
 								<div class="col-4">
-									<img src="/resources/img/book/icons8-reply-48.png" alt="">
-									<br> 감상쓰기
+									<a href="#reply-text">
+										<img src="/resources/img/book/icons8-reply-48.png" alt="">
+										<br> 감상쓰기
+									</a>
 								</div>
 								<div class="col-4">
-									<img src="/resources/img/book/icons8-star-52.png" alt="">
-									<br> 별점주기
+									<a href="#star-area">
+										<img src="/resources/img/book/icons8-star-52.png" alt="">
+										<br> 별점주기
+									</a>
 								</div>
 							</div>
 						</div>
@@ -206,6 +210,11 @@
 
 	<jsp:include page="../footer/footer.jsp" />
 </body>
+<script type="text/javascript">
+
+var bookNo = ${oBook.bookNo};
+var userId = '${loginMember.memberId}';
+</script>
 <script src="/resources/js/book/bookmain.js"></script>
 
 </html>

@@ -39,6 +39,7 @@ public class ReplyServiceLogic implements ReplyService {
 		return mNick;
 	}
 
+	/**피넛오리지널 리플 수 가져오기*/
 	@Override
 	public int getTotalCount(String bookNo) {
 		int count = rStore.selectReplyCount(session, bookNo);
@@ -46,4 +47,27 @@ public class ReplyServiceLogic implements ReplyService {
 		return count;
 	}
 
+	
+	/**피넛 오리지널 리플 1개 내용 가져오기*/
+	@Override
+	public String getOriOneReply(String rNo) {
+		String rContents = rStore.selectOneOroBookReply(session, rNo);
+		return rContents;
+	}
+
+	
+	/**피넛 오리지널 리플 쓴 사람 체크*/
+	@Override
+	public String checkOriReplyMember(int rNo) {
+		String checkMember = rStore.selectOneNenberId(session,rNo);
+		return checkMember;
+	}
+
+	@Override
+	public int modifyReply(OriginBookReply obReply) {
+		int result = rStore.updateOriReply(session,obReply);
+		return result;
+	}
+
+	
 }

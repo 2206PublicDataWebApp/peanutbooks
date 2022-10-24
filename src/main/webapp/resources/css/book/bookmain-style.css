@@ -24,6 +24,60 @@ main .img-area img{
 
 
 }
+
+#page{
+	text-align:center;
+	font-weight: 600;
+}
+  
+  #page>small:not(.nowPage){
+  	display:inline-block;
+	width : 1rem;
+	margin-right:0.5rem;
+	background-color : lightgray;
+	border-radius: 100rem;
+	margin-top : 0.5rem;
+
+  }
+  
+   #page span{
+   display:inline-block;
+	width : 3rem;
+	margin-right:0.5rem;
+	background-color : lightgray;
+	border-radius: 100rem;
+	margin-top : 0.5rem;
+   }
+  
+#page>small:hover:not(.nowPage){
+  cursor:pointer;
+  background-color:#FFD384;
+  width : 3rem;
+  transition : 0.2s;
+}
+
+#page span:hover{
+ cursor:pointer;
+  background-color:#FFD384;
+  transition : 0.5s;
+	
+}
+
+.nowPage{
+	background-color:#FFD384;
+	display:inline-block;
+	width : 3rem;
+	margin-right:0.5rem;
+	border-radius: 100rem;
+	margin-top : 0.5rem;
+}
+
+main .userbutton a{
+	display:inline-block;
+	width:100%;
+	hegiht:100%;
+}
+
 .info-area{
   overflow: hidden;
   display: flex;
@@ -220,10 +274,16 @@ transition : 0.5s;
     width:100%;
    overflow: hidden;
   }
- 
- header{
- width:95% !important;
- } 
+  
+ #page>small:not(.nowPage), #page span{
+	width : 1.5rem;
+  }
+  
+.nowPage{
+	width : 2.5rem;
+	
+}
+  
  
   
 }

@@ -25,4 +25,16 @@
 	<select id="countOriReply" resultType="_int">
 	select count(*) from origin_reply where ORI_BOOK_NO = #{bookNo}
 	</select>
+	
+	<select id="selectOneOriBookReply" resultType="string">
+	select RE_CONTETNS from origin_reply where REPLY_NO= #{rNo}
+	</select>
+	
+	<select id="selectOneReplyMember" resultType="string">
+	select MEMBERID from origin_reply where REPLY_NO= #{rNo}
+	</select>
+	
+	<update id="updateOriReply">
+	update origin_reply set RE_CONTETNS = #{reContents} where REPLY_NO= #{replyNo}
+	</update>
 </mapper>

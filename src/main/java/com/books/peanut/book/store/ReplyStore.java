@@ -19,7 +19,17 @@ public interface ReplyStore {
 	/**닉네임 가져오기*/
 	String selectOneMemberNick(SqlSessionTemplate session, String memberId);
 
-	/**리플숫자 가져오기*/
+	/**피넛 오리지널 리플숫자 가져오기*/
 	int selectReplyCount(SqlSessionTemplate session, String bookNo);
+
+	/**피넛 오리지널 리플 내용 가져오기*/
+	String selectOneOroBookReply(SqlSessionTemplate session, String rNo);
+
+	/**피넛 오리지널 리플 쓴 사람 체크
+	 * @param session */
+	String selectOneNenberId(SqlSessionTemplate session, int rNo);
+
+	/**피넛 오리지널 리플 수정*/
+	int updateOriReply(SqlSessionTemplate session, OriginBookReply obReply);
 
 }

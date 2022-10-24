@@ -24,4 +24,13 @@ public interface ReplyService {
 	 * @param bookNo */
 	int getTotalCount(String bookNo);
 
+	/**리플 내용 가져오기*/
+	String getOriOneReply(String rNo);
+
+	/** 피넛 오리지널 리플 쓴 사람 체크*/
+	String checkOriReplyMember(int rNo);
+
+	
+	int modifyReply(OriginBookReply obReply);
+
 }

@@ -36,11 +36,32 @@ public class ReplyStoreLogic implements ReplyStore{
 		return mNick;
 	}
 
-	/**리플숫자 가져오기*/
+	/**피넛 오리지널 리플숫자 가져오기*/
 	@Override
 	public int selectReplyCount(SqlSessionTemplate session, String bookNo) {
 		int count = session.selectOne("bookReplyMapper.countOriReply", bookNo);
 		return count;
+	}
+
+	/**피넛 오리지널 리플 내용 가져오기*/
+	@Override
+	public String selectOneOroBookReply(SqlSessionTemplate session, String rNo) {
+		String rContents = session.selectOne("bookReplyMapper.selectOneOriBookReply",rNo);
+		return rContents;
+	}
+
+	/**피넛 오리지널 리플 쓴 사람 체크*/
+	@Override
+	public String selectOneNenberId(SqlSessionTemplate session, int rNo) {
+		String checkMember = session.selectOne("bookReplyMapper.selectOneReplyMember",rNo);
+		return checkMember;
+	}
+
+	/***피넛 오리지널 리플 수정*/
+	@Override
+	public int updateOriReply(SqlSessionTemplate session, OriginBookReply obReply) {
+		int result = session.update("bookReplyMapper.updateOriReply",obReply);
+		return result;
 	}
 
 }
