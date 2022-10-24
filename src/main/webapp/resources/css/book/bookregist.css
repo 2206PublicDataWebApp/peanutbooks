@@ -214,6 +214,10 @@ margin: 1rem;}
         height: auto;
 
     }
+    
+    #info-text1{
+    margin-left:0;
+    }
 }
 
 
