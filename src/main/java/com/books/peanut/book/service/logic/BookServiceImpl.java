@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.books.peanut.book.domain.HashTag;
 import com.books.peanut.book.domain.OriginBook;
 import com.books.peanut.book.domain.OriginBookSeries;
+import com.books.peanut.book.domain.Star;
 import com.books.peanut.book.domain.WriterProfile;
 import com.books.peanut.book.service.BookService;
 import com.books.peanut.book.store.BookStore;
@@ -75,8 +76,8 @@ public class BookServiceImpl implements BookService{
 	 * 사용자가 쓴 모든 오리지널 도서 시리즈 가져오기
 	 */
 	@Override
-	public List<OriginBookSeries> allOriSeries(String memberId) {
-		List<OriginBookSeries> osList = bStore.selectAllOriSeries(memberId, session);
+	public List<OriginBookSeries> allOriSeries(int i, int boardLimit,String memberId) {
+		List<OriginBookSeries> osList = bStore.selectAllOriSeries(i, boardLimit,memberId, session);
 		return osList;
 	}
 
@@ -117,6 +118,56 @@ public class BookServiceImpl implements BookService{
 		String mNick = bStore.selectOneMemberNick(session,memberId);
 		return mNick;
 	}
+
+	/**별점가져오기*/
+	@Override
+	public Star getOneBookStar(Star starOne) {
+		Star star = bStore.selectOneBookStar(session, starOne);
+		return star;
+	}
+
+	/**회원이 쓴 피넛 오리지널의 갯수 파악*/
+	@Override
+	public int allOriSeriesCount(String memberId) {
+		int count = bStore.selectAllMemberOriSeries(session, memberId);
+		return count;
+	}
+
+	/**작가의 모든 책 제목 가져오기*/
+	@Override
+	public List<OriginBook> allWirterbookTitle(String memberId) {
+		List<OriginBook> obList = bStore.selectAllWritebookTitle(session, memberId);
+		return obList;
+	}
+
+	/**해당 피넛 오리지널의 모든 시리즈 가져오기*/
+	@Override
+	public List<OriginBookSeries> allOriBookSeries(String bookNo) {
+		List<OriginBookSeries> osList = bStore.selectAlloriBookSeries(session, bookNo);
+		return osList;
+	}
+
+	/**유료여부 체크*/
+	@Override
+	public String checkPaid(int seriesNo, int bookNo) {
+		String paidCheck = bStore.selectOneCheckPaid(session,seriesNo,bookNo);
+		return paidCheck;
+	}
+
+	/**시리즈 한편 가져오기*/
+	@Override
+	public OriginBookSeries getOneSeries(int seriesNo, int bookNo) {
+		OriginBookSeries  obSeries = bStore.selectOneSeries(session,seriesNo,bookNo);
+		return obSeries;
+	}
+
+	/**작성자 맞는지 체크하기*/
+	@Override
+	public int checkWriter(int bookNo, String memberId) {
+		int result = bStore.selectcheckWirter(session,bookNo,memberId);
+		return result;
+	}
+	
 	
 
 }

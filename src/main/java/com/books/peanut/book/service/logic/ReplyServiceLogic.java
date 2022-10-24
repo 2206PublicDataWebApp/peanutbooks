@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.books.peanut.book.domain.OriginBookReply;
+import com.books.peanut.book.domain.Star;
 import com.books.peanut.book.service.ReplyService;
 import com.books.peanut.book.store.ReplyStore;
 
@@ -63,9 +64,31 @@ public class ReplyServiceLogic implements ReplyService {
 		return checkMember;
 	}
 
+	/**피넛 오리지널 리플 수정*/
 	@Override
 	public int modifyReply(OriginBookReply obReply) {
 		int result = rStore.updateOriReply(session,obReply);
+		return result;
+	}
+
+	/**피넛 오리지널 리플 삭제*/
+	@Override
+	public int removeOriReply(Integer rNo) {
+		int result = rStore.deleteOriReply(session,rNo);
+		return result;
+	}
+
+	/**별점주기*/
+	@Override
+	public int getStarScoreOrigin(Star star) {
+		int result = rStore.insertScore(session, star);
+		return result;
+	}
+
+	/**별점취소*/
+	@Override
+	public int removeScore(Star star) {
+		int result = rStore.deleteScore(session, star);
 		return result;
 	}
 

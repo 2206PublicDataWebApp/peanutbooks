@@ -32,7 +32,7 @@ $.ajax({
 	success:function(result){
 			replyArea[0].innerHTML = '';
 			for(var i in result){
-				$('#replyLength').html(result.length);	
+				$('#replyLength').html(result[0].totalCount);	
 				var str ='<div class="row  d-flex justify-content-center repleOne mt-2" id="'+result[i].replyNo+'">';
 				str+='<div class="card p-3">';	
 				str+='<div class="d-flex row justify-content-between align-items-center">';
@@ -81,8 +81,25 @@ $.ajax({
 	});
 };
 
-function replyRemove(rNo){
-	confirm(rNo+'을 삭제하시겠습니까?');
+function replyRemove(rNo, rPage){
+	if(confirm('댓글을 삭제하시겠습니까?')){
+		$.ajax({
+			url:"/book/removeOriReply",
+			data:{"rNo":rNo},
+			type:"get",
+			success:function(result){
+				alert('삭제했습니다');
+				if(result>0){
+					printReply(bookNo,userId,rPage);
+				}else{
+					alert('작성자가 아닙니다');
+				
+				}
+		
+			},
+			error:function(){}
+		})
+	};
 	
 }
 
@@ -97,7 +114,7 @@ function replymodifyView(rNo,rPage){
 		str+='<div class="col-md-11 col-9">'
 		str+='<textarea name="reContents'+rNo+'" id="reply-text" rows="3">'+result+'</textarea></div>'							
 		str+='<div class="col-md-1 col-3 reply-button-area">'
-		str+='<button id="reply-button" onclick="modifyReply('+rNo+','+rPage+')">수정</button></div></div>'
+		str+='<button id="reply-button1" onclick="modifyReply('+rNo+','+rPage+')">수정</button> <button id="reply-button2" onclick="printReply('+bookNo+',\''+userId+'\','+rPage+')">취소</button></div></div>'
 		
 		$('#'+rNo).html(str);
 		
@@ -125,4 +142,138 @@ $.ajax({
 
 }
 
+//별점주기 스크립트
+
+var starCheck = false;
+
+function StarScore(score){
+	 $.ajax({
+	 	url:"/book/StarScore.do",
+	 	data:{"score":score,"bookNo":bookNo,"category":"origin"},
+	 	type:"post",
+	 	success:function(){
+	 		//alert(score+'점을 주셨습니다');
+	 	}
+	 })
+}
+
+function StarRemove(){
+$.ajax({
+	 	url:"/book/StarRemove.do",
+	 	data:{"bookNo":bookNo,"category":"origin"},
+	 	type:"post",
+	 	success:function(){
+	 		//alert('별점을 취소했습니다');
+	 	},
+	 	error:function(){
+	 	alert('오류');
+	 	}
+	 })
+}
+
+function StarRemoveUser(){
+	StarRemove();
+	$('#userStarScore').css('display','none');
+	$('#star-score').css('display','block');
+
+}
+
+$('#star1').on("click",function(){
+	if(!starCheck){
+		$('#star1').css('display','none');
+		$('#star1-fill').css('display','inline');
+		StarScore(1);
+		starCheck = true;
+	}else{
+		starfirst();
+	}
+})
+
+$('#star2').on("click",function(){
+	if(!starCheck){
+		$('#star1').css('display','none');
+		$('#star2').css('display','none');
+		$('#star1-fill').css('display','inline');
+		$('#star2-fill').css('display','inline');
+		starCheck = true;
+		StarScore(2)
+	}else{
+		StarRemove()
+		starfirst();
+	}
+})
+
+$('#star3').on("click",function(){
+	if(!starCheck){
+		$('#star1').css('display','none');
+		$('#star2').css('display','none');
+		$('#star3').css('display','none');
+		$('#star1-fill').css('display','inline');
+		$('#star2-fill').css('display','inline');
+		$('#star3-fill').css('display','inline');
+		StarScore(3);
+		starCheck = true;
+	}else{
+		StarRemove()
+		starfirst();
+	}
+})
+
+$('#star4').on("click",function(){
+	if(!starCheck){
+		$('#star1').css('display','none');
+		$('#star2').css('display','none');
+		$('#star3').css('display','none');
+		$('#star4').css('display','none');
+		$('#star1-fill').css('display','inline');
+		$('#star2-fill').css('display','inline');
+		$('#star3-fill').css('display','inline');
+		$('#star4-fill').css('display','inline');
+		StarScore(4);
+		starCheck = true;
+	}else{
+		StarRemove()
+		starfirst();
+	}
+})
+
+$('#star5').on("click",function(){
+	if(!starCheck){
+		$('#star1').css('display','none');
+		$('#star2').css('display','none');
+		$('#star3').css('display','none');
+		$('#star4').css('display','none');
+		$('#star5').css('display','none');
+		$('#star1-fill').css('display','inline');
+		$('#star2-fill').css('display','inline');
+		$('#star3-fill').css('display','inline');
+		$('#star4-fill').css('display','inline');
+		$('#star5-fill').css('display','inline');
+		StarScore(5);
+		starCheck = true;
+	}else{
+		StarRemove()
+		starfirst();
+	}
+})
+
+function starfirst(){
+		$('.star-fill').css('display','none');
+		$('.star-none').css('display','inline');
+		starCheck = false;		
+}
+
+
+	$('.star-fill').on("click",function(){
+		if(starCheck){
+			StarRemove()
+			starfirst();
+		}
+	 })
+
+
+//다음화 등록하기
+function registOriNext(bookNo,seriesNo){
+	location.href="/book/oriBookNextSeires.do?bookNo="+bookNo+"&seriesNo="+seriesNo;
+}
 

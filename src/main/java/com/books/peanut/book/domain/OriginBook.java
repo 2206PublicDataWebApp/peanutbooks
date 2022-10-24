@@ -17,8 +17,17 @@ public class OriginBook {
 	private String memberId;
 	private String checkPermission;
 	private String memberNickName;
+	private int scoreCount;
 	
 	
+	
+	
+	public int getScoreCount() {
+		return scoreCount;
+	}
+	public void setScoreCount(int scoreCount) {
+		this.scoreCount = scoreCount;
+	}
 	public String getMemberNickName() {
 		return memberNickName;
 	}

@@ -1,65 +1,102 @@
 @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
 
 main {
-  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
-  
+	font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 }
 
-#profile-area{
-    margin: 1rem;
-    align-items: center;
+#profile-area {
+	margin: 1rem;
+	align-items: center;
 }
-#profile{
-    text-align: center;
 
+#profile {
+	text-align: center;
 }
-#img:hover, #book-title:hover, #book-info:hover{
+
+#img:hover, #book-title:hover, #book-info:hover {
 	cursor: pointer;
+}
+
+#profile button {
+	border: 0;
+	width: 20rem;
+	height: 2rem;
+	border-radius: 0.5rem;
+}
+
+#profile button:hover {
+	background-color: #FFD384;
+}
+
+#wirte>img {
+	margin: 1rem 2rem;
+	height: 2.5rem;
+}
+
+#wirte:hover {
+	cursor: pointer;
+}
+
+#title {
+	margin: 1.5rem 0;
+	font-size: 1.5rem;
+}
+
+#book {
+	margin-bottom: 1rem;
+}
+
+#img {
+	height: 15rem;
+}
+
+#img img {
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
+	border-radius: 0.5rem;
+}
+
+#check {
+	font-size: small;
+}
+
+#book-title {
+	font-size: 1.1rem;
+	font-weight: bolder;
+}
+
+#page-area {
+	font-size: 0.8rem;
+	font-weight: bolder;
+	text-align:center;
+}
+
+#page-area span{
+	border-radius: 0.5rem;
+	line-height:2rem;
 	
 }
 
-#profile button{
-    border: 0;
-    width: 20rem;
-    height: 2rem;
-    border-radius: 0.5rem;
+.pageNow, .pages{
+	display: inline-block;
+	width: 3rem;
+	height: 2rem;
+	
 }
-#profile button:hover{
-	background-color : #FFD384;
+.pages{
+	background-color:#FFD384;	
 }
-#wirte>img{
-    margin: 1rem 2rem;
-    height: 2.5rem;
-}
-
-#wirte:hover{
-	cursor: pointer;
+.pageNow, .pages:hover{
+	background-color:#FF884B;
+	color:white;
+	transition : 0.2s;
 }
 
-
-#title{
-    margin: 1.5rem 0 ;
-    font-size: 1.5rem;
+.prev, .next {
+	display: inline-block;
+	width: 3rem;
+	height: 2rem;
+	
+	
 }
-
-
-#book{
-    margin-bottom: 1rem;
-}
-#img{
-    height:  15rem;
-}
-
-#img img{
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    border-radius: 0.5rem;
-}
- #check{
-    font-size: small;
- }
- #book-title{
-    font-size: 1.1rem;
-    font-weight: bolder;
- }

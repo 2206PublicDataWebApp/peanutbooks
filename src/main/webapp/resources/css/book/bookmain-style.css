@@ -1,289 +1,327 @@
 @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
 
-
 main {
-  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
-  
+	font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 }
 
-#info-article{
-  margin: 2rem;
-  justify-content: center;
-}
-main .img-area {
-  width: 25rem;
-  height: 30rem;
-  border-radius: 0.5rem;
-}
-
-main .img-area img{
- width: 100%;
- height: 100%;
- object-fit: cover;
- border-radius: 0.5rem;
-
-
-}
-
-#page{
-	text-align:center;
-	font-weight: 600;
-}
-  
-  #page>small:not(.nowPage){
-  	display:inline-block;
-	width : 1rem;
-	margin-right:0.5rem;
-	background-color : lightgray;
-	border-radius: 100rem;
-	margin-top : 0.5rem;
-
-  }
-  
-   #page span{
-   display:inline-block;
-	width : 3rem;
-	margin-right:0.5rem;
-	background-color : lightgray;
-	border-radius: 100rem;
-	margin-top : 0.5rem;
-   }
-  
-#page>small:hover:not(.nowPage){
-  cursor:pointer;
-  background-color:#FFD384;
-  width : 3rem;
-  transition : 0.2s;
-}
-
-#page span:hover{
- cursor:pointer;
-  background-color:#FFD384;
-  transition : 0.5s;
+.star-score:hover, .star-score span:hover{
+	cursor: pointer;
 	
+} 
+
+#info-article {
+	margin: 2rem;
+	justify-content: center;
 }
 
-.nowPage{
-	background-color:#FFD384;
-	display:inline-block;
-	width : 3rem;
-	margin-right:0.5rem;
-	border-radius: 100rem;
-	margin-top : 0.5rem;
-}
-
-main .userbutton a{
-	display:inline-block;
-	width:100%;
-	hegiht:100%;
-}
-
-.info-area{
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-#title{
-  font-size: 2rem;
-}
-#bookopenbutton{
-  background-color: rgb(236, 236, 236);
-  border: 0;
-  width: 7rem;
-  height: 2rem;
-  border-radius: 0.5rem;
-}
-#bookopenbutton:hover{
-background-color:#FFD384;
-transition : 0.5s;
-}
-.userbutton .row{
-  background-color: rgb(236, 236, 236);
-  border-radius: 0.5rem;
-  width: 60%;
-  text-align: center;
-}
-
-.userbutton .row div:hover{
-	background-color:#FFD384;
-		
-	transition : 0.5s;
-}
-
-.userbutton .row div:nth-child(1):hover{
-	border-top-left-radius: 0.5rem;
-    border-bottom-left-radius: 0.5em;
-}
-.userbutton .row div:nth-child(3):hover{
-	border-top-right-radius: 0.5rem;
-    border-bottom-right-radius: 0.5em;
-}
-
-.userbutton .row div:not(.userbutton .row div:nth-child(3)){
-  border-right: 1px solid gray;
-}
-.userbutton{
-  display: flex;
-  justify-content: center;
-}
-.info-area div:not(.userbutton div){
-  margin-top: 2rem;
-
-}
-.tag{
-  font-weight: bold;
-}
-.userbutton img{
-  width: 2rem;
-  height: 2rem;
-}
-
-.userbutton .col-4{
- padding:0.5rem 0;
-  font-size: 0.8rem;
-}
-#plusbutton button{
-  border: 0;
-  width: 10rem;
-  height: 3rem;
-  border-radius: 0.5rem;
-}
-
-.sub-title{
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-.sub-info{
-  background-color: rgb(236, 236, 236);
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-   margin: 1rem !important;
-}
-
-.sub-info li {
-  margin: 0.5rem;
-}
-.sub-info li button{
-  font-size: 0.8rem;
-  border: 0;
-  background-color: lightgray;
-}
-
-#reply-area{
-  margin-top: 2rem;
-}
-
-.star-area-1{
-  border-right: 1px solid gray;
-}
-.star-area-1,.star-area-2{
-  text-align: center;
-  
-}
-.star-title{
-  font-size: 1.2rem;
-  font-weight: bolder;
-}
-
-@font-face {
-  font-family: 'ONE-Mobile-POP';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-POP.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
-
-.star-score{
-  font-family: 'ONE-Mobile-POP';
-  font-size: 3rem;
-  color: #FFD384;
-}
-
-.reply .card {
-    
-  box-shadow: 3px 3px 3px 2px #e9ecef;
-  border-radius: 4px;
-  
-}
-.username{
-  font-weight: bolder;
-}
-.date{
-  text-align: right;
-}
-#reply-text{
-  width: 100%;
-}
-#reply-button{
-  width: 100%;
-  height: 100%;
-  border: 0;
-  background-color: rgb(236, 236, 236);
-  border-radius: 0.5rem;
-}
-#reply-button:hover{
-	background-color:#FFD384;
-	transition : 0.5s;
-}
-.reply-button-area{
-  padding: 0.2rem 0 0.5rem 0;
-}
-.view-relply .col-md-11{
-  padding: 0.2rem 0 0.2rem 0;
-}
-#listbutton{
-	text-align:center;
-}
-#listbutton button{
-	width : 50%;
-	height:3rem;
-	border:0;
+main .img-area {
+	width: 25rem;
+	height: 30rem;
 	border-radius: 0.5rem;
 }
 
-#listbutton button:hover{
-	background-color:#FFD384;
-	transition : 0.5s;
+main .img-area img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 0.5rem;
 }
 
-
-@media (max-width:500px) {
-  .userbutton .row{
-    width: 100%;
-  }
-  .star-title{
-    font-size: 1rem;
-    font-weight: bolder;
-  }
-  .star-score{
-    font-size: 3rem;
-  }
- .sub-info{
-    padding: 0.5rem;
-  }
-  .star-area-1{
-    border-right: 0;
-    border-bottom: 1px solid gray;
-    margin-bottom: 0.5rem;
-  }
-
-  .img-area{
-    height: 20rem;
-    width:100%;
-   overflow: hidden;
-  }
-  
- #page>small:not(.nowPage), #page span{
-	width : 1.5rem;
-  }
-  
-.nowPage{
-	width : 2.5rem;
-	
+#page {
+	text-align: center;
+	font-weight: 600;
 }
-  
- 
-  
+
+#page>small:not(.nowPage) {
+	display: inline-block;
+	width: 1rem;
+	margin-right: 0.5rem;
+	background-color: lightgray;
+	border-radius: 100rem;
+	margin-top: 0.5rem;
 }
+
+#page span {
+	display: inline-block;
+	width: 3rem;
+	margin-right: 0.5rem;
+	background-color: lightgray;
+	border-radius: 100rem;
+	margin-top: 0.5rem;
+}
+
+#page>small:hover:not(.nowPage) {
+	cursor: pointer;
+	background-color: #FFD384;
+	width: 3rem;
+	transition: 0.2s;
+}
+
+#page span:hover {
+	cursor: pointer;
+	background-color: #FFD384;
+	transition: 0.5s;
+}
+
+.nowPage {
+	background-color: #FFD384;
+	display: inline-block;
+	width: 3rem;
+	margin-right: 0.5rem;
+	border-radius: 100rem;
+	margin-top: 0.5rem;
+}
+
+main .userbutton a {
+	display: inline-block;
+	width: 100%;
+	hegiht: 100%;
+}
+
+.info-area {
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#title {
+	font-size: 2rem;
+}
+
+#bookopenbutton {
+	background-color: rgb(236, 236, 236);
+	border: 0;
+	width: 7rem;
+	height: 2rem;
+	border-radius: 0.5rem;
+}
+
+#bookopenbutton:hover {
+	background-color: #FFD384;
+	transition: 0.5s;
+}
+
+.userbutton .row {
+	background-color: rgb(236, 236, 236);
+	border-radius: 0.5rem;
+	width: 60%;
+	text-align: center;
+}
+
+.userbutton .row div:hover {
+	background-color: #FFD384;
+	transition: 0.5s;
+}
+
+.userbutton .row div:nth-child(1):hover {
+	border-top-left-radius: 0.5rem;
+	border-bottom-left-radius: 0.5em;
+}
+
+.userbutton .row div:nth-child(3):hover {
+	border-top-right-radius: 0.5rem;
+	border-bottom-right-radius: 0.5em;
+}
+
+.userbutton .row div:not(.userbutton .row div:nth-child(3)) {
+	border-right: 1px solid gray;
+}
+
+.userbutton {
+	display: flex;
+	justify-content: center;
+}
+
+.info-area div:not(.userbutton div) {
+	margin-top: 2rem;
+}
+
+.tag {
+	font-weight: bold;
+}
+
+.userbutton img {
+	width: 2rem;
+	height: 2rem;
+}
+
+.userbutton .col-4 {
+	padding: 0.5rem 0;
+	font-size: 0.8rem;
+}
+
+#plusbutton button {
+	border: 0;
+	width: 10rem;
+	height: 3rem;
+	border-radius: 0.5rem;
+}
+
+.sub-title {
+	font-size: 1.5rem;
+	margin-bottom: 1rem;
+}
+
+.sub-info {
+	background-color: rgb(236, 236, 236);
+	padding: 1.5rem;
+	border-radius: 0.5rem;
+	margin: 1rem !important;
+}
+
+.sub-info li {
+	margin: 0.5rem;
+}
+
+.sub-info li button {
+	font-size: 0.8rem;
+	border: 0;
+	background-color: lightgray;
+}
+
+#reply-area {
+	margin-top: 2rem;
+}
+
+.star-area-1 {
+	border-right: 1px solid gray;
+}
+
+.star-area-1, .star-area-2 {
+	text-align: center;
+}
+
+.star-title {
+	font-size: 1.2rem;
+	font-weight: bolder;
+}
+
+@font-face {
+	font-family: 'ONE-Mobile-POP';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-POP.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.star-score {
+	font-family: 'ONE-Mobile-POP';
+	font-size: 3rem;
+	color: #FFD384;
+}
+
+.reply .card {
+	box-shadow: 3px 3px 3px 2px #e9ecef;
+	border-radius: 4px;
+}
+
+.username {
+	font-weight: bolder;
+}
+
+.date {
+	text-align: right;
+}
+
+#reply-text {
+	width: 100%;
+}
+
+#reply-button {
+	width: 100%;
+	height: 100%;
+	border: 0;
+	background-color: rgb(236, 236, 236);
+	border-radius: 0.5rem;
+}
+
+#reply-button:hover {
+	background-color: #FFD384;
+	transition: 0.5s;
+}
+
+#reply-button1, #reply-button2 {
+	width: 100%;
+	height: 50%;
+	border: 0; background-color : rgb( 236, 236, 236);
+	border-radius: 0.5rem;
+	background-color: rgb(236, 236, 236);
+}
+
+#reply-button2 {
+	margin-top: 0.2rem;
+}
+
+#reply-button1:hover, #reply-button2:hover {
+	background-color: #FFD384;
+	transition: 0.5s;
+}
+
+.reply-button-area {
+	padding: 0.2rem 0 0.5rem 0;
+}
+
+.view-relply .col-md-11 {
+	padding: 0.2rem 0 0.2rem 0;
+}
+
+#listbutton {
+	text-align: center;
+}
+
+#listbutton button {
+	width: 50%;
+	height: 3rem;
+	border: 0;
+	border-radius: 0.5rem;
+}
+
+#listbutton button:hover {
+	background-color: #FFD384;
+	transition: 0.5s;
+}
+
+.modify-del-button small:hover {
+	cursor: pointer;
+}
+
+@media ( max-width :500px) {
+	.userbutton .row {
+		width: 100%;
+	}
+	.star-title {
+		font-size: 1rem;
+		font-weight: bolder;
+	}
+	.star-score {
+		font-size: 3rem;
+	}
+	.sub-info {
+		padding: 0.5rem;
+	}
+	.star-area-1 {
+		border-right: 0;
+		border-bottom: 1px solid gray;
+		margin-bottom: 0.5rem;
+	}
+	.img-area {
+		height: 20rem;
+		width: 100%;
+		overflow: hidden;
+	}
+	#page>small:not(.nowPage), #page span {
+		width: 1.5rem;
+	}
+	.nowPage {
+		width: 2.5rem;
+	}
+}
+
+/*별점주기 스타일*/
+.star-fill{
+	display:none;
+}
+

@@ -42,7 +42,12 @@
 
 
 				<div class="col-md-6" id="wirte"
-					onclick="location.href='/book/bookRegistView.do'">
+					<c:if test="${oneWriter != null}">
+					onclick="location.href='/book/bookRegistView.do'" 
+				</c:if>
+					<c:if test="${oneWriter == null}">
+					onclick="alert('작가프로필을 등록하세요')" 
+				</c:if>>
 					<img src="/resources/img/book/icons8-write-48.png" alt="">
 					새로운 시리즈 등록
 				</div>
@@ -58,31 +63,77 @@
 					<c:forEach items="${osList }" var="oSeries">
 
 						<div id="book" class="col-md-3 col-6">
-						
-						<!-- 승인여부 체크 -->
+
+							<!-- 승인여부 체크 -->
 							<div id="check">
-							<c:if test="${oSeries.checkPermission == 'N' }">승인 대기중 </c:if>
-							<c:if test="${oSeries.checkPermission == 'Y' }">승인 완료 </c:if>
+								<c:if test="${oSeries.checkPermission == 'N' }">승인 대기중 </c:if>
+								<c:if test="${oSeries.checkPermission == 'Y' }">승인 완료 </c:if>
 							</div>
-							
+
 							<!-- 각 시리즈 삽화 출력 -->
-							<div id="img" onclick="location.href='/book/oriBookInfo?bookNo=${oSeries.bookNo }'">
-								
-								<img src="/resources/bookImg/${oSeries.subPicRename }"
-									alt="">
+							<div id="img"
+								onclick="location.href='/book/oriBookInfo?bookNo=${oSeries.bookNo }'">
+
+								<img src="/resources/bookImg/${oSeries.subPicRename }" alt="">
 							</div>
-							
+
 							<!-- 책이름 및 화수 시리즈 제목 출력 -->
-							<div id="book-title" class="text-truncate" onclick="location.href='/book/oriBookInfo?bookNo=${oSeries.bookNo }'">${oSeries.bookTitle }</div>
-							<div id="book-info" class="text-truncate" onclick="location.href='/book/oriBookInfo?bookNo=${oSeries.bookNo }'">${oSeries.seriesNo }화 ${oSeries.title }
-							</div>
+							<div id="book-title" class="text-truncate"
+								onclick="location.href='/book/oriBookInfo?bookNo=${oSeries.bookNo }'">${oSeries.bookTitle }</div>
+							<div id="book-info" class="text-truncate"
+								onclick="location.href='/book/oriBookInfo?bookNo=${oSeries.bookNo }'">${oSeries.seriesNo }화
+								${oSeries.title }</div>
 
 
 						</div>
-					</c:forEach><!-- 시리즈 반복문 종료 -->
-				</c:if><!-- 시리즈 출력 종료 -->
+					</c:forEach>
+					<!-- 시리즈 반복문 종료 -->
+				</c:if>
+				<!-- 시리즈 출력 종료 -->
 
 			</article>
+
+			<!--  페이징 영역 -->
+			<article id="page-area">
+
+				<!-- 이전 페이지 출력 -->
+				<c:if test="${bPage.startNavi != 1 && bPage.startNavi > 0  }">
+					<span class="prev"> <a
+						href="/book/writerMenu.do?page=${bPage.startNavi-1 }"> < </a>
+					</span>
+				</c:if>
+
+				<!-- 페이지 번호 출력 -->
+				<c:forEach var="p" begin="${bPage.startNavi}"
+					end="${bPage.startNavi}">
+					<span class="pageNow"> <c:if
+							test="${p == bPage.currentPage  }">
+							${p }	
+						</c:if> <c:if test="${p == 0  }">
+							${p+1 }	
+						</c:if>
+					</span>
+
+					<c:if test="${p != bPage.currentPage && p !=0}">
+						<span class="pages"> <a
+							href="/book/writerMenu.do?page=${p }">${p }</a>
+						</span>
+					</c:if>
+
+				</c:forEach>
+
+				<!-- 다음 페이지 출력 -->
+				<c:if test="${bPage.endNavi ne bPage.maxPage  }">
+					<span class="next"> <a
+						href="/book/writerMenu.do?page=${bPage.endNavi+1 }"> > </a>
+					</span>
+				</c:if>
+
+
+			</article>
+			<!-- 페이징 영역 종료 -->
+
+
 		</section>
 	</main>
 	<jsp:include page="../footer/footer.jsp" />

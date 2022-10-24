@@ -8,6 +8,14 @@
 	insert into origin_reply values(seq_orireplyno.nextval, #{bookNo}, #{memberId}, #{reContents}, default)
 	</insert>
 	
+	<update id="updateOriReply">
+	update origin_reply set RE_CONTETNS = #{reContents} where REPLY_NO= #{replyNo}
+	</update>
+	
+	<delete id="deleteOriReply">
+	delete origin_reply where REPLY_NO= #{rNo}
+	</delete>
+	
 	<resultMap type="OriginBookReply" id="obReplyResultMap">
 	<id property="replyNo" column="REPLY_NO"/>
 	<result property="bookNo" column="ORI_BOOK_NO"/>
@@ -34,7 +42,42 @@
 	select MEMBERID from origin_reply where REPLY_NO= #{rNo}
 	</select>
 	
-	<update id="updateOriReply">
-	update origin_reply set RE_CONTETNS = #{reContents} where REPLY_NO= #{replyNo}
+	
+	
+	<!-- 별점 주기 쿼리문 -->
+	<insert id="insertScore">
+	insert into star values(#{memberId},#{bookNo},#{score},#{category})
+	</insert>
+	
+	<update id="updateOriBook">
+	update origin_book set score = score + #{score} , SCORE_COUNT = SCORE_COUNT + 1 where ORI_BOOK_NO = #{bookNo}
 	</update>
+	
+	<update id="UpdateOriBookScoreMinus">
+	update origin_book set score = score - #{score} , SCORE_COUNT = SCORE_COUNT - 1 where ORI_BOOK_NO = #{bookNo}
+	</update>
+	
+	<!-- 별점 삭제 쿼리문 -->
+	<delete id="deleteScore">
+	delete star where member_id = #{memberId} and BOOK_NO = ${bookNo} and category = #{category}
+	</delete>
+	
+	<!-- 별점가져오기 -->
+	<select id="selectOneScore" resultType="_int">
+	select score from star where MEMBER_ID = #{memberId} and BOOK_NO = #{bookNo} and CATEGORY = #{category}
+	</select>
+	
+	
+	<resultMap type="com.books.peanut.book.domain.Star" id="starResultMap">
+	<id property="memberId" column="MEMBER_ID"/>
+	<result property="bookNo" column="BOOK_NO"/>
+	<result property="score" column="SCORE"/>
+	<result property="category" column="CATEGORY"/>
+	</resultMap>
+	
+	<!-- 별점 정보 하나 가져오기 -->
+	<select id="selectOneStar" resultMap="starResultMap">
+	select * from star where MEMBER_ID = #{memberId} and BOOK_NO = #{bookNo} and CATEGORY = #{category}
+	</select>
+	
 </mapper>

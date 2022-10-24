@@ -33,7 +33,7 @@
   
 <!--   오리지널 북 쿼리문 -->
 <insert id="insertBook">
- insert into origin_book values(oribookseq.nextval,#{bookTitle},#{bookInfo},#{category},default,#{cover},#{coverRename},default,0,0,#{memberId},default)
+ insert into origin_book values(oribookseq.nextval,#{bookTitle},#{bookInfo},#{category},default,#{cover},#{coverRename},default,0,0,#{memberId},default,0)
 </insert>
 
 <resultMap type="OriginBook" id="oriBookResultMap">
@@ -49,6 +49,7 @@
 <result property="viewCount" column="VIEW_COUNT"/>
 <result property="memberId" column="MEMBER_ID"/>
 <result property="checkPermission" column="BOOK_PERMISSION"/>
+<result property="scoreCount" column="SCORE_COUNT"/>
 </resultMap>
 
 <!-- 도서 제목 가져오기 -->
@@ -59,6 +60,16 @@ select BOOK_TITLE from origin_book where ORI_BOOK_NO = #{bookNo}
 <!-- 도서 한개 정보 전부 가져오기 -->
 <select id="selectOneBook" resultMap="oriBookResultMap">
 select * from origin_book where ORI_BOOK_NO = #{bookNo}
+</select>
+
+<!-- 사용자의 모든 도서 제목 가져오기 -->
+<select id="selectAllWriterBookTitle" resultMap="oriBookResultMap">
+select BOOK_TITLE from origin_book where MEMBER_ID = #{memberId}
+</select>
+
+<!-- 작가가 맞는지 체크 -->
+<select id="selectCheckWriter" resultType="_int">
+select count(BOOK_TITLE) from origin_book where MEMBER_ID = #{memberId} and ORI_BOOK_NO = #{bookNo}
 </select>
 
 
@@ -96,10 +107,29 @@ select * from origin_book where ORI_BOOK_NO = #{bookNo}
 	select * from ori_series join origin_book using(ori_book_no) where member_id = #{memberId} order by ORI_BOOK_NO
 </select>
 
+<select id="selectAllMemberOriSeries" resultType="_int">
+	select count(*) from ori_series join origin_book using(ori_book_no) where member_id = #{memberId} order by ORI_BOOK_NO
+</select>
+
 <!-- 도서 한권의 시리즈 제목 전부 가져오기 -->
 <select id="selecSeriesTitle" resultMap="oriSeriesResultMap">
 	select title from ori_series where ORI_BOOK_NO = #{bookNo}
 </select>
+
+<!-- 도서 하나에 해당하는 모든 피넛 오리지널 시리즈 가져오기 -->
+<select id="selectAllOriBookSeries" resultMap="oriSeriesResultMap">
+	select * from ori_series where ORI_BOOK_NO = #{bookNo}
+</select>
+
+<!-- 시리즈 하나의 유료화 여부 체크 -->
+<select id="chekedpayOneSeries" resultType="string">
+	select PAID_CHECK from ori_series where ORI_BOOK_NO = #{bookNo} and SERIES_NO = #{seriesNo}
+</select>
+
+<select id="selectOneObSeries" resultMap="oriSeriesResultMap">
+	select * from ori_series where ORI_BOOK_NO = #{bookNo} and SERIES_NO = #{seriesNo}
+</select>
+
 
 
 

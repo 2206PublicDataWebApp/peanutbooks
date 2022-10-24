@@ -34,7 +34,7 @@
 					<div id="title-area">
 						<div class="title-text">
 
-							<input type="text" id="title-text" placeholder="제목을 입력하세요" name="bookTitle" required="required">
+							<input type="text" id="title-text" placeholder="제목을 입력하세요" name="bookTitle" required="required" maxlength="50">
 						</div>
 
 
@@ -73,7 +73,7 @@
 						</div>
 						<h5>작품소개</h5>
 						<textarea name="bookInfo" id="info-text" cols="30" rows="10"
-							placeholder="소개를 입력하세요"></textarea>
+							placeholder="소개를 입력하세요"  onKeyUp="fnChkByte(this)"></textarea>
 
 						<div id="tag-area">
 							<h5>해시태그</h5>
@@ -115,7 +115,7 @@
 					<small>1화는 유료화 할수 없습니다.</small>
 					<input type="hidden" name="paidCheck" value="N">
 					<div id="contents-text">
-						<input type="text" placeholder="제목을 입력해주세요" class="text-input" name="title" required="required">
+						<input type="text" placeholder="제목을 입력해주세요" class="text-input" name="title" required="required" maxlength="50">
 
 
 					</div>

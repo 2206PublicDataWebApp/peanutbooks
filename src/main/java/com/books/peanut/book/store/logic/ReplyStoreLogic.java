@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.books.peanut.book.domain.OriginBookReply;
+import com.books.peanut.book.domain.Star;
 import com.books.peanut.book.store.ReplyStore;
 
 @Repository
@@ -61,6 +62,38 @@ public class ReplyStoreLogic implements ReplyStore{
 	@Override
 	public int updateOriReply(SqlSessionTemplate session, OriginBookReply obReply) {
 		int result = session.update("bookReplyMapper.updateOriReply",obReply);
+		return result;
+	}
+
+	/**피넛 오리지널 리플 삭제*/
+	@Override
+	public int deleteOriReply(SqlSessionTemplate session, Integer rNo) {
+		int result = session.delete("bookReplyMapper.deleteOriReply",rNo);
+		return result;
+	}
+
+	/**별점주기*/
+	@Override
+	public int insertScore(SqlSessionTemplate session, Star star) {
+		int result = session.insert("bookReplyMapper.insertScore",star);
+		
+		if(star.getCategory().equals("origin")) {
+			result += session.update("bookReplyMapper.updateOriBook",star);
+		}
+		return result;
+	}
+
+	/**별점취소*/
+	@Override
+	public int deleteScore(SqlSessionTemplate session, Star star) {
+		star.setScore(session.selectOne("bookReplyMapper.selectOneScore",star));
+		
+		int result = session.insert("bookReplyMapper.deleteScore",star);
+		
+		if(star.getCategory().equals("origin")) {
+			result += session.update("bookReplyMapper.UpdateOriBookScoreMinus",star);
+		}
+		
 		return result;
 	}
 

@@ -32,7 +32,7 @@
                 <div id="title-area">
                     <div class="title-text">
 
-                        <input type="text" id="title-text" placeholder="제목을 입력하세요">
+                        <input type="text" id="title-text"  readonly="readonly" value="${oBook.bookTitle }">
                     </div>
 
 
@@ -45,7 +45,7 @@
 
                     <div class="align-items-center">
                         <div class="align-items-center">
-                            <img class="headerimg" src="/resources/img/main/christmas-g4fdade62f_1280.jpg">
+                            <img class="headerimg" src="/resources/bookImg/${oBook.coverRename }">
 
 
                         </div>
@@ -55,19 +55,10 @@
                 </div>
                 <div class="col-md-6">
                     <div class="category">
-                        카테고리 : 소설
+                        카테고리 : ${oBook.category }
                     </div>
                     <h5>작품소개</h5>
-                    <div id="info-text1"> 작품소개 작품소개 작품소개
-                        작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개
-                        작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개
-                        작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개
-                        작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개
-                        작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개
-                        작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개
-                        작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개
-                        작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개
-                        작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개
+                    <div id="info-text1"> ${oBook. bookInfo}
                     </div>
 
                     <div id="tag-area">
@@ -83,7 +74,8 @@
                 <h2>다음화 등록</h2>
                 <span>
                     <label>
-                        <input type="checkbox" name="pay-check" id="pay-check"> 유료화 여부
+                    	<input type="hidden" name ="seriesNo" value="${seriesNo}">
+                        <input type="checkbox" name="paidCheck" id="pay-check"> 유료화 여부
                     </label>
                 </span>
                 <div id="contents-text">
@@ -110,7 +102,7 @@
                 <div class="contents-textarea">
 
                     <div id="summernote"></div>
-                    <textarea rows="" cols="" style="display:none" name="Contents" required="required"></textarea>
+                    <textarea rows="" cols="" style="display:none" name="contents" required="required"></textarea>
                 </div>
                 <div class="contents-button row">
 

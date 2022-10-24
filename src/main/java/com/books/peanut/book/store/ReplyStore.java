@@ -5,6 +5,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.books.peanut.book.domain.OriginBookReply;
+import com.books.peanut.book.domain.Star;
 
 public interface ReplyStore {
 
@@ -31,5 +32,14 @@ public interface ReplyStore {
 
 	/**피넛 오리지널 리플 수정*/
 	int updateOriReply(SqlSessionTemplate session, OriginBookReply obReply);
+
+	/**피넛 오리지널 리플 삭제*/
+	int deleteOriReply(SqlSessionTemplate session, Integer rNo);
+
+	/**별점주기*/
+	int insertScore(SqlSessionTemplate session, Star star);
+	
+	/**별점취소*/
+	int deleteScore(SqlSessionTemplate session, Star star);
 
 }

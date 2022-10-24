@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.books.peanut.book.domain.OriginBookReply;
+import com.books.peanut.book.domain.Star;
 import com.books.peanut.book.service.ReplyService;
 import com.books.peanut.book.service.logic.BookServiceImpl;
 import com.books.peanut.member.domain.Member;
@@ -76,6 +77,7 @@ public class BookReplyController {
 		obReply.get(0).setStartNavi(startNavi);
 		obReply.get(0).setMaxPage(maxPage);
 		obReply.get(0).setCurrentPage(currentPage);
+		obReply.get(0).setTotalCount(totalCount);
 
 		// 가져온 리플목록에 닉네임 추가하기
 		for (int i = 0; i < obReply.size(); i++) {
@@ -106,6 +108,7 @@ public class BookReplyController {
 
 	}
 
+	/** 리플 수정하기 */
 	@ResponseBody
 	@RequestMapping(value = "/book/modifyOriReply", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
 	public String modifyOriReply(HttpSession session, @ModelAttribute OriginBookReply obReply) {
@@ -118,6 +121,27 @@ public class BookReplyController {
 		int result = 0;
 		if (repleId.equals(memberId)) {
 			result = rService.modifyReply(obReply);
+		} else {
+			result = 0;
+		}
+
+		return result + "";
+
+	}
+
+	/** 리플 삭제하기 */
+	@ResponseBody
+	@RequestMapping(value = "/book/removeOriReply", method = RequestMethod.GET, produces = "text/plain;charset=utf-8")
+	public String modifyOriReply(HttpSession session, @RequestParam(value = "rNo") Integer rNo) {
+
+		Member member = (Member) session.getAttribute("loginMember");
+		String memberId = member.getMemberId();
+
+		// 리플 쓴 사람 체크하기
+		String repleId = rService.checkOriReplyMember(rNo);
+		int result = 0;
+		if (repleId.equals(memberId)) {
+			result = rService.removeOriReply(rNo);
 		} else {
 			result = 0;
 		}
@@ -168,5 +192,43 @@ public class BookReplyController {
 
 		return mv;
 
+	}
+
+	/**
+	 * 별점주기
+	 * @param star
+	 * @param session
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/book/StarScore.do", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
+	public String StarScore(@ModelAttribute Star star, HttpSession session) {
+
+		Member member = (Member) session.getAttribute("loginMember");
+
+		star.setMemberId(member.getMemberId());
+
+		int result = rService.getStarScoreOrigin(star);
+
+		return "";
+	}
+
+	/**
+	 * 별점취소
+	 * @param star
+	 * @param session
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/book/StarRemove.do", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
+	public String StarRemove(@ModelAttribute Star star, HttpSession session) {
+
+		Member member = (Member) session.getAttribute("loginMember");
+
+		star.setMemberId(member.getMemberId());
+
+		int result = rService.removeScore(star);
+
+		return "";
 	}
 }

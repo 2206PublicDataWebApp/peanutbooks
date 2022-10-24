@@ -38,7 +38,7 @@ main {
 #cover-area {
     border-top-left-radius: 0.5rem;
     border-bottom-left-radius: 0.5rem;
-    background-image: url('/resources/img/main/landscape-g2a33940ce_1280.jpg');
+
     background-size: cover;
     background-repeat: no-repeat;
     box-shadow: rgba(0, 0, 0, 0.7) -20px 0 20px 0 inset;
@@ -61,7 +61,7 @@ main {
 }
 
 #header-area {
-    background-image: url('/resources/img/main/sailboat-g9d3a88421_1920.jpg');
+
     background-size: cover;
     background-repeat: no-repeat;
     box-shadow: rgba(0, 0, 0, 0.7) 10px 0 20px 0 inset;
@@ -116,6 +116,12 @@ main {
 .step-title{
     font-size: 1.5rem;
 }
+
+.step-title:hover,
+.step-text:hover,
+.step-img:hover{ 
+	cursor :pointer;
+ }
 .step-img img{
     width: 100%;
     height: 100%;
@@ -196,11 +202,16 @@ main {
     
     #step-area{
         position: absolute;
+        padding-bottom:1rem;
     }
 
     .one-step{
     margin-right: 0.5rem;
     padding: 0.5rem;
+    }
+    
+    #book-title{
+    font-size:1.5rem;
     }
 
 }

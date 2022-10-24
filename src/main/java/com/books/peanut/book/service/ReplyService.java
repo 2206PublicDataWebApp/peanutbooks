@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.books.peanut.book.domain.OriginBookReply;
+import com.books.peanut.book.domain.Star;
 
 
 public interface ReplyService {
@@ -30,7 +31,16 @@ public interface ReplyService {
 	/** 피넛 오리지널 리플 쓴 사람 체크*/
 	String checkOriReplyMember(int rNo);
 
-	
+	/**피넛 오리지널 리플 수정*/
 	int modifyReply(OriginBookReply obReply);
+	
+	/**피넛 오리지널 리플 삭제*/
+	int removeOriReply(Integer rNo);
+
+	/**별점주기*/
+	int getStarScoreOrigin(Star star);
+
+	/**별점취소*/
+	int removeScore(Star star);
 
 }
