@@ -136,7 +136,7 @@ public class ControllerPay {
 	}
 	// 헤더에서 포인트조회하는 부분
 	@ResponseBody
-	@RequestMapping(value="ppoint/pointsum.kh", method=RequestMethod.POST)
+	@RequestMapping(value="/ppoint/pointsum.kh", method=RequestMethod.GET)
 	public String pointSum(String memberId) {
 		int ppSum = pService.getPPsum(memberId);
 		

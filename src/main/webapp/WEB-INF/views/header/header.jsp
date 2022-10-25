@@ -190,26 +190,25 @@
 
 
 
-
+		<input type="hidden" id="member-id" value="${sessionScope.loginMember.memberId}">
 		<div class="container" id="point-tooltip-area">
 			<div class="row" id="point-icon-tooltip">
 				<div class="col-md-2" id="point">
 					<div id="name-space">${sessionScope.loginMember.mNickname}님</div>
-					<div id="now-point">${sessionScope.loginMember.mPoint}땅콩</div>
+					<div id="now-point"></div>
 					<div id="point-icon-area" class="row">
 						<div class="col-4">
-							<img src="/resources/img/header/icons8-page-52.png" alt="">
-							<br>이용내역
-						</div>
-						<div class="col-4">
-							<img src="/resources/img/header/icons8-android-l-battery-48.png"
-								alt="" id="peanutIn"> <br>땅콩충전
-						</div>
-						<div class="col-4">
-							<img src="/resources/img/header/icons8-change-48.png" alt=""
-								onclick="peanutList('${sessionScope.loginMember.memberId}');">
-							<br>땅콩교환
-						</div>
+                        <img src="/resources/img/header/icons8-page-52.png" alt="" onclick="peanutList('${sessionScope.loginMember.memberId}');">
+                        <br>이용내역
+                    </div>
+                    <div class="col-4" >                    	
+                        <img src="/resources/img/header/icons8-android-l-battery-48.png" alt="" onclick="pay('${sessionScope.loginMember.memberId}');">
+                        <br>땅콩충전
+                    </div>
+                    <div class="col-4">                    	
+                        <img src="/resources/img/header/icons8-change-48.png" alt="" onclick="writerPay('${sessionScope.loginMember.memberId}');">
+                        <br>땅콩교환
+                    </div>
 
 
 
@@ -228,7 +227,7 @@
     <script src="/resources/js/headerJs.js"></script>
     <script type="text/javascript">
     	
-	 	/*결제 관련   */
+	 	//결제 관련   */
 	 	function pay(memberId){		 			
 			 if(memberId==''){
 				 alert("로그인후 가능합니다");
@@ -244,21 +243,7 @@
 				 location.href="/peanut/listStart.kh?memberId="+memberId;
 			 };
 		 }
-	 	//땅콩 포인트 가져오는 ajax
-	 	$("#p-icon").on("click",function(){
-	 		var mid="${sessionScope.loginMember.memberId}";
-	 		$.ajax({
-	 			url:"ppoint/pointsum.kh",
-	 			type:"post",
-	 			data: {"memberId":mid},
-	 			success : function(result){
-	 				$("#now-point").html(result+"땅콩");
-	 			},
-	 			error:function(e){
-	 				alert("error :"+e);
-	 			}
-	 		});	 		
-	 	})
+	 	
 	 	
 	 	//작가료 정산페이지 이동
 		function writerPay(memberId){
@@ -269,30 +254,7 @@
 			 };
 	 	}
 
-		//고객 채팅 연결
-		function chatStart(memberId) {
-			if (memberId == '') {
-				alert("로그인후 가능합니다");
-			} else {
-				$.ajax({
-					url : "/client/chatCheck.kh",
-					dataType : "json",
-					type : 'get',
-					success : function(result) { /* 이벤트 핸들러 result에 서버가 보낸준 값이 리턴됨. */						
-						if (result.switchbtn.trim() == 'N') {
-							alert("관리자가 준비되지 않았습니다. 잠시후 부탁드립니다."); //버튼값이 n이면 그냥 종료
-						} else {
-							chatbtnSuccess(memberId) //y이면 로그인 확인
-						}
-						;
-					},
-					error : function(e) {
-						alert('error');
-					},
-				});
-			}
-		}
-
+			
 		function chatbtnSuccess(memberId) {
 			var windo = "status=no ,toolbar=no,scrollbars=no, menubar=no,resizable=no,titlebar=no,width=550,height=650";
 			window.open("/consult/chatbefore.kh", "PopupWin",windo);
