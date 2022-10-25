@@ -181,11 +181,9 @@
 
 					</div>
 					<div id="logout-area">
-<<<<<<< HEAD
+
 						<button id="logout" onclick="location.href='/member/logout.pb';">로그아웃</button>
-=======
-						<button onclick="location.href='/member/logout.pb';" id="logout">로그아웃</button>
->>>>>>> refs/remotes/origin/wyw1025-1
+
 					</div>
 
 
