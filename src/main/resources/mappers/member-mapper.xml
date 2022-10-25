@@ -38,5 +38,9 @@
 	<select id="selectLoginMember" resultMap="memberResultMap">
 		SELECT * FROM MEMBER_TBL WHERE MEMBER_ID = #{memberId} AND MEMBER_PW = #{memberPw}
 	</select>
+	<!-- 회원 정보 수정 -->
+	<update id="updateInfo">
+		UPDATE MEMBER_TBL SET M_NICKNAME = #{mNickname}, MEMEBER_PW = #{memberPw} WHERE MEMBER_ID = #{memberId}
+	</update>
 </mapper>
 

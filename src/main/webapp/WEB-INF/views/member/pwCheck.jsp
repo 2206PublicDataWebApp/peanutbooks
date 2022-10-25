@@ -15,8 +15,36 @@
 <body>
 	<jsp:include page="../header/header.jsp" />
 	<main>
-		
+		<div class="info-wrapper">
+			<div class="info-header">
+			    <div>비밀번호 확인</div>
+			</div>
+			<div class="msg-area">
+				<div class="circle-area">
+					<img alt="자물쇠" src="../resources/img/member/icons8-lock-48.png">
+				</div>
+				<p>
+					안전한 개인정보 변경을 위해<br>
+					비밀번호를 다시 입력해주세요.
+				</p>
+	        </div>
+        	<div class="pw-input-area">
+        		<label for="pwChk-pw">비밀번호</label>
+        		<input id="pwChk-memberPw" type="hidden" value="${loginMember.memberPw}">
+        		<input id="pwChk-pw" type="password" required>
+        		<button class="pwChk-btn" type="submit">확인</button>
+        	</div>
+	    </div>
 	</main>
 	<jsp:include page="../footer/footer.jsp" />
+	<script>
+		$(".pwChk-btn").on("submit", function(){
+			var memberPw = $("#pwChk-memberPw").val();
+			var inputPw = $("#pwChk-pw").val();
+			if(memberPw == inputPw){
+				
+			}
+		});
+	</script>
 </body>
 </html>

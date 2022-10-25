@@ -15,5 +15,7 @@ public interface MemberStore {
 	public int checkEmail(SqlSession session, String mEmail);
 	// 로그인
 	public Member selectLoginMember(SqlSession session, Member member);
+	// 회원 정보 수정
+	public int updateInfo(SqlSession session, Member member);
 
 }

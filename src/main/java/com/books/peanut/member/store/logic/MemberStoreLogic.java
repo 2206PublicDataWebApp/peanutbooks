@@ -38,4 +38,10 @@ public class MemberStoreLogic implements MemberStore{
 		Member mResult = session.selectOne("MemberMapper.selectLoginMember", member);
 		return mResult;
 	}
+	// 회원 정보 수정
+	@Override
+	public int updateInfo(SqlSession session, Member member) {
+		int result = session.update("MemberMapper.updateInfo", member);
+		return result;
+	}
 }

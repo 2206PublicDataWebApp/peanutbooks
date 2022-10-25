@@ -13,6 +13,8 @@ public interface MemberService {
 	int checkEmail(String mEmail);
 	// 로그인
 	Member loginMember(Member member);
+	// 회원 정보 수정
+	int modifyInfo(Member member);
 	
 
 }

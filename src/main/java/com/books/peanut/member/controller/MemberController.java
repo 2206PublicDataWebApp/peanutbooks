@@ -216,6 +216,46 @@ public class MemberController {
 		return "member/memberInfo";
 	}
 	
+	/**
+	 * 정보 관리 - 비밀번호 확인 화면
+	 * @return
+	 */
+	@RequestMapping(value="/member/pwCheck.pb", method=RequestMethod.GET)
+	public String pwCheckView() {
+		return "member/pwCheck";
+	}
+	
+	/**
+	 * 정보 관리 - 회원 정보 수정 화면
+	 * @return
+	 */
+	@RequestMapping(value="/member/modifyView.pb", method=RequestMethod.GET)
+	public String modifyView() {
+		return "member/modifyInfo";
+	}
+	
+	/**
+	 * 회원 정보 수정 기능
+	 * @param member
+	 * @param mv
+	 * @return
+	 */
+	@RequestMapping(value="/member/modify.pb", method=RequestMethod.POST)
+	public ModelAndView ModifyMemberInfo(
+			@ModelAttribute Member member,
+			ModelAndView mv) {
+		try {
+			int result = mService.modifyInfo(member);
+			if(result > 0) {
+				mv.setViewName("redirect:/main");
+			}else {
+				mv.setViewName("redirect:/member/modifyView.pb");
+			}
+		} catch (Exception e) {
+			mv.addObject("msg", e.toString()).setViewName("error");
+		}
+		return mv;
+	}
 
 	//은정이가 잠깐 사용할 예정
 	@RequestMapping(value="/member/login.kh", method=RequestMethod.POST)
