@@ -2,8 +2,10 @@ package com.books.peanut.qna.domain;
 
 import java.sql.Date;
 
+
 public class Qna {
 	private int qnaNo;
+	private String memberId;
 	private String qnaCategory;
 	private String qnaTitle;
 	private String qnaContents;
@@ -26,12 +28,14 @@ public class Qna {
 	
 	public Qna() {}
 
-	public Qna(int qnaNo, String qnaCategory, String qnaTitle, String qnaContents, Date qCreateDate, Date qUpdateDate,
-			String qnaStatus, String qnaFilename01, String qnaFileRename01, String qnaFilepath01, String qnaFilename02,
-			String qnaFileRename02, String qnaFilepath02, String qnaFilename03, String qnaFileRename03,
-			String qnaFilepath03, String answerWriter, String answerContents, Date aCreateDate, Date aUpdateDate) {
+	public Qna(int qnaNo, String memberId, String qnaCategory, String qnaTitle, String qnaContents, Date qCreateDate,
+			Date qUpdateDate, String qnaStatus, String qnaFilename01, String qnaFileRename01, String qnaFilepath01,
+			String qnaFilename02, String qnaFileRename02, String qnaFilepath02, String qnaFilename03,
+			String qnaFileRename03, String qnaFilepath03, String answerWriter, String answerContents, Date aCreateDate,
+			Date aUpdateDate) {
 		super();
 		this.qnaNo = qnaNo;
+		this.memberId = memberId;
 		this.qnaCategory = qnaCategory;
 		this.qnaTitle = qnaTitle;
 		this.qnaContents = qnaContents;
@@ -61,6 +65,13 @@ public class Qna {
 		this.qnaNo = qnaNo;
 	}
 
+	public String getMemberId() {
+		return memberId;
+	}
+	
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
 	public String getQnaCategory() {
 		return qnaCategory;
 	}
@@ -215,15 +226,14 @@ public class Qna {
 
 	@Override
 	public String toString() {
-		return "Qna [qnaNo=" + qnaNo + ", qnaCategory=" + qnaCategory + ", qnaTitle=" + qnaTitle + ", qnaContents="
-				+ qnaContents + ", qCreateDate=" + qCreateDate + ", qUpdateDate=" + qUpdateDate + ", qnaStatus="
-				+ qnaStatus + ", qnaFilename01=" + qnaFilename01 + ", qnaFileRename01=" + qnaFileRename01
-				+ ", qnaFilepath01=" + qnaFilepath01 + ", qnaFilename02=" + qnaFilename02 + ", qnaFileRename02="
-				+ qnaFileRename02 + ", qnaFilepath02=" + qnaFilepath02 + ", qnaFilename03=" + qnaFilename03
-				+ ", qnaFileRename03=" + qnaFileRename03 + ", qnaFilepath03=" + qnaFilepath03 + ", answerWriter="
-				+ answerWriter + ", answerContents=" + answerContents + ", aCreateDate=" + aCreateDate
-				+ ", aUpdateDate=" + aUpdateDate + "]";
+		return "Qna [qnaNo=" + qnaNo + ", memberId=" + memberId + ", qnaCategory=" + qnaCategory + ", qnaTitle="
+				+ qnaTitle + ", qnaContents=" + qnaContents + ", qCreateDate=" + qCreateDate + ", qUpdateDate="
+				+ qUpdateDate + ", qnaStatus=" + qnaStatus + ", qnaFilename01=" + qnaFilename01 + ", qnaFileRename01="
+				+ qnaFileRename01 + ", qnaFilepath01=" + qnaFilepath01 + ", qnaFilename02=" + qnaFilename02
+				+ ", qnaFileRename02=" + qnaFileRename02 + ", qnaFilepath02=" + qnaFilepath02 + ", qnaFilename03="
+				+ qnaFilename03 + ", qnaFileRename03=" + qnaFileRename03 + ", qnaFilepath03=" + qnaFilepath03
+				+ ", answerWriter=" + answerWriter + ", answerContents=" + answerContents + ", aCreateDate="
+				+ aCreateDate + ", aUpdateDate=" + aUpdateDate + "]";
 	}
-
 	
 }

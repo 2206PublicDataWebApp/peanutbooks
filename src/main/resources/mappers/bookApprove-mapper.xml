@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="BookApproveMapper">
+ 	<resultMap type="BookApprove" id="BookApproveResultMap">
+ 		<id column="APPROVE_NO"         property="approveNo" />
+ 		<result column="ORI_BOOK_NO"    property="oriBookNo" />
+ 		<result column="APPROVE"        property="approve" />
+ 		<result column="APPROVE_DATE"   property="approveDate" />
+ 		<result column="APPROVE_UPDATE" property="approveUpdate" />
+ 		<result column="REAPPROVE"      property="reApprove" />
+ 		<result column="BOOK_SERIES_NO" property="bookSeriesNo" />
+ 	</resultMap>
+ 	
+ </mapper>

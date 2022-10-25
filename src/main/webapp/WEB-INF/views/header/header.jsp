@@ -43,29 +43,8 @@
 						<li>피넛 오리지널</li>
 					</ul>
 
-
-<<<<<<< HEAD
-				</div>
-				<div class="col-md-4 col-7" id="header-menu-icon">
-					<img src="/resources/img/header/icons8-search (2).png" alt=""
-						id="search-icon"> <img
-						src="/resources/img/header/icons8-book (3).png" alt=""
-						id="book-icon"> <img
-						src="/resources/img/header/icons8-peanut-48 (6).png" alt=""
-						id="p-icon"> <img
-						src="/resources/img/header/icons8-user.png" alt="" id="user-icon"
-						<c:if test="${loginMember.adminYN=='Y' }">style="display:none;"</c:if>>
-					<!--관리자 체크해서 나타남-->
-					<img src="/resources/img/header/icons8-monarch-48.png" alt=""
-						id="admin-icon"
-						<c:if test="${loginMember.adminYN=='N' }">style="display:none;"</c:if>>
-				</div>
-				<div class="d-md-none d-block col-1" id="togglemenu">
-					<div>
-						<img src="/resources/img/header/icons8-menu-60.png">
-					</div>
-=======
                 </div>
+                
                 <div class="col-md-4 col-7" id="header-menu-icon">
                     <img src="/resources/img/header/icons8-search (2).png" alt="" id="search-icon">
                     <img src="/resources/img/header/icons8-book (3).png" alt="" id="book-icon">
@@ -82,7 +61,7 @@
                     <div>
                         <img src="/resources/img/header/icons8-menu-60.png">    
                     </div>
->>>>>>> refs/remotes/origin/eunjeong1021-10
+
 
 				</div>
 
@@ -102,6 +81,7 @@
 		</div>
 
 		<!--회원 정보 툴팁-->
+
 		<div class="container" id="mypage-tooltip-area">
 			<div class="row" id="icon-tooltip">
 				<div class="col-md-2" id="mypage">
@@ -129,8 +109,8 @@
 						</div>
 
 						<div class="col-4">
-							<img src="/resources/img/header/icons8-headphone-64.png" alt="">
-							<br>1:1문의
+							<a href="/qna/list.kh"><img src="/resources/img/header/icons8-headphone-64.png" alt="">
+							<br>1:1문의</a>
 						</div>
 						<div class="col-4">
 							<img src="/resources/img/header/icons8-chat-50.png" alt="" onclick="chatStart('${sessionScope.loginMember.memberId}');">
@@ -151,7 +131,10 @@
 
 			</div>
 		</div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> refs/remotes/origin/wyw1025-1
 
 
 		<!--관리자 툴팁-->
@@ -198,7 +181,11 @@
 
 					</div>
 					<div id="logout-area">
+<<<<<<< HEAD
 						<button id="logout" onclick="location.href='/member/logout.pb';">로그아웃</button>
+=======
+						<button onclick="location.href='/member/logout.pb';" id="logout">로그아웃</button>
+>>>>>>> refs/remotes/origin/wyw1025-1
 					</div>
 
 

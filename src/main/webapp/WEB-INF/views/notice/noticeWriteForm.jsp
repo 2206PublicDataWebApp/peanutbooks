@@ -51,9 +51,8 @@
 			<tr>
 				<td  class="col-2" scope="col" align="center">선택</td>
 				<td>
-					<select name="noticeCategory"  class="form-select" aria-label="Default select example" >
-						<option selected>선택하세요.</option>
-						<option value="0" label="공지"></option>
+					<select name="noticeCategory" id="noticeCategory" class="form-select" aria-label="Default select example" required>
+						<option value="0" label="공지" selected></option>
 						<option value="1" label="업데이트"></option>
 						<option value="2" label="이벤트"></option>
 						<option value="3" label="안내"></option>
@@ -106,10 +105,6 @@
 	    }else if(noticeForm.noticeContents.value==""){
 	        alert("내용을 입력하세요");
 	        noticeForm.noticeContents.focus();
-	        return false;
-	    }else if(noticeForm.noticeCategory.value==""){
-	        alert("공지형식을 선택하세요");
-	        noticeForm.noticeCategory.focus();
 	        return false;
 	    }
 		

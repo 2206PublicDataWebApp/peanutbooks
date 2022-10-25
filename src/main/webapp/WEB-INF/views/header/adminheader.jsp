@@ -33,7 +33,7 @@
 				<div class="col-md-7 d-md-block d-none">
 					<ul>
 						<li>게시판</li>
-						<li>도서</li>
+						<li><a href="/admin/bookApprove/bookApproveView.kh">도서</a></li>
 						<li>피넛</li>
 						<li>회원</li>
 						<li id="admintext">관리자홈</li>
@@ -71,7 +71,7 @@
 		<div id="menu-bar">
 			<ul>
 				<li>게시판</li>
-				<li>도서</li>
+				<li><a href="/admin/bookApprove/bookApproveView.kh">도서</a></li>
 				<li>피넛</li>
 				<li>회원</li>
 			</ul>

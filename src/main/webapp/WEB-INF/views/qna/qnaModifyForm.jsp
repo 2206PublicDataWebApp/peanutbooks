@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -99,17 +100,19 @@ ${sessionScope.loginMember.memberId}님 환영합니다!
 	
 	<!-- 1:1 문의 입력 폼 Start -->
 	<div class="row">
-		<form action="/qna/register.kh" method="post" enctype="multipart/form-data" name="qnaForm" id="qnaForm">
-		<%-- <input type="hidden" name="memberId" value="${loginMember.memberId }"> --%>
+		<form action="/qna/modify.kh" method="post" enctype="multipart/form-data" name="qnaForm" id="qnaForm">
+		<input type="hidden" name="memberId" value="${loginMember.memberId }">
+		<input type="hidden" name="page" value="${page }">
+		<input type="hidden" name="qnaNo" value="${qna.qnaNo }">
 			<table align="center" class="table">
 				<tr>
 					<td width="20%" align="center">문의유형</td>
 					<td width="80%">
-						<select name="qnaCategory"  class="form-select" aria-label="Default select example" >
-							<option value="member" label="회원관련" selected></option>
-							<option value="point" label="포인트관련"></option>
-							<option value="books" label="도서관련"></option>
-							<option value="others" label="기타"></option>
+						<select name="qnaCategory" class="form-select" aria-label="Default select example" >
+							<option value="member" <c:if test="${qna.qnaCategory == 'member'}">selected</c:if>>회원 관련</option>
+							<option value="point" <c:if test="${qna.qnaCategory == 'point'}">selected</c:if>>포인트관련</option>
+							<option value="books" <c:if test="${qna.qnaCategory == 'books'}">selected</c:if>>도서관련</option>
+							<option value="others" <c:if test="${qna.qnaCategory == 'others'}">selected</c:if>>기타</option>
 						</select>	
 					</td>
 				<tr>
@@ -118,73 +121,76 @@ ${sessionScope.loginMember.memberId}님 환영합니다!
 				</tr>
 				<tr>
 					<td width="20%" align="center">제목</td>
-					<td width="80%"><input type="text" name="qnaTitle" class="form-control"></td>
+					<td width="80%"><input type="text" name="qnaTitle" class="form-control" value="${qna.qnaTitle }"></td>
 				</tr>
 				<tr>
 					<td width="20%" align="center">내용</td>
-					<td width="80%"><textarea class="form-control" id="exampleFormControlTextarea1" cols="20" rows="20" name="qnaContents"></textarea>  </td>
+					<td width="80%"><textarea class="form-control" id="exampleFormControlTextarea1" cols="20" rows="20" name="qnaContents">${qna.qnaContents }</textarea>  </td>
 				</tr>
 				<tr>
-					<!-- <td width="20%" align="center">첨부파일(선택)</td> -->
-					<td colspan="2">
+					<td width="20%" align="center" rowspan="3">첨부파일(선택)</td>
+					<td width="80%">
 				       <!-- 첨부파일 1영역 -->
-				<div id="file1" class="row my-1" >
-
-					<div id="file-name-area" class="col-1 d-md-inline d-none"> 첨부파일 1</div>
-					<div id="file-bitton-aera" class="col-11">
-					<input type="text" id="text-box" readonly style="width:90%" placeholder="파일을 등록하세요"> <label for="input-file" >
-					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="skyblue" class="bi bi-file-earmark-fill" viewBox="0 0 16 16">
-					<path d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3z"/>
-					</svg>
-					
-					파일등록 </label>
-					<input type="file" accept="image/jpeg, image/png, image/jpg" class="isFile" id="input-file" style="display:none" name="uploadFile" onchange="filename(this)" onclick="imgCheck();">
-					</div>
-					
-
-
-				</div>
-				<!-- 첨부파일1영역종료 -->
-				<!-- 첨부파일 2영역 -->
-				<div id="file2" class="row my-1">
-
-					<div id="file-name-area" class="col-1 d-none d-md-inline "> 첨부파일 2</div>
-					<div id="file-bitton-aera" class="col-11">
-					
-					
-					<input type="text" id="text-box" readonly style="width:90%" placeholder="파일을 등록하세요"> <label for="input-file2" >
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="skyblue" class="bi bi-file-earmark-fill" viewBox="0 0 16 16">
-						<path d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3z"/>
-						</svg>
-					파일등록 </label>
-					<input type="file" accept="image/jpeg, image/png, image/jpg"  class="isFile" id="input-file2" style="display:none" name="uploadFile" onchange="filename(this)">
-					</div>
-					
-				</div>
-				<!-- 첨부파일2영역종료 -->
-				<!-- 첨부파일 3영역 -->
-				<div id="file3" class="row my-1">
-				
-					<div id="file-name-area" class="col-1 d-none d-md-inline " > 첨부파일 3</div>
-					<div id="file-bitton-aera" class="col-11">
-					<input type="text" id="text-box" readonly style="width:90%" placeholder="파일을 등록하세요"> <label for="input-file3" >
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="skyblue" class="bi bi-file-earmark-fill" viewBox="0 0 16 16">
-						<path d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3z"/>
-						</svg>
-					파일등록 </label>
-					<input type="file" accept="image/jpeg, image/png, image/jpg" class="isFile" id="input-file3" style="display:none" name="uploadFile" onchange="filename(this)">
-					</div>
-
-				</div>
-				<!-- 첨부파일3영역종료 -->
-				
+				       
+						<div id="file1" class="row my-1" >
+							<div id="file-bitton-aera" class="col-11">
+							 <c:if test="${qna.qnaFileRename01 ne null}">
+			 			        <div class="col"><img src="/resources/qnaUploadFiles/${qna.qnaFileRename01 }" style="width:150px; height:150px;"></div>
+		 			        </c:if>
+							<input type="text" id="text-box" readonly style="width:90%" placeholder="파일을 등록하세요" value="${qna.qnaFileRename01 }"> <label for="input-file" >
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="skyblue" class="bi bi-file-earmark-fill" viewBox="0 0 16 16">
+							<path d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3z"/>
+							</svg>
+							
+							파일등록 </label>
+							<input type="file" accept="image/jpeg, image/png, image/jpg" class="isFile" id="input-file" style="display:none" name="reloadFile" onchange="filename(this)" onclick="imgCheck();">
+						</div>
+						<!-- 첨부파일1영역종료 -->
+						</td>
+						</tr>
+						<tr>
+						<td>
+						<!-- 첨부파일 2영역 -->
+						<div id="file2" class="row my-1">
+							<div id="file-bitton-aera" class="col-11">
+							<c:if test="${qna.qnaFileRename02 ne null}">
+			 			        <div class="col"><img src="/resources/qnaUploadFiles/${qna.qnaFileRename02 }" style="width:150px; height:150px;"></div>
+		 			        </c:if>
+							<input type="text" id="text-box" readonly style="width:90%" placeholder="파일을 등록하세요" value="${qna.qnaFileRename02 }"> <label for="input-file2" >
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="skyblue" class="bi bi-file-earmark-fill" viewBox="0 0 16 16">
+								<path d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3z"/>
+								</svg>
+							파일등록 </label>
+							<input type="file" accept="image/jpeg, image/png, image/jpg"  class="isFile" id="input-file2" style="display:none" name="reloadFile" onchange="filename(this)">
+						</div>
+						<!-- 첨부파일2영역종료 -->
+						</td>
+						</tr>
+						<tr>
+						<td>
+						<!-- 첨부파일 3영역 -->
+						<div id="file3" class="row my-1">
+							<div id="file-bitton-aera" class="col-11">
+							<c:if test="${qna.qnaFileRename03 ne null}">
+			 			        <div class="col"><img src="/resources/qnaUploadFiles/${qna.qnaFileRename03 }" style="width:150px; height:150px;"></div>
+		 			        </c:if>
+							<input type="text" id="text-box" readonly style="width:90%" placeholder="파일을 등록하세요" value="${qna.qnaFileRename03 }"> <label for="input-file3" >
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="skyblue" class="bi bi-file-earmark-fill" viewBox="0 0 16 16">
+								<path d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3z"/>
+								</svg>
+							파일등록 </label>
+							<input type="file" accept="image/jpeg, image/png, image/jpg" class="isFile" id="input-file3" style="display:none" name="reloadFile" onchange="filename(this)">
+		
+						</div>
+						<!-- 첨부파일3영역종료 -->
+						
 						<!-- 첨부파일 -->
 				    </td>
 				</tr>
 				
 				<tr>
 					<td colspan="2" align="center" style="border:none;">
-						<input onclick="qnaCheck();" type="button" value="등록" class="btn btn-warning btn-sm">
+						<input onclick="qnaCheck();" type="button" value="수정" class="btn btn-warning btn-sm">
 						<input type="reset" value="취소" class="btn btn-warning btn-sm">
 						<button type="button" onclick="location.href='/qna/list.kh'" class="btn btn-warning btn-sm">목록</button> 
 						 
@@ -236,7 +242,6 @@ for (var i = 0; i < imgFile.length; i++) {
 
 };
 
-
 function titleLengthCk(thisInput){
  	console.log(thisInput.value.length);
  	if(thisInput.value.length>30){
@@ -256,8 +261,6 @@ function qnaCheck() {
 	
 	return qnaForm.submit();
  }
-
-
 </script>
 
 <!-- Footer -->
