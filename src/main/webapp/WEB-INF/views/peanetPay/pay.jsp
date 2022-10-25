@@ -77,7 +77,7 @@
 
 			</div>
 
-			<div id="Confirmation"><button id="ordercheck">주문확정</button></div>
+			<div id="Confirmation"><button id="ordercheck">주 문 확 정</button></div>
             <div id="history">
                 <table>                  
                     <tr>
@@ -107,7 +107,7 @@
                     <p>위의 내용에 동의하십니까?<input type="checkbox" value="" id="payCheck"></p> 
                 </div>
             </div>
-	        <div id="pay"><button onclick="requestPay()">결제진행</button></div>
+	        <div id="pay"><button onclick="requestPay()">결 제 진 행</button></div>
         </section>
     </main>
     
@@ -139,7 +139,7 @@
 		    if ($('#history').css('display')=='none'){
 			    $('#ordercheck').css('background-color','red');
 			    $('#ordercheck').css('color','#fff');
-			    $('#ordercheck').html('주문취소');    
+			    $('#ordercheck').html('주 문 취 소');    
 			    $('#history').css('display','block');
 			    $('#pay').css('display','block');
 			    orderList(); 

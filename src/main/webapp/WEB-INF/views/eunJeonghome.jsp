@@ -112,7 +112,7 @@
 			 if(memberId==''){
 				 alert("로그인후 가능합니다");
 			 }else{
-				 location.href="/peanut/listStart.kh";    				
+				 location.href="/peanut/listStart.kh?memberId="+memberId;    				
 			 }	
 	 }
 

@@ -65,13 +65,27 @@
 		<result  property="ppStatus" column="PP_STATUS"/> 
 		<result  property="bookNo" column="BOOK_NO"/>
 		<result  property="bookName" column="BOOK_NAME"/>
-		 <result  property="memberId" column="MEMBER_ID"/>
-		<result  property="orderNo" column="ORDER_NO"/>   
+        <result  property="memberId" column="MEMBER_ID"/>
+		<result  property="orderNo" column="ORDER_NO"/>  
+		<result  property="seriesNo" column="SERIES_NO"/>  
+		 
   	</resultMap>
   	
   	<insert id="insertPeanut">
-  		 INSERT INTO PEANUTPOINT_TBL VALUES (SQN_PEANUT_NO.NEXTVAL,SYSDATE,${peanutPoint},'Y',DEFAULT,DEFAULT,#{memberId},#{orderNo})
+  		 INSERT INTO PEANUTPOINT_TBL VALUES (SQN_PEANUT_NO.NEXTVAL,SYSDATE,${peanutPoint},'Y',DEFAULT,DEFAULT,#{memberId},#{orderNo},DEFAULT)
   	</insert>
+  	<!-- 땅콩 전체 리스트  -->
+  	<select id="peanutpointLsit" resultMap="peanutResultMap">
+  		SELECT * FROM PEANUTPOINT_TBL WHERE MEMBER_ID=#{memberId } ORDER BY PP_DATE DESC
+  	</select>
+  	<!--땅콩 리스트 전체 갯수 구하기  -->
+  	<select id="ppListCount" resultType="_int">
+  		SELECT COUNT(*) FROM PEANUTPOINT_TBL
+  	</select>
+  	
+  	<select id="idppSum" resultType="_int">
+  		SELECT SUM(PEANUT_POINT) FROM PEANUTPOINT_TBL WHERE MEMBER_ID = #{memberId } 
+  	</select>
   
   	
   	<resultMap type="SeasonTicket" id="seasonTicketResultMap">
@@ -115,4 +129,9 @@
 	<update id="updateMemberSSticket">
 		UPDATE MEMBER_TBL SET SUB_YN='Y' WHERE MEMBER_ID=#{memberId}
 	</update>
+	<!--땅콩정산하여 멤버 포인트에 넣기  -->
+	<update id="memberPoint">
+		UPDATE MEMBER_TBL SET M_POINT=${mPoint} WHERE MEMBER_ID=#{memberId}
+	</update>
+	
   </mapper>

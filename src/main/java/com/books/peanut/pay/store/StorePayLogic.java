@@ -3,13 +3,17 @@ package com.books.peanut.pay.store;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.books.peanut.member.domain.Member;
+import com.books.peanut.pay.domain.Pagemarker;
 import com.books.peanut.pay.domain.Pay;
 import com.books.peanut.pay.domain.PeanutPoint;
 import com.books.peanut.pay.domain.SeasonTicket;
 import com.books.peanut.pay.domain.WriterPay;
+
 
 @Repository
 public class StorePayLogic implements StorePay{
@@ -46,13 +50,7 @@ public class StorePayLogic implements StorePay{
 	//peanetpoint table입력
 	@Override
 	public int peanutTableInput(SqlSessionTemplate session,PeanutPoint pp) {
-//	public int peanutTableInput(SqlSessionTemplate session,String orderNo, String memberId, Integer peanet_point) {
-//		HashMap<String, String> hMap=new HashMap<String, String>();
-//		hMap.put("orderNo",orderNo);
-//		hMap.put("memberId",memberId);
-//		hMap.put("peanet_point",String.valueOf(peanet_point));
-		int p_t_input=session.insert("payPoint_Mapper.insertPeanut",pp);
-		
+		int p_t_input=session.insert("payPoint_Mapper.insertPeanut",pp);		
 		return p_t_input;
 	}
 
@@ -74,6 +72,34 @@ public class StorePayLogic implements StorePay{
 	public String seasonTicketDate(SqlSessionTemplate session, String memberId) {
 		String lastDate = session.selectOne("payPoint_Mapper.selectLastSSticket",memberId);		
 		return lastDate;		
+	}
+	//땅콩포인트 리스트
+	@Override
+	public List<PeanutPoint> peanutList(SqlSessionTemplate session, String memberId,Pagemarker pm) {
+		int offset=(pm.getCurrentPage()-1)*pm.getLimit();		
+		RowBounds rowBounds = new RowBounds(offset,pm.getLimit());
+		//null, rowBounds 같이 진행해줘야 자동으로 처리된다.
+		HashMap<String, String > paramMap=new HashMap<String, String>();
+		paramMap.put("memberId",memberId);
+		List<PeanutPoint> pList=session.selectList("payPoint_Mapper.peanutpointLsit", paramMap ,rowBounds);
+		return pList;
+	}
+	//페이징 전체 갯수
+	@Override
+	public int getTotalCount(SqlSessionTemplate session) {
+		int num=session.selectOne("payPoint_Mapper.ppListCount");
+		return num;
+	}
+	//id별 땅콩 포인트 합계
+	@Override
+	public int getPPsum(SqlSessionTemplate session, String memberId) {
+		int ppSum = session.selectOne("payPoint_Mapper.idppSum", memberId);
+		return ppSum;
+	}
+
+	@Override
+	public void putMemberPoint(SqlSessionTemplate session, Member member) {
+		session.update("payPoint_Mapper.memberPoint",member);
 	}	
 
 }
