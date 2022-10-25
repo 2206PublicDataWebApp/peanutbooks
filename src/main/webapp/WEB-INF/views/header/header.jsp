@@ -20,6 +20,7 @@
 	integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
 	crossorigin="anonymous"></script>
 <link rel="shortcut icon" href="/resources/img/icons8-book-32.png">
+<<<<<<< HEAD
 
 
 
@@ -43,6 +44,7 @@
 					</ul>
 
 
+<<<<<<< HEAD
 				</div>
 				<div class="col-md-4 col-7" id="header-menu-icon">
 					<img src="/resources/img/header/icons8-search (2).png" alt=""
@@ -62,6 +64,25 @@
 					<div>
 						<img src="/resources/img/header/icons8-menu-60.png">
 					</div>
+=======
+                </div>
+                <div class="col-md-4 col-7" id="header-menu-icon">
+                    <img src="/resources/img/header/icons8-search (2).png" alt="" id="search-icon">
+                    <img src="/resources/img/header/icons8-book (3).png" alt="" id="book-icon">
+                    <img src="/resources/img/header/icons8-peanut-48 (6).png" alt="" id="p-icon">
+                    <img src="/resources/img/header/icons8-user.png" alt="" id="user-icon"
+                    <c:if test="${loginMember.adminYN=='Y' }">style="display:none;"</c:if>
+                    >
+                    <!--관리자 체크해서 나타남-->
+                    <img src="/resources/img/header/icons8-monarch-48.png" alt="" id="admin-icon"        
+                     <c:if test="${loginMember.adminYN=='N' }">style="display:none;"</c:if>
+                    >
+                </div>
+                <div class="d-md-none d-block col-1" id="togglemenu">
+                    <div>
+                        <img src="/resources/img/header/icons8-menu-60.png">    
+                    </div>
+>>>>>>> refs/remotes/origin/eunjeong1021-10
 
 				</div>
 
@@ -112,7 +133,7 @@
 							<br>1:1문의
 						</div>
 						<div class="col-4">
-							<img src="/resources/img/header/icons8-chat-50.png" alt="">
+							<img src="/resources/img/header/icons8-chat-50.png" alt="" onclick="chatStart('${sessionScope.loginMember.memberId}');">
 							<br>채팅상담
 						</div>
 						<div class="col-4">
@@ -169,9 +190,11 @@
 
 						<div class="col-4">
 
-							<a href="/adminMain.kh"><img
-								src="/resources/img/header/icons8-laptop-60.png" alt=""></a> <br>관리자
-						</div>
+
+							<a href="/adminMain.kh"><img src="/resources/img/header/icons8-laptop-60.png" alt=""></a>
+                        <br>관리자
+                    </div>
+
 
 					</div>
 					<div id="logout-area">
@@ -183,7 +206,6 @@
 
 			</div>
 		</div>
-
 
 
 
@@ -221,19 +243,81 @@
 
 	</header>
 
-	<script src="/resources/js/headerJs.js"></script>
-	<script type="text/javascript">
-		/*결제 관련   */
-		document.querySelector("#peanutIn").onclick= function() {
-			var mid = "${sessionScope.loginMember.memberId}";
-			if (mid == '') {
+
+    <script src="/resources/js/headerJs.js"></script>
+    <script type="text/javascript">
+    	
+	 	/*결제 관련   */
+	 	function pay(memberId){		 			
+			 if(memberId==''){
+				 alert("로그인후 가능합니다");
+			 }else{
+				 location.href="/pay/start.kh";
+			 };
+		 }
+		 /*땅콩리스트  */
+		 function peanutList(memberId){			 			 
+			 if(memberId==''){
+				 alert("로그인후 가능합니다");
+			 }else{
+				 location.href="/peanut/listStart.kh?memberId="+memberId;
+			 };
+		 }
+	 	//땅콩 포인트 가져오는 ajax
+	 	$("#p-icon").on("click",function(){
+	 		var mid="${sessionScope.loginMember.memberId}";
+	 		$.ajax({
+	 			url:"ppoint/pointsum.kh",
+	 			type:"post",
+	 			data: {"memberId":mid},
+	 			success : function(result){
+	 				$("#now-point").html(result+"땅콩");
+	 			},
+	 			error:function(e){
+	 				alert("error :"+e);
+	 			}
+	 		});	 		
+	 	})
+	 	
+	 	//작가료 정산페이지 이동
+		function writerPay(memberId){
+			 if(memberId==''){
+				 alert("로그인후 가능합니다");
+			 }else{
+				 location.href="/writer/writerStart.kh?memberId="+memberId;
+			 };
+	 	}
+
+		//고객 채팅 연결
+		function chatStart(memberId) {
+			if (memberId == '') {
 				alert("로그인후 가능합니다");
 			} else {
-				location.href = "/pay/start.kh";
-			};
+				$.ajax({
+					url : "/client/chatCheck.kh",
+					dataType : "json",
+					type : 'get',
+					success : function(result) { /* 이벤트 핸들러 result에 서버가 보낸준 값이 리턴됨. */						
+						if (result.switchbtn.trim() == 'N') {
+							alert("관리자가 준비되지 않았습니다. 잠시후 부탁드립니다."); //버튼값이 n이면 그냥 종료
+						} else {
+							chatbtnSuccess(memberId) //y이면 로그인 확인
+						}
+						;
+					},
+					error : function(e) {
+						alert('error');
+					},
+				});
+			}
 		}
-	</script>
 
+		function chatbtnSuccess(memberId) {
+			var windo = "status=no ,toolbar=no,scrollbars=no, menubar=no,resizable=no,titlebar=no,width=550,height=650";
+			window.open("/consult/chatbefore.kh", "PopupWin",windo);
+		}
+		</script>
+    
 
 </body>
 

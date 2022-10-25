@@ -1,6 +1,8 @@
 package com.books.peanut.pay.payController;
 
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -13,10 +15,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.books.peanut.member.domain.Member;
+import com.books.peanut.pay.domain.Pagemarker;
 import com.books.peanut.pay.domain.Pay;
 import com.books.peanut.pay.domain.PeanutPoint;
 import com.books.peanut.pay.domain.SeasonTicket;
@@ -35,7 +40,7 @@ public class ControllerPay {
 	public ModelAndView payGo(			
 			ModelAndView mv
 			, HttpSession session){		
-		mv.addObject("member", session.getAttribute("loginUser"));
+		mv.addObject("member", session.getAttribute("loginMember"));
 		mv.setViewName("/peanetPay/pay");
 		return mv;		
 	}
@@ -106,11 +111,38 @@ public class ControllerPay {
 ///////////////////////////////////////////////////////////////////	
 	//땅콩리스트
 	@RequestMapping(value="/peanut/listStart.kh", method=RequestMethod.GET)
-	public ModelAndView peanetListGo( ModelAndView mv){
-		mv.setViewName("/peanetPay/peanutList");
-		return mv;
+	public ModelAndView peanutListGo( 
+			ModelAndView mv , String memberId
+			, @RequestParam(value= "page", required = false) Integer page		
+			){
+		int ppSum = pService.getPPsum(memberId);
+		Member member=new Member();
+		member.setMemberId(memberId);
+		member.setmPoint(ppSum);
+		pService.putMemberPoint(member);
 		
+		Pagemarker pm=new Pagemarker();
+		pm.setTotalCount(pService.getTotalCount());
+		pm.setCurrentPage((page != null) ? page : 1);
+		pm.pageInfo(pm.getCurrentPage(), pm.getTotalCount());
+		mv.addObject("pm", pm);
+		
+		List<PeanutPoint> pList=pService.peanutList(memberId,pm);
+		
+		mv.addObject("ppSum", ppSum);
+		mv.addObject("pList", pList);
+		mv.setViewName("/peanetPay/peanutList");		
+		return mv;		
 	}
+	// 헤더에서 포인트조회하는 부분
+	@ResponseBody
+	@RequestMapping(value="ppoint/pointsum.kh", method=RequestMethod.POST)
+	public String pointSum(String memberId) {
+		int ppSum = pService.getPPsum(memberId);
+		
+		return String.valueOf(ppSum);
+	}
+	
 	//작가 정산요청 화면 이동
 	@RequestMapping(value="/writer/writerStart.kh", method=RequestMethod.GET)
 	public ModelAndView writerPutGo( ModelAndView mv,String memberId){
@@ -160,7 +192,7 @@ public class ControllerPay {
 	
 	@ExceptionHandler({NullPointerException.class, SQLException.class})
 	public String errorHandler() {
-		return "redirect:/er.kh";		
+		return "redirect:/common/errorPage.kh";		
 	}
 
 

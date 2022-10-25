@@ -1,25 +1,23 @@
 package com.books.peanut.pay.domain;
 
+import java.util.Date;
+
 public class PeanutPoint {
 	private int peanutNo;
-	private String ppDate;
+	private Date ppDate;
 	private int peanutPoint;
 	private String ppStatus;
 	private String bookNo;
 	private String bookName;
 	private String memberId;
 	private String orderNo;
-	
-	
+	private String seriesNo;
 	public PeanutPoint() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-	
-	public PeanutPoint(int peanutNo, String ppDate, int peanutPoint, String ppStatus, String bookNo, String bookName,
-			String memberId, String orderNo) {
+	public PeanutPoint(int peanutNo, Date ppDate, int peanutPoint, String ppStatus, String bookNo, String bookName,
+			String memberId, String orderNo, String seriesNo) {
 		super();
 		this.peanutNo = peanutNo;
 		this.ppDate = ppDate;
@@ -29,20 +27,18 @@ public class PeanutPoint {
 		this.bookName = bookName;
 		this.memberId = memberId;
 		this.orderNo = orderNo;
+		this.seriesNo = seriesNo;
 	}
-
-
-
 	public int getPeanutNo() {
 		return peanutNo;
 	}
 	public void setPeanutNo(int peanutNo) {
 		this.peanutNo = peanutNo;
 	}
-	public String getPpDate() {
+	public Date getPpDate() {
 		return ppDate;
 	}
-	public void setPpDate(String ppDate) {
+	public void setPpDate(Date ppDate) {
 		this.ppDate = ppDate;
 	}
 	public int getPeanutPoint() {
@@ -81,6 +77,26 @@ public class PeanutPoint {
 	public void setOrderNo(String orderNo) {
 		this.orderNo = orderNo;
 	}
+	public String getSeriesNo() {
+		return seriesNo;
+	}
+	public void setSeriesNo(String seriesNo) {
+		this.seriesNo = seriesNo;
+	}
+	@Override
+	public String toString() {
+		return "PeanutPoint [peanutNo=" + peanutNo + ", ppDate=" + ppDate + ", peanutPoint=" + peanutPoint
+				+ ", ppStatus=" + ppStatus + ", bookNo=" + bookNo + ", bookName=" + bookName + ", memberId=" + memberId
+				+ ", orderNo=" + orderNo + ", seriesNo=" + seriesNo + "]";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.books.peanut.member.domain.Member;
+import com.books.peanut.pay.domain.Pagemarker;
 import com.books.peanut.pay.domain.Pay;
 import com.books.peanut.pay.domain.PeanutPoint;
 import com.books.peanut.pay.domain.SeasonTicket;
@@ -72,6 +74,29 @@ public class ServicePayImpl implements PayService {
 	public String seasonTicketDate(String memberId) {
 		String lastDate = pStore.seasonTicketDate(session,memberId);		
 		return lastDate;		
+	}
+	//땅콩포인트 리스트
+	@Override
+	public List<PeanutPoint> peanutList(String memberId,Pagemarker pm) {
+		List<PeanutPoint> pList=pStore.peanutList(session, memberId,pm);
+		return pList;
+	}
+	//페이징 전체 갯수
+	@Override
+	public int getTotalCount() {
+		int num=pStore.getTotalCount(session);
+		return num;
+	}
+	//id별 땅콩 포인트 합계
+	@Override
+	public int getPPsum(String memberId) {
+		int ppSum = pStore.getPPsum(session, memberId);
+		return ppSum;
+	}
+	//땅콩갯수 memberId넣기
+	@Override
+	public void putMemberPoint(Member member) {
+		pStore.putMemberPoint(session, member);		
 	}
 	
 
