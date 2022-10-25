@@ -146,24 +146,54 @@ $.ajax({
 
 var starCheck = false;
 
+//별점주기
 function StarScore(score){
 	 $.ajax({
 	 	url:"/book/StarScore.do",
 	 	data:{"score":score,"bookNo":bookNo,"category":"origin"},
 	 	type:"post",
-	 	success:function(){
-	 		//alert(score+'점을 주셨습니다');
+	 	success:function(result){
+	 	
+	 	var score = result.score;
+	 	var scoreCount = result.scoreCount;
+	 	starAvg(score,scoreCount);
+	 		
 	 	}
 	 })
 }
 
+
+//별점 평균 적용하기
+function starAvg(score,scoreCount){
+	$('.star-title').eq(0).html('사용자 평균('+scoreCount+'명)');
+	if(score==0){
+		$('#avr-score').html('☆ ☆ ☆ ☆ ☆')
+	}else if(score==1){
+		$('#avr-score').html('★ ☆ ☆ ☆ ☆')
+	}else if(score==2){
+		$('#avr-score').html('★ ★ ☆ ☆ ☆')
+	}else if(score==3){
+		$('#avr-score').html('★ ★ ★ ☆ ☆')
+	}else if(score==4){
+		$('#avr-score').html('★ ★ ★ ★ ☆')
+	}else if(score==5){
+		$('#avr-score').html('★ ★ ★ ★ ★')
+	}
+	
+};
+
+//별점 취소
 function StarRemove(){
 $.ajax({
 	 	url:"/book/StarRemove.do",
 	 	data:{"bookNo":bookNo,"category":"origin"},
 	 	type:"post",
-	 	success:function(){
-	 		//alert('별점을 취소했습니다');
+	 	success:function(result){
+	 	
+	 	var score = result.score;
+	 	var scoreCount = result.scoreCount;
+	 	starAvg(score,scoreCount);
+	 		
 	 	},
 	 	error:function(){
 	 	alert('오류');

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.books.peanut.book.domain.OriginBook;
 import com.books.peanut.book.domain.OriginBookReply;
 import com.books.peanut.book.domain.Star;
 
@@ -41,5 +42,7 @@ public interface ReplyStore {
 	
 	/**별점취소*/
 	int deleteScore(SqlSessionTemplate session, Star star);
+
+	OriginBook selectOneBook(SqlSessionTemplate session, String bookNo);
 
 }

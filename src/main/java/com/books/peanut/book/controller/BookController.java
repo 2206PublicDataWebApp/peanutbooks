@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -78,7 +79,7 @@ public class BookController {
 	public ModelAndView registnextBookView(ModelAndView mv, HttpSession session, int bookNo, int seriesNo) {
 		
 		Member member = (Member) session.getAttribute("loginMember");
-		int result = bService.checkWriter(bookNo, member.getMemberId());
+		int result = bService.checkWriter(bookNo, member.getMemberId());//작가 맞는지 체크하기
 		if(result>0) {
 		OriginBook oBook = bService.showOnebook(bookNo+"");
 		String category = categroyChange(oBook.getCategory());
@@ -97,18 +98,6 @@ public class BookController {
 		
 	}
 
-	/*카테고리 번역*/
-	private String categroyChange(String category) {
-		
-		switch (category) {
-		case "novel": category = "소설"; break;
-		case "essay": category = "에세이";break;
-		case "tale": category = "동화"; break;
-		case "poem": category = "시"; break;
-		}
-		
-		return category;
-	}
 
 	/***
 	 * 작가 프로필 등록 창 연결
@@ -209,22 +198,6 @@ public class BookController {
 
 	}
 
-	/**
-	 * 오리지널 시리즈 등록
-	 * 
-	 * @param mv
-	 * @param Oribook
-	 * @param oriSeries
-	 * @param writePro
-	 * @param session
-	 * @return
-	 */
-	@RequestMapping("/book/registOriBook.do")
-	public ModelAndView registOriBook(ModelAndView mv, @ModelAttribute OriginBook Oribook,
-			@ModelAttribute OriginBookSeries oriSeries, @ModelAttribute WriterProfile writePro, HttpSession session) {
-		return mv;
-
-	}
 
 	/**
 	 * 작가 프로필 등록
@@ -252,8 +225,8 @@ public class BookController {
 			wrtiePro.setMainPic(mainPic);
 			wrtiePro.setMainPicRename(mainPicRename);
 		} else {
-			wrtiePro.setMainPic("defaultImg");
-			wrtiePro.setMainPicRename("defaultImg");
+			wrtiePro.setMainPic("defaultImg.jpg");
+			wrtiePro.setMainPicRename("defaultImg.jpg");
 
 		}
 
@@ -427,7 +400,7 @@ public class BookController {
 			String mNick = bService.getMemberNickName(oBook.getMemberId());// 작가 닉네임 가져오기
 			oBook.setMemberNickName(mNick);
 
-			logger.debug(hTag.toString());
+			
 
 			// 별점 평균 계산하기
 			int score = oBook.getScore();
@@ -480,6 +453,9 @@ public class BookController {
 					if (contents.length() > 300) {
 						contents = contents.substring(0, 300);
 					}
+					if(obSeries.getPaidCheck().equals("Y ")) {
+						contents = "유료화는 미리보기 할수 없습니다";
+					}
 
 					obSeries.setContents(contents);
 
@@ -514,23 +490,83 @@ public class BookController {
 		logger.info("1"+paidCheck+"1");
 		return paidCheck;
 	}
+	
+	/**
+	 * 시리즈 구입 여부 체크
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/book/checkPurchase.do", method = RequestMethod.GET, produces = "text/plain;charset=utf-8")
+	public String checkPurchase(int seriesNo, int bookNo, HttpSession session) {
+		Member member = (Member) session.getAttribute("loginMember");
+		String memberId=member.getMemberId();
+		int result = bService.checkPurchase(memberId,seriesNo,bookNo);//구입여부 체크
+		logger.info(result+"구입여부");
+		result += bService.checkSUbcribe(memberId);//현재 구독 여부 체크
+		logger.info(result+"구독여부");
+		
+		result += bService.checkWriter(bookNo, member.getMemberId()); //작가가 맞는지 체크하기
 
+		return result+"";
+	}
+	
+	
+	/**
+	 * 도서 구매하기
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/book/buyThisSeries.do", method = RequestMethod.GET, produces = "text/plain;charset=utf-8")
+	public String buyThisSeries(int seriesNo, int bookNo, HttpSession session) {
+		Member member = (Member) session.getAttribute("loginMember");
+		String memberId=member.getMemberId();
+		int result = bService.checkNowPoint(memberId);//피넛갯수 확인하기
+		if(result>=1) {
+			String bookTitle = bService.getBookTitle(bookNo+"");
+			int result1 =bService.buyOneSeries(seriesNo,bookNo,memberId,bookTitle); //땅콩으로 시리즈 구입
+		}
+		
+		
+		return result+"";
+	}
+	
+
+
+	/**
+	 * 피넛 오리지널 시리즈 한 편 열람
+	 * @param mv
+	 * @param session
+	 * @param seriesNo
+	 * @param bookNo
+	 * @return
+	 */
 	@RequestMapping(value = "/book/OridetailSeries.do", method = RequestMethod.GET)
 	public ModelAndView detailOribookSeries(ModelAndView mv, HttpSession session, int seriesNo, int bookNo) {
 		if (session.getAttribute("loginMember") != null) {//로그인 여부 체크
 
-
+			Member member = (Member)session.getAttribute("loginMember");
 			String paidCheck = bService.checkPaid(seriesNo, bookNo); //유료화 여부 다시 체크
 			
-			if (paidCheck.equals("N ")) {//유료화가 아닐때만 진행
+			int result = bService.checkPurchase(member.getMemberId(),seriesNo,bookNo);//구입여부 체크
+			result += bService.checkSUbcribe(member.getMemberId());//현재 구독 여부 체크			
+			
+			int wirterMember = bService.checkWriter(bookNo, member.getMemberId()); //작가가 맞는지 체크하기
+			logger.info(wirterMember+"작가여부");
+		
+
+			
+			
+			if (paidCheck.equals("N ") || result>0 || wirterMember>0) {//유료화가 아니거나, 구매했거나
 				String bookTitle = bService.getBookTitle(bookNo+""); //책 이름 가져옴
 				OriginBookSeries obSeries = bService.getOneSeries(seriesNo,bookNo); //시리즈 한편가져오기
+				
 				
 				mv.addObject("bookTitle", bookTitle);
 				mv.addObject("obSeries",obSeries);
 				mv.setViewName("/book/bookstep-detail");
 				
+				
 			} else {
+				
+				
 				mv.setViewName("redirect:/");
 			}
 		} else {
@@ -538,7 +574,47 @@ public class BookController {
 		}
 		return mv;
 	}
+	
+	
+	/**피넛 오리지널 다음 시리즈 등록*/
+	@RequestMapping(value = "/book/oriSeriesRegist.do", method = RequestMethod.POST)
+	public ModelAndView oriSeriesRegist(ModelAndView mv, HttpSession session, @ModelAttribute OriginBookSeries obSeries,
+			@RequestParam(value = "subPicture", required = false) MultipartFile subPicture, HttpServletRequest request) {
+		
+		//삽화 저장
+		String picName = subPicture.getOriginalFilename(); //파일 이름 가져오기
+		if (!picName.equals("")) {
 
+			String subPicRename = fileSave(picName, request, subPicture, "sub");
+
+			obSeries.setSubPic(picName);
+			obSeries.setSubPicRename(subPicRename);
+		} else {
+			obSeries.setSubPic("defaultImg.jpg");
+			obSeries.setSubPicRename("defaultImg.jpg");
+
+		}
+		String paid = "N";
+		if(obSeries.getPaidCheck().equals("on")) {
+			paid = "Y";
+			obSeries.setPaidCheck(paid);
+		}
+		obSeries.setPaidCheck(paid);
+		int result = bService.registOriSeriesNext(obSeries); //다음화 시리즈만 데이터베이스에 전송하기
+		mv.addObject("bookNo", obSeries.getBookNo());
+		mv.setViewName("redirect:/book/oriBookInfo");
+		
+		
+		
+		
+		
+		return mv;
+		
+	}
+
+	
+	
+	
 	/** 해시태그 한글 변경 메소드 */
 	private HashTag changeKo(HashTag hTag) {
 
@@ -670,6 +746,19 @@ public class BookController {
 		return mainPicRename;
 	}
 
+	/*카테고리 번역*/
+	private String categroyChange(String category) {
+		
+		switch (category) {
+		case "novel": category = "소설"; break;
+		case "essay": category = "에세이";break;
+		case "tale": category = "동화"; break;
+		case "poem": category = "시"; break;
+		}
+		
+		return category;
+	}
+	
 	/***
 	 * 에러페이지 연결
 	 * 

@@ -82,7 +82,12 @@ select count(BOOK_TITLE) from origin_book where MEMBER_ID = #{memberId} and ORI_
 
 <!-- 오리지널 시리즈 쿼리문 -->
 <insert id="insertSeries1">
-	insert into ori_series values(#{seriesNo},oribookseq.currval,#{subPic},#{subPicRename},#{title},#{contents},null,default,null,0,#{paidCheck},0,default)
+	insert into ori_series values(#{seriesNo},oribookseq.currval,#{subPic},#{subPicRename},#{title},#{contents},null,default,null,0,#{paidCheck},0,default,default)
+</insert>
+
+<insert id="insertNextOseries">
+	insert into ori_series values(#{seriesNo},#{bookNo},#{subPic},#{subPicRename},#{title},#{contents},null,default,null,0,#{paidCheck},0,default,default)
+
 </insert>
 
 <resultMap type="OriginBookSeries" id="oriSeriesResultMap">
@@ -99,6 +104,7 @@ select count(BOOK_TITLE) from origin_book where MEMBER_ID = #{memberId} and ORI_
 <result property="paidCheck" column="PAID_CHECK"/>
 <result property="viewCount" column="VIEW_COUNT"/>
 <result property="checkPermission" column="CHECK_PERMISSION"/>
+<result property="status" column="status"/>
 
 </resultMap>
 
@@ -113,7 +119,7 @@ select count(BOOK_TITLE) from origin_book where MEMBER_ID = #{memberId} and ORI_
 
 <!-- 도서 한권의 시리즈 제목 전부 가져오기 -->
 <select id="selecSeriesTitle" resultMap="oriSeriesResultMap">
-	select title from ori_series where ORI_BOOK_NO = #{bookNo}
+	select title,status from ori_series where ORI_BOOK_NO = #{bookNo}
 </select>
 
 <!-- 도서 하나에 해당하는 모든 피넛 오리지널 시리즈 가져오기 -->
@@ -158,5 +164,30 @@ select count(BOOK_TITLE) from origin_book where MEMBER_ID = #{memberId} and ORI_
   <select id="oneMemberNick" resultType="string">
   select M_NICKNAME from member_tbl where member_id = #{memberId}
   </select>
+  
+  <!-- 피넛테이블에서 구입여부 체크 -->
+  <select id="selectOnebokkPurchase" resultType="_int">
+  select count(*) from peanutpoint_tbl where MEMBER_ID = #{memberId} and SERIES_NO = #{seriesNo} and BOOK_NO = #{bookNo}
+  </select>
+  
+  <!-- 멤버 테이블에서 구독권 여부 체크 -->
+  <select id="selectCheckSubscribe" resultType="_int">
+  select count(*) from member_tbl where MEMBER_ID = #{memberId} and SUB_YN = 'Y'
+  </select>
+  
+  <!-- 피넛갯수 확인하기 -->
+  <select id="selectCheckPoint" resultType="_int">
+  select M_POINT from member_tbl where MEMBER_ID = #{memberId}
+  </select>
+  
+  <!-- 도서 구입해서 피넛 사용하기 -->
+  <update id="UsePeanutOne">
+  update member_tbl set M_POINT = M_POINT -1  where MEMBER_ID = #{memberId}
+  </update>
+  
+  <!-- 구입한 도서 피넛포인트 테이블에 넣기 -->
+  <insert id="insertBuyOneSeries">
+  insert into peanutpoint_tbl values(SQN_PEANUT_NO.nextval,sysdate,-1,default,#{bookNo},#{bookTitle},#{memberId},default,#{seriesNo})
+  </insert>
   
   </mapper>

@@ -108,8 +108,21 @@
 							<ol>
 
 								<c:forEach items="${osList }" var="oSeries">
-									<li>${oSeries.title }
-										<button>수정</button>
+									<li>
+									<!-- 삭제 여부 체크 -->
+									<c:if test="${oSeries.status == 'N'}"> 관리자에 의해 삭제되었습니다.</c:if>
+									<c:if test="${oSeries.status == 'Y'}"> ${oSeries.title }</c:if>
+									
+									
+									<!-- 작성자 일때만 수정버튼 보임 -->
+										<c:if test="${loginMember.memberId == oBook.memberId}">
+											<button>수정</button>
+										</c:if>
+									<!--  관리자 일때만 삭제 버튼 보임 -->
+										<c:if test="${loginMember.adminYN == 'Y'}">
+											<button>삭제</button>
+										</c:if>
+										
 									</li>
 								</c:forEach>
 
@@ -129,7 +142,7 @@
 						<div class="star-area-1 col-md-6">
 							<div class="star-title">사용자 평균(${oBook.scoreCount }명)</div>
 							
-							<div class="star-score">
+							<div class="star-score" id="avr-score">
 							 <c:if test="${oBook.score==0}">☆ ☆ ☆ ☆ ☆</c:if>
 							 <c:if test="${oBook.score==1}">★ ☆ ☆ ☆ ☆</c:if>
 							 <c:if test="${oBook.score==2}">★ ★ ☆ ☆ ☆</c:if>

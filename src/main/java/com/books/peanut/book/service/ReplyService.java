@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.books.peanut.book.domain.OriginBook;
 import com.books.peanut.book.domain.OriginBookReply;
 import com.books.peanut.book.domain.Star;
 
@@ -42,5 +43,9 @@ public interface ReplyService {
 
 	/**별점취소*/
 	int removeScore(Star star);
+
+	
+	/**피넛 오리지널 책 한권 가져오기*/
+	OriginBook showOnebook(String bookNo);
 
 }

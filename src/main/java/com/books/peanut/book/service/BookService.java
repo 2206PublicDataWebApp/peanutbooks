@@ -85,4 +85,20 @@ public interface BookService {
 	/**작성자 맞는지 체크하기*/
 	int checkWriter(int bookNo, String memberId);
 
+	/**피넛 오리지널 다음화 데이터베이스에 등록하기*/
+	int registOriSeriesNext(OriginBookSeries obSeries);
+
+	/**사용자의 시리즈 구입여부 체크*/
+	int checkPurchase(String memberId, int seriesNo, int bookNo);
+
+	/**구독권 사용자인지 체크*/
+	int checkSUbcribe(String memberId);
+
+	/**피넛갯수 확인하기*/
+	int checkNowPoint(String memberId);
+	
+	/**땅콩으로 시리즈 구입
+	 * @param bookTitle */
+	int buyOneSeries(int seriesNo, int bookNo, String memberId, String bookTitle);
+
 }

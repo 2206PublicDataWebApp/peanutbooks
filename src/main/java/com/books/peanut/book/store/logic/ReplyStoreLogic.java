@@ -6,6 +6,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.books.peanut.book.domain.OriginBook;
 import com.books.peanut.book.domain.OriginBookReply;
 import com.books.peanut.book.domain.Star;
 import com.books.peanut.book.store.ReplyStore;
@@ -95,6 +96,14 @@ public class ReplyStoreLogic implements ReplyStore{
 		}
 		
 		return result;
+	}
+
+	
+	/**피넛 오리지널 책 한권 가져오기*/
+	@Override
+	public OriginBook selectOneBook(SqlSessionTemplate session, String bookNo) {
+		OriginBook oBook = session.selectOne("wirterMapper.selectOneBook",bookNo);
+		return oBook;
 	}
 
 }

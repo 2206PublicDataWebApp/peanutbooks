@@ -90,4 +90,20 @@ public interface BookStore {
 	/**작성자 맞는지 체크하기*/
 	int selectcheckWirter(SqlSessionTemplate session, int bookNo, String memberId);
 
+	/**피넛오리지널 다음화 등록하기*/
+	int insertOriSeriesNext(SqlSessionTemplate session, OriginBookSeries obSeries);
+
+	/**사용자의 시리즈 구입여부 체크*/
+	int selectOnebokkPurchase(SqlSessionTemplate session, String memberId, int seriesNo, int bookNo);
+	
+	/**구독권 소지여부 체크*/
+	int selectCheckSubscribe(SqlSessionTemplate session, String memberId);
+
+	/**피넛 갯수 확인하기*/
+	int selectCheckPoint(SqlSessionTemplate session, String memberId);
+
+	/**시리즈 한편 구입하기
+	 * @param bookTitle */
+	int updatebuyOneSeries(SqlSessionTemplate session, int seriesNo, int bookNo, String memberId, String bookTitle);
+
 }

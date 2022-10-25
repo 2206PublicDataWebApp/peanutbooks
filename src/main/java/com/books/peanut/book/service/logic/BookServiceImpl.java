@@ -64,7 +64,7 @@ public class BookServiceImpl implements BookService{
 	}
 
 	/**
-	 * 피넛 오리지널 시리즈 등록
+	 * 피넛 오리지널 시리즈 1화 등록
 	 */
 	@Override
 	public int registOriSeries(OriginBookSeries oSeries) {
@@ -165,6 +165,41 @@ public class BookServiceImpl implements BookService{
 	@Override
 	public int checkWriter(int bookNo, String memberId) {
 		int result = bStore.selectcheckWirter(session,bookNo,memberId);
+		return result;
+	}
+
+	/**피넛 오리지널 다음화 등록하기 */
+	@Override
+	public int registOriSeriesNext(OriginBookSeries obSeries) {
+		int result =  bStore.insertOriSeriesNext(session, obSeries);
+		return result;
+	}
+
+	/**사용자의 시리즈 구입여부 체크*/
+	@Override
+	public int checkPurchase(String memberId, int seriesNo, int bookNo) {
+		int result = bStore.selectOnebokkPurchase(session,memberId,seriesNo,bookNo);
+		return result;
+	}
+
+	/**구독권 사용자 여부 체크*/
+	@Override
+	public int checkSUbcribe(String memberId) {
+		int result = bStore.selectCheckSubscribe(session,memberId);
+		return result;
+	}
+
+	/**피넛 갯수 확인하기*/
+	@Override
+	public int checkNowPoint(String memberId) {
+		int result = bStore.selectCheckPoint(session,memberId);
+		return result;
+	}
+
+	/**땅콩으로 시리즈 구입*/
+	@Override
+	public int buyOneSeries(int seriesNo, int bookNo, String memberId, String bookTitle) {
+		int result = bStore.updatebuyOneSeries(session,seriesNo,bookNo,memberId, bookTitle);
 		return result;
 	}
 	

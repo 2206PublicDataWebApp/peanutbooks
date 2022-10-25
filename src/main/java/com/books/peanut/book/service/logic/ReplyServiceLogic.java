@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.books.peanut.book.domain.OriginBook;
 import com.books.peanut.book.domain.OriginBookReply;
 import com.books.peanut.book.domain.Star;
 import com.books.peanut.book.service.ReplyService;
@@ -90,6 +91,14 @@ public class ReplyServiceLogic implements ReplyService {
 	public int removeScore(Star star) {
 		int result = rStore.deleteScore(session, star);
 		return result;
+	}
+
+	
+	/**피넛 오리지널 책 한권가져오기*/
+	@Override
+	public OriginBook showOnebook(String bookNo) {
+		OriginBook oBook = rStore.selectOneBook(session, bookNo);
+		return oBook;
 	}
 
 	

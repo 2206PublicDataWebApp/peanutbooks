@@ -1,5 +1,6 @@
 package com.books.peanut.book.store.logic;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
@@ -183,6 +184,53 @@ public class BookStoreLogic implements BookStore{
 		oBook.setMemberId(memberId);
 		oBook.setBookNo(bookNo+"");
 		int result = session.selectOne("wirterMapper.selectCheckWriter",oBook);
+		return result;
+	}
+	
+	/**피넛 오리지널 다음 시리즈 등록*/
+	@Override
+	public int insertOriSeriesNext(SqlSessionTemplate session, OriginBookSeries obSeries) {
+		int result = session.insert("wirterMapper.insertNextOseries",obSeries);
+		return result;
+		
+	}
+	
+	/**사용자의 시리즈 구입여부 체크*/
+	@Override
+	public int selectOnebokkPurchase(SqlSessionTemplate session, String memberId, int seriesNo, int bookNo) {
+		HashMap<String, String> hMap = new HashMap<String, String>();
+		hMap.put("memberId", memberId);
+		hMap.put("seriesNo", seriesNo+"");
+		hMap.put("bookNo", bookNo+"");
+		
+		int result = session.selectOne("wirterMapper.selectOnebokkPurchase",hMap);
+		return result;
+	}
+	
+	/**구독여부 체크*/
+	@Override
+	public int selectCheckSubscribe(SqlSessionTemplate session, String memberId) {
+		int result = session.selectOne("wirterMapper.selectCheckSubscribe",memberId);
+		return result;
+	}
+	
+	/**피넛갯수 확인하기*/
+	@Override
+	public int selectCheckPoint(SqlSessionTemplate session, String memberId) {
+		int result = session.selectOne("wirterMapper.selectCheckPoint",memberId);
+		return result;
+	}
+	
+	/**시리즈 하나 구입하기*/
+	@Override
+	public int updatebuyOneSeries(SqlSessionTemplate session, int seriesNo, int bookNo, String memberId, String bookTitle) {
+		HashMap<String, String> hMap = new HashMap<String, String>();
+		hMap.put("memberId", memberId);
+		hMap.put("seriesNo", seriesNo+"");
+		hMap.put("bookNo", bookNo+"");
+		hMap.put("bookTitle", bookTitle);
+		int result = session.update("wirterMapper.UsePeanutOne",hMap);
+		result += session.insert("wirterMapper.insertBuyOneSeries",hMap);
 		return result;
 	}
 
