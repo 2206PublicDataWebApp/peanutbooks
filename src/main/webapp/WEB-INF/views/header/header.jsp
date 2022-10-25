@@ -20,7 +20,6 @@
 	integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
 	crossorigin="anonymous"></script>
 <link rel="shortcut icon" href="/resources/img/icons8-book-32.png">
-<<<<<<< HEAD
 
 
 
@@ -131,10 +130,7 @@
 
 			</div>
 		</div>
-<<<<<<< HEAD
 
-=======
->>>>>>> refs/remotes/origin/wyw1025-1
 
 
 		<!--관리자 툴팁-->
