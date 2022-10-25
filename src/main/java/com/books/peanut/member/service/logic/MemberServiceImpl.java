@@ -45,5 +45,11 @@ public class MemberServiceImpl implements MemberService{
 		Member mResult = mStore.selectLoginMember(session, member);
 		return mResult;
 	}
+	// 회원 정보 수정
+	@Override
+	public int modifyInfo(Member member) {
+		int result = mStore.updateInfo(session, member);
+		return result;
+	}
 	
 }

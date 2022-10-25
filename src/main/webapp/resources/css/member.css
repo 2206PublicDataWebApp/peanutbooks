@@ -298,3 +298,70 @@ form{
 .menu1{ /* 맨 위 첫번째 메뉴 영역 */
     padding-top: 16px;
 }
+
+/* 내 정보 - 비밀번호 확인 */
+.circle-area{ /* 자물쇠 아이콘 동그라미 영역 */
+	border-radius: 30px;
+	background-color: #ffeb60;
+	width: 50px;
+	height: 50px;
+	line-height: 45px;
+	margin: 0 auto;
+}
+.circle-area img{ /* 자물쇠 아이콘 그 자체 */
+	width: 30px;
+	height: 30px;
+}
+.msg-area{ /* 아이콘 + 안내 메시지 영역*/
+	background-color: #fafaf6;
+	padding-top: 80px;
+	text-align: center;
+	margin-bottom: 25px;
+}
+.msg-area p{ /* 안내 메시지 그 자체 */
+	padding-top: 10px;
+	padding-bottom: 36px;
+	color: #6f6f6f;
+}
+.pw-input-area{ /* 비밀번호 입력 영역 */
+	padding-left: 16px;
+	padding-right: 16px;
+	padding-bottom: 56px;
+	margin: 0 auto;
+	width: 700px;
+}
+#pwChk-pw{ /* 비밀번호 입력 칸 */
+	width: 100%;
+	height: 40px;
+	margin-bottom: 20px;
+	border: solid 1px #ccc;
+	border-radius: 3px;
+}
+.pwChk-btn{ /* 비번 입력 후 확인 버튼 */
+	background-color: #ffeb60;
+    border: 0;
+    width: 100%;
+    height: 45px;
+    border-radius: 3px;
+}
+
+/* 회원 정보 수정 */
+.modify-area{
+	padding-top: 44px;
+	width: 700px;
+	margin: 0 auto;
+	padding-left: 16px;
+	padding-right: 16px;
+}
+#modify-nick{
+	width: 100%;
+}
+#modify-pw{
+	width: 70.4%;
+}
+.modify-pw-btn{
+	width: 29%;
+}
+.modify-btn{
+	width: 100%;
+}
