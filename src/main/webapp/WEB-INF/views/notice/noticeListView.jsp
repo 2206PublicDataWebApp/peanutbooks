@@ -31,98 +31,102 @@
 <main>
 <br><br>	
 <div class="container">
-
+	<div class="container text-center">
 	<!-- 검색 -->
-	<table align="center" class="table col-10" border="0px">
-		<tr>
-			<td style="border:none;">
-				<div style="display: inline-block; margin: 0 5px;  float: left;">
-				<h4 align="center">공지사항</h4>
-				</div>
-				<!-- div 오른쪽 정렬 -->
-				<div style="display: inline-block; margin: 0 5px;  float: right;">
-				<form action="/notice/search.kh" method="get" >
-					<div style= "display: inline-block">
-						<select class="form-select" name="searchCondition" >
-							<option <c:if test="${searchCondition eq 'all'}">selected</c:if> value="all">전체</option>
-							<option <c:if test="${searchCondition eq 'title'}">selected</c:if> value="title">제목</option>
-							<option <c:if test="${searchCondition eq 'contents'}">selected</c:if> value="contents">내용</option>
-						</select>
-					</div>
-					<div style= "display: inline-block">
-					<input type="text" name="searchValue" placeholder="검색"  value="${searchValue }">
-					</div>
-					<div style= "display: inline-block">
-					<input type="submit" value="검색" class="btn btn-dark">
-					</div>
-				</form>
-				</div>
-			</td>
-		</tr>
-		
-	</table>
+		<div class="row row-cols-1">
+			<table align="center" class="table col-10" border="0px">
+				<tr>
+					<td style="border:none;">
+						<div style="display: inline-block; margin: 0 5px;  float: left;">
+						<h4 align="center">공지사항</h4>
+						</div>
+						<!-- div 오른쪽 정렬 -->
+						<div style="display: inline-block; margin: 0 5px;  float: right;">
+						<form action="/notice/search.kh" method="get" >
+							<div style= "display: inline-block">
+								<select class="form-select" name="searchCondition" >
+									<option <c:if test="${searchCondition eq 'all'}">selected</c:if> value="all">전체</option>
+									<option <c:if test="${searchCondition eq 'title'}">selected</c:if> value="title">제목</option>
+									<option <c:if test="${searchCondition eq 'contents'}">selected</c:if> value="contents">내용</option>
+								</select>
+							</div>
+							<div style= "display: inline-block">
+							<input type="text" name="searchValue" placeholder="검색"  value="${searchValue }">
+							</div>
+							<div style= "display: inline-block">
+							<input type="submit" value="검색" class="btn btn-dark">
+							</div>
+						</form>
+						</div>
+					</td>
+				</tr>
+				
+			</table>
+		</div>
 	<!-- 검색 -->
 
 
 	<!-- 리스트 출력 -->
-	<table align="center" class="table col-10">
-		<tr>
-			<td style="border:none;" td colspan="4" align="right">
-				<a href="/notice/list.kh" style="color: black"> 전체 | </a>
-				<a href="/notice/categoryCount.kh?noticeCategory=0&page=${currentPage }" style="color: black"> 공지 |</a>
-				<a href="/notice/categoryCount.kh?noticeCategory=1&page=${currentPage }" style="color: black"> 업데이트 |</a>
-				<a href="/notice/categoryCount.kh?noticeCategory=2&page=${currentPage }" style="color: black"> 이벤트 |</a>
-				<a href="/notice/categoryCount.kh?noticeCategory=3&page=${currentPage }" style="color: black"> 안내 </a>
-			</td>
-		</tr>
-		<c:if test="${!empty nList }">
-			<c:forEach items="${nList }" var="notice" varStatus="i">
+		<div class="row row-cols-1">
+			<table align="center" class="table col-10">
 				<tr>
-					<td>${i.count }</td>
-					<td>
-						<c:if test="${notice.noticeCategory == '0' }">
-							공지
-						</c:if>
-						<c:if test="${notice.noticeCategory == '1' }">
-							업데이트
-						</c:if>
-						<c:if test="${notice.noticeCategory == '2' }">
-							이벤트
-						</c:if>
-						<c:if test="${notice.noticeCategory == '3' }">
-							안내
-						</c:if>
+					<td style="border:none;" td colspan="4" align="right">
+						<a href="/notice/list.kh" style="color: black"> 전체 | </a>
+						<a href="/notice/categoryCount.kh?noticeCategory=0&page=${currentPage }" style="color: black"> 공지 |</a>
+						<a href="/notice/categoryCount.kh?noticeCategory=1&page=${currentPage }" style="color: black"> 업데이트 |</a>
+						<a href="/notice/categoryCount.kh?noticeCategory=2&page=${currentPage }" style="color: black"> 이벤트 |</a>
+						<a href="/notice/categoryCount.kh?noticeCategory=3&page=${currentPage }" style="color: black"> 안내 </a>
 					</td>
-					<td><a href="/notice/noticeDetailView.kh?noticeNo=${notice.noticeNo }&page=${currentPage }" style="color: black">${notice.noticeTitle }</a></td>
-					<td>${notice.nCreateDate }</td>
-				</tr>
-			</c:forEach>
-		</c:if>
-		<c:if test="${empty nList }">
-			<tr>
-				<td colspan="4" align="center"><b>데이터가 존재하지 않습니다.</b></td>
 			</tr>
-		</c:if>
-			<tr align="center" height="20">
-	            <td colspan="4" style="border:none;">
-	                <c:if test="${currentPage != 1}">
-	                    <a href="/notice/${urlVal }.kh?page=${currentPage - 1 }">[이전]</a>
-	                </c:if>
-	                <c:forEach var="p" begin = "${startNavi }" end="${endNavi }">
-	                    <c:if test="${currentPage eq p }">
-	                        <b>${p}</b> 
-	                    </c:if>
-	                    <c:if test="${currentPage ne p }">
-	                        <a href = "/notice/${urlVal }.kh?page=${p }&searchCondition=${searchCondition }&searchValue=${searchValue }">${p}</a>
-	                    </c:if>
-	                </c:forEach>
-	            <c:if test = "${currentPage < maxPage }">
-	                <a href = "/notice/${urlVal}.kh?page=${currentPage + 1}">[다음]</a>
-	            </c:if>
-	            </td>
-	        </tr>
-		</table>
-
+			<c:if test="${!empty nList }">
+				<c:forEach items="${nList }" var="notice" varStatus="i">
+					<tr>
+						<td>${i.count }</td>
+						<td>
+							<c:if test="${notice.noticeCategory == '0' }">
+								공지
+							</c:if>
+							<c:if test="${notice.noticeCategory == '1' }">
+								업데이트
+							</c:if>
+							<c:if test="${notice.noticeCategory == '2' }">
+								이벤트
+							</c:if>
+							<c:if test="${notice.noticeCategory == '3' }">
+								안내
+							</c:if>
+						</td>
+						<td><a href="/notice/noticeDetailView.kh?noticeNo=${notice.noticeNo }&page=${currentPage }" style="color: black">${notice.noticeTitle }</a></td>
+						<td>${notice.nCreateDate }</td>
+					</tr>
+				</c:forEach>
+			</c:if>
+			<c:if test="${empty nList }">
+				<tr>
+					<td colspan="4" align="center"><b>데이터가 존재하지 않습니다.</b></td>
+				</tr>
+			</c:if>
+				<tr align="center" height="20">
+		            <td colspan="4" style="border:none;">
+		                <c:if test="${currentPage != 1}">
+		                    <a href="/notice/${urlVal }.kh?page=${currentPage - 1 }">[이전]</a>
+		                </c:if>
+		                <c:forEach var="p" begin = "${startNavi }" end="${endNavi }">
+		                    <c:if test="${currentPage eq p }">
+		                        <b>${p}</b> 
+		                    </c:if>
+		                    <c:if test="${currentPage ne p }">
+		                        <a href = "/notice/${urlVal }.kh?page=${p }&searchCondition=${searchCondition }&searchValue=${searchValue }">${p}</a>
+		                    </c:if>
+		                </c:forEach>
+		            <c:if test = "${currentPage < maxPage }">
+		                <a href = "/notice/${urlVal}.kh?page=${currentPage + 1}">[다음]</a>
+		            </c:if>
+		            </td>
+		        </tr>
+			</table>
+		</div>
+	</div>
 </div>
 <br><br>
 </main>

@@ -54,7 +54,7 @@
 				<td  class="col-2" scope="col" align="center">종류</td>
 				<td>
 					<select name="noticeCategory"  class="form-select" aria-label="Default select example" >
-						<option style="color:FFF9B0" selected >
+						<option selected >
 							<c:if test="${notice.noticeCategory == '0' }">
 								공지
 							</c:if>

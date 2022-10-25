@@ -77,6 +77,7 @@
 		</div>
 
 		<!--회원 정보 툴팁-->
+
 		<div class="container" id="mypage-tooltip-area">
 			<div class="row" id="icon-tooltip">
 				<div class="col-md-2" id="mypage">
@@ -106,8 +107,8 @@
 						</div>
 
 						<div class="col-4">
-							<img src="/resources/img/header/icons8-headphone-64.png" alt="">
-							<br>1:1문의
+							<a href="/qna/list.kh"><img src="/resources/img/header/icons8-headphone-64.png" alt="">
+							<br>1:1문의</a>
 						</div>
 						<div class="col-4">
 							<img src="/resources/img/header/icons8-chat-50.png" alt="">
@@ -128,7 +129,6 @@
 
 			</div>
 		</div>
-
 
 
 		<!--관리자 툴팁-->
@@ -173,7 +173,7 @@
 
 					</div>
 					<div id="logout-area">
-						<button id="logout">로그아웃</button>
+						<button onclick="location.href='/member/logout.pb';" id="logout">로그아웃</button>
 					</div>
 
 

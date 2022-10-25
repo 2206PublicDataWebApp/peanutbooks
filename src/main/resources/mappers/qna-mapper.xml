@@ -5,6 +5,7 @@
 <mapper namespace="QnaMapper">
 	<resultMap type="Qna" id="qnaResultMap">
 		<id column="QNA_NO" property="qnaNo" />
+		<result column="MEMBER_ID" property="memberId" />
 		<result column="QNA_CATEGORY" property="qnaCategory" />
 		<result column="QNA_TITLE" property="qnaTitle" />
 		<result column="QNA_CONTENTS" property="qnaContents" />
@@ -25,4 +26,45 @@
 		<result column="ANSWER_CREATEDATE" property="aCreateDate" />
 		<result column="ANSWER_UPDATEDATE" property="aUpdateDate" />
 	</resultMap>
+	<insert id="insertQna">
+		INSERT INTO QNA_TBL
+		values(SEQ_QNA.nextval, #{memberId}, #{qnaCategory}, #{qnaTitle}
+		, #{qnaContents}, default, default, default
+		, #{qnaFilename01},#{qnaFileRename01},#{qnaFilepath01}
+		, #{qnaFilename02},#{qnaFileRename02},#{qnaFilepath02}
+		, #{qnaFilename03},#{qnaFileRename03},#{qnaFilepath03}
+		, null, null, default, default)
+	</insert>
+	<delete id="deleteOneByNo">
+		DELETE FROM QNA_TBL WHERE QNA_NO = #{qnaNo}
+	</delete>
+	<update id="updateOneQna">
+		UPDATE QNA_TBL SET QNA_CATEGORY = #{qnaCategory}, QNA_TITLE = #{qnaTitle}
+		, QNA_CONTENTS = #{qnaContents}, QNA_UPDATEDATE = DEFAULT
+		, QNA_FILENAME01 = #{qnaFilename01}, QNA_FILERENAME01 = #{qnaFileRename01}, QNA_FILEPATH01 = #{qnaFilepath01}
+		, QNA_FILENAME02 = #{qnaFilename02}, QNA_FILERENAME02 = #{qnaFileRename02}, QNA_FILEPATH02 = #{qnaFilepath02}
+		, QNA_FILENAME03 = #{qnaFilename03}, QNA_FILERENAME03 = #{qnaFileRename03}, QNA_FILEPATH03 = #{qnaFilepath03}
+		WHERE QNA_NO = #{qnaNo}
+	</update>
+	<select id="selectTotalCount" resultType="_int">
+		SELECT COUNT(*) FROM QNA_TBL
+		<where>
+			<if test="searchCondition.toString() == 'title'">
+				QNA_TITLE LIKE '%'||#{searchValue}||'%'
+			</if>
+			<if test="searchCondition.toString() == 'contents'">
+				QNA_CONTENTS LIKE '%'||#{searchValue}||'%'
+			</if>
+			<if test="searchCondition.toString() == 'all'">
+				QNA_TITLE LIKE '%'||#{searchValue}||'%'
+				OR QNA_CONTENTS LIKE '%'||#{searchValue}||'%'
+			</if>
+		</where>
+	</select>
+	<select id="selectAllQna" resultMap="qnaResultMap">
+		SELECT * FROM QNA_TBL WHERE MEMBER_ID = #{memberId} ORDER BY QNA_NO DESC
+	</select>
+	<select id="selectOneByNo" resultMap="qnaResultMap">
+ 			SELECT * FROM QNA_TBL WHERE QNA_NO = #{qnaNo}
+ 	</select>
 </mapper>

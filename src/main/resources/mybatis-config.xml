@@ -9,9 +9,8 @@
 		<!-- 만약에 null 데이터가 전달되었으면 빈칸이 아닌 NULL로 인식하도록 설정 -->
 	</settings>
 	<typeAliases>
-
-	<!--은정꺼  -->
-
+	
+		<!--은정꺼  -->
 		<typeAlias type="com.books.peanut.consult.domain.ConsultServer" alias="ConsultServer" />
 		<typeAlias type="com.books.peanut.consult.domain.Consult" alias="Consult" />
 		<typeAlias type="com.books.peanut.consult.domain.SwitchChat" alias="SwitchChat" />
@@ -20,10 +19,11 @@
 		<typeAlias type="com.books.peanut.pay.domain.Pay" alias="Pay" />
 		<typeAlias type="com.books.peanut.pay.domain.WriterPay" alias="WriterPay" />
 		<typeAlias type="com.books.peanut.pay.domain.PeanutPoint" alias="PeanutPoint" />
-
 		<!--은정꺼 끝  -->
+		
 		<typeAlias type="com.books.peanut.notice.domain.Notice" alias="Notice"/>
 		<typeAlias type="com.books.peanut.qna.domain.Qna" alias="Qna"/>
+		<typeAlias type="com.books.peanut.admin.bookApprove.domain.BookApprove" alias="BookApprove"/>
 		<typeAlias type="com.books.peanut.member.domain.Member" alias="Member"/>
 			
 		<typeAlias type="com.books.peanut.book.domain.WriterProfile" alias="writerProfile"/>
@@ -42,6 +42,7 @@
 
 	<mapper resource="/mappers/notice-mapper.xml"/>
 	<mapper resource="/mappers/qna-mapper.xml"/>
+	<mapper resource="/mappers/bookApprove-mapper.xml"/>
 	<mapper resource="/mappers/member-mapper.xml"/>
 
 	</mappers>
