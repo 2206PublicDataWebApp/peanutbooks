@@ -83,6 +83,7 @@
 					<span> <label> <input type="hidden" name="seriesNo"
 							value="${seriesNo}"> <input type="checkbox"
 							name="paidCheck" id="pay-check"> 유료화 여부
+							<input type="hidden" id="paidCheckHidden"  name="paidCheck" value="N">
 					</label>
 					</span>
 					<div id="contents-text">
@@ -116,7 +117,7 @@
 					<div class="contents-button row">
 
 						<button class="col-6">등록신청</button>
-						<button class="col-6">취소</button>
+						<button class="col-6" type="button" onclick="history.go(-1);">취소</button>
 					</div>
 
 

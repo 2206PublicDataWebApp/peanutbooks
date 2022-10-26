@@ -29,12 +29,12 @@
 
 				<div class="col-md-6" id="profile">
 					<c:if test="${oneWriter == null }">
-						<button onclick="location.href='/book/writerView.do'">작가
+						<button onclick="location.href='/book/writerView.do'">관리자용
 							프로필등록</button>
 					</c:if>
 
 					<c:if test="${oneWriter != null }">
-						<button onclick="location.href='/book/modifyView.do'">작가
+						<button onclick="location.href='/book/modifyView.do'">관리자용
 							프로필수정</button>
 					</c:if>
 
@@ -46,7 +46,7 @@
 					onclick="location.href='/book/bookRegistView.do'" 
 				</c:if>
 					<c:if test="${oneWriter == null}">
-					onclick="alert('작가프로필을 등록하세요')" 
+					onclick="alert('관리자용 프로필을 등록하세요')" 
 				</c:if>>
 					<img src="/resources/img/book/icons8-write-48.png" alt="">
 					새로운 시리즈 등록
@@ -58,31 +58,26 @@
 				<div id="title">내 시리즈 목록</div>
 
 				<!-- 내가 쓴 시리즈 출력 -->
-				<c:if test="${osList!=null }">
+				<c:if test="${nsList!=null }">
 					<!-- 시리즈 반복 -->
-					<c:forEach items="${osList }" var="oSeries">
+					<c:forEach items="${nsList }" var="nSeries">
 
 						<div id="book" class="col-md-3 col-6">
 
-							<!-- 승인여부 체크 -->
-							<div id="check">
-								<c:if test="${oSeries.checkPermission == 'N' }">승인 대기중 </c:if>
-								<c:if test="${oSeries.checkPermission == 'Y' }">승인 완료 </c:if>
-							</div>
 
 							<!-- 각 시리즈 삽화 출력 -->
 							<div id="img"
-								onclick="location.href='/book/oriBookInfo?bookNo=${oSeries.bookNo }'">
+								onclick="location.href='/book/oriBookInfo?bookNo=${nSeries.bookNo }'">
 
-								<img src="/resources/bookImg/${oSeries.subPicRename }" alt="">
+								<img src="/resources/bookImg/${nSeries.subpicRename }" alt="">
 							</div>
 
 							<!-- 책이름 및 화수 시리즈 제목 출력 -->
 							<div id="book-title" class="text-truncate"
-								onclick="location.href='/book/oriBookInfo?bookNo=${oSeries.bookNo }'">${oSeries.bookTitle }</div>
+								onclick="location.href='/book/oriBookInfo?bookNo=${nSeries.bookNo }'">${nSeries.bookTitle }</div>
 							<div id="book-info" class="text-truncate"
-								onclick="location.href='/book/oriBookInfo?bookNo=${oSeries.bookNo }'">${oSeries.seriesNo }화
-								${oSeries.title }</div>
+								onclick="location.href='/book/oriBookInfo?bookNo=${nSeries.bookNo }'">${nSeries.seriesNo }화
+								${nSeries.title }</div>
 
 
 						</div>

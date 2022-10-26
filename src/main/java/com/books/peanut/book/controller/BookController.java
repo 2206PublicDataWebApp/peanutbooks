@@ -28,6 +28,8 @@ import com.books.peanut.HomeController;
 import com.books.peanut.book.domain.WriterProfile;
 import com.books.peanut.book.domain.BookPage;
 import com.books.peanut.book.domain.HashTag;
+import com.books.peanut.book.domain.NormalBook;
+import com.books.peanut.book.domain.NormalBookSeries;
 import com.books.peanut.book.domain.OriginBook;
 import com.books.peanut.book.domain.OriginBookSeries;
 import com.books.peanut.book.domain.Star;
@@ -67,7 +69,7 @@ public class BookController {
 		return mv;
 
 	}
-	
+
 	/**
 	 * 피넛 오리지널 도서 시리즈 다음화 등록 창 연결
 	 * 
@@ -77,27 +79,55 @@ public class BookController {
 	 */
 	@RequestMapping(value = "/book/oriBookNextSeires.do", method = RequestMethod.GET)
 	public ModelAndView registnextBookView(ModelAndView mv, HttpSession session, int bookNo, int seriesNo) {
-		
+
 		Member member = (Member) session.getAttribute("loginMember");
-		int result = bService.checkWriter(bookNo, member.getMemberId());//작가 맞는지 체크하기
-		if(result>0) {
-		OriginBook oBook = bService.showOnebook(bookNo+"");
-		String category = categroyChange(oBook.getCategory());
-		oBook.setCategory(category);
-		mv.addObject("oBook",oBook);
-		mv.addObject("seriesNo",seriesNo);
-		mv.setViewName("/book/bookRegistNext");
-			
+		int result = bService.checkWriter(bookNo, member.getMemberId());// 작가 맞는지 체크하기
+		if (result > 0) {
+			OriginBook oBook = bService.showOnebook(bookNo + ""); // 해당시리즈의 상위도서 가져오기
+			String category = categroyChange(oBook.getCategory());// 카테고리 번역하기
+			oBook.setCategory(category);// 번역한 카테고리 등록하기
+			mv.addObject("oBook", oBook);
+			mv.addObject("seriesNo", seriesNo);
+			mv.setViewName("/book/bookRegistNext");
+
+		} else {
+			mv.addObject("msg", "작가 본인만 등록할수 있습니다.");
+			mv.setViewName("/common/errorPage");
 		}
-		else {
-			mv.setViewName("redirect:/");
-		}
-		
-		
+
 		return mv;
-		
+
 	}
 
+	/**
+	 * 피넛 오리지널 도서 시리즈 수정 등록 창 연결
+	 * 
+	 * @param mv
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/book/oriSeriesModifyView.do", method = RequestMethod.GET)
+	public ModelAndView oriSeriesModifyView(ModelAndView mv, HttpSession session, int bookNo, int seriesNo) {
+
+		Member member = (Member) session.getAttribute("loginMember");
+		int result = bService.checkWriter(bookNo, member.getMemberId());// 작가 맞는지 체크하기
+		if (result > 0) {
+			OriginBook oBook = bService.showOnebook(bookNo + "");// 해당 시리즈의 상위 도서 가져오기
+			String category = categroyChange(oBook.getCategory()); // 카테고리 번역하기
+			oBook.setCategory(category);// 번역한 카테고리 등록하고
+			OriginBookSeries oSeries = bService.getOneSeries(seriesNo, bookNo);
+			mv.addObject("oBook", oBook);
+			mv.addObject("oSeries", oSeries);
+			mv.setViewName("/book/bookModifySeries");
+
+		} else {
+			mv.addObject("msg", "작가 본인만 수정할수 있습니다.");
+			mv.setViewName("/common/errorPage");
+		}
+
+		return mv;
+
+	}
 
 	/***
 	 * 작가 프로필 등록 창 연결
@@ -149,23 +179,76 @@ public class BookController {
 				// 페이징 시작
 				int getTotlaCount = bService.allOriSeriesCount(member.getMemberId()); // 가지고올 책의 갯수 파악
 				int boardLimit = 20;
-				BookPageController bpCont = new BookPageController();// 페이징 해주는 클래스	
+				BookPageController bpCont = new BookPageController();// 페이징 해주는 클래스
 				BookPage bPage = bpCont.boardList(page, getTotlaCount, boardLimit); // 클래스에서 페이징해온 숫자를 가지고옴
 				
 				
-				List<OriginBookSeries> osList = bService.allOriSeries(bPage.getCurrentPage(), boardLimit,
-						member.getMemberId());
+				if (getTotlaCount>0) {
+					List<OriginBookSeries> osList = bService.allOriSeries(bPage.getCurrentPage(), boardLimit,
+							member.getMemberId());
 
-				for (int i = 0; i < osList.size(); i++) {
-					String bookTitle = bService.getBookTitle(osList.get(i).getBookNo());
-					osList.get(i).setBookTitle(bookTitle);// 각 시리즈의 책 제목 가지고옴
+					for (int i = 0; i < osList.size(); i++) {
+						String bookTitle = bService.getBookTitle(osList.get(i).getBookNo());
+						osList.get(i).setBookTitle(bookTitle);// 각 시리즈의 책 제목 가지고옴
+					}
+					mv.addObject("osList", osList);
 				}
-
 				mv.addObject("bPage", bPage);
-				mv.addObject("osList", osList);
+				
 			}
 
 			mv.setViewName("/book/writermenu");
+		}
+		return mv;
+
+	}
+
+	/***
+	 * 관리자용 글 등록 메뉴 연결
+	 * 
+	 * @param mv
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/book/writerMenu-admin.do", method = RequestMethod.GET)
+	public ModelAndView adminWriterMenu(ModelAndView mv, HttpSession session,
+			@RequestParam(value = "page", required = false) Integer page) {
+
+		Member member = (Member) session.getAttribute("loginMember");
+		if ((member.getAdminYN().charAt(0) + "").equals("N")) { // 세션에서 관리자 체크가 안된다면
+
+			mv.addObject("msg", "관리자만 접속가능합니다");
+			mv.setViewName("/common/errorPage");
+
+		} else {
+
+			WriterProfile oneWriter = bService.getProfile(member.getMemberId());
+			// 작가 프로필을 등록했을때는 작가 프로필을 전송함
+
+			if (oneWriter != null) {
+				mv.addObject("oneWriter", oneWriter);
+
+				// 관리자가 작성한 도서 리스트를 불러옴
+				// 페이징 시작
+				int getTotlaCount = bService.allNorSeriesCount(); // 가지고올 책 시리즈의 갯수 파악
+				int boardLimit = 20;
+				BookPageController bpCont = new BookPageController();// 페이징 해주는 클래스
+				BookPage bPage = bpCont.boardList(page, getTotlaCount, boardLimit); // 클래스에서 페이징해온 숫자를 가지고옴
+				if (getTotlaCount > 0) {
+					List<NormalBookSeries> nsList = bService.allAdminBooks(); // 모든 일반도서 시리즈 리스트로 가져오기
+
+					for (int i = 0; i < nsList.size(); i++) {
+						String bookTitle = bService.getNorBookTitle(nsList.get(i).getBookNo());
+						nsList.get(i).setBookTitle(bookTitle);// 각 시리즈의 책 제목 가지고옴
+					}
+					mv.addObject("nsList", nsList);
+				}
+
+				mv.addObject("bPage", bPage);
+
+			}
+
+			mv.setViewName("/bookadmin/writermenu-admin");
 		}
 		return mv;
 
@@ -197,7 +280,6 @@ public class BookController {
 		return mv;
 
 	}
-
 
 	/**
 	 * 작가 프로필 등록
@@ -239,8 +321,8 @@ public class BookController {
 			wrtiePro.setHeadPic(headPic);
 			wrtiePro.setHeadPicRename(headPicRename);
 		} else {
-			wrtiePro.setHeadPic("defaultImg");
-			wrtiePro.setHeadPicRename("defaultImg");
+			wrtiePro.setHeadPic("defaultImg.jpg");
+			wrtiePro.setHeadPicRename("defaultImg.jpg");
 
 		}
 
@@ -376,7 +458,7 @@ public class BookController {
 	}
 
 	/**
-	 * 오리지널 북 책 소개 페이지로 연결
+	 * 피넛오리지널 북 책 소개 페이지로 연결
 	 * 
 	 * @param mv
 	 * @param session
@@ -385,6 +467,7 @@ public class BookController {
 	 */
 	@RequestMapping(value = "/book/oriBookInfo", method = RequestMethod.GET)
 	public ModelAndView showOneOriBook(ModelAndView mv, HttpSession session, String bookNo) {
+		Member member = (Member) session.getAttribute("loginMember");
 
 		// 로그인 안하면 메인페이지로 보냄
 		if (session.getAttribute("loginMember") == null) {
@@ -392,6 +475,21 @@ public class BookController {
 		} else {
 			// 해당 책 가져오기
 			OriginBook oBook = bService.showOnebook(bookNo); // 도서 메인테이블
+
+			// 해당책이 만약 허가되지 않았다면 작가와 관리자에는 열람 불가
+			String permission = oBook.getCheckPermission().charAt(0) + "";
+			if (permission.equals("N")) {
+				if ((!member.getMemberId().equals(oBook.getMemberId())) && member.getAdminYN().equals("N")) {
+
+					mv.addObject("msg", "이책은 승인되지 않은 책입니다");
+					mv.setViewName("/common/errorPage");
+
+					return mv;
+
+				}
+
+			}
+
 			List<OriginBookSeries> osList = bService.getSeriesTitle(bookNo); // 도서 시리즈 이름만 가져오기
 			String category = "origin";
 			HashTag hTag = bService.getBookTga(bookNo, category); // 도서 태그가져오기
@@ -399,8 +497,6 @@ public class BookController {
 
 			String mNick = bService.getMemberNickName(oBook.getMemberId());// 작가 닉네임 가져오기
 			oBook.setMemberNickName(mNick);
-
-			
 
 			// 별점 평균 계산하기
 			int score = oBook.getScore();
@@ -440,6 +536,7 @@ public class BookController {
 	public ModelAndView stepOriBook(ModelAndView mv, @RequestParam("bookNo") String bookNo,
 			@RequestParam("category") String category, HttpSession session) {
 
+		Member member = (Member) session.getAttribute("loginMember");
 		if (session.getAttribute("loginMember") != null) {
 			if (category.equals("origin")) {// 피넛 오리지널의 경우
 				OriginBook oBook = bService.showOnebook(bookNo); // 책 번호로 한권 가지고오기
@@ -453,13 +550,27 @@ public class BookController {
 					if (contents.length() > 300) {
 						contents = contents.substring(0, 300);
 					}
-					if(obSeries.getPaidCheck().equals("Y ")) {
+					if (obSeries.getPaidCheck().equals("Y ")) {
 						contents = "유료화는 미리보기 할수 없습니다";
 					}
 
 					obSeries.setContents(contents);
 
 					logger.info(contents);
+				}
+
+				// 해당책이 만약 허가되지 않았다면 작가와 관리자에는 열람 불가
+				String permission = oBook.getCheckPermission().charAt(0) + "";
+				if (permission.equals("N")) {
+					if ((!member.getMemberId().equals(oBook.getMemberId())) && member.getAdminYN().equals("N")) {
+
+						mv.addObject("msg", "이책은 승인되지 않은 책입니다");
+						mv.setViewName("/common/errorPage");
+
+						return mv;
+
+					}
+
 				}
 
 				String mNickName = bService.getMemberNickName(oBook.getMemberId()); // 작가 닉네임 가져오기
@@ -487,10 +598,10 @@ public class BookController {
 	public String checkPaidbookSeries(int seriesNo, int bookNo, HttpSession session) {
 		String paidCheck = bService.checkPaid(seriesNo, bookNo);
 
-		logger.info("1"+paidCheck+"1");
+		logger.info("1" + paidCheck + "1");
 		return paidCheck;
 	}
-	
+
 	/**
 	 * 시리즈 구입 여부 체크
 	 */
@@ -498,18 +609,17 @@ public class BookController {
 	@RequestMapping(value = "/book/checkPurchase.do", method = RequestMethod.GET, produces = "text/plain;charset=utf-8")
 	public String checkPurchase(int seriesNo, int bookNo, HttpSession session) {
 		Member member = (Member) session.getAttribute("loginMember");
-		String memberId=member.getMemberId();
-		int result = bService.checkPurchase(memberId,seriesNo,bookNo);//구입여부 체크
-		logger.info(result+"구입여부");
-		result += bService.checkSUbcribe(memberId);//현재 구독 여부 체크
-		logger.info(result+"구독여부");
-		
-		result += bService.checkWriter(bookNo, member.getMemberId()); //작가가 맞는지 체크하기
+		String memberId = member.getMemberId();
+		int result = bService.checkPurchase(memberId, seriesNo, bookNo);// 구입여부 체크
+		logger.info(result + "구입여부");
+		result += bService.checkSUbcribe(memberId);// 현재 구독 여부 체크
+		logger.info(result + "구독여부");
 
-		return result+"";
+		result += bService.checkWriter(bookNo, member.getMemberId()); // 작가가 맞는지 체크하기
+
+		return result + "";
 	}
-	
-	
+
 	/**
 	 * 도서 구매하기
 	 */
@@ -517,21 +627,19 @@ public class BookController {
 	@RequestMapping(value = "/book/buyThisSeries.do", method = RequestMethod.GET, produces = "text/plain;charset=utf-8")
 	public String buyThisSeries(int seriesNo, int bookNo, HttpSession session) {
 		Member member = (Member) session.getAttribute("loginMember");
-		String memberId=member.getMemberId();
-		int result = bService.checkNowPoint(memberId);//피넛갯수 확인하기
-		if(result>=1) {
-			String bookTitle = bService.getBookTitle(bookNo+"");
-			int result1 =bService.buyOneSeries(seriesNo,bookNo,memberId,bookTitle); //땅콩으로 시리즈 구입
+		String memberId = member.getMemberId();
+		int result = bService.checkNowPoint(memberId);// 피넛갯수 확인하기
+		if (result >= 1) {
+			String bookTitle = bService.getBookTitle(bookNo + "");
+			int result1 = bService.buyOneSeries(seriesNo, bookNo, memberId, bookTitle); // 땅콩으로 시리즈 구입
 		}
-		
-		
-		return result+"";
-	}
-	
 
+		return result + "";
+	}
 
 	/**
 	 * 피넛 오리지널 시리즈 한 편 열람
+	 * 
 	 * @param mv
 	 * @param session
 	 * @param seriesNo
@@ -540,33 +648,41 @@ public class BookController {
 	 */
 	@RequestMapping(value = "/book/OridetailSeries.do", method = RequestMethod.GET)
 	public ModelAndView detailOribookSeries(ModelAndView mv, HttpSession session, int seriesNo, int bookNo) {
-		if (session.getAttribute("loginMember") != null) {//로그인 여부 체크
+		if (session.getAttribute("loginMember") != null) {// 로그인 여부 체크
 
-			Member member = (Member)session.getAttribute("loginMember");
-			String paidCheck = bService.checkPaid(seriesNo, bookNo); //유료화 여부 다시 체크
-			
-			int result = bService.checkPurchase(member.getMemberId(),seriesNo,bookNo);//구입여부 체크
-			result += bService.checkSUbcribe(member.getMemberId());//현재 구독 여부 체크			
-			
-			int wirterMember = bService.checkWriter(bookNo, member.getMemberId()); //작가가 맞는지 체크하기
-			logger.info(wirterMember+"작가여부");
-		
+			Member member = (Member) session.getAttribute("loginMember");
+			String paidCheck = bService.checkPaid(seriesNo, bookNo); // 유료화 여부 다시 체크
 
-			
-			
-			if (paidCheck.equals("N ") || result>0 || wirterMember>0) {//유료화가 아니거나, 구매했거나
-				String bookTitle = bService.getBookTitle(bookNo+""); //책 이름 가져옴
-				OriginBookSeries obSeries = bService.getOneSeries(seriesNo,bookNo); //시리즈 한편가져오기
-				
-				
+			int result = bService.checkPurchase(member.getMemberId(), seriesNo, bookNo);// 구입여부 체크
+			result += bService.checkSUbcribe(member.getMemberId());// 현재 구독 여부 체크
+
+			int wirterMember = bService.checkWriter(bookNo, member.getMemberId()); // 작가가 맞는지 체크하기
+			logger.info(wirterMember + "작가여부");
+
+			if (paidCheck.equals("N ") || result > 0 || wirterMember > 0) {// 유료화가 아니거나, 구매했거나
+				String bookTitle = bService.getBookTitle(bookNo + ""); // 책 이름 가져옴
+				OriginBookSeries obSeries = bService.getOneSeries(seriesNo, bookNo); // 시리즈 한편가져오기
+
+				// 해당책이 만약 허가되지 않았다면 작가와 관리자에는 열람 불가
+				String permission = obSeries.getCheckPermission().charAt(0) + "";
+				if (permission.equals("N")) {
+					if ((wirterMember < 1) && member.getAdminYN().equals("N")) {
+
+						mv.addObject("msg", "이책은 승인되지 않은 책입니다");
+						mv.setViewName("/common/errorPage");
+
+						return mv;
+
+					}
+
+				}
+
 				mv.addObject("bookTitle", bookTitle);
-				mv.addObject("obSeries",obSeries);
+				mv.addObject("obSeries", obSeries);
 				mv.setViewName("/book/bookstep-detail");
-				
-				
+
 			} else {
-				
-				
+
 				mv.setViewName("redirect:/");
 			}
 		} else {
@@ -574,15 +690,25 @@ public class BookController {
 		}
 		return mv;
 	}
-	
-	
-	/**피넛 오리지널 다음 시리즈 등록*/
+
+	/**
+	 * 피넛 오리지널 다음 시리즈 등록
+	 * 
+	 * @param mv
+	 * @param session
+	 * @param obSeries
+	 * @param subPicture
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/book/oriSeriesRegist.do", method = RequestMethod.POST)
 	public ModelAndView oriSeriesRegist(ModelAndView mv, HttpSession session, @ModelAttribute OriginBookSeries obSeries,
-			@RequestParam(value = "subPicture", required = false) MultipartFile subPicture, HttpServletRequest request) {
-		
-		//삽화 저장
-		String picName = subPicture.getOriginalFilename(); //파일 이름 가져오기
+			@RequestParam(value = "subPicture", required = false) MultipartFile subPicture,
+			HttpServletRequest request) {
+
+		logger.info(obSeries.toString());
+		// 삽화 저장
+		String picName = subPicture.getOriginalFilename(); // 파일 이름 가져오기
 		if (!picName.equals("")) {
 
 			String subPicRename = fileSave(picName, request, subPicture, "sub");
@@ -595,26 +721,61 @@ public class BookController {
 
 		}
 		String paid = "N";
-		if(obSeries.getPaidCheck().equals("on")) {
+		if (obSeries.getPaidCheck().equals("on")) {
 			paid = "Y";
-			obSeries.setPaidCheck(paid);
 		}
 		obSeries.setPaidCheck(paid);
-		int result = bService.registOriSeriesNext(obSeries); //다음화 시리즈만 데이터베이스에 전송하기
+		int result = bService.registOriSeriesNext(obSeries); // 다음화 시리즈만 데이터베이스에 전송하기
 		mv.addObject("bookNo", obSeries.getBookNo());
 		mv.setViewName("redirect:/book/oriBookInfo");
-		
-		
-		
-		
-		
+
 		return mv;
-		
+
 	}
 
-	
-	
-	
+	/**
+	 * 피넛 오리지널 시리즈 수정
+	 * 
+	 * @param mv
+	 * @param session
+	 * @param obSeries
+	 * @param subPicture
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/book/oriSeriesModify.do", method = RequestMethod.POST)
+	public ModelAndView oriSeriesModify(ModelAndView mv, HttpSession session, @ModelAttribute OriginBookSeries obSeries,
+			@RequestParam(value = "subPicture", required = false) MultipartFile subPicture,
+			HttpServletRequest request) {
+		logger.info(obSeries.toString());
+
+		// 삽화 수정
+		String picName = subPicture.getOriginalFilename(); // 전송한 사진 이름 가져오기
+		if (subPicture != null && !picName.equals("")) { // 만약 전송한 사진이 있거나 사진이름이 없는게 아니라면
+
+			String subPicRename = fileSave(picName, request, subPicture, "sub");// 파일을 저장한다, 파일이름,리퀘스트,저장된파일, 추가할이름
+
+			obSeries.setSubPic(picName);
+			obSeries.setSubPicRename(subPicRename);
+
+		}
+
+		String paid = "N";
+		if (obSeries.getSeriesNo() != 1) {
+			if (obSeries.getPaidCheck().equals("on")) {
+				paid = "Y";
+			}
+		}
+		obSeries.setPaidCheck(paid);
+
+		int result = bService.modifyOriSeries(obSeries); // 다음화 시리즈만 데이터베이스에 전송하기
+		mv.addObject("bookNo", obSeries.getBookNo());
+		mv.setViewName("redirect:/book/oriBookInfo");
+
+		return mv;
+
+	}
+
 	/** 해시태그 한글 변경 메소드 */
 	private HashTag changeKo(HashTag hTag) {
 
@@ -746,19 +907,27 @@ public class BookController {
 		return mainPicRename;
 	}
 
-	/*카테고리 번역*/
+	/* 카테고리 번역 */
 	private String categroyChange(String category) {
-		
+
 		switch (category) {
-		case "novel": category = "소설"; break;
-		case "essay": category = "에세이";break;
-		case "tale": category = "동화"; break;
-		case "poem": category = "시"; break;
+		case "novel":
+			category = "소설";
+			break;
+		case "essay":
+			category = "에세이";
+			break;
+		case "tale":
+			category = "동화";
+			break;
+		case "poem":
+			category = "시";
+			break;
 		}
-		
+
 		return category;
 	}
-	
+
 	/***
 	 * 에러페이지 연결
 	 * 

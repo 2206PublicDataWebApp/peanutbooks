@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
+  <mapper namespace="adminWirteMapper">
+  	<!-- 일반도서 -->
+  	
+  	
+  	<select id="selectNorBookTitle" resultType="string">
+  		select BOOK_TITLE from normal_book where NOR_BOOK_NO = #{bookNo}
+  	</select>
+  	
+  	
+  	
+  	<!-- 일반도서 시리즈 -->
+  	<resultMap type="NormalBookSeries" id="nbSeriesResultMap">
+  	<id property="seriesNo" column="SERIES_NO"/>
+  	<result property="bookNo" column="NOR_BOOK_NO"/>
+  	<result property="subPic" column="SUB_PIC"/>
+  	<result property="subpicRename" column="SUB_PIC_RE"/>
+  	<result property="title" column="TITLE"/>
+  	<result property="contents" column="CONTETNS"/>
+  	<result property="insertDate" column="INSERT_DATE"/>
+  	<result property="updateDate" column="UPDATE_DATE"/>
+  	
+  	</resultMap>
+  	
+  	
+  	<!-- 모든 일반도서 시리즈 갯수파악 -->
+  	<select id="allNorBookCount" resultType="_int">
+  		select count(*) from nor_series
+  	</select>
+  	
+  	<!-- 모든 일반도서 시리즈 가져오기 -->
+  	<select id="allNorBook" resultMap="nbSeriesResultMap">
+  		select * from nor_series
+  	</select>
+  	
+  	
+  	
+  	
+  	
+  
+  
+  </mapper>

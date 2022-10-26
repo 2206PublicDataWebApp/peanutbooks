@@ -24,6 +24,16 @@ public class OriginBookSeries {
 	
 
 
+	@Override
+	public String toString() {
+		return "OriginBookSeries [seriesNo=" + seriesNo + ", bookNo=" + bookNo + ", subPic=" + subPic
+				+ ", subPicRename=" + subPicRename + ", title=" + title + ", contents=" + contents + ", modifyContents="
+				+ modifyContents + ", paidCount=" + paidCount + ", paidCheck=" + paidCheck + ", viewCount=" + viewCount
+				+ ", checkPermission=" + checkPermission + ", bookTitle=" + bookTitle + ", insertDate=" + insertDate
+				+ ", modifyDate=" + modifyDate + ", status=" + status + "]";
+	}
+
+
 	public String getStatus() {
 		return status;
 	}
@@ -74,14 +84,6 @@ public class OriginBookSeries {
 	}
 
 
-	@Override
-	public String toString() {
-		return "originBookSeries [seriesNo=" + seriesNo + ", bookNo=" + bookNo + ", subPic=" + subPic
-				+ ", subPicRename=" + subPicRename + ", title=" + title + ", contents=" + contents + ", modifyContents="
-				+ modifyContents + ", paidCount=" + paidCount + ", paidCheck=" + paidCheck + ", viewCount=" + viewCount
-				+ "]";
-	}
-	
 	
 	public int getSeriesNo() {
 		return seriesNo;

@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.books.peanut.book.domain.HashTag;
+import com.books.peanut.book.domain.NormalBookSeries;
 import com.books.peanut.book.domain.OriginBook;
 import com.books.peanut.book.domain.OriginBookSeries;
 import com.books.peanut.book.domain.Star;
@@ -191,6 +192,7 @@ public class BookStoreLogic implements BookStore{
 	@Override
 	public int insertOriSeriesNext(SqlSessionTemplate session, OriginBookSeries obSeries) {
 		int result = session.insert("wirterMapper.insertNextOseries",obSeries);
+		result += session.insert("wirterMapper.insertPermission2",obSeries);
 		return result;
 		
 	}
@@ -232,6 +234,35 @@ public class BookStoreLogic implements BookStore{
 		int result = session.update("wirterMapper.UsePeanutOne",hMap);
 		result += session.insert("wirterMapper.insertBuyOneSeries",hMap);
 		return result;
+	}
+	
+	/**피넛 오리지널 시리즈 수정*/
+	@Override
+	public int updateOriSeries(SqlSessionTemplate session, OriginBookSeries obSeries) {
+		int result = session.insert("wirterMapper.updateOriSeries",obSeries);
+		result += session.insert("wirterMapper.permissionModify",obSeries);
+		return result;
+	}
+	
+	/**모든 일반 도서 시리즈의 갯수 파악*/
+	@Override
+	public int countAllnorBook(SqlSessionTemplate session) {
+		int result = session.selectOne("adminWirteMapper.allNorBookCount");
+		return result;
+	}
+	
+	/**모든 일반도서 시리즈 가져오기*/
+	@Override
+	public List<NormalBookSeries> selectAllNorSeries(SqlSessionTemplate session) {
+		List<NormalBookSeries> nsList = session.selectOne("adminWirteMapper.allNorBook");
+		return nsList;
+	}
+	
+	/**일반도서 제목 가져오기*/
+	@Override
+	public String selectNorbookTitle(SqlSessionTemplate session, String bookNo) {
+		String nTitle = session.selectOne("adminWirteMapper.selectNorBookTitle");
+		return nTitle;
 	}
 
 	

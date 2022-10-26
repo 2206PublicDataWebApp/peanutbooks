@@ -5,6 +5,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.books.peanut.book.domain.HashTag;
+import com.books.peanut.book.domain.NormalBookSeries;
 import com.books.peanut.book.domain.OriginBook;
 import com.books.peanut.book.domain.OriginBookSeries;
 import com.books.peanut.book.domain.Star;
@@ -105,5 +106,18 @@ public interface BookStore {
 	/**시리즈 한편 구입하기
 	 * @param bookTitle */
 	int updatebuyOneSeries(SqlSessionTemplate session, int seriesNo, int bookNo, String memberId, String bookTitle);
+
+	/**피넛 오리지널 시리즈 수정*/
+	int updateOriSeries(SqlSessionTemplate session, OriginBookSeries obSeries);
+
+	/**모든 일반도서의 갯수파악*/
+	int countAllnorBook(SqlSessionTemplate session);
+
+	/**모든 일반도서 시리즈 가져오기
+	 * @param session */
+	List<NormalBookSeries> selectAllNorSeries(SqlSessionTemplate session);
+
+	/**일반도서 제목 가져오기*/
+	String selectNorbookTitle(SqlSessionTemplate session, String bookNo);
 
 }

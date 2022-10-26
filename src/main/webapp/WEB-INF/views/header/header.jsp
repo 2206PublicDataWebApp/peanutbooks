@@ -151,7 +151,7 @@
 							<br>정보수정
 						</div>
 						<div class="col-4">
-							<a href="/book/writerMenu.do"> <img
+							<a href="/book/writerMenu-admin.do"> <img
 								src="/resources/img/header/icons8-write-48.png" alt=""> <br>등록
 								도서
 							</a>
@@ -195,7 +195,7 @@
 			<div class="row" id="point-icon-tooltip">
 				<div class="col-md-2" id="point">
 					<div id="name-space">${sessionScope.loginMember.mNickname}님</div>
-					<div id="now-point"></div>
+					<div id="now-point">${sessionScope.loginMember.mPoint}</div>
 					<div id="point-icon-area" class="row">
 						<div class="col-4">
                         <img src="/resources/img/header/icons8-page-52.png" alt="" onclick="peanutList('${sessionScope.loginMember.memberId}');">

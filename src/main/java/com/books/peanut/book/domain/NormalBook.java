@@ -15,6 +15,18 @@ public class NormalBook {
 	private int viewCount;
 	private int score;
 	private String language;
+	private String adminId;
+	
+	
+	
+	
+	
+	public String getAdminId() {
+		return adminId;
+	}
+	public void setAdminId(String adminId) {
+		this.adminId = adminId;
+	}
 	public String getBookNo() {
 		return bookNo;
 	}
