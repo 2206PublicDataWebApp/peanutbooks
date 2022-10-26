@@ -31,7 +31,7 @@
 <body>
 	<jsp:include page="../header/header.jsp" />
 	<main>
-		<form action="/book/oribookRegist.do" method="post"
+		<form action="/book/norbookRegist.do" method="post"
 			enctype="multipart/form-data">
 		<section class="container">
 			<article>
@@ -39,7 +39,7 @@
 				<div id="title-area">
 					<div class="title-text">
 
-						<input type="text" id="title-text" placeholder="제목을 입력하세요">
+						<input type="text" id="title-text" name="bookTitle" placeholder="제목을 입력하세요">
 					</div>
 
 
@@ -55,7 +55,7 @@
 							<img class="headerimg"> <label
 								class="input-file-button float-md-start"> <img
 								src="/resources/img/book/icons8-camera-96.png" alt=""
-								id="camera1"> <input type="file" name="recipePicture"
+								id="camera1"> <input type="file" name="coverpic"
 								class="isFile" style="display: none"
 								accept="image/jpeg, image/png, image/jpg"
 								onchange="imgView(this);">
@@ -68,49 +68,57 @@
 				</div>
 				<div class="col-md-6">
 					<div class="category">
-						<select name="" id="">
+						<select name="category" id="" required="required">
 							<option value="">카테고리를 선택하세요</option>
-							<option value="novel">소설</option>
-							<option value="essay">에세이</option>
+							<option value="detective">추리소설</option>
+							<option value="history">역사</option>
+							<option value="essay">로맨스</option>
 							<option value="tale">동화</option>
 							<option value="poem">시</option>
-						</select> <select name="" id="">
+						</select> <select name="language" id=""  required="required">
 							<option value="">언어를 선택하세요</option>
-							<option value="novel">한국어</option>
-							<option value="essay">영어</option>
-							<option value="tale">일본어</option>
+							<option value="ko">한국어</option>
+							<option value="en">영어</option>
+							<option value="jp">일본어</option>
 						</select>
 
 					</div>
 					<h5>작품소개</h5>
-					<textarea name="" id="info-text" cols="10" rows="10"
+					<textarea name="bookInfo" id="info-text" cols="10" rows="10"
 						placeholder="소개를 입력하세요"></textarea>
 
 					<h5>작가소개</h5>
-					<input type="text" name="" id="writer-name"
+					<input type="text" name="writer" id="writer-name"
 						placeholder="작가명을 입력하세요">
-					<textarea name="" id="wirter-info" cols="10" rows="10"
+					<textarea name="writerInfo" id="wirter-info" cols="10" rows="10"
 						placeholder="소개를 입력하세요"></textarea>
 
 
 					<div id="tag-area">
 						<h5>해시태그</h5>
-						<select name="" id="">
-							<option value="">해시태그를 선택하세요</option>
-							<option value="essay">에세이</option>
-							<option value="tale">동화</option>
-							<option value="poem">시</option>
-						</select> <select name="" id="">
-							<option value="">해시태그를 선택하세요</option>
-							<option value="essay">에세이</option>
-							<option value="tale">동화</option>
-							<option value="poem">시</option>
-						</select> <select name="" id="">
-							<option value="">해시태그를 선택하세요</option>
-							<option value="essay">에세이</option>
-							<option value="tale">동화</option>
-							<option value="poem">시</option>
-						</select>
+							<select name="hashTag1" id="">
+								<option value="none">해시태그를 선택하세요</option>
+								<option value="fantasy">판타지</option>
+								<option value="now">현대</option>
+								<option value="daily">일상</option>
+								<option value="history">역사</option>
+							</select> <select name="hashTag2" id="">
+								<option value="none">해시태그를 선택하세요</option>
+								<option value="child">어린이를 위한</option>
+								<option value="adult">어른을 위한</option>
+								<option value="woman">여성을 위한</option>
+								<option value="man">남성을 위한</option>
+								<option value="all">모두를 위한</option>
+							</select> <select name="hashTag3" id="">
+								<option value="none">해시태그를 선택하세요</option>
+								<option value="horror">겁쟁이 출입금지</option>
+								<option value="gag">배꼽 빠지는</option>
+								<option value="move">마음이 따뜻해 지는</option>
+								<option value="heart">설레이는</option>
+								<option value="tear">눈물이 나는</option>
+								<option value="popcorn">팝콘각</option>
+								<option value="cider">사이다 마시는</option>
+							</select>
 
 
 					</div>
@@ -125,7 +133,7 @@
 				<h2>1화 등록</h2>
 
 				<div id="contents-text">
-					<input type="text" placeholder="제목을 입력해주세요" class="text-input">
+					<input type="text" placeholder="제목을 입력해주세요" class="text-input" name="title">
 
 
 				</div>
@@ -136,7 +144,7 @@
 							<img class="contentsimg"> <label
 								class="input-file-button float-md-start"> <img
 								src="/resources/img/book/icons8-camera-96.png" alt=""
-								id="camera2"> <input type="file" name="recipePicture"
+								id="camera2"> <input type="file" name="subPicture"
 								class="isFile" style="display: none"
 								accept="image/jpeg, image/png, image/jpg"
 								onchange="imgView(this);">
@@ -150,7 +158,7 @@
 				<div class="contents-textarea">
 
 					<div id="summernote"></div>
-					<textarea rows="" cols="" style="display: none" name="Contents"
+					<textarea rows="" cols="" style="display: none" name="contents"
 						required="required"></textarea>
 				</div>
 				<div class="contents-button row">
@@ -167,5 +175,5 @@
 	</main>
 	<jsp:include page="../footer/footer.jsp" />
 </body>
-<script src="/resources/js/book/bookregist.js"></script>
+<script src="/resources/js/book/bookregist-admin.js"></script>
 </html>

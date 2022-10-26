@@ -5,6 +5,10 @@ main {
 
 }
 
+#camera1:hover, #camera2:hover{
+	cursor : pointer;
+}
+
 #title-text {
     border: 0;
     font-size: 2rem;

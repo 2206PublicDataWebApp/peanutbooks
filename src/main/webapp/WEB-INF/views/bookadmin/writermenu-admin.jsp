@@ -55,7 +55,7 @@
 			</article>
 			<hr>
 			<article id="list-area" class="row">
-				<div id="title">내 시리즈 목록</div>
+				<div id="title">일반도서 등록 목록</div>
 
 				<!-- 내가 쓴 시리즈 출력 -->
 				<c:if test="${nsList!=null }">
@@ -67,16 +67,16 @@
 
 							<!-- 각 시리즈 삽화 출력 -->
 							<div id="img"
-								onclick="location.href='/book/oriBookInfo?bookNo=${nSeries.bookNo }'">
+								onclick="location.href='/book/norBookInfo?bookNo=${nSeries.bookNo }'">
 
 								<img src="/resources/bookImg/${nSeries.subpicRename }" alt="">
 							</div>
 
 							<!-- 책이름 및 화수 시리즈 제목 출력 -->
 							<div id="book-title" class="text-truncate"
-								onclick="location.href='/book/oriBookInfo?bookNo=${nSeries.bookNo }'">${nSeries.bookTitle }</div>
+								onclick="location.href='/book/norBookInfo?bookNo=${nSeries.bookNo }'">${nSeries.bookTitle }</div>
 							<div id="book-info" class="text-truncate"
-								onclick="location.href='/book/oriBookInfo?bookNo=${nSeries.bookNo }'">${nSeries.seriesNo }화
+								onclick="location.href='/book/norBookInfo?bookNo=${nSeries.bookNo }'">${nSeries.seriesNo }화
 								${nSeries.title }</div>
 
 

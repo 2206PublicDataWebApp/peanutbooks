@@ -59,7 +59,7 @@ public class BookController {
 			mv.addObject("msg", "로그인한 유저만 접속가능합니다");
 			mv.setViewName("/common/errorPage");
 		} else if (member.getAdminYN().equals("Y")) {
-			mv.setViewName("/book/bookregist-admin");
+			mv.setViewName("/bookadmin/bookregist-admin");
 
 		} else {
 			mv.setViewName("/book/bookregist");
@@ -391,6 +391,61 @@ public class BookController {
 		return mv;
 
 	}
+	
+	
+	/**
+	 * 일반 도서 등록
+	 * 
+	 * @param mv
+	 * @param wrtiePro
+	 * @param headerPic
+	 * @param proPic
+	 * @param request
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/book/norbookRegist.do", method = RequestMethod.POST)
+	public ModelAndView norbookRegist(ModelAndView mv, @ModelAttribute HashTag hTag, @ModelAttribute NormalBook nBook,
+			@ModelAttribute NormalBookSeries nSeries,
+			@RequestParam(value = "coverpic", required = false) MultipartFile coverpic,
+			@RequestParam(value = "subPicture", required = false) MultipartFile subPicture, HttpServletRequest request,
+			HttpSession session) {
+		
+		// 표지사진 저장
+		String mainPic = coverpic.getOriginalFilename();
+		if (!mainPic.equals("")) {
+			String coverPicRename = fileSave(mainPic, request, coverpic, "cover");
+			nBook.setCoverRename(coverPicRename);
+			nBook.setCover(mainPic);
+		} else {
+			nBook.setCoverRename("defaultImg.jpg");
+			nBook.setCover("defaultImg.jpg");
+			
+		}
+		
+		// 삽화저장
+		String subPic = subPicture.getOriginalFilename();
+		if (!subPic.equals("")) {
+			String subPicRename = fileSave(subPic, request, subPicture, "sub");
+			nSeries.setSubPic(subPic);
+			nSeries.setSubpicRename(subPicRename);
+		} else {
+			nSeries.setSubPic("defaultImg.jpg");
+			nSeries.setSubpicRename("defaultImg.jpg");
+		}
+		
+		Member member = (Member) session.getAttribute("loginMember");
+		nBook.setAdminId(member.getMemberId()); //도서에 관리자 아이디 등록
+		nSeries.setSeriesNo(1); //첫화기때문에 무조건 1화등록
+		hTag.setCategory("normal");//일반도서라고 넣어준다
+		int result = bService.registenorBook(nBook);
+		result += bService.registeNorTag(hTag);
+		result += bService.registNoriSeries(nSeries);
+		
+		mv.setViewName("redirect:/book/writerMenu-admin.do");
+		return mv;
+		
+	}
 
 	/**
 	 * 작가프로필 수정
@@ -513,7 +568,7 @@ public class BookController {
 			Star starOne = new Star();
 			starOne.setBookNo(bookNo);
 			starOne.setCategory(category);
-			starOne.setMemberId(oBook.getMemberId());
+			starOne.setMemberId(member.getMemberId());
 			Star star = bService.getOneBookStar(starOne);// 내가 준 별점 가져오기
 
 			mv.addObject("hTag", OneTag);
@@ -524,6 +579,60 @@ public class BookController {
 		}
 		return mv;
 
+	}
+	
+	/**
+	 * 일반도서 책 소개 페이지로 연결
+	 * 
+	 * @param mv
+	 * @param session
+	 * @param bookNo
+	 * @return
+	 */
+	@RequestMapping(value = "/book/norBookInfo", method = RequestMethod.GET)
+	public ModelAndView showOneNorBook(ModelAndView mv, HttpSession session, String bookNo) {
+		Member member = (Member) session.getAttribute("loginMember");
+		
+		// 로그인 안하면 메인페이지로 보냄
+		if (session.getAttribute("loginMember") == null) {
+			mv.setViewName("redirect:/");
+		} else {
+			// 해당 책 가져오기
+			NormalBook nBook = bService.showOneNorbook(bookNo); // 도서 메인테이블
+			
+
+			List<NormalBookSeries> nsList = bService.getNorSeriesTitle(bookNo); // 도서 시리즈 이름만 가져오기
+			String category = "normal";
+			HashTag hTag = bService.getBookTga(bookNo, category); // 도서 태그가져오기
+			HashTag OneTag = changeKo(hTag);// 태그 한글로 변경
+
+			
+			// 별점 평균 계산하기
+			int score = nBook.getScore();
+			int count = nBook.getScoreCount();
+			int scoreSet = 0;
+			
+			if (score == 0 || count == 0) {
+				scoreSet = 0;
+			} else {
+				scoreSet = (int) Math.round(score / count);
+			}
+			nBook.setScore(scoreSet);
+			
+			Star starOne = new Star();
+			starOne.setBookNo(bookNo);
+			starOne.setCategory(category);
+			starOne.setMemberId(member.getMemberId());
+			Star star = bService.getOneBookStar(starOne);// 내가 준 별점 가져오기
+			
+			mv.addObject("hTag", OneTag);
+			mv.addObject("star", star);
+			mv.addObject("nBook", nBook);
+			mv.addObject("nsList", nsList);
+			mv.setViewName("/bookadmin/bookmain-admin");
+		}
+		return mv;
+		
 	}
 
 	/**

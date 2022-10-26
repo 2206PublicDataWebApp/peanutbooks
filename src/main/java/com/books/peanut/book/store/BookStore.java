@@ -5,6 +5,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.books.peanut.book.domain.HashTag;
+import com.books.peanut.book.domain.NormalBook;
 import com.books.peanut.book.domain.NormalBookSeries;
 import com.books.peanut.book.domain.OriginBook;
 import com.books.peanut.book.domain.OriginBookSeries;
@@ -119,5 +120,20 @@ public interface BookStore {
 
 	/**일반도서 제목 가져오기*/
 	String selectNorbookTitle(SqlSessionTemplate session, String bookNo);
+
+	/**일반도서 등록하기*/
+	int insertNorBook(SqlSessionTemplate session, NormalBook nBook);
+
+	/**일반도서 시리즈 등록하기*/
+	int insertNSeriesBook(SqlSessionTemplate session, NormalBookSeries nSeries);
+
+	/**일반 도서 태그 등록하기*/
+	int insertNBTag(SqlSessionTemplate session, HashTag hTag);
+
+	/**일반 도서 열람하기*/
+	NormalBook selectOneNorBook(SqlSessionTemplate session, String bookNo);
+
+	/**일반도서 시리즈의 특정정보 가져오기*/
+	List<NormalBookSeries> selectOneNorSeriesTitle(SqlSessionTemplate session, String bookNo);
 
 }

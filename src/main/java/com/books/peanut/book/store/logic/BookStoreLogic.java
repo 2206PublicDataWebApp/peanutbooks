@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.books.peanut.book.domain.HashTag;
+import com.books.peanut.book.domain.NormalBook;
 import com.books.peanut.book.domain.NormalBookSeries;
 import com.books.peanut.book.domain.OriginBook;
 import com.books.peanut.book.domain.OriginBookSeries;
@@ -254,15 +255,51 @@ public class BookStoreLogic implements BookStore{
 	/**모든 일반도서 시리즈 가져오기*/
 	@Override
 	public List<NormalBookSeries> selectAllNorSeries(SqlSessionTemplate session) {
-		List<NormalBookSeries> nsList = session.selectOne("adminWirteMapper.allNorBook");
+		List<NormalBookSeries> nsList = session.selectList("adminWirteMapper.allNorBook");
 		return nsList;
 	}
 	
 	/**일반도서 제목 가져오기*/
 	@Override
 	public String selectNorbookTitle(SqlSessionTemplate session, String bookNo) {
-		String nTitle = session.selectOne("adminWirteMapper.selectNorBookTitle");
+		String nTitle = session.selectOne("adminWirteMapper.selectNorBookTitle",bookNo);
 		return nTitle;
+	}
+	
+	/**일반도서 등록하기*/
+	@Override
+	public int insertNorBook(SqlSessionTemplate session, NormalBook nBook) {
+		int result = session.insert("adminWirteMapper.insertOneNorBook",nBook);
+		return result;
+	}
+	
+	/**일반도서 시리즈 1화 등록하기*/
+	@Override
+	public int insertNSeriesBook(SqlSessionTemplate session, NormalBookSeries nSeries) {
+		int result = session.insert("adminWirteMapper.insertNSeriesBook",nSeries);
+		return result;
+
+	}
+	
+	/**일반도서 태그 등록하기*/
+	@Override
+	public int insertNBTag(SqlSessionTemplate session, HashTag hTag) {
+		int result = session.insert("adminWirteMapper.insertNBTag",hTag);
+		return result;
+	}
+	
+	/**일반도서 열람하기*/
+	@Override
+	public NormalBook selectOneNorBook(SqlSessionTemplate session, String bookNo) {
+		NormalBook nBook = session.selectOne("adminWirteMapper.selectOneNorBook",bookNo);
+		return nBook;
+	}
+	
+	/**책 번호에 해당하는 모든 일반도서 시리즈의 특정 정보 가져오기*/
+	@Override
+	public List<NormalBookSeries> selectOneNorSeriesTitle(SqlSessionTemplate session, String bookNo) {
+		List<NormalBookSeries> nsList = session.selectList("adminWirteMapper.selectOneNorSeriesTitle",bookNo);
+		return nsList;
 	}
 
 	

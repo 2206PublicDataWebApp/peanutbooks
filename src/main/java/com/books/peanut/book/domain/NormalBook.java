@@ -16,11 +16,27 @@ public class NormalBook {
 	private int score;
 	private String language;
 	private String adminId;
+	private String writerInfo;
+	private int scoreCount;
 	
 	
 	
 	
 	
+	
+
+	public int getScoreCount() {
+		return scoreCount;
+	}
+	public void setScoreCount(int scoreCount) {
+		this.scoreCount = scoreCount;
+	}
+	public String getWriterInfo() {
+		return writerInfo;
+	}
+	public void setWriterInfo(String writerInfo) {
+		this.writerInfo = writerInfo;
+	}
 	public String getAdminId() {
 		return adminId;
 	}
@@ -101,11 +117,11 @@ public class NormalBook {
 	}
 	@Override
 	public String toString() {
-		return "normalBook [bookNo=" + bookNo + ", bookTitle=" + bookTitle + ", writer=" + writer + ", bookInfo="
+		return "NormalBook [bookNo=" + bookNo + ", bookTitle=" + bookTitle + ", writer=" + writer + ", bookInfo="
 				+ bookInfo + ", category=" + category + ", inserDate=" + inserDate + ", cover=" + cover
 				+ ", coverRename=" + coverRename + ", status=" + status + ", viewCount=" + viewCount + ", score="
-				+ score + ", language=" + language + "]";
+				+ score + ", language=" + language + ", adminId=" + adminId + ", writerInfo=" + writerInfo + "]";
 	}
-	
+
 	
 }

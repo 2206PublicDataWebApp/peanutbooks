@@ -3,6 +3,7 @@ package com.books.peanut.book.service;
 import java.util.List;
 
 import com.books.peanut.book.domain.HashTag;
+import com.books.peanut.book.domain.NormalBook;
 import com.books.peanut.book.domain.NormalBookSeries;
 import com.books.peanut.book.domain.OriginBook;
 import com.books.peanut.book.domain.OriginBookSeries;
@@ -113,5 +114,20 @@ public interface BookService {
 
 	/**일반도서 제목 가져오기*/
 	String getNorBookTitle(String bookNo);
+
+	/**일반도서 등록하기*/
+	int registenorBook(NormalBook nBook);
+
+	/**일반도서 시리즈 등록하기*/
+	int registNoriSeries(NormalBookSeries nSeries);
+
+	/**일반도서 태그 등록하기*/
+	int registeNorTag(HashTag hTag);
+
+	/**일반 도서 열람하기*/
+	NormalBook showOneNorbook(String bookNo);
+
+	/**일반도서 시리즈의 정보가져오기*/
+	List<NormalBookSeries> getNorSeriesTitle(String bookNo);
 
 }
