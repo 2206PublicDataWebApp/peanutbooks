@@ -40,7 +40,31 @@
 	</select>
 	<!-- 회원 정보 수정 -->
 	<update id="updateInfo">
-		UPDATE MEMBER_TBL SET M_NICKNAME = #{mNickname}, MEMEBER_PW = #{memberPw} WHERE MEMBER_ID = #{memberId}
+		UPDATE MEMBER_TBL SET M_NICKNAME = #{mNickname}, MEMBER_PW = #{memberPw} WHERE MEMBER_ID = #{memberId}
 	</update>
+	<!-- 회원탈퇴(탈퇴 여부를 Y로, 데이터 삭제는 관리자가 함) -->
+	<update id="deleteMember">
+		UPDATE MEMBER_TBL SET DELETE_YN = 'Y' WHERE MEMBER_ID = #{memberId}
+	</update>
+	
+	<resultMap type="OriginBookSeries" id="oriSeriesResultMap">
+		<id property="seriesNo" column="SERIES_NO"/>
+		<result property="bookNo" column="ORI_BOOK_NO"/>
+		<result property="subPic" column="SUB_PIC"/>
+		<result property="subPicRename" column="SUB_PIC_RE"/>
+		<result property="title" column="TITLE"/>
+		<result property="contents" column="CONTENTS"/>
+		<result property="modifyContents" column="MODIFY_CONTENTS"/>
+		<result property="insertDate" column="INSERT_DATE"/>
+		<result property="modifyDate" column="MODIFY_DATE"/>
+		<result property="paidCount" column="PAID_COUNT"/>
+		<result property="paidCheck" column="PAID_CHECK"/>
+		<result property="viewCount" column="VIEW_COUNT"/>
+		<result property="checkPermission" column="CHECK_PERMISSION"/>
+		<result property="status" column="status"/>
+	</resultMap>
+	<select id="selectWrittenBooks" resultType="_int">
+		SELECT COUNT(*) FROM ORIGIN_BOOK WHERE MEMBER_ID = #{memberId}
+	</select>
 </mapper>
 

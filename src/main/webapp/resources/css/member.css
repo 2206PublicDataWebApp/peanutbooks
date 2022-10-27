@@ -347,21 +347,128 @@ form{
 
 /* 회원 정보 수정 */
 .modify-area{
-	padding-top: 44px;
+	padding-top: 80px;
 	width: 700px;
 	margin: 0 auto;
 	padding-left: 16px;
 	padding-right: 16px;
 }
+.modify-area input{
+	height: 40px;
+	border-color: lightgray;
+    border-style: solid;
+    border-radius: 3px;
+    border-width: 0.5px;
+}
 #modify-nick{
 	width: 100%;
 }
 #modify-pw{
-	width: 70.4%;
+	width: 80%;
 }
 .modify-pw-btn{
-	width: 29%;
+	width: 18%;
+	background-color: #ffeb60;
+    border: 0;
+    border-radius: 3px;
+    height: 40px;
+    margin-left:8px;
+    font-size: 14px;
 }
 .modify-btn{
 	width: 100%;
+	background-color: #ffeb60;
+    border: 0;
+    height: 45px;
+    border-radius: 3px;
+   	margin-top: 15px;
+}
+#modify-newPw{
+	width: 100%;
+	margin-bottom: 25px;
+}
+#modify-newPwChk{
+	width: 100%;
+}
+#modify-pw2{
+	width: 100%;
+	margin-bottom: 25px;
+}
+#div-nick{
+	padding-bottom: 25px;
+}
+#div-pw{
+	padding-top: 20px;
+	padding-bottom:20px;
+	border-top: 1px solid #ccc;
+}
+#div-newPw{
+	padding-top: 20px;
+	padding-bottom:20px;
+	border-top: 1px solid #ccc;
+	display: none;
+}
+
+/* 회원탈퇴 */
+.delete-div-bottom{
+	padding-top: 80px;
+	width: 700px;
+	margin: 0 auto;
+	padding-left: 16px;
+	padding-right: 16px;
+	padding-bottom: 56px;
+}
+.div-square{
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	padding: 24px 16px;
+}
+.div-square p{
+	font-size: 18px;
+	font-weight: 700;
+	padding-bottom: 16px;
+	border-bottom: 1px solid #ccc;
+}
+.div-square ul{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.div-square li{
+	margin-top: 12px;
+}
+#delete-check{
+	margin-right: 5px;
+}
+.div-check{
+	margin-top: 24px;
+	border-top: 1px solid #ccc;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 20px;
+}
+.div-check p{
+	color: #FF577F;
+}
+.div-pw input{
+	width: 100%;
+	height: 40px;
+}
+#delete-pw1{
+	margin-bottom: 10px;
+}
+#delete-pw2{
+	margin-bottom: 24px;
+}
+.div-btn{
+	text-align: center;
+}
+.div-btn button{
+	color: white;
+	background-color: #FF577F;
+	border: none;
+	border-radius: 3px;
+	height: 40px;
+	width: 90px;
 }

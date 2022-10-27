@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.books.peanut.member.domain.Member;
 import com.books.peanut.member.service.MemberService;
-import com.books.peanut.pay.domain.SeasonTicket;
 import com.books.peanut.pay.payService.PayService;
 
 
@@ -122,13 +121,15 @@ public class MemberController {
 			if(loginMember != null) {
 				HttpSession session = request.getSession();
 				session.setAttribute("loginMember", loginMember); // session에 로그인한 회원의 모든 정보(loginMember) 저장
-
 				// 구독권 가져오는 부분
 				String lastDate = pService.seasonTicketDate(loginMember.getMemberId());			
 				session.setAttribute("lastDate", lastDate);
 				//구독권 가져오는부분 종료
+//				int savedBooks = mService.getSavedBooks(loginMember.getMemberId());
+//				session.setAttribute("savedBooks", savedBooks);
+				int writtenBooks = mService.countWrittenBooks(loginMember.getMemberId());
+				session.setAttribute("writtenBooks", writtenBooks);
 				mv.setViewName("redirect:/main"); // 로그인 성공 시 로그인 후 메인 페이지로 이동
-
 			} else {
 				mv.setViewName("redirect:/member/loginView.pb"); // 로그인 실패 시 로그인 페이지로 이동(임시)
 			}
@@ -247,12 +248,44 @@ public class MemberController {
 		try {
 			int result = mService.modifyInfo(member);
 			if(result > 0) {
-				mv.setViewName("redirect:/main");
-			}else {
+				mv.setViewName("redirect:/member/memberInfo.pb");
+			}else{
 				mv.setViewName("redirect:/member/modifyView.pb");
 			}
 		} catch (Exception e) {
-			mv.addObject("msg", e.toString()).setViewName("error");
+			mv.addObject("msg", e.toString()).setViewName("common/errorPage");
+		}
+		return mv;
+	}
+	
+	/**
+	 * 회원탈퇴 화면
+	 * @return
+	 */
+	@RequestMapping(value="/member/deleteView.pb", method=RequestMethod.GET)
+	public String deleteView() {
+		return "member/deleteMember";
+	}
+	
+	/**
+	 * 회원탈퇴 기능
+	 * @param member
+	 * @param mv
+	 * @return
+	 */
+	@RequestMapping(value="/member/delete.pb", method=RequestMethod.POST)
+	public ModelAndView deleteMember(
+			@ModelAttribute Member member,
+			ModelAndView mv) {
+		try {
+			int result = mService.deleteMember(member);
+			if(result > 0) {
+				mv.setViewName("redirect:/");
+			}else{
+				mv.setViewName("redirect:/member/deleteView.pb");
+			}
+		} catch (Exception e) {
+			mv.addObject("msg", e.toString()).setViewName("common/errorPage");
 		}
 		return mv;
 	}

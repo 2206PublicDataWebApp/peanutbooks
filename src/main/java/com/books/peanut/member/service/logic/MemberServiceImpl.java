@@ -51,5 +51,23 @@ public class MemberServiceImpl implements MemberService{
 		int result = mStore.updateInfo(session, member);
 		return result;
 	}
+	// 회원탈퇴
+	@Override
+	public int deleteMember(Member member) {
+		int result = mStore.deleteMember(session, member);
+		return result;
+	}
+	// 내 서재 - 저장된 도서 가져오기
+//	@Override
+//	public int getSavedBooks(String memberId) {
+//		int result = mStore.selectSavedBooks(session, memberId);
+//		return result;
+//	}
+	// 로그인한 회원이 등록한 작품 수 가져오기
+	@Override
+	public int countWrittenBooks(String memberId) {
+		int result = mStore.selectWrittenBooks(session, memberId);
+		return result;
+	}
 	
 }
