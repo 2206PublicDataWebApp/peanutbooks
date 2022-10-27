@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.books.peanut.book.domain.OriginBook;
+import com.books.peanut.book.domain.OriginBookSeries;
 import com.books.peanut.member.domain.Member;
 import com.books.peanut.pay.domain.Pagemarker;
 import com.books.peanut.pay.domain.Pay;
@@ -33,13 +35,13 @@ public class ServicePayImpl implements PayService {
 		Pay payOne=pStore.orderNoOne(session ,pay);
 		return payOne;
 	}
-//결제 api 성공
+	//결제 api 성공
 	@Override
 	public int orderSuccess(Pay payApi) {
 		int result=pStore.orderSuccess(session,payApi);
 		return result;
 	}
-
+	//작가료 정산접수
 	@Override
 	public int writerReceipt(WriterPay writerP) {
 		int result=pStore.writerReceipt(session,writerP);
@@ -83,8 +85,8 @@ public class ServicePayImpl implements PayService {
 	}
 	//페이징 전체 갯수
 	@Override
-	public int getTotalCount() {
-		int num=pStore.getTotalCount(session);
+	public int getTotalCount(String memberId) {
+		int num=pStore.getTotalCount(session,memberId);
 		return num;
 	}
 	//id별 땅콩 포인트 합계
@@ -97,6 +99,24 @@ public class ServicePayImpl implements PayService {
 	@Override
 	public void putMemberPoint(Member member) {
 		pStore.putMemberPoint(session, member);		
+	}
+	//작가정산위한 도서 리스트 확인
+	@Override
+	public List<OriginBook> originListGet(String memberId) {
+		List<OriginBook> obList = pStore.originListGet(session, memberId);
+		return obList;
+	}
+	//도서번호로 시리즈 조회
+	@Override
+	public List<OriginBookSeries> findSeriseNo(OriginBookSeries obs) {
+		List<OriginBookSeries> obsList= pStore.findSeriseNo(session, obs);
+		return obsList;
+	}
+	//지급접수후 포인트 차감
+	@Override
+	public int updatePaidCount(WriterPay writerP) {
+		int num = pStore.updatePaidCount(session, writerP);
+		return num;
 	}
 	
 

@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.books.peanut.book.domain.OriginBook;
+import com.books.peanut.book.domain.OriginBookSeries;
 import com.books.peanut.member.domain.Member;
 import com.books.peanut.pay.domain.Pagemarker;
 import com.books.peanut.pay.domain.Pay;
@@ -17,9 +19,9 @@ public interface StorePay {
 	public int orderIn(SqlSessionTemplate session, Pay pay);
 
 	public Pay orderNoOne(SqlSessionTemplate session, Pay pay);
-//결제api성공
+	//결제api성공
 	public int orderSuccess(SqlSessionTemplate session,Pay payApi);
-
+	//작가료 정산접수
 	public int writerReceipt(SqlSessionTemplate session, WriterPay writerP);
 
 	public List<WriterPay> wrListPrint(SqlSessionTemplate session);
@@ -34,10 +36,16 @@ public interface StorePay {
 	//땅콩포인트 리스트
 	public List<PeanutPoint> peanutList(SqlSessionTemplate session, String memberId,Pagemarker pm);
 	//페이징 전체 갯수
-	public int getTotalCount(SqlSessionTemplate session);
+	public int getTotalCount(SqlSessionTemplate session,String memberId);
 	//id별 땅콩 포인트 합계
 	public int getPPsum(SqlSessionTemplate session, String memberId);
 	//땅콩갯수 memberId넣기
 	public void putMemberPoint(SqlSessionTemplate session, Member member);
+	//작가정산위한 도서 리스트 확인
+	public List<OriginBook> originListGet(SqlSessionTemplate session, String memberId);
+	//도서번호로 시리즈 조회
+	public List<OriginBookSeries> findSeriseNo(SqlSessionTemplate session, OriginBookSeries obs);
+	//지급접수후 포인트 차감
+	public int updatePaidCount(SqlSessionTemplate session, WriterPay writerP);
 
 }

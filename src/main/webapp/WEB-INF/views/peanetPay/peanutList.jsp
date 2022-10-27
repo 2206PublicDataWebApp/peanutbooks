@@ -70,8 +70,8 @@
 								" href="/peanut/listStart.kh?page=${p }&memberId=${loginMember.memberId}">
 								${p} </a>
 
-						</c:forEach>
-						<c:if test="${pm.maxPage > pm.currentPage}">
+						</c:forEach> 
+						<c:if test="${pm.maxPage > pm.currentPage }">
 							<a title="next page"
 								href="/peanut/listStart.kh?page=${pm.endNavi+1}&memberId=${loginMember.memberId}"><svg
 									fill="currentColor">

@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class WriterPay {
 	private String memberId;
-	private String seriesNo;
+	private int seriesNo;
 	private String ori_bookNo;
 	private Date putDate;
 	private String bankName;
@@ -20,7 +20,7 @@ public class WriterPay {
 		super();		
 	}
 
-	public WriterPay(String memberId, String seriesNo, String ori_bookNo, Date putDate, String bankName, String bankNo,
+	public WriterPay(String memberId, int seriesNo, String ori_bookNo, Date putDate, String bankName, String bankNo,
 			String payment, String bankStatus,int wrpayNo, int changeP) {
 		super();
 		this.memberId = memberId;
@@ -43,11 +43,11 @@ public class WriterPay {
 		this.memberId = memberId;
 	}
 
-	public String getSeriesNo() {
+	public int getSeriesNo() {
 		return seriesNo;
 	}
 
-	public void setSeriesNo(String seriesNo) {
+	public void setSeriesNo(int seriesNo) {
 		this.seriesNo = seriesNo;
 	}
 

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,23 +13,34 @@
 <jsp:include page="../header/header.jsp"></jsp:include>
 
 <section>
-<h1>작가 정산 요청</h1>
+<h2>작가 정산 요청</h2>
 <div>
 	 <table>
             <tr>
+                <td>도서 번호 :</td>
+                <td>
+	                <select name="bookTitle" id="bTitle" onchange="bookNo();">
+	                	<option value="">도서 선택</option>
+	                	<c:forEach items="${o_bookList}" var="originBook" varStatus="i" >
+	                		<option value="${originBook.bookNo }">${originBook.bookTitle }</option>
+	                	</c:forEach>
+	                </select>
+                </td>                
+            </tr>
+            <tr>
                 <td>시리즈 번호 :</td>
-                <td><input type="text" name="seriesNo" id="seriesNo"></td>
+                <td>
+                	<select name="seriesNo" id="seriesNum" onchange="howPeanet();">
+	                	<option value="">시리즈 선택</option>	                	
+	                </select>                
+                </td>
             </tr>
             <tr>
-                <td>도서번호 :</td>
-                <td><input type="text" name="ori_bookNo" id="ori_bookNo"></td>
-            </tr>
-            <tr>
-                <td>정산땅콩 :</td>
+                <td>누적 된 땅콩 :</td>
                 <td><input type="text"name="paidCount" id="paidCount"></td>
             </tr>
             <tr>
-                <td>차감될 땅콩 :</td>
+                <td>차감 할 땅콩 :</td>
                 <td><input type="text" name="changeP" id="changeP"></td>
             </tr>
             <tr>
@@ -45,42 +57,82 @@
             </tr>
         </table>
     </div>
-    <div class="btn"><button onclick="writerPay()">지급요청</button></div>   
+    <div class="btn"><button onclick="writerPay();" style="font-size:20px;">지급요청</button></div>   
     
 </section>
 
 <jsp:include page="../footer/footer.jsp"></jsp:include>
 
 <script>
-	function writerPay(){
-		var memberId="${sessionScope.loginUser.memberId}";
-		var seriesNo=$("#seriesNo").val();
-		var ori_bookNo=$("#ori_bookNo").val();
-		var changeP=$("#changeP").val();
-		var payment=$("#payment").val();
-		var bankName=$("#bankName").val();
-		var bankNo=$("#bankNo").val();
+	//책번호로 시리즈 정보 조회
+	function bookNo(){
+		var bookNo=$('#bTitle option:selected').val();
 		$.ajax({
-			url:"/writer/receipt.kh",
-			type:"post",
-			data:{
-				"memberId" : memberId,
-				"seriesNo" : seriesNo,
-				"ori_bookNo" : ori_bookNo,
-				"changeP" : changeP,
-				"payment" : payment,
-				"bankName" : bankName,			
-				"bankNo" : bankNo				
+			url : '/writer/bookNo.kh',
+			type : 'post',
+			dataType : 'json',
+			data : {
+				'bookNo'   : bookNo				 
 			},
 			success : function(result){
-				if(result=="success"){
-					alert("정상접수되었습니다.");
-				}else{
-					alert("미접수되었습니다. 다시한번 부탁드립니다.")
-				}
+				result.forEach(function (OriginBookSeries,i) {
+				$('#seriesNum').append('<option value="'+OriginBookSeries.seriesNo+'" name="'+OriginBookSeries.paidCount+'">'						
+						+OriginBookSeries.title+'</option>');
+				});
+			},
+			error : function(e){
+				alert('error : '+e.statusText);
 			}		
-			
-		});
+		});		
+	}
+	function howPeanet(){
+		var peanut = $('#seriesNum option:selected').attr('name');
+		$('#paidCount').val(peanut);
+	}
+	
+	$('#changeP').on('keyup',function(){
+		var changeP=$('#changeP').val();
+		if(changeP.length>=4){
+			$("#payment").val(changeP*100);
+		};
+	})
+	
+
+	function writerPay(){
+		
+		if(confirm("계좌번호를 확인하셨습니까?")){
+
+			var memberId   = '${sessionScope.loginMember.memberId}';
+			var seriesNo   = $('#seriesNum option:selected').val();
+			var ori_bookNo = $('#bTitle option:selected').val();
+			var changeP    = $('#changeP').val();
+			var payment    = $('#payment').val();
+			var bankName   = $('#bankName').val();
+			var bankNo     = $('#bankNo').val();		
+			$.ajax({
+				url : '/writer/receipt.kh',
+				type : 'post',
+				data : {
+					'memberId'   : memberId,
+					'seriesNo'   : seriesNo,
+					'ori_bookNo' : ori_bookNo,
+					'changeP'    : changeP,
+					'payment'    : payment,
+					'bankName'   : bankName,			
+					'bankNo'     : bankNo				
+				},
+				success : function(result){
+					if(result=='success'){
+						alert('정상접수되었습니다.');
+					}else{
+						alert('미접수되었습니다. 다시한번 부탁드립니다.')
+					}
+				},
+				error : function(e){
+					alert('error : '+e.statusText);
+				}				
+			});
+		};
 		
 	}
 </script>

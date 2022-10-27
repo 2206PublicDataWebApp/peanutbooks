@@ -11,13 +11,13 @@ public class PeanutPoint {
 	private String bookName;
 	private String memberId;
 	private String orderNo;
-	private String seriesNo;
+	private int seriesNo;
 	public PeanutPoint() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public PeanutPoint(int peanutNo, Date ppDate, int peanutPoint, String ppStatus, String bookNo, String bookName,
-			String memberId, String orderNo, String seriesNo) {
+			String memberId, String orderNo, int seriesNo) {
 		super();
 		this.peanutNo = peanutNo;
 		this.ppDate = ppDate;
@@ -77,10 +77,10 @@ public class PeanutPoint {
 	public void setOrderNo(String orderNo) {
 		this.orderNo = orderNo;
 	}
-	public String getSeriesNo() {
+	public int getSeriesNo() {
 		return seriesNo;
 	}
-	public void setSeriesNo(String seriesNo) {
+	public void setSeriesNo(int seriesNo) {
 		this.seriesNo = seriesNo;
 	}
 	@Override

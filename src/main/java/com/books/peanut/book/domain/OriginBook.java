@@ -28,12 +28,13 @@ public class OriginBook {
 	public void setScoreCount(int scoreCount) {
 		this.scoreCount = scoreCount;
 	}
-	public String getMemberNickName() {
-		return memberNickName;
+
+	
+	public String getMemberNickName() { return memberNickName; } public void
+		setMemberNickName(String memberNickName) { 
+		this.memberNickName = memberNickName; 
 	}
-	public void setMemberNickName(String memberNickName) {
-		this.memberNickName = memberNickName;
-	}
+	
 	public String getBookNo() {
 		return bookNo;
 	}
