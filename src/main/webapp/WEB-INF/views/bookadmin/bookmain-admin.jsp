@@ -25,7 +25,7 @@
 
 </head>
 
-<body onload="printReply(${oBook.bookNo}, '${loginMember.memberId}',1);">
+<body onload="printReply(${nBook.bookNo}, '${loginMember.memberId}',1);">
 	<jsp:include page="../header/header.jsp" />
 
 	<main>

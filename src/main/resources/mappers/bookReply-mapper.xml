@@ -4,14 +4,17 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bookReplyMapper">
 
+<!-- 피넛 오리지널 리플 쓰기 -->
 	<insert id="insertOriBookReply">
 	insert into origin_reply values(seq_orireplyno.nextval, #{bookNo}, #{memberId}, #{reContents}, default)
 	</insert>
 	
+	<!-- 피널 오리지널 리플 수정하기 -->
 	<update id="updateOriReply">
 	update origin_reply set RE_CONTETNS = #{reContents} where REPLY_NO= #{replyNo}
 	</update>
 	
+	<!-- 피넛 오리지널 리플 삭제하기 -->
 	<delete id="deleteOriReply">
 	delete origin_reply where REPLY_NO= #{rNo}
 	</delete>
@@ -27,7 +30,7 @@
 	</resultMap>
 	
 	<select id="selectAllOriReply" resultMap="obReplyResultMap">
-	select * from origin_reply where ORI_BOOK_NO = #{bookNo} order by reply_No desc;
+	select * from origin_reply where ORI_BOOK_NO = #{bookNo} order by reply_No desc
 	</select>
 	
 	<select id="countOriReply" resultType="_int">
@@ -93,9 +96,19 @@
 	
 	<!-- 일반도서 리플  영억-->
 	
+	<!-- 일반도서 리플쓰기 -->
 	<insert id="insertNorBookReply">
 	insert into normal_reply values(seq_nor_reply.nextval, #{bookNo}, #{memberId}, #{contents}, default)
 	</insert>
+	<!-- 일반도서 리플 수정하기 -->
+	<update id="updateNorReply">
+	update normal_reply set CONTENTS = #{contents} where REPLY_NO= #{replyNo}
+	</update>
+	
+	<!-- 일반도서 리플 삭제 -->
+	<update id="deleteNorReply">
+	delete normal_reply where REPLY_NO= #{rNo}
+	</update>
 	
 	<resultMap type="NormalBookReply" id="norBookReplyResultMap">
 	<id property="replyNo" column="REPLY_NO"/>
@@ -113,8 +126,16 @@
 	
 	<!-- 일반도서 리플리스트 가져오기 -->
 	<select id="selectAllnorReply" resultMap="norBookReplyResultMap">
-	select * from normal_reply where nor_book_no = #{booNo} order by reply_No desc;
+	select * from normal_reply where NOR_BOOK_NO = #{booNo} order by reply_No desc
 	</select>
 	
+	<!-- 일반도서 리플쓴사람 체크하기 -->
+	<select id="selectOneNorReplyMember" resultType="string">
+	select MEMBER_ID from normal_reply where REPLY_NO= #{replyNo}
+	</select>
 	
+	<!-- 일반도서 리플내용 가져오기 -->
+	<select id="selectOneNorBookReply" resultType="string">
+	select CONTENTS from normal_reply where REPLY_NO= #{rNo}
+	</select>
 </mapper>

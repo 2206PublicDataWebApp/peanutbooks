@@ -130,6 +130,35 @@ public class ReplyServiceLogic implements ReplyService {
 		int result = rStore.insertNorReply(session,nbReply);
 		return result;
 	}
+
+	/**일반도서 리플쓴 사람 체크*/
+	@Override
+	public String checkNorReplyMember(int replyNo) {
+		String checkMember = rStore.selectOneNorMemberId(session,replyNo);
+		return checkMember;
+	}
+
+	/**일반도서 리플 수정하기*/
+	@Override
+	public int modifyNorReply(NormalBookReply nbReply) {
+		int result = rStore.updateNorReply(session,nbReply);
+		return result;
+	}
+
+	/**일반도서 리플 내용 가져오기*/
+	@Override
+	public String getNorOneReply(String rNo) {
+		String rContents = rStore.selectNorOroBookReply(session, rNo);
+		return rContents;
+	}
+	
+	/**일반도서 리플삭제*/
+	@Override
+	public int removeNorReply(Integer rNo) {
+		int replyNo = (int)rNo;
+		int result = rStore.deleteNorReply(session,replyNo);
+		return result;
+	}
 	
 
 

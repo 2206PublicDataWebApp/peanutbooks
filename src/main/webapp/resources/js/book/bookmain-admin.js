@@ -24,6 +24,7 @@ $.ajax({
 
 };
 
+//일반도서 리플 출력하기
 function printReply(bookNo,userId,rPage){
 var replyArea = $('.view-relply');
 $.ajax({
@@ -43,7 +44,7 @@ $.ajax({
 				str+='</span>';
 				str+='<span class="col-md-11 col-8">';
 				str+='<small class="font-weight-bold">';
-				str+=result[i].reContents;
+				str+=result[i].contents;
 				str+='</small>';
 				str+='</span>';
 				str+='</div></div>';
@@ -82,10 +83,11 @@ $.ajax({
 	});
 };
 
+//일반도서 댓글 삭제하기
 function replyRemove(rNo, rPage){
 	if(confirm('댓글을 삭제하시겠습니까?')){
 		$.ajax({
-			url:"/book/removeOriReply",
+			url:"/book/removeNorReply",
 			data:{"rNo":rNo},
 			type:"get",
 			success:function(result){
@@ -104,9 +106,10 @@ function replyRemove(rNo, rPage){
 	
 }
 
+//일반도서 수정 댓글열기
 function replymodifyView(rNo,rPage){
 	$.ajax({
-		url:"/book/oribookOneReply",
+		url:"/book/norbookOneReply",
 		data:{"rNo":rNo},
 		type:"get",
 		success:function(result){
@@ -124,11 +127,13 @@ function replymodifyView(rNo,rPage){
 	})
 }
 
+//일반도서 댓글 수정하기
+
 function modifyReply(replyNo,rPage){
-var reContents = $('[name=reContents'+replyNo+']').val();
+var contents = $('[name=reContents'+replyNo+']').val();
 $.ajax({
-	url:"/book/modifyOriReply",
-	data:{"replyNo":replyNo, "reContents":reContents},
+	url:"/book/modifyNorReply",
+	data:{"replyNo":replyNo, "contents":contents},
 	type:"post",
 	success:function(result){
 		if(result>0){
