@@ -72,10 +72,10 @@
 				<tr>
 					<td style="border:none;" td colspan="4" align="right">
 						<a href="/notice/list.kh" style="color: black"> 전체 | </a>
-						<a href="/notice/categoryCount.kh?noticeCategory=0&page=${currentPage }" style="color: black"> 공지 |</a>
-						<a href="/notice/categoryCount.kh?noticeCategory=1&page=${currentPage }" style="color: black"> 업데이트 |</a>
-						<a href="/notice/categoryCount.kh?noticeCategory=2&page=${currentPage }" style="color: black"> 이벤트 |</a>
-						<a href="/notice/categoryCount.kh?noticeCategory=3&page=${currentPage }" style="color: black"> 안내 </a>
+						<a href="/notice/categoryCount.kh?noticeCategory=notice&page=${currentPage }" style="color: black"> 공지 |</a>
+						<a href="/notice/categoryCount.kh?noticeCategory=update&page=${currentPage }" style="color: black"> 업데이트 |</a>
+						<a href="/notice/categoryCount.kh?noticeCategory=event&page=${currentPage }" style="color: black"> 이벤트 |</a>
+						<a href="/notice/categoryCount.kh?noticeCategory=info&page=${currentPage }" style="color: black"> 안내 </a>
 					</td>
 			</tr>
 			<c:if test="${!empty nList }">
@@ -83,18 +83,10 @@
 					<tr>
 						<td>${i.count }</td>
 						<td>
-							<c:if test="${notice.noticeCategory == '0' }">
-								공지
-							</c:if>
-							<c:if test="${notice.noticeCategory == '1' }">
-								업데이트
-							</c:if>
-							<c:if test="${notice.noticeCategory == '2' }">
-								이벤트
-							</c:if>
-							<c:if test="${notice.noticeCategory == '3' }">
-								안내
-							</c:if>
+							<c:if test="${notice.noticeCategory == 'notice'}">공지</c:if>
+							<c:if test="${notice.noticeCategory == 'update'}">업데이트</c:if>
+							<c:if test="${notice.noticeCategory == 'event'}">이벤트</c:if>
+							<c:if test="${notice.noticeCategory == 'info'}">안내</c:if>
 						</td>
 						<td><a href="/notice/noticeDetailView.kh?noticeNo=${notice.noticeNo }&page=${currentPage }" style="color: black">${notice.noticeTitle }</a></td>
 						<td>${notice.nCreateDate }</td>
@@ -109,7 +101,7 @@
 				<tr align="center" height="20">
 		            <td colspan="4" style="border:none;">
 		                <c:if test="${currentPage != 1}">
-		                    <a href="/notice/${urlVal }.kh?page=${currentPage - 1 }">[이전]</a>
+		                    <a href="/notice/${urlVal }.kh?page=${currentPage - 1 }&searchCondition=${searchCondition}&searchValue=${searchValue}">[이전]</a>
 		                </c:if>
 		                <c:forEach var="p" begin = "${startNavi }" end="${endNavi }">
 		                    <c:if test="${currentPage eq p }">
@@ -120,7 +112,7 @@
 		                    </c:if>
 		                </c:forEach>
 		            <c:if test = "${currentPage < maxPage }">
-		                <a href = "/notice/${urlVal}.kh?page=${currentPage + 1}">[다음]</a>
+		                <a href = "/notice/${urlVal}.kh?page=${currentPage + 1}&searchCondition=${searchCondition}&searchValue=${searchValue}">[다음]</a>
 		            </c:if>
 		            </td>
 		        </tr>
@@ -133,32 +125,6 @@
 <!-- main contents End -->
 
 
-<script>
-	$('.summernote').summernote({
-		height : 300,
-		lang : "ko-KR",
-	});
-	function titleLengthCk(thisInput){
-	 	console.log(thisInput.value.length);
-	 	if(thisInput.value.length>30){
-	 		thisInput.value = thisInput.value.substr(0,30);
-	 	}	
-	}
-	function noticeCheck() {
-		if(noticeForm.noticeTitle.value=="") { // document 를 생략해도 됨
-	        alert("제목을 입력하세요!");
-	        noticeForm.noticeTitle.focus();
-	    	return false;
-	    }else if(noticeForm.noticeContents.value==""){
-	        alert("내용을 입력하세요");
-	        noticeForm.noticeContents.focus();
-	        return false;
-	    }
-		return noticeForm.submit();
-	 }
-	
-	
-</script>
 
 <!-- Footer -->
 <jsp:include page="../footer/footer.jsp"></jsp:include>

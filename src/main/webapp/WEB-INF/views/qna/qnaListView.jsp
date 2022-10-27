@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지사항</title>
+<title>1:1문의내역</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
@@ -131,7 +131,7 @@
 								기타
 							</c:if>
 						</td>
-						<td><a href="/qna/detailView.kh?qnaNo=${qna.qnaNo }&page=${currentPage }" style="color: black">${qna.qnaTitle }</a></td>
+						<td><a href="/qna/detailView.kh?qnaNo=${qna.qnaNo }&page=${currentPage }&searchCondition=${searchCondition}&searchValue=${searchValue}" style="color: black">${qna.qnaTitle }</a></td>
 						<td>
 							<c:if test="${qna.qnaStatus == 'Y' }">
 								답변완료
@@ -140,19 +140,19 @@
 								답변대기
 							</c:if>
 						</td>
-						<td><a href="/qna/detailView.kh?qnaNo=${qna.qnaNo }&page=${currentPage }" style="color: black">${qna.qCreateDate }</a></td>
+						<td>${qna.qCreateDate }</td>
 					</tr>
 				</c:forEach>
 			</c:if>
 			<c:if test="${empty qList }">
 				<tr>
-					<td colspan="5" align="center"><b>데이터가 존재하지 않습니다.</b></td>
+					<td colspan="5" align="center"><b>작성된 게시물이 없습니다.</b></td>
 				</tr>
 			</c:if>
 				<tr align="center" height="20">
 		            <td colspan="5" style="border:none;">
 		                <c:if test="${currentPage != 1}">
-		                    <a href="/qna/${urlVal }.kh?page=${currentPage - 1 }">[이전]</a>
+		                    <a href="/qna/${urlVal }.kh?page=${currentPage - 1 }&searchCondition=${searchCondition}&searchValue=${searchValue}">[이전]</a>
 		                </c:if>
 		                <c:forEach var="p" begin = "${startNavi }" end="${endNavi }">
 		                    <c:if test="${currentPage eq p }">
@@ -163,7 +163,7 @@
 		                    </c:if>
 		                </c:forEach>
 		            <c:if test = "${currentPage < maxPage }">
-		                <a href = "/qna/${urlVal}.kh?page=${currentPage + 1}">[다음]</a>
+		                <a href = "/qna/${urlVal}.kh?page=${currentPage + 1}&searchCondition=${searchCondition}&searchValue=${searchValue}">[다음]</a>
 		            </c:if>
 		            </td>
 		        </tr>
@@ -176,29 +176,7 @@
 <!-- main contents End -->
 
 
-<script>
 
-	function titleLengthCk(thisInput){
-	 	console.log(thisInput.value.length);
-	 	if(thisInput.value.length>30){
-	 		thisInput.value = thisInput.value.substr(0,30);
-	 	}	
-	}
-	function noticeCheck() {
-		if(noticeForm.noticeTitle.value=="") { // document 를 생략해도 됨
-	        alert("제목을 입력하세요!");
-	        noticeForm.noticeTitle.focus();
-	    	return false;
-	    }else if(noticeForm.noticeContents.value==""){
-	        alert("내용을 입력하세요");
-	        noticeForm.noticeContents.focus();
-	        return false;
-	    }
-		return noticeForm.submit();
-	 }
-	
-	
-</script>
 
 <!-- Footer -->
 <jsp:include page="../footer/footer.jsp"></jsp:include>

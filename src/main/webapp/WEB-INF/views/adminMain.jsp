@@ -11,7 +11,7 @@
 <body>
 	<jsp:include page="./header/adminheader.jsp" />
 	<main>
-		<h1>admin main hi^^</h1>
+		<br><br><br><br><br>
 	</main>
 	<jsp:include page="./footer/footer.jsp" />
 </body>

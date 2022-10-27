@@ -183,6 +183,17 @@ ${sessionScope.loginMember.memberId}님 환영합니다!
 		
 						</div>
 						<!-- 첨부파일3영역종료 -->
+						<!-- 파일 이름 재전송 -->
+						<input type="hidden" name="qnaFilename01" value="${qna.qnaFilename01 }">
+						<input type="hidden" name="qnaFileRename01" value="${qna.qnaFileRename01 }">
+						
+						
+						<input type="hidden" name="qnaFilename02" value="${qna.qnaFilename02 }">
+						<input type="hidden" name="qnaFileRename02" value="${qna.qnaFileRename02 }">
+						
+						<input type="hidden" name="qnaFilename03" value="${qna.qnaFilename03 }">
+						<input type="hidden" name="qnaFileRename03" value="${qna.qnaFileRename03 }">
+						
 						
 						<!-- 첨부파일 -->
 				    </td>

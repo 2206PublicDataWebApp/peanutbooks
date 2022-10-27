@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.books.peanut.admin.common.Paging;
 import com.books.peanut.qna.domain.Qna;
 import com.books.peanut.qna.service.QnaService;
 import com.books.peanut.qna.store.QnaStore;
@@ -23,14 +24,14 @@ public class QnaServiceImpl implements QnaService {
 	}
 
 	@Override
-	public int getTotalCount(String searchCondition, String searchValue) {
-		int totalCount = qStore.selectTotalCount(session, searchCondition, searchValue);
+	public int getTotalCount(String memberId, String searchCondition, String searchValue) {
+		int totalCount = qStore.selectTotalCount(session, memberId, searchCondition, searchValue);
 		return totalCount;
 	}
 
 	@Override
-	public List<Qna> printAllQna(int currentPage, int qnaLimit, String memberId) {
-		List<Qna> qList = qStore.selectAllQna(session, memberId, currentPage, qnaLimit);
+	public List<Qna> printMemberQna(int currentPage, int qnaLimit, String memberId) {
+		List<Qna> qList = qStore.selectMemberQna(session, memberId, currentPage, qnaLimit);
 		return qList;
 	}
 
@@ -50,6 +51,24 @@ public class QnaServiceImpl implements QnaService {
 	public int modifyQna(Qna qna) {
 		int result = qStore.updateQna(session, qna);
 		return result;
+	}
+
+	@Override
+	public List<Qna> printMemberByValue(String memberId, String searchCondition, String searchValue, int currentPage, int qnaLimit) {
+		List<Qna> qList = qStore.selectMemberByValue(session, memberId, searchCondition, searchValue, currentPage, qnaLimit);
+		return qList;
+	}
+
+	@Override
+	public int getTotalCount() {
+		int totalCount = qStore.getTotalCount(session);
+		return totalCount;
+	}
+
+	@Override
+	public List<Qna> printAllByValue(Paging paging) {
+		List<Qna> qList = qStore.selectAllQna(session, paging);
+		return qList;
 	}
 	
 }

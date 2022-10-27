@@ -42,18 +42,10 @@
 			<tr>
 				<td  class="col-2" scope="col" align="center">종류</td>
 				<td>
-					<c:if test="${notice.noticeCategory == '0' }">
-						공지
-					</c:if>
-					<c:if test="${notice.noticeCategory == '1' }">
-						업데이트
-					</c:if>
-					<c:if test="${notice.noticeCategory == '2' }">
-						이벤트
-					</c:if>
-					<c:if test="${notice.noticeCategory == '3' }">
-						안내
-					</c:if>
+					<c:if test="${notice.noticeCategory == 'notice'}">공지</c:if>
+					<c:if test="${notice.noticeCategory == 'update'}">업데이트</c:if>
+					<c:if test="${notice.noticeCategory == 'event'}">이벤트</c:if>
+					<c:if test="${notice.noticeCategory == 'info'}">안내</c:if>
 				</td>
 			<tr>
 				<td  class="col-2" scope="col" align="center">작성자</td>

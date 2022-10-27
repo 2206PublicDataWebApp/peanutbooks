@@ -52,10 +52,10 @@
 				<td  class="col-2" scope="col" align="center">선택</td>
 				<td>
 					<select name="noticeCategory" id="noticeCategory" class="form-select" aria-label="Default select example" required>
-						<option value="0" label="공지" selected></option>
-						<option value="1" label="업데이트"></option>
-						<option value="2" label="이벤트"></option>
-						<option value="3" label="안내"></option>
+						<option value="notice" label="공지" selected></option>
+						<option value="update" label="업데이트"></option>
+						<option value="event" label="이벤트"></option>
+						<option value="info" label="안내"></option>
 					</select>	
 				</td>
 			<tr>
