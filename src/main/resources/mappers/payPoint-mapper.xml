@@ -6,14 +6,14 @@
   
   <mapper namespace="payPoint_Mapper">
 	<!--pay 결제 관련 매핑  -->
-	<resultMap type="Pay" id="payResultMap">
-  		<id property="orderNo" column="orderNo"/> 
-		<result  property="orderNo" column="ORDER_NO"/> 	
-		<result  property="pay" column="PAY"/> 
-		<result  property="orderStatus" column="ORDER_STATUS"/> 
-		<result  property="memberId" column="MEMBERI_ID"/> 		
-		<result  property="orderContents" column="ORDER_CONTENTS"/> 
-		<result  property="imp_uid" column="IMP_UID"/> 
+	<resultMap 	 type="Pay" 					id="payResultMap">
+  		<id 	 property="orderNo"			 	column="orderNo"/> 
+		<result  property="orderNo" 			column="ORDER_NO"/> 	
+		<result  property="pay" 				column="PAY"/> 
+		<result  property="orderStatus" 		column="ORDER_STATUS"/> 
+		<result  property="memberId" 			column="MEMBERI_ID"/> 		
+		<result  property="orderContents"		column="ORDER_CONTENTS"/> 
+		<result  property="imp_uid" 			column="IMP_UID"/> 
   	</resultMap>
   	<!--주문 확정내용 입력  -->
   	<insert id="insertPay">
@@ -32,19 +32,70 @@
 	</update>	
 	
 	<!--작가 정산관련 부분  -->
-	<resultMap type="WriterPay" id="WriterPayResultMap">
-  		<id property="memberId" column="MEMBER_ID"/> <!--id   -->
-		<result  property="memberId" column="MEMBER_ID"/> 	
-		<result  property="seriesNo" column="SERIES_NO"/> 	
-		<result  property="ori_bookNo" column="ORI_BOOK_NO"/> 
-		<result  property="putDate" column="PUT_DATE"/> 
-		<result  property="bankName" column="BANK_NAME"/> 
-		<result  property="bankNo" column="BANK_NO"/> 
-		<result  property="payment" column="PAYMENT"/> 
-		<result  property="bankStatus" column="BANK_STATUS"/> 
-		<result  property="wrpayNo" column="WRPAY_NO"/> 
-		<result  property="changeP" column="CHANGE_P"/> 
+	<resultMap 	 type="WriterPay" 				id="WriterPayResultMap">
+  		<id 	 property="memberId" 			column="MEMBER_ID"/> <!--id   -->
+		<result  property="memberId" 			column="MEMBER_ID"/> 	
+		<result  property="seriesNo" 			column="SERIES_NO"/> 	
+		<result  property="ori_bookNo" 			column="ORI_BOOK_NO"/> 
+		<result  property="putDate" 			column="PUT_DATE"/> 
+		<result  property="bankName" 			column="BANK_NAME"/> 
+		<result  property="bankNo" 				column="BANK_NO"/> 
+		<result  property="payment" 			column="PAYMENT"/> 
+		<result  property="bankStatus" 			column="BANK_STATUS"/> 
+		<result  property="wrpayNo"        		column="WRPAY_NO"/> 
+		<result  property="changeP"             column="CHANGE_P"/> 
   	</resultMap>
+  	<!-- 시리즈 가져오는 부분  -->
+  	<resultMap 	 type="OriginBookSeries" 		id="OriginBookSeriesResultMap">
+  		<id 	 property="seriesNo" 			column="SERIES_NO"/> <!--id   -->
+		<result  property="seriesNo" 			column="SERIES_NO"/> 	
+		<result  property="bookNo" 				column="ORI_BOOK_NO"/> 	
+		<result  property="subPic" 				column="SUB_PIC"/> 
+		<result  property="subPicRename" 		column="SUB_PIC_RE"/> 
+		<result  property="title" 				column="TITLE"/> 
+		<result  property="contents" 			column="CONTENTS"/> 
+		<result  property="modifyContents" 		column="MODIFY_CONTENTS"/> 
+		<result  property="insertDate" 			column="INSERT_DATE"/> 
+		<result  property="modifyDate" 			column="MODIFY_DATE"/> 
+		<result  property="paidCount" 			column="PAID_COUNT"/> 
+		<result  property="paidCheck" 			column="PAID_CHECK"/> 
+		<result  property="viewCount" 			column="VIEW_COUNT"/> 
+		<result  property="checkPermission" 	column="CHECK_PERMISSION"/> 
+		<result  property="status"     			column="STATUS"/> 
+  	</resultMap>
+  	  <!--도서번호  시리즈 정보 받기  -->
+  	<select id="origin_B_S_list" resultMap="OriginBookSeriesResultMap">
+  		SELECT * FROM ORI_SERIES WHERE ORI_BOOK_NO =${bookNo } AND PAID_CHECK='Y'
+  	</select>
+  	<!--작가정산 접수후 포인트 차감하기  -->
+  	<update id="updatePaid_count">
+  		UPDATE ORI_SERIES SET PAID_COUNT=PAID_COUNT-TO_NUMBER(${changeP }) WHERE ORI_BOOK_NO =#{ori_bookNo } AND SERIES_NO=${seriesNo }
+  	</update>
+  	
+  	<!--  책 넘버 먼저 가져 오는 부분 -->
+  	<resultMap 	 type="OriginBook" 				id="OriginBookResultMap">
+  		<id 	 property="bookNo" 				column="ORI_BOOK_NO"/> <!--id   -->
+		<result  property="bookNo" 				column="ORI_BOOK_NO"/> 
+		<result  property="bookTitle" 			column="BOOK_TITLE"/> 	
+		<result  property="bookInfo" 			column="BOOK_INFO"/> 	
+		<result  property="category" 			column="CATEGORY"/> 
+		<result  property="insertDate" 			column="INSERT_DATE"/> 
+		<result  property="cover" 				column="CORVER"/> 
+		<result  property="coverRename" 		column="CORVER_RENAME"/> 
+		<result  property="status" 				column="STATUS"/> 
+		<result  property="score" 				column="SCORE"/> 
+		<result  property="viewCount" 			column="VIEW_COUNT"/> 
+		<result  property="memberId" 			column="MEMBER_ID"/> 
+		<result  property="checkPermission" 	column="BOOK_PERMISSION"/> 
+		<result  property="scoreCount" 			column="SCORE_COUNT"/> 		 
+  	</resultMap>
+  	<!--작가 책 정보 받기  -->
+  	<select id="OriginBookNo" resultMap="OriginBookResultMap">
+  		SELECT * FROM ORIGIN_BOOK WHERE MEMBER_ID = #{memberId }  	
+  	</select>
+  	
+  	
+  	
   	<!-- 작가 결제 요청시 저장 -->
     <insert id="insertreceiptWP">
     	INSERT INTO POINTCHANGE_TBL VALUES(#{memberId},#{seriesNo},#{ori_bookNo},DEFAULT,#{bankName},#{bankNo},${payment},DEFAULT, SQN_WRITERPAY_NO.NEXTVAL, ${changeP})    	
@@ -57,17 +108,17 @@
     
   
   <!--땅콩 포인트 관련  -->	
-  	<resultMap type="PeanutPoint" id="peanutResultMap">
-  		<id property="peanutNo" column="PEANUT_NO"/> <!--id   -->
-		<result  property="peanutNo" column="PEANUT_NO"/> 
-		<result  property="ppDate" column="PP_DATE"/> 
-		<result  property="peanutPoint" column="PEANUT_POINT"/> 	
-		<result  property="ppStatus" column="PP_STATUS"/> 
-		<result  property="bookNo" column="BOOK_NO"/>
-		<result  property="bookName" column="BOOK_NAME"/>
-        <result  property="memberId" column="MEMBER_ID"/>
-		<result  property="orderNo" column="ORDER_NO"/>  
-		<result  property="seriesNo" column="SERIES_NO"/>  
+  	<resultMap   type="PeanutPoint" 			id="peanutResultMap">
+  		<id 	 property="peanutNo" 			column="PEANUT_NO"/> <!--id   -->
+		<result  property="peanutNo" 			column="PEANUT_NO"/> 
+		<result  property="ppDate" 				column="PP_DATE"/> 
+		<result  property="peanutPoint" 		column="PEANUT_POINT"/> 	
+		<result  property="ppStatus" 			column="PP_STATUS"/> 
+		<result  property="bookNo" 				column="BOOK_NO"/>
+		<result  property="bookName" 			column="BOOK_NAME"/>
+        <result  property="memberId" 			column="MEMBER_ID"/>
+		<result  property="orderNo" 			column="ORDER_NO"/>  
+		<result  property="seriesNo" 			column="SERIES_NO"/>  
 		 
   	</resultMap>
   	
@@ -80,7 +131,7 @@
   	</select>
   	<!--땅콩 리스트 전체 갯수 구하기  -->
   	<select id="ppListCount" resultType="_int">
-  		SELECT COUNT(*) FROM PEANUTPOINT_TBL
+  		SELECT COUNT(*) FROM PEANUTPOINT_TBL WHERE MEMBER_ID=#{memberId }
   	</select>
   	
   	<select id="idppSum" resultType="_int">
@@ -88,13 +139,13 @@
   	</select>
   
   	
-  	<resultMap type="SeasonTicket" id="seasonTicketResultMap">
-  		<id property="orderNo" column="ORDER_NO"/> 
-		<result  property="orderNo" column="ORDER_NO"/> 	
-		<result  property="orderDate" column="ORDER_DATE"/> 
-		<result  property="lastDate" column="LAST_DATE"/> 
-		<result  property="memberId" column="MEMBER_ID"/> 
-		<result  property="expiry_yn" column="EXPIRY_YN"/> 
+  	<resultMap 	 type="SeasonTicket" 		id="seasonTicketResultMap">
+  		<id 	 property="orderNo" 		column="ORDER_NO"/> 
+		<result  property="orderNo" 		column="ORDER_NO"/> 	
+		<result  property="orderDate" 		column="ORDER_DATE"/> 
+		<result  property="lastDate" 		column="LAST_DATE"/> 
+		<result  property="memberId" 		column="MEMBER_ID"/> 
+		<result  property="expiry_yn"	    column="EXPIRY_YN"/> 
   	</resultMap>
   	
   	<!--결제후 구독권 등록  -->
@@ -109,20 +160,20 @@
 	</select>
 	
 	
-	<resultMap type="Member" id="memberResultMap">
-		<id property="memberId" column="MEMBER_ID"/> <!-- 회원 아이디 -->
-		<result property="memberPw" column="MEMBER_PW"/> <!-- 회원 비밀번호 -->
-		<result property="mNickname" column="M_NICKNAME"/> <!-- 회원 별명 -->
-		<result property="mEmail" column="M_EMAIL"/> <!-- 회원 이메일 -->
-		<result property="emailYN" column="EMAIL_YN"/> <!-- 이메일 인증 여부 -->
-		<result property="joinDate" column="JOIN_DATE"/> <!-- 회원 등록일 -->
-		<result property="deleteYN" column="DELETE_YN"/> <!-- 회원 탈퇴 여부 -->
-		<result property="mPoint" column="M_POINT"/> <!-- 회원 포인트(땅콩) -->
-		<result property="subYN" column="SUB_YN"/> <!-- 월 구독 여부 -->
-		<result property="naverId" column="NAVER_ID"/> <!-- 네이버 아이디 -->
-		<result property="kakaoId" column="KAKAO_ID"/> <!-- 카카오 아이디 -->
-		<result property="accType" column="ACC_TYPE"/> <!-- 계정 종류(일반/네이버/카카오) -->
-		<result property="adminYN" column="ADMIN_YN"/> <!-- 관리자 여부 -->
+	<resultMap  type="Member" 			id="memberResultMap">
+		<id 	property="memberId" 	column="MEMBER_ID"/>  <!-- 회원 아이디 -->
+		<result property="memberPw" 	column="MEMBER_PW"/>  <!-- 회원 비밀번호 -->
+		<result property="mNickname" 	column="M_NICKNAME"/> <!-- 회원 별명 -->
+		<result property="mEmail" 		column="M_EMAIL"/> 	  <!-- 회원 이메일 -->
+		<result property="emailYN" 		column="EMAIL_YN"/>   <!-- 이메일 인증 여부 -->
+		<result property="joinDate" 	column="JOIN_DATE"/>  <!-- 회원 등록일 -->
+		<result property="deleteYN" 	column="DELETE_YN"/>  <!-- 회원 탈퇴 여부 -->
+		<result property="mPoint" 		column="M_POINT"/>    <!-- 회원 포인트(땅콩) -->
+		<result property="subYN" 		column="SUB_YN"/>     <!-- 월 구독 여부 -->
+		<result property="naverId" 		column="NAVER_ID"/>   <!-- 네이버 아이디 -->
+		<result property="kakaoId" 		column="KAKAO_ID"/>   <!-- 카카오 아이디 -->
+		<result property="accType" 		column="ACC_TYPE"/>   <!-- 계정 종류(일반/네이버/카카오) -->
+		<result property="adminYN" 		column="ADMIN_YN"/>   <!-- 관리자 여부 -->
 	</resultMap>
 	
 	<!--구독권 구매 후 member 구독권 y/n변경  -->

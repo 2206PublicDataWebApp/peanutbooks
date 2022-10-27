@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.books.peanut.book.domain.OriginBook;
+import com.books.peanut.book.domain.OriginBookSeries;
 import com.books.peanut.member.domain.Member;
 import com.books.peanut.pay.domain.Pagemarker;
 import com.books.peanut.pay.domain.Pay;
@@ -88,12 +90,20 @@ public class ControllerPay {
 				p_t_input = pService.seasonticketInput(st);
 				m_st_YN = pService.memberStChange(memberId);
 				
+				
+				
 			} else {
 				PeanutPoint pp = new PeanutPoint();
 				pp.setMemberId(memberId);
 				pp.setOrderNo(orderNo);
 				pp.setPeanutPoint(pay / 100);
 				p_t_input = pService.peanutTableInput(pp);
+				//결제성공후 포인트 넣어주고 멤버테이블에 반영하기
+				Member member=new Member();
+				int ppSum = pService.getPPsum(memberId);
+				member.setMemberId(memberId);
+				member.setmPoint(ppSum);
+				pService.putMemberPoint(member);
 			}
 
 		} else {
@@ -122,13 +132,23 @@ public class ControllerPay {
 		pService.putMemberPoint(member);
 		
 		Pagemarker pm=new Pagemarker();
-		pm.setTotalCount(pService.getTotalCount());
+		pm.setTotalCount(pService.getTotalCount(memberId));
 		pm.setCurrentPage((page != null) ? page : 1);
 		pm.pageInfo(pm.getCurrentPage(), pm.getTotalCount());
 		mv.addObject("pm", pm);
 		
 		List<PeanutPoint> pList=pService.peanutList(memberId,pm);
-		
+		for(int i=0;i<pList.size();i++) {
+			PeanutPoint pp = pList.get(i);
+			if(!(pp.getBookName()==null)) {
+				if(pp.getBookName().length()>10) {
+					pp.setBookName(pp.getBookName().substring(0,10)+"...");
+					pList.set(i, pp);			
+				
+				}
+				
+			}
+		}
 		mv.addObject("ppSum", ppSum);
 		mv.addObject("pList", pList);
 		mv.setViewName("/peanetPay/peanutList");		
@@ -136,37 +156,62 @@ public class ControllerPay {
 	}
 	// 헤더에서 포인트조회하는 부분
 	@ResponseBody
-	@RequestMapping(value="ppoint/pointsum.kh", method=RequestMethod.POST)
+	@RequestMapping(value="/ppoint/pointsum.kh", method=RequestMethod.GET)
 	public String pointSum(String memberId) {
 		int ppSum = pService.getPPsum(memberId);
-		
 		return String.valueOf(ppSum);
 	}
 	
 	//작가 정산요청 화면 이동
 	@RequestMapping(value="/writer/writerStart.kh", method=RequestMethod.GET)
 	public ModelAndView writerPutGo( ModelAndView mv,String memberId){
-			mv.addObject("memberId", memberId);
+			List<OriginBook> o_bookList= pService.originListGet(memberId);
+			for(int i=0;i<o_bookList.size();i++) {
+				OriginBook oB = o_bookList.get(i);			
+				if(oB.getBookTitle().length()>10) {
+					oB.setBookTitle(oB.getBookTitle().substring(0,10)+"...");
+					o_bookList.set(i, oB);			
+				
+				}				
+			}
+			
+			mv.addObject("o_bookList", o_bookList);
 			mv.setViewName("/peanetPay/WriterPay");
 			return mv;		
 	}
-	//작가 정산요청 접수
+	//도서번호로 시리즈 조회
+	@ResponseBody
+	@RequestMapping(value="/writer/bookNo.kh", method=RequestMethod.POST)
+	public String findSeriseNo(@ModelAttribute OriginBookSeries obs) {
+		List<OriginBookSeries>  obsList = pService.findSeriseNo(obs);
+		Gson gson=new Gson();
+		return gson.toJson(obsList);
+		
+		
+	}
+	
+	//작가료 정산접수
 	@ResponseBody
 	@RequestMapping(value="/writer/receipt.kh", method=RequestMethod.POST)
 	public String writerPayReceipt(@ModelAttribute WriterPay writerP) {
-		int result = pService.writerReceipt(writerP);
-		if(result>0) {
-			return "success";
+		int num =pService.updatePaidCount(writerP);
+		if(num>0) {
+			int result = pService.writerReceipt(writerP);
+			if(result>0) {
+				return "success";
+			}else {
+				return "point failure";
+			}
+			
 		}else {
 			return "failure";
-		}
-		
+		}		
 	}
 		
-	//작가 정산리스트 화면으로가기
+	//작가 정산리스트 화면으로가기	
 	@RequestMapping(value="/writer/list.kh", method=RequestMethod.GET)
-	public ModelAndView writerListGo( ModelAndView mv){
-			mv.setViewName("/peanetPay/writerPayList");
+	public ModelAndView writerListGo( ModelAndView mv){			 
+			mv.setViewName("/peanetPay/writerPayList");		
 			return mv;		
 	}
 	
@@ -190,9 +235,12 @@ public class ControllerPay {
 //		return lastDate;
 //	}
 	
-	@ExceptionHandler({NullPointerException.class, SQLException.class})
-	public String errorHandler() {
-		return "redirect:/common/errorPage.kh";		
+	@ExceptionHandler({NullPointerException.class, SQLException.class, IllegalAccessException.class})
+	public ModelAndView errorHandler(ModelAndView mv, Exception e) {
+		mv.addObject("msg", e.getMessage());
+		mv.setViewName("/common/errorPage");
+
+		return mv;		
 	}
 
 

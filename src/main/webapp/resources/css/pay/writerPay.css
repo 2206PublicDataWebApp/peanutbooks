@@ -11,45 +11,55 @@ section{
 	min-height:100%;
 	padding-bottom: 200px;
 }
-h1{
+h2{
     text-align: left;   
     padding-bottom: 20px;
-    padding-left: 10px;
-    font-size: 30px;
+    padding-left: 4rem;
+    margin-bottom: 5rem;    
     font-weight: bold;
 }
 table{      
     width: 100%;
     padding-top: 20px;
     padding-left: 30px;    
-    border-collapse: separate;
-    border-spacing: 0 20px;
-    font-size: 20px;  
-     
+    border-collapse: separate!important;    
+    border-spacing: 0 12px !important;
+    font-size: 20px;    
 }
 
 tr{
     width: 100%;    
     margin-bottom: 20px;
-    margin-top: 20px;     
+    margin-top: 20px;    
 }
+
 tr td:first-child {
     width: 30%;
     text-align: right;
 }
 
-td input{
+td input,td select{
     width: 70%;
-    height: 40px;
+    height: 43px;
     margin-left: 10px;
+    padding-left: 10px;
     font-size: 20px;
-    border-radius: 0.5em;
-    border-color:#fff;
+    border-radius: 0.5em;   
+	border-color: rgb(252, 248, 248);
+	box-shadow: 0 0 2px #696869 ;
+}
+td input{
+    border-top: rgb(252, 248, 248);
+    border-left: rgb(252, 248, 248);
+}
 
+td select:focus { 
+    outline: none  !important; 
+    border-color: #fff; box-shadow: 0 0 8px #f7a409;
 }
 td input:focus { 
     outline: none  !important; 
-    border-color: #fff; box-shadow: 0 0 5px #696869 
+    border-color: #fff; box-shadow: 0 0 8px #f7a409;
 }
 
 
@@ -72,15 +82,18 @@ button{
     cursor:pointer;
     transition:800ms ease all;
     outline:none;  
-    border-radius: 1em;
+    border-radius: 0.5em !important;  
     font-size: 1.5rem;
     font-weight: bold;   
   }
+  
+ 
   button:hover{
     background:#f7a409;
     color: white;
  
   }
+  
   button:before,button:after{
     content:'';
     position:absolute;
@@ -105,4 +118,4 @@ button{
   button:hover:before,button:hover:after{
     width:100%;
     transition:800ms ease all;  
-  }
+  } 

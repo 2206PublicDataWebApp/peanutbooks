@@ -60,10 +60,10 @@ public class Pagemarker {
 		
 		//전체 페이지  // 23/5 = 4.8+0.9=5(.7)=5 페이지 갯수구하는 것 무조건 올림해야한다.
 		this.maxPage=(int) ((double) totalCount / limit + 0.9);   // 한페이지당 보여주고 싶은개 개시물은 10개씩    
-		//시작 페이지
+		//시작 페이지  ((int) ((double) currentPage / naviLimit + 0.9) - 1) * naviLimit + 1;
 		this.startNavi = ((int) ((double) currentPage / naviLimit + 0.9) - 1) * naviLimit + 1;
-		//끝 페이지
-		this.endNavi = startNavi + naviLimit - 1; // 처음과 끝만 알면 나머지는 FOR문이 한다.
+		//끝 페이지 startNavi + naviLimit - 1;
+		this.endNavi =  (((currentPage-1)/naviLimit)+1)*naviLimit; // 처음과 끝만 알면 나머지는 FOR문이 한다.
 		//게시판 시작번호	
 		
 		if(this.endNavi>this.maxPage){
