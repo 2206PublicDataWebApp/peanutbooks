@@ -46,8 +46,27 @@
 		, QNA_FILENAME03 = #{qnaFilename03}, QNA_FILERENAME03 = #{qnaFileRename03}, QNA_FILEPATH03 = #{qnaFilepath03}
 		WHERE QNA_NO = #{qnaNo}
 	</update>
-	<select id="selectTotalCount" resultType="_int">
+	
+	<!-- 회원별 총문의게시글 갯수 -->
+	<select id="selectMemberQnaCount" resultType="_int">
 		SELECT COUNT(*) FROM QNA_TBL
+		<where>
+			<if test="searchCondition.toString() == 'title'">
+				QNA_TITLE LIKE '%'||#{searchValue}||'%'
+			</if>
+			<if test="searchCondition.toString() == 'contents'">
+				QNA_CONTENTS LIKE '%'||#{searchValue}||'%'
+			</if>
+			<if test="searchCondition.toString() == 'all'">
+				QNA_TITLE LIKE '%'||#{searchValue}||'%'
+				OR QNA_CONTENTS LIKE '%'||#{searchValue}||'%'
+			</if>
+			AND MEMBER_ID=#{memberId}
+		</where>
+	</select>
+	<!-- 관리자 전체문의글 갯수 -->
+	<select id="selectAllQnaCount" resultType="_int">
+	SELECT COUNT(*) FROM QNA_TBL
 		<where>
 			<if test="searchCondition.toString() == 'title'">
 				QNA_TITLE LIKE '%'||#{searchValue}||'%'
@@ -61,10 +80,50 @@
 			</if>
 		</where>
 	</select>
-	<select id="selectAllQna" resultMap="qnaResultMap">
+	<select id="selectMemberQna" resultMap="qnaResultMap">
 		SELECT * FROM QNA_TBL WHERE MEMBER_ID = #{memberId} ORDER BY QNA_NO DESC
 	</select>
 	<select id="selectOneByNo" resultMap="qnaResultMap">
  			SELECT * FROM QNA_TBL WHERE QNA_NO = #{qnaNo}
  	</select>
-</mapper>
+ 	<!-- 회원별 상세검색 페이지 출력 -->
+ 	<select id="selectMemberByValue" resultMap="qnaResultMap">
+ 		SELECT * FROM QNA_TBL
+ 		<where>
+ 			<if test="searchCondition.toString() == 'title'">
+ 				QNA_TITLE LIKE '%'||#{searchValue}||'%'
+ 			</if>
+ 			<if test="searchCondition.toString() == 'contents'">
+ 				QNA_CONTENTS LIKE '%'||#{searchValue}||'%'
+ 			</if>
+ 			<if test="searchCondition.toString() == 'all'">
+ 				QNA_TITLE LIKE '%'||#{searchValue}||'%'
+ 				OR QNA_CONTENTS LIKE '%'||#{searchValue}||'%'
+ 			</if>
+ 			AND MEMBER_ID=#{memberId}
+ 		</where>
+ 	</select>
+ 	<!-- 관리자 상세검색 페이지 출력 -->
+ 	<select id="selectAllByValue" resultMap="qnaResultMap">
+ 		SELECT * FROM QNA_TBL
+ 		<where>
+ 			<if test="searchCondition.toString() == 'title'">
+ 				QNA_TITLE LIKE '%'||#{searchValue}||'%'
+ 			</if>
+ 			<if test="searchCondition.toString() == 'contents'">
+ 				QNA_CONTENTS LIKE '%'||#{searchValue}||'%'
+ 			</if>
+ 			<if test="searchCondition.toString() == 'all'">
+ 				QNA_TITLE LIKE '%'||#{searchValue}||'%'
+ 				OR QNA_CONTENTS LIKE '%'||#{searchValue}||'%'
+ 			</if>
+ 		</where>
+ 	</select>
+ 	<!-- 관리자 총게시물 -->
+ 	<select id="selectTotalCount" resultType="_int">
+ 		SELECT COUNT(*) FROM QNA_TBL
+ 	</select>
+ 	<select id="selectAllQna" resultMap="qnaResultMap">
+ 		SELECT * FROM QNA_TBL
+ 	</select>
+</mapper> 

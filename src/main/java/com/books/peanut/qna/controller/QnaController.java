@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.books.peanut.book.domain.WriterProfile;
+import com.books.peanut.admin.common.Paging;
 import com.books.peanut.member.domain.Member;
 import com.books.peanut.qna.domain.Qna;
 import com.books.peanut.qna.service.QnaService;
@@ -33,11 +33,9 @@ public class QnaController {
 	public ModelAndView showQnaWriter(ModelAndView mv, HttpSession session) {
 //		로그인 유저용
 		Member member = (Member) session.getAttribute("loginMember");
-		if(member == null) {
-			mv.addObject("msg", "로그인한 회원만 작성가능합니다.");
+		if(session.getAttribute("loginMember") == null) {
+			mv.addObject("msg", "로그인한 회원만 접속가능합니다.");
 			mv.setViewName("/common/errorPage");
-		}else if(member.getAdminYN().equals("Y")) {
-			mv.setViewName("");  //어드민페이지 연결
 		}else {
 			mv.setViewName("/qna/qnaWriteForm");
 		}
@@ -48,6 +46,7 @@ public class QnaController {
 	@RequestMapping(value="/qna/registView", method=RequestMethod.GET)
 	public ModelAndView registQnaView(ModelAndView mv, HttpSession session) {
 //		로그인 유저용
+		Member member = (Member) session.getAttribute("loginMember");
 		if(session.getAttribute("loginMember") == null) {
 			mv.addObject("msg", "로그인한 회원만 접속가능합니다.");
 			mv.setViewName("/common/errorPage");
@@ -57,7 +56,15 @@ public class QnaController {
 		return mv;
 	}
 	
-	
+	/**
+	 * 게시글 등록
+	 * @param mv
+	 * @param qna
+	 * @param uploadFile
+	 * @param session
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/qna/register.kh", method = RequestMethod.POST)
 	public ModelAndView registQan(ModelAndView mv, @ModelAttribute Qna qna,
 			@RequestParam(value = "uploadFile", required = false) List<MultipartFile> uploadFile, HttpSession session
@@ -126,7 +133,16 @@ public class QnaController {
 		return mv;
 	}
 	
-	//qna전체 리스트
+	/**
+	 * 게시글 회원별 리스트 출력
+	 * @param mv
+	 * @param qna
+	 * @param page
+	 * @param searchCondition
+	 * @param searchValue
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value="/qna/list.kh", method=RequestMethod.GET)
 	public ModelAndView qnaListView(
 			ModelAndView mv
@@ -147,21 +163,19 @@ public class QnaController {
 				// 삼항연산자를 이용하여 페이지값 확인
 				// 현재 페이지 = 넘겨받은 페이지값이 널이 아니면 페이지값, 널이면 1
 				
-				int totalCount = qService.getTotalCount("","");
+				int totalCount = qService.getTotalCount(memberId,"","");
 				int qnaLimit = 10; // 한페이지당 출력한 게시물 수
 				int naviLimit = 5; // 한 화면에 출력할 게시판 페이지 수
 				int maxPage;	// 총게시물 수
 				int startNavi; //한 화면에 출력되는 게시판 페이지의 처음 수
 				int endNavi; //한 화면에 출력되는 게시판 페이지의 마지막 수
-				
-				maxPage = (int)((double) totalCount / qnaLimit + 0.9);
-				startNavi = ((int)((double) currentPage / naviLimit + 0.9) -1) * naviLimit+1;
+				maxPage = (int)((double)totalCount/qnaLimit + 0.9);
+				startNavi = ((int)((double)currentPage/naviLimit+0.9)-1)*naviLimit+1;
 				endNavi = startNavi + naviLimit - 1;
-				
 				if(maxPage < endNavi) {
 					endNavi = maxPage;
 				}
-				List<Qna> qList = qService.printAllQna(currentPage, qnaLimit, memberId);
+				List<Qna> qList = qService.printMemberQna(currentPage, qnaLimit, memberId);
 				if(!qList.isEmpty()) {
 					mv.addObject("memberId", memberId);
 					mv.addObject("urlVal", "list");
@@ -173,9 +187,9 @@ public class QnaController {
 					///페이징 종료
 					
 					/// 검색어 전송 ///
-	//				mv.addObject("pageNow", currentPage);
-	//				mv.addObject("searchValue", searchValue);
-	//				mv.addObject("searchCondition", searchCondition);
+//					mv.addObject("pageNow", currentPage);
+					mv.addObject("searchValue", searchValue);
+					mv.addObject("searchCondition", searchCondition);
 				}
 				mv.setViewName("/qna/qnaListView");
 			} catch (Exception e) {
@@ -187,16 +201,26 @@ public class QnaController {
 		return mv;
 	}
 	
-	//qna상세보기
+	/**
+	 * 게시글 상세보기
+	 * @param mv
+	 * @param page
+	 * @param qnaNo
+	 * @return
+	 */
 	@RequestMapping(value="/qna/detailView.kh", method=RequestMethod.GET)
 	public ModelAndView qnaDetailView(
 			ModelAndView mv
+			, @RequestParam(value="searchCondition", required=false) String searchCondition
+			, @RequestParam(value="searchValue", required=false) String searchValue
 			, @RequestParam(value="page", required=false) Integer page
 			, @RequestParam("qnaNo") Integer qnaNo) {
 		try {
 			Qna qna = qService.printOneByNo(qnaNo);
 			mv.addObject("qna", qna);
 			mv.addObject("page", page);
+			mv.addObject("searchCondition", searchCondition);
+			mv.addObject("searchValue", searchValue);
 			mv.setViewName("qna/qnaDetailView");
 		} catch (Exception e) {
 			mv.addObject("msg", e.getMessage());
@@ -206,7 +230,13 @@ public class QnaController {
 		
 	}
 	
-	//qna게시글 삭제
+	/**
+	 * 게시글 삭제
+	 * @param session
+	 * @param page
+	 * @param qnaNo
+	 * @return
+	 */
 	@RequestMapping(value="/qna/remove.kh", method=RequestMethod.GET)
 	public String qnaRemove(
 			HttpSession session
@@ -224,7 +254,13 @@ public class QnaController {
 		
 	}
 	
-	//qna게시글 수정화면
+	/**
+	 * 게시글 수정화면 
+	 * @param mv
+	 * @param page
+	 * @param qnaNo
+	 * @return
+	 */
 	@RequestMapping(value="/qna/modifyView.kh", method=RequestMethod.GET)
 	public ModelAndView qnaModifyView(
 			ModelAndView mv
@@ -243,7 +279,16 @@ public class QnaController {
 		return mv;
 	}
 	
-	//qna게시글 수정
+	/**
+	 * 게시글 수정
+	 * @param qna
+	 * @param mv
+	 * @param reloadFile
+	 * @param page
+	 * @param request
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value="/qna/modify.kh", method=RequestMethod.POST)
 	public ModelAndView qnaModify(
 			@ModelAttribute Qna qna
@@ -284,15 +329,14 @@ public class QnaController {
 	
 						qnaFileRename[i] = sdf.format(new Date(System.currentTimeMillis())) +"."
 								+ qnaFilename[i].substring(qnaFilename[i].lastIndexOf(".") + 1);// 동시에여러사진이올라가기에 이름에 순서추가해줌
-						qnaFilepath[i] = savePath+"\\"+qnaFileRename;
-						reloadFile.get(i).transferTo(new File(qnaFilepath[i]));
+						reloadFile.get(i).transferTo(new File(savePath + "\\" + qnaFileRename[i]));
 						// 파일을 buploadFiles 경로에 저장하는 메소드
+						qnaFilepath[i] = savePath+"\\"+qnaFileRename[i];
 						
 					}
 					///// 여기까지 사진 저장코드/////
 	
 				}
-				
 				if(qnaFileRename[0] != null) {
 					qna.setQnaFilename01(qnaFilename[0]);
 					qna.setQnaFileRename01(qnaFileRename[0]);
@@ -321,4 +365,134 @@ public class QnaController {
 		return mv;
 		
 	}
+	
+	/**
+	 * 게시글 조건 검색
+	 * @param mv
+	 * @param searchCondition
+	 * @param searchValue
+	 * @param page
+	 * @return
+	 */
+	@RequestMapping(value="/qna/search.kh", method=RequestMethod.GET)
+	public ModelAndView qnaSearchList(
+			ModelAndView mv
+			, @RequestParam("searchCondition") String searchCondition
+			, @RequestParam("searchValue") String searchValue
+			, @RequestParam(value="page", required=false) Integer page
+			, HttpSession session){
+		if(session.getAttribute("loginMember") == null) {
+			mv.addObject("msg","로그인한 유저만 접속가능합니다");
+			mv.setViewName("/common/errorPage");
+		}else {
+			try {
+				Member member = (Member)session.getAttribute("loginMember");
+				String memberId = member.getMemberId();
+				
+				int currentPage = (page != null) ? page : 1;
+				int totalCount = qService.getTotalCount(memberId, searchCondition, searchValue);
+				int qnaLimit = 10;
+				int naviLimit = 5;
+				int maxPage;
+				int startNavi;
+				int endNavi;
+				maxPage = (int)((double)totalCount/qnaLimit + 0.9);
+				startNavi = ((int)((double)currentPage/naviLimit+0.9)-1)*naviLimit+1;
+				endNavi = startNavi + naviLimit - 1;
+				if(maxPage < endNavi) {
+					endNavi = maxPage;
+				}
+				List<Qna> qList = qService.printMemberByValue(
+						memberId, searchCondition, searchValue, currentPage, qnaLimit);
+				if(!qList.isEmpty()) {
+					mv.addObject("qList", qList);
+				}else {
+					mv.addObject("qList", null);
+				}
+				mv.addObject("urlVal", "search");
+				mv.addObject("searchCondition", searchCondition);
+				mv.addObject("searchValue", searchValue);
+				mv.addObject("maxPage", maxPage);
+				mv.addObject("currentPage", currentPage);
+				mv.addObject("startNavi", startNavi);
+				mv.addObject("endNavi", endNavi);
+				mv.setViewName("qna/qnaListView");
+				
+			} catch (Exception e) {
+				mv.addObject("msg", e.toString()).setViewName("common/errorPage");
+			}		
+		}
+		return mv;
+	}
+	
+	//////////////////////////관리자 part//////////////////////////////
+	@RequestMapping(value="/admin/qnaList", method=RequestMethod.GET)
+	public ModelAndView adminListView(
+			ModelAndView mv
+			, @ModelAttribute Qna qna
+			, @RequestParam(value="page", required=false) Integer currentPage
+			, @RequestParam(value="searchCondition", required=false) String searchCondition
+			, @RequestParam(value="searchValue", required=false) String searchValue
+			, HttpSession session) {
+			
+		Member member = (Member)session.getAttribute("loginMember");
+		String memberId = member.getMemberId();
+		System.out.println(memberId);
+		if(memberId.equals("admin")) {
+			
+			//1.page 널체크
+			int page = (currentPage != null) ? currentPage : 1;
+	
+			//2.페이징에 필요한 Paging객체를 생성한다. Paging객체는 하면과 RowBounds에 필요한 값을 get할 수 있다.
+			Paging paging = new Paging(qService.getTotalCount(), page, 10, 5);
+			System.out.println(paging);
+			try {
+				//3.후기게시판 목록 List를 Select한다.
+				List<Qna> qList = qService.printAllByValue(paging);
+				if(!qList.isEmpty()) {
+					mv.addObject("qList", qList).addObject("paging", paging)
+					.setViewName("admin/aqnaListView");
+				}else {
+					//4. 검색결과가 존재하지 않으면 널로 보내준다.
+					mv.addObject("qList",null).addObject("paging",null)
+					.setViewName("admin/aqnaListView");
+				}
+						
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			//4.tradeList.jsp의 페이지네비 링크에서 사용할 url을 동적으로 변경해주기 위한 부분이다.
+			// 검색 결과 조회와 구분을 위하여 'list'문자열을 화면에 전달한다.
+			mv.addObject("urlVal","qnaList");
+		}else {
+			mv.setViewName("redirect:/member/login");
+		}
+		return mv;
+		
+	}
+	
+	@RequestMapping(value="admin/aqnaDetailView.kh", method=RequestMethod.GET)
+	public ModelAndView adminQnaDetail(
+			ModelAndView mv
+			, @RequestParam(value="searchCondition", required=false) String searchCondition
+			, @RequestParam(value="searchValue", required=false) String searchValue
+			, @RequestParam(value="page", required=false) Integer page
+			, @RequestParam("qnaNo") Integer qnaNo)  {
+		
+		try {
+			Qna qna = qService.printOneByNo(qnaNo);
+			mv.addObject("qna", qna);
+			mv.addObject("page", page);
+			mv.addObject("searchCondition", searchCondition);
+			mv.addObject("searchValue", searchValue);
+			mv.setViewName("admin/aqnaDetailView");
+		} catch (Exception e) {
+			mv.addObject("msg", e.getMessage());
+			mv.setViewName("common/errorPage");
+		}
+		return mv;
+		
+		
+	}
+
 }

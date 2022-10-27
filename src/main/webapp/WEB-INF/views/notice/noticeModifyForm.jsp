@@ -54,24 +54,10 @@
 				<td  class="col-2" scope="col" align="center">종류</td>
 				<td>
 					<select name="noticeCategory"  class="form-select" aria-label="Default select example" >
-						<option selected >
-							<c:if test="${notice.noticeCategory == '0' }">
-								공지
-							</c:if>
-							<c:if test="${notice.noticeCategory == '1' }">
-								업데이트
-							</c:if>
-							<c:if test="${notice.noticeCategory == '2' }">
-								이벤트
-							</c:if>
-							<c:if test="${notice.noticeCategory == '3' }">
-								안내
-							</c:if>
-						</option>
-						<option value="0" label="공지"></option>
-						<option value="1" label="업데이트"></option>
-						<option value="2" label="이벤트"></option>
-						<option value="3" label="안내"></option>
+						<option value="notice" <c:if test="${notice.noticeCategory == 'notice'}">selected</c:if>>공지</option>
+						<option value="update" <c:if test="${notice.noticeCategory == 'update'}">selected</c:if>>업데이트</option>
+						<option value="event" <c:if test="${notice.noticeCategory == 'event'}">selected</c:if>>이벤트</option>
+						<option value="info" <c:if test="${notice.noticeCategory == 'info'}">selected</c:if>>안내</option>
 					</select>
 				</td>
 			<tr>

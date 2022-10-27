@@ -32,7 +32,7 @@
 				</div>
 				<div class="col-md-7 d-md-block d-none">
 					<ul>
-						<li>게시판</li>
+						<li><a href="/admin/qnaList.kh">게시판</a></li>
 						<li><a href="/admin/bookApprove/bookApproveView.kh">도서</a></li>
 						<li>피넛</li>
 						<li>회원</li>
