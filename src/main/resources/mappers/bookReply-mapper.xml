@@ -27,7 +27,7 @@
 	</resultMap>
 	
 	<select id="selectAllOriReply" resultMap="obReplyResultMap">
-	select * from origin_reply where ORI_BOOK_NO = #{bookNo}
+	select * from origin_reply where ORI_BOOK_NO = #{bookNo} order by reply_No desc;
 	</select>
 	
 	<select id="countOriReply" resultType="_int">
@@ -49,6 +49,7 @@
 	insert into star values(#{memberId},#{bookNo},#{score},#{category})
 	</insert>
 	
+	<!-- 피넛 오리지널 별점주기 -->
 	<update id="updateOriBook">
 	update origin_book set score = score + #{score} , SCORE_COUNT = SCORE_COUNT + 1 where ORI_BOOK_NO = #{bookNo}
 	</update>
@@ -57,10 +58,20 @@
 	update origin_book set score = score - #{score} , SCORE_COUNT = SCORE_COUNT - 1 where ORI_BOOK_NO = #{bookNo}
 	</update>
 	
+	<!-- 일반도서 별점주기 -->
+	<update id="updateNorBook">
+	update normal_book set score = score + #{score} , SCORECOUNT = SCORECOUNT + 1 where Nor_BOOK_NO = #{bookNo}
+	</update>
+	<update id="UpdateNorBookScoreMinus">
+	update normal_book set score = score - #{score} , SCORECOUNT = SCORECOUNT - 1 where Nor_BOOK_NO = #{bookNo}
+	</update>
+	
+	
 	<!-- 별점 삭제 쿼리문 -->
 	<delete id="deleteScore">
 	delete star where member_id = #{memberId} and BOOK_NO = ${bookNo} and category = #{category}
 	</delete>
+	
 	
 	<!-- 별점가져오기 -->
 	<select id="selectOneScore" resultType="_int">
@@ -79,5 +90,31 @@
 	<select id="selectOneStar" resultMap="starResultMap">
 	select * from star where MEMBER_ID = #{memberId} and BOOK_NO = #{bookNo} and CATEGORY = #{category}
 	</select>
+	
+	<!-- 일반도서 리플  영억-->
+	
+	<insert id="insertNorBookReply">
+	insert into normal_reply values(seq_nor_reply.nextval, #{bookNo}, #{memberId}, #{contents}, default)
+	</insert>
+	
+	<resultMap type="NormalBookReply" id="norBookReplyResultMap">
+	<id property="replyNo" column="REPLY_NO"/>
+	<result property="bookNo" column="NOR_BOOK_NO"/>
+	<result property="memberId" column="MEMBER_ID"/>
+	<result property="contents" column="CONTENTS"/>
+	<result property="insertDate" column="INSERT_DATE"/>
+	
+	</resultMap>
+	
+	<!-- 일반도서 리플 수 가져오기 -->
+	<select id="countNorReply" resultType="_int">
+	select count(*) from normal_reply where nor_book_no = #{booNo}
+	</select>
+	
+	<!-- 일반도서 리플리스트 가져오기 -->
+	<select id="selectAllnorReply" resultMap="norBookReplyResultMap">
+	select * from normal_reply where nor_book_no = #{booNo} order by reply_No desc;
+	</select>
+	
 	
 </mapper>

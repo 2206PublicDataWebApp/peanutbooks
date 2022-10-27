@@ -75,6 +75,8 @@
 							<option value="essay">로맨스</option>
 							<option value="tale">동화</option>
 							<option value="poem">시</option>
+							<option value="novel">일반소설</option>
+							<option value="other">기타</option>
 						</select> <select name="language" id=""  required="required">
 							<option value="">언어를 선택하세요</option>
 							<option value="ko">한국어</option>

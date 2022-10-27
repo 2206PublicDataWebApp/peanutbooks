@@ -69,6 +69,7 @@
 								<option value="essay">에세이</option>
 								<option value="tale">동화</option>
 								<option value="poem">시</option>
+								<option value="other">기타</option>
 							</select>
 						</div>
 						<h5>작품소개</h5>

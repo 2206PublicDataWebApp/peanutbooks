@@ -33,12 +33,12 @@
 			<article class="container" id="fisrt-article">
 				<div id="info-article" class="row">
 					<div class="img-area col-md-6">
-						<img src="/resources/bookImg/${oBook.coverRename}" alt="표지그림">
+						<img src="/resources/bookImg/${nBook.coverRename}" alt="표지그림">
 
 					</div>
 					<div class="info-area col-md-6">
-						<div id="title">${oBook.bookTitle }</div>
-						<div id="wirter-text">작가 : ${oBook.memberNickName }</div>
+						<div id="title">${nBook.bookTitle }</div>
+						<div id="wirter-text">작가 : ${nBook.writer }</div>
 
 
 						<div class="tag">
@@ -78,13 +78,10 @@
 						</div>
 						<div id="plusbutton">
 						
-						<!-- 작가일때만 보이는 버튼 -->
-						<c:if test="${loginMember.memberId == oBook.memberId}">
-							<button onclick="registOriNext(${oBook.bookNo},${fn:length(osList)+1});">다음편 쓰기</button>
-						</c:if>
 						
 						<!-- 관리자일때만 보이는 버튼 -->
 						<c:if test="${loginMember.adminYN == 'Y' }">
+							<button onclick="registOriNext(${oBook.bookNo},${fn:length(osList)+1});">다음편 쓰기</button>
 							<button>삭제하기</button>
 						</c:if>
 							
@@ -97,48 +94,27 @@
 			<article class="container">
 				<div class="info-title">
 					<div class="sub-title">작품소개</div>
-					<div class="sub-info">${oBook.bookInfo }</div>
+					<div class="sub-info">${nBook.bookInfo }</div>
 				</div>
 				<div class="step-title">
 					<div class="sub-title">목차</div>
 					<div class="sub-info">
 
 						<!-- 목차 반복문 시작 없으면 출력되지 않음-->
-						<c:if test="${osList != null }">
+						<c:if test="${nsList != null }">
 							<ol>
 
-								<c:forEach items="${osList }" var="oSeries" varStatus="i">
+								<c:forEach items="${nsList }" var="nSeries" varStatus="i">
 	
-								<c:if test ="${oSeries.checkPermission == 'Y'}"> <!-- 책이 승인되었을때만 보임 -->
-									<li><!-- 삭제 여부 체크 -->
-									<c:if test="${oSeries.status == 'N'}"> 관리자에 의해 삭제되었습니다.</c:if>
-									<c:if test="${oSeries.status == 'Y'}"> ${oSeries.title }</c:if>
-									</li>
-								</c:if>
-								<c:if test ="${oSeries.checkPermission == 'N'}"><!-- 책이 승인되지 않았을땐 관리자에게만 보임 -->
-									<c:if test="${loginMember.memberId == oBook.memberId||loginMember.adminYN == 'Y'}">
-											<li><!-- 삭제 여부 체크 -->
-										<c:if test="${oSeries.status == 'N'}"> 관리자에 의해 삭제되었습니다.</c:if>
-										<c:if test="${oSeries.status == 'Y'}"> ${oSeries.title } : 이 시리즈는 승인되지 않았습니다</c:if>
-										<!-- 작성자 일때만 수정버튼 보임 -->
-										<c:if test="${loginMember.memberId == oBook.memberId}">
-											<button onclick="location.href='/book/oriSeriesModifyView.do?bookNo=${oBook.bookNo}&seriesNo=${i.index +1 }'">수정</button>
-										</c:if>
+									<li>
+										${nSeries.title }
+
 										<!--  관리자 일때만 삭제 버튼 보임 -->
 										<c:if test="${loginMember.adminYN == 'Y'}">
+											<button onclick="location.href='/book/oriSeriesModifyView.do?bookNo=${oBook.bookNo}&seriesNo=${i.index +1 }'">수정</button>
 											<button>삭제</button>
 										</c:if>
-										
-									</li>
-									
-									
-									</c:if>
-								</c:if>
-									
-									
-									
-									
-									
+									</li>	
 								</c:forEach>
 
 							</ol>
@@ -155,15 +131,15 @@
 					<div class="sub-title">리뷰현황</div>
 					<div class="sub-info row">
 						<div class="star-area-1 col-md-6">
-							<div class="star-title">사용자 평균(${oBook.scoreCount }명)</div>
+							<div class="star-title">사용자 평균(${nBook.scoreCount }명)</div>
 							
 							<div class="star-score" id="avr-score">
-							 <c:if test="${oBook.score==0}">☆ ☆ ☆ ☆ ☆</c:if>
-							 <c:if test="${oBook.score==1}">★ ☆ ☆ ☆ ☆</c:if>
-							 <c:if test="${oBook.score==2}">★ ★ ☆ ☆ ☆</c:if>
-							 <c:if test="${oBook.score==3}">★ ★ ★ ☆ ☆</c:if>
-							 <c:if test="${oBook.score==4}">★ ★ ★ ★ ☆</c:if>
-							 <c:if test="${oBook.score==5}">★ ★ ★ ★ ★</c:if>
+							 <c:if test="${nBook.score==0}">☆ ☆ ☆ ☆ ☆</c:if>
+							 <c:if test="${nBook.score==1}">★ ☆ ☆ ☆ ☆</c:if>
+							 <c:if test="${nBook.score==2}">★ ★ ☆ ☆ ☆</c:if>
+							 <c:if test="${nBook.score==3}">★ ★ ★ ☆ ☆</c:if>
+							 <c:if test="${nBook.score==4}">★ ★ ★ ★ ☆</c:if>
+							 <c:if test="${nBook.score==5}">★ ★ ★ ★ ★</c:if>
 							
 							</div>
 						</div>
@@ -251,10 +227,10 @@
 
 							<div class="row">
 								<div class="col-md-11 col-9">
-									<textarea name="reContents" id="reply-text" rows="3"></textarea>
+									<textarea name="contents" id="reply-text" rows="3"></textarea>
 								</div>
 								<div class="col-md-1 col-3 reply-button-area">
-									<button id="reply-button" onclick="replyRegist(${oBook.bookNo },'${loginMember.memberId}')">등록</button>
+									<button id="reply-button" onclick="replyRegist(${nBook.bookNo },'${loginMember.memberId}')">등록</button>
 								</div>
 
 							</div>
@@ -273,9 +249,9 @@
 </body>
 <script type="text/javascript">
 
-var bookNo = ${oBook.bookNo};
+var bookNo = ${nBook.bookNo};
 var userId = '${loginMember.memberId}';
 </script>
-<script src="/resources/js/book/bookmain.js"></script>
+<script src="/resources/js/book/bookmain-admin.js"></script>
 
 </html>
