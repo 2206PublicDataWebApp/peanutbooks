@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
+  <mapper namespace="adminWirteMapper">
+  	<!-- 일반도서 -->
+  	<!-- 일반도서 등록하기 -->
+  	<insert id="insertOneNorBook">
+  	insert into normal_book values(seq_norBook_No.nextval,#{bookTitle},#{writer},#{bookInfo},#{category},default,#{cover},#{coverRename},'Y',0,0,#{language},#{adminId},#{writerInfo},0)
+  	</insert>
+  	
+  	<resultMap type="NormalBook" id="nBookResultMap">
+  		<id property="bookNo" column="NOR_BOOK_NO"/>
+	  	<result property="bookTitle" column="BOOK_TITLE"/>
+	  	<result property="writer" column="WIERTER"/>
+	  	<result property="bookInfo" column="BOOK_INFO"/>
+	  	<result property="category" column="CATEGORY"/>
+	  	<result property="inserDate" column="INSERT_DATE"/>
+	  	<result property="cover" column="COVER"/>
+	  	<result property="coverRename" column="COVER_RENAME"/>
+	  	<result property="status" column="STATUS"/>
+	  	<result property="viewCount" column="VIEW_COUNT"/>
+	  	<result property="score" column="SCORE"/>
+	  	<result property="language" column="LANGUAGE"/>
+	  	<result property="adminId" column="ADMINID"/>
+	  	<result property="writerInfo" column="WRITER_INFO"/>
+	  	<result property="scoreCount" column="SCORECOUNT"/>
+  	</resultMap>
+  	
+  	
+  	<!-- 일반도서 제목 가져오기 -->
+  	<select id="selectNorBookTitle" resultType="string">
+  		select BOOK_TITLE from normal_book where NOR_BOOK_NO = #{bookNo}
+  	</select>
+  	
+  	<!-- 일반도서 한권 열람하기 -->
+  	<select id="selectOneNorBook" resultMap="nBookResultMap">
+  	  select * from  normal_book where NOR_BOOK_NO = #{bookNo}
+  	</select>
+  	
+  	
+  	<!-- 일반도서 시리즈 -->
+  	<!-- 일반도서 1화 등록하기 -->
+  <insert id="insertNSeriesBook">
+  insert into nor_series values(#{seriesNo},seq_norBook_No.currval,#{subPic},#{subpicRename},#{title},#{contents},default,null)
+  
+  </insert>
+  	
+  	
+  	<resultMap type="NormalBookSeries" id="nbSeriesResultMap">
+  	<id property="seriesNo" column="SERIES_NO"/>
+  	<result property="bookNo" column="NOR_BOOK_NO"/>
+  	<result property="subPic" column="SUB_PIC"/>
+  	<result property="subpicRename" column="SUB_PIC_RE"/>
+  	<result property="title" column="TITLE"/>
+  	<result property="contents" column="CONTETNS"/>
+  	<result property="insertDate" column="INSERT_DATE"/>
+  	<result property="updateDate" column="UPDATE_DATE"/>
+  	
+  	</resultMap>
+  	
+  	
+  	<!-- 모든 일반도서 시리즈 갯수파악 -->
+  	<select id="allNorBookCount" resultType="_int">
+  		select count(*) from nor_series
+  	</select>
+  	
+  	<!-- 모든 일반도서 시리즈 가져오기 -->
+  	<select id="allNorBook" resultMap="nbSeriesResultMap">
+  		select * from nor_series
+  	</select>
+  	
+  	<!-- 책번호에 해당하는 일반도서 시리즈의 특정정보 가져오기 -->
+  	<select id="selectOneNorSeriesTitle" resultMap="nbSeriesResultMap">
+  		select TITLE, ADMINID  from nor_series left join normal_book using(NOR_BOOK_NO) where NOR_BOOK_NO = ${bookNo}
+  	</select>
+  	
+  	
+  	
+  	
+  	<!-- 태그 테이블 -->
+  	
+  	<insert id="insertNBTag">
+  	insert into hash_tag values(seq_norBook_No.currval,#{category}, #{hashTag1}, #{hashTag2}, #{hashTag3})
+  	</insert>
+  	
+  	
+  
+  
+  </mapper>

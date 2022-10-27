@@ -105,23 +105,27 @@
 
 				<!-- 페이지 번호 출력 -->
 				<c:forEach var="p" begin="${bPage.startNavi}"
-					end="${bPage.startNavi}">
-					<span class="pageNow"> <c:if
-							test="${p == bPage.currentPage  }">
-							${p }	
-						</c:if> <c:if test="${p == 0  }">
+					end="${bPage.endNavi}">
+
+					
+					<c:if test="${p == bPage.currentPage  }">
+						<span class="pageNow"> 
+							${p }
+						</span>	
+					</c:if> 
+					<c:if test="${p == 0  }">
+						<span class="pageNow"> 
 							${p+1 }	
-						</c:if>
-					</span>
+						</span>	
+					</c:if>
+					
 
 					<c:if test="${p != bPage.currentPage && p !=0}">
-						<span class="pages"> <a
-							href="/book/writerMenu.do?page=${p }">${p }</a>
+						<span class="pages"> <a href="/book/writerMenu.do?page=${p }">${p }</a>
 						</span>
 					</c:if>
 
 				</c:forEach>
-
 				<!-- 다음 페이지 출력 -->
 				<c:if test="${bPage.endNavi ne bPage.maxPage  }">
 					<span class="next"> <a

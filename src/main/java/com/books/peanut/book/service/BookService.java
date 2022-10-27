@@ -3,6 +3,8 @@ package com.books.peanut.book.service;
 import java.util.List;
 
 import com.books.peanut.book.domain.HashTag;
+import com.books.peanut.book.domain.NormalBook;
+import com.books.peanut.book.domain.NormalBookSeries;
 import com.books.peanut.book.domain.OriginBook;
 import com.books.peanut.book.domain.OriginBookSeries;
 import com.books.peanut.book.domain.Star;
@@ -100,5 +102,32 @@ public interface BookService {
 	/**땅콩으로 시리즈 구입
 	 * @param bookTitle */
 	int buyOneSeries(int seriesNo, int bookNo, String memberId, String bookTitle);
+
+	/**피넛 오리지널 시리즈 수정*/
+	int modifyOriSeries(OriginBookSeries obSeries);
+
+	/**모든 일반도서의 책의 갯수 파악*/
+	int allNorSeriesCount();
+
+	/**모든 일반도서 시리즈 가져오기*/
+	List<NormalBookSeries> allAdminBooks();
+
+	/**일반도서 제목 가져오기*/
+	String getNorBookTitle(String bookNo);
+
+	/**일반도서 등록하기*/
+	int registenorBook(NormalBook nBook);
+
+	/**일반도서 시리즈 등록하기*/
+	int registNoriSeries(NormalBookSeries nSeries);
+
+	/**일반도서 태그 등록하기*/
+	int registeNorTag(HashTag hTag);
+
+	/**일반 도서 열람하기*/
+	NormalBook showOneNorbook(String bookNo);
+
+	/**일반도서 시리즈의 정보가져오기*/
+	List<NormalBookSeries> getNorSeriesTitle(String bookNo);
 
 }

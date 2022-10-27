@@ -78,16 +78,30 @@ select count(BOOK_TITLE) from origin_book where MEMBER_ID = #{memberId} and ORI_
 <insert id="insertPermission1">
 	insert into book_permission values(seq_permission.nextval,oribookseq.currval,null,null,null,null,#{seriesNo})
 </insert>
+<insert id="insertPermission2">
+	insert into book_permission values(seq_permission.nextval,#{bookNo},null,null,null,null,#{seriesNo})
+</insert>
 
 
 <!-- 오리지널 시리즈 쿼리문 -->
+<!--  오리지널 시리즈 등록 1편 -->
 <insert id="insertSeries1">
 	insert into ori_series values(#{seriesNo},oribookseq.currval,#{subPic},#{subPicRename},#{title},#{contents},null,default,null,0,#{paidCheck},0,default,default)
 </insert>
 
+<!-- 오리지널 시리즈 등록(2편부터) -->
 <insert id="insertNextOseries">
 	insert into ori_series values(#{seriesNo},#{bookNo},#{subPic},#{subPicRename},#{title},#{contents},null,default,null,0,#{paidCheck},0,default,default)
 
+</insert>
+
+<!-- 오리지널 시리즈 수정 -->
+<insert id="updateOriSeries">
+	insert into modify_ori_series values(#{seriesNo},#{bookNo},#{subPic},#{subPicRename},#{title},#{modifyContents},default,#{paidCheck})
+</insert>
+<!-- 시리즈 수정 신청테이블에 추가 -->
+<insert id="permissionModify">
+	insert into book_permission values(seq_permission.nextval,#{bookNo},null,null,null,'Y',#{seriesNo})
 </insert>
 
 <resultMap type="OriginBookSeries" id="oriSeriesResultMap">
@@ -110,16 +124,17 @@ select count(BOOK_TITLE) from origin_book where MEMBER_ID = #{memberId} and ORI_
 
 <!-- 회원 한명이 작성한 시리즈 전부 가져오기 -->
 <select id="selectOneMemberSeriese" resultMap="oriSeriesResultMap">
-	select * from ori_series join origin_book using(ori_book_no) where member_id = #{memberId} order by ORI_BOOK_NO
+	select * from ori_series join origin_book using(ori_book_no) where member_id = #{memberId} order by SERIES_NO desc
 </select>
 
+<!-- 회원한명이 작성한 피넛 오리지널 시리즈의 숫자 가져오기 -->
 <select id="selectAllMemberOriSeries" resultType="_int">
 	select count(*) from ori_series join origin_book using(ori_book_no) where member_id = #{memberId} order by ORI_BOOK_NO
 </select>
 
 <!-- 도서 한권의 시리즈 제목 전부 가져오기 -->
 <select id="selecSeriesTitle" resultMap="oriSeriesResultMap">
-	select title,status from ori_series where ORI_BOOK_NO = #{bookNo}
+	select title,status,CHECK_PERMISSION from ori_series where ORI_BOOK_NO = #{bookNo}
 </select>
 
 <!-- 도서 하나에 해당하는 모든 피넛 오리지널 시리즈 가져오기 -->

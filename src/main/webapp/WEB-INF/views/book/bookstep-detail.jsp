@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -30,6 +31,9 @@
 
                 <div id="step-title">
                     ${obSeries.seriesNo }. ${obSeries.title }
+                    <c:if test="${obSeries.checkPermission == 'N'}"> <!-- 승인되지 않았을시 메세지 -->
+                    	<br><b> 이 시리즈는 승인되지 않았습니다</b>
+                    </c:if>
                 </div>
                 <div id="contents-area">
                     ${obSeries.contents }

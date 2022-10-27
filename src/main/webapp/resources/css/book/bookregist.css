@@ -119,6 +119,11 @@ main h2{
     height: 3rem;
 }
 
+#camera1:hover, #camera2:hover{
+	cursor:pointer;
+	
+}
+
 hr{
    
 margin: 1rem;}

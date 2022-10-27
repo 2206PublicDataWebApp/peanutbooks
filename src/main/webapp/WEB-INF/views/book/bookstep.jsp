@@ -67,29 +67,31 @@
     <article id="step-area" class="container">
     <!-- 시리즈 반복 시작 -->
     	<c:forEach items="${osList }" var="osList">
-	        <div class="one-step row">
-	            <div class="step col-md-2">
-	                ${osList.seriesNo }
-	            </div>
-	            <div class="step-main col-md-8">
-	                <div class="step-title" onclick="checkPay(${osList.seriesNo}, ${oBook.bookNo });">
-	                    ${osList.title }
-	                </div>
-	                <div class="step-text" onclick="checkPay(${osList.seriesNo}, ${oBook.bookNo });">
-	                    ${osList.contents }
-	                </div>
-	                <div class="step-date">
-	                    ${osList.insertDate }
-	                </div>
-	            </div>
-	            <div class="step-img col-md-2" onclick="checkPay(${osList.seriesNo}, ${oBook.bookNo });">
-	                <img src="/resources/bookImg/${osList.subPicRename }" alt="">
-	            </div>
-	          
-	
-	            
-	
-	        </div>
+    		<!-- 시리즈가 허가됐거나, 작성자이거나 관리자일때만 보임 -->
+    		<c:if test="${oSeries.checkPermission == 'Y' || loginMember.memberId == oBook.memberId||loginMember.adminYN == 'Y'}">
+		        <div class="one-step row">
+		            <div class="step col-md-2">
+		                ${osList.seriesNo }
+		            </div>
+		            <div class="step-main col-md-8">
+		                <div class="step-title" onclick="checkPay(${osList.seriesNo}, ${oBook.bookNo });">
+		                    ${osList.title }
+		                </div>
+		                <div class="step-text" onclick="checkPay(${osList.seriesNo}, ${oBook.bookNo });">
+		                    ${osList.contents }
+		                </div>
+		                <div class="step-date">
+		                    ${osList.insertDate }
+		                </div>
+		            </div>
+		            <div class="step-img col-md-2" onclick="checkPay(${osList.seriesNo}, ${oBook.bookNo });">
+		                <img src="/resources/bookImg/${osList.subPicRename }" alt="">
+		            </div>
+		          
+		
+		    
+		        </div>
+		       </c:if><!-- 작성자관리자 혹은 시리즈허가여부 체크 끝 -->
 	        </c:forEach>
 	        <!-- 시리즈 반복 종료 -->
 

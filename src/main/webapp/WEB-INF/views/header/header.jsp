@@ -97,8 +97,10 @@
 								alt=""> <br>알림
 						</div>
 						<div class="col-4">
-							<img src="/resources/img/header/icons8-gear-50.png" alt="">
-							<br>정보수정
+							<a href="/member/memberInfo.pb">
+								<img src="/resources/img/header/icons8-gear-50.png" alt="">
+								<br>정보수정
+							</a>
 						</div>
 						<div class="col-4">
 							<a href="/book/writerMenu.do"> <img
@@ -147,11 +149,13 @@
 								alt=""> <br>알림
 						</div>
 						<div class="col-4">
-							<img src="/resources/img/header/icons8-gear-50.png" alt="">
-							<br>정보수정
+							<a href="/member/memberInfo.pb">
+								<img src="/resources/img/header/icons8-gear-50.png" alt="">
+								<br>정보수정
+							</a>
 						</div>
 						<div class="col-4">
-							<a href="/book/writerMenu.do"> <img
+							<a href="/book/writerMenu-admin.do"> <img
 								src="/resources/img/header/icons8-write-48.png" alt=""> <br>등록
 								도서
 							</a>

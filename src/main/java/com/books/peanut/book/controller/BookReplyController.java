@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.books.peanut.book.domain.NormalBook;
+import com.books.peanut.book.domain.NormalBookReply;
 import com.books.peanut.book.domain.OriginBook;
 import com.books.peanut.book.domain.OriginBookReply;
 import com.books.peanut.book.domain.OriginBookSeries;
@@ -48,6 +50,24 @@ public class BookReplyController {
 		obReply.setMemberId(member.getMemberId());
 		int result = rService.registOneReply(obReply);
 
+		return result + "";
+	}
+	/**
+	 * 일반도서 리플등록
+	 * 
+	 * @param mv
+	 * @param obReply
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/book/norBookReplyRegist", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+	public String registNorReply(@ModelAttribute NormalBookReply nbReply, HttpSession session) {
+		
+		Member member = (Member) session.getAttribute("loginMember");
+		
+		nbReply.setMemberId(member.getMemberId());
+		int result = rService.registNorOneReply(nbReply);
+		
 		return result + "";
 	}
 
@@ -99,6 +119,56 @@ public class BookReplyController {
 
 		return null;
 
+	}
+	
+	/**
+	 * 일반도서 리플 불러오기
+	 * 
+	 * @param bookNo
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/book/norBookAllReply", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+	public String AllnorReplyList(@RequestParam("bookNo") String bookNo,
+			@RequestParam(value = "rPage", required = false) Integer rPage) {
+		
+		// 리플 수계산하기
+		int totalCount = rService.getTotalNorReplyCount(bookNo);
+		// 페이지당 출력될 변수 메소드로 가져오기
+		int boardLimit = 10;// 출력될 리플수
+		String navi = boardList(rPage, totalCount, boardLimit);
+		int startNavi = Integer.parseInt(navi.split(",")[0]);
+		int endNavi = Integer.parseInt(navi.split(",")[1]);
+		int maxPage = Integer.parseInt(navi.split(",")[2]);
+		int currentPage = Integer.parseInt(navi.split(",")[3]);
+		
+		// 리플목록 가져오기
+		List<NormalBookReply> nbReply = rService.norBookReply(bookNo, currentPage, boardLimit);
+		
+		nbReply.get(0).setEndNavi(endNavi);
+		nbReply.get(0).setStartNavi(startNavi);
+		nbReply.get(0).setMaxPage(maxPage);
+		nbReply.get(0).setCurrentPage(currentPage);
+		nbReply.get(0).setTotalCount(totalCount);
+		
+		// 가져온 리플목록에 닉네임 추가하기
+		for (int i = 0; i < nbReply.size(); i++) {
+			String mNickName = rService.getMemberNickName(nbReply.get(i).getMemberId());
+			nbReply.get(i).setmNickName(mNickName);
+			
+		}
+		
+		// 가져온 리플목록 반환하기
+		if (!nbReply.isEmpty()) {
+			
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			
+			return gson.toJson(nbReply);
+			
+		}
+		
+		return null;
+		
 	}
 
 	/** 피넛 오리지널 리플 내용 가져오기 */
@@ -210,18 +280,28 @@ public class BookReplyController {
 
 		Member member = (Member) session.getAttribute("loginMember");
 
-		star.setMemberId(member.getMemberId()); //사용자 아이디를 star클래스에 넣기
+		star.setMemberId(member.getMemberId()); // 사용자 아이디를 star클래스에 넣기
 
-		int result = rService.getStarScoreOrigin(star); //사용자가 준 별점을 테이블에 추가
-		OriginBook oBook = rService.showOnebook(star.getBookNo()); //도서정보 가지고 옴
-		int score = 0;
-		if (oBook.getScore() != 0 || oBook.getScoreCount() != 0) {
-			score = oBook.getScore() / oBook.getScoreCount(); //도서 정보안에 score를 평균내서 계산한다
-		}
-		oBook.setScore(score);
 		Gson gson = new Gson();
+		int score = 0; // 기본 별점은 0
+		int result = rService.getStarScoreOrigin(star); // 사용자가 준 별점을 테이블에 추가
+		if (star.getCategory().equals("origin")) {// 피넛 오리지널 일때
+			OriginBook oBook = rService.showOnebook(star.getBookNo()); // 도서정보 가지고 옴
+			if (oBook.getScore() != 0 || oBook.getScoreCount() != 0) {
+				score = oBook.getScore() / oBook.getScoreCount(); // 도서 정보안에 score를 평균내서 계산한다
+			}
+			oBook.setScore(score);
+			return gson.toJson(oBook);
+		} else if (star.getCategory().equals("normal")) {// 일반도서일때
+			NormalBook nBook = rService.showOneNorBook(star.getBookNo()); // 일반도서 가져오기
+			if (nBook.getScore() != 0 || nBook.getScoreCount() != 0) {
+				score = nBook.getScore() / nBook.getScoreCount(); // 도서 정보안에 score를 평균내서 계산한다
+			}
+			nBook.setScore(score);
+			return gson.toJson(nBook);
+		}
 
-		return gson.toJson(oBook);
+		return "";
 	}
 
 	/**
@@ -239,18 +319,27 @@ public class BookReplyController {
 
 		star.setMemberId(member.getMemberId());
 
-		int result = rService.removeScore(star);
-
-		OriginBook oBook = rService.showOnebook(star.getBookNo());
-		
-		int score = 0;
-		if (oBook.getScore() != 0 || oBook.getScoreCount() != 0) {
-			score = oBook.getScore() / oBook.getScoreCount();
-		}
-		oBook.setScore(score);
-		
+		int result = rService.removeScore(star); //별점지우기
 		Gson gson = new Gson();
+		int score = 0;
 
-		return gson.toJson(oBook);
+		if (star.getCategory().equals("origin")) {
+			OriginBook oBook = rService.showOnebook(star.getBookNo());
+
+			if (oBook.getScore() != 0 || oBook.getScoreCount() != 0) {
+				score = oBook.getScore() / oBook.getScoreCount();
+			}
+			oBook.setScore(score);
+			return gson.toJson(oBook);
+		}else if(star.getCategory().equals("normal")) {
+			NormalBook nBook = rService.showOneNorBook(star.getBookNo()); // 일반도서 가져오기
+			if (nBook.getScore() != 0 || nBook.getScoreCount() != 0) {
+				score = nBook.getScore() / nBook.getScoreCount(); // 도서 정보안에 score를 평균내서 계산한다
+			}
+			nBook.setScore(score);
+			return gson.toJson(nBook);
+		}
+
+		return "";
 	}
 }

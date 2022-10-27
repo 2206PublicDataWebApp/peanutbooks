@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.books.peanut.book.domain.HashTag;
+import com.books.peanut.book.domain.NormalBook;
+import com.books.peanut.book.domain.NormalBookSeries;
 import com.books.peanut.book.domain.OriginBook;
 import com.books.peanut.book.domain.OriginBookSeries;
 import com.books.peanut.book.domain.Star;
@@ -201,6 +203,72 @@ public class BookServiceImpl implements BookService{
 	public int buyOneSeries(int seriesNo, int bookNo, String memberId, String bookTitle) {
 		int result = bStore.updatebuyOneSeries(session,seriesNo,bookNo,memberId, bookTitle);
 		return result;
+	}
+
+	/**피넛오리지널 시리즈 수정*/
+	@Override
+	public int modifyOriSeries(OriginBookSeries obSeries) {
+		int result = bStore.updateOriSeries(session,obSeries);
+		return result;
+	}
+
+	/**모든 일반도서 시리즈의 갯수 파악*/
+	@Override
+	public int allNorSeriesCount() {
+		int result = bStore.countAllnorBook(session);
+		return result;
+	}
+
+	/**모든 일반도서 시리즈 가져오기*/
+	@Override
+	public List<NormalBookSeries> allAdminBooks() {
+		List<NormalBookSeries> nsList = bStore.selectAllNorSeries(session);
+		return nsList;
+	}
+
+	
+	/**일반도서 제목 가져오기*/
+	@Override
+	public String getNorBookTitle(String bookNo) {
+		String ntitle = bStore.selectNorbookTitle(session, bookNo); 
+		return ntitle;
+	}
+
+	/**일반도서 등록하기*/
+	@Override
+	public int registenorBook(NormalBook nBook) {
+		int result = bStore.insertNorBook(session, nBook);
+		return result;
+	}
+
+	
+	/**일반도서 시리즈 등록하기*/
+	@Override
+	public int registNoriSeries(NormalBookSeries nSeries) {
+		int result = bStore.insertNSeriesBook(session, nSeries);
+		return result;
+	}
+
+	/**해시태그 등록하기*/
+	@Override
+	public int registeNorTag(HashTag hTag) {
+		int result = bStore.insertNBTag(session, hTag);
+		return result;
+	}
+
+	
+	/**일반도서 열람하기*/
+	@Override
+	public NormalBook showOneNorbook(String bookNo) {
+		NormalBook nBook = bStore.selectOneNorBook(session, bookNo);
+		return nBook;
+	}
+
+	/**일반도서 시리즈의 정보 가져오기*/
+	@Override
+	public List<NormalBookSeries> getNorSeriesTitle(String bookNo) {
+		List<NormalBookSeries> nList = bStore.selectOneNorSeriesTitle(session, bookNo);
+		return nList;
 	}
 	
 	

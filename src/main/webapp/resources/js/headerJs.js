@@ -45,6 +45,7 @@ function getPeanutPoint() {
 			var resp = this.response;
 		    document.querySelector('#now-point').innerHTML= resp+"땅콩";
 	  	} else {
+
 		    var e = this.response;
 		    alert("error :"+e);
 		}

@@ -6,6 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.books.peanut.book.domain.NormalBook;
+import com.books.peanut.book.domain.NormalBookReply;
 import com.books.peanut.book.domain.OriginBook;
 import com.books.peanut.book.domain.OriginBookReply;
 import com.books.peanut.book.domain.Star;
@@ -100,6 +102,36 @@ public class ReplyServiceLogic implements ReplyService {
 		OriginBook oBook = rStore.selectOneBook(session, bookNo);
 		return oBook;
 	}
+
+	/**일반 도서 한권 가져오기*/
+	@Override
+	public NormalBook showOneNorBook(String bookNo) {
+		NormalBook nBook = rStore.selectOneNorBook(session, bookNo);
+		return nBook;
+	}
+
+	/**일반도서 리플갯수 가져오기*/
+	@Override
+	public int getTotalNorReplyCount(String bookNo) {
+		int result = rStore.selectAllCountNorReply(session, bookNo);
+		return result;
+	}
+
+	/**일반도서 리플목록가져오기*/
+	@Override
+	public List<NormalBookReply> norBookReply(String bookNo, int currentPage, int boardLimit) {
+		List<NormalBookReply> nrList = rStore.selectAllNorReply(session, bookNo, currentPage, boardLimit);
+		return nrList;
+	}
+
+	/**일반도서 리플 등록하기*/
+	@Override
+	public int registNorOneReply(NormalBookReply nbReply) {
+		int result = rStore.insertNorReply(session,nbReply);
+		return result;
+	}
+	
+
 
 	
 }

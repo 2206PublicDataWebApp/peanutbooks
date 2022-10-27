@@ -99,7 +99,7 @@
 
 <c:if test="${msg !=null }">
 	<script>	
-		alert('수정성공');
+		alert('프로필등록완료');
 	</script>
 </c:if>
 

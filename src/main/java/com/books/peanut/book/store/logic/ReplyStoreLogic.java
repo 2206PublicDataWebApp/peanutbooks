@@ -6,6 +6,8 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.books.peanut.book.domain.NormalBook;
+import com.books.peanut.book.domain.NormalBookReply;
 import com.books.peanut.book.domain.OriginBook;
 import com.books.peanut.book.domain.OriginBookReply;
 import com.books.peanut.book.domain.Star;
@@ -80,6 +82,8 @@ public class ReplyStoreLogic implements ReplyStore{
 		
 		if(star.getCategory().equals("origin")) {
 			result += session.update("bookReplyMapper.updateOriBook",star);
+		}else if(star.getCategory().equals("normal")) {
+			result += session.update("bookReplyMapper.updateNorBook",star);
 		}
 		return result;
 	}
@@ -93,6 +97,8 @@ public class ReplyStoreLogic implements ReplyStore{
 		
 		if(star.getCategory().equals("origin")) {
 			result += session.update("bookReplyMapper.UpdateOriBookScoreMinus",star);
+		}else if(star.getCategory().equals("normal")) {
+			result += session.update("bookReplyMapper.UpdateNorBookScoreMinus",star);
 		}
 		
 		return result;
@@ -104,6 +110,39 @@ public class ReplyStoreLogic implements ReplyStore{
 	public OriginBook selectOneBook(SqlSessionTemplate session, String bookNo) {
 		OriginBook oBook = session.selectOne("wirterMapper.selectOneBook",bookNo);
 		return oBook;
+	}
+
+	/**일반도서 가져오기*/
+	@Override
+	public NormalBook selectOneNorBook(SqlSessionTemplate session, String bookNo) {
+		NormalBook nBook = session.selectOne("adminWirteMapper.selectOneNorBook",bookNo);
+		return nBook;
+	}
+
+	
+	/**일반도서 리플갯수 가져오기*/
+	@Override
+	public int selectAllCountNorReply(SqlSessionTemplate session, String bookNo) {
+		int rseult = session.selectOne("bookReplyMapper.countNorReply",bookNo);
+		return rseult;
+	}
+
+	/**일반도서 리플목록 가져오기*/
+	@Override
+	public List<NormalBookReply> selectAllNorReply(SqlSessionTemplate session, String bookNo, int currentPage,
+			int boardLimit) {
+		int offset = (currentPage-1)*boardLimit;
+		RowBounds rowBounds= new RowBounds(offset,boardLimit);
+		List<NormalBookReply>  nrList = session.selectList("bookReplyMapper.selectAllnorReply", bookNo,rowBounds);
+		return nrList;
+
+	}
+
+	/**일반도서 리플 등록하기*/
+	@Override
+	public int insertNorReply(SqlSessionTemplate session, NormalBookReply nbReply) {
+		int result = session.insert("bookReplyMapper.insertNorBookReply",nbReply);
+		return result;
 	}
 
 }
