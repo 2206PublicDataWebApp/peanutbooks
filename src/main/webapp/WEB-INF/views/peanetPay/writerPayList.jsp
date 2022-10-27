@@ -70,7 +70,7 @@
 							  "<td>"+result[i].bankName+"</td>"+
 							  "<td>"+result[i].bankNo+"</td>";
 						if(result[i].bankStatus=='N'){
-							a+='<td id="wrStratus'+i+'"><input type="button" onclick="putWRpay('+result[i].wrpayNo+');" value="승인"></td>';
+							a+='<td id="wrStratus'+i+'"><input class="okbtn" type="button" onclick="putWRpay('+result[i].wrpayNo+');" value="승인"></td>';
 						}else{
 							  a+='<td id="wrStratus'+i+'">'+승인완료+'</td></tr>';					
 						};							  
