@@ -36,6 +36,10 @@
  insert into origin_book values(oribookseq.nextval,#{bookTitle},#{bookInfo},#{category},default,#{cover},#{coverRename},default,0,0,#{memberId},default,0)
 </insert>
 
+<update id="updateOriRemove">
+	update origin_book set STATUS = 'N' where ORI_BOOK_NO = #{bookNo}
+</update>
+
 <resultMap type="OriginBook" id="oriBookResultMap">
 <id property="bookNo"  column="ORI_BOOK_NO"/>
 <result property="bookTitle" column="BOOK_TITLE"/>
@@ -104,6 +108,10 @@ select count(BOOK_TITLE) from origin_book where MEMBER_ID = #{memberId} and ORI_
 	insert into book_permission values(seq_permission.nextval,#{bookNo},null,null,null,'Y',#{seriesNo})
 </insert>
 
+<update id="updateOriSeriesRemove">
+	update ori_series set status = 'N' where SERIES_NO = ${seriesNo} and ORI_BOOK_NO = #{bookNo}
+</update>
+
 <resultMap type="OriginBookSeries" id="oriSeriesResultMap">
 <id property="seriesNo" column="SERIES_NO"/>
 <result property="bookNo" column="ORI_BOOK_NO"/>
@@ -134,7 +142,7 @@ select count(BOOK_TITLE) from origin_book where MEMBER_ID = #{memberId} and ORI_
 
 <!-- 도서 한권의 시리즈 제목 전부 가져오기 -->
 <select id="selecSeriesTitle" resultMap="oriSeriesResultMap">
-	select title,status,CHECK_PERMISSION from ori_series where ORI_BOOK_NO = #{bookNo}
+	select title,status,CHECK_PERMISSION,SERIES_NO from ori_series where ORI_BOOK_NO = #{bookNo}
 </select>
 
 <!-- 도서 하나에 해당하는 모든 피넛 오리지널 시리즈 가져오기 -->
@@ -150,6 +158,14 @@ select count(BOOK_TITLE) from origin_book where MEMBER_ID = #{memberId} and ORI_
 <select id="selectOneObSeries" resultMap="oriSeriesResultMap">
 	select * from ori_series where ORI_BOOK_NO = #{bookNo} and SERIES_NO = #{seriesNo}
 </select>
+
+<select id="selectOneOriBookSeriesNo" resultMap="oriSeriesResultMap">
+	select SERIES_NO from ori_series where ORI_BOOK_NO = #{bookNo} and status like 'Y%' and CHECK_PERMISSION like 'Y%'
+</select>
+<select id="selectOneOriBookAllSeriesNo" resultMap="oriSeriesResultMap">
+	select SERIES_NO from ori_series where ORI_BOOK_NO = #{bookNo}
+</select>
+
 
 
 

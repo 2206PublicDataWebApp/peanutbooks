@@ -40,7 +40,7 @@
 
 
 <mappers>
-	<mapper resource="/mappers/originbook-mapper.xml"/>
+	<mapper resource="/mappers/normalbook-mapper.xml"/>
 	<mapper resource="/mappers/writer-mapper.xml"/>
 	<mapper resource="/mappers/bookReply-mapper.xml"/>
 	<mapper resource="/mappers/bookAdmin-mapper.xml"/>

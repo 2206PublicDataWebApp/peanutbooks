@@ -38,6 +38,7 @@
 					</div>
 					<div class="info-area col-md-6">
 						<div id="title">${oBook.bookTitle }</div>
+						<c:if test="${oBook.status == 'N '}">이 책은 관리자에 의해 삭제되었습니다.</c:if>
 						<div id="wirter-text">작가 : ${oBook.memberNickName }</div>
 
 
@@ -80,12 +81,12 @@
 						
 						<!-- 작가일때만 보이는 버튼 -->
 						<c:if test="${loginMember.memberId == oBook.memberId}">
-							<button onclick="registOriNext(${oBook.bookNo},${fn:length(osList)+1});">다음편 쓰기</button>
+							<button onclick="registOriNext(${oBook.bookNo},${nextSeriesNo});">다음편 쓰기</button>
 						</c:if>
 						
 						<!-- 관리자일때만 보이는 버튼 -->
-						<c:if test="${loginMember.adminYN == 'Y' }">
-							<button>삭제하기</button>
+						<c:if test="${loginMember.adminYN == 'Y' }" >
+							<button  onclick="removeOriginBook(${oBook.bookNo});">삭제하기</button>
 						</c:if>
 							
 						</div>
@@ -126,7 +127,7 @@
 										</c:if>
 										<!--  관리자 일때만 삭제 버튼 보임 -->
 										<c:if test="${loginMember.adminYN == 'Y'}">
-											<button>삭제</button>
+											<button onclick="removeORiSeries(${oBook.bookNo},${i.index +1 })">삭제</button>
 										</c:if>
 										
 									</li>

@@ -72,7 +72,7 @@
 
 							<!-- 각 시리즈 삽화 출력 -->
 							<div id="img"
-								onclick="location.href='/book/oriBookInfo?bookNo=${oSeries.bookNo }'">
+								onclick="window.open('/book/OridetailSeries.do?bookNo=${oSeries.bookNo }&seriesNo=${oSeries.seriesNo }')">
 
 								<img src="/resources/bookImg/${oSeries.subPicRename }" alt="">
 							</div>
@@ -81,7 +81,7 @@
 							<div id="book-title" class="text-truncate"
 								onclick="location.href='/book/oriBookInfo?bookNo=${oSeries.bookNo }'">${oSeries.bookTitle }</div>
 							<div id="book-info" class="text-truncate"
-								onclick="location.href='/book/oriBookInfo?bookNo=${oSeries.bookNo }'">${oSeries.seriesNo }화
+								onclick="window.open('/book/OridetailSeries.do?bookNo=${oSeries.bookNo }&seriesNo=${oSeries.seriesNo }')"">${oSeries.seriesNo }화
 								${oSeries.title }</div>
 
 

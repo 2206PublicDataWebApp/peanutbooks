@@ -301,6 +301,112 @@ public class BookStoreLogic implements BookStore{
 		List<NormalBookSeries> nsList = session.selectList("adminWirteMapper.selectOneNorSeriesTitle",bookNo);
 		return nsList;
 	}
+	
+	/**일반도서 작가의 모든 도서 제목 가져오기*/
+	@Override
+	public List<NormalBook> selectNorWriterbTitle(SqlSessionTemplate session, String writer) {
+		List<NormalBook> nbList = session.selectList("adminWirteMapper.selectAllNorWriterTitle",writer);
+		return nbList;
+	}
+	
+	/**일반도서 한권에 모든 시리즈 가져오기*/
+	@Override
+	public List<NormalBookSeries> selectAllNorBookSeries(SqlSessionTemplate session, String bookNo) {
+		List<NormalBookSeries> nsList = session.selectList("adminWirteMapper.selectAllNorBookSeries",bookNo);
+		return nsList;
+	}
+	
+	/**일반도서 시리즈 1개 가져오기*/
+	@Override
+	public NormalBookSeries selectOneNorSeries(SqlSessionTemplate session, int bookNo, int seriesNo) {
+		NormalBookSeries nSeriesOne = new NormalBookSeries();
+		nSeriesOne.setBookNo(bookNo+"");
+		nSeriesOne.setSeriesNo(seriesNo);
+		
+		NormalBookSeries nSeries = session.selectOne("adminWirteMapper.selectOneNorSeries",nSeriesOne);
+		return nSeries;
+	}
+	
+	/**일반도서 다음화 등록*/
+	@Override
+	public int insertNorSeriesNext(SqlSessionTemplate session, NormalBookSeries nSeries) {
+		int result = session.insert("adminWirteMapper.insertNextNorSeries",nSeries);
+		return result;
+	}
+	
+	/**도서의 언어여부 확인하기*/
+	@Override
+	public String selectBookLanguage(SqlSessionTemplate session, String bookNo) {
+		String lang = session.selectOne("adminWirteMapper.selectBookLanguage",bookNo);
+		return lang;
+	}
+	
+	/**
+	 * 일반도서 시리즈 수정
+	 */
+	@Override
+	public int updateNorBookSeries(SqlSessionTemplate session, NormalBookSeries nbSeries) {
+		int result = session.update("adminWirteMapper.updateNorbookSeries",nbSeries);
+		return result;
+	}
+	
+	/**일반도서 한개의 모든 시리즈 번호 가지고 오기*/
+	@Override
+	public List<NormalBookSeries> selectOneNorBookSeriesNo(SqlSessionTemplate session, int bookNo) {
+		List<NormalBookSeries> nsList = session.selectList("adminWirteMapper.selectOneNorBookSeriesNo",bookNo);
+		return nsList;
+	}
+	
+	/**피넛 오리지널 시리즈 1개 삭제*/
+	@Override
+	public int updateOriSeriesRemove(SqlSessionTemplate session, String bookNo, Integer seriesNo) {
+		
+		OriginBookSeries oSeries = new OriginBookSeries();
+		oSeries.setBookNo(bookNo);
+		oSeries.setSeriesNo(seriesNo);
+		
+		int result = session.update("wirterMapper.updateOriSeriesRemove",oSeries);
+		return result;
+	}
+	
+	/**피넛 오리지널 도서 삭제*/
+	@Override
+	public int updateOriRemove(SqlSessionTemplate session, String bookNo) {
+		int result = session.update("wirterMapper.updateOriRemove",bookNo);
+		return result;
+	}
+	
+	/**일반도서 시리즈 하나 삭제*/
+	@Override
+	public int deleteNorBookSeries(SqlSessionTemplate session, String bookNo, Integer seriesNo) {
+		NormalBookSeries nSeries = new NormalBookSeries();
+		nSeries.setBookNo(bookNo);
+		nSeries.setSeriesNo(seriesNo);
+		int result = session.delete("adminWirteMapper.deleteOneNorSeries",nSeries);
+		return result;
+	}
+	
+	/**일반도서 하나 삭제*/
+	@Override
+	public int updateNorRemove(SqlSessionTemplate session, int bookNo) {
+		int result = session.update("adminWirteMapper.updateNorRemove",bookNo);
+		return result;
+	}
+	
+	/**피넛 오리지널 한편에 모든 삭제되지 않고 허가된 시리즈 번호 가져오기*/
+	@Override
+	public List<OriginBookSeries> selectOneOriBookSeriesNo(SqlSessionTemplate session, int bookNo) {
+		List<OriginBookSeries> osList = session.selectList("wirterMapper.selectOneOriBookSeriesNo",bookNo);
+		return osList;
+	}
+	
+	/**피넛 오리지널 한편에 모든 시리즈 번호 가져오기*/
+
+	@Override
+	public List<OriginBookSeries> selectOneOriBookAllSeriesNo(SqlSessionTemplate session, int bookNo) {
+		List<OriginBookSeries> osList = session.selectList("wirterMapper.selectOneOriBookAllSeriesNo",bookNo);
+		return osList;
+	}
 
 	
 

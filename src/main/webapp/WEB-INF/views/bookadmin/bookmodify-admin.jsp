@@ -23,16 +23,17 @@
 
 </head>
 
-<body>
+<body onload="contentsInSumNote();">
 	<jsp:include page="../header/header.jsp" />
     <main>
+    <form action="/book/norbookModify.do" method="post" enctype="multipart/form-data">
         <section class="container">
             <article>
-                <h1>도서 수정</h1>
+                <h1>도서수정</h1>
                 <div id="title-area">
                     <div class="title-text">
 
-                        <input type="text" id="title-text" placeholder="제목을 입력하세요">
+                        <input type="text" id="title-text" value=${nBook.bookTitle } required="required">
                     </div>
 
 
@@ -45,7 +46,7 @@
 
                     <div class="align-items-center">
                         <div class="align-items-center">
-                            <img class="headerimg" src="/resources/img/main/christmas-g4fdade62f_1280.jpg">
+                            <img class="headerimg" src="/resources/bookImg/${nBook.coverRename }">
 
 
                         </div>
@@ -55,19 +56,11 @@
                 </div>
                 <div class="col-md-6">
                     <div class="category">
-                        카테고리 : 소설 | 언어 : 한국어
+                        카테고리 : ${nBook.category } | 언어 : ${nBook.language }
                     </div>
                     <h5>작품소개</h5>
-                    <div id="info-text1"> 작품소개 작품소개 작품소개
-                        작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개
-                        작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개
-                        작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개
-                        작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개
-                        작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개
-                        작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개
-                        작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개
-                        작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개
-                        작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개작품소개 작품소개 작품소개
+                    <div id="info-text1"> 
+                    ${nBook.bookInfo }
                     </div>
 
                     <div id="tag-area">
@@ -82,10 +75,10 @@
             <article id="first-contents">
                 <h2>수정</h2>
                 <span>
-                   
+
                 </span>
                 <div id="contents-text">
-                    <input type="text" placeholder="제목을 입력해주세요" class="text-input">
+                    <input type="text" name="title" class="text-input" value=${nSeries.title }>
 
 
                 </div>
@@ -93,10 +86,10 @@
                 <div id="contents-pic-area">
                     <div class="align-items-center">
                         <div class="align-items-center">
-                            <img class="contentsimg">
+                            <img class="contentsimg" src="/resources/bookImg/${nSeries.subpicRename }">
                             <label class="input-file-button float-md-start">
                                 <img src="/resources/img/book/icons8-camera-96.png" alt="" id="camera2">
-                                <input type="file" name="recipePicture" class="isFile" style="display: none"
+                                <input type="file" name="subPicture" class="isFile" style="display: none"
                                     accept="image/jpeg, image/png, image/jpg" onchange="imgView(this);">
                             </label>
 
@@ -108,20 +101,27 @@
                 <div class="contents-textarea">
 
                     <div id="summernote"></div>
-                    <textarea rows="" cols="" style="display:none" name="Contents" required="required"></textarea>
+                    <textarea rows="" cols="" style="display:none" name="contents" required="required">
+                    ${nSeries.contents }
+                    </textarea>
                 </div>
                 <div class="contents-button row">
 
-                    <button class="col-6"> 수정 </button> <button class="col-6"> 취소</button>
+                    <button class="col-6"> 등록</button> 
+                    <button class="col-6" type="button" onclick="location.href='/book/norBookInfo?bookNo=${nSeries.bookNo}'"> 취소</button>
                 </div>
 
 
             </article>
         </section>
-
+        <input type="hidden" name="subPic" value="${nSeries.subPic }">
+        <input type="hidden" name="subpicRename" value="${nSeries.subpicRename }">
+        <input type="hidden" name="seriesNo" value="${nSeries.seriesNo }">
+        <input type="hidden" name="bookNo" value="${nSeries.bookNo }">
+	</form>
     </main>
 	<jsp:include page="../footer/footer.jsp" />
 </body>
-<script src="/resources/js/book/bookregist.js"></script>
+<script src="/resources/js/book/bookregist-modify-admin.js"></script>
 
 </html>

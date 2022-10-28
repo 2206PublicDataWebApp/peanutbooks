@@ -136,4 +136,42 @@ public interface BookStore {
 	/**일반도서 시리즈의 특정정보 가져오기*/
 	List<NormalBookSeries> selectOneNorSeriesTitle(SqlSessionTemplate session, String bookNo);
 
+	/**일반도서 작가의 모든 작성 도서 가져오기*/
+	List<NormalBook> selectNorWriterbTitle(SqlSessionTemplate session, String writer);
+
+	/**일반도서 한권의 모든 시리즈 가져오기*/
+	List<NormalBookSeries> selectAllNorBookSeries(SqlSessionTemplate session, String bookNo);
+
+	/**일반도서 시리즈 1개 가져오기*/
+	NormalBookSeries selectOneNorSeries(SqlSessionTemplate session, int bookNo, int seriesNo);
+
+	/**일반도서 다음화 등록*/
+	int insertNorSeriesNext(SqlSessionTemplate session, NormalBookSeries nSeries);
+
+	/**도서의 언어여부 확인하기*/
+	String selectBookLanguage(SqlSessionTemplate session, String string);
+
+	/**일반도서 시리즈 수정*/
+	int updateNorBookSeries(SqlSessionTemplate session, NormalBookSeries nbSeries);
+
+	/**일반도서 한개의 모든 시리즈 번호 가지고 오기*/
+	List<NormalBookSeries> selectOneNorBookSeriesNo(SqlSessionTemplate session, int bookNo);
+
+	/**오리지널 시리즈 한편 삭제*/
+	int updateOriSeriesRemove(SqlSessionTemplate session, String bookNo, Integer seriesNo);
+	/**피넛 오리지널 도서 삭제*/
+	int updateOriRemove(SqlSessionTemplate session, String bookNo);
+
+	/**일반 도서 시리즈 하나 삭제*/
+	int deleteNorBookSeries(SqlSessionTemplate session, String bookNo, Integer seriesNo);
+
+	/**일반 도서 삭제*/
+	int updateNorRemove(SqlSessionTemplate session, int bookNo);
+
+	/**피넛 오리지널 한편에 모든 삭제되지 않고 허가된 시리즈 번호 가져오기*/
+	List<OriginBookSeries> selectOneOriBookSeriesNo(SqlSessionTemplate session, int bookNo);
+	
+	/**피넛 오리지널 한편에 모든 시리즈 번호 가져오기*/
+	List<OriginBookSeries> selectOneOriBookAllSeriesNo(SqlSessionTemplate session, int bookNo);
+
 }

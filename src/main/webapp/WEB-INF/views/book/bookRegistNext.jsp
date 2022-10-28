@@ -87,7 +87,7 @@
 					</label>
 					</span>
 					<div id="contents-text">
-						<input type="text" placeholder="제목을 입력해주세요" class="text-input" name="title">
+						<input type="text" placeholder="제목을 입력해주세요" class="text-input" name="title" required="required">
 
 
 					</div>
@@ -117,7 +117,7 @@
 					<div class="contents-button row">
 
 						<button class="col-6">등록신청</button>
-						<button class="col-6" type="button" onclick="history.go(-1);">취소</button>
+						<button class="col-6" type="button" onclick="location.href='/book/oriBookInfo?bookNo=${oBook.bookNo}';">취소</button>
 					</div>
 
 

@@ -270,6 +270,100 @@ public class BookServiceImpl implements BookService{
 		List<NormalBookSeries> nList = bStore.selectOneNorSeriesTitle(session, bookNo);
 		return nList;
 	}
+
+	/**일반도서 작가의 모든 책 제목*/
+	@Override
+	public List<NormalBook> allNorWirterbookTitle(String writer) {
+		List<NormalBook> nbList = bStore.selectNorWriterbTitle(session,writer);
+		return nbList;
+	}
+
+	/**일반도서 한권의 모든 시리즈 가져오기*/
+	@Override
+	public List<NormalBookSeries> allNorBookSeries(String bookNo) {
+		List<NormalBookSeries> nsList = bStore.selectAllNorBookSeries(session, bookNo);
+		return nsList;
+	}
+
+	/**일반도서 시리즈 한개 가져오기*/
+	@Override
+	public NormalBookSeries getOneNorBookSeries(int bookNo, int seriesNo) {
+		NormalBookSeries nSeries = bStore.selectOneNorSeries(session, bookNo, seriesNo);
+		return nSeries;
+	}
+
+	/**일반도서 시리즈 다음화 등록*/
+	@Override
+	public int registNorSeriesNext(NormalBookSeries nSeries) {
+		int result = bStore.insertNorSeriesNext(session, nSeries);
+		return result;
+	}
+
+	/**도서의 언어여부 확인하기*/
+	@Override
+	public String getlanguege(String string) {
+		String lang = bStore.selectBookLanguage(session,string);
+		return lang;
+	}
+
+	/**일반도서 시리즈 수정하기*/
+	@Override
+	public int modifyNorSeries(NormalBookSeries nbSeries) {
+		int result = bStore.updateNorBookSeries(session,nbSeries);
+		return result;
+	}
+
+	/**단 도서의 모든 시리즈 번호 가지고 오기*/
+	@Override
+	public List<NormalBookSeries> getNorSeriesNo(int bookNo) {
+		 List<NormalBookSeries> nsList = bStore.selectOneNorBookSeriesNo(session,bookNo);
+		return nsList;
+	}
+
+	/**피넛 오리지널 시리즈 한개 삭제*/
+	@Override
+	public int removeOriBookSeries(String bookNo, Integer seriesNo) {
+		int result = bStore.updateOriSeriesRemove(session,bookNo,seriesNo);
+		return result;
+	}
+
+	/**피넛 오리지널 도서 삭제*/
+	@Override
+	public int removeOriBook(String bookNo) {
+		int result = bStore.updateOriRemove(session,bookNo);
+		return result;
+	}
+
+	/**일반도서 시리즈 하나 삭제*/
+	@Override
+	public int removeNorBookSeries(String bookNo, Integer seriesNo) {
+		int result = bStore.deleteNorBookSeries(session,bookNo,seriesNo);
+		return result;
+	}
+	
+	/**일반도서 삭제*/
+	@Override
+	public int removeNorBook(int bookNo) {
+		int result = bStore.updateNorRemove(session,bookNo);
+		return result;
+	}
+
+	/**피넛 오리지널 한편에 모든 허가되고 삭제되지 않은 시리즈 번호 가져오기*/
+	@Override
+	public List<OriginBookSeries> getOriSeriesNo(int bookNo) {
+		List<OriginBookSeries> osList = bStore.selectOneOriBookSeriesNo(session,bookNo);
+		return osList;
+	}
+
+	/**피넛 오리지널 한편에 모든 시리즈 번호 가져오기*/
+	@Override
+	public List<OriginBookSeries> getOneOriSeriesAllNo(int bookNo) {
+		List<OriginBookSeries> osList = bStore.selectOneOriBookAllSeriesNo(session,bookNo);
+		return osList;
+	}
+
+
+	
 	
 	
 

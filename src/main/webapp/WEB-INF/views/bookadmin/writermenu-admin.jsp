@@ -67,7 +67,7 @@
 
 							<!-- 각 시리즈 삽화 출력 -->
 							<div id="img"
-								onclick="location.href='/book/norBookInfo?bookNo=${nSeries.bookNo }'">
+								onclick="window.open('/book/NordetailSeries.do?bookNo=${nSeries.bookNo }&seriesNo=${nSeries.seriesNo }')">
 
 								<img src="/resources/bookImg/${nSeries.subpicRename }" alt="">
 							</div>
@@ -76,7 +76,7 @@
 							<div id="book-title" class="text-truncate"
 								onclick="location.href='/book/norBookInfo?bookNo=${nSeries.bookNo }'">${nSeries.bookTitle }</div>
 							<div id="book-info" class="text-truncate"
-								onclick="location.href='/book/norBookInfo?bookNo=${nSeries.bookNo }'">${nSeries.seriesNo }화
+								onclick="window.open('/book/NordetailSeries.do?bookNo=${nSeries.bookNo }&seriesNo=${nSeries.seriesNo }')">${nSeries.seriesNo }화
 								${nSeries.title }</div>
 
 

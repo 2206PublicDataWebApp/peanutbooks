@@ -11,10 +11,16 @@
   	insert into normal_book values(seq_norBook_No.nextval,#{bookTitle},#{writer},#{bookInfo},#{category},default,#{cover},#{coverRename},'Y',0,0,#{language},#{adminId},#{writerInfo},0)
   	</insert>
   	
+  	<!-- 일반도서 삭제 -->
+  	<update id="updateNorRemove">
+  		update normal_book set STATUS = 'N' where NOR_BOOK_NO = #{bookNo}
+  	</update>
+  	
+  	
   	<resultMap type="NormalBook" id="nBookResultMap">
   		<id property="bookNo" column="NOR_BOOK_NO"/>
 	  	<result property="bookTitle" column="BOOK_TITLE"/>
-	  	<result property="writer" column="WIERTER"/>
+	  	<result property="writer" column="WRITER"/>
 	  	<result property="bookInfo" column="BOOK_INFO"/>
 	  	<result property="category" column="CATEGORY"/>
 	  	<result property="inserDate" column="INSERT_DATE"/>
@@ -40,6 +46,22 @@
   	  select * from  normal_book where NOR_BOOK_NO = #{bookNo}
   	</select>
   	
+  	<!-- 작가한명의 모든 책 제목 가져오기 -->
+  	<select id="selectAllNorWriterTitle" resultMap="nBookResultMap">
+  		select BOOK_TITLE from normal_book where WRITER = #{writer}
+  	
+  	</select>
+  	
+  	<!-- 도서의 언어여부 확인하기 -->
+  	<select id="selectBookLanguage" resultType="string">
+  		select LANGUAGE from normal_book where NOR_BOOK_NO = #{bookNo}
+  	</select>
+  	
+  	
+  	
+  	
+  	
+  	
   	
   	<!-- 일반도서 시리즈 -->
   	<!-- 일반도서 1화 등록하기 -->
@@ -47,7 +69,20 @@
   insert into nor_series values(#{seriesNo},seq_norBook_No.currval,#{subPic},#{subpicRename},#{title},#{contents},default,null)
   
   </insert>
-  	
+  <!-- 일반도서 다음화 등록하기 -->
+  <insert id="insertNextNorSeries">
+  insert into nor_series values(#{seriesNo},#{bookNo},#{subPic},#{subpicRename},#{title},#{contents},default,null)
+  </insert>	
+  
+  <!-- 일반도서 시리즈 수정하기 -->
+  <update id="updateNorbookSeries">
+  update nor_series set SUB_PIC= #{subPic}, SUB_PIC_RE= #{subpicRename}, TITLE=#{title}, CONTETNS=#{contents}, UPDATE_DATE = default where SERIES_NO =#{seriesNo} and NOR_BOOK_NO=#{bookNo}
+  </update>
+  
+  <!-- 일반도서 시리즈 한개 수정하기 -->
+  <delete id="deleteOneNorSeries">
+  delete from nor_series where NOR_BOOK_NO = #{bookNo} and SERIES_NO = #{seriesNo}
+  </delete>
   	
   	<resultMap type="NormalBookSeries" id="nbSeriesResultMap">
   	<id property="seriesNo" column="SERIES_NO"/>
@@ -64,20 +99,34 @@
   	
   	<!-- 모든 일반도서 시리즈 갯수파악 -->
   	<select id="allNorBookCount" resultType="_int">
-  		select count(*) from nor_series
+  		select count(*) from nor_series 
   	</select>
   	
   	<!-- 모든 일반도서 시리즈 가져오기 -->
   	<select id="allNorBook" resultMap="nbSeriesResultMap">
-  		select * from nor_series
+  		select * from nor_series order by INSERT_DATE
   	</select>
   	
   	<!-- 책번호에 해당하는 일반도서 시리즈의 특정정보 가져오기 -->
   	<select id="selectOneNorSeriesTitle" resultMap="nbSeriesResultMap">
-  		select TITLE, ADMINID  from nor_series left join normal_book using(NOR_BOOK_NO) where NOR_BOOK_NO = ${bookNo}
+  		select TITLE, ADMINID,SERIES_NO  from nor_series left join normal_book using(NOR_BOOK_NO) where NOR_BOOK_NO = #{bookNo} order by SERIES_NO
   	</select>
   	
+  	<!-- 일반도서 한권의 모든 시리즈 가져오기 -->
+  	<select id="selectAllNorBookSeries" resultMap="nbSeriesResultMap">
+  		select * from nor_series where NOR_BOOK_NO = #{bookNo} order by SERIES_NO
+  	</select>
   	
+  	<!-- 일반도서 시리즈 1개 가져오기 -->
+	<select id="selectOneNorSeries" resultMap="nbSeriesResultMap">
+		select * from nor_series where NOR_BOOK_NO = #{bookNo} and SERIES_NO = #{seriesNo}
+	</select>  
+	
+	<!-- 일반도서 한개의 모든 시리즈 가지고 오기 -->
+	<select id="selectOneNorBookSeriesNo" resultMap="nbSeriesResultMap">
+		select SERIES_NO from nor_series where NOR_BOOK_NO = #{bookNo} order by SERIES_NO
+	</select>	
+	
   	
   	
   	<!-- 태그 테이블 -->

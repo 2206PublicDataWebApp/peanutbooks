@@ -1,4 +1,17 @@
+//도서삭제
+function removeNorBook(bookNo){
+	if(confirm('이 도서를 삭제 하시겠습니까?')){
+		location.href='/book/removeNorBook.do?bookNo='+bookNo;
+	}
 
+}
+
+//도서시리즈삭제
+function removeOriginBook(bookNo,seriesNo){
+	if(confirm('해당 시리즈를 삭제하시겠습니까?')){
+ location.href='/book/removeNorBookSeries.do?bookNo='+bookNo+'&seriesNo='+seriesNo;
+ }
+}
 
 
 
@@ -309,7 +322,7 @@ function starfirst(){
 
 
 //다음화 등록하기
-function registOriNext(bookNo,seriesNo){
-	location.href="/book/oriBookNextSeires.do?bookNo="+bookNo+"&seriesNo="+seriesNo;
+function registNorNext(bookNo,seriesNo){
+	location.href="/book/norBookNextSeires.do?bookNo="+bookNo+"&seriesNo="+seriesNo;
 }
 

@@ -157,5 +157,5 @@
 	</main>
 	<jsp:include page="../footer/footer.jsp" />
 </body>
-<script src="/resources/js/book/bookregist.js"></script>
+<script src="/resources/js/book/bookregist-one.js"></script>
 </html>
