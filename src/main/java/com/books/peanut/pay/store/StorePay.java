@@ -24,7 +24,7 @@ public interface StorePay {
 	//작가료 정산접수
 	public int writerReceipt(SqlSessionTemplate session, WriterPay writerP);
 
-	public List<WriterPay> wrListPrint(SqlSessionTemplate session);
+	public List<WriterPay> wrListPrint(SqlSessionTemplate session,Pagemarker pm);
 	//peanetpoint table입력
 	public int peanutTableInput(SqlSessionTemplate session,PeanutPoint pp);
 	//seasonticket table입력
@@ -47,5 +47,9 @@ public interface StorePay {
 	public List<OriginBookSeries> findSeriseNo(SqlSessionTemplate session, OriginBookSeries obs);
 	//지급접수후 포인트 차감
 	public int updatePaidCount(SqlSessionTemplate session, WriterPay writerP);
+	//작가 정산리스트 전체갯수 구하기
+	public int getwritetP_Count(SqlSessionTemplate session);
+	//작가 정산접수 관리자 승인처리
+	public int writerPayStatusOne(SqlSessionTemplate session,String wrpayNo);
 
 }

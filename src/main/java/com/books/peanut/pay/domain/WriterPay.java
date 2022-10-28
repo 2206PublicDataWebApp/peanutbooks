@@ -100,7 +100,7 @@ public class WriterPay {
 	}
 
 	public int getWrpayNo() {
-		return changeP;
+		return wrpayNo;
 	}
 	
 	public void setWrpayNo(int wrpayNo) {

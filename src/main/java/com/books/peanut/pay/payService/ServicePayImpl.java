@@ -49,8 +49,8 @@ public class ServicePayImpl implements PayService {
 	}
 
 	@Override
-	public List<WriterPay> wrListPrint() {
-		List<WriterPay> wrList=pStore.wrListPrint(session);
+	public List<WriterPay> wrListPrint(Pagemarker pm) {
+		List<WriterPay> wrList=pStore.wrListPrint(session,pm);
 		return wrList;
 	}
 	//peanetpoint table입력
@@ -83,7 +83,7 @@ public class ServicePayImpl implements PayService {
 		List<PeanutPoint> pList=pStore.peanutList(session, memberId,pm);
 		return pList;
 	}
-	//페이징 전체 갯수
+	//땅콩포인트페이징 전체 갯수
 	@Override
 	public int getTotalCount(String memberId) {
 		int num=pStore.getTotalCount(session,memberId);
@@ -116,6 +116,18 @@ public class ServicePayImpl implements PayService {
 	@Override
 	public int updatePaidCount(WriterPay writerP) {
 		int num = pStore.updatePaidCount(session, writerP);
+		return num;
+	}
+	//작가 정산리스트 전체갯수 구하기
+	@Override
+	public int getwritetP_Count() {
+		int count=pStore.getwritetP_Count(session);
+		return count;
+	}
+	//작가 정산접수 관리자 승인처리
+	@Override
+	public int writerPayStatusOne(String wrpayNo) {
+		int num=pStore.writerPayStatusOne(session, wrpayNo);
 		return num;
 	}
 	

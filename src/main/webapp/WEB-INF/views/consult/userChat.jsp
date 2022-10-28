@@ -17,7 +17,7 @@
 	<div class="header">
 		<div>
 			<P id="nickName">${memberId}</p>
-			<p>의 채팅상담</P>
+			<p>님의 채팅상담</P>
 			<input type="hidden" name="mEmail" value="${mEmail}">
 			<input type="hidden" name="titleNo" id="titleNo" value="${titleNo}"/>			
 		</div>
@@ -60,128 +60,137 @@
 	$('.context').scrollTop=$('.context').scrollHeight;
 	var printer;
 	//상담접수
-		function beforeChat(memberId, mEmail) {
+	function beforeChat(memberId, mEmail) {
 
-			var afterMsg = {
-				cMemberId : memberId,
-				cEmail : mEmail,
-				csTitle : $('#inTitle').val()
-			};
-			//console.log("화면 접수성공: " + afterMsg);
-			$.ajax({
-				url : "/client/afterChat.kh",
-				dataType : 'json',
-				type : 'post',
-				data : afterMsg,
-				success : function(result) {
-					alert("접수성공");
-					//성공시 대기 맨트 예정
-					$('<div>').appendTo('#after').text("접수완료되었습니다.");
-					$('<div>').appendTo('#after').text("잠시만 기다려주시기 바랍니다..");
-					$('<div>').appendTo('#after').text(
-							"다른 상담으로 인해 대시시간이 요소될수 있는 점 양해 부탁드립니다..")
+		var afterMsg = {
+			cMemberId : memberId,
+			cEmail : mEmail,
+			csTitle : $('#inTitle').val()
+		};
+		//console.log("화면 접수성공: " + afterMsg);
+		$.ajax({
+			url : "/client/afterChat.kh",
+			dataType : 'json',
+			type : 'post',
+			data : afterMsg,
+			success : function(result) {
+				alert("접수성공");
+				//성공시 대기 맨트 예정
+				$('<div>').appendTo('#after').text("접수완료되었습니다.");
+				$('<div>').appendTo('#after').text("잠시만 기다려주시기 바랍니다..");
+				$('<div>').appendTo('#after').text(
+						"다른 상담으로 인해 대시시간이 요소될수 있는 점 양해 부탁드립니다..")
 
-					$('#titleNo').val(result.titleNo);
-					printer = setInterval(collList, 500);
+				$('#titleNo').val(result.titleNo);
+				printer = setInterval(collList, 500);
 
-				},
-				error : function(e) {
-					alert(1);
-				}
-			});
-
-		}
-
-		// 고객이 관리자와 채팅 시작
-
-		$('#getResult').click(
-				function() {
-					$("#before").css("display", "none");
-					var msg = { //json형식으로 데이터set 	
-						cMemberId : $('#nickName').html(),
-						cContexts : $('#usertext').val(),
-						cEmail : $('[name=mEmail]').val(),
-						titleNo : $('#titleNo').val()
-					};
-					$('#usertext').val('');
-					console.log("채팅전송내역:" + msg.cMemberId + ", "
-							+ msg.cContexts + ", " + msg.cEmail + ", "
-							+ msg.titleNo);
-					$.ajax({
-						url : "/client/start.kh",
-						dataType : 'json',
-						type : 'post',
-						data : msg,
-						success : function(result) {
-							console.log("채팅전송성공:" + result);
-
-						},
-						error : function(e) {
-							alert('error : ' + e);
-						}
-					});
-				})
-
-		//DB에서 데이터 가져와서 화면에 출력해주기		
-		function collList() {
-			console.log("출력준비");
-			$('#after').html('');
-
-			$.ajax({
-				url : "/client/listprint.kh",
-				type : 'post',
-				data : {
-					titleNo : $("#titleNo").val()
-				},
-				success : function(result) {
-					for ( var i in result) {
-						var $chat = $('#after > div[data-consultNo="' + result[i].consultNo + '"]');
-						if ($chat.length < 1) {						
-							addChat(result[i].cousultNo, result[i].cMemberId,
-									result[i].cContexts, result[i].cDate);	
-						};
-					};
-				},
-				error : function(e) {
-					alert('error : ' + e);
-				}
-			});
-		}
-
-		function addChat(consultNo,cMemberId, cContext, cDate) {
-			console.log("데이터 올림 확인 : " + cMemberId);
-			if (cMemberId != 'admin') {
-				$('#after').append(
-								'<div class="right" data-consultNo="' + consultNo + '">'
-										+ '<h5 >' + cMemberId + '</h5>'
-										+ '<div class="middleBox"><span class="contextBox">'
-										+ cContext + '</span>'
-										+ '<span class="dateBox">' + cDate
-										+ '</span></div></div>');
-
-			} else {
-				$('#after').append(
-						'<div class="left" data-consultNo="' + consultNo + '">'
-								+ '<h5 >' + cMemberId + '</h5>'
-								+ '<div class="middleBox"><span class="contextBox">'
-								+ cContext + '</span>'
-								+ '<span class="dateBox">' + cDate
-								+ '</span></div></div>');
+			},
+			error : function(e) {
+				alert(1);
 			}
-		}
-		//종료 버튼 누를경우
-		function chatfinish() {
+		});
 
-			if (confirm("정말로 종료하시겠습니까?")) {
-				clearInterval(printer);
-				setTimeout(function(){
-					printer=false;
-					self.close();
-				},50);
-			} else {
-				alert("종료 되지 않았습니다. 다시 부탁드립니다.");
-			};
+	}
+	
+	// 고객이 관리자와 채팅 시작
+	$('#getResult').on('click',function(){
+		
+		sendChatMesage();
+	});
+	
+	$('#usertext').on('keyup',function(e){
+		if(e.keyCode==13){
+			sendChatMesage();
+		};
+	});
+	function sendChatMesage(){	
+				
+		$("#before").css("display", "none");
+		var msg = { //json형식으로 데이터set 	
+			cMemberId : $('#nickName').html(),
+			cContexts : $('#usertext').val(),
+			cEmail : $('[name=mEmail]').val(),
+			titleNo : $('#titleNo').val()
+		};
+		$('#usertext').val('');
+		console.log("채팅전송내역:" + msg.cMemberId + ", "
+				+ msg.cContexts + ", " + msg.cEmail + ", "
+				+ msg.titleNo);
+		$.ajax({
+			url : "/client/start.kh",
+			dataType : 'json',
+			type : 'post',
+			data : msg,
+			success : function(result) {
+				console.log("채팅전송성공:" + result);
+
+			},
+			error : function(e) {
+				alert('error : ' + e);
+			}
+		});
+	}
+
+	//DB에서 데이터 가져와서 화면에 출력해주기		
+	function collList() {
+		console.log("출력준비");
+		$('#after').html('');
+
+		$.ajax({
+			url : "/client/listprint.kh",
+			type : 'post',
+			data : {
+				titleNo : $("#titleNo").val()
+			},
+			success : function(result) {
+				for ( var i in result) {
+					var $chat = $('#after > div[data-consultNo="' + result[i].consultNo + '"]');
+					if ($chat.length < 1) {						
+						addChat(result[i].cousultNo, result[i].cMemberId,
+								result[i].cContexts, result[i].cDate);	
+					};
+				};
+			},
+			error : function(e) {
+				alert('error : ' + e);
+			}
+		});
+	}
+	
+	function addChat(consultNo,cMemberId, cContext, cDate) {
+		console.log("데이터 올림 확인 : " + cMemberId);
+		if (cMemberId != 'admin') {
+			$('#after').append(
+							'<div class="right" data-consultNo="' + consultNo + '">'
+									+ '<h5 >' + cMemberId + '</h5>'
+									+ '<div class="middleBox"><span class="contextBox">'
+									+ cContext + '</span>'
+									+ '<span class="dateBox">' + cDate
+									+ '</span></div></div>');
+
+		} else {
+			$('#after').append(
+					'<div class="left" data-consultNo="' + consultNo + '">'
+							+ '<h5 >' + cMemberId + '</h5>'
+							+ '<div class="middleBox"><span class="contextBox">'
+							+ cContext + '</span>'
+							+ '<span class="dateBox">' + cDate
+							+ '</span></div></div>');
 		}
+	}
+	//종료 버튼 누를경우
+	function chatfinish() {
+
+		if (confirm("정말로 종료하시겠습니까?")) {
+			clearInterval(printer);
+			setTimeout(function(){
+				printer=false;
+				self.close();
+			},50);
+		} else {
+			alert("종료 되지 않았습니다. 다시 부탁드립니다.");
+		};
+	}
 	</script>
 </body>
 </html>

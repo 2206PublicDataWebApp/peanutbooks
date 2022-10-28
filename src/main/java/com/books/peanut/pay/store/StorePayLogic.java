@@ -45,8 +45,10 @@ public class StorePayLogic implements StorePay{
 	}
 
 	@Override
-	public List<WriterPay> wrListPrint(SqlSessionTemplate session) {
-		List<WriterPay> wrList=session.selectList("payPoint_Mapper.selectwrList");
+	public List<WriterPay> wrListPrint(SqlSessionTemplate session,Pagemarker pm) {
+		int offset=(pm.getCurrentPage()-1)*pm.getLimit();		
+		RowBounds rowBounds = new RowBounds(offset,pm.getLimit());
+		List<WriterPay> wrList=session.selectList("payPoint_Mapper.selectwrList",null,rowBounds);
 		return wrList;
 	}
 	//peanetpoint table입력
@@ -86,7 +88,7 @@ public class StorePayLogic implements StorePay{
 		List<PeanutPoint> pList=session.selectList("payPoint_Mapper.peanutpointLsit", paramMap ,rowBounds);
 		return pList;
 	}
-	//페이징 전체 갯수
+	//땅콩포인트 페이징 전체 갯수
 	@Override
 	public int getTotalCount(SqlSessionTemplate session,String memberId) {
 		int num=session.selectOne("payPoint_Mapper.ppListCount",memberId);
@@ -122,6 +124,21 @@ public class StorePayLogic implements StorePay{
 	@Override
 	public int updatePaidCount(SqlSessionTemplate session, WriterPay writerP) {
 		int num=session.update("payPoint_Mapper.updatePaid_count",writerP);
+		return num;
+	}
+	//작가 정산리스트 전체갯수 구하기
+	@Override
+	public int getwritetP_Count(SqlSessionTemplate session) {
+		Integer count=session.selectOne("payPoint_Mapper.wPListCount");
+		if(count==null) {
+			count=0;
+		}
+		return count;
+	}
+	//작가 정산접수 관리자 승인처리
+	@Override
+	public int writerPayStatusOne(SqlSessionTemplate session, String wrpayNo) {
+		int num=session.update("payPoint_Mapper.updateWriterpay",wrpayNo);
 		return num;
 	}	
 
