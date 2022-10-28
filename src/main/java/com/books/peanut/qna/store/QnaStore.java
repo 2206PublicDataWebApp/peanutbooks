@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
-import com.books.peanut.admin.common.Paging;
 import com.books.peanut.qna.domain.Qna;
 
 public interface QnaStore {
@@ -13,7 +12,7 @@ public interface QnaStore {
 
 	public List<Qna> selectMemberQna(SqlSessionTemplate session, String memberId, int currentPage, int qnaLimit);
 
-	public int selectTotalCount(SqlSessionTemplate session, String memberId, String searchCondition, String searchValue);
+	public int selectMemberQnaCount(SqlSessionTemplate session, String memberId, String searchCondition, String searchValue);
 
 	public Qna selectOneByNo(SqlSessionTemplate session, Integer qnaNo);
 
@@ -24,9 +23,16 @@ public interface QnaStore {
 	public List<Qna> selectMemberByValue(SqlSessionTemplate session, String memberId, String searchCondition, String searchValue,
 			int currentPage, int qnaLimit);
 
-	public int getTotalCount(SqlSessionTemplate session);
+	public int selectAllCount(SqlSessionTemplate session, String searchCondition, String searchValue);
 
-	public List<Qna> selectAllQna(SqlSessionTemplate session, Paging paging);
+	public List<Qna> selectAllQna(SqlSessionTemplate session, int currentPage, int aqnaLimit);
+
+	public int answerQna(SqlSessionTemplate session, Qna qna);
+
+	public List<Qna> selectAllByValue(SqlSessionTemplate session, String searchCondition, String searchValue,
+			int currentPage, int aqnaLimit);
+
+
 
 
 

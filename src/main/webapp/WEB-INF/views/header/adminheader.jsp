@@ -28,7 +28,7 @@
 		<div class="container">
 			<div class="row" id="header-area">
 				<div class="col-md-1 col-3">
-					<img src="/resources/img/logo/logo.png" id="logo" alt="" id="logo">
+					<a href="/"><img src="/resources/img/logo/logo.png" id="logo" alt="" id="logo"></a>
 				</div>
 				<div class="col-md-7 d-md-block d-none">
 					<ul>
@@ -116,7 +116,7 @@
 
 					</div>
 					<div id="logout-area">
-						<button id="logout">로그아웃</button>
+						<button id="logout" onclick="location.href='/member/logout.pb';">로그아웃</button>
 					</div>
 
 				</div>

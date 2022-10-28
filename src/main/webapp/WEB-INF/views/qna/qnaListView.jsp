@@ -133,11 +133,11 @@
 						</td>
 						<td><a href="/qna/detailView.kh?qnaNo=${qna.qnaNo }&page=${currentPage }&searchCondition=${searchCondition}&searchValue=${searchValue}" style="color: black">${qna.qnaTitle }</a></td>
 						<td>
-							<c:if test="${qna.qnaStatus == 'Y' }">
-								답변완료
+							<c:if test="${qna.qnaStatus eq 'Y' }">
+								<b style="color: #2d532c;">답변완료</b>
 							</c:if>
-							<c:if test="${qna.qnaStatus == 'N' }">
-								답변대기
+							<c:if test="${qna.qnaStatus eq 'N' }">
+								<b style="color: #d21853;">답변대기</b>
 							</c:if>
 						</td>
 						<td>${qna.qCreateDate }</td>

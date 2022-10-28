@@ -4,7 +4,6 @@ package com.books.peanut.notice.store;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
-import org.mybatis.spring.SqlSessionTemplate;
 
 import com.books.peanut.notice.domain.Notice;
 

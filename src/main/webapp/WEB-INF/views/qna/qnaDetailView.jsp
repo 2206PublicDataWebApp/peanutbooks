@@ -78,6 +78,11 @@ ${sessionScope.loginMember.memberId}님 환영합니다!
 	
 	<div class="row row-cols-1">
 		<table class="table">
+			<c:if test="${qna.qnaStatus eq 'Y'}">
+			<tr>
+				<td colspan="2" style="color: gray";>※관리자가 답변을 작성한 게시물은 수정할 수 없습니다.</td>
+			</tr>
+			</c:if>
 			<tr>
 				<td width="20%" align="center">문의유형</td>
 				<td width="80%">
@@ -95,11 +100,11 @@ ${sessionScope.loginMember.memberId}님 환영합니다!
 				<td width="20%" align="center">작성일</td>
 				<td width="80%">${qna.qCreateDate }
 			</tr>
-			<c:if test="${qna.qCreateDate != qna.qUpdateDate }">
-				<tr>
-					<td width="20%" align="center">수정일</td>
-					<td width="80%">${qna.qUpdateDate }
-				</tr>
+			<c:if test="${qna.qUpdateDate ne null}">
+			<tr>
+				<td width="20%" align="center">수정일</td>
+				<td width="80%">${qna.qUpdateDate }</td>
+			</tr>
 			</c:if>
 			<tr>
 				<td width="20%" align="center">내용</td>
@@ -147,7 +152,7 @@ ${sessionScope.loginMember.memberId}님 환영합니다!
 				<td colspan="2" align="center" style="border:none;">
 					<button type="button" onclick="location.href='/qna/modifyView.kh?qnaNo=${qna.qnaNo }&page=${page }&searchCondition=${searchCondition}&searchValue=${searchValue}'" class="btn btn-warning btn-sm">수정</button>
 					<input onclick="qnaRemove(${qna.qnaNo}, ${page});" type="button" value="삭제" class="btn btn-warning btn-sm">
-					<button type="button" onclick="location.href='/qna/list.kh?page=${page }&searchCondition=${searchCondition}&searchValue=${searchValue}'" class="btn btn-warning btn-sm">목록</button> 
+					<button type="button" onclick="backBtn()" class="btn btn-warning btn-sm">목록</button>
 					 
 				</td>
 			</tr>
@@ -155,20 +160,20 @@ ${sessionScope.loginMember.memberId}님 환영합니다!
 			<c:if test="${qna.qnaStatus eq 'Y'}">
 			<tr>
 				<td colspan="2" align="center" style="border:none;">
-					<button type="button" onclick="location.href='/qna/list.kh?page=${page }&searchCondition=${searchCondition}&searchValue=${searchValue}'" class="btn btn-warning btn-sm">목록</button> 
+					<button type="button" onclick="backBtn()" class="btn btn-warning btn-sm">목록</button> 
 				</td>
 			</tr>
 			<tr>
 				<td width="20%" align="center">작성자</td>
-				<td width="80%">${answerWriter }</td>
+				<td width="80%">${qna.answerWriter }</td>
 			</tr>
 			<tr>
 				<td width="20%" align="center">작성일</td>
-				<td width="80%">${aCreateDate }</td>
+				<td width="80%">${qna.aCreateDate }</td>
 			</tr>
 			<tr>
 				<td width="20%" align="center">내용</td>
-				<td width="80%"><textarea class="form-control" id="exampleFormControlTextarea1" cols="3" rows="10" name="qnaContents">answerContents</textarea></td>
+				<td width="80%"><textarea class="form-control" id="exampleFormControlTextarea1" cols="3" rows="10" name="qnaContents" readonly>${qna.answerContents } </textarea></td>
 			</tr>
 			</c:if>
 		</table>
@@ -183,6 +188,9 @@ ${sessionScope.loginMember.memberId}님 환영합니다!
 
 <!-- 파일 업로드 스크립트 -->
 <script>
+function backBtn() {
+    history.back();
+}
 
 function qnaRemove(qnaNo, page) {
 	event.preventDefault(); // 하이퍼링크 이동 방지

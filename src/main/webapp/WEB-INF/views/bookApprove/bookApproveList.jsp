@@ -63,6 +63,7 @@
 
 
 <body>
+<c:if test="${adminCheck == 'Y' }">
 <!-- header start -->
 <jsp:include page="../header/adminheader.jsp"></jsp:include>
 <!-- header End -->
@@ -181,6 +182,7 @@ ${sessionScope.loginMember.memberId}님 환영합니다!
 	
 </div>
 <br><br>
+
 </main>
 <!-- main contents End -->
 
@@ -225,5 +227,6 @@ for (var i = 0; i < imgFile.length; i++) {
 <!-- Footer -->
 <jsp:include page="../footer/footer.jsp"></jsp:include>
 <!-- Footer -->
+</c:if>
 </body>
 </html>

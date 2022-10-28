@@ -58,7 +58,7 @@
 
 	<div class="container text-center">
 		<div class="row row-cols-1">
-		   <div class="col" style="background-color: #5e5e5e; color: white; height:45px" vertical-align: middle;>${loginMember.memberId}님의 문의 내역 확인</div>        
+		   <div class="col" style="background-color: #5e5e5e; color: white; height:45px" vertical-align: middle;>${qna.memberId}님의 문의 내역 확인</div>        
 		</div>
 		<br>
 		<div class="row row-cols-7" style="background-color:#e0e0e0; padding:20px">
@@ -73,106 +73,152 @@
 		    <div class="col-2" style="text-align:left;">&nbsp;&nbsp;접수<br>&nbsp;&nbsp;&nbsp;&nbsp;1</div>
 		</div>
 	</div>
-	<br><br>
-	
+	<br>
+
 	<div class="row row-cols-1">
-		<table class="table">
+		<table class="table" style="border-color:skyblue">
 			<tr>
 				<td width="20%" align="center">문의유형</td>
 				<td width="80%">
-				<c:if test="${qna.qnaCategory == 'member' }">회원관련</c:if>
-				<c:if test="${qna.qnaCategory == 'point' }">포인트관련</c:if>
-				<c:if test="${qna.qnaCategory == 'books' }">도서관련</c:if>
-				<c:if test="${qna.qnaCategory == 'others' }">기타</c:if>
-				</td>
-			</tr>
-			<tr>
-				<td width="20%" align="center">제목</td>
-				<td width="80%"><input type="text" name="qnaTitle" class="form-control" value="${qna.qnaTitle }"></td>
-			</tr>
-			<tr>
-				<td width="20%" align="center">작성일</td>
-				<td width="80%">${qna.qCreateDate }
-			</tr>
-			<c:if test="${qna.qCreateDate != qna.qUpdateDate }">
-				<tr>
-					<td width="20%" align="center">수정일</td>
-					<td width="80%">${qna.qUpdateDate }
-				</tr>
-			</c:if>
-			<tr>
-				<td width="20%" align="center">내용</td>
-				<td width="80%"><textarea class="form-control" id="exampleFormControlTextarea1" cols="5" rows="10" name="qnaContents">${qna.qnaContents }</textarea>  </td>
-			</tr>
-		<!-- 첨부파일 -->
-			<tr>
-				<td width="20%" align="center" rowspan="3">첨부파일(선택)</td>
-				<td width="80%" style="border:none";>
-			     <!-- 첨부파일 1영역 -->
-					<div id="file1" class="row my-1" >
-						 <c:if test="${qna.qnaFileRename01 ne null}">
-		 			        <div class="col"><img src="/resources/qnaUploadFiles/${qna.qnaFileRename01 }" style="width:150px; height:150px;"></div>
-	 			        </c:if>
-					</div>
-				</td>
-				<!-- 첨부파일1영역종료 -->
-			</tr>
-			<tr>
-				<td style="border:none";>
-				<!-- 첨부파일 2영역 -->
-					<div id="file2" class="row my-1">
-						<c:if test="${qna.qnaFileRename02 ne null}">
-		 			        <div class="col"><img src="/resources/qnaUploadFiles/${qna.qnaFileRename02 }" style="width:150px; height:150px;"></div>
-	 			        </c:if>
-					</div>
-				</td>
-				<!-- 첨부파일2영역종료 -->
-			</tr>
-			<tr>
-				<td>
-				<!-- 첨부파일 3영역 -->
-					<div id="file3" class="row my-1">
-						<c:if test="${qna.qnaFileRename03 ne null}">
-		 			        <div class="col"><img src="/resources/qnaUploadFiles/${qna.qnaFileRename03 }" style="width:150px; height:150px;"></div>
-	 			        </c:if>
-					</div>
-			    </td>
-			<!-- 첨부파일3영역종료 -->
-			</tr>
-		<!-- 첨부파일 -->
-			
-			<%-- <c:if test="${qna.qnaStatus eq 'N'}">
-			<tr>
-				<td colspan="2" align="center" style="border:none;">
-					<button type="button" onclick="location.href='/qna/modifyView.kh?qnaNo=${qna.qnaNo }&page=${page }&searchCondition=${searchCondition}&searchValue=${searchValue}'" class="btn btn-warning btn-sm">수정</button>
-					<input onclick="qnaRemove(${qna.qnaNo}, ${page});" type="button" value="삭제" class="btn btn-warning btn-sm">
-					<button type="button" onclick="location.href='/qna/list.kh?page=${page }&searchCondition=${searchCondition}&searchValue=${searchValue}'" class="btn btn-warning btn-sm">목록</button> 
-					 
-				</td>
-			</tr>
-			</c:if> --%>
-			<%-- <c:if test="${qna.qnaStatus eq 'Y'}"> --%>
-			<tr>
-				<td colspan="2" align="center">
-					<button type="button" onclick="location.href='/qna/list.kh?page=${page }&searchCondition=${searchCondition}&searchValue=${searchValue}'" class="btn btn-warning btn-sm">목록</button> 
+					<c:if test="${qna.qnaCategory == 'member' }">회원관련</c:if>
+					<c:if test="${qna.qnaCategory == 'point' }">포인트관련</c:if>
+					<c:if test="${qna.qnaCategory == 'books' }">도서관련</c:if>
+					<c:if test="${qna.qnaCategory == 'others' }">기타</c:if>
 				</td>
 			</tr>
 			<tr>
 				<td width="20%" align="center">작성자</td>
-				<td width="80%">${sessionScope.loginMember.memberId}</td>
+				<td width="80%">
+					<input type="text" name="qnaTitle" class="form-control" value="${qna.memberId }">
+				</td>
+			</tr>
+			<tr>
+				<td width="20%" align="center">제목</td>
+				<td width="80%">
+					<input type="text" name="qnaTitle" class="form-control" value="${qna.qnaTitle }">
+				</td>
 			</tr>
 			<tr>
 				<td width="20%" align="center">작성일</td>
-				<td width="80%">${aCreateDate }</td>
+				<td width="80%">${qna.qCreateDate }</td>
 			</tr>
+		<c:if test="${qna.qUpdateDate ne null}">
+			<tr>
+				<td width="20%" align="center">수정일</td>
+				<td width="80%">${qna.qUpdateDate }</td>
+			</tr>
+		</c:if>
 			<tr>
 				<td width="20%" align="center">내용</td>
-				<td width="80%"><textarea class="form-control" id="exampleFormControlTextarea1" cols="3" rows="10" name="qnaContents">answerContents</textarea></td>
+				<td width="80%">
+					<textarea class="form-control" id="exampleFormControlTextarea1" cols="5" rows="10" name="qnaContents">${qna.qnaContents }</textarea>  
+				</td>
 			</tr>
-			<%-- </c:if> --%>
+		<!-- 첨부파일 -->
+			<tr>
+				<td width="20%" align="center" rowspan="3">첨부파일</td>
+				<td width="80%" style="border:none";>
+			     
+		            <div class="question-area container">
+		                <div class="accordion rounded" id="accordionExample">
+		                    <div class="accordion-item rounded ">
+		                        <h2 class="accordion-header rounded" id="headingOne">
+		                            <button class="accordion-button rounded collapsed" type="button" data-bs-toggle="collapse"
+		                                data-bs-target="#collapseOne" aria-controls="collapseOne">
+		                                첨부된 파일 보기
+		                            </button>
+		                        </h2>
+		                        <div id="collapseOne" class="accordion-collapse collapse rounded" aria-labelledby="headingOne">
+		                            <div class="accordion-body">
+								     <!-- 첨부파일 1영역 -->
+										<div id="file1" class="row my-1" >
+											 <c:if test="${qna.qnaFileRename01 ne null}">
+							 			        <div class="col"><img src="/resources/qnaUploadFiles/${qna.qnaFileRename01 }" style="width:150px; height:150px;"></div>
+						 			        </c:if>
+										</div>
+									<!-- 첨부파일1영역종료 -->
+					
+									<!-- 첨부파일 2영역 -->
+										<div id="file2" class="row my-1">
+											<c:if test="${qna.qnaFileRename02 ne null}">
+							 			        <div class="col"><img src="/resources/qnaUploadFiles/${qna.qnaFileRename02 }" style="width:150px; height:150px;"></div>
+						 			        </c:if>
+										</div>
+									<!-- 첨부파일2영역종료 -->
+									<!-- 첨부파일 3영역 -->
+										<div id="file3" class="row my-1">
+											<c:if test="${qna.qnaFileRename03 ne null}">
+							 			        <div class="col"><img src="/resources/qnaUploadFiles/${qna.qnaFileRename03 }" style="width:150px; height:150px;"></div>
+						 			        </c:if>
+										</div>
+								<!-- 첨부파일3영역종료 -->
+		                            </div>
+		                        </div>
+		                    </div>
+						</div>
+					</div>
+				<!-- 첨부파일 -->
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					 
+				</td>
+			</tr>
 		</table>
 	</div>
-	<!-- 1:1 문의 입력 폼 End -->
+	<br>
+	<div class="row row-cols-1">
+		<!-- 관리자 답변 작성 폼  -->
+		<form action="/admin/answer.kh" method="post" name="aqnaForm" id="aqnaForm">
+		<input type="hidden" name="page" value="${page }">
+		<input type="hidden" name="qnaNo" value="${qna.qnaNo }">
+ 		<input type="hidden" name="searchCondition" value="${searchCondition}">
+		<input type="hidden" name="searchValue" value="${searchValue}">  
+		<table class="table" style="border-color:orange">
+			<tr>
+				<td colspan="2" align="center"><b>회원 문의 답변</b></td>
+			</tr>
+			<tr>
+				<td width="20%" align="center">작성자</td>
+				<td width="80%">
+					<input type="text" name="answerWriter" class="form-control" value="${sessionScope.loginMember.memberId}">
+				</td>
+			</tr>
+			<c:if test="${qna.aCreateDate ne null}">
+			<tr>
+				<td width="20%" align="center">작성일</td>
+				<td width="80%">${qna.aCreateDate }</td>
+			</tr>
+			</c:if>
+			<tr>
+				<td width="20%" align="center">답변</td>
+					<c:if test="${qna.answerContents eq null }">
+						<td width="80">
+							<textarea class="form-control" id="exampleFormControlTextarea1" cols="3" rows="10" name="answerContents" placeholder="고객 문의글 &#10; ${qna.qnaContents }"></textarea>
+						</td>
+					</c:if>
+					<c:if test="${qna.answerContents ne null }">
+						<td width="80">
+							<textarea class="form-control" id="exampleFormControlTextarea1" cols="3" rows="10" name="answerContents" >${qna.answerContents }</textarea>
+						</td>
+					</c:if>
+			</tr>
+			<tr>
+				<td colspan="2" align="center" style="border:none;">
+					<c:if test="${qna.qnaStatus eq 'Y' }">
+						<button type="submit" class="btn btn-warning btn-sm">답변수정</button>
+					</c:if>
+					<c:if test="${qna.qnaStatus eq 'N' }">
+						<button type="submit" class="btn btn-warning btn-sm">답변등록</button>
+					</c:if>
+					<button type="button" onclick="backBtn()" class="btn btn-warning btn-sm">목록</button>
+				</td>
+			</tr>
+		</table>
+		</form>
+		<!-- 관리자 답변 작성 폼  -->
+	</div>
 	
 </div>
 <br><br>
@@ -182,13 +228,19 @@
 
 <!-- 파일 업로드 스크립트 -->
 <script>
-
-function qnaRemove(qnaNo, page) {
-	event.preventDefault(); // 하이퍼링크 이동 방지
-	if(confirm("게시물을 삭제하시겠습니까?")) {
-		location.href="/qna/remove.kh?qnaNo="+qnaNo+"&page="+page;
+	function backBtn() {
+	    history.back();
 	}
-}
+
+function aqnaCheck() {
+	if(aqnaForm.qnaContents.value==""){
+        alert("내용을 입력하세요");
+        qnaForm.aqnaContents.focus();
+        return false;
+    }
+	
+	return aqnaForm.submit();
+ }
 
 //파일이름 출력용
 function filename(obj) {
@@ -200,7 +252,6 @@ function filename(obj) {
 	
 	
 }
-
 
 ///// 이미지파일 체크 시작 ////
 var imgFile = document.querySelectorAll('.isFile');

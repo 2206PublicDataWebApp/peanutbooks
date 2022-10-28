@@ -100,7 +100,7 @@
 			<tr>
 				<td colspan="2" align="center">
 					<input onclick="noticeCheck();" type="button" value="수정" class="btn btn-warning btn-sm">
-					<button type="button" onclick="location.href='/notice/list.kh'" class="btn btn-warning btn-sm">목록</button> 
+					<button type="button" onclick="backBtn()" class="btn btn-warning btn-sm">목록</button> 
 					 
 				</td>
 			</tr>
@@ -113,10 +113,10 @@
 
 
 <script>
-	$('.summernote').summernote({
-		height : 300,
-		lang : "ko-KR",
-	});
+	function backBtn() {
+	    history.back();
+	}
+	
 	function titleLengthCk(thisInput){
 	 	console.log(thisInput.value.length);
 	 	if(thisInput.value.length>30){

@@ -37,7 +37,7 @@ public class NoticeController {
 		}
 		return "member/login";
 	}
-	
+
 	//공지사항 게시물 등록
 	@RequestMapping(value="/notice/register.kh", method=RequestMethod.POST)
 	public ModelAndView registerNotice(
@@ -252,7 +252,7 @@ public class NoticeController {
 		return mv;
 		
 	}
-	//공지사항 전체 리스트
+	//공지사항 카테고리별 리스트
 	@RequestMapping(value="/notice/categoryCount.kh", method=RequestMethod.GET)
 	public ModelAndView noticeCategoryList(
 			ModelAndView mv
