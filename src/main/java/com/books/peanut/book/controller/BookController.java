@@ -916,7 +916,8 @@ public class BookController {
 
 			mv.addObject("bookTitle", bookTitle);
 			mv.addObject("nbSeries", nbSeries);
-
+			mv.addObject("language", lang);
+			
 			if (lang.equals("ko")) {
 				mv.setViewName("/bookadmin/bookstep-detail-admin");
 			} else {
