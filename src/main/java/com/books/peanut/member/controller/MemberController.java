@@ -125,8 +125,10 @@ public class MemberController {
 				String lastDate = pService.seasonTicketDate(loginMember.getMemberId());			
 				session.setAttribute("lastDate", lastDate);
 				//구독권 가져오는부분 종료
-//				int savedBooks = mService.getSavedBooks(loginMember.getMemberId());
+				// 로그인한 회원이 저장한 도서 수 가져오기
+//				int savedBooks = mService.countSavedBooks(loginMember.getMemberId());
 //				session.setAttribute("savedBooks", savedBooks);
+				// 로그인한 회원이 등록한 작품 수 가져오기
 				int writtenBooks = mService.countWrittenBooks(loginMember.getMemberId());
 				session.setAttribute("writtenBooks", writtenBooks);
 				mv.setViewName("redirect:/main"); // 로그인 성공 시 로그인 후 메인 페이지로 이동
@@ -276,10 +278,15 @@ public class MemberController {
 	@RequestMapping(value="/member/delete.pb", method=RequestMethod.POST)
 	public ModelAndView deleteMember(
 			@ModelAttribute Member member,
-			ModelAndView mv) {
+			ModelAndView mv,
+			HttpServletRequest request) {
 		try {
 			int result = mService.deleteMember(member);
 			if(result > 0) {
+				HttpSession session = request.getSession();
+				if(session != null) {
+					session.invalidate();
+				}
 				mv.setViewName("redirect:/");
 			}else{
 				mv.setViewName("redirect:/member/deleteView.pb");
@@ -288,6 +295,15 @@ public class MemberController {
 			mv.addObject("msg", e.toString()).setViewName("common/errorPage");
 		}
 		return mv;
+	}
+	
+	/**
+	 * 알림 - 내 알림 화면
+	 * @return
+	 */
+	@RequestMapping(value="/news/myNews.pb", method=RequestMethod.GET)
+	public String myNewsView() {
+		return "news/news-my";
 	}
 
 	//은정이가 잠깐 사용할 예정

@@ -57,9 +57,9 @@ public class MemberServiceImpl implements MemberService{
 		int result = mStore.deleteMember(session, member);
 		return result;
 	}
-	// 내 서재 - 저장된 도서 가져오기
+	// 내 서재 - 저장된 도서 수 가져오기
 //	@Override
-//	public int getSavedBooks(String memberId) {
+//	public int countSavedBooks(String memberId) {
 //		int result = mStore.selectSavedBooks(session, memberId);
 //		return result;
 //	}
@@ -69,5 +69,5 @@ public class MemberServiceImpl implements MemberService{
 		int result = mStore.selectWrittenBooks(session, memberId);
 		return result;
 	}
-	
+
 }

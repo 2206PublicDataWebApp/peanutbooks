@@ -16,6 +16,7 @@ public class Member {
 	private String kakaoId; // 카아오 아이디
 	private String accType; // 계정 종류(일반/네이버/카카오)
 	private String adminYN; // 관리자 여부
+	private String authKey; // 이메일 인증 키(난수)
 	
 	public String getMemberId() {
 		return memberId;
@@ -95,12 +96,18 @@ public class Member {
 	public void setAdminYN(String adminYN) {
 		this.adminYN = adminYN;
 	}
+	public String getAuthKey() {
+		return authKey;
+	}
+	public void setAuthKey(String authKey) {
+		this.authKey = authKey;
+	}
 	
 	@Override
 	public String toString() {
 		return "Member [memberId=" + memberId + ", memberPw=" + memberPw + ", mNickname=" + mNickname + ", mEmail="
 				+ mEmail + ", emailYN=" + emailYN + ", joinDate=" + joinDate + ", deleteYN=" + deleteYN + ", mPoint="
 				+ mPoint + ", subYN=" + subYN + ", naverId=" + naverId + ", kakaoId=" + kakaoId + ", accType=" + accType
-				+ ", adminYN=" + adminYN + "]";
+				+ ", adminYN=" + adminYN + ", authKey=" + authKey + "]";
 	}
 }

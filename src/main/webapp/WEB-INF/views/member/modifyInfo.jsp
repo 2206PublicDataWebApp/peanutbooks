@@ -19,15 +19,15 @@
 			    <div>개인정보수정</div>
 			</div>
 			<form action="/member/modify.pb" method="post">
-			<input type="hidden" value="${loginMember.memberId}" name="memberId">
+			<input type="hidden" value="${sessionScope.loginMember.memberId}" name="memberId">
 				<div class="modify-area">
 					<div id="div-nick">
 						<label for="modify-nick">별명</label>
-						<input id="modify-nick" type="text" value="${loginMember.mNickname}" name="mNickname">
+						<input id="modify-nick" type="text" value="${sessionScope.loginMember.mNickname}" name="mNickname">
 					</div>
 					<div id="div-pw">
 						<label for="modify-pw">비밀번호</label><br>
-						<input id="modify-pw" type="password" value="${loginMember.memberPw}" readonly>
+						<input id="modify-pw" type="password" value="${sessionScope.loginMember.memberPw}" readonly>
 						<button class="modify-pw-btn" type="button" onclick="openInput()">비밀번호 변경</button><br>
 					</div>
 					<div id="div-newPw">

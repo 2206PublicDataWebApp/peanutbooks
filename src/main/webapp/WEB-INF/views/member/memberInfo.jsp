@@ -18,7 +18,7 @@
 			    <div>내 정보 관리</div>
 			</div>
 			<div class="menu-area">
-            	<div class="info-menu menu1" onclick="location.href='/member/pwCheck.pb'">
+            	<div class="info-menu" onclick="location.href='/member/pwCheck.pb'">
 	                <div class="menu-item txt">개인정보 수정</div>
 	                <div class="menu-item arrow">></div>
             	</div>

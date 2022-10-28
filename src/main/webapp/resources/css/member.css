@@ -286,7 +286,7 @@ form{
     padding-right: 16px;
 }
 .info-menu{ /* 메뉴 영역 하나 */
-	padding: 16px;
+	padding: 24px 16px 24px 16px;
 	border-bottom: solid 1px lightgray;
 }
 .menu-item{ /* 메뉴 글자, 화살표 */
@@ -294,9 +294,6 @@ form{
 }
 .arrow{ /* 메뉴 화살표*/
     float: right;
-}
-.menu1{ /* 맨 위 첫번째 메뉴 영역 */
-    padding-top: 16px;
 }
 
 /* 내 정보 - 비밀번호 확인 */
@@ -352,6 +349,7 @@ form{
 	margin: 0 auto;
 	padding-left: 16px;
 	padding-right: 16px;
+	padding-bottom: 56px;
 }
 .modify-area input{
 	height: 40px;

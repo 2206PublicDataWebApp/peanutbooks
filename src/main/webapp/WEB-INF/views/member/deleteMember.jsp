@@ -19,14 +19,15 @@
 			    <div>회원탈퇴</div>
 			</div>
 			<form action="/member/delete.pb" method="post">
-			<input type="hidden" value="${loginMember.memberId}" name="memberId">
+			<input type="hidden" value="${sessionScope.loginMember.memberId}" name="memberId">
+			<input type="hidden" value="${sessionScope.loginMember.memberPw}" id="delete-memberPw">
 				<div class="delete-div-bottom">
 					<div class="div-square">
-						<p>${loginMember.mNickname}님의 이용현황</p>
+						<p>${sessionScope.loginMember.mNickname}님의 이용현황</p>
 						<ul>
 							<li>저장된 도서 개</li>
-							<li>등록한 작품 ${writtenBooks}개</li>
-							<li>보유한 땅콩 ${loginMember.mPoint}땅콩</li>
+							<li>등록한 작품 ${sessionScope.writtenBooks}개</li>
+							<li>보유한 땅콩 ${sessionScope.loginMember.mPoint}땅콩</li>
 						</ul>
 					</div>
 					<div class="div-check">
@@ -45,12 +46,35 @@
 						<input type="password" id="delete-pw2">
 					</div>
 					<div class="div-btn">
-						<button type="submit">회원탈퇴</button>
+						<button type="submit" class="delete-btn">회원 탈퇴</button>
 					</div>
 				</div>
 			</form>
 		</div>
 	</main>
 	<jsp:include page="../footer/footer.jsp" />
+	<script>
+		$(".delete-btn").on("click", function(){
+			var infoChk = $("#delete-check").is(":checked");
+			var pwChk1 = $("#delete-pw1").val();
+			var pwChk2 = $("#delete-pw2").val();
+			var memberPw = $("#delete-memberPw").val();
+			if(infoChk == false){
+				alert("탈퇴 회원 유의 사항을 읽고 동의해 주세요.");
+				return false;
+			}else if(pwChk1 == "" || pwChk2 == "" || pwChk1 != pwChk2 || pwChk1 != memberPw){
+				alert("비밀번호를 다시 확인해 주세요.");
+				return false;
+			}else{
+				if(confirm("정말 탈퇴하시겠습니까?\n회원 탈퇴는 되돌릴 수 없습니다.") == true){
+					alert("회원 탈퇴가 완료되었습니다.\n감사합니다.");					
+					return true;
+				}else{
+					window.location.href="/member/deleteView.pb";
+					return false;
+				}
+			}
+		});
+	</script>
 </body>
 </html>

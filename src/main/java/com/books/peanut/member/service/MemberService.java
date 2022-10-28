@@ -17,8 +17,8 @@ public interface MemberService {
 	int modifyInfo(Member member);
 	// 회원탈퇴
 	int deleteMember(Member member);
-	// 내 서재 - 저장된 도서 개수 가져오기
-//	int getSavedBooks(String memberId);
+	// 내 서재 - 저장된 도서 수 가져오기
+//	int countSavedBooks(String memberId);
 	// 로그인한 회원이 등록한 작품 수 가져오기
 	int countWrittenBooks(String memberId);
 	

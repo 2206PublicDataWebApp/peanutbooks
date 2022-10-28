@@ -19,7 +19,7 @@ public interface MemberStore {
 	public int updateInfo(SqlSession session, Member member);
 	// 회원탈퇴
 	public int deleteMember(SqlSession session, Member member);
-	// 내 서재 - 저장된 도서 개수 가져오기
+	// 내 서재 - 저장된 도서 수 가져오기
 //	public int selectSavedBooks(SqlSession session, String memberId);
 	// 로그인한 회원이 등록한 작품 수 가져오기
 	public int selectWrittenBooks(SqlSession session, String memberId);
