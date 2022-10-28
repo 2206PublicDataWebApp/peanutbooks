@@ -162,7 +162,7 @@
 						</div>
 
 						<div class="col-4">
-							<img src="/resources/img/header/icons8-chat-50.png" alt="">
+							<img src="/resources/img/header/icons8-chat-50.png" alt="" >
 							<br>채팅상담
 						</div>
 						<div class="col-4">

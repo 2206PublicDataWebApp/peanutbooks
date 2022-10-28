@@ -1,9 +1,6 @@
 package com.books.peanut.pay.payController;
 
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -19,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
 import com.books.peanut.book.domain.OriginBook;
 import com.books.peanut.book.domain.OriginBookSeries;
 import com.books.peanut.member.domain.Member;
@@ -29,6 +25,7 @@ import com.books.peanut.pay.domain.PeanutPoint;
 import com.books.peanut.pay.domain.SeasonTicket;
 import com.books.peanut.pay.domain.WriterPay;
 import com.books.peanut.pay.payService.PayService;
+import com.google.gson.Gson;
 
 @Controller
 public class ControllerPay {
@@ -47,7 +44,7 @@ public class ControllerPay {
 		return mv;		
 	}
 	
-// 주문 번호 만들어서 보내기
+	// 주문 번호 만들어서 보내기
 	@ResponseBody
 	@RequestMapping(value = "/pay/orderIN.kh", produces = "application/json;charset=utf-8", method=RequestMethod.POST)
 	public String orderIn(String orderNo,String payMoney,String memberId, String orderContents) {			 
@@ -208,33 +205,43 @@ public class ControllerPay {
 		}		
 	}
 		
-	//작가 정산리스트 화면으로가기	
-	@RequestMapping(value="/writer/list.kh", method=RequestMethod.GET)
-	public ModelAndView writerListGo( ModelAndView mv){			 
-			mv.setViewName("/peanetPay/writerPayList");		
-			return mv;		
-	}
-	
-	//작가 정산리스트 요청
+	//관리자가 작가 정산리스트 화면으로가기
 	@ResponseBody
-	@RequestMapping(value="/writer/listprint.kh", produces="application/json;charset=UTF-8", method=RequestMethod.GET)
-	public String writerList(){
-		List<WriterPay> wrList = pService.wrListPrint();
-		if (wrList.isEmpty()) {
-			JSONObject json = new JSONObject();
-			json.put("error", "error");
-			return json.toJSONString();
-		} else {
-			Gson gson = new Gson();
-			return gson.toJson(wrList);
+	@RequestMapping(value="/writer/list.kh", method=RequestMethod.GET)
+	public ModelAndView writerList(
+			ModelAndView mv,
+			@RequestParam(value= "page", required = false) Integer page ){
+		
+		Pagemarker pm=new Pagemarker();
+		int count=pService.getwritetP_Count();
+		if(count==0) {			
+			mv.addObject("count", "no");
+		}else {
+			pm.setTotalCount(count);
+			pm.setCurrentPage((page != null) ? page : 1);
+			pm.pageInfo(pm.getCurrentPage(), pm.getTotalCount());
+			mv.addObject("pm", pm);	
+			
+			List<WriterPay> wrList = pService.wrListPrint(pm);			
+			mv.addObject("wrList", wrList);
+			mv.setViewName("/peanetPay/writerPayList");
+		}	
+		return mv;		
+
+	}
+	//관리자 정산 접수 승인
+	@ResponseBody
+	@RequestMapping(value="/writer/payStatus.kh", method=RequestMethod.POST)
+	public String writerPayStatus(String wrpayNo) {
+		//int wrpayNo1=Integer.valueOf(wrpayNo1);
+		int result=pService.writerPayStatusOne(wrpayNo);
+		if(result>0) {
+			return "success";
+		}else {
+			return "fail";			
 		}
-	}	
-//	// 로그인시 구독권 여부 및 날짜 확인하는 부분
-//	public String seasonTicketDate(String memberId) {
-//		String lastDate = pService.seasonTicketDate(memberId);		
-//		return lastDate;
-//	}
-	
+	}
+
 	@ExceptionHandler({NullPointerException.class, SQLException.class, IllegalAccessException.class})
 	public ModelAndView errorHandler(ModelAndView mv, Exception e) {
 		mv.addObject("msg", e.getMessage());

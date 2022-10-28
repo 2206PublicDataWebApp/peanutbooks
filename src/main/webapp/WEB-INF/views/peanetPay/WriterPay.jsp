@@ -45,7 +45,7 @@
             </tr>
             <tr>
                 <td>지급금액 :</td>
-                <td><input type="text" name="payment" id="payment"></td>
+                <td><input type="text" name="payment" id="payment" readonly></td>
             </tr>
             <tr>
                 <td>지급요청은행 :</td>
@@ -75,6 +75,7 @@
 				'bookNo'   : bookNo				 
 			},
 			success : function(result){
+				$('#seriesNum').children('option:not(:first)').remove();
 				result.forEach(function (OriginBookSeries,i) {
 				$('#seriesNum').append('<option value="'+OriginBookSeries.seriesNo+'" name="'+OriginBookSeries.paidCount+'">'						
 						+OriginBookSeries.title+'</option>');
@@ -92,9 +93,18 @@
 	
 	$('#changeP').on('keyup',function(){
 		var changeP=$('#changeP').val();
+		
 		if(changeP.length>=4){
 			$("#payment").val(changeP*100);
 		};
+		var peanut = $('#seriesNum option:selected').attr('name');
+		if(parseInt(changeP)>parseInt(peanut)){
+			alert("땅콩을 초과 입력하셨습니다. 다시 입력하세요");
+			$('#changeP').val("");
+			$('#payment').val("");
+			$('#changeP').focus();
+		}
+		
 	})
 	
 
@@ -123,7 +133,10 @@
 				},
 				success : function(result){
 					if(result=='success'){
-						alert('정상접수되었습니다.');
+						if(confirm('정상접수되었습니다.')){
+							location.href="/writer/writerStart.kh?memberId="+memberId;
+						};
+						
 					}else{
 						alert('미접수되었습니다. 다시한번 부탁드립니다.')
 					}

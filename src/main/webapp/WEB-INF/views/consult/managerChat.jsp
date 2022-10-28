@@ -45,31 +45,46 @@
 	$('.context').scrollTop=$('.context').scrollHeight;
 	
 	var printer;
-	$('#getResult').click(function(){
-		/* 전송버튼을 클릭하면 */
-		var titleNo = ${param.titleNo};
-		var msg = { 
-			cMemberId : 'admin',
-			cContexts : $('#magText').val(),
-			cEmail : 'test_admin',
-			titleNo : titleNo
-		};
-		$('#magText').val('');
-		$.ajax({ 
-			url : '/client/start.kh', 
-			dataType : 'json', 
-			type : 'POST', 
-			data : msg, 
-			success : function(result) { 				
-				if(!printer){
-					printer = setInterval(collList, 500);
-				}
-			},
-			error : function(e) {
-				alert('error:' + e);
-			},
-		});
+	
+	$('#getResult').on('click',function(){
+		sendChatMesage();
 	});
+	
+	$('#magText').on('keyup',function(e){
+		if(e.keyCode==13){
+			sendChatMesage();
+		};
+	});
+	function sendChatMesage(){	
+		var msg=$('#magText').val();
+		if(msg==''){
+			alert("입력되지 않았습니다");
+		}else{
+			var titleNo = ${param.titleNo};
+			var msg = { 
+				cMemberId : 'admin',
+				cContexts : $('#magText').val(),
+				cEmail : 'test_admin',
+				titleNo : titleNo
+			};
+			$('#magText').val('');
+			$.ajax({ 
+				url : '/client/start.kh', 
+				dataType : 'json', 
+				type : 'POST', 
+				data : msg, 
+				success : function(result) { 				
+					if(!printer){
+						printer = setInterval(collList, 500);
+					}
+				},
+				error : function(e) {
+					alert('error:' + e);
+				},
+			});
+			
+		}
+	};
 
 
 	function collList() {

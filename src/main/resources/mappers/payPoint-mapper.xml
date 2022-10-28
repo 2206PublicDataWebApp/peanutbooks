@@ -27,8 +27,7 @@
 	</select>
 	<!--주문성공시 orderStatus 값 변경  -->
 	<update id="updataOrder">
-		UPDATE PAY SET ORDER_STATUS='Y', IMP_UID=#{imp_uid} WHERE ORDER_NO=#{orderNo}
-	
+		UPDATE PAY SET ORDER_STATUS='Y', IMP_UID=#{imp_uid} WHERE ORDER_NO=#{orderNo}	
 	</update>	
 	
 	<!--작가 정산관련 부분  -->
@@ -37,14 +36,33 @@
 		<result  property="memberId" 			column="MEMBER_ID"/> 	
 		<result  property="seriesNo" 			column="SERIES_NO"/> 	
 		<result  property="ori_bookNo" 			column="ORI_BOOK_NO"/> 
-		<result  property="putDate" 			column="PUT_DATE"/> 
+		<result  property="putDate" 			column="PUTDATE"/> 
 		<result  property="bankName" 			column="BANK_NAME"/> 
 		<result  property="bankNo" 				column="BANK_NO"/> 
 		<result  property="payment" 			column="PAYMENT"/> 
 		<result  property="bankStatus" 			column="BANK_STATUS"/> 
 		<result  property="wrpayNo"        		column="WRPAY_NO"/> 
 		<result  property="changeP"             column="CHANGE_P"/> 
-  	</resultMap>
+  	</resultMap>  	
+  	
+  	<!-- 작가 결제 요청시 저장 -->
+    <insert id="insertreceiptWP">
+    	INSERT INTO POINTCHANGE_TBL VALUES(#{memberId},#{seriesNo},#{ori_bookNo},DEFAULT,#{bankName},#{bankNo},${payment},DEFAULT, SQN_WRITERPAY_NO.NEXTVAL, ${changeP})    	
+    </insert>
+    <!-- 작가 정산 리스트 전체 갯수 구하기  -->
+  	<select id="wPListCount" resultType="_int">
+  		SELECT COUNT(*) FROM POINTCHANGE_TBL
+  	</select>
+    <!--작가정산리스트 출력 -->
+    <select id="selectwrList" resultMap="WriterPayResultMap">
+    	SELECT * FROM POINTCHANGE_TBL ORDER BY PUTDATE DESC
+    </select>
+    <!--관리자가 작자정산접수승인  -->
+    <update id="updateWriterpay">
+    	UPDATE POINTCHANGE_TBL SET BANK_STATUS='Y' WHERE WRPAY_NO=${wrpayNo}
+    </update>  
+  
+  	
   	<!-- 시리즈 가져오는 부분  -->
   	<resultMap 	 type="OriginBookSeries" 		id="OriginBookSeriesResultMap">
   		<id 	 property="seriesNo" 			column="SERIES_NO"/> <!--id   -->
@@ -93,20 +111,7 @@
   	<select id="OriginBookNo" resultMap="OriginBookResultMap">
   		SELECT * FROM ORIGIN_BOOK WHERE MEMBER_ID = #{memberId }  	
   	</select>
-  	
-  	
-  	
-  	<!-- 작가 결제 요청시 저장 -->
-    <insert id="insertreceiptWP">
-    	INSERT INTO POINTCHANGE_TBL VALUES(#{memberId},#{seriesNo},#{ori_bookNo},DEFAULT,#{bankName},#{bankNo},${payment},DEFAULT, SQN_WRITERPAY_NO.NEXTVAL, ${changeP})    	
-    </insert>
-    
-    <!--작가정산리스트 출력 -->
-    <select id="selectwrList" resultMap="WriterPayResultMap">
-    	SELECT * FROM POINTCHANGE_TBL
-    </select>
-    
-  
+ 
   <!--땅콩 포인트 관련  -->	
   	<resultMap   type="PeanutPoint" 			id="peanutResultMap">
   		<id 	 property="peanutNo" 			column="PEANUT_NO"/> <!--id   -->

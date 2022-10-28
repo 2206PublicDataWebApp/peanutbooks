@@ -173,7 +173,7 @@ import com.books.peanut.member.domain.Member;
 				ConsultServer consultServer = chatList.get(i);
 
 				jsonObj.put("titleNo", consultServer.getTitleNo());
-				jsonObj.put("csMebmerId", consultServer.getCsMemberId());
+				jsonObj.put("csMemberId", consultServer.getCsMemberId());
 				jsonObj.put("csMail", consultServer.getCsMail());
 				jsonObj.put("csTitle", consultServer.getCsTitle());
 				// 데이트형 문자열로 바꾸기

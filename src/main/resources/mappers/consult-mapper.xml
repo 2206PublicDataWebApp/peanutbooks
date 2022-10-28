@@ -43,7 +43,7 @@
 
   	<!--채팅리스트전체 조회  -->
   	<select id="chatList"  resultMap="ChatResultMap">
-  		SELECT * FROM CHATSERVER_TBL ORDER BY TITLE_NO DESC
+  		SELECT * FROM CHATSERVER_TBL WHERE CS_RESULT='N' ORDER BY TITLE_NO DESC
   	</select>
   	
 <!--   	titleNo 조회 -->

@@ -23,7 +23,7 @@ public interface PayService {
 
 	public int writerReceipt(WriterPay writerP);
 
-	public List<WriterPay> wrListPrint();
+	public List<WriterPay> wrListPrint(Pagemarker pm);
 
 	public int peanutTableInput(PeanutPoint pp);
 
@@ -46,5 +46,9 @@ public interface PayService {
 	public List<OriginBookSeries> findSeriseNo(OriginBookSeries obs);
 	//지급접수후 포인트 차감
 	public int updatePaidCount(WriterPay writerP);
+	//작가 정산리스트 전체갯수 구하기
+	public int getwritetP_Count();
+	//작가 정산접수 관리자 승인처리
+	public int writerPayStatusOne(String wrpayNo1);
 
 }
