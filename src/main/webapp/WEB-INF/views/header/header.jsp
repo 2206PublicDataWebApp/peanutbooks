@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
 <meta charset="UTF-8">
@@ -162,7 +162,7 @@
 						</div>
 
 						<div class="col-4">
-							<img src="/resources/img/header/icons8-chat-50.png" alt="" >
+							<img src="/resources/img/header/icons8-chat-50.png" alt="" onclick="chatManager();">
 							<br>채팅상담
 						</div>
 						<div class="col-4">
@@ -263,7 +263,13 @@
 			var windo = "status=no ,toolbar=no,scrollbars=no, menubar=no,resizable=no,titlebar=no,width=550,height=650";
 			window.open("/consult/chatbefore.kh", "PopupWin",windo);
 		}
-		</script>
+		
+	     //채팅 상담리스트
+	      function chatManager(){ 
+	         location.href="/chat/move.kh";
+	      }
+
+	     </script>
     
 
 </body>

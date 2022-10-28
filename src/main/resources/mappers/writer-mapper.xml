@@ -132,7 +132,7 @@ select count(BOOK_TITLE) from origin_book where MEMBER_ID = #{memberId} and ORI_
 
 <!-- 회원 한명이 작성한 시리즈 전부 가져오기 -->
 <select id="selectOneMemberSeriese" resultMap="oriSeriesResultMap">
-	select * from ori_series join origin_book using(ori_book_no) where member_id = #{memberId} order by SERIES_NO desc
+	select * from ori_series join origin_book using(ori_book_no) where member_id = #{memberId} order by ori_series.INSERT_DATE desc
 </select>
 
 <!-- 회원한명이 작성한 피넛 오리지널 시리즈의 숫자 가져오기 -->

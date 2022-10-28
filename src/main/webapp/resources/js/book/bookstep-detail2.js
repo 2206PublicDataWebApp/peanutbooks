@@ -96,7 +96,6 @@ document.querySelector('#prev-button').onclick=function(){
 		 	var bookTitle =result.bookTitle;
 		 	var subTitle = result.seriesNo+'. '+result.title;
 		 	var contents = result.contents;
-		 	alert(result)
 		 	$('.title-area2').html(bookTitle);
 		 	$('.step-title2').html(subTitle);
 		 	$('.contents-area2').html(contents);

@@ -84,6 +84,7 @@ public class BookReplyController {
 
 		// 리플 수계산하기
 		int totalCount = rService.getTotalCount(bookNo);
+		if(totalCount==0) {return "0";}
 		// 페이지당 출력될 변수 메소드로 가져오기
 		int boardLimit = 10;// 출력될 리플수
 		String navi = boardList(rPage, totalCount, boardLimit);
@@ -134,6 +135,7 @@ public class BookReplyController {
 		
 		// 리플 수계산하기
 		int totalCount = rService.getTotalNorReplyCount(bookNo);
+		if(totalCount==0) {return "0";}
 		// 페이지당 출력될 변수 메소드로 가져오기
 		int boardLimit = 10;// 출력될 리플수
 		String navi = boardList(rPage, totalCount, boardLimit);

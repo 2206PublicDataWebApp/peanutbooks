@@ -42,6 +42,10 @@ $.ajax({
 	data:{"bookNo":bookNo, rPage:rPage},
 	type:"post",
 	success:function(result){
+		if(result==0){
+		$('#replyLength').html(0);
+		replyArea[0].innerHTML = "";
+		}else{
 			replyArea[0].innerHTML = '';
 			for(var i in result){
 				$('#replyLength').html(result[0].totalCount);	
@@ -87,7 +91,7 @@ $.ajax({
 					 page +='<span onclick="printReply('+bookNo+',\''+userId+'\','+(rPage+1)+')"> > </span>';
 				 }
 				$('#page').html(page);
-			 		 
+			} 		 
 			},
 	error:function(){}
 	});

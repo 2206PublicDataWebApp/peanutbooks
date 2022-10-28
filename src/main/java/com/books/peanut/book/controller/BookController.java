@@ -1126,7 +1126,7 @@ public class BookController {
 				}
 			}
 
-			String bookTitle = bService.getNorBookTitle(bookNo + ""); // 책 이름 가져옴
+			String bookTitle = bService.getBookTitle(bookNo+""); // 책 이름 가져옴
 			if (prevSeriesNo != 0) { //이전시리즈가 있다면
 				OriginBookSeries obSeries = bService.getOneSeries(prevSeriesNo, bookNo); // 이전 시리즈 한편가져오기
 				obSeries.setBookTitle(bookTitle);
@@ -1138,7 +1138,7 @@ public class BookController {
 					String resultStr = checkPurchase(prevSeriesNo, bookNo, session); // 구입했거나 구독자인지 체크
 					int resultPay = Integer.parseInt(resultStr);
 					if (resultPay > 0 || result > 0 || member.getAdminYN().equals("Y")) { // 구입했거나 작성자 이거나 관리자이라면
-						
+						logger.info(obSeries.getBookTitle()+"유료화시");
 						Gson gson = new Gson();
 						return gson.toJson(obSeries).toString();
 
@@ -1150,7 +1150,7 @@ public class BookController {
 					}
 
 				} else {// 유료화가 아니라면
-
+					logger.info(obSeries.getBookTitle()+"무료");
 					Gson gson = new Gson();
 					return gson.toJson(obSeries).toString();
 				}
