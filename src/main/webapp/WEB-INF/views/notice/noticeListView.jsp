@@ -77,7 +77,7 @@
 						<a href="/notice/categoryCount.kh?noticeCategory=event&page=${currentPage }" style="color: black"> 이벤트 |</a>
 						<a href="/notice/categoryCount.kh?noticeCategory=info&page=${currentPage }" style="color: black"> 안내 </a>
 					</td>
-			</tr>
+				</tr>
 			<c:if test="${!empty nList }">
 				<c:forEach items="${nList }" var="notice" varStatus="i">
 					<tr>

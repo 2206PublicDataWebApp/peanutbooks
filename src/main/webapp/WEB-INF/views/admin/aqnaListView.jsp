@@ -79,10 +79,11 @@
 					</div>
 					<!-- div 오른쪽 정렬 -->
 					<div style="display: inline-block; margin: 0 5px;  float: right;">
-					<form action="/qna/search.kh" method="get" >
+					<form action="/admin/search.kh" method="get" >
 						<div style= "display: inline-block">
 							<select class="form-select" name="searchCondition" >
 								<option <c:if test="${searchCondition eq 'all'}">selected</c:if> value="all">전체</option>
+								<option <c:if test="${searchCondition eq 'name'}">selected</c:if> value="name">작성자</option>
 								<option <c:if test="${searchCondition eq 'title'}">selected</c:if> value="title">제목</option>
 								<option <c:if test="${searchCondition eq 'contents'}">selected</c:if> value="contents">내용</option>
 							</select>
@@ -105,7 +106,16 @@
 	<!-- 리스트 출력 -->
 	<div class="row row-cols-1">
 		<table align="center" class="table col-10">
-			<c:if test="${!empty qList }">
+			<tr>
+				<td style="border:none;" td colspan="4" align="right">
+					<a href="/admin/qnaList.kh" style="color: black"> 전체 | </a>
+					<a href="/admin/categoryCount.kh?noticeCategory=notice&page=${currentPage }" style="color: black"> 회원문의 |</a>
+					<a href="/admin/categoryCount.kh?noticeCategory=update&page=${currentPage }" style="color: black"> 포인트문의 |</a>
+					<a href="/admin/categoryCount.kh?noticeCategory=event&page=${currentPage }" style="color: black"> 도서문의 |</a>
+					<a href="/admin/categoryCount.kh?noticeCategory=info&page=${currentPage }" style="color: black"> 기타 </a>
+				</td>
+			</tr>
+			<c:if test="${!empty aList }">
 					<tr>
 						<th>NO</th>
 						<th>문의유형</th>
@@ -114,7 +124,7 @@
 						<th>상태</th>
 						<th>작성일</th>
 					</tr>
-				<c:forEach items="${qList }" var="qna" varStatus="i">
+				<c:forEach items="${aList }" var="qna" varStatus="i">
 					<tr>
 						<td>${i.count }</td>
 						<td>
@@ -145,7 +155,7 @@
 					</tr>
 				</c:forEach>
 			</c:if>
-			<c:if test="${empty qList }">
+			<c:if test="${empty aList }">
 				<tr>
 					<td colspan="5" align="center"><b>작성된 게시물이 없습니다.</b></td>
 				</tr>
@@ -182,5 +192,6 @@
 <!-- Footer -->
 <jsp:include page="../footer/footer.jsp"></jsp:include>
 <!-- Footer -->
+
 </body>
 </html>

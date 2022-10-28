@@ -76,7 +76,7 @@
 				<td colspan="2" align="center" style="border:none;">
 					<input onclick="noticeModify(${notice.noticeNo }, ${page});" type="button" value="수정" class="btn btn-warning btn-sm">
 					<input onclick="noticeRemove(${notice.noticeNo }, ${page});" type="button" value="삭제" class="btn btn-warning btn-sm">
-					<button type="button" onclick="location.href='/notice/list.kh?page=${page }'" class="btn btn-warning btn-sm">목록</button> 
+					<button type="button" onclick="backBtn()" class="btn btn-warning btn-sm">목록</button> 
 					 
 				</td>
 			</tr>
@@ -89,6 +89,10 @@
 
 
 <script>
+	function backBtn() {
+	    history.back();
+	}
+	
 	function noticeModify(noticeNo, page) {
 		location.href="/notice/modifyView.kh?noticeNo="+noticeNo+"&page="+page;
 	}
