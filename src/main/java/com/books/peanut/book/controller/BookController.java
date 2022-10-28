@@ -1068,8 +1068,6 @@ public class BookController {
 						JSONObject json = new JSONObject();
 						json.put("paid", "no");
 						json.put("nextSeriesNo", nextSeriesNo);
-						json.put("subpicRename", obSeries.getSubPicRename());
-						json.put("bookTitle", obSeries.getBookTitle());
 						return json.toString();
 					}
 
@@ -1148,8 +1146,6 @@ public class BookController {
 						JSONObject json = new JSONObject();
 						json.put("paid", "no");
 						json.put("prevSeriesNo", prevSeriesNo);
-						json.put("subpicRename", obSeries.getSubPicRename());
-						json.put("bookTitle", obSeries.getBookTitle());
 						return json.toString();
 					}
 
