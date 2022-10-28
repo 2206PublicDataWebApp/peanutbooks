@@ -25,7 +25,7 @@
 
 </head>
 
-<body onload="printReply(${oBook.bookNo}, '${loginMember.memberId}',1);">
+<body onload="printReply(${nBook.bookNo}, '${loginMember.memberId}',1);">
 	<jsp:include page="../header/header.jsp" />
 
 	<main>
@@ -38,6 +38,8 @@
 					</div>
 					<div class="info-area col-md-6">
 						<div id="title">${nBook.bookTitle }</div>
+					
+						<c:if test="${nBook.status == 'N '}"> 이 도서는 삭제되었습니다</c:if>
 						<div id="wirter-text">작가 : ${nBook.writer }</div>
 
 
@@ -54,7 +56,7 @@
 
 
 						<div class="openbutton">
-							<button id="bookopenbutton" onclick="window.open('/book/bookStep.do?bookNo=${oBook.bookNo}&category=origin')">상세 열람</button>
+							<button id="bookopenbutton" onclick="window.open('/book/bookStep.do?bookNo=${nBook.bookNo}&category=normal')">상세 열람</button>
 						</div>
 						<div class="userbutton container">
 							<div class="row">
@@ -81,8 +83,8 @@
 						
 						<!-- 관리자일때만 보이는 버튼 -->
 						<c:if test="${loginMember.adminYN == 'Y' }">
-							<button onclick="registOriNext(${oBook.bookNo},${fn:length(osList)+1});">다음편 쓰기</button>
-							<button>삭제하기</button>
+							<button onclick="registNorNext(${nBook.bookNo},${nextSeriesNo});">다음편 쓰기</button>
+							<button onclick="removeNorBook(${nBook.bookNo})">삭제하기</button>
 						</c:if>
 							
 						</div>
@@ -111,8 +113,8 @@
 
 										<!--  관리자 일때만 삭제 버튼 보임 -->
 										<c:if test="${loginMember.adminYN == 'Y'}">
-											<button onclick="location.href='/book/oriSeriesModifyView.do?bookNo=${oBook.bookNo}&seriesNo=${i.index +1 }'">수정</button>
-											<button>삭제</button>
+											<button onclick="location.href='/book/NorSeriesModifyView.do?bookNo=${nBook.bookNo}&seriesNo=${nSeries.seriesNo}'">수정</button>
+											<button onclick="removeOriginBook(${nBook.bookNo},${nSeries.seriesNo});">삭제</button>
 										</c:if>
 									</li>	
 								</c:forEach>

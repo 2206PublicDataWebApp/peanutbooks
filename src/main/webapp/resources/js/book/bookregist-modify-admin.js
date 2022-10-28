@@ -1,15 +1,8 @@
 
 
 
-document.getElementById("pay-check").onchange=function(){
 
-	if(document.getElementById("pay-check").checked) {
-	    document.getElementById("paidCheckHidden").disabled = true;
-	}
-}
-
-
-var content = document.querySelector('[name="modifyContents"]'); //현재 로드한 시리즈의 내용값
+var content = document.querySelector('[name="contents"]'); //현재 로드한 시리즈의 내용값
 
 function contentsInSumNote(){
  document.querySelector('.note-placeholder').style.display='none';//플레이스 홀더 안보이게
@@ -76,7 +69,7 @@ $('#summernote').summernote({
   });
 
   document.querySelector('.note-editable').onblur = function(){
-    var textarea = document.querySelector('[ name="modifyContents"]');
+    var textarea = document.querySelector('[ name="contents"]');
     var textvalue = document.querySelector('.note-editable');
         textarea.value = textvalue .innerHTML;
         }

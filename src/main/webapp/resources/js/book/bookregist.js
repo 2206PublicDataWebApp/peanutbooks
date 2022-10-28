@@ -23,7 +23,7 @@ function imgView(obj) {
     imgid.onload = function() {
         URL.revokeObjectURL(imgid.src) // free memory
         if(imgid.src!=''){
-            imgid.style.background='white';
+            imgid.style.background='gray';
         }
 
     }

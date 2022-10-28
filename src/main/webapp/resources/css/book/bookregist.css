@@ -201,10 +201,14 @@ margin: 1rem;}
     .contents-textarea{
         margin: 0;
     }
+   
     .contents-button {
         justify-content: center;
         flex-wrap: nowrap;
+       
     }
+    
+
     #camera2{
         left: 45%;
 
@@ -223,6 +227,8 @@ margin: 1rem;}
     #info-text1{
     margin-left:0;
     }
+    
+    
 }
 
 

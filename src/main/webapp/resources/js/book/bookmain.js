@@ -1,5 +1,17 @@
 
+//도서삭제
+function removeOriginBook(bookNo){
+	if(confirm('이 도서를 삭제하시겠습니까?')){
+ location.href='/book/removeOribook.do?bookNo='+bookNo;
+ }
+}
 
+
+function removeORiSeries(bookNo,seriesNo){
+ if(confirm('시리즈를 삭제 하시겠습니까?')){
+ location.href='/book/removeOriSeries.do?bookNo='+bookNo+'&seriesNo='+seriesNo;
+ }
+}
 
 
 function replyRegist(bookNo, userId){

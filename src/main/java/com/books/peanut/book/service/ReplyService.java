@@ -62,5 +62,17 @@ public interface ReplyService {
 	/**일반도서 리플 등록하기*/
 	int registNorOneReply(NormalBookReply nbReply);
 
+	/**일반도서 리플쓴 사람이 맞는지 체크*/
+	String checkNorReplyMember(int replyNo);
+
+	/**일반도서 리플 수정하기*/
+	int modifyNorReply(NormalBookReply nbReply);
+
+	/**일반도서 리플 가져오기*/
+	String getNorOneReply(String rNo);
+
+	/**일반도서 리플삭제*/
+	int removeNorReply(Integer rNo);
+
 
 }

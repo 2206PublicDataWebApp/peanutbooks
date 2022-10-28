@@ -180,8 +180,17 @@ public class BookReplyController {
 		return replyContents;
 
 	}
+	/** 일반도서 리플 내용 가져오기 */
+	@ResponseBody
+	@RequestMapping(value = "/book/norbookOneReply", method = RequestMethod.GET, produces = "text/plain;charset=utf-8")
+	public String nriBookOneReply(@RequestParam(value = "rNo") String rNo) {
+		
+		String replyContents = rService.getNorOneReply(rNo);
+		return replyContents;
+		
+	}
 
-	/** 리플 수정하기 */
+	/** 피넛 오리지널 리플 수정하기 */
 	@ResponseBody
 	@RequestMapping(value = "/book/modifyOriReply", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
 	public String modifyOriReply(HttpSession session, @ModelAttribute OriginBookReply obReply) {
@@ -201,8 +210,28 @@ public class BookReplyController {
 		return result + "";
 
 	}
+	/** 일반도서 리플 수정하기 */
+	@ResponseBody
+	@RequestMapping(value = "/book/modifyNorReply", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
+	public String modifyNorReply(HttpSession session, @ModelAttribute NormalBookReply nbReply) {
+		
+		Member member = (Member) session.getAttribute("loginMember");
+		String memberId = member.getMemberId();
+		
+		// 리플 쓴 사람 체크하기
+		String repleId = rService.checkNorReplyMember(nbReply.getReplyNo());
+		int result = 0;
+		if (repleId.equals(memberId)) {
+			result = rService.modifyNorReply(nbReply);
+		} else {
+			result = 0;
+		}
+		
+		return result + "";
+		
+	}
 
-	/** 리플 삭제하기 */
+	/** 피넛 오리지널 리플 삭제하기 */
 	@ResponseBody
 	@RequestMapping(value = "/book/removeOriReply", method = RequestMethod.GET, produces = "text/plain;charset=utf-8")
 	public String modifyOriReply(HttpSession session, @RequestParam(value = "rNo") Integer rNo) {
@@ -221,6 +250,27 @@ public class BookReplyController {
 
 		return result + "";
 
+	}
+	
+	/** 일반도서 리플 삭제하기 */
+	@ResponseBody
+	@RequestMapping(value = "/book/removeNorReply", method = RequestMethod.GET, produces = "text/plain;charset=utf-8")
+	public String removeNorReply(HttpSession session, @RequestParam(value = "rNo") Integer rNo) {
+		
+		Member member = (Member) session.getAttribute("loginMember");
+		String memberId = member.getMemberId();
+		
+		// 리플 쓴 사람 체크하기
+		String repleId = rService.checkNorReplyMember(rNo);
+		int result = 0;
+		if (repleId.equals(memberId)) {
+			result = rService.removeNorReply(rNo);
+		} else {
+			result = 0;
+		}
+		
+		return result + "";
+		
 	}
 
 	/** 페이징하기 */

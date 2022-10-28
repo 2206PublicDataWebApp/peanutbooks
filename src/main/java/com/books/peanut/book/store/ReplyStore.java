@@ -60,5 +60,17 @@ public interface ReplyStore {
 	/**일반도서 리플 등록하기*/
 	int insertNorReply(SqlSessionTemplate session, NormalBookReply nbReply);
 
+	/**일반도서 리플쓴 사람 체크*/
+	String selectOneNorMemberId(SqlSessionTemplate session, int replyNo);
+
+	/**일반도서 리플 수정하기*/
+	int updateNorReply(SqlSessionTemplate session, NormalBookReply nbReply);
+
+	/**일반도서 리플내용 가져오기*/
+	String selectNorOroBookReply(SqlSessionTemplate session, String rNo);
+
+	/**일반도서 리플삭제*/
+	int deleteNorReply(SqlSessionTemplate session, int replyNo);
+
 
 }

@@ -72,7 +72,7 @@
 							<option value="">카테고리를 선택하세요</option>
 							<option value="detective">추리소설</option>
 							<option value="history">역사</option>
-							<option value="essay">로맨스</option>
+							<option value="romance">로맨스</option>
 							<option value="tale">동화</option>
 							<option value="poem">시</option>
 							<option value="novel">일반소설</option>

@@ -15,8 +15,9 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/resources/css/book/bookstep-detail.css">
     <link rel="shortcut icon" href="/resources/img/icons8-book-32.png">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     
-     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>   
+        
 </head>
 
 <body>
@@ -30,27 +31,24 @@
             <article id="main-text" class="container">
 
                 <div id="step-title">
-                    ${obSeries.seriesNo }. ${obSeries.title }
-                    <c:if test="${obSeries.checkPermission == 'N'}"> <!-- 승인되지 않았을시 메세지 -->
-                    	<br><b> 이 시리즈는 승인되지 않았습니다</b>
-                    </c:if>
-                    <c:if test="${obSeries.status == 'N'}"> <!-- 승인되지 않았을시 메세지 -->
-                    	<br><b> 이 시리즈는 삭제되었습니다.</b>
-                    </c:if>
+                    ${nbSeries.seriesNo }. ${nbSeries.title }
+
                 </div>
                 <div id="contents-area">
-                    ${obSeries.contents }
+                    ${nbSeries.contents }
                 </div>
 
             </article>
             <article class="container" id="next-button-area">
-                <img src="/resources/img/book/icons8-twoleft.png" id="prev-button" alt="">
+            	<img src="/resources/img/book/icons8-twoleft.png" id="prev-button" alt="">
                 <img src="/resources/img/book/icons8-twoTop.png" id="top-button" alt="" onclick=" window.scrollTo(0,0);"> 
                 <img src="/resources/img/book/icons8-tworight.png" id="next-button" alt=""> 
+                 
             </article>
 
         </section>
         
+         
          <section id="two" style="display:none;">
             <article id="header-area" class="header-area2">
                 <div id="title-area" class="title-area2">
@@ -73,15 +71,17 @@
             </article>
 
         </section>
-        
+       
     </main>
 
 </body>
 <script type="text/javascript">
-document.querySelector('#header-area').style.backgroundImage="linear-gradient(to bottom,rgba(232, 232, 232, 0),rgba(255, 255, 255, 1)),url('/resources/bookImg/${obSeries.subPicRename}')"
-	var seriesNo = ${obSeries.seriesNo};
-	var bookNo = ${obSeries.bookNo};
+document.querySelector('#header-area').style.backgroundImage="linear-gradient(to bottom,rgba(232, 232, 232, 0),rgba(255, 255, 255, 1)),url('/resources/bookImg/${nbSeries.subpicRename}')"
+var seriesNo = ${nbSeries.seriesNo};
+var bookNo = ${nbSeries.bookNo};
+
 </script>
-<script src="/resources/js/book/bookstep-detail2.js"></script>
+
+<script src="/resources/js/book/bookstep-detail.js"></script>
 
 </html>

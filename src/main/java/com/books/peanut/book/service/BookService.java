@@ -130,4 +130,47 @@ public interface BookService {
 	/**일반도서 시리즈의 정보가져오기*/
 	List<NormalBookSeries> getNorSeriesTitle(String bookNo);
 
+	/**일반도서 작가가 등록한 도서 목록 가져오기*/
+	List<NormalBook> allNorWirterbookTitle(String writer);
+
+	/**일반도서 한권에 모든 시리즈 가져오기*/
+	List<NormalBookSeries> allNorBookSeries(String bookNo);
+
+	/**일반도서 시리즈 1개 가져오기*/
+	NormalBookSeries getOneNorBookSeries(int bookNo, int seriesNo);
+
+	/**일반도서 시리즈 다음화 등록*/
+	int registNorSeriesNext(NormalBookSeries nSeries);
+
+	/**도서 언어여부 확인하기*/
+	String getlanguege(String string);
+
+	/**일반도서 시리즈 수정하기*/
+	int modifyNorSeries(NormalBookSeries nbSeries);
+
+	/**현재 한 도서의 모든 시리즈 번호 가지고 오기
+	 * @param bookNo */
+	List<NormalBookSeries> getNorSeriesNo(int bookNo);
+
+	/**오리지널 시리즈 삭제*/
+	int removeOriBookSeries(String bookNo, Integer seriesNo);
+
+	/**피넛 오리지널 도서 삭제*/
+	int removeOriBook(String bookNo);
+
+	/**일반도서 시리즈 하나 삭제*/
+	int removeNorBookSeries(String bookNo, Integer seriesNo);
+
+
+	/**일반도서 삭제*/
+	int removeNorBook(int bookNo);
+
+	/**피넛 오리지널 한권의 삭제되지 않고 허가된 모든 시리즈 번호 가져오기*/
+	List<OriginBookSeries> getOriSeriesNo(int bookNo);
+
+	/**피넛 오리지널 한권의 모든 시리즈 번호 가져오기*/
+	List<OriginBookSeries> getOneOriSeriesAllNo(int bookNo);
+
+	
+
 }
