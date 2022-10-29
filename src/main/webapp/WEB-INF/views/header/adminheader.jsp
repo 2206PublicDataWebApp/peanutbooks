@@ -46,7 +46,7 @@
 						id="search-icon"> 
 					<img
 						src="/resources/img/header/icons8-book (3).png" alt=""
-						id="book-icon"> 
+						id="book-icon" onclick="location.href='/book/mybooks.do'"> 
 					<img
 						src="/resources/img/header/icons8-peanut-48 (6).png" alt=""
 						id="p-icon"> 

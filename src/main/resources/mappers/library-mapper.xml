@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="librarymapper">
+  
+  <!-- 내서재 등록 -->
+  <insert id="insertMybook">
+  insert into Library values(#{memberId},#{bookNo},#{category},seq_library_no.nextval)
+  </insert>
+  
+  <delete id="deleteMybook">
+  delete Library where  MEMBER_ID= #{memberId} and CATEGORY = #{category} and BOOK_NO = #{bookNo}
+  </delete>
+  
+  
+ 	<resultMap type="Library" id="libraryResultMap">
+ 		<id column="MEMBER_ID"         property="memberId" />
+ 		<result column="BOOK_NO"    property="bookNo" />
+ 		<result column="CATEGORY"        property="category" />
+ 		<result column="LIBRARY_NO"   property="libraryNo" />
+
+ 	</resultMap>
+  
+  <!-- 내 서재 등록여부 확인 -->
+  <select id="selectMybookMember" resultType="_int">
+  	select count(LIBRARY_NO) from Library where  MEMBER_ID= #{memberId} and CATEGORY = #{category} and BOOK_NO = #{bookNo}
+  
+  </select>
+  
+  <select id="selectOneMemberLibrary" resultMap="libraryResultMap">
+  	select * from Library where  MEMBER_ID= #{memberId} order by LIBRARY_NO desc
+  </select>
+  
+  </mapper>

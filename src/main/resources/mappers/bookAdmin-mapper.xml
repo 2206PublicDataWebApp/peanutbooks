@@ -57,6 +57,11 @@
   		select LANGUAGE from normal_book where NOR_BOOK_NO = #{bookNo}
   	</select>
   	
+  	<!-- 책제목 표지 가져오기  -->
+  	<select id="selectOneBookStatus" resultMap="nBookResultMap">
+  		select BOOK_TITLE, COVER_RENAME from normal_book where NOR_BOOK_NO = #{bookNo} and STATUS like 'Y%'
+  	</select>
+  	
   	
   	
   	
@@ -79,9 +84,14 @@
   update nor_series set SUB_PIC= #{subPic}, SUB_PIC_RE= #{subpicRename}, TITLE=#{title}, CONTETNS=#{contents}, UPDATE_DATE = default where SERIES_NO =#{seriesNo} and NOR_BOOK_NO=#{bookNo}
   </update>
   
-  <!-- 일반도서 시리즈 한개 수정하기 -->
+  <!-- 일반도서 시리즈 한개 삭제하기 -->
   <delete id="deleteOneNorSeries">
   delete from nor_series where NOR_BOOK_NO = #{bookNo} and SERIES_NO = #{seriesNo}
+  </delete>
+  
+  <!-- 도서번호한개의 모든 시리즈 삭제하기 -->
+  <delete id="updateAllNorSeriesRemove">
+   delete from nor_series where NOR_BOOK_NO = #{bookNo}
   </delete>
   	
   	<resultMap type="NormalBookSeries" id="nbSeriesResultMap">
@@ -104,7 +114,7 @@
   	
   	<!-- 모든 일반도서 시리즈 가져오기 -->
   	<select id="allNorBook" resultMap="nbSeriesResultMap">
-  		select * from nor_series order by INSERT_DATE
+  		select * from nor_series order by INSERT_DATE desc
   	</select>
   	
   	<!-- 책번호에 해당하는 일반도서 시리즈의 특정정보 가져오기 -->

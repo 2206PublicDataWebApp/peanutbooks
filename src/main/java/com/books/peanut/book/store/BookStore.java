@@ -5,6 +5,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.books.peanut.book.domain.HashTag;
+import com.books.peanut.book.domain.Library;
 import com.books.peanut.book.domain.NormalBook;
 import com.books.peanut.book.domain.NormalBookSeries;
 import com.books.peanut.book.domain.OriginBook;
@@ -173,5 +174,25 @@ public interface BookStore {
 	
 	/**피넛 오리지널 한편에 모든 시리즈 번호 가져오기*/
 	List<OriginBookSeries> selectOneOriBookAllSeriesNo(SqlSessionTemplate session, int bookNo);
+
+	/**내 서재 등록여부 확인하기*/
+	int selectMybookMember(SqlSessionTemplate session, Library library);
+
+	/**내 서재 등록
+	 * @param session */
+	int insertMybook(SqlSessionTemplate session, Library library);
+
+	/**내 서재 삭제*/
+	int deleteMybook(SqlSessionTemplate session, Library library);
+
+	/**내 서재 불러오기
+	 * @param session */
+	List<Library> selectOneMemberLibrary(SqlSessionTemplate session, String memberId);
+
+	/**피넛 오리지널 삭제되지 않고 승인된 책 한권의 제목, 표지 가져오기*/
+	OriginBook selectOneOriBookStatus(SqlSessionTemplate session, String bookNo);
+
+	/**일반도서 삭제되지 않고 승인된 책 한권의 제목, 표지 가져오기*/
+	NormalBook selectOneNorBookStatus(SqlSessionTemplate session, String bookNo);
 
 }

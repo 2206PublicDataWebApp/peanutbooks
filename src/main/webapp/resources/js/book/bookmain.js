@@ -323,3 +323,21 @@ function registOriNext(bookNo,seriesNo){
 	location.href="/book/oriBookNextSeires.do?bookNo="+bookNo+"&seriesNo="+seriesNo;
 }
 
+//내 서재 등록하기
+function addMybooks(category,bookNo){
+	$.ajax({
+		url:"/book/addMybooks.do",
+		type:"get",
+		data:{"category":category,"bookNo":bookNo},
+		success: function(result){
+			if(result=='ok'){
+				alert('내 서재에 등록했습니다.');
+				$('#mybooksButton').html('내 서재 취소');
+			}else{
+				alert('내 서재에서 삭제했습니다.');
+				$('#mybooksButton').html('내 서재 등록');
+			}
+		},
+		error : function(){}
+	})
+}

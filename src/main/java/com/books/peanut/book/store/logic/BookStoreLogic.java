@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.books.peanut.book.domain.HashTag;
+import com.books.peanut.book.domain.Library;
 import com.books.peanut.book.domain.NormalBook;
 import com.books.peanut.book.domain.NormalBookSeries;
 import com.books.peanut.book.domain.OriginBook;
@@ -373,6 +374,7 @@ public class BookStoreLogic implements BookStore{
 	@Override
 	public int updateOriRemove(SqlSessionTemplate session, String bookNo) {
 		int result = session.update("wirterMapper.updateOriRemove",bookNo);
+		result += session.update("wirterMapper.updateAllOriSeriesRemove",bookNo);
 		return result;
 	}
 	
@@ -390,6 +392,7 @@ public class BookStoreLogic implements BookStore{
 	@Override
 	public int updateNorRemove(SqlSessionTemplate session, int bookNo) {
 		int result = session.update("adminWirteMapper.updateNorRemove",bookNo);
+		result += session.delete("adminWirteMapper.updateAllNorSeriesRemove",bookNo);
 		return result;
 	}
 	
@@ -406,6 +409,48 @@ public class BookStoreLogic implements BookStore{
 	public List<OriginBookSeries> selectOneOriBookAllSeriesNo(SqlSessionTemplate session, int bookNo) {
 		List<OriginBookSeries> osList = session.selectList("wirterMapper.selectOneOriBookAllSeriesNo",bookNo);
 		return osList;
+	}
+	
+	/**내 서재 등록여부 확인하기*/
+	@Override
+	public int selectMybookMember(SqlSessionTemplate session, Library library) {
+		int result = session.selectOne("librarymapper.selectMybookMember",library);
+		return result;
+	}
+	
+	/**내 서재 등록*/
+	@Override
+	public int insertMybook(SqlSessionTemplate session, Library library) {
+		int result = session.insert("librarymapper.insertMybook",library);
+		return result;
+	}
+	
+	/**내 서재 삭제*/
+	@Override
+	public int deleteMybook(SqlSessionTemplate session, Library library) {
+		int result = session.delete("librarymapper.deleteMybook",library);
+		return result;
+	}
+	
+	/**내 서재 불러오기*/
+	@Override
+	public List<Library> selectOneMemberLibrary(SqlSessionTemplate session, String memberId) {
+		List<Library> lList = session.selectList("librarymapper.selectOneMemberLibrary",memberId);
+		return lList;
+	}
+	
+	/**피넛 오리지널 삭제되지 않고 승인된 책 한권의 제목, 표지 가져오기*/
+	@Override
+	public OriginBook selectOneOriBookStatus(SqlSessionTemplate session, String bookNo) {
+		OriginBook oBook = session.selectOne("wirterMapper.selectOneBookStatus", bookNo);
+		return oBook;
+	}
+	
+	/**일반 삭제되지 않고 승인된 책 한권의 제목, 표지 가져오기*/
+	@Override
+	public NormalBook selectOneNorBookStatus(SqlSessionTemplate session, String bookNo) {
+		NormalBook nBook = session.selectOne("adminWirteMapper.selectOneBookStatus", bookNo);
+		return nBook;
 	}
 
 	

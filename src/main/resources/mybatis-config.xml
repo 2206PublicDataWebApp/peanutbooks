@@ -35,6 +35,7 @@
 		<typeAlias type="com.books.peanut.book.domain.NormalBookSeries" alias="NormalBookSeries"/>
 		<typeAlias type="com.books.peanut.book.domain.NormalBook" alias="NormalBook"/>
 		<typeAlias type="com.books.peanut.book.domain.NormalBookReply" alias="NormalBookReply"/>
+		<typeAlias type="com.books.peanut.book.domain.Library" alias="Library"/>
 		
 	</typeAliases>
 
@@ -44,6 +45,7 @@
 	<mapper resource="/mappers/writer-mapper.xml"/>
 	<mapper resource="/mappers/bookReply-mapper.xml"/>
 	<mapper resource="/mappers/bookAdmin-mapper.xml"/>
+	<mapper resource="/mappers/library-mapper.xml"/>
 	
 	<!--은정꺼  -->
 	<mapper resource="/mappers/consult-mapper.xml" />

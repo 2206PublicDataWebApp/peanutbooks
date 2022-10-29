@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
 <meta charset="UTF-8">
@@ -67,128 +68,32 @@
                 </div>
 
                 <div id="book-list" class="row">
-                    <div class="col-md-3 col-6" id="one-book-area">
+                
+                <!-- 책 한권 반복 시작 -->
+                <c:forEach items="${lList }" var="library">
+                
+                	<c:if test="${library.bookTitle != null}">
+                
+                    <div class="col-md-3 col-6" id="one-book-area"
+                    <c:if test="${library.category == 'origin'}">
+                    onclick="location.href='/book/oriBookInfo?bookNo=${library.bookNo }'"
+                    </c:if>
+                    
+                    <c:if test="${library.category == 'normal'}">
+                    onclick="location.href='/book/norBookInfo?bookNo=${library.bookNo }'"
+                    </c:if>
+                    >
                         <div class="one-book-pic">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
+                            <img src="/resources/bookImg/${library.picName }">
                         </div>
                         <div class="book-name">
-                            제목
+                            ${library.bookTitle }
 
                         </div>
                     </div>
-                    <div class="col-md-3 col-6" id="one-book-area">
-                        <div class="one-book-pic">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-name">
-                            제목
-
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 col-6" id="one-book-area">
-                        <div class="one-book-pic">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-name">
-                            제목
-
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 col-6" id="one-book-area">
-                        <div class="one-book-pic">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-name">
-                            제목
-
-                        </div>
-                    </div>
-
-
-                    <div class="col-md-3 col-6" id="one-book-area">
-                        <div class="one-book-pic">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-name">
-                            제목
-
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 col-6" id="one-book-area">
-                        <div class="one-book-pic">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-name">
-                            제목
-
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 col-6" id="one-book-area">
-                        <div class="one-book-pic">
-                            <img src="/resources/img/main/teacup-g35f438ceb_1280.png">
-                        </div>
-                        <div class="book-name">
-                            제목
-
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 col-6" id="one-book-area">
-                        <div class="one-book-pic">
-                            <img src="/resources/img/main/teacup-g35f438ceb_1280.jpg">
-                        </div>
-                        <div class="book-name">
-                            제목
-
-                        </div>
-                    </div>
-
-
-                    <div class="col-md-3 col-6" id="one-book-area">
-                        <div class="one-book-pic">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-name">
-                            제목
-
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 col-6" id="one-book-area">
-                        <div class="one-book-pic">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-name">
-                            제목
-
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 col-6" id="one-book-area">
-                        <div class="one-book-pic">
-                            <img src="/resources/img/main/christmas-g4fdade62f_1280.jpg">
-                        </div>
-                        <div class="book-name">
-                            제목
-
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 col-6" id="one-book-area">
-                        <div class="one-book-pic">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-name">
-                            제목
-
-                        </div>
-                    </div>
-
-
+                    
+                 </c:if>  
+				</c:forEach>
 
 
 

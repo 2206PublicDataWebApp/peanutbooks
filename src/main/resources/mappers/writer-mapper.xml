@@ -76,6 +76,11 @@ select BOOK_TITLE from origin_book where MEMBER_ID = #{memberId}
 select count(BOOK_TITLE) from origin_book where MEMBER_ID = #{memberId} and ORI_BOOK_NO = #{bookNo}
 </select>
 
+<!-- 삭제되지 않고 승인된 책의 표지와 제목 -->
+<select id="selectOneBookStatus" resultMap="oriBookResultMap">
+ select BOOK_TITLE, CORVER_RENAME from origin_book where ORI_BOOK_NO = #{bookNo} and STATUS like 'Y%' and BOOK_PERMISSION like 'Y%'
+</select>
+
 
 
 <!-- 책 승인 테이블에 추가 -->
@@ -110,6 +115,10 @@ select count(BOOK_TITLE) from origin_book where MEMBER_ID = #{memberId} and ORI_
 
 <update id="updateOriSeriesRemove">
 	update ori_series set status = 'N' where SERIES_NO = ${seriesNo} and ORI_BOOK_NO = #{bookNo}
+</update>
+
+<update id="updateAllOriSeriesRemove">
+update ori_series set status = 'N' where ORI_BOOK_NO = #{bookNo}
 </update>
 
 <resultMap type="OriginBookSeries" id="oriSeriesResultMap">

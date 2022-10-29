@@ -4,7 +4,11 @@ main {
 	font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 }
 
-.star-score:hover, .star-score span:hover{
+.userbutton>div>div{
+	cursor:pointer;
+}
+
+.star-score:hover:not(#avr-score), .star-score span:hover{
 	cursor: pointer;
 	
 } 

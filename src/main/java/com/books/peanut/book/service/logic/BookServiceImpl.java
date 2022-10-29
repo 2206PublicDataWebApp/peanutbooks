@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.books.peanut.book.domain.HashTag;
+import com.books.peanut.book.domain.Library;
 import com.books.peanut.book.domain.NormalBook;
 import com.books.peanut.book.domain.NormalBookSeries;
 import com.books.peanut.book.domain.OriginBook;
@@ -360,6 +361,48 @@ public class BookServiceImpl implements BookService{
 	public List<OriginBookSeries> getOneOriSeriesAllNo(int bookNo) {
 		List<OriginBookSeries> osList = bStore.selectOneOriBookAllSeriesNo(session,bookNo);
 		return osList;
+	}
+
+	/**내서재에 등록됐는지 확인하기*/
+	@Override
+	public int checkMybookMember(Library library) {
+		int result = bStore.selectMybookMember(session,library);
+		return result;
+	}
+
+	/**내 서재 등록*/
+	@Override
+	public int addMybook(Library library) {
+		int result = bStore.insertMybook(session, library);
+		return result;
+	}
+
+	/**내 서재 삭제*/
+	@Override
+	public int removeMybook(Library library) {
+		int result = bStore.deleteMybook(session, library);
+		return result;
+	}
+
+	/**내 서재 불러오기*/
+	@Override
+	public List<Library> getOneMemberLibrary(String memberId) {
+		List<Library> lList = bStore.selectOneMemberLibrary(session, memberId);
+		return lList;
+	}
+
+	/**피넛 오리지널 삭제되지 않고 승인된 책의 책 제목, 표지 가져오기*/
+	@Override
+	public OriginBook getOneBookStatus(String bookNo) {
+		OriginBook oBook = bStore.selectOneOriBookStatus(session,bookNo);
+		return oBook;
+	}
+	
+	/**일반도서 삭제되지 않고 승인된 책의 책 제목, 표지 가져오기*/
+	@Override
+	public NormalBook getNorBookStatus(String bookNo) {
+		NormalBook nBook = bStore.selectOneNorBookStatus(session,bookNo);
+		return nBook;
 	}
 
 

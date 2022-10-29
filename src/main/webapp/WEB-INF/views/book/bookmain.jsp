@@ -59,9 +59,14 @@
 						</div>
 						<div class="userbutton container">
 							<div class="row">
-								<div class="col-4">
+								<div class="col-4" onclick="addMybooks('origin',${oBook.bookNo})">
 									<img src="/resources/img/book/icons8-bookmark-52.png" alt="">
-									<br> 내 서재
+									
+									<br> 
+									<span id="mybooksButton">
+									<c:if test="${library=='in'}">내 서재 취소</c:if>
+									<c:if test="${library!='in'}">내 서재 등록</c:if>
+									</span>
 								</div>
 								<div class="col-4">
 									<a href="#reply-text">

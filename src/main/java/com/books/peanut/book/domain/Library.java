@@ -1,10 +1,35 @@
 package com.books.peanut.book.domain;
 
-public class Llibrary {
+public class Library {
 	private String memberId;
 	private String bookNo;
 	private String category;
 	private String libraryNo;
+	private String bookTitle;
+	private String picName;
+	private String step;
+	
+	
+	
+	
+	public String getStep() {
+		return step;
+	}
+	public void setStep(String step) {
+		this.step = step;
+	}
+	public String getBookTitle() {
+		return bookTitle;
+	}
+	public void setBookTitle(String bookTitle) {
+		this.bookTitle = bookTitle;
+	}
+	public String getPicName() {
+		return picName;
+	}
+	public void setPicName(String picName) {
+		this.picName = picName;
+	}
 	public String getMemberId() {
 		return memberId;
 	}

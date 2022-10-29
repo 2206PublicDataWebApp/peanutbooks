@@ -3,6 +3,7 @@ package com.books.peanut.book.service;
 import java.util.List;
 
 import com.books.peanut.book.domain.HashTag;
+import com.books.peanut.book.domain.Library;
 import com.books.peanut.book.domain.NormalBook;
 import com.books.peanut.book.domain.NormalBookSeries;
 import com.books.peanut.book.domain.OriginBook;
@@ -170,6 +171,24 @@ public interface BookService {
 
 	/**피넛 오리지널 한권의 모든 시리즈 번호 가져오기*/
 	List<OriginBookSeries> getOneOriSeriesAllNo(int bookNo);
+
+	/**내 서재에 등록됐는지 확인하기*/
+	int checkMybookMember(Library library);
+
+	/**내서재 등록**/
+	int addMybook(Library library);
+
+	/**내 서재 삭제*/
+	int removeMybook(Library library);
+
+	/**내 서재 목록 가져오기*/
+	List<Library> getOneMemberLibrary(String memberId);
+
+	/**피넛 오리지널 삭제되지 않고 승인된 책의 제목, 표지 가져오기*/
+	OriginBook getOneBookStatus(String bookNo);
+
+	/**일반도서 삭제되지 않고 승인된 책의 제목, 표지 가져오기*/
+	NormalBook getNorBookStatus(String bookNo);
 
 	
 
