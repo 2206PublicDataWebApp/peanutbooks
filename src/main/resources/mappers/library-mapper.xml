@@ -28,8 +28,35 @@
   
   </select>
   
+  <!--  내 서재 목록 -->
   <select id="selectOneMemberLibrary" resultMap="libraryResultMap">
   	select * from Library where  MEMBER_ID= #{memberId} order by LIBRARY_NO desc
   </select>
+  
+  <!-- 내서재 피넛 오리지널 목록 -->
+  <select id="selectOneMemberOriLibrary" resultMap="libraryResultMap">
+  	select * from Library where  MEMBER_ID= #{memberId} and CATEGORY = 'origin' order by LIBRARY_NO desc
+  </select>
+  
+  <select id="selectOneMemberNorLibrary" resultMap="libraryResultMap">
+  	select * from Library where  MEMBER_ID= #{memberId} and CATEGORY = 'normal' order by LIBRARY_NO desc
+  </select>
+  
+  
+  <!-- 구입도서 목록 -->
+   	<resultMap type="peanutPaidSeries" id="PaidResultMap">
+ 		<id column="MEMBER_ID"         property="memberId" />
+ 		<result column="BOOK_NO"    property="bookNo" />
+ 		<result column="SERIES_NO"        property="seriesNo" />
+ 		<result column="PEANUT_NO"   property="peanutNo" />
+
+ 	</resultMap>
+  
+  <select id="selectOneMemberPaid" resultMap="PaidResultMap">
+  	select * from peanutpoint_tbl where  MEMBER_ID= #{memberId} order by PEANUT_NO desc
+  
+  </select>
+  
+
   
   </mapper>

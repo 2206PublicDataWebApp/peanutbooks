@@ -3,6 +3,7 @@ package com.books.peanut.book.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -28,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.books.peanut.HomeController;
 import com.books.peanut.book.domain.WriterProfile;
+import com.books.peanut.book.domain.peanutPaidSeries;
 import com.books.peanut.book.domain.BookPage;
 import com.books.peanut.book.domain.HashTag;
 import com.books.peanut.book.domain.Library;
@@ -38,6 +40,7 @@ import com.books.peanut.book.domain.OriginBookSeries;
 import com.books.peanut.book.domain.Star;
 import com.books.peanut.book.service.BookService;
 import com.books.peanut.member.domain.Member;
+import com.books.peanut.pay.domain.PeanutPoint;
 import com.google.gson.Gson;
 
 @Controller
@@ -330,12 +333,21 @@ public class BookController {
 	 */
 	@RequestMapping(value = "/book/mybooks.do", method = RequestMethod.GET)
 	public ModelAndView showAllMybooks(ModelAndView mv, HttpSession session,
-			@RequestParam(value = "step", required = false, defaultValue = "all") String step) {
+			@RequestParam(value = "step", required = false, defaultValue = "all") String step,
+			@RequestParam(value = "category", required = false, defaultValue = "all") String category) {
 
 		Member member = (Member) session.getAttribute("loginMember");
 		if (member != null) {
-			List<Library> lList = bService.getOneMemberLibrary(member.getMemberId());
-			for (int i = 0; i < lList.size(); i++) {
+			List<Library> lList = new ArrayList<Library>();
+			if (category.equals("all")) { // 전체 출력
+				lList = bService.getOneMemberLibrary(member.getMemberId());
+			} else if (category.equals("origin")) {// 피넛 오리지널만 출력
+				lList = bService.getOneMemberOriLibrary(member.getMemberId());
+			} else {// 일반 도서만 출력
+				lList = bService.getOneMemberNorLibrary(member.getMemberId());
+			}
+
+			for (int i = 0; i < lList.size(); i++) {// 각 libray클래스에 제목이랑 표지 넣기
 				if (lList.get(i).getCategory().equals("origin")) {// 만약 카테고리가 오리지널이라면
 					OriginBook oBook = bService.getOneBookStatus(lList.get(i).getBookNo()); // 삭제되지 않고, 승인된 책의 제목,
 																							// 표지가져오기
@@ -359,6 +371,45 @@ public class BookController {
 			mv.addObject("lList", lList);
 
 			mv.setViewName("/book/bookmark");
+		} else {// 로그인안하면 메인페이지로감
+			mv.setViewName("redirect:/");
+		}
+
+		return mv;
+
+	}
+
+	/**
+	 * 내 구입도서 목록 열기
+	 * 
+	 * @param mv
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/book/myPaid.do", method = RequestMethod.GET)
+	public ModelAndView showAllMyPaid(ModelAndView mv, HttpSession session,
+			@RequestParam(value = "step", required = false, defaultValue = "all") String step) {
+
+		Member member = (Member) session.getAttribute("loginMember");
+		if (member != null) {
+			List<peanutPaidSeries> pList = new ArrayList<peanutPaidSeries>();
+			pList = bService.getOneMemberPaid(member.getMemberId());
+
+			for (int i = 0; i < pList.size(); i++) {// 각 l클래스에 제목이랑 표지 넣기
+
+				OriginBookSeries oSries = bService.getOneBookSeriesStatus(pList.get(i).getBookNo(),pList.get(i).getSeriesNo()); // 삭제되지 않고, 승인된 책의 제목,
+				// 표지가져오기
+				if (oSries != null) {
+
+					String BookTitle = bService.getBookTitle(oSries.getBookTitle());
+					pList.get(i).setBookTitle(BookTitle);
+					pList.get(i).setPicName(oSries.getSubPicRename());
+					pList.get(i).setBookTitle(oSries.getTitle());
+				}
+			}
+
+			mv.addObject("pList", pList);
+			mv.setViewName("/book/bookPaid");
 		} else {// 로그인안하면 메인페이지로감
 			mv.setViewName("redirect:/");
 		}

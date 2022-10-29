@@ -32,11 +32,22 @@
             <article id="bookmark-haed-area">
                 <div id="bookmark-title">보관함</div>
                 <div id="bookmark-haed-button">
-                    <button>내 서재</button>
-                    <button>소장</button>
+                    <button onclick="location.href='/book/mybooks.do'">내 서재</button>
+                    <button onclick="location.href='/book/myPaid.do'">소장</button>
                 </div>
                 <div id="bookmark-search-area" class="row">
-                    <div class="col-md-3" id="gubun">전체 | 일반도서 | 피넛 오리지널</div>
+                    <div class="col-md-3" id="gubun">
+                    
+                    <!-- 종류별 출력 -->
+                    <a href="/book/mybooks.do">전체</a> |
+                    <a href="/book/mybooks.do?category=normal"> 
+                    일반도서</a> |
+                    <a href="/book/mybooks.do?category=origin"> 
+                    피넛 오리지널</a>
+                    
+                    </div>
+                    
+                    
                     <div class="col-md-6"></div>
                     <div class="col-md-3 row" id="search">
                         <div class="wrap">

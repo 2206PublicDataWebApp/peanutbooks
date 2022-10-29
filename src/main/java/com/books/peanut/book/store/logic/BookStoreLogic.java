@@ -15,6 +15,7 @@ import com.books.peanut.book.domain.OriginBook;
 import com.books.peanut.book.domain.OriginBookSeries;
 import com.books.peanut.book.domain.Star;
 import com.books.peanut.book.domain.WriterProfile;
+import com.books.peanut.book.domain.peanutPaidSeries;
 import com.books.peanut.book.store.BookStore;
 
 @Repository
@@ -451,6 +452,39 @@ public class BookStoreLogic implements BookStore{
 	public NormalBook selectOneNorBookStatus(SqlSessionTemplate session, String bookNo) {
 		NormalBook nBook = session.selectOne("adminWirteMapper.selectOneBookStatus", bookNo);
 		return nBook;
+	}
+	
+	/**내 서재 피넛 오리지널 목록 가져오기*/
+	@Override
+	public List<Library> selectOneMemberOriLibrary(SqlSessionTemplate session, String memberId) {
+		List<Library> lList = session.selectList("librarymapper.selectOneMemberOriLibrary",memberId);
+		return lList;
+	}
+	
+	/**내 서재 일반도서 불러오기*/
+	@Override
+	public List<Library> selectOneMemberNorLibrary(SqlSessionTemplate session, String memberId) {
+		List<Library> lList = session.selectList("librarymapper.selectOneMemberNorLibrary",memberId);
+		return lList;
+	}
+	
+	/**구입한 도서 목록 가져오기*/
+	@Override
+	public List<peanutPaidSeries> selectAllOneMemberPaid(SqlSessionTemplate session, String memberId) {
+		List<peanutPaidSeries> pList = session.selectList("librarymapper.selectOneMemberPaid",memberId);
+		return pList;
+	}
+	
+	/**내 구입시리즈 삭제되지 않고 허가된*/
+	@Override
+	public OriginBookSeries selectOneBookSeriesStatus(SqlSessionTemplate session, String bookNo, String seriesNo) {
+		OriginBookSeries oS = new OriginBookSeries();
+		oS.setBookNo(bookNo);
+		int sNo = Integer.parseInt(seriesNo);
+		oS.setSeriesNo(sNo);
+		
+		OriginBookSeries oSeries = session.selectOne("wirterMapper.SelectOneBookSeriesStatus",oS);
+		return oSeries;
 	}
 
 	

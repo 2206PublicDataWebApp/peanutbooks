@@ -12,6 +12,7 @@ import com.books.peanut.book.domain.OriginBook;
 import com.books.peanut.book.domain.OriginBookSeries;
 import com.books.peanut.book.domain.Star;
 import com.books.peanut.book.domain.WriterProfile;
+import com.books.peanut.book.domain.peanutPaidSeries;
 
 public interface BookStore {
 
@@ -194,5 +195,17 @@ public interface BookStore {
 
 	/**일반도서 삭제되지 않고 승인된 책 한권의 제목, 표지 가져오기*/
 	NormalBook selectOneNorBookStatus(SqlSessionTemplate session, String bookNo);
+
+	/**내 서재 피넛 오리지널 불러오기*/
+	List<Library> selectOneMemberOriLibrary(SqlSessionTemplate session, String memberId);
+
+	/**내 서재 일반도서 불러오기*/
+	List<Library> selectOneMemberNorLibrary(SqlSessionTemplate session, String memberId);
+
+	/**구입한 도서 불러오기*/
+	List<peanutPaidSeries> selectAllOneMemberPaid(SqlSessionTemplate session, String memberId);
+
+	/**내 구입 시리즈 삭제되지 않고 승인된*/
+	OriginBookSeries selectOneBookSeriesStatus(SqlSessionTemplate session, String bookNo, String seriesNo);
 
 }

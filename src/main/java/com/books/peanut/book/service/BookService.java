@@ -10,6 +10,8 @@ import com.books.peanut.book.domain.OriginBook;
 import com.books.peanut.book.domain.OriginBookSeries;
 import com.books.peanut.book.domain.Star;
 import com.books.peanut.book.domain.WriterProfile;
+import com.books.peanut.book.domain.peanutPaidSeries;
+import com.books.peanut.pay.domain.PeanutPoint;
 
 public interface BookService {
 
@@ -189,6 +191,18 @@ public interface BookService {
 
 	/**일반도서 삭제되지 않고 승인된 책의 제목, 표지 가져오기*/
 	NormalBook getNorBookStatus(String bookNo);
+
+	/**내 서재 피넛 오리지널 목록 가져오기*/
+	List<Library> getOneMemberOriLibrary(String memberId);
+
+	/**내 서재 일반도서 목록가져오기*/
+	List<Library> getOneMemberNorLibrary(String memberId);
+
+	/**내 구입도서 가져오기*/
+	List<peanutPaidSeries> getOneMemberPaid(String memberId);
+
+	/**내가 구입한 모든 도서 가져오기*/
+	OriginBookSeries getOneBookSeriesStatus(String bookNo, String seriesNo);
 
 	
 

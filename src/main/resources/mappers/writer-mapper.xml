@@ -164,18 +164,25 @@ update ori_series set status = 'N' where ORI_BOOK_NO = #{bookNo}
 	select PAID_CHECK from ori_series where ORI_BOOK_NO = #{bookNo} and SERIES_NO = #{seriesNo}
 </select>
 
+<!-- 책번호와 시리즈 번호로 시리즈 하나 가져오기 -->
 <select id="selectOneObSeries" resultMap="oriSeriesResultMap">
 	select * from ori_series where ORI_BOOK_NO = #{bookNo} and SERIES_NO = #{seriesNo}
 </select>
 
+<!-- 책번호로 허가되고 삭제되지 않은 해당도서의 시리즈 번호 가져오기 -->
 <select id="selectOneOriBookSeriesNo" resultMap="oriSeriesResultMap">
 	select SERIES_NO from ori_series where ORI_BOOK_NO = #{bookNo} and status like 'Y%' and CHECK_PERMISSION like 'Y%'
 </select>
+
+<!-- 해당도서에 쓰여진 모든 시리즈 번호 가져오기 -->
 <select id="selectOneOriBookAllSeriesNo" resultMap="oriSeriesResultMap">
 	select SERIES_NO from ori_series where ORI_BOOK_NO = #{bookNo}
 </select>
 
-
+<!-- 허가되고 삭제되지 않은 시리즈 1편 가져오기 -->
+  <select id="SelectOneBookSeriesStatus" resultMap="oriSeriesResultMap">
+  select SERIES_NO, SUB_PIC_RE, TITLE  from ori_series where ORI_BOOK_NO = #{bookNo} and SERIES_NO = #{seriesNo} and status like 'Y%' and CHECK_PERMISSION like 'Y%'
+  </select>
 
 
 

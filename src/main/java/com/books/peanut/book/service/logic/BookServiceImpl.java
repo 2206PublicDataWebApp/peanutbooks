@@ -14,8 +14,10 @@ import com.books.peanut.book.domain.OriginBook;
 import com.books.peanut.book.domain.OriginBookSeries;
 import com.books.peanut.book.domain.Star;
 import com.books.peanut.book.domain.WriterProfile;
+import com.books.peanut.book.domain.peanutPaidSeries;
 import com.books.peanut.book.service.BookService;
 import com.books.peanut.book.store.BookStore;
+import com.books.peanut.pay.domain.PeanutPoint;
 
 @Service
 public class BookServiceImpl implements BookService{
@@ -403,6 +405,34 @@ public class BookServiceImpl implements BookService{
 	public NormalBook getNorBookStatus(String bookNo) {
 		NormalBook nBook = bStore.selectOneNorBookStatus(session,bookNo);
 		return nBook;
+	}
+
+	/**내 서재 피넛 오리지널 불러오기*/
+	@Override
+	public List<Library> getOneMemberOriLibrary(String memberId) {
+		 List<Library> lList= bStore.selectOneMemberOriLibrary(session, memberId);
+			return lList;
+		}
+
+	/**내 서재 일반도서 불러오기*/
+	@Override
+	public List<Library> getOneMemberNorLibrary(String memberId) {
+		List<Library> lList= bStore.selectOneMemberNorLibrary(session, memberId);
+		return lList;
+	}
+
+	/**내 구입도서 가져오기*/
+	@Override
+	public List<peanutPaidSeries> getOneMemberPaid(String memberId) {
+		 List<peanutPaidSeries> pList = bStore.selectAllOneMemberPaid(session, memberId);
+		return pList;
+	}
+
+	/**내가 구입한 모든 시리즈 허가되고 삭제안된*/
+	@Override
+	public OriginBookSeries getOneBookSeriesStatus(String bookNo, String seriesNo) {
+		OriginBookSeries oSeries = bStore.selectOneBookSeriesStatus(session, bookNo, seriesNo);
+		return oSeries;
 	}
 
 

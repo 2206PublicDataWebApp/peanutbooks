@@ -36,6 +36,7 @@
 		<typeAlias type="com.books.peanut.book.domain.NormalBook" alias="NormalBook"/>
 		<typeAlias type="com.books.peanut.book.domain.NormalBookReply" alias="NormalBookReply"/>
 		<typeAlias type="com.books.peanut.book.domain.Library" alias="Library"/>
+		<typeAlias type="com.books.peanut.book.domain.peanutPaidSeries" alias="peanutPaidSeries"/>
 		
 	</typeAliases>
 
