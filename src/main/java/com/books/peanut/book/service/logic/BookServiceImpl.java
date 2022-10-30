@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.books.peanut.book.domain.BookPage;
 import com.books.peanut.book.domain.HashTag;
 import com.books.peanut.book.domain.Library;
 import com.books.peanut.book.domain.NormalBook;
@@ -388,8 +389,8 @@ public class BookServiceImpl implements BookService{
 
 	/**내 서재 불러오기*/
 	@Override
-	public List<Library> getOneMemberLibrary(String memberId) {
-		List<Library> lList = bStore.selectOneMemberLibrary(session, memberId);
+	public List<Library> getOneMemberLibrary(String memberId, String category, String step, String searchValue, int page, int limit) {
+		List<Library> lList = bStore.selectOneMemberLibrary(session, memberId,category,step,searchValue,page,limit);
 		return lList;
 	}
 
@@ -433,6 +434,13 @@ public class BookServiceImpl implements BookService{
 	public OriginBookSeries getOneBookSeriesStatus(String bookNo, String seriesNo) {
 		OriginBookSeries oSeries = bStore.selectOneBookSeriesStatus(session, bookNo, seriesNo);
 		return oSeries;
+	}
+
+	/**페이징용 내서재 총 갯수*/
+	@Override
+	public int countOneMemberLibrary(String memberId, String category, String step, String searchValue) {
+		int result = bStore.selectCountOneMemberLibrary(session, memberId,category,step,searchValue);
+		return result;
 	}
 
 

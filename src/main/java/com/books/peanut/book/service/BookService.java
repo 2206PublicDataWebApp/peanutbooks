@@ -2,6 +2,7 @@ package com.books.peanut.book.service;
 
 import java.util.List;
 
+import com.books.peanut.book.domain.BookPage;
 import com.books.peanut.book.domain.HashTag;
 import com.books.peanut.book.domain.Library;
 import com.books.peanut.book.domain.NormalBook;
@@ -183,8 +184,12 @@ public interface BookService {
 	/**내 서재 삭제*/
 	int removeMybook(Library library);
 
-	/**내 서재 목록 가져오기*/
-	List<Library> getOneMemberLibrary(String memberId);
+	/**내 서재 목록 가져오기
+	 * @param searchValue 
+	 * @param step 
+	 * @param category 
+	 * @param bPage */
+	List<Library> getOneMemberLibrary(String memberId, String category, String step, String searchValue,int page, int limit);
 
 	/**피넛 오리지널 삭제되지 않고 승인된 책의 제목, 표지 가져오기*/
 	OriginBook getOneBookStatus(String bookNo);
@@ -203,6 +208,9 @@ public interface BookService {
 
 	/**내가 구입한 모든 도서 가져오기*/
 	OriginBookSeries getOneBookSeriesStatus(String bookNo, String seriesNo);
+
+	/**페이징용 내 서재 갯수가져오기*/
+	int countOneMemberLibrary(String memberId, String category, String step, String searchValue);
 
 	
 

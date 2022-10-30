@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.books.peanut.book.domain.BookPage;
 import com.books.peanut.book.domain.HashTag;
 import com.books.peanut.book.domain.Library;
 import com.books.peanut.book.domain.NormalBook;
@@ -187,8 +188,12 @@ public interface BookStore {
 	int deleteMybook(SqlSessionTemplate session, Library library);
 
 	/**내 서재 불러오기
-	 * @param session */
-	List<Library> selectOneMemberLibrary(SqlSessionTemplate session, String memberId);
+	 * @param session 
+	 * @param searchValue 
+	 * @param step 
+	 * @param category 
+	 * @param bPage */
+	List<Library> selectOneMemberLibrary(SqlSessionTemplate session, String memberId, String category, String step, String searchValue,int page, int limit);
 
 	/**피넛 오리지널 삭제되지 않고 승인된 책 한권의 제목, 표지 가져오기*/
 	OriginBook selectOneOriBookStatus(SqlSessionTemplate session, String bookNo);
@@ -207,5 +212,9 @@ public interface BookStore {
 
 	/**내 구입 시리즈 삭제되지 않고 승인된*/
 	OriginBookSeries selectOneBookSeriesStatus(SqlSessionTemplate session, String bookNo, String seriesNo);
+
+	/**페이징용 내 서재 총 갯수*/
+	int selectCountOneMemberLibrary(SqlSessionTemplate session, String memberId, String category, String step,
+			String searchValue);
 
 }

@@ -435,8 +435,18 @@ public class BookStoreLogic implements BookStore{
 	
 	/**내 서재 불러오기*/
 	@Override
-	public List<Library> selectOneMemberLibrary(SqlSessionTemplate session, String memberId) {
-		List<Library> lList = session.selectList("librarymapper.selectOneMemberLibrary",memberId);
+	public List<Library> selectOneMemberLibrary(SqlSessionTemplate session, String memberId, String category, String step, String searchValue,int page, int limit) {
+		HashMap<String, String> hMap = new HashMap<String, String>();
+		hMap.put("category", category);
+		hMap.put("step", step);
+		hMap.put("searchValue", searchValue);
+		hMap.put("memberId", memberId);
+		
+		int offset = (page-1)*limit;
+		RowBounds rowBounds= new RowBounds(offset,limit);
+		
+		
+		List<Library> lList = session.selectList("librarymapper.selectOneMemberLibrary",hMap,rowBounds);
 		return lList;
 	}
 	
@@ -485,6 +495,22 @@ public class BookStoreLogic implements BookStore{
 		
 		OriginBookSeries oSeries = session.selectOne("wirterMapper.SelectOneBookSeriesStatus",oS);
 		return oSeries;
+	}
+	
+	/**페이징용 내서재 총 갯수*/
+	@Override
+	public int selectCountOneMemberLibrary(SqlSessionTemplate session, String memberId, String category, String step,
+			String searchValue) {
+		
+		HashMap<String, String> hMap = new HashMap<String, String>();
+		hMap.put("category", category);
+		hMap.put("step", step);
+		hMap.put("searchValue", searchValue);
+		hMap.put("memberId", memberId);
+		
+		
+		int result = session.selectOne("librarymapper.selectCountOneMemberLibrary",hMap);
+		return result;
 	}
 
 	

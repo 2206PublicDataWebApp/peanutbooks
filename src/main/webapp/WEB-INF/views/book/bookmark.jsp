@@ -51,8 +51,12 @@
                     <div class="col-md-6"></div>
                     <div class="col-md-3 row" id="search">
                         <div class="wrap">
+                        <!-- 검색폼 -->
+                        <form action="/book/mybooks.do" method="get">
                             <div class="search">
-                                <input type="text" class="searchTerm" placeholder="제목을 입력하세요">
+                            	<input type="hidden" name="step" value=${step }>
+                            	<input type="hidden" name="category" value=${category }>
+                                <input type="text" class="searchTerm" name="searchValue" placeholder="제목을 입력하세요">
                                 <button type="submit" class="searchButton">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                         class="bi bi-search" viewBox="0 0 16 16">
@@ -61,9 +65,9 @@
                                     </svg>
                                 </button>
                             </div>
-                        </div>
-
-
+                         </form>
+                       
+                        </div>            
                     </div>
 
                 </div>
@@ -74,7 +78,11 @@
             <article id="booklist-area">
                 <div class="row" id="list-firstline">
                     <div class="col-md-9 d-md-block d-none">21 작품</div>
-                    <div class="col-md-3">등록순 | 별점순 | 조회순</div>
+                    <div class="col-md-3">
+                   <a href="/book/mybooks.do?category=${category }&step=all&searchValue=${searchValue}">등록순</a>  |
+                   <a href="/book/mybooks.do?category=${category }&step=star&searchValue=${searchValue}">별점순</a>  |
+                   <a href="/book/mybooks.do?category=${category }&step=view&searchValue=${searchValue}">조회순</a>
+                      </div>
 
                 </div>
 
@@ -112,17 +120,32 @@
 
             </article>
 
+<!-- 페이징 영역 시작 -->
             <article id="page-area">
                 <ul id="pagination">
-                    <li><a href="#">«</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#" class="active">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">6</a></li>
-                    <li><a href="#">7</a></li>
-                    <li><a href="#">»</a></li>
+               		
+               		<!-- 이전페이지 -->
+               		<c:if test="${startNavi ne 1 && startNavi > 0}">
+                    	<li><a href="/book/mybooks.do?category=${category }&step=${step }&searchValue=${searchValue}&category=${category }&page=${startNavi-1}">
+                    		«</a></li>
+                    </c:if>
+                    
+                    <!-- 페이지 숫자 -->
+                    <c:forEach var="p" begin="${startNavi }" end="${endNavi }">
+                    	<c:if test="${currentPage == p}">
+                    		<li><a href="#" class="active">${p }</a></li>
+                    	</c:if>
+                    	<c:if test="${currentPage != p  }">
+                    		<li><a href="/book/mybooks.do?category=${category }&step=${step }&searchValue=${searchValue}&category=${category }&page=${p}" >
+                    			${p }</a></li>
+                    	</c:if>
+                    </c:forEach>
+                    
+                    
+                   <!-- 다음페이지 -->
+                   <c:if test="${endNavi < maxPage }">
+                    <li><a href="/book/mybooks.do?category=${category }&step=${step }&searchValue=${searchValue}&category=${category }&page=${endNavi+1}">»</a></li>
+                    </c:if>
                 </ul>
 
 

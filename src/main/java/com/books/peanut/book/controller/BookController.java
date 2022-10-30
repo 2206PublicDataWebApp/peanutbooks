@@ -334,41 +334,35 @@ public class BookController {
 	@RequestMapping(value = "/book/mybooks.do", method = RequestMethod.GET)
 	public ModelAndView showAllMybooks(ModelAndView mv, HttpSession session,
 			@RequestParam(value = "step", required = false, defaultValue = "all") String step,
-			@RequestParam(value = "category", required = false, defaultValue = "all") String category) {
+			@RequestParam(value = "category", required = false, defaultValue = "all") String category,
+			@RequestParam(value = "searchValue", required = false) String searchValue,
+			@RequestParam(value = "page", required = false) Integer page			
+			) {
 
 		Member member = (Member) session.getAttribute("loginMember");
 		if (member != null) {
 			List<Library> lList = new ArrayList<Library>();
-			if (category.equals("all")) { // 전체 출력
-				lList = bService.getOneMemberLibrary(member.getMemberId());
-			} else if (category.equals("origin")) {// 피넛 오리지널만 출력
-				lList = bService.getOneMemberOriLibrary(member.getMemberId());
-			} else {// 일반 도서만 출력
-				lList = bService.getOneMemberNorLibrary(member.getMemberId());
-			}
-
-			for (int i = 0; i < lList.size(); i++) {// 각 libray클래스에 제목이랑 표지 넣기
-				if (lList.get(i).getCategory().equals("origin")) {// 만약 카테고리가 오리지널이라면
-					OriginBook oBook = bService.getOneBookStatus(lList.get(i).getBookNo()); // 삭제되지 않고, 승인된 책의 제목,
-																							// 표지가져오기
-					if (oBook != null) {
-
-						lList.get(i).setBookTitle(oBook.getBookTitle());
-						lList.get(i).setPicName(oBook.getCoverRename());
-
-					}
-
-				} else {// 카테고리가 노멀이라면
-					NormalBook nBook = bService.getNorBookStatus(lList.get(i).getBookNo()); // 삭제되지 않고, 승인된 책의 제목, 표지가져오
-					if (nBook != null) {
-
-						lList.get(i).setBookTitle(nBook.getBookTitle());
-						lList.get(i).setPicName(nBook.getCoverRename());
-
-					}
-				}
-			}
+			
+			//페이징 하기
+			int getTotalCount = bService.countOneMemberLibrary(member.getMemberId(),category,step,searchValue);//총갯수 가져오기
+			int boardLimit = 20;
+			BookPageController bpCont = new BookPageController();// 페이징 해주는 클래스
+			BookPage bPage = bpCont.boardList(page, getTotalCount, boardLimit); // 클래스에서 페이징해온 숫자를 가지고옴
+			//페이징용코드종료
+			
+			lList = bService.getOneMemberLibrary(member.getMemberId(),category,step,searchValue,bPage.getCurrentPage(), boardLimit);
+			
+			
+			mv.addObject("step",step);
+			mv.addObject("searchValue",searchValue);
+			mv.addObject("category",category);
 			mv.addObject("lList", lList);
+			
+			
+			mv.addObject("startNavi", bPage.getStartNavi());
+			mv.addObject("endNavi", bPage.getEndNavi());
+			mv.addObject("maxPage", bPage.getMaxPage());
+			mv.addObject("currentPage", bPage.getCurrentPage());
 
 			mv.setViewName("/book/bookmark");
 		} else {// 로그인안하면 메인페이지로감
