@@ -81,7 +81,7 @@
 							<option value="">언어를 선택하세요</option>
 							<option value="ko">한국어</option>
 							<option value="en">영어</option>
-							<option value="jp">일본어</option>
+							<option value="ja">일본어</option>
 						</select>
 
 					</div>
