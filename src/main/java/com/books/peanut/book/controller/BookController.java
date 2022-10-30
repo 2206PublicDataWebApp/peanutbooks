@@ -359,6 +359,7 @@ public class BookController {
 			mv.addObject("lList", lList);
 			
 			
+			mv.addObject("TotalCount", getTotalCount);
 			mv.addObject("startNavi", bPage.getStartNavi());
 			mv.addObject("endNavi", bPage.getEndNavi());
 			mv.addObject("maxPage", bPage.getMaxPage());

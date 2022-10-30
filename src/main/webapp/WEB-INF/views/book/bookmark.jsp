@@ -77,7 +77,7 @@
 
             <article id="booklist-area">
                 <div class="row" id="list-firstline">
-                    <div class="col-md-9 d-md-block d-none">21 작품</div>
+                    <div class="col-md-9 d-md-block d-none">${TotalCount } 작품</div>
                     <div class="col-md-3">
                    <a href="/book/mybooks.do?category=${category }&step=all&searchValue=${searchValue}">등록순</a>  |
                    <a href="/book/mybooks.do?category=${category }&step=star&searchValue=${searchValue}">별점순</a>  |
@@ -123,7 +123,7 @@
 <!-- 페이징 영역 시작 -->
             <article id="page-area">
                 <ul id="pagination">
-               		
+
                		<!-- 이전페이지 -->
                		<c:if test="${startNavi ne 1 && startNavi > 0}">
                     	<li><a href="/book/mybooks.do?category=${category }&step=${step }&searchValue=${searchValue}&category=${category }&page=${startNavi-1}">
@@ -132,6 +132,7 @@
                     
                     <!-- 페이지 숫자 -->
                     <c:forEach var="p" begin="${startNavi }" end="${endNavi }">
+
                     	<c:if test="${currentPage == p}">
                     		<li><a href="#" class="active">${p }</a></li>
                     	</c:if>

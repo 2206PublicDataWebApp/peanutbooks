@@ -35,7 +35,7 @@
 select library_no,book_no,category,"avg"||''||"avg1" "avg", "count"||''||"count1" "count","title1"||''||"title" "title","pic1"||''||"pic2" "picName"  from library left join (select library_no,nor_book_no,DECODE(scorecount, 0, 0, score/scorecount) "avg", view_count "count", book_title "title",cover_rename "pic2" from library left join normal_BOOK on book_no=nor_book_no where library.category='normal' and status like 'Y%') using(library_no)
 left join(select library_no,ori_book_no , DECODE(score_count, 0, 0, score/score_count)  "avg1" ,book_title "title1", view_count "count1",corver_rename "pic1" from library left join ORIGIN_BOOK on book_no=ori_book_no where library.CATEGORY = 'origin' and status like 'Y%' and BOOK_PERMISSION like 'Y%') using (library_no)
 <where>
-member_id = #{memberId}
+member_id = #{memberId} and ("title" like '%%' or "title1" like '%%')
 <if test="category.toString() == 'origin'">
 	and category = 'origin'
 	<if test="searchValue != null">
@@ -70,7 +70,7 @@ order by "count" desc</if>
 select count(library_no)  from library left join (select library_no,nor_book_no,DECODE(scorecount, 0, 0, score/scorecount) "avg", view_count "count", book_title "title",cover_rename "pic2" from library left join normal_BOOK on book_no=nor_book_no where library.category='normal' and status like 'Y%') using(library_no)
 left join(select library_no,ori_book_no , DECODE(score_count, 0, 0, score/score_count)  "avg1" ,book_title "title1", view_count "count1",corver_rename "pic1" from library left join ORIGIN_BOOK on book_no=ori_book_no where library.CATEGORY = 'origin' and status like 'Y%' and BOOK_PERMISSION like 'Y%') using (library_no)
 <where>
-member_id = #{memberId}
+member_id = #{memberId} and ("title" like '%%' or "title1" like '%%')
 <if test="category.toString() == 'origin'">
 	and category = 'origin'
 	<if test="searchValue != null">

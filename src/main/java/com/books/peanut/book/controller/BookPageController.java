@@ -1,10 +1,13 @@
 package com.books.peanut.book.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.books.peanut.book.domain.BookPage;
 
 public class BookPageController {
 	
-	
+	private static final Logger logger = LoggerFactory.getLogger(BookPageController.class);
 	public BookPage boardList(Integer page, int totalCount, int boardLimit) {
 		// @RequestParam(value="page", required=false)의 값은 page이지만
 		// required=false 필수값은 아니라는 뜻
@@ -27,7 +30,10 @@ public class BookPageController {
 		if (maxPage < endNavi) {
 			endNavi = maxPage;
 		}
-
+		logger.info(currentPage+"현재페이지");
+		logger.info(maxPage+"총페이지");
+		logger.info(startNavi+"시작페이지");
+		logger.info(endNavi+"마지막 페이지이지");
 		BookPage bPage = new BookPage();
 		bPage.setCurrentPage(currentPage);
 		bPage.setEndNavi(endNavi);;
