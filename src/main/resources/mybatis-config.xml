@@ -23,7 +23,8 @@
 		
 		<typeAlias type="com.books.peanut.notice.domain.Notice" alias="Notice"/>
 		<typeAlias type="com.books.peanut.qna.domain.Qna" alias="Qna"/>
-		<typeAlias type="com.books.peanut.admin.bookApprove.domain.BookApprove" alias="BookApprove"/>
+		<typeAlias type="com.books.peanut.admin.domain.BookApprove" alias="BookApprove"/>
+		<typeAlias type="com.books.peanut.admin.domain.ModifyBookSeries" alias="ModifyBookSeries"/>
 		<typeAlias type="com.books.peanut.member.domain.Member" alias="Member"/>
 			
 		<typeAlias type="com.books.peanut.book.domain.WriterProfile" alias="writerProfile"/>

@@ -83,4 +83,15 @@ public class QnaServiceImpl implements QnaService {
 		return aList;
 	}
 
+	@Override
+	public List<Qna> printAllByCategory(
+			String qnaCategory
+			, int currentPage
+			, int categoryLimit) {
+		List<Qna> aList = qStore.selectAllByCategory(session, qnaCategory, currentPage, categoryLimit);
+		return aList;
+	}
+
+
+
 }

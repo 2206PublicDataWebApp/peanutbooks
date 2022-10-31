@@ -568,6 +568,43 @@ public class QnaController {
 		return mv;
 	}
 	//문의게시판 카테고리별 리스트
-	//@RequestMapping(value="/admin/categoryCount.kh", method="RequestMethod.GET")
+	@RequestMapping(value="/admin/categoryCount.kh", method=RequestMethod.GET)
+	public ModelAndView adminQnaCategoryList(
+			ModelAndView mv
+			, @RequestParam("qnaCategory") String qnaCategory
+			, @RequestParam(value="page", required=false) Integer page) {
+		try {
+			System.out.println(qnaCategory);
+			int currentPage = (page != null) ? page : 1;
+			int totalCount = qService.getTotalCount("", "");
+			int categoryLimit = 10;
+			int naviLimit = 5;
+			int maxPage;
+			int startNavi;
+			int endNavi;
+			maxPage = (int)((double)totalCount/categoryLimit + 0.9);
+			startNavi = ((int)((double)currentPage/naviLimit+0.9)-1)*naviLimit+1;
+			endNavi = startNavi + naviLimit - 1;
+			if(maxPage < endNavi) {
+				endNavi = maxPage;
+			}
+			List<Qna> aList = qService.printAllByCategory(qnaCategory, currentPage, categoryLimit);
+			if(aList.isEmpty()) {
+				mv.addObject("aList", aList);
+			}else {
+				mv.addObject("nList", null);
+			}
+			mv.addObject("urlVal", "search");
+			mv.addObject("qnaCategory", qnaCategory);
+			mv.addObject("maxPage", maxPage);
+			mv.addObject("currentPage", currentPage);
+			mv.addObject("startNavi", startNavi);
+			mv.addObject("endNavi", endNavi);
+			mv.setViewName("admin/aqnaListView");
+		} catch (Exception e) {
+			mv.addObject("msg", e.toString()).setViewName("common/errorPage");
+		}
+		return mv;
+	}
 	
 }

@@ -19,7 +19,7 @@ public class OriginBook {
 	private String memberNickName;
 	private int scoreCount;
 	
-	
+	public OriginBook() {}
 	
 	
 	public int getScoreCount() {

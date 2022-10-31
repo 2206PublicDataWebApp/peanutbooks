@@ -107,12 +107,12 @@
 	<div class="row row-cols-1">
 		<table align="center" class="table col-10">
 			<tr>
-				<td style="border:none;" td colspan="4" align="right">
+				<td style="border:none;" td colspan="6" align="right">
 					<a href="/admin/qnaList.kh" style="color: black"> 전체 | </a>
-					<a href="/admin/categoryCount.kh?noticeCategory=notice&page=${currentPage }" style="color: black"> 회원문의 |</a>
-					<a href="/admin/categoryCount.kh?noticeCategory=update&page=${currentPage }" style="color: black"> 포인트문의 |</a>
-					<a href="/admin/categoryCount.kh?noticeCategory=event&page=${currentPage }" style="color: black"> 도서문의 |</a>
-					<a href="/admin/categoryCount.kh?noticeCategory=info&page=${currentPage }" style="color: black"> 기타 </a>
+					<a href="/admin/categoryCount.kh?qnaCategory=member&page=${currentPage }" style="color: black"> 회원문의 |</a>
+					<a href="/admin/categoryCount.kh?qnaCategory=point&page=${currentPage }" style="color: black"> 포인트문의 |</a>
+					<a href="/admin/categoryCount.kh?qnaCategory=books&page=${currentPage }" style="color: black"> 도서문의 |</a>
+					<a href="/admin/categoryCount.kh?qnaCategory=others&page=${currentPage }" style="color: black"> 기타 </a>
 				</td>
 			</tr>
 			<c:if test="${!empty aList }">

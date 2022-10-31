@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
 <meta charset="UTF-8">
@@ -33,9 +34,9 @@
 				<div class="col-md-7 d-md-block d-none">
 					<ul>
 						<li><a href="/admin/qnaList.kh">게시판</a></li>
-						<li><a href="/admin/bookApprove/bookApproveView.kh">도서</a></li>
+						<li><a href="/admin/writerMenu.do">도서</a></li>
 						<li>피넛</li>
-						<li>회원</li>
+						<li><a href="/admin/adminListView.kh">회원</a></li>
 						<li id="admintext">관리자홈</li>
 					</ul>
 
@@ -82,9 +83,12 @@
 			<div class="row" id="icon-tooltip">
 				<div class="col-md-2" id="mypage">
 					<div id="name-space">이용자님 환영합니다!</div>
-					<div id="subscribe">
-						구독<br> 2022년 11월 30일까지
-					</div>
+                  	<div id="subscribe">
+					 	<c:if test="${!empty sessionScope.lastDate}">
+                    		 구독<br> ${sessionScope.lastDate } 까지
+              			 </c:if>
+                 	 </div>
+
 					<div id="mypage-icon-area" class="row">
 						<div class="col-4">
 							<img src="/resources/img/header/icons8-notification-64.png"
@@ -129,10 +133,13 @@
 		<div class="container" id="admin-tooltip-area">
 			<div class="row" id="admin-icon-tooltip">
 				<div class="col-md-2" id="admin">
-					<div id="name-space">관리자 입니다.</div>
-					<div id="subscribe">
-						구독<br> 2022년 11월 30일까지
-					</div>
+					<div id="name-space">${sessionScope.loginMember.mNickname} 관리자 입니다.</div>
+                 	<div id="subscribe">
+						 <c:if test="${!empty sessionScope.lastDate}">
+	                     구독<br> ${sessionScope.lastDate } 까지
+	                     </c:if>
+                  	</div>
+
 					<div id="admin-icon-area" class="row">
 						<div class="col-4">
 							<img src="/resources/img/header/icons8-notification-64.png"
@@ -149,7 +156,7 @@
 						</div>
 
 						<div class="col-4">
-							<img src="/resources/img/header/icons8-chat-50.png" alt="">
+							<img src="/resources/img/header/icons8-chat-50.png" alt=""  onclick="chatManager();">
 							<br>채팅상담
 						</div>
 						<div class="col-4">
@@ -181,20 +188,20 @@
 		<div class="container" id="point-tooltip-area">
 			<div class="row" id="point-icon-tooltip">
 				<div class="col-md-2" id="point">
-					<div id="name-space">이용자님</div>
-					<div id="now-point">200땅콩</div>
+					<div id="name-space">${sessionScope.loginMember.mNickname}님</div>
+					<div id="now-point"></div>
 					<div id="point-icon-area" class="row">
 						<div class="col-4">
-							<img src="/resources/img/header/icons8-page-52.png" alt="">
+							<img src="/resources/img/header/icons8-page-52.png" alt="" onclick="peanutList('${sessionScope.loginMember.memberId}');">
 							<br>이용내역
 						</div>
 						<div class="col-4">
 							<img src="/resources/img/header/icons8-android-l-battery-48.png"
-								alt=""> <br>땅콩충전
+								alt=""  onclick="pay('${sessionScope.loginMember.memberId}');"> <br>땅콩충전
 						</div>
 						<div class="col-4">
 
-							<img src="/resources/img/header/icons8-change-48.png" alt="">
+							<img src="/resources/img/header/icons8-change-48.png" alt="" onclick="writerPay('${sessionScope.loginMember.memberId}');">
 							<br>땅콩교환
 						</div>
 
@@ -208,6 +215,47 @@
 	</header>
 
 	<script src="/resources/js/headerJs.js"></script>
+	<script type="text/javascript">
+	
+	  //결제 관련   */
+    function pay(memberId){                
+       if(memberId==''){
+          alert("로그인후 가능합니다");
+       }else{
+          location.href="/pay/start.kh";
+       };
+    }
+    /*땅콩리스트  */
+    function peanutList(memberId){                    
+       if(memberId==''){
+          alert("로그인후 가능합니다");
+       }else{
+          location.href="/peanut/listStart.kh?memberId="+memberId;
+       };
+    }
+    
+    
+    //작가료 정산페이지 이동
+   function writerPay(memberId){
+       if(memberId==''){
+          alert("로그인후 가능합니다");
+       }else{
+          location.href="/writer/writerStart.kh?memberId="+memberId;
+       };
+    }
+
+      
+   function chatbtnSuccess(memberId) {
+      var windo = "status=no ,toolbar=no,scrollbars=no, menubar=no,resizable=no,titlebar=no,width=550,height=650";
+      window.open("/consult/chatbefore.kh", "PopupWin",windo);
+   }
+   //채팅 상담리스트
+   function chatManager(){ 
+      location.href="/chat/move.kh";
+   }
+
+	
+	</script>
 </body>
 
 </html>

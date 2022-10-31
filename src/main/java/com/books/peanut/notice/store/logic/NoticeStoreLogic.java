@@ -86,8 +86,7 @@ public class NoticeStoreLogic implements NoticeStore {
 			, String noticeCategory
 			, int currentPage, int categoryLimit) {
 		int offset = (currentPage-1)*categoryLimit;
-		RowBounds rowBounds 
-		= new RowBounds(offset, categoryLimit);
+		RowBounds rowBounds = new RowBounds(offset, categoryLimit);
 		HashMap<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("noticeCategory", noticeCategory);
 		List<Notice> nList 

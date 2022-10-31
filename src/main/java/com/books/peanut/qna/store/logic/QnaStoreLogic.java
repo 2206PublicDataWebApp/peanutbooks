@@ -103,7 +103,17 @@ public class QnaStoreLogic implements QnaStore {
 		List<Qna> aList = session.selectList("QnaMapper.selectAllByValue",paramMap, rowBounds);
 		return aList;
 	}
-
-
-
+	@Override
+	public List<Qna> selectAllByCategory(
+			SqlSessionTemplate session, 
+			String qnaCategory, 
+			int currentPage,
+			int categoryLimit) {
+		int offset = (currentPage-1)*categoryLimit;
+		RowBounds rowBounds = new RowBounds(offset, categoryLimit);
+		HashMap<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("qnaCategory", qnaCategory);
+		List<Qna> aList = session.selectList("QnaMapper.selectAllCategory", paramMap, rowBounds);
+		return aList;
+	}
 }

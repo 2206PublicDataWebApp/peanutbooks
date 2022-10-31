@@ -1,4 +1,4 @@
-package com.books.peanut.admin.bookApprove.domain;
+package com.books.peanut.admin.domain;
 
 import java.sql.Date;
 
