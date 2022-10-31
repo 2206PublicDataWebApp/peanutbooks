@@ -93,12 +93,56 @@ public class BookController {
 			mv.setViewName("/common/errorPage");
 
 		} else {
+			String img1 = bService.getNorImgName(); //동화에서 가장 조회수 높은 그림가져오기
+			String img2 = bService.getNorImgName2(); //시에서 가장 조회수 높은 그림 가져오기
+			mv.addObject("img1",img1);
+			mv.addObject("img2",img2);
+			
+			String img3 = bService.getOriImgName(); //소설에서 가장 조회수 높은 그림가져오기
+			String img4 = bService.getOriImgName2(); //동화에서 가장 조회수 높은 그림 가져오기
+			mv.addObject("img3",img3);
+			mv.addObject("img4",img4);
+			
 			mv.setViewName("/book/bookSearch");
 
 		}
 
 		return mv;
 
+	}
+	/**
+	 * 피넛 오리지널 목록 연결
+	 * 
+	 * @param mv
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/book/bookOriList.do", method = RequestMethod.GET)
+	public ModelAndView bookOriListView(ModelAndView mv, HttpSession session) {
+		
+		Member member = (Member) session.getAttribute("loginMember");
+		if (member == null) {
+			mv.addObject("msg", "로그인한 유저만 접속가능합니다");
+			mv.setViewName("/common/errorPage");
+			
+		} else {
+			
+			List<OriginBook> oNList = bService.getRankOriBook("novel");
+			List<OriginBook> oEList = bService.getRankOriBook("essay");
+			List<OriginBook> oTList = bService.getRankOriBook("tale");
+			List<OriginBook> oPList = bService.getRankOriBook("poem");
+			
+			mv.addObject("oNList",oNList);
+			mv.addObject("oEList",oEList);
+			mv.addObject("oTList",oTList);
+			mv.addObject("oPList",oPList);
+
+			mv.setViewName("/book/booklist-ori");
+			
+		}
+		
+		return mv;
+		
 	}
 
 	/**
@@ -281,10 +325,6 @@ public class BookController {
 					List<OriginBookSeries> osList = bService.allOriSeries(bPage.getCurrentPage(), boardLimit,
 							member.getMemberId());
 
-					for (int i = 0; i < osList.size(); i++) {
-						String bookTitle = bService.getBookTitle(osList.get(i).getBookNo());
-						osList.get(i).setBookTitle(bookTitle);// 각 시리즈의 책 제목 가지고옴
-					}
 					mv.addObject("osList", osList);
 				}
 				mv.addObject("bPage", bPage);
@@ -329,12 +369,8 @@ public class BookController {
 				BookPageController bpCont = new BookPageController();// 페이징 해주는 클래스
 				BookPage bPage = bpCont.boardList(page, getTotlaCount, boardLimit); // 클래스에서 페이징해온 숫자를 가지고옴
 				if (getTotlaCount > 0) {
-					List<NormalBookSeries> nsList = bService.allAdminBooks(); // 모든 일반도서 시리즈 리스트로 가져오기
+					List<NormalBookSeries> nsList = bService.allAdminBooks(bPage.getCurrentPage(),boardLimit); // 모든 일반도서 시리즈 리스트로 가져오기
 
-					for (int i = 0; i < nsList.size(); i++) {
-						String bookTitle = bService.getNorBookTitle(nsList.get(i).getBookNo());
-						nsList.get(i).setBookTitle(bookTitle);// 각 시리즈의 책 제목 가지고옴
-					}
 					mv.addObject("nsList", nsList);
 				}
 
@@ -455,9 +491,9 @@ public class BookController {
 			@RequestParam(value = "step", required = false, defaultValue = "all") String step,
 			@RequestParam(value = "searchValue", required = false) String searchValue,
 			@RequestParam(value = "page", required = false) Integer page,
-			@RequestParam(value = "tag", required = false) String tag,
+			@RequestParam(value = "tag", required = false, defaultValue = "empty") String tag,
 			@RequestParam(value = "category", required = false) String category,
-			@RequestParam(value = "bookCate", required = false) String bookCate) {
+			@RequestParam(value = "bookCate", required = false, defaultValue = "origin") String bookCate) {
 
 		Member member = (Member) session.getAttribute("loginMember");
 		if (member != null) {
@@ -465,62 +501,68 @@ public class BookController {
 			List<NormalBook> nList = new ArrayList<NormalBook>();
 
 			// 페이징시작
-			int getTotalCountOri = bService.OriBookSearchValueCount(tag, step, searchValue,category); // 가져올 목록의 총 갯수 파악하기
-			int getTotalCountNor = bService.NorBookSearchValueCount(tag, step, searchValue,category); // 가져올 목록의 총 갯수 파악하기
+			int getTotalCountOri = bService.OriBookSearchValueCount(tag, step, searchValue, category); // 가져올 목록의 총 갯수
+																										// 파악하기
+			int getTotalCountNor = bService.NorBookSearchValueCount(tag, step, searchValue, category); // 가져올 목록의 총 갯수
+																										// 파악하기
 
 			int boardLimit = 20;
 			BookPageController bpContOri = new BookPageController();// 페이징 해주는 클래스
 			BookPageController bpContNor = new BookPageController();// 페이징 해주는 클래스
 
-
 			if (bookCate.equals("origin")) {// 오리지널 북을 선택했다면
-				
+
 				BookPage bPage = bpContOri.boardList(page, getTotalCountOri, boardLimit); // 클래스에서 페이징해온 숫자를 가지고옴
-				oList = bService.allBookSearchValue(tag, step, searchValue, bPage.getCurrentPage(), boardLimit,category);
-				
+				oList = bService.allBookSearchValue(tag, step, searchValue, bPage.getCurrentPage(), boardLimit,
+						category);
+
 				mv.addObject("bList", oList); // 목록넘기기
 				// 페이징용
-				
+
 				mv.addObject("TotalCount", getTotalCountOri);
 				mv.addObject("startNavi", bPage.getStartNavi());
 				mv.addObject("endNavi", bPage.getEndNavi());
 				mv.addObject("maxPage", bPage.getMaxPage());
 				mv.addObject("currentPage", bPage.getCurrentPage());
 			} else {
-				
+
 				BookPage nPage = bpContNor.boardList(page, getTotalCountOri, boardLimit); // 클래스에서 페이징해온 숫자를 가지고옴
-				nList = bService.allBookSearchValueNor(tag, step, searchValue, nPage.getCurrentPage(), boardLimit,category);
+				nList = bService.allBookSearchValueNor(tag, step, searchValue, nPage.getCurrentPage(), boardLimit,
+						category);
 				mv.addObject("bList", nList); // 목록넘기기
 				// 페이징용
-				
+
 				mv.addObject("TotalCount", getTotalCountNor);
 				mv.addObject("startNavi", nPage.getStartNavi());
 				mv.addObject("endNavi", nPage.getEndNavi());
-				mv.addObject("maxPage",nPage.getMaxPage());
+				mv.addObject("maxPage", nPage.getMaxPage());
 				mv.addObject("currentPage", nPage.getCurrentPage());
 			}
-			//검색한 태그 전송하기
-			HashTag tagOne = new HashTag();
-			tagOne.setHashTag1(tag);
-			tagOne.setHashTag2(tag);
-			tagOne.setHashTag3(tag);
-			tagOne = changeKo(tagOne);
-			
-			String hTag = "";
-			if(!tagOne.getHashTag1().equals("none")) {
-				hTag= tagOne.getHashTag1();
-			}else if(!tagOne.getHashTag2().equals("none")){
-				hTag= tagOne.getHashTag2();
+			// 검색한 태그 전송하기
+			if (!tag.equals("empty")) {
+				HashTag tagOne = new HashTag();
+				tagOne.setHashTag1(tag);
+				tagOne.setHashTag2(tag);
+				tagOne.setHashTag3(tag);
+				tagOne = changeKo(tagOne);
+
+				String hTag = "";
+				if (!tagOne.getHashTag1().equals("none")) {
+					hTag = tagOne.getHashTag1();
+				} else if (!tagOne.getHashTag2().equals("none")) {
+					hTag = tagOne.getHashTag2();
+				} else {
+					hTag = tagOne.getHashTag3();
+				}
+			mv.addObject("tag", hTag); // 검색한 태그값 보내기
 			}else {
-				hTag= tagOne.getHashTag3();
+				mv.addObject("tag", ""); 
 			}
-			mv.addObject("tag",hTag); //검색한 태그값 보내기
-			mv.addObject("Hahstag",tag); //검색한 태그값 보내기
+			mv.addObject("Hahstag", tag); // 검색한 태그값 보내기
 			mv.addObject("step", step); // 정렬명
 			mv.addObject("searchValue", searchValue); // 검색명
 			mv.addObject("category", category); // 검색명
 			mv.addObject("bookCate", bookCate); // 검색명
-
 
 			mv.setViewName("/book/booklist-search");
 		} else {// 로그인안하면 메인페이지로감

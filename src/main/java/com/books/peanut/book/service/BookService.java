@@ -114,8 +114,10 @@ public interface BookService {
 	/**모든 일반도서의 책의 갯수 파악*/
 	int allNorSeriesCount();
 
-	/**모든 일반도서 시리즈 가져오기*/
-	List<NormalBookSeries> allAdminBooks();
+	/**모든 일반도서 시리즈 가져오기
+	 * @param boardLimit 
+	 * @param i */
+	List<NormalBookSeries> allAdminBooks(int i, int boardLimit);
 
 	/**일반도서 제목 가져오기*/
 	String getNorBookTitle(String bookNo);
@@ -236,6 +238,19 @@ public interface BookService {
 	 * @param category */
 	List<NormalBook> allBookSearchValueNor(String tag, String step, String searchValue, Integer page,
 			int getTotalCountNor, String category);
+
+	/**조회수 높은 동화그림*/
+	String getNorImgName();
+	/**회수 높은 시 그림*/
+	String getNorImgName2();
+
+	/**조회수 높은 소설그림*/
+	String getOriImgName();
+	/**조회수 높은 동화그림*/
+	String getOriImgName2();
+
+	/**피넛 오리지널 탑 6개 카테고리별로 가져오기*/
+	List<OriginBook> getRankOriBook(String category);
 
 
 	

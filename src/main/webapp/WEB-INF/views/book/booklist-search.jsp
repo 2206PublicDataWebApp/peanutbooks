@@ -28,9 +28,17 @@
                 <div id="title" class="container">${tag }${searchValue }</div>
             </article>
 			<article id="list-area" class="container">
-			<button onclick="location.href='/book/bookSearchList.do?tag=${Hahstag}&searchValue=${searchValue }&category=${category }&bookCate=origin'">
+			<button 
+			<c:if test="${bookCate=='origin'}">
+			style="background-color :#FFD384;"
+			</c:if>
+			 onclick="location.href='/book/bookSearchList.do?tag=${Hahstag}&searchValue=${searchValue }&category=${category }&bookCate=origin'">
 			피넛 오리지널</button> 	
-			<button onclick="location.href='/book/bookSearchList.do?tag=${Hahstag}&searchValue=${searchValue }&category=${category }&bookCate=normal'">
+			<button 
+			<c:if test="${bookCate=='normal'}">
+			style="background-color :#FFD384;"
+			</c:if>
+			onclick="location.href='/book/bookSearchList.do?tag=${Hahstag}&searchValue=${searchValue }&category=${category }&bookCate=normal'">
 			일반도서</button>
 			</article>
 
@@ -40,7 +48,15 @@
 
                     </div>
                     <div class="col-md-2 col-6 sort-icon">
-                        등록순 | 조회순 | 별점순
+                       <a href="/book/bookSearchList.do?tag=${Hahstag}&searchValue=${searchValue }&category=${category }&bookCate=${bookCate }&step=all">
+                        등록순 </a>
+                        | 
+                        <a href="/book/bookSearchList.do?tag=${Hahstag}&searchValue=${searchValue }&category=${category }&bookCate=${bookCate }&step=count">
+                        조회순 
+                        </a>
+                        | <a href="/book/bookSearchList.do?tag=${Hahstag}&searchValue=${searchValue }&category=${category }&bookCate=${bookCate }&step=star">
+                        별점순
+                        </a>
                     </div>
                 </div>
 
@@ -56,7 +72,7 @@
 	                    <c:if test="${bookCate == 'normal' }">
 	                    onclick="location.href='/book/norBookInfo?bookNo=${book.bookNo }'"
 	                    </c:if>
-	                    
+	                     title ="${book.bookTitle }"
 	                    >
 	                        <div class="book-img">
 	                            <img src="/resources/bookImg/${book.coverRename }">
@@ -79,23 +95,38 @@
                 		검색하신 도서가 없습니다 
                 		<br>
                 		<c:if test="${bookCate == 'origin' }"> 일반도서로 검색해보세요</c:if>
-                		<c:if test="${bookCate == 'noraml' }"> 피넛오리지널을 검색해보세요</c:if>
+                		<c:if test="${bookCate == 'normal' }"> 피넛오리지널을 검색해보세요</c:if>
                 	</c:if>
 
                 </div>
             </article>
 
-            <article id="page-area">
+             <article id="page-area">
                 <ul id="pagination">
-                    <li><a href="#">«</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#" class="active">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">6</a></li>
-                    <li><a href="#">7</a></li>
-                    <li><a href="#">»</a></li>
+
+               		<!-- 이전페이지 -->
+               		<c:if test="${startNavi ne 1 && startNavi > 0}">
+                    	<li><a href="/book/mybooks.do?category=${category }&step=${step }&searchValue=${searchValue}&category=${category }&page=${startNavi-1}">
+                    		«</a></li>
+                    </c:if>
+                    
+                    <!-- 페이지 숫자 -->
+                    <c:forEach var="p" begin="${startNavi }" end="${endNavi }">
+
+                    	<c:if test="${currentPage == p}">
+                    		<li><a href="#" class="active">${p }</a></li>
+                    	</c:if>
+                    	<c:if test="${currentPage != p  }">
+                    		<li><a href="/book/mybooks.do?category=${category }&step=${step }&searchValue=${searchValue}&category=${category }&page=${p}" >
+                    			${p }</a></li>
+                    	</c:if>
+                    </c:forEach>
+                    
+                    
+                   <!-- 다음페이지 -->
+                   <c:if test="${endNavi < maxPage }">
+                    <li><a href="/book/mybooks.do?category=${category }&step=${step }&searchValue=${searchValue}&category=${category }&page=${endNavi+1}">»</a></li>
+                    </c:if>
                 </ul>
 
 

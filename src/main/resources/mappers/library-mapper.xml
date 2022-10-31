@@ -57,7 +57,7 @@ member_id = #{memberId} and ("title" like '%%' or "title1" like '%%')
 <if test="step.toString() == 'all'">
 order by library_no desc</if>
 <if test="step.toString() == 'star'">
-order by "avg" </if>
+order by "avg" desc</if>
 <if test="step.toString() == 'view'">
 order by "count" desc</if>
   
@@ -115,7 +115,7 @@ member_id = #{memberId} and ("title" like '%%' or "title1" like '%%')
   
   <!-- 구입도서 목록 전부 가져오기 -->
   <select id="selectOneMemberPaid" resultMap="PaidResultMap">
-	select peanut_no, book_title, ori_series.title "title", ori_series.view_count,DECODE(origin_book.score, 0, 0, origin_book.score_count/origin_book.score) "avg", peanutpoint_tbl.book_no "book_no", peanutpoint_tbl.series_no "series_no", sub_pic_re
+	select peanut_no, book_title, ori_series.title "title", ori_series.view_count,DECODE(origin_book.score_count, 0, 0, origin_book.score/origin_book.score_count) "avg", peanutpoint_tbl.book_no "book_no", peanutpoint_tbl.series_no "series_no", sub_pic_re
 	from peanutpoint_tbl left join ori_series on book_no=ori_book_no and peanutpoint_tbl.series_no=ori_series.series_no 
 	left join origin_book 
 	on peanutpoint_tbl.book_no
@@ -128,7 +128,7 @@ member_id = #{memberId} and ("title" like '%%' or "title1" like '%%')
 	</where>
 	
 	<if test="step.toString() == 'star'">
-	 order by "avg"
+	 order by "avg" desc
 	</if> 
 	<if test="step.toString() == 'all'">
 	 order by PEANUT_NO desc

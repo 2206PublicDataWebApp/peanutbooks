@@ -118,8 +118,10 @@ public interface BookStore {
 	int countAllnorBook(SqlSessionTemplate session);
 
 	/**모든 일반도서 시리즈 가져오기
-	 * @param session */
-	List<NormalBookSeries> selectAllNorSeries(SqlSessionTemplate session);
+	 * @param session 
+	 * @param boardLimit 
+	 * @param i */
+	List<NormalBookSeries> selectAllNorSeries(SqlSessionTemplate session, int i, int boardLimit);
 
 	/**일반도서 제목 가져오기*/
 	String selectNorbookTitle(SqlSessionTemplate session, String bookNo);
@@ -241,5 +243,21 @@ public interface BookStore {
 	 * @param category */
 	List<NormalBook> selectBookSearchValueNor(SqlSessionTemplate session, String tag, String step, String searchValue,
 			Integer page, int limit, String category);
+
+	/**조회수 높은 동화그림*/
+	String selectNorImgName(SqlSessionTemplate session);
+
+	/**조회수 높은 시 그림*/
+	String selectNorImgName2(SqlSessionTemplate session);
+	
+	
+	/**조회수 높은 소설그림*/
+	String selectOriImgName(SqlSessionTemplate session);
+	/**조회수 높은 동화그림*/
+	String selectOriImgName1(SqlSessionTemplate session);
+
+	/**피넛 오리지널 랭킹 6까지 카테고리 별로 가져오기*/
+	List<OriginBook> selectRankOriBook(SqlSessionTemplate session, String category);
+
 
 }

@@ -37,7 +37,7 @@ main {
 
 }
 
-#list-area>button:hover, {
+#list-area>button:hover {
 	background-color :#FFD384;
 	transition:0.2s;
 	
@@ -77,6 +77,8 @@ padding: 1rem;
 }
 .book-title{
     text-align: center;
+    font-size:1.2rem;
+    font-weight:500;
 }
 .text-truncat{
     display: inline-block;

@@ -1,5 +1,9 @@
 
 
+var title= document.querySelector('[name="title"]');
+var titleValue = document.querySelector('#titleValue');
+title.value = titleValue.value;
+
 
 
 var content = document.querySelector('[name="contents"]'); //현재 로드한 시리즈의 내용값
@@ -80,7 +84,7 @@ $('#summernote').summernote({
    var str = obj.value;
     var str_len = str.length;
 
-	var maxByte = 600;
+	var maxByte = 500;
     var rbyte = 0;
     var rlen = 0;
     var one_char = "";

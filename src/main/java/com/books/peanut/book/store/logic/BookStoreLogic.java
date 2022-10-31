@@ -256,8 +256,11 @@ public class BookStoreLogic implements BookStore{
 	
 	/**모든 일반도서 시리즈 가져오기*/
 	@Override
-	public List<NormalBookSeries> selectAllNorSeries(SqlSessionTemplate session) {
-		List<NormalBookSeries> nsList = session.selectList("adminWirteMapper.allNorBook");
+	public List<NormalBookSeries> selectAllNorSeries(SqlSessionTemplate session,int i, int limit) {
+		int offset = (i-1)*limit;
+		RowBounds rowBounds= new RowBounds(offset,limit);
+		
+		List<NormalBookSeries> nsList = session.selectList("adminWirteMapper.allNorBook",null,rowBounds);
 		return nsList;
 	}
 	
@@ -594,6 +597,38 @@ public class BookStoreLogic implements BookStore{
 		List<NormalBook> nList = session.selectList("adminWirteMapper.selectBookSearchValueNor",hMap,rowBounds);
 		
 		return nList;
+	}
+	/**조회수 높은 동화 그림*/
+	@Override
+	public String selectNorImgName(SqlSessionTemplate session) {
+		String img = session.selectOne("adminWirteMapper.selectOneNorimg");
+		return img;
+	}
+	
+	/**조회수 높은 시 그림*/
+	@Override
+	public String selectNorImgName2(SqlSessionTemplate session) {
+		String img =session.selectOne("adminWirteMapper.selectOneNorimg2");
+		return img;
+	}
+	
+	/**조회수 높은 소설 그림*/
+	@Override
+	public String selectOriImgName(SqlSessionTemplate session) {
+		String img =session.selectOne("wirterMapper.selectOneOriimg");
+		return img;
+	}
+	/**조회수 높은 동화 그림*/
+	@Override
+	public String selectOriImgName1(SqlSessionTemplate session) {
+		String img =session.selectOne("wirterMapper.selectOneOriimg2");
+		return img;
+	}
+	/**피넛 오리지널 랭킹 6 카테고리 별로 가져오기*/
+	@Override
+	public List<OriginBook> selectRankOriBook(SqlSessionTemplate session, String category) {
+		List<OriginBook> oList = session.selectList("wirterMapper.selectRankOriBook",category);
+		return oList;
 	}
 	
 	

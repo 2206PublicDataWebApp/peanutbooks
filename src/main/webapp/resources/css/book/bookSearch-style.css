@@ -75,6 +75,7 @@ main {
 	cursor : pointer;
 	background-color:#FFD384;
 	border : 1px solid #FF884B;
+	transition:0.2s;
 }
   .area-title{
     font-size: 1.5rem;
@@ -87,6 +88,7 @@ main {
     padding: 0.5rem 2rem;
     margin: 0.5rem 0.5rem;
     display: inline-block;
+    transition:0.2s;
   }
   #tagbox-area{
     width: 100%;

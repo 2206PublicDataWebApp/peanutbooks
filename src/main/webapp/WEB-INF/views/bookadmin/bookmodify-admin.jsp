@@ -78,8 +78,8 @@
 
                 </span>
                 <div id="contents-text">
-                    <input type="text" name="title" class="text-input" value=${nSeries.title }>
-
+                    <input type="text" name="title" class="text-input">
+					<input type="hidden" id="titleValue" value="${nSeries.title}">
 
                 </div>
 

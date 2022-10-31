@@ -60,6 +60,10 @@ header li {
     align-items: flex-end
 }
 
+#header-area li:hover{
+	cursor : pointer;
+}
+
 #header-menu-icon {
     text-align: right;
 }

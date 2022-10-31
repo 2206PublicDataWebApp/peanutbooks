@@ -66,9 +66,9 @@
 
     <article id="step-area" class="container">
     <!-- 시리즈 반복 시작 -->
-    	<c:forEach items="${osList }" var="osList">
+    	<c:forEach items="${osList }" var="osList"> 
     		<!-- 시리즈가 허가됐거나, 작성자이거나 관리자일때만 보임 -->
-    		<c:if test="${oSeries.checkPermission == 'Y' || loginMember.memberId == oBook.memberId||loginMember.adminYN == 'Y'}">
+    		<c:if test="${(osList.checkPermission == 'Y' && osList.status== 'Y')|| loginMember.memberId == oBook.memberId||loginMember.adminYN == 'Y'}">
 		        <div class="one-step row">
 		            <div class="step col-md-2">
 		                ${osList.seriesNo }

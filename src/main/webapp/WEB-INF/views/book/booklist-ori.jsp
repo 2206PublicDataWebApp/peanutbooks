@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -33,43 +34,18 @@
                     <hr>
                 </div>
                 <div class="books-list-area row">
-                    <div class="col-md-2 col-4 row">
+                
+                <!-- 소설 반복 문 시작 -->
+                <c:forEach items="${oNList }" var="novel">
+                    <div class="col-md-2 col-4 row" onclick="location.href='/book/oriBookInfo?bookNo=${novel.bookNo}'">
                         <div class="book-img">
-                            <img src="/resources/img/main/christmas-g4fdade62f_1280.jpg">
+                            <img src="/resources/bookImg/${novel.coverRename }">
                         </div>
-                        <div class="book-title text-truncate">제목</div>
+                        <div class="book-title text-truncate">${novel.bookTitle }</div>
                     </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                         <img src="/resources/img/main/landscape-g2a33940ce_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/sailboat-g9d3a88421_1920.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-                    <div class="col-md-2 col-4 row row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
+                   
 
+                </c:forEach>
                 </div>
                 
 
@@ -86,42 +62,15 @@
                     <hr>
                 </div>
                 <div class="books-list-area row">
-                    <div class="col-md-2 col-4 row">
+                    <!-- 에세이 반복 문 시작 -->
+                <c:forEach items="${oEList }" var="essay">
+                    <div class="col-md-2 col-4 row" onclick="location.href='/book/oriBookInfo?bookNo=${essay.bookNo}'">
                         <div class="book-img">
-                            <img src="/resources/img/main/christmas-g4fdade62f_1280.jpg">
+                            <img src="/resources/bookImg/${essay.coverRename }">
                         </div>
-                        <div class="book-title text-truncate">제목</div>
+                        <div class="book-title text-truncate">${essay.bookTitle }</div>
                     </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                         <img src="/resources/img/main/landscape-g2a33940ce_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/sailboat-g9d3a88421_1920.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
+                   </c:forEach>
 
                 </div>
             </article>
@@ -138,43 +87,17 @@
                     <hr>
                 </div>
                 <div class="books-list-area row">
-                    <div class="col-md-2 col-4 row">
+                          <!-- 동화 반복 문 시작 -->
+                <c:forEach items="${oTList }" var="tail">
+                    <div class="col-md-2 col-4 row" onclick="location.href='/book/oriBookInfo?bookNo=${tail.bookNo}'">
                         <div class="book-img">
-                            <img src="/resources/img/main/christmas-g4fdade62f_1280.jpg">
+                            <img src="/resources/bookImg/${tail.coverRename }">
                         </div>
-                        <div class="book-title text-truncate">제목</div>
+                        <div class="book-title text-truncate">${tail.bookTitle }</div>
                     </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                         <img src="/resources/img/main/landscape-g2a33940ce_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/sailboat-g9d3a88421_1920.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-
+                   </c:forEach>
+                   
+                   
                 </div>
                 </article>
 
@@ -189,42 +112,15 @@
                     <hr>
                 </div>
                 <div class="books-list-area row">
-                    <div class="col-md-2 col-4 row">
+                             <!-- 시 반복 문 시작 -->
+                <c:forEach items="${oPList }" var="poem">
+                    <div class="col-md-2 col-4 row" onclick="location.href='/book/oriBookInfo?bookNo=${poem.bookNo}'">
                         <div class="book-img">
-                            <img src="/resources/img/main/christmas-g4fdade62f_1280.jpg">
+                            <img src="/resources/bookImg/${poem.coverRename }">
                         </div>
-                        <div class="book-title text-truncate">제목</div>
+                        <div class="book-title text-truncate">${poem.bookTitle }</div>
                     </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                         <img src="/resources/img/main/landscape-g2a33940ce_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/sailboat-g9d3a88421_1920.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate text-truncate">제목</div>
-                    </div>
+                   </c:forEach>
 
                 </div>
                 </article>

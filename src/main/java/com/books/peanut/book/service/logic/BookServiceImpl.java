@@ -225,8 +225,8 @@ public class BookServiceImpl implements BookService{
 
 	/**모든 일반도서 시리즈 가져오기*/
 	@Override
-	public List<NormalBookSeries> allAdminBooks() {
-		List<NormalBookSeries> nsList = bStore.selectAllNorSeries(session);
+	public List<NormalBookSeries> allAdminBooks(int i, int boardLimit) {
+		List<NormalBookSeries> nsList = bStore.selectAllNorSeries(session,i,boardLimit);
 		return nsList;
 	}
 
@@ -478,6 +478,42 @@ public class BookServiceImpl implements BookService{
 		 int limit, String category) {
 		List<NormalBook> nList =bStore.selectBookSearchValueNor(session, tag,step,searchValue,page,limit,category);
 		return nList;	}
+
+	/**조회수 높은 동화그림*/
+	@Override
+	public String getNorImgName() {
+		String img = bStore.selectNorImgName(session);
+		return img;
+	}
+
+	/**조회수 높은 시 그림*/
+	@Override
+	public String getNorImgName2() {
+		String img = bStore.selectNorImgName2(session);
+		return img;
+	}
+	/**조회수 높은 소설그림*/
+	@Override
+	public String getOriImgName() {
+		String img = bStore.selectOriImgName(session);
+		return img;
+	}
+	/**조회수 높은 동화그림*/
+	@Override
+	public String getOriImgName2() {
+		String img = bStore.selectOriImgName1(session);
+		return img;
+	}
+
+	/**피넛 오리지널 탑 6개 카테고리별 가져오기*/
+	@Override
+	public List<OriginBook> getRankOriBook(String category) {
+		List<OriginBook> oList = bStore.selectRankOriBook(session,category);
+		return oList;
+	}
+
+
+
 
 
 

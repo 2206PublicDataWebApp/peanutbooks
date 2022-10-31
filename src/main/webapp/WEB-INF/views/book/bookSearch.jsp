@@ -29,27 +29,28 @@
 			<article id="serchbar-area" class="container">
 				
 				
+				<form action="/book/bookSearchList.do" method="get">
 				
-				<div id="serch-category">
-					<select name="searchCate" id="serchCate">
-						<option value="title">제목</option>
-						<option value="writer">작가명</option>
-					</select>
+					<div id="serch-category">
+						<select name="category" id="serchCate">
+							<option value="title">제목</option>
+							<option value="writer">작가명</option>
+						</select>
+						</div>
+					<div id="searchbar">
+	
+						<input type="text" class="searchTerm" name="searchValue" placeholder="검색어를 입력하세요">
+						<button type="submit" class="searchButton">
+							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+								fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+	                            <path
+									d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+	                        </svg>
+						</button>
+						
+	
 					</div>
-				<div id="searchbar">
-
-					<input type="text" class="searchTerm" placeholder="검색어를 입력하세요">
-					<button type="submit" class="searchButton">
-						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-							fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                            <path
-								d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                        </svg>
-					</button>
-					
-
-				</div>
-
+				</form>
 			</article>
 			<hr>
 			<!-- 태그 영역 -->
@@ -88,13 +89,13 @@
 							<div class="card mb-3" style="max-width: 540px;">
 								<div class="row g-0">
 									<div class="col-md-4">
-										<img src="/resources/img/main/landscape-g2a33940ce_1280.jpg"
+										<img src="/resources/bookImg/${img1 }"
 											class="img-fluid rounded-start" alt="...">
 									</div>
 									<div class="col-md-8">
 										<div class="card-body">
-											<h5 class="card-title">추리소설</h5>
-											<p class="card-text">땅콩북스만의 자신있는 추리 소설</p>
+											<h5 class="card-title">동화</h5>
+											<p class="card-text">어린이들을 위한 땅콩북스의 동화</p>
 										</div>
 									</div>
 								</div>
@@ -105,13 +106,13 @@
 							<div class="card mb-3" style="max-width: 540px;">
 								<div class="row g-0">
 									<div class="col-md-4">
-										<img src="/resources/img/main/christmas-g4fdade62f_1280.jpg"
+										<img src="/resources/bookImg/${img2 }"
 											class="img-fluid rounded-start" alt="...">
 									</div>
 									<div class="col-md-8">
 										<div class="card-body">
-											<h5 class="card-title">로맨스</h5>
-											<p class="card-text">고전로맨스 명작들만 모았습니다.</p>
+											<h5 class="card-title">시</h5>
+											<p class="card-text">여러 시인들이 만들어낸 멋진 시를 읽어보세요!</p>
 										</div>
 									</div>
 								</div>
@@ -125,7 +126,7 @@
 							<div class="card mb-3" style="max-width: 540px;">
 								<div class="row g-0">
 									<div class="col-md-4">
-										<img src="/resources/img/main/woman-g803af235f_1280.jpg"
+										<img src="/resources/bookImg/${img3 }"
 											class="img-fluid rounded-start" alt="...">
 									</div>
 									<div class="col-md-8">
@@ -142,7 +143,7 @@
 							<div class="card mb-3" style="max-width: 540px;">
 								<div class="row g-0">
 									<div class="col-md-4">
-										<img src="/resources/img/main/christmas-g4fdade62f_1280.jpg"
+										<img src="/resources/bookImg/${img4 }"
 											class="img-fluid rounded-start" alt="...">
 									</div>
 									<div class="col-md-8">

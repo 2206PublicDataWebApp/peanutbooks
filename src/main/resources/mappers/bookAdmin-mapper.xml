@@ -66,10 +66,12 @@
 	<select id="selectCountNorSearchValue" resultType="_int">
 		select count(book_no) from hash_tag left join normal_book on book_no = nor_book_no 
 		<where>
-		status = 'Y'
+		status = 'Y' and hash_tag.category = 'normal'
 			<if test ="tag != null">
-			and hash_tag.category = 'normal'
-			and (hashtag1 = #{tag} or hashtag2 = #{tag} or hashtag3 = #{tag})
+				<if test ="tag.toString() != 'empty'">
+					
+					and (hashtag1 = #{tag} or hashtag2 = #{tag} or hashtag3 = #{tag})
+				</if>
 			</if>
 			<if test="searchValue != null">
 				<if test="category != null">
@@ -89,10 +91,12 @@
 	<select id="selectBookSearchValueNor" resultMap="nBookResultMap">
 		select * from hash_tag left join normal_book on book_no = nor_book_no 
 		<where>
-		status = 'Y'
+		status = 'Y' and hash_tag.category = 'normal'
 			<if test ="tag != null">
-			and hash_tag.category = 'normal'
-			and (hashtag1 = #{tag} or hashtag2 = #{tag} or hashtag3 = #{tag})
+				<if test ="tag.toString() != 'empty'">
+					
+					and (hashtag1 = #{tag} or hashtag2 = #{tag} or hashtag3 = #{tag})
+				</if>
 			</if>
 			<if test="searchValue != null">
 				<if test="category.toString() == 'title'">
@@ -107,7 +111,7 @@
    		order by insert_date desc
 	   	</if>
 	   	<if test="step.toString() == 'star'">
-	   		order by DECODE(score, 0, 0, score_count/score)
+	   		order by DECODE(scorecount, 0, 0, score/scorecount) desc
 	   	</if>
 	   	<if test="step.toString() == 'count'">
 	   		order by view_count desc
@@ -115,7 +119,13 @@
 	</select>
   	
   	
-  	
+  	<!-- 조회수 높은 소설이미지, 동화 이미지 하나씩 가져오기 -->
+  	<select id="selectOneNorimg" resultType="string">
+  		select COVER_RENAME from  normal_book where category = 'novel' and ROWNUM=1 order by view_count desc
+  	</select>
+  	<select id="selectOneNorimg2" resultType="string">
+  		select COVER_RENAME from  normal_book where category = 'tale' and ROWNUM=1 order by view_count desc
+  	</select>
   	
   	
   	
@@ -155,6 +165,7 @@
   	<result property="contents" column="CONTETNS"/>
   	<result property="insertDate" column="INSERT_DATE"/>
   	<result property="updateDate" column="UPDATE_DATE"/>
+  	<result property="bookTitle" column="book_title"/>
   	
   	</resultMap>
   	
@@ -166,7 +177,7 @@
   	
   	<!-- 모든 일반도서 시리즈 가져오기 -->
   	<select id="allNorBook" resultMap="nbSeriesResultMap">
-  		select * from nor_series order by INSERT_DATE desc
+  		select SERIES_NO,NOR_BOOK_NO,SUB_PIC_RE,TITLE,book_title from nor_series left join normal_book using (nor_book_no) order by nor_series.INSERT_DATE desc
   	</select>
   	
   	<!-- 책번호에 해당하는 일반도서 시리즈의 특정정보 가져오기 -->

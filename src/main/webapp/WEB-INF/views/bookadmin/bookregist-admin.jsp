@@ -87,13 +87,13 @@
 					</div>
 					<h5>작품소개</h5>
 					<textarea name="bookInfo" id="info-text" cols="10" rows="10"
-						placeholder="소개를 입력하세요"></textarea>
+						placeholder="소개를 입력하세요" onblur="fnChkByte(this)"></textarea>
 
 					<h5>작가소개</h5>
 					<input type="text" name="writer" id="writer-name"
 						placeholder="작가명을 입력하세요">
 					<textarea name="writerInfo" id="wirter-info" cols="10" rows="10"
-						placeholder="소개를 입력하세요"></textarea>
+						placeholder="소개를 입력하세요" onblur="fnChkByte(this)"></textarea>
 
 
 					<div id="tag-area">

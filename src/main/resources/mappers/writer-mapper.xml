@@ -82,24 +82,31 @@ select count(BOOK_TITLE) from origin_book where MEMBER_ID = #{memberId} and ORI_
  select BOOK_TITLE, CORVER_RENAME from origin_book where ORI_BOOK_NO = #{bookNo} and STATUS like 'Y%' and BOOK_PERMISSION like 'Y%'
 </select>
 
-
+<!-- 랭킹 6까지 카테고리 별로 가져오기 -->
+<select id="selectRankOriBook" resultMap="oriBookResultMap">
+select * from(
+select ori_book_no, book_title, corver_rename, ROW_NUMBER() over (order by view_count desc) r 
+from origin_book where category = #{category} and status like 'Y%' and BOOK_PERMISSION like 'Y%') where r between 1 and 6
+</select>
 
 <!-- 피넛 오리지널 검색 숫자 -->
   <select id="selectCountOriSearchValue" resultType="_int">
    select count(*) from hash_tag left join origin_book on book_no = ori_book_no 
    left join member_tbl using(member_id) 
    <where>
-   	status = 'Y' and BOOK_PERMISSION = 'Y'
+   	status = 'Y' and BOOK_PERMISSION = 'Y' and hash_tag.category = 'origin'
 	   <if test ="tag != null">
-			and hash_tag.category = 'origin'
-			and (hashtag1 = #{tag} or hashtag2 = #{tag} or hashtag3 = #{tag})
+			<if test ="tag.toString() != 'empty'">
+				
+				and (hashtag1 = #{tag} or hashtag2 = #{tag} or hashtag3 = #{tag})
+			</if>
 		</if>
 		<if test="searchValue != null">
 			<if test="category.toString() == 'title'">
 					and book_title like '%'||#{searchValue}||'%'
 			</if>
 			<if test="category.toString() == 'writer'">
-					and m_NikcNAme like '%'||#{searchValue}||'%'
+					and m_nickname like '%'||#{searchValue}||'%'
 			</if>
 		</if>
    </where>
@@ -110,10 +117,12 @@ select count(BOOK_TITLE) from origin_book where MEMBER_ID = #{memberId} and ORI_
    select * from hash_tag left join origin_book on book_no = ori_book_no 
    left join member_tbl using(member_id) 
    <where>
-   	status = 'Y' and BOOK_PERMISSION = 'Y'
+   	status = 'Y' and BOOK_PERMISSION = 'Y' and hash_tag.category = 'origin'
 	   <if test ="tag != null">
-			and hash_tag.category = 'origin'
-			and (hashtag1 = #{tag} or hashtag2 = #{tag} or hashtag3 = #{tag})
+		   <if test ="tag.toString() != 'empty'">
+				
+				and (hashtag1 = #{tag} or hashtag2 = #{tag} or hashtag3 = #{tag})
+			</if>
 		</if>
 		<if test="searchValue != null">
 			<if test="category != null">
@@ -121,7 +130,7 @@ select count(BOOK_TITLE) from origin_book where MEMBER_ID = #{memberId} and ORI_
 						and book_title like '%'||#{searchValue}||'%'
 				</if>
 				<if test="category.toString() == 'writer'">
-						and m_NikcNAme like '%'||#{searchValue}||'%'
+						and m_nickname like '%'||#{searchValue}||'%'
 				</if>
 			</if>
 		</if>
@@ -130,7 +139,7 @@ select count(BOOK_TITLE) from origin_book where MEMBER_ID = #{memberId} and ORI_
    		order by insert_date desc
    	</if>
    	<if test="step.toString() == 'star'">
-   		order by DECODE(score, 0, 0, score_count/score)
+   		order by DECODE(score_count, 0, 0, score/score_count) desc
    	</if>
    	<if test="step.toString() == 'count'">
    		order by view_count desc
@@ -138,7 +147,14 @@ select count(BOOK_TITLE) from origin_book where MEMBER_ID = #{memberId} and ORI_
   </select>
   
 
-
+ 	<!-- 조회수 높은 동화이미지, 시 이미지 하나씩 가져오기 -->
+  	<select id="selectOneOriimg" resultType="string">
+  		select CORVER_RENAME from  origin_book where category = 'tale' and ROWNUM=1 order by view_count desc
+  	</select>
+  	<select id="selectOneOriimg2" resultType="string">
+  		select CORVER_RENAME from  origin_book where category = 'poem' and ROWNUM=1 order by view_count desc
+  	</select>
+  	
 
 
 <!-- 책 승인 테이블에 추가 -->
@@ -194,12 +210,13 @@ update ori_series set status = 'N' where ORI_BOOK_NO = #{bookNo}
 <result property="viewCount" column="VIEW_COUNT"/>
 <result property="checkPermission" column="CHECK_PERMISSION"/>
 <result property="status" column="status"/>
+<result property="bookTitle" column="book_title"/>
 
 </resultMap>
 
 <!-- 회원 한명이 작성한 시리즈 전부 가져오기 -->
 <select id="selectOneMemberSeriese" resultMap="oriSeriesResultMap">
-	select * from ori_series join origin_book using(ori_book_no) where member_id = #{memberId} order by ori_series.INSERT_DATE desc
+	select SERIES_NO,ORI_BOOK_NO,SUB_PIC_RE,TITLE,book_title from ori_series join origin_book using(ori_book_no) where member_id = #{memberId} order by ori_series.INSERT_DATE desc
 </select>
 
 <!-- 회원한명이 작성한 피넛 오리지널 시리즈의 숫자 가져오기 -->

@@ -94,7 +94,7 @@
 				<!-- 이전 페이지 출력 -->
 				<c:if test="${bPage.startNavi != 1 && bPage.startNavi > 0  }">
 					<span class="prev"> <a
-						href="/book/writerMenu.do?page=${bPage.startNavi-1 }"> < </a>
+						href="/book/writerMenu-admin.do?page=${bPage.startNavi-1 }"> < </a>
 					</span>
 				</c:if>
 
@@ -116,7 +116,7 @@
 					
 
 					<c:if test="${p != bPage.currentPage && p !=0}">
-						<span class="pages"> <a href="/book/writerMenu.do?page=${p }">${p }</a>
+						<span class="pages"> <a href="/book/writerMenu-admin.do?page=${p }">${p }</a>
 						</span>
 					</c:if>
 
@@ -124,7 +124,7 @@
 				<!-- 다음 페이지 출력 -->
 				<c:if test="${bPage.endNavi ne bPage.maxPage  }">
 					<span class="next"> <a
-						href="/book/writerMenu.do?page=${bPage.endNavi+1 }"> > </a>
+						href="/book/writerMenu-admin.do?page=${bPage.endNavi+1 }"> > </a>
 					</span>
 				</c:if>
 

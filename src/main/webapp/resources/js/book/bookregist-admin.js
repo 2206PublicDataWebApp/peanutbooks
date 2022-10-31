@@ -69,7 +69,7 @@ $('#summernote').summernote({
    var str = obj.value;
     var str_len = str.length;
 
-	var maxByte = 600;
+	var maxByte = 500;
     var rbyte = 0;
     var rlen = 0;
     var one_char = "";
