@@ -51,10 +51,30 @@
   		SELECT MAX(TITLE_NO) FROM CHATSERVER_TBL WHERE CS_MEMBERID=#{csMemberId} AND CS_TITLE = #{csTitle} AND CS_MAIL=#{csMail} AND CS_RESULT ='N'
    	</select>
 
-  	<!-- 신규 상담건 조회 -->
-  	 <select id="chatNewList"  resultMap="ChatResultMap">
-  		SELECT * FROM CHATSERVER_TBL WHERE CS_DATE > #{requestTime}  ORDER BY TITLE_NO DESC
+  	<!-- 종료 상담건 조회 -->
+  	<select id="chatEndList"  resultMap="ChatResultMap">
+  		SELECT * FROM CHATSERVER_TBL 
+  		 	<where>
+	  		<if test="csDate==null and csMemberId.toString()=='notId'">CS_RESULT !='N'</if>
+	  		<if test="csDate!=null and csMemberId.toString()=='notId'">TO_CHAR((CS_DATE),'YYYY-MM-DD')=${csDate } AND CS_RESULT !='N'</if>
+	  		<if test="csDate==null and csMemberId.toString()!='notId'">CS_MEMBERID=${csMemberId } AND CS_RESULT !='N'</if>
+	  		</where>
+  		ORDER BY TITLE_NO DESC
   	</select>
+  		
+  	<!--채팅 종료 리스트 전체 카운트 조회  -->
+	<select id="chatListcount"  resultType="_int">
+  		SELECT count(*) FROM CHATSERVER_TBL 
+  		<where>
+  		<if test="csDate==null and csMemberId.toString()=='notId'">CS_RESULT !='N'</if>
+  		<if test="csDate!=null and csMemberId.toString()=='notId'">TO_CHAR((CS_DATE),'YYYY.MM.DD')=${csDate } AND CS_RESULT !='N'</if>
+  		<if test="csDate==null and csMemberId.toString()!='notId'">CS_MEMBERID=${csMemberId } AND CS_RESULT !='N'</if>
+  		</where>   		
+  	
+  	</select>
+	
+	
+  	<!--상담결과 입력  -->
   	<update id="reportUpdate">
   		 UPDATE CHATSERVER_TBL SET CS_RESULT =#{csResult} WHERE TITLE_NO =#{titleNo}
   	</update>  	
@@ -73,6 +93,11 @@
  	<!-- 실시간 채팅 리스트조회--> 
  	<select id="nowSelectChat" resultMap="clientResultMap">
  		SELECT * FROM CHATCONSULT_TBL WHERE TITLE_NO=#{titleNo} 
- 	</select> 	
+ 	</select> 
+ 	<!--종료후 id별로 상담내용 상세보기  -->
+ 	<select id="idSelectChat" resultMap="clientResultMap">
+ 		SELECT * FROM CHATCONSULT_TBL WHERE TITLE_NO=#{titleNo} AND C_MEMBERID=${cMemberId } ORDER BY TITLE_NO DESC AND C_DATE DESC
+ 	</select> 
+ 		
  <!--고객 완료.  --> 
  </mapper>

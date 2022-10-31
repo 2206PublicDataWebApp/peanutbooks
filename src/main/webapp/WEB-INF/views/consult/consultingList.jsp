@@ -34,6 +34,9 @@
     <div>
         <span >상담 대기인원 :</span> <span id="count">명</span>
     </div>
+    <div id="searchbtn">
+    	<button onclick="endList();">종료건 조회</button>
+    </div>
     <div>                             
        <div id="pagename" align="center">채팅상담리스트</div>
        <div class="table-responsive">
@@ -54,6 +57,7 @@
 	</div>
 
 </main>
+<jsp:include page="../footer/footer.jsp"></jsp:include>
 	<script>
 		$('.context').scrollTop = $('.context').scrollHeight;
 		var printer;
@@ -165,6 +169,18 @@
 					+ "&csMemberId=" + csMemberId + "&csTitle=" + csTitle,
 					"PopupWin", windo);
 		}
+		
+		function endList(){
+			var p1btn = $('p').eq(1).css('display');
+			if (p1btn == 'none') {
+				alert('채팅검색으로 이동합니다.');
+				location.href="/consult/endList.kh";
+			}else{
+				if(confirm('상담접수종료하고 검색합니다.')){
+					location.href="/consult/endList.kh";
+				};
+			};
+		} 
 	</script>
 </body>
 </html>

@@ -4,11 +4,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.books.peanut.consult.domain.Consult;
 import com.books.peanut.consult.domain.ConsultServer;
+import com.books.peanut.pay.domain.Pagemarker;
 @Repository
 public class LogicStore implements ConsultStore{
 	//고객채팅 리스트 받아오기
@@ -63,4 +65,28 @@ public class LogicStore implements ConsultStore{
 		String btnresult=session.selectOne("ConsultMapper.switchbtncheck");
 		return btnresult;
 	}
+	//채팅상담종료건 조회
+	@Override
+	public List<ConsultServer> printEndListChat(SqlSessionTemplate session, Pagemarker pm, ConsultServer cs) {
+		int offset=(pm.getCurrentPage()-1)*pm.getLimit();		
+		RowBounds rowBounds = new RowBounds(offset,pm.getLimit());
+		//null, rowBounds 같이 진행해줘야 자동으로 처리된다.
+		HashMap<String, String > paramMap=new HashMap<String, String>();
+		List<ConsultServer> chatList=session.selectList("ConsultMapper.chatEndList",cs,rowBounds);
+		return chatList;
+	}
+	
+	//채팅상담종료건 조회 전체 카운트
+	@Override
+	public int getTotalCount(SqlSessionTemplate session, ConsultServer cs) {
+		int count=session.selectOne("ConsultMapper.chatListcount", cs);
+		return count;
+	}
+	//종료채팅 id별로  상세보기
+	@Override
+	public List<Consult> printDetail(SqlSessionTemplate session,String memberId) {
+		List<Consult> cList =session.selectList("ConsultMapper.idSelectChat",memberId);
+		return cList;
+	}
+
 }

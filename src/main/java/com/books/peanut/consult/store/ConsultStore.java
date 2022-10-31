@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.books.peanut.consult.domain.Consult;
 import com.books.peanut.consult.domain.ConsultServer;
+import com.books.peanut.pay.domain.Pagemarker;
 
 public interface ConsultStore {
 
@@ -29,6 +30,12 @@ public interface ConsultStore {
 	public int changebutten(SqlSessionTemplate session, String chatbtn);
 
 	public String selechbtn(SqlSessionTemplate session);
+	//채팅상담종료건 조회
+	public List<ConsultServer> printEndListChat(SqlSessionTemplate session, Pagemarker pm, ConsultServer cs);
+	//채팅상담종료건 조회 전체 카운트
+	public int getTotalCount(SqlSessionTemplate session, ConsultServer cs);
+	//종료채팅 id별로  상세보기
+	public List<Consult> printDetail(SqlSessionTemplate session,String memberId);
 
 
 
