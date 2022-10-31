@@ -424,8 +424,8 @@ public class BookServiceImpl implements BookService{
 
 	/**내 구입도서 가져오기*/
 	@Override
-	public List<peanutPaidSeries> getOneMemberPaid(String memberId) {
-		 List<peanutPaidSeries> pList = bStore.selectAllOneMemberPaid(session, memberId);
+	public List<peanutPaidSeries> getOneMemberPaid(String memberId, String step, String searchValue, int currentPage, int Limit) {
+		 List<peanutPaidSeries> pList = bStore.selectAllOneMemberPaid(session, memberId,step,searchValue,currentPage,Limit);
 		return pList;
 	}
 
@@ -442,6 +442,43 @@ public class BookServiceImpl implements BookService{
 		int result = bStore.selectCountOneMemberLibrary(session, memberId,category,step,searchValue);
 		return result;
 	}
+
+	/**페이징용 내 구입시리즈 총 갯수 가져오기*/
+	@Override
+	public int getOneMemberPaidCount(String memberId, String step, String searchValue) {
+		int result = bStore.selectOneBookSeriesStatusCount(session, memberId,step,searchValue);
+		return result;
+	}
+
+	/**피넛 오리지널 검색숫자*/
+	@Override
+	public int OriBookSearchValueCount(String tag, String step, String searchValue, String category) {
+		int result = bStore.selectOriBookSearchCount(session,tag,step,searchValue,category);
+		return result;
+	}
+
+	/**일반도서 검색숫자*/
+	@Override
+	public int NorBookSearchValueCount(String tag, String step, String searchValue, String category) {
+		int result = bStore.selectNorBookSearchCount(session,tag,step,searchValue, category);
+		return result;
+	}
+
+	/**피넛 오리지널 도서 검색*/
+	@Override
+	public List<OriginBook> allBookSearchValue(String tag, String step, String searchValue, Integer page,
+			 int limit, String category) {
+		List<OriginBook> oList =bStore.selectBookSearchValue(session, tag,step,searchValue,page,limit,category);
+		return oList;
+	}
+
+	/**일반도서 검색*/
+	@Override
+	public List<NormalBook> allBookSearchValueNor(String tag, String step, String searchValue, Integer page,
+		 int limit, String category) {
+		List<NormalBook> nList =bStore.selectBookSearchValueNor(session, tag,step,searchValue,page,limit,category);
+		return nList;	}
+
 
 
 	

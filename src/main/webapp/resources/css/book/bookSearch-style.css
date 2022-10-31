@@ -22,8 +22,12 @@ main {
     outline: none;
     color: #FFD384;
     font-size: 0.8rem;
+    margin-top:0.7rem;
   }
   
+  #serchbar-area{
+  
+  }
   .searchTerm:focus {
     color: black;
   }
@@ -41,7 +45,15 @@ main {
     font-size: 20px;
     padding-top: 2rem;
     position: relative;
+    margin-top:0.7rem;
   
+  }
+  
+  #category{
+  height : 2rem;
+  margin-top:0.7rem;
+  margin-left : 0.2rem;
+  font-size:0.8rem;
   }
   
   #searchbar {
@@ -56,10 +68,14 @@ main {
 
   #serch-category{
     font-size: 0.8rem;
-    margin: 1rem;
+    margin-top:1rem;
 
   }
-
+.tagbax:hover{
+	cursor : pointer;
+	background-color:#FFD384;
+	border : 1px solid #FF884B;
+}
   .area-title{
     font-size: 1.5rem;
     font-weight: bolder;
@@ -97,4 +113,21 @@ main {
     text-align: center;
     margin: 1rem;
 
+  }
+  
+  @media(max-width:500px){
+  
+    .tagbax{
+    border-radius: 0.5rem;
+    border: 1px solid lightgray;
+    padding: 0.2rem 0.5rem;
+    margin: 0.2rem 0.2rem;
+    display: inline-block;
+  }
+  
+  #serchCate{
+   font-size:1rem;
+  }
+  
+  
   }

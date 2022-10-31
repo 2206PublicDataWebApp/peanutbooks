@@ -54,6 +54,7 @@
 <result property="memberId" column="MEMBER_ID"/>
 <result property="checkPermission" column="BOOK_PERMISSION"/>
 <result property="scoreCount" column="SCORE_COUNT"/>
+<result property="memberNickName" column="M_NICKNAME"/>
 </resultMap>
 
 <!-- 도서 제목 가져오기 -->
@@ -80,6 +81,63 @@ select count(BOOK_TITLE) from origin_book where MEMBER_ID = #{memberId} and ORI_
 <select id="selectOneBookStatus" resultMap="oriBookResultMap">
  select BOOK_TITLE, CORVER_RENAME from origin_book where ORI_BOOK_NO = #{bookNo} and STATUS like 'Y%' and BOOK_PERMISSION like 'Y%'
 </select>
+
+
+
+<!-- 피넛 오리지널 검색 숫자 -->
+  <select id="selectCountOriSearchValue" resultType="_int">
+   select count(*) from hash_tag left join origin_book on book_no = ori_book_no 
+   left join member_tbl using(member_id) 
+   <where>
+   	status = 'Y' and BOOK_PERMISSION = 'Y'
+	   <if test ="tag != null">
+			and hash_tag.category = 'origin'
+			and (hashtag1 = #{tag} or hashtag2 = #{tag} or hashtag3 = #{tag})
+		</if>
+		<if test="searchValue != null">
+			<if test="category.toString() == 'title'">
+					and book_title like '%'||#{searchValue}||'%'
+			</if>
+			<if test="category.toString() == 'writer'">
+					and m_NikcNAme like '%'||#{searchValue}||'%'
+			</if>
+		</if>
+   </where>
+  </select>
+  
+<!-- 피넛 오리지널 검색 하기 -->
+  <select id="selectBookSearchValue" resultMap="oriBookResultMap">
+   select * from hash_tag left join origin_book on book_no = ori_book_no 
+   left join member_tbl using(member_id) 
+   <where>
+   	status = 'Y' and BOOK_PERMISSION = 'Y'
+	   <if test ="tag != null">
+			and hash_tag.category = 'origin'
+			and (hashtag1 = #{tag} or hashtag2 = #{tag} or hashtag3 = #{tag})
+		</if>
+		<if test="searchValue != null">
+			<if test="category != null">
+				<if test="category.toString() == 'title'">
+						and book_title like '%'||#{searchValue}||'%'
+				</if>
+				<if test="category.toString() == 'writer'">
+						and m_NikcNAme like '%'||#{searchValue}||'%'
+				</if>
+			</if>
+		</if>
+   </where>
+   	<if test="step.toString() == 'all'">
+   		order by insert_date desc
+   	</if>
+   	<if test="step.toString() == 'star'">
+   		order by DECODE(score, 0, 0, score_count/score)
+   	</if>
+   	<if test="step.toString() == 'count'">
+   		order by view_count desc
+   	</if>
+  </select>
+  
+
 
 
 
@@ -183,8 +241,7 @@ update ori_series set status = 'N' where ORI_BOOK_NO = #{bookNo}
   <select id="SelectOneBookSeriesStatus" resultMap="oriSeriesResultMap">
   select SERIES_NO, SUB_PIC_RE, TITLE  from ori_series where ORI_BOOK_NO = #{bookNo} and SERIES_NO = #{seriesNo} and status like 'Y%' and CHECK_PERMISSION like 'Y%'
   </select>
-
-
+  
 
 
 

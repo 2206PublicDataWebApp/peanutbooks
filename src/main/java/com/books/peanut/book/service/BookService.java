@@ -2,6 +2,7 @@ package com.books.peanut.book.service;
 
 import java.util.List;
 
+
 import com.books.peanut.book.domain.BookPage;
 import com.books.peanut.book.domain.HashTag;
 import com.books.peanut.book.domain.Library;
@@ -203,14 +204,39 @@ public interface BookService {
 	/**내 서재 일반도서 목록가져오기*/
 	List<Library> getOneMemberNorLibrary(String memberId);
 
-	/**내 구입도서 가져오기*/
-	List<peanutPaidSeries> getOneMemberPaid(String memberId);
+	/**내 구입도서 가져오기
+	 * @param searchValue 
+	 * @param step 
+	 * @param boardLimit 
+	 * @param i */
+	List<peanutPaidSeries> getOneMemberPaid(String memberId, String step, String searchValue, int i, int boardLimit);
 
 	/**내가 구입한 모든 도서 가져오기*/
 	OriginBookSeries getOneBookSeriesStatus(String bookNo, String seriesNo);
 
 	/**페이징용 내 서재 갯수가져오기*/
 	int countOneMemberLibrary(String memberId, String category, String step, String searchValue);
+
+	/**페이징용 내 구입도서 시리즈 숫자 가져오기*/
+	int getOneMemberPaidCount(String memberId, String step, String searchValue);
+
+	/**피넛 오리지널 검색 숫자
+	 * @param searchValue2 */
+	int OriBookSearchValueCount(String tag, String step, String searchValue, String category);
+
+	/**일반도서 검색숫자
+	 * @param searchValue2 */
+	int NorBookSearchValueCount(String tag, String step, String searchValue, String category);
+
+	/**피넛 오리지널 도서 검색
+	 * @param category */
+	List<OriginBook> allBookSearchValue(String tag, String step, String searchValue, Integer page, int getTotalCountOri, String category);
+	
+	/**일반 도서 검색
+	 * @param category */
+	List<NormalBook> allBookSearchValueNor(String tag, String step, String searchValue, Integer page,
+			int getTotalCountNor, String category);
+
 
 	
 

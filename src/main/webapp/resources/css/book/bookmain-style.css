@@ -43,6 +43,7 @@ main .img-area img {
 	background-color: lightgray;
 	border-radius: 100rem;
 	margin-top: 0.5rem;
+	transition: 0.2s;
 }
 
 #page span {
@@ -52,6 +53,7 @@ main .img-area img {
 	background-color: lightgray;
 	border-radius: 100rem;
 	margin-top: 0.5rem;
+	transition: 0.2s;
 }
 
 #page>small:hover:not(.nowPage) {
@@ -100,6 +102,7 @@ main .userbutton a {
 	width: 7rem;
 	height: 2rem;
 	border-radius: 0.5rem;
+	transition: 0.2s;
 }
 
 #bookopenbutton:hover {
@@ -112,6 +115,7 @@ main .userbutton a {
 	border-radius: 0.5rem;
 	width: 60%;
 	text-align: center;
+	transition: 0.2s;
 }
 
 .userbutton .row div:hover {
@@ -240,6 +244,7 @@ main .userbutton a {
 	border: 0;
 	background-color: rgb(236, 236, 236);
 	border-radius: 0.5rem;
+	transition: 0.2s;
 }
 
 #reply-button:hover {
@@ -253,10 +258,12 @@ main .userbutton a {
 	border: 0; background-color : rgb( 236, 236, 236);
 	border-radius: 0.5rem;
 	background-color: rgb(236, 236, 236);
+	transition: 0.2s;
 }
 
 #reply-button2 {
 	margin-top: 0.2rem;
+	transition: 0.2s;
 }
 
 #reply-button1:hover, #reply-button2:hover {
@@ -281,6 +288,7 @@ main .userbutton a {
 	height: 3rem;
 	border: 0;
 	border-radius: 0.5rem;
+	transition: 0.2s;
 }
 
 #listbutton button:hover {

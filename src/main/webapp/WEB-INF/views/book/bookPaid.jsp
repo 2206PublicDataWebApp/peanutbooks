@@ -44,9 +44,12 @@
                     
                     <div class="col-md-6"></div>
                     <div class="col-md-3 row" id="search">
+                      <!-- 검색시작 -->
+                      <form action="/book/myPaid.do" method="get">
                         <div class="wrap">
                             <div class="search">
-                                <input type="text" class="searchTerm" placeholder="제목을 입력하세요">
+                                <input type="text" class="searchTerm" name="searchValue" placeholder="제목을 입력하세요">
+                                
                                 <button type="submit" class="searchButton">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                         class="bi bi-search" viewBox="0 0 16 16">
@@ -54,10 +57,12 @@
                                             d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                                     </svg>
                                 </button>
+                                
                             </div>
                         </div>
 
-
+                       </form>
+					<!-- 검색영역 종료 -->
                     </div>
 
                 </div>
@@ -67,8 +72,16 @@
 
             <article id="booklist-area">
                 <div class="row" id="list-firstline">
-                    <div class="col-md-9 d-md-block d-none">21 작품</div>
-                    <div class="col-md-3">등록순 | 별점순 | 조회순</div>
+                    <div class="col-md-9 d-md-block d-none">${TotalCount } 작품</div>
+                    <div class="col-md-3">
+                   <a href="/book/myPaid.do?step=all&searchValue=${searchValue }">
+                    등록순</a> | 
+                   
+                    <a href="/book/myPaid.do?step=star&searchValue=${searchValue }">
+                    별점순</a> | 
+                    <a href="/book/myPaid.do?step=count&searchValue=${searchValue }">
+                    조회순</a>
+                    </div>
 
                 </div>
 
@@ -76,7 +89,6 @@
                 
                 <!-- 책 한권 반복 시작 -->
                 <c:forEach items="${pList }" var="pSeries">
-                
                 <c:if test="${pSeries.bookTitle != null}">
                 
                     <div class="col-md-3 col-6" id="one-book-area"
@@ -85,10 +97,12 @@
                         <div class="one-book-pic">
                             <img src="/resources/bookImg/${pSeries.picName }">
                         </div>
-                        <div class="book-name">
+                        <div class="book-name text-truncate">
                             ${pSeries.bookTitle }
-
                         </div>
+                        <div class="book-name text-truncate">
+							${pSeries.seriesNo }. ${pSeries.title }
+						</div>
                     </div>
                     
                  </c:if>  
@@ -100,22 +114,40 @@
 
             </article>
 
-            <article id="page-area">
+
+<!-- 페이징영역시작 -->
+              <article id="page-area">
                 <ul id="pagination">
-                    <li><a href="#">«</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#" class="active">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">6</a></li>
-                    <li><a href="#">7</a></li>
-                    <li><a href="#">»</a></li>
+
+               		<!-- 이전페이지 -->
+               		<c:if test="${startNavi ne 1 && startNavi > 0}">
+                    	<li><a href="/book/mybooks.do?category=${category }&step=${step }&searchValue=${searchValue}&category=${category }&page=${startNavi-1}">
+                    		«</a></li>
+                    </c:if>
+                    
+                    <!-- 페이지 숫자 -->
+                    <c:forEach var="p" begin="${startNavi }" end="${endNavi }">
+
+                    	<c:if test="${currentPage == p}">
+                    		<li><a href="#" class="active">${p }</a></li>
+                    	</c:if>
+                    	<c:if test="${currentPage != p  }">
+                    		<li><a href="/book/mybooks.do?category=${category }&step=${step }&searchValue=${searchValue}&category=${category }&page=${p}" >
+                    			${p }</a></li>
+                    	</c:if>
+                    </c:forEach>
+                    
+                    
+                   <!-- 다음페이지 -->
+                   <c:if test="${endNavi < maxPage }">
+                    <li><a href="/book/mybooks.do?category=${category }&step=${step }&searchValue=${searchValue}&category=${category }&page=${endNavi+1}">»</a></li>
+                    </c:if>
                 </ul>
 
 
 
             </article>
+
 
         </section>
     </main>

@@ -90,10 +90,12 @@ main a{
 	display: inline-block;
 	width: 3rem;
 	height: 2rem;
+	transition: 0.2s;
 	
 }
 .pages{
-	background-color:#FFD384;	
+	background-color:#FFD384;
+	transition: 0.2s;	
 }
 .pageNow, .pages:hover{
 	background-color:#FF884B;

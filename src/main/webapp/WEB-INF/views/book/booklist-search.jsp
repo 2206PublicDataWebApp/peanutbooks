@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -24,9 +25,14 @@
     <main>
         <section>
             <article id="title-area">
-                <div id="title" class="container">검색어/카테고리</div>
+                <div id="title" class="container">${tag }${searchValue }</div>
             </article>
-
+			<article id="list-area" class="container">
+			<button onclick="location.href='/book/bookSearchList.do?tag=${Hahstag}&searchValue=${searchValue }&category=${category }&bookCate=origin'">
+			피넛 오리지널</button> 	
+			<button onclick="location.href='/book/bookSearchList.do?tag=${Hahstag}&searchValue=${searchValue }&category=${category }&bookCate=normal'">
+			일반도서</button>
+			</article>
 
             <article id="list-area" class="container">
                 <div class="list-title row">
@@ -39,134 +45,42 @@
                 </div>
 
                 <div class="books-list-area row">
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/christmas-g4fdade62f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">긴제목 제목제목제목제ㅗㄱ</div>
-                        <div class="book-info text-truncate">설명이 아주아주아주아중자아주지기</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/landscape-g2a33940ce_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">긴제목 제목제목제목제ㅗㄱ</div>
-                        <div class="book-info text-truncate">설명이 아주아주아주아중자아주지기</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/sailboat-g9d3a88421_1920.jpg">
-                        </div>
-                        <div class="book-title text-truncate">긴제목 제목제목제목제ㅗㄱ</div>
-                        <div class="book-info text-truncate">설명이 아주아주아주아중자아주지기</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">긴제목 제목제목제목제ㅗㄱ</div>
-                        <div class="book-info text-truncate">설명이 아주아주아주아중자아주지기</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">긴제목 제목제목제목제ㅗㄱ</div>
-                        <div class="book-info text-truncate">설명이 아주아주아주아중자아주지기</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">긴제목 제목제목제목제ㅗㄱ</div>
-                        <div class="book-info text-truncate">설명이 아주아주아주아중자아주지기</div>
-                    </div>
-
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/christmas-g4fdade62f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">긴제목 제목제목제목제ㅗㄱ</div>
-                        <div class="book-info text-truncate">설명이 아주아주아주아중자아주지기</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/landscape-g2a33940ce_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">긴제목 제목제목제목제ㅗㄱ</div>
-                        <div class="book-info text-truncate">설명이 아주아주아주아중자아주지기</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/sailboat-g9d3a88421_1920.jpg">
-                        </div>
-                        <div class="book-title text-truncate">긴제목 제목제목제목제ㅗㄱ</div>
-                        <div class="book-info text-truncate">설명이 아주아주아주아중자아주지기</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">긴제목 제목제목제목제ㅗㄱ</div>
-                        <div class="book-info text-truncate">설명이 아주아주아주아중자아주지기</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">긴제목 제목제목제목제ㅗㄱ</div>
-                        <div class="book-info text-truncate">설명이 아주아주아주아중자아주지기</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">긴제목 제목제목제목제ㅗㄱ</div>
-                        <div class="book-info text-truncate">설명이 아주아주아주아중자아주지기</div>
-                    </div>
-
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/christmas-g4fdade62f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">긴제목 제목제목제목제ㅗㄱ</div>
-                        <div class="book-info text-truncate">설명이 아주아주아주아중자아주지기</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/landscape-g2a33940ce_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">긴제목 제목제목제목제ㅗㄱ</div>
-                        <div class="book-info text-truncate">설명이 아주아주아주아중자아주지기</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/sailboat-g9d3a88421_1920.jpg">
-                        </div>
-                        <div class="book-title text-truncate">긴제목 제목제목제목제ㅗㄱ</div>
-                        <div class="book-info text-truncate">설명이 아주아주아주아중자아주지기</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">긴제목 제목제목제목제ㅗㄱ</div>
-                        <div class="book-info text-truncate">설명이 아주아주아주아중자아주지기</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">긴제목 제목제목제목제ㅗㄱ</div>
-                        <div class="book-info text-truncate">설명이 아주아주아주아중자아주지기</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">긴제목 제목제목제목제ㅗㄱ</div>
-                        <div class="book-info text-truncate">설명이 아주아주아주아중자아주지기</div>
-                    </div>
+                <!-- 책 반복문 -->
+                	<c:forEach items="${bList }" var="book">
+                
+	                    <!-- 피넛오리지널인지 일반도서인지에 따라 연결되는 페이지가 달라짐 -->
+	                    <div class="col-md-2 col-4 row OneBook"
+	                    <c:if test="${bookCate == 'origin' }">
+	                    onclick="location.href='/book/oriBookInfo?bookNo=${book.bookNo }'"
+	                    </c:if>
+	                    <c:if test="${bookCate == 'normal' }">
+	                    onclick="location.href='/book/norBookInfo?bookNo=${book.bookNo }'"
+	                    </c:if>
+	                    
+	                    >
+	                        <div class="book-img">
+	                            <img src="/resources/bookImg/${book.coverRename }">
+	                        </div>
+	                        <div class="book-title text-truncate">${book.bookTitle }</div>
+	                        <div class="book-info text-truncate">${book.bookInfo }</div>
+	                        <c:if test="${book.writer == null}">
+	                        <div class="book-info text-truncate">작가 : ${book.memberNickName }</div>
+	                        </c:if>
+	                        <c:if test="${book.writer != null}">
+	                        <div class="book-info text-truncate">작가 : ${book.writer }</div>
+	                        </c:if>
+	                        
+	                       	
+	                    </div>
+                   
+                	</c:forEach><!-- 책 반복문 종료 -->
+                	
+                	<c:if test="${TotalCount == 0 }">
+                		검색하신 도서가 없습니다 
+                		<br>
+                		<c:if test="${bookCate == 'origin' }"> 일반도서로 검색해보세요</c:if>
+                		<c:if test="${bookCate == 'noraml' }"> 피넛오리지널을 검색해보세요</c:if>
+                	</c:if>
 
                 </div>
             </article>

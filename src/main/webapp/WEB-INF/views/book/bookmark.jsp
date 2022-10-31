@@ -54,7 +54,7 @@
                         <!-- 검색폼 -->
                         <form action="/book/mybooks.do" method="get">
                             <div class="search">
-                            	<input type="hidden" name="step" value=${step }>
+                            	
                             	<input type="hidden" name="category" value=${category }>
                                 <input type="text" class="searchTerm" name="searchValue" placeholder="제목을 입력하세요">
                                 <button type="submit" class="searchButton">

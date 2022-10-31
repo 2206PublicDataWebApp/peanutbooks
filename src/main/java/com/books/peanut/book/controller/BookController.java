@@ -78,6 +78,30 @@ public class BookController {
 	}
 
 	/**
+	 * 검색 창 연결
+	 * 
+	 * @param mv
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/book/bookSearch.do", method = RequestMethod.GET)
+	public ModelAndView bookSearchView(ModelAndView mv, HttpSession session) {
+
+		Member member = (Member) session.getAttribute("loginMember");
+		if (member == null) {
+			mv.addObject("msg", "로그인한 유저만 접속가능합니다");
+			mv.setViewName("/common/errorPage");
+
+		} else {
+			mv.setViewName("/book/bookSearch");
+
+		}
+
+		return mv;
+
+	}
+
+	/**
 	 * 피넛 오리지널 도서 시리즈 다음화 등록 창 연결
 	 * 
 	 * @param mv
@@ -336,29 +360,28 @@ public class BookController {
 			@RequestParam(value = "step", required = false, defaultValue = "all") String step,
 			@RequestParam(value = "category", required = false, defaultValue = "all") String category,
 			@RequestParam(value = "searchValue", required = false) String searchValue,
-			@RequestParam(value = "page", required = false) Integer page			
-			) {
+			@RequestParam(value = "page", required = false) Integer page) {
 
 		Member member = (Member) session.getAttribute("loginMember");
 		if (member != null) {
 			List<Library> lList = new ArrayList<Library>();
-			
-			//페이징 하기
-			int getTotalCount = bService.countOneMemberLibrary(member.getMemberId(),category,step,searchValue);//총갯수 가져오기
+
+			// 페이징 하기
+			int getTotalCount = bService.countOneMemberLibrary(member.getMemberId(), category, step, searchValue);// 총갯수
+																													// 가져오기
 			int boardLimit = 20;
 			BookPageController bpCont = new BookPageController();// 페이징 해주는 클래스
 			BookPage bPage = bpCont.boardList(page, getTotalCount, boardLimit); // 클래스에서 페이징해온 숫자를 가지고옴
-			//페이징용코드종료
-			
-			lList = bService.getOneMemberLibrary(member.getMemberId(),category,step,searchValue,bPage.getCurrentPage(), boardLimit);
-			
-			
-			mv.addObject("step",step);
-			mv.addObject("searchValue",searchValue);
-			mv.addObject("category",category);
+			// 페이징용코드종료
+
+			lList = bService.getOneMemberLibrary(member.getMemberId(), category, step, searchValue,
+					bPage.getCurrentPage(), boardLimit);
+
+			mv.addObject("step", step);
+			mv.addObject("searchValue", searchValue);
+			mv.addObject("category", category);
 			mv.addObject("lList", lList);
-			
-			
+
 			mv.addObject("TotalCount", getTotalCount);
 			mv.addObject("startNavi", bPage.getStartNavi());
 			mv.addObject("endNavi", bPage.getEndNavi());
@@ -383,28 +406,123 @@ public class BookController {
 	 */
 	@RequestMapping(value = "/book/myPaid.do", method = RequestMethod.GET)
 	public ModelAndView showAllMyPaid(ModelAndView mv, HttpSession session,
-			@RequestParam(value = "step", required = false, defaultValue = "all") String step) {
+			@RequestParam(value = "step", required = false, defaultValue = "all") String step,
+			@RequestParam(value = "searchValue", required = false) String searchValue,
+			@RequestParam(value = "page", required = false) Integer page) {
 
 		Member member = (Member) session.getAttribute("loginMember");
 		if (member != null) {
 			List<peanutPaidSeries> pList = new ArrayList<peanutPaidSeries>();
-			pList = bService.getOneMemberPaid(member.getMemberId());
+			// 페이징시작
+			int getTotalCount = bService.getOneMemberPaidCount(member.getMemberId(), step, searchValue); // 가져올 목록의 총 갯수
+																											// 파악하기
+			int boardLimit = 20;
+			BookPageController bpCont = new BookPageController();// 페이징 해주는 클래스
+			BookPage bPage = bpCont.boardList(page, getTotalCount, boardLimit); // 클래스에서 페이징해온 숫자를 가지고옴
 
-			for (int i = 0; i < pList.size(); i++) {// 각 l클래스에 제목이랑 표지 넣기
+			pList = bService.getOneMemberPaid(member.getMemberId(), step, searchValue, bPage.getCurrentPage(),
+					boardLimit); // 현재 로그인한 아이디와 정렬 검색값을 모두 적용해 구입모록 가져옴
 
-				OriginBookSeries oSries = bService.getOneBookSeriesStatus(pList.get(i).getBookNo(),pList.get(i).getSeriesNo()); // 삭제되지 않고, 승인된 책의 제목,
-				// 표지가져오기
-				if (oSries != null) {
+			mv.addObject("pList", pList); // 목록넘기기
+			mv.addObject("step", step); // 정렬명
+			mv.addObject("searchValue", searchValue); // 검색명
 
-					String BookTitle = bService.getBookTitle(oSries.getBookTitle());
-					pList.get(i).setBookTitle(BookTitle);
-					pList.get(i).setPicName(oSries.getSubPicRename());
-					pList.get(i).setBookTitle(oSries.getTitle());
-				}
-			}
+			// 페이징용
+			mv.addObject("TotalCount", getTotalCount);
+			mv.addObject("startNavi", bPage.getStartNavi());
+			mv.addObject("endNavi", bPage.getEndNavi());
+			mv.addObject("maxPage", bPage.getMaxPage());
+			mv.addObject("currentPage", bPage.getCurrentPage());
 
-			mv.addObject("pList", pList);
 			mv.setViewName("/book/bookPaid");
+		} else {// 로그인안하면 메인페이지로감
+			mv.setViewName("redirect:/");
+		}
+
+		return mv;
+
+	}
+
+	/**
+	 * 검색 도서 목록 열기
+	 * 
+	 * @param mv
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/book/bookSearchList.do", method = RequestMethod.GET)
+	public ModelAndView bookSearchList(ModelAndView mv, HttpSession session,
+			@RequestParam(value = "step", required = false, defaultValue = "all") String step,
+			@RequestParam(value = "searchValue", required = false) String searchValue,
+			@RequestParam(value = "page", required = false) Integer page,
+			@RequestParam(value = "tag", required = false) String tag,
+			@RequestParam(value = "category", required = false) String category,
+			@RequestParam(value = "bookCate", required = false) String bookCate) {
+
+		Member member = (Member) session.getAttribute("loginMember");
+		if (member != null) {
+			List<OriginBook> oList = new ArrayList<OriginBook>();
+			List<NormalBook> nList = new ArrayList<NormalBook>();
+
+			// 페이징시작
+			int getTotalCountOri = bService.OriBookSearchValueCount(tag, step, searchValue,category); // 가져올 목록의 총 갯수 파악하기
+			int getTotalCountNor = bService.NorBookSearchValueCount(tag, step, searchValue,category); // 가져올 목록의 총 갯수 파악하기
+
+			int boardLimit = 20;
+			BookPageController bpContOri = new BookPageController();// 페이징 해주는 클래스
+			BookPageController bpContNor = new BookPageController();// 페이징 해주는 클래스
+
+
+			if (bookCate.equals("origin")) {// 오리지널 북을 선택했다면
+				
+				BookPage bPage = bpContOri.boardList(page, getTotalCountOri, boardLimit); // 클래스에서 페이징해온 숫자를 가지고옴
+				oList = bService.allBookSearchValue(tag, step, searchValue, bPage.getCurrentPage(), boardLimit,category);
+				
+				mv.addObject("bList", oList); // 목록넘기기
+				// 페이징용
+				
+				mv.addObject("TotalCount", getTotalCountOri);
+				mv.addObject("startNavi", bPage.getStartNavi());
+				mv.addObject("endNavi", bPage.getEndNavi());
+				mv.addObject("maxPage", bPage.getMaxPage());
+				mv.addObject("currentPage", bPage.getCurrentPage());
+			} else {
+				
+				BookPage nPage = bpContNor.boardList(page, getTotalCountOri, boardLimit); // 클래스에서 페이징해온 숫자를 가지고옴
+				nList = bService.allBookSearchValueNor(tag, step, searchValue, nPage.getCurrentPage(), boardLimit,category);
+				mv.addObject("bList", nList); // 목록넘기기
+				// 페이징용
+				
+				mv.addObject("TotalCount", getTotalCountNor);
+				mv.addObject("startNavi", nPage.getStartNavi());
+				mv.addObject("endNavi", nPage.getEndNavi());
+				mv.addObject("maxPage",nPage.getMaxPage());
+				mv.addObject("currentPage", nPage.getCurrentPage());
+			}
+			//검색한 태그 전송하기
+			HashTag tagOne = new HashTag();
+			tagOne.setHashTag1(tag);
+			tagOne.setHashTag2(tag);
+			tagOne.setHashTag3(tag);
+			tagOne = changeKo(tagOne);
+			
+			String hTag = "";
+			if(!tagOne.getHashTag1().equals("none")) {
+				hTag= tagOne.getHashTag1();
+			}else if(!tagOne.getHashTag2().equals("none")){
+				hTag= tagOne.getHashTag2();
+			}else {
+				hTag= tagOne.getHashTag3();
+			}
+			mv.addObject("tag",hTag); //검색한 태그값 보내기
+			mv.addObject("Hahstag",tag); //검색한 태그값 보내기
+			mv.addObject("step", step); // 정렬명
+			mv.addObject("searchValue", searchValue); // 검색명
+			mv.addObject("category", category); // 검색명
+			mv.addObject("bookCate", bookCate); // 검색명
+
+
+			mv.setViewName("/book/booklist-search");
 		} else {// 로그인안하면 메인페이지로감
 			mv.setViewName("redirect:/");
 		}

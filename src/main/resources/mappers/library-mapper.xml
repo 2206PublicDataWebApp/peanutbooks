@@ -57,7 +57,7 @@ member_id = #{memberId} and ("title" like '%%' or "title1" like '%%')
 <if test="step.toString() == 'all'">
 order by library_no desc</if>
 <if test="step.toString() == 'star'">
-order by "avg" desc</if>
+order by "avg" </if>
 <if test="step.toString() == 'view'">
 order by "count" desc</if>
   
@@ -107,11 +107,54 @@ member_id = #{memberId} and ("title" like '%%' or "title1" like '%%')
  		<result column="BOOK_NO"    property="bookNo" />
  		<result column="SERIES_NO"        property="seriesNo" />
  		<result column="PEANUT_NO"   property="peanutNo" />
+ 		<result column="title"   property="title" />
+ 		<result column="book_title"   property="bookTitle" />
+ 		<result column="SUB_PIC_RE"   property="picName" />
 
  	</resultMap>
   
+  <!-- 구입도서 목록 전부 가져오기 -->
   <select id="selectOneMemberPaid" resultMap="PaidResultMap">
-  	select * from peanutpoint_tbl where  MEMBER_ID= #{memberId} order by PEANUT_NO desc
+	select peanut_no, book_title, ori_series.title "title", ori_series.view_count,DECODE(origin_book.score, 0, 0, origin_book.score_count/origin_book.score) "avg", peanutpoint_tbl.book_no "book_no", peanutpoint_tbl.series_no "series_no", sub_pic_re
+	from peanutpoint_tbl left join ori_series on book_no=ori_book_no and peanutpoint_tbl.series_no=ori_series.series_no 
+	left join origin_book 
+	on peanutpoint_tbl.book_no
+	=origin_book.ori_book_no
+	<where>
+	peanutpoint_tbl.MEMBER_ID= #{memberId} and ori_series.SUB_PIC_RE like '%%' 
+	<if test="searchValue != null">
+	and (title like '%'||#{searchValue}||'%' or book_name like '%'||#{searchValue}||'%')
+	</if>
+	</where>
+	
+	<if test="step.toString() == 'star'">
+	 order by "avg"
+	</if> 
+	<if test="step.toString() == 'all'">
+	 order by PEANUT_NO desc
+	</if> 
+	<if test="step.toString() == 'count'">
+	 order by view_count desc
+	</if> 
+	
+  
+  </select>
+  
+  
+  <!-- 구입도서 목록 전부 가져오기 -->
+  <select id="selectOneMemberPaidCount" resultType="_int">
+	select count(peanut_no)
+	from peanutpoint_tbl left join ori_series on book_no=ori_book_no and peanutpoint_tbl.series_no=ori_series.series_no 
+	left join origin_book 
+	on peanutpoint_tbl.book_no
+	=origin_book.ori_book_no
+	<where>
+	peanutpoint_tbl.MEMBER_ID= #{memberId} and ori_series.SUB_PIC_RE like '%%' 
+	<if test="searchValue != null">
+	and (title like '%'||#{searchValue}||'%' or book_name like '%'||#{searchValue}||'%')
+	</if>
+	</where>
+	
   
   </select>
   

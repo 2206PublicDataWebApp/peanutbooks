@@ -183,6 +183,7 @@ margin: 1rem;}
     height: 3rem;
     margin: 1rem;
     border-radius: 0.5rem;
+    transition: 0.2s;
 }
 
 .contents-button button:hover{

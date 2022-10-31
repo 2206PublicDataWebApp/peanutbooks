@@ -17,11 +17,18 @@ public class OriginBook {
 	private String memberId;
 	private String checkPermission;
 	private String memberNickName;
+	private String writer;
 	private int scoreCount;
 	
 	
 	
 	
+	public String getWriter() {
+		return writer;
+	}
+	public void setWriter(String memberNickName) {
+		this.memberNickName = memberNickName;
+	}
 	public int getScoreCount() {
 		return scoreCount;
 	}
@@ -111,10 +118,11 @@ public class OriginBook {
 	
 	@Override
 	public String toString() {
-		return "originBook [bookNo=" + bookNo + ", bookTitle=" + bookTitle + ", bookInfo=" + bookInfo + ", category="
+		return "OriginBook [bookNo=" + bookNo + ", bookTitle=" + bookTitle + ", bookInfo=" + bookInfo + ", category="
 				+ category + ", insertDate=" + insertDate + ", cover=" + cover + ", coverRename=" + coverRename
 				+ ", status=" + status + ", score=" + score + ", viewCount=" + viewCount + ", memberId=" + memberId
-				+ ", checkPermission=" + checkPermission + "]";
+				+ ", checkPermission=" + checkPermission + ", memberNickName=" + memberNickName + ", scoreCount="
+				+ scoreCount + "]";
 	}
 	
 	

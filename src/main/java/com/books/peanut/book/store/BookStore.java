@@ -207,8 +207,12 @@ public interface BookStore {
 	/**내 서재 일반도서 불러오기*/
 	List<Library> selectOneMemberNorLibrary(SqlSessionTemplate session, String memberId);
 
-	/**구입한 도서 불러오기*/
-	List<peanutPaidSeries> selectAllOneMemberPaid(SqlSessionTemplate session, String memberId);
+	/**구입한 도서 불러오기
+	 * @param searchValue 
+	 * @param step 
+	 * @param limit 
+	 * @param currentPage */
+	List<peanutPaidSeries> selectAllOneMemberPaid(SqlSessionTemplate session, String memberId, String step, String searchValue, int currentPage, int limit);
 
 	/**내 구입 시리즈 삭제되지 않고 승인된*/
 	OriginBookSeries selectOneBookSeriesStatus(SqlSessionTemplate session, String bookNo, String seriesNo);
@@ -216,5 +220,26 @@ public interface BookStore {
 	/**페이징용 내 서재 총 갯수*/
 	int selectCountOneMemberLibrary(SqlSessionTemplate session, String memberId, String category, String step,
 			String searchValue);
+
+	/**페이징용 내 구입시리즈 갯수*/
+	int selectOneBookSeriesStatusCount(SqlSessionTemplate session, String memberId, String step, String searchValue);
+
+	/**피넛 오리지널 검색숫자
+	 * @param category */
+	int selectOriBookSearchCount(SqlSessionTemplate session, String tag, String step, String searchValue, String category);
+
+	/**일반도서 검색숫자
+	 * @param category */
+	int selectNorBookSearchCount(SqlSessionTemplate session, String tag, String step, String searchValue, String category);
+
+	/**피넛 오리지널 검색
+	 * @param category */
+	List<OriginBook> selectBookSearchValue(SqlSessionTemplate session, String tag, String step, String searchValue,
+			Integer page, int limit, String category);
+
+	/**일반도서 검색
+	 * @param category */
+	List<NormalBook> selectBookSearchValueNor(SqlSessionTemplate session, String tag, String step, String searchValue,
+			Integer page, int limit, String category);
 
 }

@@ -27,6 +27,22 @@ main {
     padding:6rem 0 4rem 0;
 }
 
+#list-area>button{
+	border : 0 ;
+	background-color :rightGray;
+	border-radius: 0.5rem;
+	width : 8rem;
+	height:2rem;
+	transition:0.2s;
+
+}
+
+#list-area>button:hover, {
+	background-color :#FFD384;
+	transition:0.2s;
+	
+}
+
 hr{
     padding: 0;
     margin:0;
@@ -37,6 +53,9 @@ hr{
     height: 100%;
     object-fit: cover;
     border-radius: 0.5rem;
+}
+.OneBook:hover{
+	cursor:pointer;
 }
 
 .books-list-area img:hover{

@@ -480,8 +480,16 @@ public class BookStoreLogic implements BookStore{
 	
 	/**구입한 도서 목록 가져오기*/
 	@Override
-	public List<peanutPaidSeries> selectAllOneMemberPaid(SqlSessionTemplate session, String memberId) {
-		List<peanutPaidSeries> pList = session.selectList("librarymapper.selectOneMemberPaid",memberId);
+	public List<peanutPaidSeries> selectAllOneMemberPaid(SqlSessionTemplate session, String memberId, String step, String searchValue, int currentPage, int limit) {
+		HashMap<String, String> hMap = new HashMap<String, String>();
+		hMap.put("memberId", memberId);
+		hMap.put("step", step);
+		hMap.put("searchValue", searchValue);
+		
+		int offset = (currentPage-1)*limit;
+		RowBounds rowBounds= new RowBounds(offset,limit);
+		
+		List<peanutPaidSeries> pList = session.selectList("librarymapper.selectOneMemberPaid",hMap,rowBounds);
 		return pList;
 	}
 	
@@ -512,6 +520,83 @@ public class BookStoreLogic implements BookStore{
 		int result = session.selectOne("librarymapper.selectCountOneMemberLibrary",hMap);
 		return result;
 	}
+	
+	/**페이징용 내 구입시리즈 갯수*/
+	@Override
+	public int selectOneBookSeriesStatusCount(SqlSessionTemplate session, String memberId, String step,
+			String searchValue) {
+		HashMap<String, String> hMap = new HashMap<String, String>();
+		hMap.put("memberId", memberId);
+		hMap.put("step", step);
+		hMap.put("searchValue", searchValue);
+		
+		int result = session.selectOne("librarymapper.selectOneMemberPaidCount",hMap);
+		return result;
+	}
+	
+	/**피넛 오리지널 검색숫자*/
+	@Override
+	public int selectOriBookSearchCount(SqlSessionTemplate session, String tag, String step, String searchValue, String category) {
+		HashMap<String, String> hMap = new HashMap<String, String>();
+		hMap.put("tag", tag);
+		hMap.put("step", step);
+		hMap.put("searchValue", searchValue);
+		hMap.put("category", category);
+		
+		int result = session.selectOne("wirterMapper.selectCountOriSearchValue",hMap);
+		
+		return result;
+	}
+	
+	/**일반도서 검색숫자*/
+	@Override
+	public int selectNorBookSearchCount(SqlSessionTemplate session, String tag, String step, String searchValue, String category) {
+		HashMap<String, String> hMap = new HashMap<String, String>();
+		hMap.put("tag", tag);
+		hMap.put("step", step);
+		hMap.put("searchValue", searchValue);
+		hMap.put("category", category);
+		
+		int result = session.selectOne("adminWirteMapper.selectCountNorSearchValue",hMap);
+		
+		return result;
+	}
+	
+	/**피넛 오리지널 검색*/
+	@Override
+	public List<OriginBook> selectBookSearchValue(SqlSessionTemplate session, String tag, String step,
+			String searchValue, Integer page, int limit, String category) {
+		HashMap<String, String> hMap = new HashMap<String, String>();
+		hMap.put("tag", tag);
+		hMap.put("step", step);
+		hMap.put("searchValue", searchValue);
+		hMap.put("category", category);
+		
+		int offset = (page-1)*limit;
+		RowBounds rowBounds= new RowBounds(offset,limit);
+		List<OriginBook> oList = session.selectList("wirterMapper.selectBookSearchValue",hMap,rowBounds);
+		
+		return oList;
+	}
+	
+	/**일반도서 검색*/
+	@Override
+	public List<NormalBook> selectBookSearchValueNor(SqlSessionTemplate session, String tag, String step,
+			String searchValue, Integer page, int limit, String category) {
+		HashMap<String, String> hMap = new HashMap<String, String>();
+		hMap.put("tag", tag);
+		hMap.put("step", step);
+		hMap.put("searchValue", searchValue);
+		hMap.put("category", category);
+		
+		int offset = (page-1)*limit;
+		RowBounds rowBounds= new RowBounds(offset,limit);
+		List<NormalBook> nList = session.selectList("adminWirteMapper.selectBookSearchValueNor",hMap,rowBounds);
+		
+		return nList;
+	}
+	
+	
 
 	
 

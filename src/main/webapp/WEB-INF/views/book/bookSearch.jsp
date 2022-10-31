@@ -27,14 +27,17 @@
 	<main>
 		<section class="">
 			<article id="serchbar-area" class="container">
-
+				
+				
+				
 				<div id="serch-category">
 					<select name="searchCate" id="serchCate">
 						<option value="title">제목</option>
 						<option value="writer">작가명</option>
 					</select>
-				</div>
+					</div>
 				<div id="searchbar">
+
 					<input type="text" class="searchTerm" placeholder="검색어를 입력하세요">
 					<button type="submit" class="searchButton">
 						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -43,26 +46,38 @@
 								d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                         </svg>
 					</button>
+					
 
 				</div>
 
 			</article>
 			<hr>
+			<!-- 태그 영역 -->
 			<article id="tag-area" class="container">
 				<div class="area-title">추천 해시태그</div>
 				<div id="tagbox-area">
-					<span class="tagbax">흥미진진한</span> <span class="tagbax">손수건이
-						필요한</span> <span class="tagbax">겁많은 사람은 출입금지</span> <span class="tagbax">행복에
-						겨운</span> <span class="tagbax">두근두근한</span> <span class="tagbax">꿀잼
-						보장</span> <span class="tagbax">배꼽빠지는</span> <span class="tagbax">스릴넘치는</span>
-					<span class="tagbax">유명한 이유가 있는</span> <span class="tagbax">완결작</span>
-					<span class="tagbax">해피엔딩 기다리는</span> <span class="tagbax">감동적인</span>
-					<span class="tagbax">고전명작</span> <span class="tagbax">반전 넘치는</span>
+					<span class="tagbax" onclick="location.href='/book/bookSearchList.do?tag=fantasy&bookCate=origin'">판타지</span> 
+					<span class="tagbax" onclick="location.href='/book/bookSearchList.do?tag=now&bookCate=origin'">현대</span> 
+						<span class="tagbax" onclick="location.href='/book/bookSearchList.do?tag=daily&bookCate=origin'">일상</span> 
+						<span class="tagbax" onclick="location.href='/book/bookSearchList.do?tag=history&bookCate=origin'">역사</span> 
+						<span class="tagbax" onclick="location.href='/book/bookSearchList.do?tag=child&bookCate=origin'">어린이를 위한</span> 
+						<span class="tagbax" onclick="location.href='/book/bookSearchList.do?tag=adult&bookCate=origin'">어른을 위한</span>
+					<span class="tagbax" onclick="location.href='/book/bookSearchList.do?tag=woman&bookCate=origin'">여성을 위한</span> 
+					<span class="tagbax" onclick="location.href='/book/bookSearchList.do?tag=man&bookCate=origin'">남성을 위한</span>
+					<span class="tagbax" onclick="location.href='/book/bookSearchList.do?tag=all&bookCate=origin'">모두를 위한</span> 
+					<span class="tagbax" onclick="location.href='/book/bookSearchList.do?tag=horror&bookCate=origin'">겁쟁이 출입금지</span>
+					<span class="tagbax" onclick="location.href='/book/bookSearchList.do?tag=gag&bookCate=origin'">배꼽 빠지는</span> 
+					<span class="tagbax" onclick="location.href='/book/bookSearchList.do?tag=move&bookCate=origin'">마음이 따뜻해지는</span>
+					<span class="tagbax" onclick="location.href='/book/bookSearchList.do?tag=heart&bookCate=origin'">설레이는</span> 
+					<span class="tagbax" onclick="location.href='/book/bookSearchList.do?tag=heart&bookCate=origin'">눈물이 나는</span>
+					<span class="tagbax" onclick="location.href='/book/bookSearchList.do?tag=popcorn&bookCate=origin'">팝콘 각</span>
+					<span class="tagbax" onclick="location.href='/book/bookSearchList.do?tag=cider&bookCate=origin'">사이다 마시는</span>
 				</div>
 
 
 			</article>
 			<hr>
+			<!-- 카테고리 영역 -->
 			<article id="recommend-cate-area" class="container">
 				<div class="area-title">추천 카테고리</div>
 
