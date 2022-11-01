@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="NewsMapper">
+	<resultMap type="News" id="newsResultMap">
+		<id property="newsNo" column="NEWS_NO"/> <!-- 알림 번호 -->
+		<result property="memberId" column="MEMBER_ID"/> <!-- 회원 아이디 -->
+		<result property="newsContents" column="NEWS_CONTENTS"/> <!-- 알림 내용 -->
+		<result property="refNoticeNo" column="REF_NOTICE_NO"/> <!-- 참고 공지 번호 -->
+		<result property="refBookNo" column="REF_BOOK_NO"/> <!-- 참고 도서 번호 -->
+		<result property="readYN" column="READ_YN"/> <!-- 알림 읽음 여부 -->
+		<result property="newsType" column="NEWS_TYPE"/> <!-- 알림 종류 -->
+	</resultMap>
+</mapper>

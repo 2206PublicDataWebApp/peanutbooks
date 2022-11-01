@@ -13,49 +13,45 @@
 	</bean>
 	
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="configLocation" 	value="classpath:mybatis-config.xml"></property>
-		<property name="dataSource" 		ref="dataSource"></property>
+		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
+		<property name="dataSource" ref="dataSource"></property>
 	</bean>
+	
 	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSession"></constructor-arg>
 	</bean>
 
+	<!-- 파일 업로드 설정 -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="10000000"></property>
 		<property name="maxInMemorySize" value="100000000"></property>
 	</bean>
 	
-	<!-- naver mail 설정 -->
+	<!-- gmail 설정 -->
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"> 
-     <property name="host" value="smtp.naver.com"/> <!-- 메일서버 호스트 -->
-     <property name="port" value="465"/> <!-- 메일서버 포트번호 -->
-     <property name="username" value="#"/> <!-- 자신의 이메일 아이디 -->
-     <property name="password" value="#"/> <!-- 자신의 비밀번호 -->
+	    <property name="host" value="smtp.gmail.com"/> <!-- 메일 서버 호스트 -->
+	    <property name="port" value="587"/> <!-- 메일 서버 포트 번호 -->
+	    <property name="username" value="realpeanutbooks@gmail.com"/> <!-- 자신의 이메일 -->
+	    <property name="password" value="ohftieqkciwetzux"/> <!-- 자신의 비밀번호 --> <!-- 보안 문제로 구글 2단계 인증 앱 비밀번호 설정 -->
      
-    <!-- 보안연결 SSL과 관련된 설정 -->
-     <property name="javaMailProperties">
-      <props>
-      <prop key="mail.smtp.auth">true</prop>
-      <prop key="mail.smtp.starttls.enable">true</prop>
-      <prop key="mail.smtps.checkserveridentity">true</prop>
-      <prop key="mail.smtps.ssl.trust">*</prop>
-      <prop key="mail.debug">true</prop>
-      <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
-      <prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
-      </props>
-     </property>
+    	<!-- 보안 연결 TLS(SSL)와 관련된 설정 -->
+    	<property name="javaMailProperties">
+		    <props>
+			    <prop key="mail.smtp.auth">true</prop>
+			    <prop key="mail.smtp.starttls.enable">true</prop>
+			    <prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+    			<prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
+		    </props>
+    	</property>
     </bean>
     
-    
-    <!-- 	파일 업로드 관련 빈 등록 MultipartResolver 오타조심!!!-->	
-
-	<bean id="multipartResolver
-	" class="org.springframework.web.multipart.commons.CommonsMultipartResolver
-	">
-	<property name="maxUploadSize" value="100000000"></property>
-<!--최대용량설정-->
-	<property name="maxInMemorySize" value="100000000"></property>
-<!--사용 메모리 설정-->
-	</bean>
+    <!-- 중복으로 삭제 필요 -->
+    <!-- 파일 업로드 관련 빈 등록 MultipartResolver 오타 조심!!! -->	
+<!-- 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		최대 용량 설정
+		<property name="maxUploadSize" value="100000000"></property>
+		사용 메모리 설정
+		<property name="maxInMemorySize" value="100000000"></property>
+	</bean> -->
 	
 </beans>

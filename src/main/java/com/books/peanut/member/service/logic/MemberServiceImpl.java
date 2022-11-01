@@ -21,6 +21,23 @@ public class MemberServiceImpl implements MemberService{
 		int result = mStore.insertMember(session, member);
 		return result;
 	}
+	
+	// 이메일 인증 키 확인
+//	@Override
+//	public Member emailAuth(String authKey) throws Exception {
+//		Member member = new Member();
+//		member = mStore.emailAuth(session, authKey);
+//		
+//		if(member != null) {
+//			try {
+//				mStore.successAuth(session, member);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		return member;
+//	}
+	
 	// 별명 유효성 검사
 	@Override
 	public int checkNickname(String mNickname) {
