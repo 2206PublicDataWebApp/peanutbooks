@@ -178,6 +178,20 @@ from origin_book where category = #{category} and status like 'Y%' and BOOK_PERM
   		
   	</select>
   	
+  	  <!-- 카테고리별 가장 별점많은 도서 1개 -->
+  <select id="selectOneTop" resultMap="oriBookResultMap">
+	  select * from
+	(select ori_book_no,book_info, book_title, corver_rename, category, status,score,insert_date, ROW_NUMBER() over (order by score desc) r 
+	from origin_book where category = #{category} and status like 'Y%')where r =1
+  </select>
+  
+  <!-- 카테고리별 가장 별점많은 도서 4개 -->
+  <select id="selectTop4Ori" resultMap="oriBookResultMap"> 
+	    select * from
+	(select ori_book_no, book_title, corver_rename, category, status,score, ROW_NUMBER() over (order by score desc) r 
+	from origin_book where category = #{category} and status like 'Y%')where r between 1 and 4
+  </select>
+  	
   	
   	
 
@@ -285,6 +299,7 @@ update ori_series set status = 'N' where ORI_BOOK_NO = #{bookNo}
   select SERIES_NO, SUB_PIC_RE, TITLE  from ori_series where ORI_BOOK_NO = #{bookNo} and SERIES_NO = #{seriesNo} and status like 'Y%' and CHECK_PERMISSION like 'Y%'
   </select>
   
+
 
 
 

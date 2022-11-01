@@ -30,30 +30,54 @@
 						data-bs-slide-to="2" aria-label="Slide 3"></button>
 				</div>
 				<div class="carousel-inner">
-					<div class="carousel-item active" data-bs-interval="3000">
-						<img src="/resources/img/main/woman-g803af235f_1280.jpg"
+				<!-- 프로모션 영역 조회수 1위에 작품이 자동 노출됨 -->
+					<div class="carousel-item active" data-bs-interval="3000"
+					<c:if test="${nList[0].category == 'origin' }">
+					onclick="location.href='/book/oriBookInfo?bookNo=${nList[0].bookNo }'"
+					</c:if>
+					<c:if test="${nList[0].category == 'normal' }">
+					onclick="location.href='/book/norBookInfo?bookNo=${nList[0].bookNo }'"
+					</c:if>
+					>
+						<img src="/resources/bookImg/${nList[0].coverRename }"
 							class="d-block" alt="프로모션 작품1">
 						<div class="carousel-caption d-md-block text-truncate">
-							<h4>작품제목</h4>
-							<p>작품설명 어쩌고 저쩌고</p>
+							<h4>${nList[0].bookTitle }</h4>
+							<p>${nList[0].bookInfo }</p>
 						</div>
 					</div>
-					<div class="carousel-item" data-bs-interval="3000">
-						<img src="/resources/img/main/sailboat-g9d3a88421_1920.jpg"
+					<div class="carousel-item" data-bs-interval="3000"
+					<c:if test="${nList[1].category == 'origin' }">
+					onclick="location.href='/book/oriBookInfo?bookNo=${nList[1].bookNo }'"
+					</c:if>
+					<c:if test="${nList[1].category == 'normal' }">
+					onclick="location.href='/book/norBookInfo?bookNo=${nList[1].bookNo }'"
+					</c:if>
+					>
+						<img src="/resources/bookImg/${nList[1].coverRename }"
 							class="d-block" alt="프로모션 작품2">
 						<div class="carousel-caption d-md-block text-truncate">
-							<h4>작품제목2</h4>
-							<p>두번째 작품설명 이렇쿵 저렇쿵</p>
+							<h4>${nList[1].bookTitle }</h4>
+							<p>${nList[1].bookInfo }</p>
 						</div>
 					</div>
-					<div class="carousel-item" data-bs-interval="3000">
-						<img src="/resources/img/main/christmas-g4fdade62f_1280.jpg"
+					<div class="carousel-item" data-bs-interval="3000"
+					<c:if test="${nList[2].category == 'origin' }">
+					onclick="location.href='/book/oriBookInfo?bookNo=${nList[2].bookNo }'"
+					</c:if>
+					<c:if test="${nList[2].category == 'normal' }">
+					onclick="location.href='/book/norBookInfo?bookNo=${nList[2].bookNo }'"
+					</c:if>
+					>
+						<img src="/resources/bookImg/${nList[2].coverRename }"
 							class="d-block" alt="프로모션작품3">
 						<div class="carousel-caption d-md-block text-truncate">
-							<h4>작품제목3</h4>
-							<p>세번째 작품 설명 이렇쿵 저렇쿵 세번째 작품 설명 이렇쿵 저렇쿵</p>
+							<h4>${nList[2].bookTitle }</h4>
+							<p>${nList[2].bookInfo }</p>
 						</div>
 					</div>
+				
+				
 				</div>
 				<button class="carousel-control-prev" type="button"
 					data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
@@ -78,20 +102,16 @@
 							class="card mb-3 rounded border container row">
 
 							<div class="row g-0">
-								<div class="col-md-3 rounded" id="recommnad-pic-1">
-									<img src="./resources/img/main/landscape-g2a33940ce_1280.jpg"
+								<div class="col-md-3 rounded" id="recommnad-pic-1"onclick="location.href='/book/norBookInfo?bookNo=${topScoreDe.bookNo}'">
+									<img src="./resources/bookImg/${topScoreDe.coverRename }"
 										class="img-fluid rounded-start" alt="...">
 								</div>
 								<div id="recommnad-text-1" class="col-md-9">
 									<div class="card-body">
-										<h5 class="card-title" id="reco-text-1">이달의 추천</h5>
-										<p class="card-text" id="reco-text-2">이번 달에 땅콩북스에서 가장 추천하는
-											책(여기에는 작품 제목과 작품 소개글이 자동 출력되어야 합니다) 이번 달에 땅콩북스에서 가장 추천하는
-											책(여기에는 작품 제목과 작품 소개글이 자동 출력되어야 합니다) 이번 달에 땅콩북스에서 가장 추천하는
-											책(여기에는 작품 제목과 작품 소개글이 자동 출력되어야 합니다) 이번 달에 땅콩북스에서 가장 추천하는
-											책(여기에는 작품 제목과 작품 소개글이 자동 출력되어야 합니다)</p>
+										<h5 class="card-title" id="reco-text-1">${topScoreDe.bookTitle }</h5>
+										<p class="card-text" id="reco-text-2">${topScoreDe.bookInfo }</p>
 										<p class="card-text">
-											<small class="text-muted">Last updated 3 mins ago</small>
+											<small class="text-muted">${topScoreDe.inserDate }</small>
 										</p>
 									</div>
 								</div>
@@ -104,68 +124,35 @@
 					</div>
 					<div class="second-category row">
 						<div class="category-name">동화</div>
-						<div class="col-md-3 col-6">
+						
+						<!--  동화 탑 4 반복 시작 -->
+						<c:forEach items="${topTale }" var="topTale">
+						<div class="col-md-3 col-6" onclick="location.href='/book/norBookInfo?bookNo=${topTale.bookNo}'">
 							<div class="cate-img">
-								<img src="./resources/img/main/landscape-g2a33940ce_1280.jpg"
+								<img src="./resources/bookImg/${topTale.coverRename }"
 									class="rounded" alt="">
 							</div>
-							<div class="book-name">제목</div>
+							<div class="book-name">${topTale.bookTitle }</div>
 						</div>
-							<div class="col-md-3 col-6">
-							<div class="cate-img">
-								<img src="./resources/img/main/landscape-g2a33940ce_1280.jpg"
-									class="rounded" alt="">
-							</div>
-							<div class="book-name">제목</div>
-						</div>
-						<div class="col-md-3 col-6">
-							<div class="cate-img">
-								<img src="./resources/img/main/landscape-g2a33940ce_1280.jpg"
-									class="rounded" alt="">
-							</div>
-							<div class="book-name">제목</div>
-						</div>
-						<div class="col-md-3 col-6">
-							<div class="cate-img">
-								<img src="./resources/img/main/landscape-g2a33940ce_1280.jpg"
-									class="rounded" alt="">
-							</div>
-							<div class="book-name">제목</div>
-						</div>
+						</c:forEach>
+							
 					</div>
 
 
 					<div class="third-category row">
 						<div class="category-name">역사</div>
-						<div class="col-md-3 col-6">
-							<div class="cate-img">
-								<img src="./resources/img/main/landscape-g2a33940ce_1280.jpg"
-									class="rounded" alt="">
+						
+						<!-- 역사 영역 반복시작 -->
+						<c:forEach items="${topHistory }" var="topHistory">
+							<div class="col-md-3 col-6"  onclick="location.href='/book/norBookInfo?bookNo=${topHistory.bookNo}'">
+								<div class="cate-img">
+									<img src="./resources/bookImg/${topHistory.coverRename }"
+										class="rounded" alt="">
+								</div>
+									
+								<div class="book-name">${topHistory.bookTitle }</div>
 							</div>
-								
-							<div class="book-name">제목</div>
-						</div>
-						<div class="col-md-3 col-6">
-							<div class="cate-img">
-								<img src="./resources/img/main/landscape-g2a33940ce_1280.jpg"
-									class="rounded" alt="">
-							</div>
-							<div class="book-name">제목</div>
-						</div>
-						<div class="col-md-3 col-6">
-							<div class="cate-img">
-								<img src="./resources/img/main/landscape-g2a33940ce_1280.jpg"
-									class="rounded" alt="">
-							</div>
-							<div class="book-name">제목</div>
-						</div>
-						<div class="col-md-3 col-6">
-							<div class="cate-img">
-								<img src="./resources/img/main/landscape-g2a33940ce_1280.jpg"
-									class="rounded" alt="">
-							</div>
-							<div class="book-name">제목</div>
-						</div>
+						</c:forEach>
 
 
 					</div>
@@ -187,21 +174,17 @@
 						<div id="main-recommand"
 							class="card mb-3 rounded border container row">
 
-							<div class="row g-0">
+							<div class="row g-0" onclick="location.href='/book/oriBookInfo?bookNo=${topScoreNovel.bookNo}'">
 								<div class="col-md-3 rounded" id="recommnad-pic-1">
-									<img src="./resources/img/main/landscape-g2a33940ce_1280.jpg"
+									<img src="./resources/bookImg/${topScoreNovel.coverRename }"
 										class="img-fluid rounded-start" alt="...">
 								</div>
 								<div id="recommnad-text-1" class="col-md-9">
 									<div class="card-body">
-										<h5 class="card-title" id="ori-text-1">이달의 추천</h5>
-										<p class="card-text" id="ori-text-2">이번 달에 땅콩북스에서 가장 추천하는
-											책(여기에는 작품 제목과 작품 소개글이 자동 출력되어야 합니다) 이번 달에 땅콩북스에서 가장 추천하는
-											책(여기에는 작품 제목과 작품 소개글이 자동 출력되어야 합니다) 이번 달에 땅콩북스에서 가장 추천하는
-											책(여기에는 작품 제목과 작품 소개글이 자동 출력되어야 합니다) 이번 달에 땅콩북스에서 가장 추천하는
-											책(여기에는 작품 제목과 작품 소개글이 자동 출력되어야 합니다)</p>
+										<h5 class="card-title" id="ori-text-1">${topScoreNovel.bookTitle }</h5>
+										<p class="card-text" id="ori-text-2">${topScoreNovel.bookInfo }</p>
 										<p class="card-text">
-											<small class="text-muted">Last updated 3 mins ago</small>
+											<small class="text-muted">${topScoreNovel.insertDate }</small>
 										</p>
 									</div>
 								</div>
@@ -209,67 +192,33 @@
 						</div>
 						<div class="second-category row">
 							<div class="category-name">동화</div>
-							<div class="col-md-3 col-6">
+							
+							<!-- 반복문 시작 -->
+							<c:forEach items="${topTOri }" var="oBook">
+							<div class="col-md-3 col-6" onclick="location.href='/book/oriBookInfo?bookNo=${oBook.bookNo}'">
 								<div class="cate-img">
-									<img src="./resources/img/main/landscape-g2a33940ce_1280.jpg"
+									<img src="./resources/bookImg/${oBook.coverRename }"
 										class="rounded" alt="">
 								</div>
-								<div class="book-name">제목</div>
+								<div class="book-name">${oBook.bookTitle }</div>
 							</div>
-							<div class="col-md-3 col-6">
-								<div class="cate-img">
-									<img src="./resources/img/main/landscape-g2a33940ce_1280.jpg"
-										class="rounded" alt="">
-								</div>
-								<div class="book-name">제목</div>
-							</div>
-							<div class="col-md-3 col-6">
-								<div class="cate-img">
-									<img src="./resources/img/main/teacup-g35f438ceb_1280.png"
-										class="rounded" alt="">
-								</div>
-								<div class="book-name">제목</div>
-							</div>
-								<div class="col-md-3 col-6">
-							<div class="cate-img">
-								<img src="./resources/img/main/landscape-g2a33940ce_1280.jpg"
-									class="rounded" alt="">
-							</div>
-							<div class="book-name">제목</div>
-						</div>
+							</c:forEach>
+							
 						</div>
 
 
 						<div class="third-category row">
 							<div class="category-name">시</div>
-							<div class="col-md-3 col-6">
+							<!-- 반복문 시작 -->
+							<c:forEach items="${topPOri }" var="oBook">
+							<div class="col-md-3 col-6" onclick="location.href='/book/oriBookInfo?bookNo=${oBook.bookNo}'">
 								<div class="cate-img">
-									<img src="./resources/img/main/landscape-g2a33940ce_1280.jpg"
+									<img src="./resources/bookImg/${oBook.coverRename }"
 										class="rounded" alt="">
 								</div>
-								<div class="book-name">제목</div>
+								<div class="book-name">${oBook.bookTitle }</div>
 							</div>
-								<div class="col-md-3 col-6">
-							<div class="cate-img">
-								<img src="./resources/img/main/landscape-g2a33940ce_1280.jpg"
-									class="rounded" alt="">
-							</div>
-							<div class="book-name">제목</div>
-						</div>
-							<div class="col-md-3 col-6">
-								<div class="cate-img">
-									<img src="./resources/img/main/landscape-g2a33940ce_1280.jpg"
-										class="rounded" alt="">
-								</div>
-								<div class="book-name">제목</div>
-							</div>
-							<div class="col-md-3 col-6">
-								<div class="cate-img">
-									<img src="./resources/img/main/landscape-g2a33940ce_1280.jpg"
-										class="rounded" alt="">
-								</div>
-								<div class="book-name">제목</div>
-							</div>
+							</c:forEach>
 
 
 						</div>

@@ -153,6 +153,28 @@
 		from normal_book where category = #{category} and status like 'Y%') where r between 1 and 6
 	</select>
 	  	
+	  	<!-- 상위 3개 도서 가져오기 -->
+	  	<select id="selectTop3Book" resultMap="nBookResultMap">
+	  	select * from(
+		select  "nor_book_no", cover_rename, book_info,book_title,"category","BOOK_PERMISSION",view_count,ROW_NUMBER() over (order by view_count desc) r
+		from (select nor_book_no "nor_book_no", cover_rename, book_info,book_title,'normal' as "category",'Y' as "BOOK_PERMISSION",view_count from normal_book 
+		union all select ori_book_no "nor_book_no", corver_rename "cover_rename", book_info,book_title,'origin' as"category",BOOK_PERMISSION, view_count from origin_book
+		where status like 'Y%' and BOOK_PERMISSION like 'Y%')) where r between 1 and 3  	
+	  	</select>
+	  	
+	  	<!-- 가장 별점많은 도서 가져오기 -->
+	<select id="selectTopScore" resultMap="nBookResultMap">
+	  	select * from
+		(select nor_book_no, book_title, cover_rename,book_info, category, status, insert_date, ROW_NUMBER() over (order by score desc) r 
+		from normal_book where category = #{category} and status like 'Y%')where r =1
+	</select>
+	
+	  	<!-- 가장 별점많은 카테고리별 도서 4개 가져오기 -->
+	<select id="selectTop4" resultMap="nBookResultMap">
+	  	select * from
+		(select nor_book_no, book_title, cover_rename,book_info, category, status, insert_date, ROW_NUMBER() over (order by score desc) r 
+		from normal_book where category = #{category} and status like 'Y%')where r between 1 and 4
+	</select>
   	
   	<!-- 일반도서 시리즈 -->
   	<!-- 일반도서 1화 등록하기 -->
@@ -245,6 +267,8 @@
   	<insert id="insertBookCount">
   	insert into view_count values(#{bookNo},#{seriesNo},#{memberId},null,null,'normal')
   	</insert>
+  	
+ 
   	
   
   

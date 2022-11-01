@@ -564,6 +564,43 @@ public class BookServiceImpl implements BookService{
 		int viewCount = bStore.insertViewCount(session,memberId,seriesNo,bookNo);
 		return viewCount;
 	}
+	
+	
+	
+/**토탈 상위 도서 3권 가져오기*/
+	@Override
+	public List<NormalBook> getRankTopBook() {
+	List<NormalBook> nList = bStore.selectRankTopBook(session);
+		return nList;
+	}
+
+	/**가장 별점 많은 추리도서 가져오기*/
+@Override
+public NormalBook getTopScore(String string) {
+	NormalBook nBook = bStore.selectTopScore(session,string);
+	return nBook;
+}
+
+/**별점많은 카테고리 가져오기*/
+	@Override
+	public List<NormalBook> getTopScore4(String category) {
+		List<NormalBook> nList = bStore.selectTop4(session,category);
+		return nList;
+	}
+
+	/**별점 가장많은 오리지널 북 카테고리 1권*/
+	@Override
+	public OriginBook getTopScoreOri(String category) {
+		OriginBook oBook = bStore.selectOneTop(session,category);
+		return oBook;
+	}
+	
+	/**별점 가장많은 오리지널 북 카테고리 4권*/
+	@Override
+	public List<OriginBook> getTopScore4Ori(String category) {
+		List<OriginBook> oList = bStore.selectTop4Ori(session, category);
+		return oList;
+	}
 
 
 

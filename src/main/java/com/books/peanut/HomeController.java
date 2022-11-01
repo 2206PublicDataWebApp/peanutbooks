@@ -54,14 +54,7 @@ public class HomeController {
 		return "/header/header";
 	}
 	
-	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public String main(HttpSession session) {
-		if(session.getAttribute("loginMember")==null) {
-			return "/index";
-		}
-	
-		return "/main";
-	}
+
 
 	@RequestMapping(value = "/bookmark", method = RequestMethod.GET)
 	public String bookmark() {

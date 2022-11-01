@@ -134,7 +134,7 @@
             </article>
 
 			<article id="back"> 
-			<button onclick="history.back();">이전으로</button>
+			<button onclick="location.href='/book/bookSearch.do';">검색창으로</button>
 			</article>
         </section>
     </main>

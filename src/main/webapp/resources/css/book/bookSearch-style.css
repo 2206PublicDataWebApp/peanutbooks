@@ -11,6 +11,9 @@ main {
     display: flex;
   
   }
+  .g-0:hover{
+  cursor:pointer;
+  }
   
   .searchTerm {
     width: 80%;
@@ -85,8 +88,8 @@ main {
   .tagbax{
     border-radius: 0.5rem;
     border: 1px solid lightgray;
-    padding: 0.5rem 2rem;
-    margin: 0.5rem 0.5rem;
+    padding: 0.5rem 1.6rem;
+    margin: 0.5rem 0.4rem;
     display: inline-block;
     transition:0.2s;
   }
@@ -96,7 +99,7 @@ main {
   }
 
   main .card-body{
-    padding-bottom: 0;
+    padding-bottom: 0.5rem;
   }
 
   #category-one .col-md-4{

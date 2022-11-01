@@ -277,6 +277,21 @@ public interface BookService {
 	/**일반도서 조회수 추가하기*/
 	int plusCountOne(String memberId, int seriesNo, int bookNo);
 
+	/**토탈 상위 도서 3권 가져오기*/
+	List<NormalBook> getRankTopBook();
+
+	/**가장 별점많은 추리도서 가져오기*/
+	NormalBook getTopScore(String string);
+
+	/**별점많은 카테고리 가져오기*/
+	List<NormalBook> getTopScore4(String category);
+
+	/**별점 가장 많은 카테고리 1권 --*/
+	OriginBook getTopScoreOri(String string);
+	
+	/**별점 가장많은 카테고리 4권*/
+	List<OriginBook> getTopScore4Ori(String string);
+
 
 	
 

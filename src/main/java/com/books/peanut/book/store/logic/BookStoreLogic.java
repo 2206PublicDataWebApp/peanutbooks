@@ -707,11 +707,11 @@ public class BookStoreLogic implements BookStore {
 			int result2 = 0;
 
 		if (pCheck.equals("N")) { // 무료도서라면 무조건 조회수 추가
-			result2 = session.selectOne("wirterMapper.selectOneFreeCountMember", hMap);
-			if (result2 == 0) {
-				result2 += session.insert("wirterMapper.insertBuyOneSeries", hMap);
-				result2 += session.update("wirterMapper.UpdateOneOriSeries", hMap);
-				result2 += session.update("wirterMapper.UpdateOneOriBook", hMap);
+			result2 = session.selectOne("wirterMapper.selectOneFreeCountMember", hMap);//무료도서를 본적있는지 체크
+			if (result2 == 0) {//본적없다면
+				result2 += session.insert("wirterMapper.insertOenOriSeries", hMap);//카운터 테이블에 추가
+				result2 += session.update("wirterMapper.UpdateOneOriSeries", hMap);//시리즈 테이블에 카운트 1추가
+				result2 += session.update("wirterMapper.UpdateOneOriBook", hMap); //오리지널북 테이블에 카운트 1추가
 			}
 
 		} else {
@@ -754,6 +754,43 @@ public class BookStoreLogic implements BookStore {
 			result += session.insert("adminWirteMapper.insertBookCount",hMap);
 		}
 		return result;
+	}
+
+	/**토탈 상위 도서 3권 가져오기*/
+	@Override
+	public List<NormalBook> selectRankTopBook(SqlSessionTemplate session) {
+		List<NormalBook> nList = session.selectList("adminWirteMapper.selectTop3Book");
+		return nList;
+	}
+
+	
+	/**가장 별점많은 도서 가져오기*/
+	@Override
+	public NormalBook selectTopScore(SqlSessionTemplate session, String category) {
+		NormalBook nBook = session.selectOne("adminWirteMapper.selectTopScore",category);
+		return nBook;
+	}
+
+	
+	/**별점많은 카테고리별 도서 가져오기*/
+	@Override
+	public List<NormalBook> selectTop4(SqlSessionTemplate session, String category) {
+		List<NormalBook> nList = session.selectList("adminWirteMapper.selectTop4",category);
+		return nList;
+	}
+
+	/**별점많은 카테고리 오리지널 도서 1개*/
+	@Override
+	public OriginBook selectOneTop(SqlSessionTemplate session, String category) {
+		OriginBook oBook = session.selectOne("wirterMapper.selectOneTop",category);
+		return oBook;
+	}
+
+	/**별점많은 카테고리 오리지널 도서 4개*/
+	@Override
+	public List<OriginBook> selectTop4Ori(SqlSessionTemplate session, String category) {
+		 List<OriginBook> oList = session.selectList("wirterMapper.selectTop4Ori",category);
+		return oList;
 	}
 
 }

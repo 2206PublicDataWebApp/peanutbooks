@@ -283,5 +283,21 @@ public interface BookStore {
 	/**일반도서 조회수 추가하기*/
 	int insertViewCount(SqlSessionTemplate session, String memberId, int seriesNo, int bookNo);
 
+	/**토탈 상위 도서 3권 가져오기
+	 * @param session */
+	List<NormalBook> selectRankTopBook(SqlSessionTemplate session);
+
+	/**가장 별점많은 도서 가져오기*/
+	NormalBook selectTopScore(SqlSessionTemplate session, String category);
+
+	/**별점많은 카테고리 가져오기*/
+	List<NormalBook> selectTop4(SqlSessionTemplate session, String category);
+
+	/**별점많은 오리지널북  카테고리별 1개*/
+	OriginBook selectOneTop(SqlSessionTemplate session, String category);
+
+	/**별점많은 오리지널북 카테고리별 4개*/
+	List<OriginBook> selectTop4Ori(SqlSessionTemplate session, String category);
+
 
 }

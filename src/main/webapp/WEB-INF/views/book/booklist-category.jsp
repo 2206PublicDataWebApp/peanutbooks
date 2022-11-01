@@ -116,7 +116,12 @@
             </article>
 
 			<article id="back"> 
-			<button onclick="history.back();">이전으로</button>
+			<c:if test="${bookCate == 'origin'}">
+			<button onclick="location.href='/book/bookOriList.do'">피넛오리지널 목록으로</button>
+			</c:if>
+			<c:if test="${bookCate == 'normal'}">
+			<button onclick="location.href='/book/bookNorList.do'">도서 목록으로</button>
+			</c:if>
 			</article>
         </section>
     </main>

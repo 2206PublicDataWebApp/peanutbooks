@@ -13,7 +13,12 @@ main {
     height: 30rem;
 
 }
-
+.carousel-item:hover, 
+.category-name>div:hover,
+.category-name~div:hover:not(#article3>div)
+{
+	cursor : pointer;
+}
 
 .carousel-caption {
     color: black !important;
