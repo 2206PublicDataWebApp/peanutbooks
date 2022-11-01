@@ -21,6 +21,7 @@ public interface MemberService {
 //	int countSavedBooks(String memberId);
 	// 로그인한 회원이 등록한 작품 수 가져오기
 	int countWrittenBooks(String memberId);
-	
+	// 이메일 인증
+//	Member emailAuth(String authKey) throws Exception;
 
 }

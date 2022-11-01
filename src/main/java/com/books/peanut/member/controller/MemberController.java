@@ -1,9 +1,12 @@
 package com.books.peanut.member.controller;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +26,8 @@ public class MemberController {
 	private MemberService mService;
 	@Autowired
 	private PayService pService;
+	@Autowired
+	private JavaMailSender mailSender; // mailSender Bean 의존성 주입
 	
 	/**
 	 * 회원가입 화면
@@ -55,6 +60,49 @@ public class MemberController {
 		}
 		return mv;
 	}
+	
+	// 이메일 전송
+	@RequestMapping(value="/member/sendMail.pb", method=RequestMethod.GET)
+	public void sendMailTest() throws Exception{
+		String subject = "이메일 테스트 제목";
+		String content = "이메일 테스트 내용"; // 이미지 첨부 -> "내용" + "<img src=\"이미지 경로\">"
+		String from = "realpeanutbooks@gmail.com";
+		String to = "yangyj0607@gmail.com";
+		
+		try {
+			MimeMessage mail = mailSender.createMimeMessage();
+			MimeMessageHelper mailHelper = new MimeMessageHelper(mail, true, "UTF-8"); // true는 멀티파트(이미지 파일 등) 메시지 사용 명시
+			
+			mailHelper.setFrom(from);
+			// mailHelper.setFrom("보내는 이 이름 <보내는 이 이메일>"); // 이름과 이메일이 함께 표기 되길 원할 경우
+			mailHelper.setTo(to);
+			mailHelper.setSubject(subject);
+			mailHelper.setText(content, true); // true는 html 사용 명시, 사용하지 않을 시 생략 가능
+			mailSender.send(mail);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// 이메일 인증
+//	@RequestMapping(value="/member/emailConfirm", method = RequestMethod.GET)
+//	public ModelAndView emailConfirm(
+//				@RequestParam("authKey") String authKey,
+//				ModelAndView mv,
+//				RedirectAttributes rttr) throws Exception {
+//		if(authKey == null) {
+//			rttr.addFlashAttribute("msg", "인증키가 잘못 되었습니다. 다시 인증해 주세요.");
+//			mv.setViewName("redirect:/");
+//		}
+//		Member member = mService.emailAuth(authKey);
+//		if(member == null) {
+//			rttr.addFlashAttribute("msg", "잘못된 접근입니다. 다시 인증해 주세요.");
+//			mv.setViewName("redirect:/");
+//		}
+//		mv.addObject("member", member.getmNickname());
+//		mv.setViewName("/member/confirmEmailView.pb");
+//		return mv;
+//	}
 	
 	/**
 	 * 별명 유효성 검사

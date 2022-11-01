@@ -14,12 +14,10 @@
     <div class="row">
         <div id="login-img" class="col-lg-8"></div>
         <div id="join-area" class="col-lg-4">
-            <div id="pn-logo"><img src="/MyBatisWeb/WebContent/resources/pb_imgs/peanutbooks_logo.png" alt="땅콩로고"></div>
+            <div id="pn-logo"><img src="../resources/img/logo/logo.png" alt="땅콩북스"></div>
             <div id="msg-area">
-                <p>
-                    인증 메일이 발송되었습니다.<br>
-                    인증 완료 후 확인 버튼을 눌러 주세요.
-                </p>
+                <input type="text" placeholder="인증번호">
+                <p>인증번호를 입력해 주세요.</p>
                 <div><button id="join-btn" type="button">확인</button></div>
             </div>
         </div>

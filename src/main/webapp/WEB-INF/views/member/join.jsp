@@ -214,6 +214,8 @@
     			$("#join-btn").removeAttr("disabled");
     		}
     	}); */
+    	
+    	/* 이메일 인증 */
     </script>
 </body>
 </html>

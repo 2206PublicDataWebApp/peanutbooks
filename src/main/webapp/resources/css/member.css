@@ -176,8 +176,8 @@ form{
     margin: 0 auto;
     padding-top: 20px;
 }
-#msg-area p{ /* 안내 메시지 영역 */
-    margin-bottom: 30px;
+#msg-area input{
+	width: 100%;
 }
 
 /* 아이디 찾기 */

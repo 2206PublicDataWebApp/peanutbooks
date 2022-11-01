@@ -1,4 +1,4 @@
-package com.books.peanut.member.service;
+package com.books.peanut.member.mail;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;

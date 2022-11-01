@@ -23,5 +23,9 @@ public interface MemberStore {
 //	public int selectSavedBooks(SqlSession session, String memberId);
 	// 로그인한 회원이 등록한 작품 수 가져오기
 	public int selectWrittenBooks(SqlSession session, String memberId);
+	// 이메일 인증
+//	public Member emailAuth(SqlSession session, String authKey) throws Exception;
+	// 이메일 인증 성공 후 계정 활성화
+//	public void successAuth(SqlSession session, Member member) throws Exception;
 
 }
