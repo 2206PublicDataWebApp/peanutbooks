@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.books.peanut.consult.domain.Consult;
 import com.books.peanut.consult.domain.ConsultServer;
 import com.books.peanut.consult.store.ConsultStore;
+import com.books.peanut.pay.domain.Pagemarker;
 import com.books.peanut.consult.service.ConsultService;
 
 @Service
@@ -76,9 +77,26 @@ public class ImplService implements ConsultService{
 		return btnresult;
 	}
 
+	//채팅상담종료건 조회
+	@Override
+	public List<ConsultServer> printEndListChat(Pagemarker pm, ConsultServer cs) {
+		List<ConsultServer> chatList=cStore.printEndListChat(session, pm, cs);
+		return chatList;
+	}
 
+	//채팅상담종료건 조회 전체 카운트
+	@Override
+	public int getTotalCount(ConsultServer cs) {
+		int count=cStore.getTotalCount(session, cs);
+		return count;
+	}
 
-
+	//종료채팅 id별로  상세보기
+	@Override
+	public List<Consult> printEndListChat(String memberId) {
+		List<Consult> cList=cStore.printDetail(session, memberId);
+		return cList;
+	}
 
 
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.books.peanut.consult.domain.Consult;
 import com.books.peanut.consult.domain.ConsultServer;
+import com.books.peanut.pay.domain.Pagemarker;
 
 public interface ConsultService {
 	//관리자 리스트 전체 조회
@@ -27,6 +28,17 @@ public interface ConsultService {
 		public int changebutten(String on_off);
 		//버튼값 받기
 		public String selechbtn();
+
+		//채팅상담종료건 조회
+		public List<ConsultServer> printEndListChat(Pagemarker pm, ConsultServer cs);
+
+		//채팅상담종료건 조회 전체 카운트
+		public int getTotalCount(ConsultServer cs);
+
+		//종료채팅 id별로  상세보기
+		public List<Consult> printEndListChat(String memberId);
+
+		
 
 
 

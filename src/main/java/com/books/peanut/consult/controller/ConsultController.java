@@ -1,8 +1,10 @@
 package com.books.peanut.consult.controller;
 
-
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -10,7 +12,9 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,14 +27,14 @@ import com.books.peanut.consult.domain.ConsultServer;
 import com.books.peanut.consult.domain.SwitchChat;
 import com.books.peanut.consult.service.ConsultService;
 import com.books.peanut.member.domain.Member;
-
+import com.books.peanut.pay.domain.Pagemarker;
 
 @Controller
-	public class ConsultController {
+public class ConsultController {
 	@Autowired
 	private ConsultService cService;
-	
-	//채팅상담 진행시 on/of확인부분.	
+
+	// 채팅상담 진행시 on/of확인부분.
 	@ResponseBody
 	@RequestMapping(value = "/client/chatCheck.kh", method = RequestMethod.GET)
 	public String checkChat() {
@@ -45,7 +49,6 @@ import com.books.peanut.member.domain.Member;
 		}
 		return jsonObj.toJSONString();
 	}
-
 
 	// chat을 위한 한명의 정보 받아오기
 	@RequestMapping(value = "/consult/chatbefore.kh", method = RequestMethod.GET)
@@ -70,7 +73,6 @@ import com.books.peanut.member.domain.Member;
 		return mv;
 	}
 
-	
 	// 채팅 상담접수
 	@ResponseBody
 	@RequestMapping(value = "/client/afterChat.kh", method = RequestMethod.POST)
@@ -80,7 +82,7 @@ import com.books.peanut.member.domain.Member;
 		conServer.setCsMail(cEmail);
 
 		int result = cService.receiptChat(conServer);
-		int titleNo = cService.serchTitleNo(conServer); 
+		int titleNo = cService.serchTitleNo(conServer);
 
 		JSONObject jsonObj = new JSONObject();
 		if (result >= 0) {
@@ -111,41 +113,40 @@ import com.books.peanut.member.domain.Member;
 		} else {
 			jsonObj.put("status", "error");
 
-		}		
+		}
 		return jsonObj.toJSONString();
 	}
 
 	// 채팅내역 실시간 화면으로전송해주기
 	@ResponseBody
-	@RequestMapping(value = "/client/listprint.kh", produces="application/json;charset=UTF-8", method = RequestMethod.POST)
+	@RequestMapping(value = "/client/listprint.kh", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
 	public String clientChat(@RequestParam("titleNo") int titleNo) {
-	
-		List<Consult> conList = cService.nowChatList(titleNo);		
+
+		List<Consult> conList = cService.nowChatList(titleNo);
 		JSONArray jsonArr = new JSONArray();
 
 		if (!(conList.isEmpty())) {
-			for( int i=0; i<conList.size(); i++) { 
-				Consult consult = conList.get(i);				
+			for (int i = 0; i < conList.size(); i++) {
+				Consult consult = conList.get(i);
 				JSONObject jsonObj = new JSONObject();
-				jsonObj.put("consultNo",consult.getConsultNo()); 	
-				jsonObj.put("cMemberId",consult.getcMemberId()); 			
+				jsonObj.put("consultNo", consult.getConsultNo());
+				jsonObj.put("cMemberId", consult.getcMemberId());
 				jsonObj.put("cContexts", consult.getcContexts());
-				//데이트형 문자열로 바꾸기
-				SimpleDateFormat format1=new SimpleDateFormat("HH:mm:ss");
-				String cDate="";					 
-				cDate=format1.format(consult.getcDate());					
-				jsonObj.put("cDate",cDate); 
-				jsonArr.add(jsonObj);				
-			}	
+				// 데이트형 문자열로 바꾸기
+				SimpleDateFormat format1 = new SimpleDateFormat("HH:mm:ss");
+				String cDate = "";
+				cDate = format1.format(consult.getcDate());
+				jsonObj.put("cDate", cDate);
+				jsonArr.add(jsonObj);
+			}
 		}
-		
+
 		return jsonArr.toJSONString();
 	}
 
 //서버자리///////////////////////////////////////////////////
 
-
-  //관리자가 리스트 페이지 들어와서 관리페이지로 올때. 
+	// 관리자가 리스트 페이지 들어와서 관리페이지로 올때.
 	@RequestMapping(value = "/chat/move.kh", method = RequestMethod.GET)
 	public ModelAndView move(ModelAndView mv, HttpSession session) {
 
@@ -192,7 +193,7 @@ import com.books.peanut.member.domain.Member;
 			return jsonObj.toJSONString();
 		}
 	}
-	
+
 	// 관리자 상담 시작하기
 	@RequestMapping(value = "serverchat/start.kh", method = RequestMethod.GET)
 	public ModelAndView serverChat(ModelAndView mv, HttpServletRequest request,
@@ -211,7 +212,7 @@ import com.books.peanut.member.domain.Member;
 		return mv;
 	}
 
-	//관리자 상담종료 한기
+	// 관리자 상담종료 한기
 	@ResponseBody
 	@RequestMapping(value = "/consult/finish.kh", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
 	public String managerList(@RequestParam("csResult") String csResult, @RequestParam("titleNo") Integer titleNo) {
@@ -230,7 +231,7 @@ import com.books.peanut.member.domain.Member;
 		return jsonObj.toJSONString();
 	}
 
-	//관리자 체크리스트에서 종료로 변경할때 채팅 on/off 변경
+	// 관리자 체크리스트에서 종료로 변경할때 채팅 on/off 변경
 	@ResponseBody
 	@RequestMapping(value = "/manager/chatbtn.kh", method = RequestMethod.GET)
 	public String chatbtn(@RequestParam("on_off") String on_off) {
@@ -245,7 +246,48 @@ import com.books.peanut.member.domain.Member;
 			jsonObj.put("result", "실패");
 		}
 		return jsonObj.toJSONString();
-	}	
-
 	}
 
+	// 관리자가 종료건 검색 화면으로 이동
+	@RequestMapping(value = "/consult/endList.kh", method = RequestMethod.GET)
+	public ModelAndView endListSearch(ModelAndView mv,
+			@RequestParam(value = "searchDate", required = false) String csDate,
+	    	@RequestParam(value = "page", required = false) Integer page,
+	    	@ModelAttribute ConsultServer cs) throws ParseException {
+		Pagemarker pm = new Pagemarker();
+		SimpleDateFormat smf = new SimpleDateFormat("yyyy-MM-dd");
+		if(csDate != null && !csDate.equals("")) {
+			cs.setCsDate(smf.parse(csDate));
+		}
+
+		int totalCount = cService.getTotalCount(cs);
+		int currentPage = (page != null) ? page : 1;
+//		if(date.ofNullable(csDate) != null) {
+	//	if(csDate != null) {
+//			cs.setCsDate(csDate); 
+//		}else if(csDate.equals("9999-01-01")){
+//			cs.setCsDate(null); 
+//		} else {
+//			cs.setCsDate(null); 
+//		}			
+		pm.pageInfo(currentPage, totalCount);
+		mv.addObject("pm", pm);
+		
+		List<ConsultServer> chatList = cService.printEndListChat(pm, cs);
+		mv.addObject("chatList", chatList);
+		mv.addObject("csMemberId", cs.getCsMemberId());
+		mv.addObject("csDate", csDate);		
+		mv.setViewName("/consult/chatEndList");
+		return mv;
+	}
+
+
+	// 채팅 상담내용 상세보기
+	@RequestMapping(value = "/consult/chatDetail.kh", method = RequestMethod.GET)
+	public ModelAndView detailSearch(ModelAndView mv, String memberId) {
+		List<Consult> cList = cService.printEndListChat(memberId);
+		mv.addObject("cList", cList);
+		mv.setViewName("/consult/detailList");
+		return mv;
+	}
+}

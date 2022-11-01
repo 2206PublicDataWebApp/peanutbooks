@@ -51,6 +51,10 @@
 	});
 	
 	$('#magText').on('keyup',function(e){
+		
+		
+		
+		
 		if(e.keyCode==13){
 			sendChatMesage();
 		};
@@ -115,19 +119,19 @@
 		var consultNo = 0;		
 		if (cMemberId === 'admin') {
 			$('#after').append(
-					'<div class="right" data-consultNo="' + consultNo + '">'
-							+ '<h5 >' + cMemberId + '</h5>'
+					'<div class="chat right" data-consultNo="' + consultNo + '">'
+							+ '<div class="icon"><img src="../resources/img/live-chat.png"></div>'
 							+ '<div class="middleBox"><span class="dateBox">'
 							+ cDate + '</span>' + '<span class="contextBox">'
 							+ cContext + '</span></div></div>');
 
 		} else {
 			$('#after').append(
-					'<div class="left" data-consultNo="' + consultNo + '">'
-							+ '<h5 >' + cMemberId + '</h5>'
-							+ '<div class="middleBox"><span class="dateBox">'
-							+ cDate + '</span>' + '<span class="contextBox">'
-							+ cContext + '</span></div></div>');
+					'<div class="chat left" data-consultNo="' + consultNo + '">'
+							+ '<div class="icon"><img src="../resources/img/programmer.png"></div>'
+							+ '<div class="middleBox"><span class="contextBox">'
+							+ cContext + '</span><span class="dateBox">'
+							+ cDate + '</span>' + '</div></div>');
 		}
 	}
 
@@ -163,5 +167,6 @@
 		};
 	}
 </script>
+<a href="https://www.flaticon.com/free-icons/user" title="user icons">flaticon</a>
 </body>
 </html>

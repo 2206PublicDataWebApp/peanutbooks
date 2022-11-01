@@ -1,20 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
 body{
 	width: 450px;
-	height: 630px;	    
+	height: 600px;	 
+    font-family: 'Jua', sans-serif;      
 }
-
+a {
+    text-decoration: none;
+    font-size:5px;
+}
 .header{
 	width:100%;
 	height: 15%;
     padding: 10px;
+    color: #fff;
     margin-bottom: 10px;
 	border-bottom: 3px solid gainsboro;	
-	display: flex;    
+	display: flex; 
+    background-color: #FF577F;
 }
 #nickName{
-    font-size: 20px;
-    font-weight: bold;    
+    font-size: 20px;      
 }
 .btn{
     margin-left: auto;
@@ -27,12 +32,12 @@ body{
 #chatfinish{
     width: 90px;
     height: 90px;     
-    font-size: 1.3em;
+    font-size: 1.3em;    
     font-family: 'Jua', sans-serif;
     margin-bottom: 20px;          
-    background-color:  rgb(255, 211, 132);
-    border-color: rgb(255, 211, 132);   
-    border-radius: 0.8em;
+    background-color: #fff;
+    border: 0;  
+    border-radius: 1em;
 
 }
 .InputText{	
@@ -47,7 +52,11 @@ body{
 	height: 60%;
 	overFlow-y: auto; 
     display: flex;
+    align-items: flex-start;
     flex-direction: column-reverse;
+    padding:0;
+    margin:0;
+    box-sizing: border-box; 
     
 }
 /* 하단 입력부분 */
@@ -62,7 +71,7 @@ body{
  	width:95%;
 	height: 3rem;
 	align-content: center;
-    font-size: 14px;
+    font-size: 15px;
     border-radius: 2ex;    
     text-overflow: clip;
     padding-left: 20px;
@@ -70,51 +79,91 @@ body{
  }
  #getResult{    
     width: 100%;
-    height: 4rem;     
-    font-size:1em;    
-    font-family: 'Jua', sans-serif;
-    margin-top: 3px; 
+    height: 4rem; 
+    color: #fff;    
+    font-size:1em;
+    font-family: 'Jua', sans-serif; 
     margin-left: 20px;          
-    background: rgb(255, 211, 132);
-    border-color:rgb(255, 211, 132);
-    border-radius: 0.8em;
+    background-color: #FF577F;
+    border: 0;
+    border-radius: 0.5em;
  }
 
  /*채팅내용   */
 
-    .after{   
-        display: flex; 
-        justify-content: flex-start;                     
+    #after{   
+        padding:5px 0;                    
+        width: 450px;        
+        height: 600px;	
     }
-
-    .right{
-        text-align: right;
-        margin-right: auto;
-        justify-content: flex-and;
-        margin: 5px;        
-        top : 2cm;
-        right: 0.2cm;
-        font-size: 0.8em;        
-    };
-
-   .left{         
-        text-align: left;          
-        justify-content: flex-start;
-        font-size: 0.8em;        
+    #after .chat{
+        display: flex;
+        align-items: flex-start;  
+        padding:5px;     
     }
-    
+    #after .chat div{
+        padding-bottom: 0;     
+    }
+    #after .chat .icon{        
+        position: relative;
+        overflow: hidden;         
+        width: 40px;
+        height: 40px;
+        border-radius: 1rem;     
+    }
+    #after .chat .icon img{
+        position: absolute;
+        top:10px;
+        left:50%; 
+        width: 30px; 
+        height: 30px;              
+        font-size: 2.5rem;        
+        transform:translateX(-50%);
+    }
     .contextBox{
-        margin: px;
-        padding: 5px;
+        position: relative;
+        display:inline-block;
+        max-width:calc(100%-70px);
+        margin-top:7px;
+        padding: 10px;
         border-radius: 1ex;
-        background-color: #fdf7b3;
-        font-size: 1.3em;
         font-family: 'Jua', sans-serif;
+        }
+
+    .contextBox::before{
+        position:absolute;
+        display:block;
+        max-width:calc(100%-70px);
+        top:0px;
+        padding: 5px;
+        font-size: 1.5rem;
+        }
+    #after .left .contextBox{
+        margin-left: 20px;
+        background-color: lightgrey;
+        color:#fff;
     }
-    .dateBox{
-        font-size: 0.3em;
+    #after .left .contextBox::before{
+        left: -20px;
+        content: "◀";
+        color: lightgrey;
     }
-    h5{
-        margin: 0;
-        padding-bottom: 5px;
-    }       
+    #after .right{
+        flex-direction: row-reverse;
+    }
+    #after .right .contextBox{
+        margin-right:20px;
+        background-color: #FF577F;
+        color:#fff;
+    }
+    #after .right .contextBox::before{
+        right: -20px;
+        content: "▶";
+        color: #FF577F;
+    }        
+    .dateBox{      
+        vertical-align: bottom;
+        font-size: 0.3em; 
+       
+    }
+        
