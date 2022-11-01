@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -25,50 +26,25 @@
             <article id="list1-area" class="container">
                 <div class="list-title row">
                     <div class="col-10">
-                        추리소설
+                        추리
                     </div>
-                    <div class="col-2 next-icon">
+                    <div class="col-2 next-icon" onclick="location.href='/book/bookCatogoryList.do?bookCate=normal&category=detective'">
                         >>
                     </div>
                     <hr>
                 </div>
                 <div class="books-list-area row">
-                    <div class="col-md-2 col-4 row">
+                
+                <!-- 카테고리별 반복문 시작 -->
+                <c:forEach items="${nDList }" var="book">
+                    <div class="col-md-2 col-4 row"  onclick="location.href='/book/norBookInfo?bookNo=${book.bookNo}'">
                         <div class="book-img">
-                            <img src="/resources/img/main/christmas-g4fdade62f_1280.jpg">
+                            <img src="/resources/bookImg/${book.coverRename }">
                         </div>
-                        <div class="book-title text-truncate">제목</div>
+                        <div class="book-title text-truncate">${book.bookTitle }</div>
                     </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                         <img src="/resources/img/main/landscape-g2a33940ce_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/sailboat-g9d3a88421_1920.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
+                </c:forEach>
+                
 
                 </div>
                 
@@ -76,207 +52,153 @@
             </article>
 
             <article id="list2-area" class="container">
-                <div class="list-title row">
+                <div class="list-title row" >
                     <div class="col-10">
                         역사
                     </div>
-                    <div class="col-2 next-icon">
+                    <div class="col-2 next-icon" onclick="location.href='/book/bookCatogoryList.do?bookCate=normal&category=history'">
                         >>
                     </div>
                     <hr>
                 </div>
                 <div class="books-list-area row">
-                    <div class="col-md-2 col-4 row">
+                
+                     <!-- 카테고리별 반복문 시작 -->
+                <c:forEach items="${nHList }" var="book">
+                    <div class="col-md-2 col-4 row" onclick="location.href='/book/bookCatogoryList.do?bookCate=normal&category=history'">
                         <div class="book-img">
-                            <img src="/resources/img/main/christmas-g4fdade62f_1280.jpg">
+                            <img src="/resources/bookImg/${book.coverRename }">
                         </div>
-                        <div class="book-title text-truncate">제목</div>
+                        <div class="book-title text-truncate">${book.bookTitle }</div>
                     </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                         <img src="/resources/img/main/landscape-g2a33940ce_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/sailboat-g9d3a88421_1920.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-
+                </c:forEach>
+                   
                 </div>
             </article>
 
             
             <article id="list3-area" class="container">
-                <div class="list-title row">
+                <div class="list-title row"  onclick="location.href='/book/bookCatogoryList.do?bookCate=normal&category=romance'">
                     <div class="col-10">
                         로맨스소설
                     </div>
-                    <div class="col-2 next-icon">
+                    <div class="col-2 next-icon" onclick="location.href='/book/bookCatogoryList.do?bookCate=normal&category=romance'">
                         >>
                     </div>
                     <hr>
                 </div>
                 <div class="books-list-area row">
-                    <div class="col-md-2 col-4 row">
+                
+                     <!-- 카테고리별 반복문 시작 -->
+                <c:forEach items="${nRList }" var="book">
+                    <div class="col-md-2 col-4 row"  onclick="location.href='/book/norBookInfo?bookNo=${book.bookNo}'">
                         <div class="book-img">
-                            <img src="/resources/img/main/christmas-g4fdade62f_1280.jpg">
+                            <img src="/resources/bookImg/${book.coverRename }">
                         </div>
-                        <div class="book-title text-truncate">제목</div>
+                        <div class="book-title text-truncate">${book.bookTitle }</div>
                     </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                         <img src="/resources/img/main/landscape-g2a33940ce_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/sailboat-g9d3a88421_1920.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-
+                </c:forEach>
+                   
                 </div>
                 </article>
 
-            <article id="list2-area" class="container">
+            <article id="list4-area" class="container">
                 <div class="list-title row">
                     <div class="col-10">
                         동화
                     </div>
-                    <div class="col-2 next-icon">
+                    <div class="col-2 next-icon" onclick="location.href='/book/bookCatogoryList.do?bookCate=normal&category=tale'">
                         >>
                     </div>
                     <hr>
                 </div>
                 <div class="books-list-area row">
-                    <div class="col-md-2 col-4 row">
+                
+                     <!-- 카테고리별 반복문 시작 -->
+                <c:forEach items="${nTList }" var="book">
+                    <div class="col-md-2 col-4 row"  onclick="location.href='/book/norBookInfo?bookNo=${book.bookNo}'">
                         <div class="book-img">
-                            <img src="/resources/img/main/christmas-g4fdade62f_1280.jpg">
+                            <img src="/resources/bookImg/${book.coverRename }">
                         </div>
-                        <div class="book-title text-truncate">제목</div>
+                        <div class="book-title text-truncate">${book.bookTitle }</div>
                     </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                         <img src="/resources/img/main/landscape-g2a33940ce_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/sailboat-g9d3a88421_1920.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-                    <div class="col-md-2 col-4 row">
-                        <div class="book-img">
-                            <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                        </div>
-                        <div class="book-title text-truncate">제목</div>
-                    </div>
-
+                </c:forEach>
+                    
                 </div>
                 </article>
 
 
-                <article id="list3-area" class="container">
+                <article id="list5-area" class="container">
                     <div class="list-title row">
                         <div class="col-10">
                             시
                         </div>
-                        <div class="col-2 next-icon">
+                        <div class="col-2 next-icon" onclick="location.href='/book/bookCatogoryList.do?bookCate=normal&category=poem'">
                             >>
                         </div>
                         <hr>
                     </div>
                     <div class="books-list-area row">
-                        <div class="col-md-2 col-4 row">
-                            <div class="book-img">
-                                <img src="/resources/img/main/christmas-g4fdade62f_1280.jpg">
-                            </div>
-                            <div class="book-title text-truncate">제목</div>
+                    
+                        <!-- 카테고리별 반복문 시작 -->
+		                <c:forEach items="${nPList }" var="book">
+		                    <div class="col-md-2 col-4 row"  onclick="location.href='/book/norBookInfo?bookNo=${book.bookNo}'">
+		                        <div class="book-img">
+		                            <img src="/resources/bookImg/${book.coverRename }">
+		                        </div>
+		                        <div class="book-title text-truncate">${book.bookTitle }</div>
+		                    </div>
+		                </c:forEach>
+                        
+    
+                    </div>
+                    </article>
+                <article id="list6-area" class="container">
+                    <div class="list-title row">
+                        <div class="col-10">
+                            일반소설
                         </div>
-                        <div class="col-md-2 col-4 row">
-                            <div class="book-img">
-                             <img src="/resources/img/main/landscape-g2a33940ce_1280.jpg">
-                            </div>
-                            <div class="book-title text-truncate">제목</div>
+                        <div class="col-2 next-icon" onclick="location.href='/book/bookCatogoryList.do?bookCate=normal&category=novel'">
+                            >>
                         </div>
-                        <div class="col-md-2 col-4 row">
-                            <div class="book-img">
-                                <img src="/resources/img/main/sailboat-g9d3a88421_1920.jpg">
-                            </div>
-                            <div class="book-title text-truncate">제목</div>
+                        <hr>
+                    </div>
+                    <div class="books-list-area row">
+                         <!-- 카테고리별 반복문 시작 -->
+		                <c:forEach items="${nNList }" var="book">
+		                    <div class="col-md-2 col-4 row"  onclick="location.href='/book/norBookInfo?bookNo=${book.bookNo}'"> 
+		                        <div class="book-img">
+		                            <img src="/resources/bookImg/${book.coverRename }">
+		                        </div>
+		                        <div class="book-title text-truncate">${book.bookTitle }</div>
+		                    </div>
+		                </c:forEach>
+                        
+    
+                    </div>
+                    </article>
+                <article id="list7-area" class="container">
+                    <div class="list-title row">
+                        <div class="col-10">
+                            기타
                         </div>
-                        <div class="col-md-2 col-4 row">
-                            <div class="book-img">
-                                <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                            </div>
-                            <div class="book-title text-truncate">제목</div>
+                        <div class="col-2 next-icon" onclick="location.href='/book/bookCatogoryList.do?bookCate=normal&category=other'">
+                            >>
                         </div>
-                        <div class="col-md-2 col-4 row">
-                            <div class="book-img">
-                                <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                            </div>
-                            <div class="book-title text-truncate">제목</div>
-                        </div>
-                        <div class="col-md-2 col-4 row">
-                            <div class="book-img">
-                                <img src="/resources/img/main/woman-g803af235f_1280.jpg">
-                            </div>
-                            <div class="book-title text-truncate">제목제목길게123123123123123</div>
-                        </div>
+                        <hr>
+                    </div>
+                    <div class="books-list-area row">
+                    
+                        <!-- 카테고리별 반복문 시작 -->
+		                <c:forEach items="${nOList }" var="book">
+		                    <div class="col-md-2 col-4 row" onclick="location.href='/book/norBookInfo?bookNo=${book.bookNo}'">
+		                        <div class="book-img">
+		                            <img src="/resources/bookImg/${book.coverRename }">
+		                        </div>
+		                        <div class="book-title text-truncate">${book.bookTitle }</div>
+		                    </div>
+		                </c:forEach>
+		                        
     
                     </div>
                     </article>

@@ -43,6 +43,23 @@ main {
 	
 }
 
+#back{
+	text-align:center;
+	margin : 0.5rem;	
+}
+
+#back>button{
+	border:0;
+	width : 70%;
+	hieght: 2.5rem;
+	transition:0.2s;
+	border-radius: 0.5rem;
+}
+
+#back>button:hover{
+	background-color :#FFD384;
+	transition:0.2s;
+	}
 hr{
     padding: 0;
     margin:0;

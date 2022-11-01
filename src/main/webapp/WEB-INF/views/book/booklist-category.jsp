@@ -25,21 +25,10 @@
     <main>
         <section>
             <article id="title-area">
-                <div id="title" class="container">${tag }${searchValue }</div>
+                <div id="title" class="container">${bookCateStr } : ${cateStr}</div>
             </article>
 			<article id="list-area" class="container">
-			<button 
-			<c:if test="${bookCate=='origin'}">
-			style="background-color :#FFD384;"
-			</c:if>
-			 onclick="location.href='/book/bookSearchList.do?tag=${Hahstag}&searchValue=${searchValue }&category=${category }&bookCate=origin'">
-			피넛 오리지널</button> 	
-			<button 
-			<c:if test="${bookCate=='normal'}">
-			style="background-color :#FFD384;"
-			</c:if>
-			onclick="location.href='/book/bookSearchList.do?tag=${Hahstag}&searchValue=${searchValue }&category=${category }&bookCate=normal'">
-			일반도서</button>
+			
 			</article>
 
             <article id="list-area" class="container">
@@ -48,13 +37,13 @@
 
                     </div>
                     <div class="col-md-2 col-6 sort-icon">
-                       <a href="/book/bookSearchList.do?tag=${Hahstag}&searchValue=${searchValue }&category=${category }&bookCate=${bookCate }&step=all">
+                       <a href="/book/bookCatogoryList.do?bookCate=${bookCate }&category=${category}&step=all">
                         등록순 </a>
                         | 
-                        <a href="/book/bookSearchList.do?tag=${Hahstag}&searchValue=${searchValue }&category=${category }&bookCate=${bookCate }&step=count">
+                        <a href="/book/bookCatogoryList.do?bookCate=${bookCate }&category=${category}&step=count">
                         조회순 
                         </a>
-                        | <a href="/book/bookSearchList.do?tag=${Hahstag}&searchValue=${searchValue }&category=${category }&bookCate=${bookCate }&step=star">
+                        | <a href="/book/bookCatogoryList.do?bookCate=${bookCate }&category=${category}&step=star">
                         별점순
                         </a>
                     </div>
@@ -63,7 +52,7 @@
                 <div class="books-list-area row">
                 <!-- 책 반복문 -->
                 	<c:forEach items="${bList }" var="book">
-                
+              
 	                    <!-- 피넛오리지널인지 일반도서인지에 따라 연결되는 페이지가 달라짐 -->
 	                    <div class="col-md-2 col-4 row OneBook"
 	                    <c:if test="${bookCate == 'origin' }">
@@ -90,13 +79,6 @@
 	                    </div>
                    
                 	</c:forEach><!-- 책 반복문 종료 -->
-                	
-                	<c:if test="${TotalCount == 0 }">
-                		검색하신 도서가 없습니다 
-                		<br>
-                		<c:if test="${bookCate == 'origin' }"> 일반도서로 검색해보세요</c:if>
-                		<c:if test="${bookCate == 'normal' }"> 피넛오리지널을 검색해보세요</c:if>
-                	</c:if>
 
                 </div>
             </article>
@@ -106,7 +88,7 @@
 
                		<!-- 이전페이지 -->
                		<c:if test="${startNavi ne 1 && startNavi > 0}">
-                    	<li><a href="/book/bookSearchList.do?tag=${Hahstag}&searchValue=${searchValue }&category=${category }&bookCate=${bookCate }&step=${step }&page=${startNavi-1}">
+                    	<li><a href="/book/bookSearchList.do?category=${category }&step=${step }&bookCate=${bookCate}&page=${startNavi-1}">
                     		«</a></li>
                     </c:if>
                     
@@ -117,7 +99,7 @@
                     		<li><a href="#" class="active">${p }</a></li>
                     	</c:if>
                     	<c:if test="${currentPage != p  }">
-                    		<li><a href="/book/bookSearchList.do?tag=${Hahstag}&searchValue=${searchValue }&category=${category }&bookCate=${bookCate }&step=${step }&page=${p}" >
+                    		<li><a href="/book/bookSearchList.do?category=${category }&step=${step }&bookCate=${bookCate}&page=${p}" >
                     			${p }</a></li>
                     	</c:if>
                     </c:forEach>
@@ -125,7 +107,7 @@
                     
                    <!-- 다음페이지 -->
                    <c:if test="${endNavi < maxPage }">
-                    <li><a href="/book/bookSearchList.do?tag=${Hahstag}&searchValue=${searchValue }&category=${category }&bookCate=${bookCate }&step=${step }&page=${endNavi+1}">»</a></li>
+                    <li><a href="/book/bookCatogoryList.do?category=${category }&step=${step }&bookCate=${bookCate}&page=${endNavi+1}">»</a></li>
                     </c:if>
                 </ul>
 

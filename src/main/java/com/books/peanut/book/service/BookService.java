@@ -13,6 +13,7 @@ import com.books.peanut.book.domain.OriginBookSeries;
 import com.books.peanut.book.domain.Star;
 import com.books.peanut.book.domain.WriterProfile;
 import com.books.peanut.book.domain.peanutPaidSeries;
+import com.books.peanut.member.domain.Member;
 import com.books.peanut.pay.domain.PeanutPoint;
 
 public interface BookService {
@@ -251,6 +252,26 @@ public interface BookService {
 
 	/**피넛 오리지널 탑 6개 카테고리별로 가져오기*/
 	List<OriginBook> getRankOriBook(String category);
+
+	/**피넛 오리지널 카테고리별 총 갯수*/
+	int countAllOriginCategory(String category);
+	/**피넛 오리지널 카테고리별 모든도서
+	 * @param step */
+	List<OriginBook> getAllOriginCategory(String category, int currentPage, int bookLimit, String step);
+	/**일반도서 카테고리별 총 갯수*/
+	int countAllNormalCategory(String category);
+	/**일반도서 카테고리별 모든도서
+	 * @param bookLimit 
+	 * @param getTotalCount 
+	 * @param step */
+	List<NormalBook> getAllNormalCategory(String category, int getTotalCount, int bookLimit, String step);
+
+	/**일반도서 탑 6개 카테고리별로 가져오기*/
+	List<NormalBook> getRankNorBook(String string);
+	
+	
+	/**피넛 오리지널 시리즈 조회수 올리기*/
+	int registViewCount(Member member, int seriesNo, int bookNo);
 
 
 	

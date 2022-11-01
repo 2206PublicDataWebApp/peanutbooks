@@ -28,7 +28,7 @@
                     <div class="col-10">
                         소설
                     </div>
-                    <div class="col-2 next-icon">
+                    <div class="col-2 next-icon" onclick="location.href='/book/bookCatogoryList.do?bookCate=origin&category=novel'">
                         >>
                     </div>
                     <hr>
@@ -37,7 +37,7 @@
                 
                 <!-- 소설 반복 문 시작 -->
                 <c:forEach items="${oNList }" var="novel">
-                    <div class="col-md-2 col-4 row" onclick="location.href='/book/oriBookInfo?bookNo=${novel.bookNo}'">
+                    <div class="col-md-2 col-4 row" onclick="location.href='/book/oriBookInfo?bookNo=${novel.bookNo}'" title="${novel.bookTitle }">
                         <div class="book-img">
                             <img src="/resources/bookImg/${novel.coverRename }">
                         </div>
@@ -56,7 +56,7 @@
                     <div class="col-10">
                         에세이
                     </div>
-                    <div class="col-2 next-icon">
+                    <div class="col-2 next-icon" onclick="location.href='/book/bookCatogoryList.do?bookCate=origin&category=essay'">
                         >>
                     </div>
                     <hr>
@@ -64,7 +64,7 @@
                 <div class="books-list-area row">
                     <!-- 에세이 반복 문 시작 -->
                 <c:forEach items="${oEList }" var="essay">
-                    <div class="col-md-2 col-4 row" onclick="location.href='/book/oriBookInfo?bookNo=${essay.bookNo}'">
+                    <div class="col-md-2 col-4 row" onclick="location.href='/book/oriBookInfo?bookNo=${essay.bookNo}'"title="${essay.bookTitle }">
                         <div class="book-img">
                             <img src="/resources/bookImg/${essay.coverRename }">
                         </div>
@@ -81,7 +81,7 @@
                     <div class="col-10">
                         동화
                     </div>
-                    <div class="col-2 next-icon">
+                    <div class="col-2 next-icon" onclick="location.href='/book/bookCatogoryList.do?bookCate=origin&category=tale'">
                         >>
                     </div>
                     <hr>
@@ -89,7 +89,7 @@
                 <div class="books-list-area row">
                           <!-- 동화 반복 문 시작 -->
                 <c:forEach items="${oTList }" var="tail">
-                    <div class="col-md-2 col-4 row" onclick="location.href='/book/oriBookInfo?bookNo=${tail.bookNo}'">
+                    <div class="col-md-2 col-4 row" onclick="location.href='/book/oriBookInfo?bookNo=${tail.bookNo}'"title="${tail.bookTitle }">
                         <div class="book-img">
                             <img src="/resources/bookImg/${tail.coverRename }">
                         </div>
@@ -101,12 +101,12 @@
                 </div>
                 </article>
 
-            <article id="list2-area" class="container">
+            <article id="list4-area" class="container">
                 <div class="list-title row">
                     <div class="col-10">
                         시
                     </div>
-                    <div class="col-2 next-icon">
+                    <div class="col-2 next-icon" onclick="location.href='/book/bookCatogoryList.do?bookCate=origin&category=poem'">
                         >>
                     </div>
                     <hr>
@@ -114,11 +114,36 @@
                 <div class="books-list-area row">
                              <!-- 시 반복 문 시작 -->
                 <c:forEach items="${oPList }" var="poem">
-                    <div class="col-md-2 col-4 row" onclick="location.href='/book/oriBookInfo?bookNo=${poem.bookNo}'">
+                    <div class="col-md-2 col-4 row" onclick="location.href='/book/oriBookInfo?bookNo=${poem.bookNo}'"title="${poem.bookTitle }">
                         <div class="book-img">
                             <img src="/resources/bookImg/${poem.coverRename }">
                         </div>
                         <div class="book-title text-truncate">${poem.bookTitle }</div>
+                    </div>
+                   </c:forEach>
+
+                </div>
+                </article>
+                
+                
+            <article id="list5-area" class="container">
+                <div class="list-title row">
+                    <div class="col-10">
+                        기타
+                    </div>
+                    <div class="col-2 next-icon" onclick="location.href='/book/bookCatogoryList.do?bookCate=origin&category=other'">
+                        >>
+                    </div>
+                    <hr>
+                </div>
+                <div class="books-list-area row">
+                             <!-- 시 반복 문 시작 -->
+                <c:forEach items="${oOList }" var="other">
+                    <div class="col-md-2 col-4 row" onclick="location.href='/book/oriBookInfo?bookNo=${other.bookNo}'"title="${other.bookTitle }">
+                        <div class="book-img">
+                            <img src="/resources/bookImg/${other.coverRename }">
+                        </div>
+                        <div class="book-title text-truncate">${other.bookTitle }</div>
                     </div>
                    </c:forEach>
 

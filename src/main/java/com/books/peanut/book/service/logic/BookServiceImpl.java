@@ -18,7 +18,10 @@ import com.books.peanut.book.domain.WriterProfile;
 import com.books.peanut.book.domain.peanutPaidSeries;
 import com.books.peanut.book.service.BookService;
 import com.books.peanut.book.store.BookStore;
+import com.books.peanut.member.domain.Member;
 import com.books.peanut.pay.domain.PeanutPoint;
+
+import oracle.net.aso.s;
 
 @Service
 public class BookServiceImpl implements BookService{
@@ -510,6 +513,49 @@ public class BookServiceImpl implements BookService{
 	public List<OriginBook> getRankOriBook(String category) {
 		List<OriginBook> oList = bStore.selectRankOriBook(session,category);
 		return oList;
+	}
+	
+	/**피넛 오리지널 카테고리별 총 갯수*/
+	@Override
+	public int countAllOriginCategory(String category) {
+		int result = bStore.selectCountAllOriginCategory(session,category);
+		return result;
+	}
+
+	/**피넛 오리지널 카테고리별 모든도서*/
+	@Override
+	public List<OriginBook> getAllOriginCategory(String category, int currentPage, int bookLimit, String step) {
+		List<OriginBook> oList = bStore.selectAllOriginCategory(session,category,currentPage,bookLimit,step);
+		return oList;
+	}
+
+	/**일반도서 카테고리별 총 갯수*/
+	@Override
+	public int countAllNormalCategory(String category) {
+		int result = bStore.selectCountAllNormalCategory(session,category);
+		return result;
+	}
+
+	/**일반도서 카테고리별 모든도서*/
+	@Override
+	public List<NormalBook> getAllNormalCategory(String category, int currentPage, int bookLimit, String step) {
+		List<NormalBook> nList = bStore.selectAllNormalCategory(session,category,currentPage,bookLimit,step);
+		return nList;
+	}
+
+	
+	/**일반도서 탑 6개 카테고리별 가져오기*/
+	@Override
+	public List<NormalBook> getRankNorBook(String category) {
+		List<NormalBook> nList = bStore.selectRankNorBook(session,category);
+		return nList;
+	}
+
+	/**피넛 오리지널 시리즈 조회수 올리기*/
+	@Override
+	public int registViewCount(Member member, int seriesNo, int bookNo) {
+		int viewCount = bStore.insertViewCount(session,member,seriesNo,bookNo);
+		return viewCount;
 	}
 
 

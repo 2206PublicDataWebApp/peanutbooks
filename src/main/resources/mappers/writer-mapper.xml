@@ -155,6 +155,31 @@ from origin_book where category = #{category} and status like 'Y%' and BOOK_PERM
   		select CORVER_RENAME from  origin_book where category = 'poem' and ROWNUM=1 order by view_count desc
   	</select>
   	
+  	
+  	<!-- 카테고리별 도서 갯수, 모든 도서 -->
+  	<select id="countAllOriginCategory" resultType="_int">
+  		select count(ori_book_No) from origin_book where status like 'Y%' and BOOK_PERMISSION like 'Y%' and category = #{category}
+  	</select>
+  	
+  	<select id="allOriginCategory" resultMap="oriBookResultMap">
+  		select  ori_book_no,book_title, book_Info, corver_Rename, m_NickName from origin_book left join member_tbl using(member_id)
+  		 <where>
+  		 status like 'Y%' and BOOK_PERMISSION like 'Y%' and category = #{category}
+  		 </where>
+  		 <if test="step.toString() == 'all'">
+   			order by insert_date desc
+	   	</if>
+	   	<if test="step.toString() == 'star'">
+	   		order by DECODE(score_count, 0, 0, score/score_count) desc
+	   	</if>
+	   	<if test="step.toString() == 'count'">
+	   		order by view_count desc
+	   	</if>
+  		
+  	</select>
+  	
+  	
+  	
 
 
 <!-- 책 승인 테이블에 추가 -->
@@ -194,6 +219,7 @@ from origin_book where category = #{category} and status like 'Y%' and BOOK_PERM
 <update id="updateAllOriSeriesRemove">
 update ori_series set status = 'N' where ORI_BOOK_NO = #{bookNo}
 </update>
+
 
 <resultMap type="OriginBookSeries" id="oriSeriesResultMap">
 <id property="seriesNo" column="SERIES_NO"/>
@@ -310,5 +336,26 @@ update ori_series set status = 'N' where ORI_BOOK_NO = #{bookNo}
   <insert id="insertBuyOneSeries">
   insert into peanutpoint_tbl values(SQN_PEANUT_NO.nextval,sysdate,-1,default,#{bookNo},#{bookTitle},#{memberId},default,#{seriesNo})
   </insert>
+  
+  
+  
+  
+  
+ <!--  조회수 관련 -->
+ <!-- 조회수 테이블에 추가 -->
+ <insert id="insertOenOriSeries">
+ insert into view_count values(#{bookNo}, #{seriesNo}, #{memberId}, null, sysdate, 'origin' ) 
+ </insert>
+ <!-- 시리즈 테이블에 조회수 추가 -->
+ <update id="UpdateOneOriSeries">
+ update ori_series set view_count = view_count+1 where ori_book_no = #{bookNo} and series_no = #{seriesNo}
+ </update>
+ <!-- 피넛 오리지널 북 테이블에 조회수 추가 -->
+ <update id="UpdateOneOriBook">
+ update ori_series set view_count = view_count+1 where ori_book_no = #{bookNo}
+ </update>
+ 
+ <!-- 회원의 구독권 날짜 가져오기 -->
+
   
   </mapper>

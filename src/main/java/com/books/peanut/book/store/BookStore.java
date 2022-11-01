@@ -14,6 +14,7 @@ import com.books.peanut.book.domain.OriginBookSeries;
 import com.books.peanut.book.domain.Star;
 import com.books.peanut.book.domain.WriterProfile;
 import com.books.peanut.book.domain.peanutPaidSeries;
+import com.books.peanut.member.domain.Member;
 
 public interface BookStore {
 
@@ -258,6 +259,25 @@ public interface BookStore {
 
 	/**피넛 오리지널 랭킹 6까지 카테고리 별로 가져오기*/
 	List<OriginBook> selectRankOriBook(SqlSessionTemplate session, String category);
+
+	
+	/**피넛 오리지널 카테고리별 총 갯수*/
+	int selectCountAllOriginCategory(SqlSessionTemplate session, String category);
+	/**피넛 오리지널 카테고리별 모든도서
+	 * @param step */
+	List<OriginBook> selectAllOriginCategory(SqlSessionTemplate session, String category, int currentPage,
+			int bookLimit, String step);
+	/**일반도서 카테고리별 총 갯수*/
+	int selectCountAllNormalCategory(SqlSessionTemplate session, String category);
+	/**일반도서 카테고리별 모든도서*/
+	List<NormalBook> selectAllNormalCategory(SqlSessionTemplate session, String category, int currentPage,
+			int bookLimit, String step);
+	
+	/**일반도서 랭킹 6까지 카테고리 별로 가져오기*/
+	List<NormalBook> selectRankNorBook(SqlSessionTemplate session, String category);
+
+	/**피넛 오리지널 조회수 입력하기*/
+	int insertViewCount(SqlSessionTemplate session,Member member, int seriesNo, int bookNo);
 
 
 }

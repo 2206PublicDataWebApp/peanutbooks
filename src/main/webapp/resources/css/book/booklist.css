@@ -44,6 +44,11 @@ hr{
     transition: 0.2s;
 }
 
+.books-list-area>div:hover{
+	cursor:pointer;
+	
+}
+
 .books-list-area img:hover{
     transform: scale(1.1);
     transition: 0.2s;

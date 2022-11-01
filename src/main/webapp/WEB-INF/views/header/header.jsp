@@ -37,8 +37,8 @@
 				</div>
 				<div class="col-md-7 d-md-block d-none">
 					<ul>
-						<li>이달의 추천</li>
-						<li>도서</li>
+						<li onclick="location.href='/'">이달의 추천</li>
+						<li onclick="location.href='/book/bookNorList.do'">도서</li>
 						<li onclick="location.href='/book/bookOriList.do'">피넛 오리지널</li>
 					</ul>
 

@@ -127,8 +127,32 @@
   		select COVER_RENAME from  normal_book where category = 'tale' and ROWNUM=1 order by view_count desc
   	</select>
   	
+  	 	<!-- 카테고리별 도서 갯수, 모든 도서 -->
+  	<select id="CountAllNormalCategory" resultType="_int">
+  		select count(nor_book_No) from normal_book where status like 'Y%' and category = #{category}
+  	</select>
   	
+  	<select id="allNormalCategory" resultMap="nBookResultMap">
+  		select nor_book_no, book_title, book_Info, cover_Rename, writer from NORMAL_BOOK where status like 'Y%' and category = #{category}		
+  		 <if test="step.toString() == 'all'">
+   			order by insert_date desc
+	   	</if>
+	   	<if test="step.toString() == 'star'">
+	   		order by DECODE(scorecount, 0, 0, score/scorecount) desc
+	   	</if>
+	   	<if test="step.toString() == 'count'">
+	   		order by view_count desc
+	   	</if>
+  		
+  	</select>
   	
+  	<!-- 랭킹 6까지 카테고리 별로 가져오기 -->
+	<select id="selectRankNorBook" resultMap="nBookResultMap">
+		select * from(
+		select nor_book_no, book_title, cover_rename, ROW_NUMBER() over (order by view_count desc) r 
+		from normal_book where category = #{category} and status like 'Y%') where r between 1 and 6
+	</select>
+	  	
   	
   	<!-- 일반도서 시리즈 -->
   	<!-- 일반도서 1화 등록하기 -->

@@ -70,7 +70,7 @@
 					<div class="category">
 						<select name="category" id="" required="required">
 							<option value="">카테고리를 선택하세요</option>
-							<option value="detective">추리소설</option>
+							<option value="detective">추리</option>
 							<option value="history">역사</option>
 							<option value="romance">로맨스</option>
 							<option value="tale">동화</option>
