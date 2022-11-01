@@ -85,9 +85,9 @@
 				<div class="cate-area row">
 					<div class="col-md-6">
 						<div class="cate-area-title">일반도서</div>
-						<div id="category-one">
+						<div id="category-one"  onclick="location.href='/book/bookCatogoryList.do?bookCate=normal&category=tale'">
 							<div class="card mb-3" style="max-width: 540px;">
-								<div class="row g-0">
+						 		<div class="row g-0">
 									<div class="col-md-4">
 										<img src="/resources/bookImg/${img1 }"
 											class="img-fluid rounded-start" alt="...">
@@ -104,7 +104,7 @@
 
 						<div id="category-one">
 							<div class="card mb-3" style="max-width: 540px;">
-								<div class="row g-0">
+								<div class="row g-0"  onclick="location.href='/book/bookCatogoryList.do?bookCate=normal&category=poem'">
 									<div class="col-md-4">
 										<img src="/resources/bookImg/${img2 }"
 											class="img-fluid rounded-start" alt="...">
@@ -124,7 +124,7 @@
 						<div class="cate-area-title">피넛 오리지널</div>
 						<div id="category-one">
 							<div class="card mb-3" style="max-width: 540px;">
-								<div class="row g-0">
+								<div class="row g-0"  onclick="location.href='/book/bookCatogoryList.do?bookCate=origin&category=novel'">
 									<div class="col-md-4">
 										<img src="/resources/bookImg/${img3 }"
 											class="img-fluid rounded-start" alt="...">
@@ -141,13 +141,13 @@
 
 						<div id="category-one">
 							<div class="card mb-3" style="max-width: 540px;">
-								<div class="row g-0">
+					 			<div class="row g-0" onclick="location.href='/book/bookCatogoryList.do?bookCate=origin&category=tale'">
 									<div class="col-md-4">
 										<img src="/resources/bookImg/${img4 }"
 											class="img-fluid rounded-start" alt="...">
 									</div>
 									<div class="col-md-8">
-										<div class="card-body">
+										<div class="card-body" >
 											<h5 class="card-title">동화</h5>
 											<p class="card-text">땅콩북스에서 야심차게 준비한 어린이들을 위한 현대동화</p>
 										</div>

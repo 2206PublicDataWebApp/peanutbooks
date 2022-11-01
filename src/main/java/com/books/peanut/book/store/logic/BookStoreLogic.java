@@ -1,6 +1,7 @@
 package com.books.peanut.book.store.logic;
 
-import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -238,10 +239,12 @@ public class BookStoreLogic implements BookStore {
 		hMap.put("seriesNo", seriesNo + "");
 		hMap.put("bookNo", bookNo + "");
 		hMap.put("bookTitle", bookTitle);
-		int result = session.update("wirterMapper.UsePeanutOne", hMap);
-		result += session.insert("wirterMapper.insertBuyOneSeries", hMap);
-		result += session.update("wirterMapper.UpdateOneOriSeries",hMap);
-		result += session.update("wirterMapper.UpdateOneOriBook",hMap);
+		int result = session.update("wirterMapper.UsePeanutOne", hMap); //멤버 테이블에서 땅콩 사용하기
+		result += session.insert("wirterMapper.insertBuyOneSeries", hMap); //땅콩테이블에서 도서 구입내역 넣기
+		result += session.insert("wirterMapper.insertOenOriSeries", hMap); //조회수 테이블에 조회내역넣기
+		result += session.update("wirterMapper.UpdateOneOriSeries", hMap);//시리즈 테이블에 조회 1넣기
+		result += session.update("wirterMapper.UpdateOneOriBook", hMap);// 책 테이블에 조회1 넣기
+		result += session.update("wirterMapper.UpdateOnePaidOriSeries", hMap); //시리즈 테이블의 유료조회 1 넣기
 		return result;
 	}
 
@@ -653,7 +656,7 @@ public class BookStoreLogic implements BookStore {
 	@Override
 	public List<OriginBook> selectAllOriginCategory(SqlSessionTemplate session, String category, int currentPage,
 			int bookLimit, String step) {
-		
+
 		int offset = (currentPage - 1) * bookLimit;
 		RowBounds rowBounds = new RowBounds(offset, bookLimit);
 		HashMap<String, String> hMap = new HashMap<String, String>();
@@ -675,7 +678,7 @@ public class BookStoreLogic implements BookStore {
 	@Override
 	public List<NormalBook> selectAllNormalCategory(SqlSessionTemplate session, String category, int currentPage,
 			int bookLimit, String step) {
-		
+
 		int offset = (currentPage - 1) * bookLimit;
 		RowBounds rowBounds = new RowBounds(offset, bookLimit);
 		HashMap<String, String> hMap = new HashMap<String, String>();
@@ -685,7 +688,7 @@ public class BookStoreLogic implements BookStore {
 		List<NormalBook> nList = session.selectList("adminWirteMapper.allNormalCategory", hMap, rowBounds);
 		return nList;
 	}
-	
+
 	/** 일반도서 랭킹 6 카테고리 별로 가져오기 */
 	@Override
 	public List<NormalBook> selectRankNorBook(SqlSessionTemplate session, String category) {
@@ -693,11 +696,64 @@ public class BookStoreLogic implements BookStore {
 		return nList;
 	}
 
-	/**피넛 오리지널 조회수 입력하기*/
+	/** 피넛 오리지널 조회수 입력하기 */
 	@Override
-	public int insertViewCount(SqlSessionTemplate session,Member member, int seriesNo, int bookNo) {
-		//Date date = session.selectOne("wirterMapper.selectMemberDate",member);
-		return 0;
+	public int insertViewCount(SqlSessionTemplate session, Member member, int seriesNo, int bookNo, String pCheck) {
+		HashMap<String, String> hMap = new HashMap<String, String>();
+		hMap.put("seriesNo", seriesNo + "");
+		hMap.put("bookNo", bookNo + "");
+		hMap.put("category", "origin");
+		hMap.put("memberId", member.getMemberId());
+			int result2 = 0;
+
+		if (pCheck.equals("N")) { // 무료도서라면 무조건 조회수 추가
+			result2 = session.selectOne("wirterMapper.selectOneFreeCountMember", hMap);
+			if (result2 == 0) {
+				result2 += session.insert("wirterMapper.insertBuyOneSeries", hMap);
+				result2 += session.update("wirterMapper.UpdateOneOriSeries", hMap);
+				result2 += session.update("wirterMapper.UpdateOneOriBook", hMap);
+			}
+
+		} else {
+
+			int result = session.selectOne("wirterMapper.selectMemberDateCount", member);// 구독 여부 확인
+			if (result > 0) {
+				Date date = session.selectOne("wirterMapper.selectMemberDate", member); // 현재 구독날짜 가져오기
+
+				SimpleDateFormat transFormat = new SimpleDateFormat("yyyy/MM/dd");
+				String subsDate = transFormat.format(date);
+				hMap.put("subsDate", subsDate);
+
+				int result1 = session.selectOne("wirterMapper.selectOneCountMember", hMap); // 구독날짜로 조회수 추가 된적있는지 확인하기
+
+				if (result1 == 0) {
+					int result3 = session.insert("wirterMapper.insertCountOne", hMap); // 추가된적없으면 추가하기
+					result3 += session.update("wirterMapper.UpdateOneOriSeries", hMap); // 시리즈 테이블에 조회수 추가
+					result3 += session.update("wirterMapper.UpdateOneOriBook", hMap); // 피넛오리지널북 테이블에 조회수 추가
+
+					
+					result2 += session.update("wirterMapper.UpdateOnePaidOriSeries", hMap); //유료도서 카운트 추가
+					
+				}
+			}
+		}
+		return result2;
+	}
+
+	/**일반도서 조회수추가하기*/
+	@Override
+	public int insertViewCount(SqlSessionTemplate session, String memberId, int seriesNo, int bookNo) {
+		HashMap<String, String> hMap =new HashMap<String, String>();
+		hMap.put("memberId", memberId);
+		hMap.put("seriesNo", seriesNo+"");
+		hMap.put("bookNo", bookNo+"");
+		
+		int result = session.selectOne("adminWirteMapper.selectOneCheckCount",hMap);
+		if(result==0) {
+			result += session.update("adminWirteMapper.updateBookCount",hMap);
+			result += session.insert("adminWirteMapper.insertBookCount",hMap);
+		}
+		return result;
 	}
 
 }

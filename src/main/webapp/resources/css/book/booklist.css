@@ -26,6 +26,10 @@ main {
     padding:6rem 0 4rem 0;
 
     }
+    
+    .next-icon:hover{
+    cursor:pointer;
+    }
 
 .list-title{
     font-size: 1.5rem;

@@ -344,18 +344,39 @@ update ori_series set status = 'N' where ORI_BOOK_NO = #{bookNo}
  <!--  조회수 관련 -->
  <!-- 조회수 테이블에 추가 -->
  <insert id="insertOenOriSeries">
- insert into view_count values(#{bookNo}, #{seriesNo}, #{memberId}, null, sysdate, 'origin' ) 
+ insert into view_count values(#{bookNo}, #{seriesNo}, #{memberId}, 'N', null, 'origin' ) 
  </insert>
  <!-- 시리즈 테이블에 조회수 추가 -->
  <update id="UpdateOneOriSeries">
  update ori_series set view_count = view_count+1 where ori_book_no = #{bookNo} and series_no = #{seriesNo}
  </update>
+ <update id="UpdateOnePaidOriSeries">
+ update ori_series set paid_count = paid_count+1 where ori_book_no = #{bookNo} and series_no = #{seriesNo}
+ </update>
  <!-- 피넛 오리지널 북 테이블에 조회수 추가 -->
  <update id="UpdateOneOriBook">
- update ori_series set view_count = view_count+1 where ori_book_no = #{bookNo}
+ update origin_book set view_count = view_count+1 where ori_book_no = #{bookNo}
  </update>
  
  <!-- 회원의 구독권 날짜 가져오기 -->
-
+	<select id="selectMemberDate" resultType="java.util.Date">
+	select order_date from seasonticket_tbl where member_id = #{memberId} and EXPIRY_YN ='N'
+	</select>
+<!-- 구독 여부 확인 -->
+	<select id="selectMemberDateCount" resultType="_int">
+	select count(order_date) from seasonticket_tbl where member_id = #{memberId} and EXPIRY_YN ='N'
+	</select>
+<!-- 조회수 추가된적있는지 확인 -->
+	<select id="selectOneCountMember" resultType="_int">
+	 select count(*) from view_count where book_no =#{bookNo} and series_no = #{seriesNo} and category = #{category} and order_date = #{subsDate} and member_id=#{memberId}
+	</select>
+	<insert id="insertCountOne">
+	insert into view_count values(#{bookNo},#{seriesNo},#{memberId},'Y',to_date(#{subsDate},'YYYY/MM/DD'),#{category})
+	
+	</insert>
+	<!-- 조회수 추가된적있는지 확인 무료도서 -->
+	<select id="selectOneFreeCountMember" resultType="int">
+	select count(*) from view_count where book_no =#{bookNo} and series_no = #{seriesNo} and category = #{category} and season_check='N ' and member_id=#{memberId}
+	</select>
   
   </mapper>

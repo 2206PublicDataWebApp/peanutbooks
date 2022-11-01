@@ -1304,7 +1304,7 @@ public class BookController {
 				}
 				
 				//조회수 영역
-				int viewCount = bService.registViewCount(member,seriesNo,bookNo);
+				int viewCount = bService.registViewCount(member,seriesNo,bookNo,pCheck);
 
 				mv.addObject("bookTitle", bookTitle);
 				mv.addObject("obSeries", obSeries);
@@ -1347,6 +1347,8 @@ public class BookController {
 			} else {
 				mv.setViewName("/bookadmin/bookstep-detail-en");
 			}
+			Member member = (Member)session.getAttribute("loginMember");
+			int result = bService.plusCountOne(member.getMemberId(),seriesNo,bookNo); //조회수 추가하기
 
 		} else {
 

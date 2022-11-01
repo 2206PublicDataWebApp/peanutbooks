@@ -65,7 +65,7 @@
                 
                      <!-- 카테고리별 반복문 시작 -->
                 <c:forEach items="${nHList }" var="book">
-                    <div class="col-md-2 col-4 row" onclick="location.href='/book/bookCatogoryList.do?bookCate=normal&category=history'">
+                    <div class="col-md-2 col-4 row" onclick="location.href='/book/norBookInfo?bookNo=${book.bookNo}'">
                         <div class="book-img">
                             <img src="/resources/bookImg/${book.coverRename }">
                         </div>

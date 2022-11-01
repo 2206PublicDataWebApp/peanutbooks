@@ -553,8 +553,15 @@ public class BookServiceImpl implements BookService{
 
 	/**피넛 오리지널 시리즈 조회수 올리기*/
 	@Override
-	public int registViewCount(Member member, int seriesNo, int bookNo) {
-		int viewCount = bStore.insertViewCount(session,member,seriesNo,bookNo);
+	public int registViewCount(Member member, int seriesNo, int bookNo,String pCheck) {
+		int viewCount = bStore.insertViewCount(session,member,seriesNo,bookNo,pCheck);
+		return viewCount;
+	}
+	
+	/**일반도서 조회수 추가하기*/
+	@Override
+	public int plusCountOne(String memberId, int seriesNo, int bookNo) {
+		int viewCount = bStore.insertViewCount(session,memberId,seriesNo,bookNo);
 		return viewCount;
 	}
 

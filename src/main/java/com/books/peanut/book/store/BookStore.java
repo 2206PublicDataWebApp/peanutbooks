@@ -276,8 +276,12 @@ public interface BookStore {
 	/**일반도서 랭킹 6까지 카테고리 별로 가져오기*/
 	List<NormalBook> selectRankNorBook(SqlSessionTemplate session, String category);
 
-	/**피넛 오리지널 조회수 입력하기*/
-	int insertViewCount(SqlSessionTemplate session,Member member, int seriesNo, int bookNo);
+	/**피넛 오리지널 조회수 입력하기
+	 * @param pCheck */
+	int insertViewCount(SqlSessionTemplate session,Member member, int seriesNo, int bookNo, String pCheck);
+
+	/**일반도서 조회수 추가하기*/
+	int insertViewCount(SqlSessionTemplate session, String memberId, int seriesNo, int bookNo);
 
 
 }

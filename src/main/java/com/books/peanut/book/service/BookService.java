@@ -270,8 +270,12 @@ public interface BookService {
 	List<NormalBook> getRankNorBook(String string);
 	
 	
-	/**피넛 오리지널 시리즈 조회수 올리기*/
-	int registViewCount(Member member, int seriesNo, int bookNo);
+	/**피넛 오리지널 시리즈 조회수 올리기
+	 * @param pCheck */
+	int registViewCount(Member member, int seriesNo, int bookNo, String pCheck);
+	
+	/**일반도서 조회수 추가하기*/
+	int plusCountOne(String memberId, int seriesNo, int bookNo);
 
 
 	

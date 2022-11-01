@@ -233,9 +233,18 @@
   	</insert>
   	
   
+  	<!-- 조회수 영역 -->
   	
-
-  	
+  	<!-- 조회 한적 있는 지 체크 -->
+  	<select id="selectOneCheckCount" resultType="_int">
+  	select count(*) from view_count where member_id = #{memberId} and series_no=#{seriesNo} and book_no=#{bookNo} and category='normal'
+  	</select>
+	<update id="updateBookCount">
+	update normal_book set view_count = view_count+1 where nor_book_no=#{bookNo}
+	</update>
+  	<insert id="insertBookCount">
+  	insert into view_count values(#{bookNo},#{seriesNo},#{memberId},null,null,'normal')
+  	</insert>
   	
   
   
