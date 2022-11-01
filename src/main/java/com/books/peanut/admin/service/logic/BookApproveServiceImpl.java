@@ -50,10 +50,16 @@ public class BookApproveServiceImpl implements BookApproveService {
 		int count = BAStore.selectAllReAppCount(session);
 		return count;
 	}
-
+	//책 승인
 	@Override
 	public int approveBooks(Integer bookNo, Integer seriesNo) {
 		int result = BAStore.updateApproveBooks(session, bookNo, seriesNo);
+		return result;
+	}
+	//책 재승인
+	@Override
+	public int reApproveBooks(Integer bookNo, Integer seriesNo) {
+		int result = BAStore.updateReApproveBooks(session, bookNo, seriesNo);
 		return result;
 	}
 	
@@ -87,12 +93,7 @@ public class BookApproveServiceImpl implements BookApproveService {
 		return result;
 	}
 
-	//책이름가져오기
-	@Override
-	public String getBookTitle(String bookNo) {
-		String bookTitle = BAStore.selectBookTitle(bookNo, session);
-		return bookTitle;
-	}
+
 
 
 

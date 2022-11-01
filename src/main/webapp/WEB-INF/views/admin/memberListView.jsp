@@ -21,22 +21,6 @@
 	a:hover { 
 		text-decoration:none !important
 	}
-	subHeader {
-		position: sticky;
-		top: 88px;
-		
-		background: white;
-		color: black;
-/* 		padding-left: 0px; 
-		padding-right: 0px;   */
-		padding: 5px;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		vertical-align: middle;
-		z-index: 100;
-	}
-
 	
 	ul {
 		list-style-type: none;
@@ -45,7 +29,7 @@
 	
 	li {
 		display: inline-block;
-		margin-left: 16px;
+		margin-left: 20px;
 		font-size: 16px;
 		/* font-weight: bold; */
 	}
@@ -54,17 +38,8 @@
 <!-- header start -->
 <jsp:include page="../header/adminheader.jsp"></jsp:include>
 <!-- header End -->
-<subHeader>
-	<hr>
-	<nav>
-	 	<ul>
-	    	<li>전체회원</li>
-	    	<li>메뉴2</li>
-	    	<li>메뉴3</li>
-	  	</ul>
-	</nav>
-	<hr>
-</subHeader>
+
+
 <!-- main contents start -->
 <main>
 
@@ -75,18 +50,40 @@
 			<div class="col" style="background-color: #5e5e5e; color: white; height:45px; vertical-align: middle;">회원리스트</div>
 		</div>
 		<br>
-		<div class="row row-cols-7" style="background-color:#e0e0e0; padding:20px">
-		    <div class="col-2" style="text-align:right;">
-		    	<a href="/admin/adminListView.kh">전체회원<br>1</a>&nbsp;&nbsp;&nbsp;
-		    </div>
-		    <div class="col"><img src="/resources/img/sidebar.png"></div>
-		    <div class="col">오늘가입<br>1</div>
-		    <div class="col"><img src="/resources/img/sidebar.png"></div>
-		    <div class="col">탈퇴회원<br>1</div>
-		    <div class="col"><img src="/resources/img/sidebar.png"></div>
-		    <div class="col-2" style="text-align:left;">&nbsp;&nbsp;휴면회원<br>&nbsp;&nbsp;&nbsp;&nbsp;1</div>
-		</div>
-
+	<hr>
+		<!-- <div id="title">전체 시리즈 목록</div> -->
+		<ul>
+    		<li><div style="text-align:right">
+		    		<a href="/admin/adminListView.kh">전체회원<br>1&nbsp;&nbsp;&nbsp;&nbsp;</a>
+		    	</div>
+		    </li>
+		    <li>
+		    	<div class="col"><img src="/resources/img/sidebar.png"></div>
+		    </li>
+    		<li>
+    			<div style="text-align:center">
+		    		<a href="/admin/adminListView.kh">오늘가입<br>1</a>
+		    	</div>
+			</li>
+			<li>
+		    	<div class="col"><img src="/resources/img/sidebar.png"></div>
+		    </li>
+    		<li>
+    			<div style="text-align:center">
+		    		<a href="/admin/adminListView.kh">탈퇴회원<br>1</a>
+		    	</div>
+			</li>
+			<li>
+		    	<div class="col"><img src="/resources/img/sidebar.png"></div>
+		    </li>
+    		<li>
+    			<div style="text-align:left">
+		    		<a href="/admin/adminListView.kh">휴면회원<br>&nbsp;&nbsp;&nbsp;&nbsp;1</a>
+		    	</div>
+    		</li>
+ 			</ul>
+ 			
+	<hr>
 	<br><br>
 	
 	<!-- 검색 -->

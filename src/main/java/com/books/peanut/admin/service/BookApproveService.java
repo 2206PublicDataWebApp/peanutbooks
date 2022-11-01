@@ -14,6 +14,8 @@ public interface BookApproveService {
 	public List<OriginBookSeries> allOriSeries(int i, int boardLimit);
 	//도서 승인하기
 	public int approveBooks(Integer bookNo, Integer seriesNo);
+	//도서 재승인하기
+	public int reApproveBooks(Integer bookNo, Integer seriesNo);
 	
 	//승인보류 게시물 갯수
 	public int checkPermissionCount(String checkPermission);
@@ -32,8 +34,8 @@ public interface BookApproveService {
 	//회원 삭제
 	public int removeOneById(String memberId);
 	
-	//책이름가져오기
-	public String getBookTitle(String bookTitle);
+	
+
 
 	
 	

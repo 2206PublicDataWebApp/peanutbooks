@@ -74,7 +74,7 @@
 	
 	<!-- 회원이 작성한 시리즈 전부 가져오기 -->
 	<select id="selectAllMemberSeriese" resultMap="oriSeriesResultMap">
-		select * from ori_series join origin_book using(ori_book_no) order by SERIES_NO ASC
+		select * from ori_series join origin_book using(ori_book_no) order by SERIES_NO DESC
 	</select>
 	
 	<!-- 승인/보류 리스트 갯수 가져오기 -->
@@ -83,15 +83,15 @@
 	</select>
 	<!-- 승인/보류 리스트 가져오기 -->
 	<select id="selectCheckPermissionList" resultMap="oriSeriesResultMap">
-		select * from ori_series join origin_book using(ori_book_no) where CHECK_PERMISSION=#{checkPermission} order by SERIES_NO ASC
+		select * from ori_series join origin_book using(ori_book_no) where CHECK_PERMISSION=#{checkPermission} order by SERIES_NO DESC
 	</select>
 	<!--  재승인 리스트 갯수 가져오기 -->
 	<select id="selectAllReAppCount" resultType="_int">
-		SELECT COUNT(*) FROM MODIFY_ORI_SERIES 
+		select count(*) from modify_ori_series join origin_book using(ori_book_no) order by SERIES_NO DESC
 	</select>
 	<!-- 재승인 리스트 가져오기  -->
 	<select id="selectAllReAppList" resultMap="modifySeriesResultMap">
-		SELECT * FROM MODIFY_ORI_SERIES 
+		select * from modify_ori_series join origin_book using(ori_book_no) order by SERIES_NO DESC
 	</select>
 	
 	<!-- 도서 제목 가져오기 -->
@@ -99,15 +99,26 @@
 		select BOOK_TITLE from origin_book where ORI_BOOK_NO = #{bookNo}
 	</select>
 
+	<!-- 도서 승인 -->
 	<update id="updateApproveBooks">
-			UPDATE BOOK_PERMISSION SET approve='Y', APPROVE_DATE = sysdate WHERE ORI_BOOK_NO = #{bookNo} and book_series_no = #{seriesNo}
+		UPDATE BOOK_PERMISSION SET approve='Y' APPROVE_DATE = sysdate WHERE ORI_BOOK_NO = #{bookNo} and book_series_no = #{seriesNo}
 	</update>
-	
 	<update id="updateOriBookApprove">
 		Update origin_book set BOOK_PERMISSION = 'Y' where ori_book_no = #{bookNo}
 	</update>
 	<update id="updateOriBookSeiresApprove">
 		Update ori_series set CHECK_PERMISSION = 'Y' where ori_book_no = #{bookNo} and series_no = #{seriesNo}
+	</update>
+	
+	<!-- 도서 재승인 -->
+	<update id="updateREAppInPermission">
+		insert into book_permission values(seq_permission.nextval,#{bookNo},'Y',null,SYSDATE,null,#{seriesNo})
+	</update>
+	<update id="updateReAppUpSeries">
+		update ori_series set CHECK_PERMISSION = 'Y', MODIFY_DATE = SYSDATE where SERIES_NO = ${seriesNo} and ORI_BOOK_NO = #{bookNo}
+	</update>
+	<update id="updateReAppDelModify">
+		DELETE FROM modify_ori_series WHERE ori_book_no = #{bookNo} and series_no = #{seriesNo}
 	</update>
  	
  	<!-- admin 회원관리 -->

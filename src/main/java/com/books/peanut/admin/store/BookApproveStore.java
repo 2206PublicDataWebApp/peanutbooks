@@ -20,8 +20,10 @@ public interface BookApproveStore {
 	
 	public List<OriginBookSeries> selectCheckPermissionList(SqlSession session, int i, int boardLimit,
 			String checkPermission);
-	
+	//책 승인
 	public int updateApproveBooks(SqlSession session, Integer bookNo, Integer seriesNo);
+	//책 재승인
+	public int updateReApproveBooks(SqlSession session, Integer bookNo, Integer seriesNo);
 
 	public int selectAllMember(SqlSession session);
 
@@ -35,12 +37,9 @@ public interface BookApproveStore {
 
 	public List<ModifyBookSeries> selectAllReAppList(SqlSession session, int currentPage, int boardLimit);
 
-	public String selectBookTitle(String bookNo, SqlSession session);
-
 	
 
 
-//	public int updateApproveSeries(SqlSession session, Integer bookNo, Integer seriesNo);
 
 
 }

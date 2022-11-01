@@ -29,7 +29,7 @@ public class BookApproveController {
 	private BookApproveService BAService;
 	@Autowired
 	private BookService bService;
-	
+	//도서 승인리스트 출력
 	@RequestMapping(value = "/admin/writerMenu.do", method = RequestMethod.GET)
 	public ModelAndView writerMenu(ModelAndView mv, HttpSession session,
 			@RequestParam(value = "page", required = false) Integer page) {
@@ -61,7 +61,7 @@ public class BookApproveController {
 		return mv;
 
 	}
-	
+	//도서 승인 기능
 	@RequestMapping(value="/admin/approve.kh", method=RequestMethod.GET)
 	public ModelAndView bookApprove(
 			@RequestParam("bookNo") Integer bookNo
@@ -137,10 +137,10 @@ public class BookApproveController {
 			if(getTotalCount > 0) {
 				List<ModifyBookSeries> mbList = BAService.reApproveList(bPage.getCurrentPage(), boardLimit);
 				
-				for(int i=0; i<mbList.size(); i++) {
-					String bookTitle = bService.getBookTitle(mbList.get(i).getBookNo());
-					mbList.get(i).setBookTitle(bookTitle);
-				}
+//				for(int i=0; i<mbList.size(); i++) {
+//					String bookTitle = bService.getBookTitle(mbList.get(i).getBookNo());
+//					mbList.get(i).setBookTitle(bookTitle);
+//				}
 				mv.addObject("mbList", mbList);
 				mv.addObject("bPage", bPage);
 				mv.setViewName("/bookApprove/BAreApprovemenu");
@@ -151,4 +151,35 @@ public class BookApproveController {
 		return mv;
 		
 	}
+	//도서 재승인 기능
+	@RequestMapping(value="/admin/reApprove.kh", method=RequestMethod.GET)
+	public ModelAndView bookReApprove(
+			@RequestParam("bookNo") Integer bookNo
+			, @RequestParam("seriesNo") Integer seriesNo
+			, @RequestParam(value="currentPage", required=false) Integer page
+			, ModelAndView mv
+			, HttpSession session) {
+//		Member member = (Member)session.getAttribute("loginMember");
+//		if((member.getAdminYN().charAt(0)+"").contentEquals("N")) {
+//			mv.addObject("msg", "관리자만 접속가능합니다.");
+//			mv.setViewName("/common/errorPage");
+//		}else {
+			try {
+				int result = BAService.reApproveBooks(bookNo,seriesNo);
+				mv.addObject("page", page);
+				if(result > 0) {
+					mv.setViewName("redirect:/admin/reApproveList.kh");
+				}else {
+					mv.addObject("msg", "승인 실패");
+					mv.setViewName("common/errorPage");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				mv.addObject("msg", e.getMessage());
+				mv.setViewName("/common/errorPage");
+			}
+//		}
+		return mv;
+	}
+	
 }

@@ -8,6 +8,7 @@ public class ModifyBookSeries {
 	private String title;
 	private String bookTitle;
 	private String modifyContents;
+	private String checkPermission;
 	private String insertDate;
 	private String paidCheck;
 	public int getSeriesNo() {
@@ -64,11 +65,19 @@ public class ModifyBookSeries {
 	public void setPaidCheck(String paidCheck) {
 		this.paidCheck = paidCheck;
 	}
+	
+	public String getCheckPermission() {
+		return checkPermission;
+	}
+	public void setCheckPermission(String checkPermission) {
+		this.checkPermission = checkPermission;
+	}
 	@Override
 	public String toString() {
 		return "ModifyBookSeries [seriesNo=" + seriesNo + ", bookNo=" + bookNo + ", subPic=" + subPic
 				+ ", subPicRename=" + subPicRename + ", title=" + title + ", bookTitle=" + bookTitle
 				+ ", modifyContents=" + modifyContents + ", insertDate=" + insertDate + ", paidCheck=" + paidCheck
+				+ ", checkPermission=" + checkPermission
 				+ "]";
 	}
 	

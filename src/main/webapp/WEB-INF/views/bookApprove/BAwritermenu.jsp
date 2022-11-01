@@ -47,6 +47,7 @@
 		    		<li><a href="/admin/approveYN.kh?checkPermission=N&page=${currentPage }">보류도서</a></li>
 		    		<li><a href="/admin/reApproveList.kh?page=${currentPage }">재승인도서</a></li>
 	  			</ul>
+	  			
 			<hr>
 				<!-- 내가 쓴 시리즈 출력 -->
 				<c:if test="${osList!=null }">
@@ -60,7 +61,7 @@
 							<input type="hidden" value="${oSeries.bookNo }" name="bookNo">
 								<c:if test="${oSeries.checkPermission == 'N' }">
 									<button type="button" onclick="approveCheck('${oSeries.bookNo }','${oSeries.seriesNo }',${currentPage })" class="btn btn-warning btn-sm" style="width:40pt;height:20pt;">승인</button>
-									<button type="button" onclick="rejectCheck('${oSeries.bookNo }','${oSeries.seriesNo }',${currentPage })" class="btn btn-dark btn-sm" style="width:40pt;height:20pt;">보류</button>
+									<button type="button" class="btn btn-dark btn-sm" style="width:40pt;height:20pt;">보류</button>
 								</c:if>
 							
 								<c:if test="${oSeries.checkPermission == 'Y' }">
@@ -147,11 +148,7 @@
 			location.href = "/admin/approve.kh?bookNo="+bookNo +"&seriesNo="+seriesNo+"&page="+currentPage;
 		}
 	}
-	function rejectCheck(adminId, seriesNo, currentPage) {
-		if(confirm("보류하시겠습니까?")) {
-			location.href = "/admin/reject.kh?bookNo="+bookNo +"&seriesNo="+seriesNo+"&page="+currentPage;
-		}
-	}
+
 </script>
 </body>
 <script type="text/javascript" src="/resources/js/book/writemenu.js"></script>

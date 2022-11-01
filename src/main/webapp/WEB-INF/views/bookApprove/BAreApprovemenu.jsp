@@ -58,17 +58,8 @@
 							<!-- 승인여부 체크 -->
 							<div id="check">
 							<input type="hidden" value="${oSeries.bookNo }" name="bookNo">
-								<c:if test="${oSeries.checkPermission == 'N' }">
-									<button type="button" onclick="approveCheck('${oSeries.bookNo }','${oSeries.seriesNo }',${currentPage })" class="btn btn-warning btn-sm" style="width:40pt;height:20pt;">승인</button>
-									<button type="button" onclick="rejectCheck('${oSeries.bookNo }','${oSeries.seriesNo }',${currentPage })" class="btn btn-dark btn-sm" style="width:40pt;height:20pt;">보류</button>
-								</c:if>
-							
-								<c:if test="${oSeries.checkPermission == 'Y' }">
-									<button type="button" class="btn btn-danger btn-sm" style="width:55pt;height:20pt;">승인완료</button>
-									<button type="button" onclick="rejectCheck('${oSeries.bookNo }','${oSeries.seriesNo }',${currentPage })" class="btn btn-dark btn-sm" style="width:55pt;height:20pt;">승인취소</button>
-								</c:if>
-								
-								
+								<button type="button" onclick="reApproveCheck('${oSeries.bookNo }','${oSeries.seriesNo }',${currentPage })" class="btn btn-warning btn-sm" style="width:50pt;height:20pt;">재승인</button>
+								<button type="button" class="btn btn-dark btn-sm" style="width:40pt;height:20pt;">보류</button>
 							</div>
 
 							<!-- 각 시리즈 삽화 출력 -->
@@ -142,16 +133,12 @@
 	</main>
 	<jsp:include page="../footer/footer.jsp" />
 <script>
-	function approveCheck(bookNo, seriesNo, currentPage) {
-		if(confirm("승인하시겠습니까?")) {
-			location.href = "/admin/approve.kh?bookNo="+bookNo +"&seriesNo="+seriesNo+"&page="+currentPage;
+	function reApproveCheck(bookNo, seriesNo, currentPage) {
+		if(confirm("재승인하시겠습니까?")) {
+			location.href = "/admin/reApprove.kh?bookNo="+bookNo +"&seriesNo="+seriesNo+"&page="+currentPage;
 		}
 	}
-	function rejectCheck(adminId, seriesNo, currentPage) {
-		if(confirm("보류하시겠습니까?")) {
-			location.href = "/admin/reject.kh?bookNo="+bookNo +"&seriesNo="+seriesNo+"&page="+currentPage;
-		}
-	}
+
 </script>
 </body>
 <script type="text/javascript" src="/resources/js/book/writemenu.js"></script>

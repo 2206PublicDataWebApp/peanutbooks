@@ -61,7 +61,7 @@ public class BookApproveStoreLogic implements BookApproveStore{
 		List<ModifyBookSeries> mbList = session.selectList("BookApproveMapper.selectAllReAppList", null, rowBounds);
 		return mbList;
 	}
-	
+	//책 승인
 	@Override
 	public int updateApproveBooks(SqlSession session, Integer bookNo, Integer seriesNo) {
 		OriginBookSeries os = new OriginBookSeries();
@@ -73,7 +73,19 @@ public class BookApproveStoreLogic implements BookApproveStore{
 		result += session.update("BookApproveMapper.updateOriBookSeiresApprove",os);
 		return result;
 	}
-
+	//책 재승인
+	@Override
+	public int updateReApproveBooks(SqlSession session, Integer bookNo, Integer seriesNo) {
+		OriginBookSeries os = new OriginBookSeries();
+		os.setBookNo(bookNo+"");
+		os.setSeriesNo(seriesNo);
+		
+		int result = session.update("BookApproveMapper.updateREAppInPermission", os);
+		result += session.update("BookApproveMapper.updateReAppUpSeries",os);
+		result += session.update("BookApproveMapper.updateReAppDelModify",os);
+		return result;
+	}
+	
 	@Override
 	public int selectAllMember(SqlSession session) {
 		int count = session.selectOne("BookApproveMapper.selectAllMemberCount");
@@ -101,15 +113,9 @@ public class BookApproveStoreLogic implements BookApproveStore{
 		return result;
 	}
 
-	@Override
-	public String selectBookTitle(String bookNo, SqlSession session) {
-		String bookTitle = session.selectOne("BookApproveMapper.selectBookTitle", bookNo);
-		return bookTitle;
-	}
-
-
-
 	
+
+
 
 	
 
