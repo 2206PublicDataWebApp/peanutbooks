@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -11,7 +12,9 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -248,39 +251,36 @@ public class ConsultController {
 	// 관리자가 종료건 검색 화면으로 이동
 	@RequestMapping(value = "/consult/endList.kh", method = RequestMethod.GET)
 	public ModelAndView endListSearch(ModelAndView mv,
-			@RequestParam(value = "memberId", required = false) String memberId,
-			@RequestParam(value = "csDate", required = false) Date csDate,
-			@RequestParam(value = "page", required = false) Integer page, ConsultServer cs, Pagemarker pm) throws ParseException {
-		if (memberId == null) {
-			memberId = "notId";
+			@RequestParam(value = "searchDate", required = false) String csDate,
+	    	@RequestParam(value = "page", required = false) Integer page,
+	    	@ModelAttribute ConsultServer cs) throws ParseException {
+		Pagemarker pm = new Pagemarker();
+		SimpleDateFormat smf = new SimpleDateFormat("yyyy-MM-dd");
+		if(csDate != null && !csDate.equals("")) {
+			cs.setCsDate(smf.parse(csDate));
 		}
 
-//		if(csDate==null) { 
-//			SimpleDateFormat sdf=new SimpleDateFormat("yy/MM/ss HH:mm:ss"); 
-//			cs.setCsDate(sdf.parse("00/00/00")); 
-//			System.out.println(cs.getCsDate());
-//		}else {
-			cs.setCsDate(csDate); 
-//		}
-
-
-		cs.setCsMemberId(memberId);
-
-		pm.setTotalCount(cService.getTotalCount(cs));
-		pm.setCurrentPage((page != null) ? page : 1);
-		pm.pageInfo(pm.getCurrentPage(), pm.getTotalCount());
+		int totalCount = cService.getTotalCount(cs);
+		int currentPage = (page != null) ? page : 1;
+//		if(date.ofNullable(csDate) != null) {
+	//	if(csDate != null) {
+//			cs.setCsDate(csDate); 
+//		}else if(csDate.equals("9999-01-01")){
+//			cs.setCsDate(null); 
+//		} else {
+//			cs.setCsDate(null); 
+//		}			
+		pm.pageInfo(currentPage, totalCount);
 		mv.addObject("pm", pm);
 		
 		List<ConsultServer> chatList = cService.printEndListChat(pm, cs);
 		mv.addObject("chatList", chatList);
+		mv.addObject("csMemberId", cs.getCsMemberId());
+		mv.addObject("csDate", csDate);		
 		mv.setViewName("/consult/chatEndList");
 		return mv;
 	}
 
-	private Date sdf(String string) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	// 채팅 상담내용 상세보기
 	@RequestMapping(value = "/consult/chatDetail.kh", method = RequestMethod.GET)

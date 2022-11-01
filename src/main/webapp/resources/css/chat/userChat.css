@@ -150,7 +150,7 @@ a {
 
     .contextBox::before{
         position:absolute;
-        display:block;
+        display:block;        
         max-width:calc(100%-70px);
         top:0px;
         padding: 5px;
@@ -158,9 +158,10 @@ a {
     }
     #after .left .contextBox{
         margin-left: 20px;
-        background-color: lightgrey;        
+        background-color: lightgrey; 
+        color:#fff;       
     }
-    #after .left .contextBox ::before{
+    #after .left .contextBox::before{
         left: -20px;
         content: "◀";
         color: lightgrey;
@@ -171,6 +172,7 @@ a {
     #after .right .contextBox{
         margin-right:20px;
         background-color: #FF577F;
+        color:#fff;
     }
     #after .right .contextBox::before{
         right: -20px;
