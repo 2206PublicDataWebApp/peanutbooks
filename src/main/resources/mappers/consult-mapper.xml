@@ -67,7 +67,7 @@
   		SELECT count(*) FROM CHATSERVER_TBL 
   		 	<where>
 	  		<if test="(csDate==null or csDate == '') and (csMemberId == null or csMemberId == '' )">CS_RESULT !='N'</if>
-	  		<if test="csDate!=null and (csMemberId == null or csMemberId == '')">TO_CHAR((CS_DATE),'YYYY-MM-DD')=${csDate } AND CS_RESULT !='N'</if>
+	  		<if test="csDate!=null and (csMemberId == null or csMemberId == '')">TO_CHAR((CS_DATE),'YYYY/MM/DD')=TO_CHAR(${csDate }),"YYYY-MM-DD") AND CS_RESULT !='N'</if>
 	  		<if test="(csDate==null or csDate == '') and (csMemberId !=null and csMemberId != '') ">CS_MEMBERID=#{csMemberId } AND CS_RESULT !='N'</if>
 	  		</where>
   		ORDER BY TITLE_NO DESC
