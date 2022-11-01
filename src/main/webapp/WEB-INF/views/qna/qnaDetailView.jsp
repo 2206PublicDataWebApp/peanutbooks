@@ -108,7 +108,7 @@ ${sessionScope.loginMember.memberId}님 환영합니다!
 			</c:if>
 			<tr>
 				<td width="20%" align="center">내용</td>
-				<td width="80%"><textarea class="form-control" id="exampleFormControlTextarea1" cols="5" rows="10" name="qnaContents">${qna.qnaContents }</textarea>  </td>
+				<td width="80%"><textarea class="form-control" id="exampleFormControlTextarea1" cols="5" rows="5" name="qnaContents">${qna.qnaContents }</textarea>  </td>
 			</tr>
 		<!-- 첨부파일 -->
 			<tr>
@@ -173,7 +173,7 @@ ${sessionScope.loginMember.memberId}님 환영합니다!
 			</tr>
 			<tr>
 				<td width="20%" align="center">내용</td>
-				<td width="80%"><textarea class="form-control" id="exampleFormControlTextarea1" cols="3" rows="10" name="qnaContents" readonly>${qna.answerContents } </textarea></td>
+				<td width="80%"><textarea class="form-control" id="exampleFormControlTextarea1" cols="3" rows="5" name="qnaContents" readonly>${qna.answerContents } </textarea></td>
 			</tr>
 			</c:if>
 		</table>

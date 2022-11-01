@@ -32,6 +32,9 @@ public interface QnaStore {
 	public List<Qna> selectAllByValue(SqlSessionTemplate session, String searchCondition, String searchValue,
 			int currentPage, int aqnaLimit);
 
+	public List<Qna> selectAllByCategory(SqlSessionTemplate session, String qnaCategory, int currentPage,
+			int categoryLimit);
+
 
 
 

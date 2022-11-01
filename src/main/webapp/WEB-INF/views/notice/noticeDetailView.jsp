@@ -47,6 +47,7 @@
 					<c:if test="${notice.noticeCategory == 'event'}">이벤트</c:if>
 					<c:if test="${notice.noticeCategory == 'info'}">안내</c:if>
 				</td>
+			</tr>
 			<tr>
 				<td  class="col-2" scope="col" align="center">작성자</td>
 				<td><input type="text" name="noticeWriter"  class="form-control" value="${notice.noticeWriter }" readonly></td>

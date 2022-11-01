@@ -46,7 +46,7 @@
 
 <body>
 <!-- header start -->
-<jsp:include page="../header/header.jsp"></jsp:include>
+<jsp:include page="../header/adminheader.jsp"></jsp:include>
 <!-- header End -->
 
 <!-- main contents start -->
@@ -111,7 +111,7 @@
 			<tr>
 				<td width="20%" align="center">내용</td>
 				<td width="80%">
-					<textarea class="form-control" id="exampleFormControlTextarea1" cols="5" rows="10" name="qnaContents">${qna.qnaContents }</textarea>  
+					<textarea class="form-control" id="exampleFormControlTextarea1" cols="5" rows="5" name="qnaContents">${qna.qnaContents }</textarea>  
 				</td>
 			</tr>
 		<!-- 첨부파일 -->
@@ -195,7 +195,7 @@
 				<td width="20%" align="center">답변</td>
 					<c:if test="${qna.answerContents eq null }">
 						<td width="80">
-							<textarea class="form-control" id="exampleFormControlTextarea1" cols="3" rows="10" name="answerContents" placeholder="고객 문의글 &#10; ${qna.qnaContents }"></textarea>
+							<textarea class="form-control" id="exampleFormControlTextarea1" cols="3" rows="5" name="answerContents" placeholder="고객 문의글 &#10; ${qna.qnaContents }"></textarea>
 						</td>
 					</c:if>
 					<c:if test="${qna.answerContents ne null }">

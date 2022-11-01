@@ -20,7 +20,7 @@ public class OriginBook {
 	private String writer;
 	private int scoreCount;
 	
-	
+	public OriginBook() {}
 	
 	
 	public String getWriter() {

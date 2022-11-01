@@ -132,4 +132,8 @@
  	<select id="selectAllQna" resultMap="qnaResultMap">
  		SELECT * FROM QNA_TBL ORDER BY QNA_NO DESC
  	</select>
+ 	<!-- 관리자 게시물 카테고리별 리스트 -->
+ 	<select id="selectAllCategory" resultMap="qnaResultMap">
+		SELECT * FROM QNA_TBL WHERE QNA_CATEGORY=#{qnaCategory} ORDER BY QNA_NO DESC
+	</select>
 </mapper> 

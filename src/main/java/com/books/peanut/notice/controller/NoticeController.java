@@ -26,7 +26,7 @@ import com.books.peanut.notice.service.NoticeService;
 public class NoticeController {
 
 	@Autowired
-	NoticeService nService;
+	private NoticeService nService;
 	
 	//공지사항 작성 페이지 이동
 	@RequestMapping(value="/notice/writeView.kh", method=RequestMethod.GET)

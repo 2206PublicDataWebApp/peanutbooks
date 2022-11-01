@@ -27,5 +27,7 @@ public interface QnaService {
 	public int answerQna(Qna qna);
 	//관리자 게시글 상세검색
 	public List<Qna> printAllByValue(String searchCondition, String searchValue, int currentPage, int aqnaLimit);
+	//관리자 카테고리별 리스트
+	public List<Qna> printAllByCategory(String qnaCategory, int currentPage, int categoryLimit);
 
 }

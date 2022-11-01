@@ -119,8 +119,8 @@
 						</div>
 						<div class="col-4">
 
-							<img src="/resources/img/header/icons8-noticeboard-50.png" alt="">
-							<br>공지사항
+							<a href="/notice/list.kh"><img src="/resources/img/header/icons8-noticeboard-50.png" alt="">
+							<br>공지사항</a>
 						</div>
 
 					</div>
@@ -167,8 +167,8 @@
 						</div>
 						<div class="col-4">
 
-							<img src="/resources/img/header/icons8-noticeboard-50.png" alt="">
-							<br>공지사항
+							<a href="/notice/list.kh"><img src="/resources/img/header/icons8-noticeboard-50.png" alt="">
+							<br>공지사항</a>
 						</div>
 
 						<div class="col-4">

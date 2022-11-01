@@ -55,16 +55,30 @@
 			<div class="col" style="background-color: #5e5e5e; color: white; height:45px; vertical-align: middle;"><a href="/admin/qnaList.kh"">문의내역</a></div>
 		</div>
 		<br>
-		<div class="row row-cols-7" style="background-color:#e0e0e0; padding:20px">
-		    <div class="col-2" style="text-align:right;">
-		    	총문의<br>1&nbsp;&nbsp;&nbsp;
+		<div class="row row-cols-7" style="background-color:#e0e0e0; padding:20px; ">
+		    <div class="col">
+		    	<div style="text-align:right">
+		    		<a href="/admin/qnaList.kh">총문의<br>1&nbsp;&nbsp;&nbsp;&nbsp;</a>
+		    	</div>
+		    </div>
+		    <div class="col" style="width:20%";><img src="/resources/img/sidebar.png"></div>
+		    <div class="col">
+		    	<div style="text-align:center">
+		    		<a href="">답변완료<br>1</a>
+		    	</div>
 		    </div>
 		    <div class="col"><img src="/resources/img/sidebar.png"></div>
-		    <div class="col">답변완료<br>1</div>
+		    <div class="col">
+		    	<div style="text-align:center">
+		    		<a href="">처리중<br>1</a>
+		    	</div>
+		    </div>
 		    <div class="col"><img src="/resources/img/sidebar.png"></div>
-		    <div class="col">처리중<br>1</div>
-		    <div class="col"><img src="/resources/img/sidebar.png"></div>
-		    <div class="col-2" style="text-align:left;">&nbsp;&nbsp;접수<br>&nbsp;&nbsp;&nbsp;&nbsp;1</div>
+		    <div class="col">
+		    	<div style="text-align:left">
+		    		<a href="">접수<br>&nbsp;&nbsp;&nbsp;&nbsp;1</a>
+		    	</div>
+		    </div>
 		</div>
 
 	<br><br>
@@ -107,12 +121,12 @@
 	<div class="row row-cols-1">
 		<table align="center" class="table col-10">
 			<tr>
-				<td style="border:none;" td colspan="4" align="right">
+				<td style="border:none;" td colspan="6" align="right">
 					<a href="/admin/qnaList.kh" style="color: black"> 전체 | </a>
-					<a href="/admin/categoryCount.kh?noticeCategory=notice&page=${currentPage }" style="color: black"> 회원문의 |</a>
-					<a href="/admin/categoryCount.kh?noticeCategory=update&page=${currentPage }" style="color: black"> 포인트문의 |</a>
-					<a href="/admin/categoryCount.kh?noticeCategory=event&page=${currentPage }" style="color: black"> 도서문의 |</a>
-					<a href="/admin/categoryCount.kh?noticeCategory=info&page=${currentPage }" style="color: black"> 기타 </a>
+					<a href="/admin/categoryCount.kh?qnaCategory=member&page=${currentPage }" style="color: black"> 회원문의 |</a>
+					<a href="/admin/categoryCount.kh?qnaCategory=point&page=${currentPage }" style="color: black"> 포인트문의 |</a>
+					<a href="/admin/categoryCount.kh?qnaCategory=books&page=${currentPage }" style="color: black"> 도서문의 |</a>
+					<a href="/admin/categoryCount.kh?qnaCategory=others&page=${currentPage }" style="color: black"> 기타 </a>
 				</td>
 			</tr>
 			<c:if test="${!empty aList }">
