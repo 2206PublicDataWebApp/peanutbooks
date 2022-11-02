@@ -17,7 +17,6 @@
 		<result property="kakaoId" column="KAKAO_ID"/> <!-- 카카오 아이디 -->
 		<result property="accType" column="ACC_TYPE"/> <!-- 계정 종류(일반/네이버/카카오) -->
 		<result property="adminYN" column="ADMIN_YN"/> <!-- 관리자 여부 -->
-		<result property="authKey" column="AUTH_KEY"/> <!-- 이메일 인증 키(난수) -->
 	</resultMap>
 	<!-- 회원가입 -->
 	<insert id="insertMember">
@@ -47,18 +46,10 @@
 	<update id="deleteMember">
 		UPDATE MEMBER_TBL SET DELETE_YN = 'Y' WHERE MEMBER_ID = #{memberId}
 	</update>
-	<!-- 이메일 인증 키(난수) 생성 및 저장 -->
-	<update id="updateAuthKey" parameterType="Member">
-		UPDATE MEMBER_TBL SET AUTH_KEY = #{authKey} WHERE M_EMAIL = #{mEmail}
-	</update>
 	<!-- 이메일 인증 여부 변경 -->
-	<update id="updateEmailYN" parameterType="Member">
+<!-- 	<update id="updateEmailYN" parameterType="Member">
 		UPDATE MEMBER_TBL SET EMAIL_YN = 'Y' WHERE M_EMAIL = #{mEmail} AND AUTH_KEY = #{authKey}
-	</update>
-	<!-- 로그인 시 이메일 인증 여부 확인용 -->
-	<select id="emailAuthFail" parameterType="String" resultType="int">
-		SELECT COUNT(*) FROM MEMBER_TBL WHERE MEMBER_ID = #{memberId} AND EMAIL_YN = 'Y'
-	</select>
+	</update> -->
 	
 	<resultMap type="OriginBookSeries" id="oriSeriesResultMap">
 		<id property="seriesNo" column="SERIES_NO"/>
@@ -76,6 +67,7 @@
 		<result property="checkPermission" column="CHECK_PERMISSION"/>
 		<result property="status" column="status"/>
 	</resultMap>
+	<!-- 로그인한 회원이 등록한 작품 수 가져오기 -->
 	<select id="selectWrittenBooks" resultType="_int">
 		SELECT COUNT(*) FROM ORIGIN_BOOK WHERE MEMBER_ID = #{memberId}
 	</select>

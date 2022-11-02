@@ -8,11 +8,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>땅콩북스: 회원가입</title>
-	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="../resources/css/member.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 </head>
 <body>
     <form action="/member/join.pb" method="post">
@@ -197,11 +197,21 @@
     			})
     		}
     	});
-    	
-    	// submit check
-    	$("form").on("submit", function(){
-    	});
+    	// 가입 버튼 클릭 시 인증 메일 전송
+//     	$("#join-btn").on("click", function(){
+//     		var mEmail = $("#join-email").val(); // 입력한 이메일
+//     		$.ajax({
+//     			url: "/member/sendEmail.pb?mEmail=" + mEmail,
+//     			type : "get",
+//     			success : function(result) {
+//     				$("#authNum").val(result);
+//     				return true;
+//     			}
+//     		});
+//     		return false;
+//     	});
 
+    	// 모든 데이터가 정상 입력 되기 전까지 가입 버튼 비활성화
 /*      	$("input").on("keyup", function(){
      		var mNickname = $("#join-nickname").val();
       		var memberId = $("#join-id").val();
@@ -215,7 +225,6 @@
     		}
     	}); */
     	
-    	/* 이메일 인증 */
     </script>
 </body>
 </html>

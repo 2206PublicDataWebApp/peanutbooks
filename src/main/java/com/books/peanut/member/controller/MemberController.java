@@ -1,5 +1,7 @@
 package com.books.peanut.member.controller;
 
+import java.util.Random;
+
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,9 +52,12 @@ public class MemberController {
 			@ModelAttribute Member member,
 			ModelAndView mv) {
 		try {
+			String authNum = this.sendEmail(member.getmEmail());
 			int result = mService.registerMember(member);
 			if(result > 0) {
-				mv.setViewName("redirect:/"); // 회원가입 성공 시 로그인 전 메인 페이지로 이동
+				mv.addObject("msg", "입력하신 이메일 주소로 인증번호를 발송했습니다."); // 회원가입 성공 시 alert 창 띄운 후
+				mv.addObject("url", "/member/confirmEmailView.pb?memberId="+member.getMemberId()); // 인증번호 입력 페이지로 이동
+				mv.setViewName("common/alert");
 			} else {
 				mv.setViewName("redirect:/member/joinView.pb"); // 회원가입 실패 시 회원가입 페이지로 이동(임시)
 			}
@@ -61,48 +67,41 @@ public class MemberController {
 		return mv;
 	}
 	
-	// 이메일 전송
-	@RequestMapping(value="/member/sendMail.pb", method=RequestMethod.GET)
-	public void sendMailTest() throws Exception{
-		String subject = "이메일 테스트 제목";
-		String content = "이메일 테스트 내용"; // 이미지 첨부 -> "내용" + "<img src=\"이미지 경로\">"
-		String from = "realpeanutbooks@gmail.com";
-		String to = "yangyj0607@gmail.com";
+	/**
+	 * 인증 메일 전송
+	 * @param mEmail
+	 * @return
+	 * @throws Exception
+	 */
+//	@ResponseBody
+//	@RequestMapping(value="/member/sendEmail.pb", method=RequestMethod.GET)
+	public String sendEmail(String mEmail) throws Exception{
+		// 인증번호(난수) 생성
+		Random random = new Random();
+		int authKey = random.nextInt(88888) + 11111;
+		
+		String subject = "[땅콩북스] 회원가입 인증번호";
+		String content = "아래의 인증번호를 인증번호 입력창에 입력하세요.<br>인증번호는 " + authKey + " 입니다."; // 이미지 첨부 -> "내용" + "<img src=\"이미지 경로\">"
+		String from = "땅콩북스 <realpeanutbooks@gmail.com>"; // 이메일만 혹은 이름 + <이메일> 가능
+		String to = mEmail;
 		
 		try {
-			MimeMessage mail = mailSender.createMimeMessage();
-			MimeMessageHelper mailHelper = new MimeMessageHelper(mail, true, "UTF-8"); // true는 멀티파트(이미지 파일 등) 메시지 사용 명시
+			MimeMessage msg = mailSender.createMimeMessage();
+			MimeMessageHelper msgHelper = new MimeMessageHelper(msg, true, "UTF-8"); // true는 multipart 메시지(이미지 파일 등) 사용 명시
 			
-			mailHelper.setFrom(from);
-			// mailHelper.setFrom("보내는 이 이름 <보내는 이 이메일>"); // 이름과 이메일이 함께 표기 되길 원할 경우
-			mailHelper.setTo(to);
-			mailHelper.setSubject(subject);
-			mailHelper.setText(content, true); // true는 html 사용 명시, 사용하지 않을 시 생략 가능
-			mailSender.send(mail);
+			msgHelper.setFrom(from); // 메일 발신자
+			msgHelper.setTo(to); // 메일 수신자
+			msgHelper.setSubject(subject); // 메일 제목
+			msgHelper.setText(content, true); // 메일 내용 // true는 html 사용 명시, 사용하지 않을 시 생략 가능
+			mailSender.send(msg);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		String authNum = Integer.toString(authKey); // ajax로 반환하는 값은 String 타입만 가능하므로 형변환 처리
+		
+		return authNum;
 	}
-	
-	// 이메일 인증
-//	@RequestMapping(value="/member/emailConfirm", method = RequestMethod.GET)
-//	public ModelAndView emailConfirm(
-//				@RequestParam("authKey") String authKey,
-//				ModelAndView mv,
-//				RedirectAttributes rttr) throws Exception {
-//		if(authKey == null) {
-//			rttr.addFlashAttribute("msg", "인증키가 잘못 되었습니다. 다시 인증해 주세요.");
-//			mv.setViewName("redirect:/");
-//		}
-//		Member member = mService.emailAuth(authKey);
-//		if(member == null) {
-//			rttr.addFlashAttribute("msg", "잘못된 접근입니다. 다시 인증해 주세요.");
-//			mv.setViewName("redirect:/");
-//		}
-//		mv.addObject("member", member.getmNickname());
-//		mv.setViewName("/member/confirmEmailView.pb");
-//		return mv;
-//	}
 	
 	/**
 	 * 별명 유효성 검사
@@ -254,7 +253,9 @@ public class MemberController {
 	 * @return
 	 */
 	@RequestMapping(value="/member/confirmEmailView.pb", method=RequestMethod.GET)
-	public String confirmEmailView() {
+	public String confirmEmailView(@RequestParam("memberId") String memberId
+			, Model model) {
+		model.addAttribute("memberId", memberId);
 		return "member/confirmEmail";
 	}
 	
