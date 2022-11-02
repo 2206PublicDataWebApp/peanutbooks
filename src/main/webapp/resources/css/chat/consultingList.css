@@ -1,7 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
 @charset "UTF-8";
   /* The switch - the box around the slider */\
   body{
-  	
+  	font-family: 'Jua', sans-serif;
     width: 1000px; 
     height: 1000px; 
   }
@@ -26,9 +27,11 @@
 .switch {
   position: relative;
   display: inline-block;
-  width: 60px;
+  width: 100px;
   height: 34px;
   vertical-align:middle;
+  font-family: 'Jua', sans-serif;
+  
 }
 
 /* Hide default HTML checkbox */
@@ -87,6 +90,7 @@ p {
 	display:inline-block;
 	font-size:15px;
 	font-weight:bold;
+	font-family: 'Jua', sans-serif;
 }
 #rowbody{
   width:1200px;
@@ -98,24 +102,25 @@ p {
 #pagename{
     width: 100%;
     height: 80px;    
-    font-size: 30px;
-    font-weight: bold ;
+    font-size: 30px;   ;
+    font-family: 'Jua', sans-serif;
     color: rgb(7, 12, 43);
     margin: 10px;    
     justify-content: center;
     overFlow-y: auto; 
 }
 
-span{
+span{  
   display: inline;
   font-size: 20px;
   font-weight: bold;  
-  margin-left: 10px;
+  margin-left: 30px;
   
 }
 table{
   width: 700px;
   margin-left: 20px; 
+  font-family: 'Jua', sans-serif;
 }
 tdody>td{
   border-bottom: 1px solid;
@@ -151,3 +156,28 @@ tdody>td{
     padding : 10px;
     
 }
+/*종료 검색 버튼*/
+#searchbtn{
+  width: 100%;
+  height: 2.2rem;  
+  font-family: 'Jua', sans-serif;   
+  font-size:16px;
+}
+#csBtn{  
+  width: 200px;
+  height: 100%;
+  margin-left: 2rem;
+  line-height: 100%;
+  border: 1px #ccc solid;
+  background-color: #ccc;
+  text-align: center;
+  font-size:20px;
+  cursor:pointer;
+  color:#fff;
+  transition:all 0.9s,color 0.3;
+} 
+
+  #csBtn:hover{
+    color: #FFF;
+    box-shadow:-200px 0 0 0 rgba(0,0,0,0.5) inset;
+  }

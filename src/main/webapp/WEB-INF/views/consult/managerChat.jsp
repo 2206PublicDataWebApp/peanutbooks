@@ -42,18 +42,15 @@
 	</div>
 
 <script >
-	$('.context').scrollTop=$('.context').scrollHeight;
-	
 	var printer;
+
+	$('.context').scrollTop=$('.context').scrollHeight;	
 	
 	$('#getResult').on('click',function(){
 		sendChatMesage();
 	});
 	
 	$('#magText').on('keyup',function(e){
-		
-		
-		
 		
 		if(e.keyCode==13){
 			sendChatMesage();
@@ -77,10 +74,11 @@
 				dataType : 'json', 
 				type : 'POST', 
 				data : msg, 
-				success : function(result) { 				
-					if(!printer){
-						printer = setInterval(collList, 500);
-					}
+				success : function(result) { 
+	
+ 					if(!printer){
+ 						printer = setInterval(collList, 500);
+ 					}
 				},
 				error : function(e) {
 					alert('error:' + e);
@@ -90,11 +88,11 @@
 		}
 	};
 
-
+	var countData=-1;
 	function collList() {
 		console.log("출력준비");
 		var titleNo = ${param.titleNo};
-		$('#after').html('');
+		//$('#after').html('');
 
 		$.ajax({
 			url : "/client/listprint.kh",
@@ -102,10 +100,10 @@
 			data : {titleNo : titleNo},
 			success : function(result) {
 				for ( var i in result) {
-					var $chat = $('#after > div[data-consultNo="' + result[i].consultNo + '"]');
-					if ($chat.length < 1) {						
-						addChat(result[i].cousultNo, result[i].cMemberId,
-								result[i].cContexts, result[i].cDate);						
+				//var $chat = $('.chat').data("'"+result[i].consultNo+"'"); 값이 undefined가되어 포기						
+ 			 	if (i>countData) {						
+ 						addChat(result[i].consultNo, result[i].cMemberId,
+ 								result[i].cContexts, result[i].cDate);	 					
 					}
 				}
 			},
@@ -114,20 +112,22 @@
 			}
 		});
 	}
-
-	function addChat(consultNo, cMemberId, cContext, cDate) {
-		var consultNo = 0;		
+	
+	function addChat(consultNo, cMemberId, cContext, cDate) {			
+		countData++;
 		if (cMemberId === 'admin') {
 			$('#after').append(
-					'<div class="chat right" data-consultNo="' + consultNo + '">'
+					'<div class="chat right" data-'+consultNo+'="' + consultNo +'" >'
 							+ '<div class="icon"><img src="../resources/img/live-chat.png"></div>'
 							+ '<div class="middleBox"><span class="dateBox">'
 							+ cDate + '</span>' + '<span class="contextBox">'
 							+ cContext + '</span></div></div>');
+			//var a=$('#after>.chat').data(consultNo);
+			//console.log("데이터 값 확인: "+ a);
 
 		} else {
 			$('#after').append(
-					'<div class="chat left" data-consultNo="' + consultNo + '">'
+					'<div class="chat left" data-'+consultNo+'="' + consultNo + '">'
 							+ '<div class="icon"><img src="../resources/img/programmer.png"></div>'
 							+ '<div class="middleBox"><span class="contextBox">'
 							+ cContext + '</span><span class="dateBox">'
@@ -140,30 +140,34 @@
 		var titleNo = ${param.titleNo};
 		if (confirm("정말로 종료하시겠습니까?")) {
 			var csResult = prompt('상담결과를 입력하세요.');
-			$.ajax({
-				url : "/consult/finish.kh",
-				type : "post",
-				dataType : "json",
-				data : {
-					titleNo : titleNo,
-					csResult : csResult
-				},
-				success : function(data) {
-					if (data.result > 0) {
-						clearInterval(printer);
-						setTimeout(function() {
-							printer = false;
-							self.close();
-						}, 50)
-					} else {
-						alert("종료 되지 않았습니다. 다시 해주세요");
-
-					};
-				},
-				error : function(e) {
-					alert('error : ' + e.statusText);
-				}
-			});
+			if(csResult != null && csResult != '' && csResult != 'undefined'){
+				$.ajax({
+					url : "/consult/finish.kh",
+					type : "post",
+					dataType : "json",
+					data : {
+						titleNo : titleNo,
+						csResult : csResult
+					},
+					success : function(data) {
+						if (data.result > 0) {
+							clearInterval(printer);
+							setTimeout(function() {
+								printer = false;
+								self.close();
+							}, 50)
+						} else {
+							alert("종료 되지 않았습니다. 다시 해주세요");
+	
+						};
+					},
+					error : function(e) {
+						alert('error : ' + e.statusText);
+					}
+				});
+			} else{
+				alert("결과를 입력해주세요.");
+			}
 		};
 	}
 </script>

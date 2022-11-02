@@ -1,5 +1,6 @@
 package com.books.peanut.consult.store;
 
+import java.util.Date;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -31,11 +32,14 @@ public interface ConsultStore {
 
 	public String selechbtn(SqlSessionTemplate session);
 	//채팅상담종료건 조회
-	public List<ConsultServer> printEndListChat(SqlSessionTemplate session, Pagemarker pm, ConsultServer cs);
+	public List<ConsultServer> printEndListChat(SqlSessionTemplate session, Pagemarker pm, String csMemberId, String csDate);
 	//채팅상담종료건 조회 전체 카운트
-	public int getTotalCount(SqlSessionTemplate session, ConsultServer cs);
-	//종료채팅 id별로  상세보기
-	public List<Consult> printDetail(SqlSessionTemplate session,String memberId);
+//	public int getTotalCount(SqlSessionTemplate session, ConsultServer cs);
+	public int getTotalCount(SqlSessionTemplate session,String csMemberId, String csDate);
+	//id,titleNo 상담내용  상세보기	
+	public List<Consult> chatDetailList(SqlSessionTemplate session,Pagemarker pm, Consult consult);
+	//id,titleNo 상담내용 전체 카운트
+	public int getConsultCount(SqlSessionTemplate session, Consult consult);
 
 
 

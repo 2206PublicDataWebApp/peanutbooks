@@ -79,23 +79,29 @@ public class ImplService implements ConsultService{
 
 	//채팅상담종료건 조회
 	@Override
-	public List<ConsultServer> printEndListChat(Pagemarker pm, ConsultServer cs) {
-		List<ConsultServer> chatList=cStore.printEndListChat(session, pm, cs);
+	public List<ConsultServer> printEndListChat(Pagemarker pm, String csMemberId, String csDate) {
+		List<ConsultServer> chatList=cStore.printEndListChat(session, pm, csMemberId,csDate);
 		return chatList;
 	}
 
 	//채팅상담종료건 조회 전체 카운트
 	@Override
-	public int getTotalCount(ConsultServer cs) {
-		int count=cStore.getTotalCount(session, cs);
+	public int getTotalCount(String csMemberId, String csDate) {
+		int count=cStore.getTotalCount(session, csMemberId,csDate);
 		return count;
 	}
 
-	//종료채팅 id별로  상세보기
+	//id,titleNo 상담내용  확인
 	@Override
-	public List<Consult> printEndListChat(String memberId) {
-		List<Consult> cList=cStore.printDetail(session, memberId);
+	public List<Consult> chatDetailList(Pagemarker pm,Consult consult) {
+		List<Consult> cList=cStore.chatDetailList(session, pm, consult);
 		return cList;
+	}
+	//id,titleNo 상담내용  전체 카운트
+	@Override
+	public int getConsultCount(Consult consult) {
+		int num=cStore.getConsultCount(session, consult);
+		return num;
 	}
 
 

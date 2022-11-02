@@ -120,6 +120,10 @@ public class ServicePayImpl implements PayService {
 	}
 	//작가 정산리스트 전체갯수 구하기
 	@Override
+//	public int getwritetP_Count() {
+//		int count=pStore.getwritetP_Count(session);
+//		return count;
+//	}
 	public int getwritetP_Count() {
 		int count=pStore.getwritetP_Count(session);
 		return count;
