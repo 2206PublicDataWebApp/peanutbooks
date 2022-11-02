@@ -62,15 +62,5 @@ public class MemberStoreLogic implements MemberStore{
 		int result = session.selectOne("MemberMapper.selectWrittenBooks", memberId);
 		return result;
 	}
-	// 이메일 인증 키 확인
-//	@Override
-//	public Member emailAuth(SqlSession session, String authKey) {
-//		Member mResult = session.selectOne("MemberMapper.emailAuth", authKey);
-//		return mResult;
-//	}
-	// 이메일 인증 성공 후 계정 활성화
-//	@Override
-//	public void successAuth(SqlSession session, Member member) throws Exception {
-//		session.update("MemberMapper.successAuth", member);
-//	}
+	
 }

@@ -19,7 +19,7 @@ body{ /* 전체 */
 html,body{
 	 height: 100% !important;
 }
-.row{ /* 부트스트랩 관련 */
+main .row{ /* 부트스트랩 관련 */
 	height: 100% !important;
 }
 form{
@@ -307,6 +307,9 @@ form{
 .info-menu{ /* 메뉴 영역 하나 */
 	padding: 24px 16px 24px 16px;
 	border-bottom: solid 1px lightgray;
+}
+.info-menu:hover{
+	cursor: pointer;
 }
 .menu-item{ /* 메뉴 글자, 화살표 */
     display: inline-block;
