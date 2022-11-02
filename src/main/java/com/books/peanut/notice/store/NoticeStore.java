@@ -29,5 +29,7 @@ public interface NoticeStore {
 	public List<Notice> selectAllByCategory(SqlSession session, 
 			String noticeCategory, int currentPage,
 			int categoryLimit);
+	//공지사항 조건검색 페이지 갯수
+	public int selectTotalCount(SqlSession session, String noticeCategory);
 
 }

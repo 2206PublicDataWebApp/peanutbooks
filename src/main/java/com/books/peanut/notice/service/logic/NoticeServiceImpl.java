@@ -18,25 +18,25 @@ public class NoticeServiceImpl implements NoticeService{
 	private NoticeStore nStore;
 	@Autowired
 	private SqlSession session;
-
+	//공지사항 입력하기
 	@Override
 	public int registeNotice(Notice notice) {
 		int result = nStore.insertNotice(session, notice);
 		return result;
 	}
-
+	//공지사항 전체페이지 갯수
 	@Override
 	public int getTotalCount(String searchCondition, String searchValue) {
 		int totalCount = nStore.selectTotalCount(session, searchCondition, searchValue);
 		return totalCount;
 	}
-
+	//공지사항 전체리스트
 	@Override
 	public List<Notice> printAllNotice(int currentPage, int noticeLimit) {
 		List<Notice> nList = nStore.selectAllNotice(session, currentPage, noticeLimit);
 		return nList;
 	}
-
+	//공지사항 상세페이지
 	@Override
 	public Notice printOneByNo(Integer noticeNo) {
 		Notice notice = nStore.selectOneByNo(session, noticeNo);
@@ -46,19 +46,19 @@ public class NoticeServiceImpl implements NoticeService{
 		}
 		return notice;
 	}
-
+	//공지사항 삭제
 	@Override
 	public int removeOneByNo(int noticeNo) {
 		int result = nStore.deleteOneByNo(session, noticeNo);
 		return result;
 	}
-
+	//공지사항 수정
 	@Override
 	public int modifyNotice(Notice notice) {
 		int result = nStore.updateNotice(session, notice);
 		return result;
 	}
-
+	//공지사항 상세검색
 	@Override
 	public List<Notice> printAllByValue(
 			String searchCondition
@@ -70,7 +70,7 @@ public class NoticeServiceImpl implements NoticeService{
 				, currentPage, noticeLimit);
 		return nList;
 	}
-
+	//카테고리별 검색
 	@Override
 	public List<Notice> printAllByCategory(
 			String noticeCategory
@@ -79,6 +79,12 @@ public class NoticeServiceImpl implements NoticeService{
 		List<Notice> nList = nStore.selectAllByCategory(session
 				, noticeCategory, currentPage, categoryLimit);
 		return nList;
+	}
+	//카테고리별 검색 페이지 수
+	@Override
+	public int getTotalCount(String noticeCategory) {
+		int totalCount = nStore.selectTotalCount(session, noticeCategory);
+		return totalCount;
 	}
 
 

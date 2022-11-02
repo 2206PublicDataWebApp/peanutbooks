@@ -35,10 +35,10 @@ public class BookApproveController {
 			@RequestParam(value = "page", required = false) Integer page) {
 
 		
-		 Member member = (Member)session.getAttribute("loginMember"); if
-		 ((member.getAdminYN().charAt(0) + "").equals("N")) { // 세션에서 관리자 체크가 안된다면
-		 mv.addObject("msg", "관리자만 접속가능합니다"); mv.setViewName("/common/errorPage"); }
-		 else {
+		 Member member = (Member)session.getAttribute("loginMember"); 
+		 if((member.getAdminYN().charAt(0) + "").equals("N")) { // 세션에서 관리자 체크가 안된다면
+			 mv.addObject("msg", "관리자만 접속가능합니다"); mv.setViewName("/common/errorPage"); 
+		} else {
 		
 			int getTotlaCount = BAService.allOriSeriesCount(); // 가지고올 책의 갯수 파악
 		

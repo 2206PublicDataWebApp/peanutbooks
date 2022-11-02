@@ -32,58 +32,94 @@
 
 <!-- main contents start -->
 <main>
-<br><br>	
-<div class="container">
+	<section class="container">
+	<!-- 세부페이지 head 시작 -->
+		<!-- 세부페이지 큰 제목 -->
+		<br>
+		<div class="container text-center">
+			<hr>
+		<!-- 세부페이지 큰 제목 끝 -->
+		<br>
+		
+		<!-- 세부페이지 body 시작 -->
 
-	<h3 align="center">${notice.noticeNo }번 공지사항 상세 페이지</h3>
-	<br><br>
-		
-		<table align="center" class="table col-10">
-			<tr>
-				<td  class="col-2" scope="col" align="center">종류</td>
-				<td>
-					<c:if test="${notice.noticeCategory == 'notice'}">공지</c:if>
-					<c:if test="${notice.noticeCategory == 'update'}">업데이트</c:if>
-					<c:if test="${notice.noticeCategory == 'event'}">이벤트</c:if>
-					<c:if test="${notice.noticeCategory == 'info'}">안내</c:if>
-				</td>
-			</tr>
-			<tr>
-				<td  class="col-2" scope="col" align="center">작성자</td>
-				<td><input type="text" name="noticeWriter"  class="form-control" value="${notice.noticeWriter }" readonly></td>
-			</tr>
-			<tr>
-				<td  class="col-2" scope="col" align="center">제목</td>
-				<td><input type="text" name="noticeTitle" onkeyup="titleLengthCk(this);" class="form-control" value="${notice.noticeTitle }"></td>
-			</tr>
-			<tr>
-				<td  class="col-2" scope="col" align="center">내용</td>
-				<td> <textarea class="form-control" id="exampleFormControlTextarea1" cols="50" rows="20" name="noticeContents">${notice.noticeContents }</textarea>  </td>
-			</tr>
-			<tr>
-				<td  class="col-2" scope="col" align="center">첨부파일</td>
-				<td>
-				<c:if test="${!empty notice.noticeFileRename }">
-					<a href=""  onclick="fnImgPop(this.src)"><img alt="본문이미지" 
-					src="/resources/nuploadFiles/${notice.noticeFileRename }" 
-					style="width:200px; height:200px;" onclick="fnImgPop(this.src)"></a>
-				</c:if>
-				<c:if test="${empty notice.noticeFileRename }">
-					<input type="file" name="uploadFile">
-				</c:if>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2" align="center" style="border:none;">
-					<input onclick="noticeModify(${notice.noticeNo }, ${page});" type="button" value="수정" class="btn btn-warning btn-sm">
-					<input onclick="noticeRemove(${notice.noticeNo }, ${page});" type="button" value="삭제" class="btn btn-warning btn-sm">
-					<button type="button" onclick="backBtn()" class="btn btn-warning btn-sm">목록</button> 
-					 
-				</td>
-			</tr>
-		</table>
-		
-</div>
+		<h3 align="center">공지사항 상세 페이지</h3>
+		<br><br>
+			<c:if test="${loginMember.adminYN=='Y' }">
+				<table align="center" class="table col-10">
+					<tr>
+						<td  class="col-2" scope="col" align="center">종류</td>
+						<td>
+							<c:if test="${notice.noticeCategory == 'notice'}">공지</c:if>
+							<c:if test="${notice.noticeCategory == 'update'}">업데이트</c:if>
+							<c:if test="${notice.noticeCategory == 'event'}">이벤트</c:if>
+							<c:if test="${notice.noticeCategory == 'info'}">안내</c:if>
+						</td>
+					</tr>
+					<tr>
+						<td  class="col-2" scope="col" align="center">작성자</td>
+						<td><input type="text" name="noticeWriter"  class="form-control" value="${notice.noticeWriter }" readonly></td>
+					</tr>
+					<tr>
+						<td  class="col-2" scope="col" align="center">제목</td>
+						<td><input type="text" name="noticeTitle" onkeyup="titleLengthCk(this);" class="form-control" value="${notice.noticeTitle }"></td>
+					</tr>
+					<tr>
+						<td  class="col-2" scope="col" align="center">내용</td>
+						<td>${notice.noticeContents }
+							<br>
+							<c:if test="${!empty notice.noticeFileRename }">
+								<a href=""  onclick="fnImgPop(this.src)"><img alt="본문이미지" 
+								src="/resources/nuploadFiles/${notice.noticeFileRename }" 
+								style="width:600px; height:auto;" onclick="fnImgPop(this.src)"></a>
+							</c:if>
+							<c:if test="${empty notice.noticeFileRename }">
+								<input type="file" name="uploadFile">
+							</c:if>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" align="center" style="border:none;">
+							<input onclick="noticeModify(${notice.noticeNo }, ${page});" type="button" value="수정" class="btn btn-warning btn-sm">
+							<input onclick="noticeRemove(${notice.noticeNo }, ${page});" type="button" value="삭제" class="btn btn-warning btn-sm">
+							<button type="button" onclick="backBtn()" class="btn btn-warning btn-sm">목록</button> 
+							 
+						</td>
+					</tr>
+				</table>
+			</c:if>
+			<c:if test="${loginMember.adminYN=='N' }">
+				<table align="center" class="table col-10">
+					<tr>
+						<td>
+							<c:if test="${notice.noticeCategory == 'notice'}">[공지]</c:if>
+							<c:if test="${notice.noticeCategory == 'update'}">[업데이트]</c:if>
+							<c:if test="${notice.noticeCategory == 'event'}">[이벤트]</c:if>
+							<c:if test="${notice.noticeCategory == 'info'}">[안내]</c:if>
+							${notice.noticeTitle }
+						</td>
+					</tr>
+					<tr>
+						<td>${notice.noticeContents }
+						<br>
+						<c:if test="${!empty notice.noticeFileRename }">
+							<img alt="본문이미지" style="width:700px; height:auto;" src="/resources/nuploadFiles/${notice.noticeFileRename }">
+						</c:if>
+						<c:if test="${empty notice.noticeFileRename }">
+							&nbsp;
+						</c:if>
+						<br><br>
+						</td>
+					</tr>
+					<tr>
+						<td align="center" style="border:none;">
+							<button type="button" onclick="backBtn()" class="btn btn-warning btn-sm">목록</button> 
+						</td>
+					</tr>
+				</table>
+			</c:if>
+		</div>
+	</section>
 <br><br>
 </main>
 <!-- main contents End -->

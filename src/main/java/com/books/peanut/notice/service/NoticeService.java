@@ -23,6 +23,9 @@ public interface NoticeService {
 			, String searchValue
 			, int currentPage
 			, int noticeLimit);
+	//공지사항 카테고리별 검색 페이지수
+	public int getTotalCount(String noticeCategory);
+	//공지사항 카테고리별 검색
 	public List<Notice> printAllByCategory(
 			String noticeCategory
 			, int currentPage

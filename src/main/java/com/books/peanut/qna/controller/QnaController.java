@@ -574,9 +574,8 @@ public class QnaController {
 			, @RequestParam("qnaCategory") String qnaCategory
 			, @RequestParam(value="page", required=false) Integer page) {
 		try {
-			System.out.println(qnaCategory);
 			int currentPage = (page != null) ? page : 1;
-			int totalCount = qService.getTotalCount("", "");
+			int totalCount = qService.getTotalCount(qnaCategory);
 			int categoryLimit = 10;
 			int naviLimit = 5;
 			int maxPage;
@@ -589,12 +588,12 @@ public class QnaController {
 				endNavi = maxPage;
 			}
 			List<Qna> aList = qService.printAllByCategory(qnaCategory, currentPage, categoryLimit);
-			if(aList.isEmpty()) {
+			if(!aList.isEmpty()) {
 				mv.addObject("aList", aList);
 			}else {
-				mv.addObject("nList", null);
+				mv.addObject("aList", null);
 			}
-			mv.addObject("urlVal", "search");
+			mv.addObject("urlVal", "categoryCount");
 			mv.addObject("qnaCategory", qnaCategory);
 			mv.addObject("maxPage", maxPage);
 			mv.addObject("currentPage", currentPage);
