@@ -70,7 +70,6 @@
 					<h5>작품소개</h5>
 					<div id="info-text1">${oBook.bookInfo }</div>
 					<div id="tag-area"></div>
-
 				</div>
 
 
