@@ -35,7 +35,7 @@
         <span >상담 대기인원 :</span> <span id="count">명</span>
     </div>
     <div id="searchbtn">
-    	<button onclick="endList();">종료건 조회</button>
+    	<button id="csBtn" onclick="endList();">종료건 조회</button>
     </div>
     <div>                             
        <div id="pagename" align="center">채팅상담리스트</div>

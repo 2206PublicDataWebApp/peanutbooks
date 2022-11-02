@@ -67,26 +67,56 @@ public class LogicStore implements ConsultStore{
 	}
 	//채팅상담종료건 조회
 	@Override
-	public List<ConsultServer> printEndListChat(SqlSessionTemplate session, Pagemarker pm, ConsultServer cs) {
+//	public List<ConsultServer> printEndListChat(SqlSessionTemplate session, String csMemberId, String csDate) {
+//		int offset=(pm.getCurrentPage()-1)*pm.getLimit();		
+//		RowBounds rowBounds = new RowBounds(offset,pm.getLimit());
+//		//null, rowBounds 같이 진행해줘야 자동으로 처리된다.
+//		HashMap<String, String > paramMap=new HashMap<String, String>();
+//		
+//		
+//		List<ConsultServer> chatList=session.selectList("ConsultMapper.chatEndList",cs,rowBounds);
+//		return chatList;
+//	}
+	public List<ConsultServer> printEndListChat(SqlSessionTemplate session, Pagemarker pm,String csMemberId, String csDate) {
 		int offset=(pm.getCurrentPage()-1)*pm.getLimit();		
 		RowBounds rowBounds = new RowBounds(offset,pm.getLimit());
 		//null, rowBounds 같이 진행해줘야 자동으로 처리된다.
 		HashMap<String, String > paramMap=new HashMap<String, String>();
-		List<ConsultServer> chatList=session.selectList("ConsultMapper.chatEndList",cs,rowBounds);
+		paramMap.put("csMemberId", csMemberId);
+		paramMap.put("csDate", csDate);
+		
+		List<ConsultServer> chatList=session.selectList("ConsultMapper.chatEndList",paramMap,rowBounds);
 		return chatList;
 	}
 	
 	//채팅상담종료건 조회 전체 카운트
 	@Override
-	public int getTotalCount(SqlSessionTemplate session, ConsultServer cs) {
-		int count=session.selectOne("ConsultMapper.chatListcount", cs);
+	public int getTotalCount(SqlSessionTemplate session,String csMemberId, String csDate) {
+		HashMap<String, String> hmap=new HashMap<String, String>();
+		hmap.put("csMemberId", csMemberId);
+		hmap.put("csDate", csDate);
+		int count=session.selectOne("ConsultMapper.chatListcount", hmap);
 		return count;
 	}
-	//종료채팅 id별로  상세보기
+	
+//	public int getTotalCount(SqlSessionTemplate session, ConsultServer cs) {
+//	int count=session.selectOne("ConsultMapper.chatListcount", cs);
+//	return count;
+//}
+	//id,titleNo  상세보기
 	@Override
-	public List<Consult> printDetail(SqlSessionTemplate session,String memberId) {
-		List<Consult> cList =session.selectList("ConsultMapper.idSelectChat",memberId);
+	public List<Consult> chatDetailList(SqlSessionTemplate session,Pagemarker pm, Consult consult) {
+		int offset=(pm.getCurrentPage()-1)*pm.getLimit();		
+		RowBounds rowBounds = new RowBounds(offset,pm.getLimit());
+
+		List<Consult> cList=session.selectList("ConsultMapper.detailList",consult,rowBounds);
 		return cList;
 	}
+	//id,titleNo 전체 카운트
+	@Override
+	public int getConsultCount(SqlSessionTemplate session, Consult consult) {
+		int num=session.selectOne("ConsultMapper.detailcount", consult);
+		return num;
+	}	
 
 }

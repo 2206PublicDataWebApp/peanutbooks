@@ -57,8 +57,8 @@
 		</div>
 	</div>
 	<script>
-	$('.context').scrollTop=$('.context').scrollHeight;
 	var printer;
+	$('.context').scrollTop=$('.context').scrollHeight;
 	//상담접수
 	function beforeChat(memberId, mEmail) {
 
@@ -67,7 +67,7 @@
 			cEmail : mEmail,
 			csTitle : $('#inTitle').val()
 		};
-		//console.log("화면 접수성공: " + afterMsg);
+		
 		$.ajax({
 			url : "/client/afterChat.kh",
 			dataType : 'json',
@@ -75,7 +75,7 @@
 			data : afterMsg,
 			success : function(result) {
 				alert("접수성공");
-				//성공시 대기 맨트 예정
+				//성공시 대기 멘트 예정
 				$('<div>').appendTo('#after').text("접수완료되었습니다.");
 				$('<div>').appendTo('#after').text("잠시만 기다려주시기 바랍니다..");
 				$('<div>').appendTo('#after').text(
@@ -86,7 +86,7 @@
 
 			},
 			error : function(e) {
-				alert(1);
+				alert("error");
 			}
 		});
 
@@ -103,6 +103,7 @@
 			sendChatMesage();
 		};
 	});
+	//메시지 보내기
 	function sendChatMesage(){	
 				
 		$("#before").css("display", "none");
@@ -130,11 +131,12 @@
 			}
 		});
 	}
-
+	
 	//DB에서 데이터 가져와서 화면에 출력해주기		
+	var countData=-1;
 	function collList() {
 		console.log("출력준비");
-		$('#after').html('');
+		//$('#after').html('');
 
 		$.ajax({
 			url : "/client/listprint.kh",
@@ -142,11 +144,11 @@
 			data : {
 				titleNo : $("#titleNo").val()
 			},
-			success : function(result) {
-				for ( var i in result) {
-					var $chat = $('#after > div[data-consultNo="' + result[i].consultNo + '"]');
-					if ($chat.length < 1) {						
-						addChat(result[i].cousultNo, result[i].cMemberId,
+			success : function(result) {				
+				for ( var i in result) {				
+									
+					if (i>countData) {						
+						addChat(result[i].consultNo, result[i].cMemberId,
 								result[i].cContexts, result[i].cDate);	
 					};
 				};
@@ -158,10 +160,10 @@
 	}
 	
 	function addChat(consultNo,cMemberId, cContext, cDate) {
-		console.log("데이터 올림 확인 : " + cMemberId);
+		countData++;
 		if (cMemberId != 'admin') {
 			$('#after').append(
-					'<div class="chat right" data-consultNo="' + consultNo + '">'
+					'<div class="chat right" data-'+consultNo+'="' + consultNo + '">'
 					+ '<div class="icon"><img src="../resources/img/programmer.png"></div>'
 									+ '<div class="middleBox"><span class="dateBox">' + cDate
 									+ '</span><span class="contextBox">'
@@ -170,12 +172,20 @@
 
 		} else {
 			$('#after').append(
-					'<div class="chat left" data-consultNo="' + consultNo + '">'
+					'<div class="chat left" data-'+consultNo+'="' + consultNo + '">'
 					+ '<div class="icon"><img src="../resources/img/live-chat.png"></div>'
 							+ '<div class="middleBox"><span class="contextBox">'
 							+ cContext + '</span>'
 							+ '<span class="dateBox">' + cDate
 							+ '</span></div></div>');
+			
+/* 			$('#after').append(
+					'<div class="chat left" data-consultNo="' + consultNo + '">'
+					+ '<div class="icon"><img src="../resources/img/live-chat.png"></div>'
+							+ '<div class="middleBox"><span class="contextBox">'
+							+ cContext + '</span>'
+							+ '<span class="dateBox">' + cDate
+							+ '</span></div></div>'); */
 		}
 	}
 	//종료 버튼 누를경우

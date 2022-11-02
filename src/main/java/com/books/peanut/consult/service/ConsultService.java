@@ -1,5 +1,6 @@
 package com.books.peanut.consult.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.books.peanut.consult.domain.Consult;
@@ -30,13 +31,15 @@ public interface ConsultService {
 		public String selechbtn();
 
 		//채팅상담종료건 조회
-		public List<ConsultServer> printEndListChat(Pagemarker pm, ConsultServer cs);
+		public List<ConsultServer> printEndListChat(Pagemarker pm, String csMemberId, String csDate);
 
 		//채팅상담종료건 조회 전체 카운트
-		public int getTotalCount(ConsultServer cs);
-
-		//종료채팅 id별로  상세보기
-		public List<Consult> printEndListChat(String memberId);
+//		public int getTotalCount(ConsultServer cs);
+		public int getTotalCount(String csMemberId, String csDate);
+		//id,titleNo 상담내용  확인
+		public List<Consult> chatDetailList(Pagemarker pm,Consult consult);
+		//id,titleNo 상담내용  전체 카운트
+		public int getConsultCount(Consult consult);
 
 		
 

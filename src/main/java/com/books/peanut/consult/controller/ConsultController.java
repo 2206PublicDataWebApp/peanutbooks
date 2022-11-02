@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -249,9 +250,9 @@ public class ConsultController {
 	}
 
 	// 관리자가 종료건 검색 화면으로 이동
-	@RequestMapping(value = "/consult/endList.kh", method = RequestMethod.GET)
-	public ModelAndView endListSearch(ModelAndView mv,
-			@RequestParam(value = "searchDate", required = false) String csDate,
+	
+	
+/*			@RequestParam(value = "searchDate", required = false) String csDate,
 	    	@RequestParam(value = "page", required = false) Integer page,
 	    	@ModelAttribute ConsultServer cs) throws ParseException {
 		Pagemarker pm = new Pagemarker();
@@ -261,15 +262,8 @@ public class ConsultController {
 		}
 
 		int totalCount = cService.getTotalCount(cs);
-		int currentPage = (page != null) ? page : 1;
-//		if(date.ofNullable(csDate) != null) {
-	//	if(csDate != null) {
-//			cs.setCsDate(csDate); 
-//		}else if(csDate.equals("9999-01-01")){
-//			cs.setCsDate(null); 
-//		} else {
-//			cs.setCsDate(null); 
-//		}			
+		int currentPage = (page != null) ? page : 1;		
+		
 		pm.pageInfo(currentPage, totalCount);
 		mv.addObject("pm", pm);
 		
@@ -279,15 +273,48 @@ public class ConsultController {
 		mv.addObject("csDate", csDate);		
 		mv.setViewName("/consult/chatEndList");
 		return mv;
+	}*/
+	//csDate값을 내가 원하는 형식을 표시할수 없어서 그냥 String값으로 가져가 봅니다.
+	@RequestMapping(value = "/consult/endList.kh", method = RequestMethod.GET)
+	public ModelAndView endListSearch(ModelAndView mv,
+			@RequestParam(value = "searchDate", required = false) String csDate,
+	    	@RequestParam(value = "page", required = false) Integer page,
+	    	@RequestParam(value = "csMemberId", required = false) String csMemberId) {
+		
+		Pagemarker pm = new Pagemarker();
+		int totalCount = cService.getTotalCount(csMemberId,csDate);
+		int currentPage = (page != null) ? page : 1;
+		pm.pageInfo(currentPage, totalCount);
+		mv.addObject("pm", pm);
+		
+		List<ConsultServer> chatList = cService.printEndListChat(pm, csMemberId,csDate);
+		mv.addObject("chatList", chatList);
+		mv.addObject("csMemberId", csMemberId);
+		mv.addObject("csDate", csDate);		
+		mv.setViewName("/consult/chatEndList");
+		return mv;		
 	}
+			
 
-
-	// 채팅 상담내용 상세보기
+	// id,titleNo 상담내용 상세보기
 	@RequestMapping(value = "/consult/chatDetail.kh", method = RequestMethod.GET)
-	public ModelAndView detailSearch(ModelAndView mv, String memberId) {
-		List<Consult> cList = cService.printEndListChat(memberId);
+	public ModelAndView detailSearch(ModelAndView mv, 
+			@ModelAttribute Consult consult,
+			@RequestParam(value = "page", required = false) Integer page) {
+		Pagemarker pm = new Pagemarker();
+		//int totalCount = cService.getConsultCount(consult);
+		//int currentPage = (page != null) ? page : 1;
+		//pm.pageInfo(currentPage, totalCount);
+		pm.setTotalCount(cService.getConsultCount(consult));
+		pm.setCurrentPage((page != null) ? page : 1);
+		pm.pageInfo(pm.getCurrentPage(), pm.getTotalCount());
+		mv.addObject("pm", pm);
+		
+		List<Consult> cList = cService.chatDetailList(pm, consult);
 		mv.addObject("cList", cList);
-		mv.setViewName("/consult/detailList");
+		mv.addObject("cMemberId", consult.getcMemberId());
+		mv.addObject("titleNo", consult.getTitleNo());
+		mv.setViewName("/consult/chatDetail");
 		return mv;
 	}
 }

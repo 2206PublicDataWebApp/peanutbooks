@@ -8,73 +8,46 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 채팅 검색화면</title>
-<link rel="stylesheet" href="../resources/css/chat/chatEndList.css" ></link>
+<link rel="stylesheet" href="../resources/css/chat/chatDetail.css" ></link>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     
 </head>
 <body>
-<div id="header">
-<jsp:include page="../header/adminheader.jsp"></jsp:include>
-</div>
+		<div id="searchbtn">						
+			<button id="csBtn" onclick="exit();">종 료</button>
+		</div>
 
 <br>
 <main>
 	<div>
-		<div id="searchbtn">
-			<label for="select"></label>
-			<select name="chatEndList" id="select">
-				<option value="all" checked>전체</option>
-				<option value="id">아이디</option>
-				<option value="date">날짜</option>
-			</select> 		
-			
-			<input type="text" style="display:none" >						
-			<input type="date" style="display:none">				
-			<button id="csBtn" onclick="chatsearch();">검 색</button>
-
-		</div>
 		<div>
-			<div id="pagename" align="center">채팅상담리스트</div>
+			<div id="pagename" align="center">${param.cMemberId }님의 상담내용</div>
 			<div class="table-responsive">
-				<table class="table table-striped table-hover" border="1"
+				<table class="table table-striped table-hover" 
 					id="togglePart">
 					<thead class="table-light">
 						<tr>
 							<th scope="col">번호</th>
-							<th scope="col">고객ID</th>
-							<th scope="col">문의주제</th>
-							<th scope="col">신청시간</th>
-							<th scope="col">상담결과</th>
-							<th scope="col">상세보기</th>
+							<th scope="col">말한사람</th>							
+							<th scope="col">대화시간</th>
+							<th scope="col">대화내용</th>							
 						</tr>
-					</thead>
-					<c:if test="${empty chatList }">
+					</thead>					
+					
 					<tbody>
-						<tr>
-							<td>채팅상담종료된 건이 없습니다.</td>
-						</tr>
-					</tbody>
-					</c:if>
-
-					<c:if test="${!empty chatList  }">
-					<tbody>
-						<c:forEach items="${chatList }" var="ConsultServer" varStatus="i">
-							<tr>
-								<td>${ConsultServer.titleNo }</td>
-								<td>${ConsultServer.csMemberId }</td>
-								<td>${ConsultServer.csTitle }</td>
-								<td><fmt:formatDate value="${ConsultServer.csDate }"
+						<c:forEach items="${cList }" var="Consult" varStatus="i">
+							<tr style="height : 40px;">
+								<td>${i.count +((pm.currentPage-1)*10)}</td>
+								<td>${Consult.cMemberId }</td>
+								<td><fmt:formatDate value="${Consult.cDate }"
 										pattern="yy.MM.dd HH:mm:ss" /></td>
-								<td>${ConsultServer.csResult }</td>
-								<td><input type="button" class="detailBtn"
-									onclick="popUpOpen('${ConsultServer.csMemberId }', '${ConsultServer.titleNo }' );" value="상세보기" />
-								</td>
+								<td>${Consult.cContexts }</td>				
+								
 							</tr>
-
 						</c:forEach>
-						</tdody>
+					</tdody>
 				</table>
 
 
@@ -120,57 +93,24 @@
 					</c:if>
 				</div>
 			</div>
-			</c:if>
-
 	</div>
 	</div>
 
 </main>
-
-<jsp:include page="../footer/footer.jsp"></jsp:include>
-
-<script>
-	/* chat내용 상세보기 */
-	function popUpOpen(csMemberId,titleNo){
-		var windo = 'status=no ,toolbar=no,scrollbars=no, menubar=no,resizable=no,titlebar=no, width=780,height=750';
-		window.open("/consult/chatDetail.kh?cMemberId="+ csMemberId+"&titleNo="+titleNo,"PopupWin", windo);
-	}
-	
-	/* 검색창 display  */
-	$('#select').on('change',function(){
-		if($('#select option').eq(1).is(':checked')){
-			$('input[type="text"]').show();
-			$('input[type="date"]').hide();
-		}else if($('#select option').eq(2).is(':checked')){
-			$('input[type="date"]').show();
-			$('input[type="text"]').hide();
-		}else{
-			$('input[type="text"]').hide();
-			$('input[type="date"]').hide();
-		}
-	});
-	
+<script>	
 		
 	
 	/* 페이징  */
 	function pageChatSearch(page){
 		
-		var csDate=$('input[type=date]').val();			
-		var memberId="${csMemberId}";		
-		location.href="/consult/endList.kh?page="+page+"&csMemberId="+memberId+"&searchDate="+csDate;
+		var titleNo="${titleNo }";			
+		var memberId="${param.cMemberId}";		
+		location.href="/consult/chatDetail.kh?page="+page+"&cMemberId="+memberId+"&titleNo="+titleNo;
+		
 	}
-	/* 검색버튼  */
-	function chatsearch(){
-		var csDate=$('input[type=date]').val();
-		var memberId=$('input[type=text]').val();
-		if($('#select option').eq(1).is(':checked')){	
-			location.href="/consult/endList.kh?csMemberId="+memberId;
-		}else if($('#select option').eq(2).is(':checked')){
-			location.href="/consult/endList.kh?searchDate="+csDate;
-		}else{
-			location.href="/consult/endList.kh";
-		};
-			
+	/* 종료  */
+	function exit(){
+		self.close();			
 	}
 
 	
