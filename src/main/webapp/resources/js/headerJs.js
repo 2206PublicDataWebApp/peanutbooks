@@ -11,7 +11,15 @@ mypage.style.display = 'none';
 point.style.display='none';
 adminPage.style.display='none';
  menubar.style.display = 'none';
+var userOn = false;
+var pointOn = false;
+var adminOn= false;
 
+/*document.querySelector(main).addEventListener('mousedown', function(){
+if(userOn){ mypage.style.display = 'none'; userOn=false}
+if(pointOn){point.style.display='none';pointOn = false;}
+if(adminOn){adminPage.style.display='none'; adminOn= false;}
+});*/
 
 
 user.onclick = function () {
@@ -24,13 +32,14 @@ user.onclick = function () {
         document.querySelector('#user-icon').src = '/resources/img/header/icons8-user-yellow.png';
         document.querySelector('#p-icon').src = '/resources/img/header/icons8-peanut-48 (6).png';
          document.querySelector('#admin-icon').src = '/resources/img/header/icons8-monarch-48.png';
-
+	userOn = true;
 
     } else {
         mypage.style.animation = 'fade-out 1s'
         
         mypage.style.display = 'none';
         document.querySelector('#user-icon').src = '/resources/img/header/icons8-user.png';
+        userOn = false;
 
     }
 
@@ -97,11 +106,15 @@ picon.onclick = function () {
         document.querySelector('#p-icon').src = '/resources/img/header/icons8-peanut-48 (6)-yellow.png';
         document.querySelector('#user-icon').src = '/resources/img/header/icons8-user.png';
         document.querySelector('#admin-icon').src = '/resources/img/header/icons8-monarch-48.png';
+        pointOn = true;
+        
     } else {
         point.style.animation = 'fade-out 0.2s ease-out forwards'
         document.querySelector('#p-icon').src = '/resources/img/header/icons8-peanut-48 (6).png';
        
         point.style.display = 'none';
+        pointOn = false;
+        
     }
 	getPeanutPoint();
 }
@@ -137,6 +150,7 @@ admin.onclick = function () {
         document.querySelector('#admin-icon').src = '/resources/img/header/icons8-monarch-48-yellow.png';
         document.querySelector('#p-icon').src = '/resources/img/header/icons8-peanut-48 (6).png';
         document.querySelector('#user-icon').src = '/resources/img/header/icons8-user.png';
+        adminOn= true;
 
 
     } else {
@@ -144,6 +158,7 @@ admin.onclick = function () {
         
         adminPage.style.display = 'none';
         document.querySelector('#admin-icon').src = '/resources/img/header/icons8-monarch-48.png';
+        adminOn= true;
     }
 
 }

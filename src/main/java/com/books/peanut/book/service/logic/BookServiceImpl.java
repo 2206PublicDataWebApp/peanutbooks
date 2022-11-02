@@ -602,6 +602,27 @@ public NormalBook getTopScore(String string) {
 		return oList;
 	}
 
+	/**오리지널 도서 인포 수정*/
+	@Override
+	public int modifyOriBookInfo(OriginBook oBook) {
+		int result = bStore.updateOriBookInfo(session,oBook);
+		return result;
+	}
+
+	/**해시태그 수정*/
+	@Override
+	public int modifyOriBookTag(HashTag hTag) {
+		int result = bStore.updateOriHashTag(session,hTag);
+		return result;
+	}
+
+	/**일반도서 인포 수정하기*/
+	@Override
+	public int modifyNorBooksInfo(NormalBook nBook) {
+		int result = bStore.updateNorBookInfo(session,nBook);
+		return result;
+	}
+
 
 
 

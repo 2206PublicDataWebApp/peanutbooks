@@ -21,19 +21,19 @@ window.addEventListener('scroll', function () {
         }
 
 
-        if (window.scrollY < 300 || window.scrollY > 700) {
+        if (window.scrollY > 250) {
             document.querySelector('#section2-title').style.animation = 'Rontext 0.3s ease-out forwards';
         }
 
-        if (window.scrollY > 300 && window.scrollY < 700) {
+        if (window.scrollY >250  && window.scrollY < 420) {
             document.querySelector('#section2-title').style.animation = 'ontext 0.3s ease-out forwards';
         }
 
-        if (window.scrollY < 900) {
+        if (window.scrollY < 420) {
             document.querySelector('#faq-title').style.animation = 'Rontext 0.3s ease-out forwards';
         }
 
-        if (window.scrollY > 900) {
+        if (window.scrollY > 420) {
             document.querySelector('#faq-title').style.animation = 'ontext 0.3s ease-out forwards';
         }
 
@@ -41,20 +41,20 @@ window.addEventListener('scroll', function () {
 
     } else {
 
-        if (window.scrollY > 200) {
+        if (window.scrollY > 150) {
             document.querySelector('#main-text').style.animation = 'Rontext 0.3s ease-out forwards';
         }
 
-        if (window.scrollY < 200) {
+        if (window.scrollY < 150) {
             document.querySelector('#main-text').style.animation = 'ontext 0.3s ease-out forwards';
         }
 
 
-        if (window.scrollY < 300 || window.scrollY > 600) {
+        if (window.scrollY > 600) {
             document.querySelector('#section2-title').style.animation = 'Rontext 0.3s ease-out forwards';
         }
 
-        if (window.scrollY > 300 && window.scrollY < 600) {
+        if ( window.scrollY <= 600) {
             document.querySelector('#section2-title').style.animation = 'ontext 0.3s ease-out forwards';
         }
 

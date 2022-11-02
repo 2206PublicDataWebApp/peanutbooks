@@ -57,6 +57,7 @@
 						<div class="align-items-center">
 							<img class="headerimg"
 								src="/resources/bookImg/${oBook.coverRename }">
+								
 
 
 						</div>

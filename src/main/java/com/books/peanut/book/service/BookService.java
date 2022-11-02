@@ -292,6 +292,15 @@ public interface BookService {
 	/**별점 가장많은 카테고리 4권*/
 	List<OriginBook> getTopScore4Ori(String string);
 
+	/**오리지널 도서 북 인포 수정하기*/
+	int modifyOriBookInfo(OriginBook oBook);
+
+	/**해시태그 수정하기*/
+	int modifyOriBookTag(HashTag hTag);
+
+	/**일반도서 인포 수정하기*/
+	int modifyNorBooksInfo(NormalBook nBook);
+
 
 	
 

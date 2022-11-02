@@ -16,6 +16,12 @@
   		update normal_book set STATUS = 'N' where NOR_BOOK_NO = #{bookNo}
   	</update>
   	
+  	<update id="updateNorBookInfo">
+  		update normal_book set BOOK_TITLE =#{bookTitle}, BOOK_INFO=#{bookInfo}, WRITER=#{writer},
+  		CATEGORY=#{category},cover=#{cover},COVER_RENAME=#{coverRename},LANGUAGE=#{language},
+  		WRITER_INFO=#{writerInfo} where NOR_BOOK_NO=#{bookNo}
+  	</update>
+  	
   	
   	<resultMap type="NormalBook" id="nBookResultMap">
   		<id property="bookNo" column="NOR_BOOK_NO"/>

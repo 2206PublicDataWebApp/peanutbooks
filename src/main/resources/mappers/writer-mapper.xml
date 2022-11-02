@@ -40,6 +40,14 @@
 	update origin_book set STATUS = 'N' where ORI_BOOK_NO = #{bookNo}
 </update>
 
+<!-- 오리지널 북 수정 -->
+<update id="updateOriBookInfo">
+	update origin_book set BOOK_TITLE = #{bookTitle}, BOOK_INFO =#{bookInfo},
+	category = #{category},CORVER = #{cover}, CORVER_RENAME = #{coverRename}
+	where ORI_BOOK_NO = #{bookNo}
+</update>
+
+
 <resultMap type="OriginBook" id="oriBookResultMap">
 <id property="bookNo"  column="ORI_BOOK_NO"/>
 <result property="bookTitle" column="BOOK_TITLE"/>
@@ -307,6 +315,11 @@ update ori_series set status = 'N' where ORI_BOOK_NO = #{bookNo}
 <insert id="insertTag">
 	insert into hash_tag values(oribookseq.currval,#{category},#{hashTag1},#{hashTag2},#{hashTag3})
 </insert>
+
+<update id="updateOriHashTag">
+	update hash_tag set HASHTAG1 = #{hashTag1}, HASHTAG2 = #{hashTag2}, HASHTAG3 = #{hashTag3}
+	where BOOK_NO = #{bookNo} and CATEGORY= #{category}
+</update>
 
 <resultMap type="HashTag" id="HashTagResultMap">
 	<id property="bookNo" column="BOOK_NO"/>

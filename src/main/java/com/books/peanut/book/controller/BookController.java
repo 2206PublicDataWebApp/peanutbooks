@@ -75,6 +75,63 @@ public class BookController {
 		return mv;
 
 	}
+	/**
+	 * 피넛 오리지널 도서 수정 창 연결
+	 * 
+	 * @param mv
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/book/OriBookModifyView.do", method = RequestMethod.GET)
+	public ModelAndView OriBookModifyView(ModelAndView mv, HttpSession session, String bookNo) {
+		
+		Member member = (Member) session.getAttribute("loginMember");
+		if (member == null) {
+			mv.setViewName("/");
+		} else if (member.getAdminYN().equals("Y")) {
+			OriginBook oBook = bService.showOnebook(bookNo);
+			HashTag hTag = bService.getBookTga(bookNo, "origin");
+			mv.addObject("oBook",oBook);
+			mv.addObject("hTag",hTag);
+			mv.setViewName("/book/modifyBook");
+			
+		} else {
+			mv.setViewName("/");
+			
+		}
+		
+		return mv;
+		
+	}
+	
+	/**
+	 * 일반 도서 수정 창 연결
+	 * 
+	 * @param mv
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/book/NorBookModifyView.do", method = RequestMethod.GET)
+	public ModelAndView NorBookModifyView(ModelAndView mv, HttpSession session, String bookNo) {
+		
+		Member member = (Member) session.getAttribute("loginMember");
+		if (member == null) {
+			mv.setViewName("/");
+		} else if (member.getAdminYN().equals("Y")) {
+			NormalBook nBook = bService.showOneNorbook(bookNo);
+			HashTag hTag = bService.getBookTga(bookNo, "normal");
+			mv.addObject("nBook",nBook);
+			mv.addObject("hTag",hTag);
+			mv.setViewName("/bookadmin/modifyBook");
+			
+		} else {
+			mv.setViewName("/");
+			
+		}
+		
+		return mv;
+		
+	}
 
 	/**
 	 * 검색 창 연결
@@ -1731,9 +1788,10 @@ public class BookController {
 		// 삽화 수정
 		String picName = subPicture.getOriginalFilename(); // 전송한 사진 이름 가져오기
 		if (subPicture != null && !picName.equals("")) { // 만약 전송한 사진이 있거나 사진이름이 없는게 아니라면
-
+			
+			fileDelete(request,nbSeries.getSubpicRename());
 			String subPicRename = fileSave(picName, request, subPicture, "sub");// 파일을 저장한다, 파일이름,리퀘스트,저장된파일, 추가할이름
-
+			
 			nbSeries.setSubPic(picName);
 			nbSeries.setSubpicRename(subPicRename);
 
@@ -1745,6 +1803,84 @@ public class BookController {
 
 		return mv;
 
+	}
+	/**
+	 * 피넛 오리지널 도서 인포 수정
+	 * 
+	 * @param mv
+	 * @param session
+	 * @param obSeries
+	 * @param subPicture
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/book/ModifyOriBook.do", method = RequestMethod.POST)
+	public ModelAndView oriModify(ModelAndView mv, HttpSession session,
+			@ModelAttribute OriginBook oBook,@ModelAttribute HashTag hTag,
+			@RequestParam(value = "coverpic", required = false) MultipartFile coverpic,
+			HttpServletRequest request) {
+		
+		// 삽화 수정
+		String picName = coverpic.getOriginalFilename(); // 전송한 사진 이름 가져오기
+		if (coverpic != null && !picName.equals("")) { // 만약 전송한 사진이 있거나 사진이름이 없는게 아니라면
+			
+			fileDelete(request, oBook.getCoverRename());
+			String coverPicRename = fileSave(picName, request, coverpic, "sub");// 파일을 저장한다, 파일이름,리퀘스트,저장된파일, 추가할이름
+			
+			oBook.setCover(picName);
+			oBook.setCoverRename(coverPicRename);
+			
+		}
+		
+		int result = bService.modifyOriBookInfo(oBook); // 인포 수정 전송
+		hTag.setCategory("origin");
+		result += bService.modifyOriBookTag(hTag); // 인포 수정 전송
+		
+		
+		mv.addObject("bookNo", oBook.getBookNo());
+		mv.setViewName("redirect:/book/oriBookInfo");
+		
+		return mv;
+		
+	}
+	/**
+	 * 일반 도서 인포 수정
+	 * 
+	 * @param mv
+	 * @param session
+	 * @param obSeries
+	 * @param subPicture
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/book/ModifyNorBook.do", method = RequestMethod.POST)
+	public ModelAndView norModify(ModelAndView mv, HttpSession session,
+			@ModelAttribute NormalBook nBook,@ModelAttribute HashTag hTag,
+			@RequestParam(value = "coverpic", required = false) MultipartFile coverpic,
+			HttpServletRequest request) {
+		
+		// 삽화 수정
+		String picName = coverpic.getOriginalFilename(); // 전송한 사진 이름 가져오기
+		if (coverpic != null && !picName.equals("")) { // 만약 전송한 사진이 있거나 사진이름이 없는게 아니라면
+			
+			fileDelete(request, nBook.getCoverRename());
+			String coverPicRename = fileSave(picName, request, coverpic, "sub");// 파일을 저장한다, 파일이름,리퀘스트,저장된파일, 추가할이름
+			
+			nBook.setCover(picName);
+			nBook.setCoverRename(coverPicRename);
+			
+		}
+		
+		int result = bService.modifyNorBooksInfo(nBook); // 인포 수정 전송
+		hTag.setCategory("normal");
+		result += bService.modifyOriBookTag(hTag); // 인포 수정 전송
+		
+		
+		mv.addObject("bookNo", nBook.getBookNo());
+		mv.setViewName("redirect:/book/norBookInfo");
+		
+		return mv;
+		
 	}
 
 	/**

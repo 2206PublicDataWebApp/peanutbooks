@@ -330,6 +330,16 @@ main .userbutton a {
 	.nowPage {
 		width: 2.5rem;
 	}
+	
+	
+	#plusbutton button {
+		border: 0;
+		width: 5rem;
+		height: 3rem;
+		border-radius: 0.5rem;
+		font-size:0.7rem;
+	
+	}
 }
 
 /*별점주기 스타일*/

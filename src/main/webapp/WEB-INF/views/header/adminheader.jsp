@@ -28,10 +28,10 @@
 
 		<div class="container">
 			<div class="row" id="header-area">
-				<div class="col-md-1 col-3">
+				<div class="col-md-3 col-3">
 					<a href="/"><img src="/resources/img/logo/logo.png" id="logo" alt="" id="logo"></a>
 				</div>
-				<div class="col-md-7 d-md-block d-none">
+				<div class="col-md-5 d-md-block d-none">
 					<ul>
 						<li><a href="/admin/qnaList.kh">게시판</a></li>
 						<li><a href="/admin/writerMenu.do">도서</a></li>

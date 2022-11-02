@@ -94,14 +94,15 @@ header li {
 }
 
 @media (max-width:500px) {
-    #logo {
+	
+	 #logo {
         width: 120%;
         height: auto;
         margin-top: 0.5rem;
     }
 
     #header-menu-icon img {
-        width: 2.2rem;
+        width: 1.9rem;
         margin-right: 0.3rem;
     }
     

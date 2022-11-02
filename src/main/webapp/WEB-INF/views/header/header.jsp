@@ -30,21 +30,21 @@
 
 		<div class="container">
 			<div class="row" id="header-area">
-				<div class="col-md-1 col-3">
+				<div class="col-md-3 col-4">
 					<a href="/"> <img src="/resources/img/logo/logo.png" id="logo"
 						alt="" id="logo">
 					</a>
 				</div>
-				<div class="col-md-7 d-md-block d-none">
+				<div class="col-md-5 d-md-block d-none">
 					<ul>
-						<li onclick="location.href='/'">이달의 추천</li>
+						<li onclick="location.href='/'">피넛 픽</li>
 						<li onclick="location.href='/book/bookNorList.do'">도서</li>
 						<li onclick="location.href='/book/bookOriList.do'">피넛 오리지널</li>
 					</ul>
 
                 </div>
                 
-                <div class="col-md-4 col-7" id="header-menu-icon">
+                <div class="col-md-4 col-6" id="header-menu-icon">
                     <img src="/resources/img/header/icons8-search (2).png" alt="" id="search-icon" onclick="location.href='/book/bookSearch.do'">
                     <img src="/resources/img/header/icons8-book (3).png" alt="" id="book-icon" onclick="location.href='/book/mybooks.do'">
                     <img src="/resources/img/header/icons8-peanut-48 (6).png" alt="" id="p-icon">
@@ -73,7 +73,7 @@
 
 		<div id="menu-bar">
 			<ul>
-				<li onclick="location.href='/'">이달의 추천</li>
+				<li onclick="location.href='/'">피넛 픽</li>
 				<li onclick="location.href='/book/bookNorList.do'">도서</li>
 				<li onclick="location.href='/book/bookOriList.do'">피넛 오리지널</li>
 			</ul>

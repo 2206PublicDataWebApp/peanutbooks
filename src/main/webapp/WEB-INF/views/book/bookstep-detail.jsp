@@ -43,13 +43,16 @@
                 </div>
 
             </article>
-            <article class="container" id="next-button-area">
-                <img src="/resources/img/book/icons8-twoleft.png" id="prev-button" alt="">
+         
+        </section>
+        
+           <section id="next-button-area">
+            	<img src="/resources/img/book/icons8-open-book-64.png" id="book-button" alt=""onclick="location.href='/book/bookStep.do?bookNo=${obSeries.bookNo}&category=origin'">
+            	<img src="/resources/img/book/icons8-twoleft.png" id="prev-button" alt="">
                 <img src="/resources/img/book/icons8-twoTop.png" id="top-button" alt="" onclick=" window.scrollTo(0,0);"> 
                 <img src="/resources/img/book/icons8-tworight.png" id="next-button" alt=""> 
-            </article>
-
-        </section>
+                 
+            </section>
         
          <section id="two" style="display:none;">
             <article id="header-area" class="header-area2">

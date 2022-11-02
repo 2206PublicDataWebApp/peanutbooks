@@ -1,4 +1,11 @@
 
+function loadTitle(){
+var title = document.querySelector('#hidden-title');
+var writer = document.querySelector('#hidden-writer');
+document.querySelector('#title-text').value = title.value
+document.querySelector('#writer-name').value = writer.value
+}
+
 
 function loadFile(event) {
     var output = document.getElementById('output');
@@ -42,28 +49,6 @@ function imgCheck() {
     }
 
 };
-
-$('#summernote').summernote({
-    placeholder: '내용을 입력하세요',
-    tabsize: 2,
-    height: 500,
-    toolbar: [
-      ['style', ['style']],
-      ['font', ['bold', 'underline', 'clear']],
-      ['color', ['color']],
-      ['para', ['ul', 'ol', 'paragraph']],
-      ['table', ['table']],
-      ['insert', ['link']],
-      ['view', ['fullscreen', 'codeview', 'help']]
-    ]
-  });
-
-  document.querySelector('.note-editable').onblur = function(){
-    var textarea = document.querySelector('[ name="contents"]');
-    var textvalue = document.querySelector('.note-editable');
-        textarea.value = textvalue .innerHTML;
-        }
-        
         
   function fnChkByte(obj){
   

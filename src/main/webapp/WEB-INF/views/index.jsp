@@ -67,17 +67,14 @@
                 <div class="row" id="main-line">
 
                     <div class="col-md-4" id="main-text">
-                        <div id="main-title">땅콩북스</div>
+                        <div id="main-title"></div>
                         <div id="main-title2">
-                            당신만의 인터넷 도서관 <br>
-                            당신이 있는 그 곳이 당신만의 도서관이 됩니다<br>
-                            당신이 바라는 당신만의 책, 당신이 만드는 당신만의 책, 당신이 읽고 싶은 책, 당신이 쓰고 싶은 책, 이 모든걸 땅콩북스가 후원합니다.
-                        </div>
+                                                 </div>
 
                         <div></div>
                     </div>
                     <div class="col-md-8">
-                        <img src="/resources/img/main-book1.png" alt="">
+                       
 
                     </div>
 

@@ -89,6 +89,7 @@
 						<c:if test="${loginMember.adminYN == 'Y' }">
 							<button onclick="registNorNext(${nBook.bookNo},${nextSeriesNo});">다음편 쓰기</button>
 							<button onclick="removeNorBook(${nBook.bookNo})">삭제하기</button>
+							<button onclick="location.href='/book/NorBookModifyView.do?bookNo=${nBook.bookNo}'">수정하기</button>
 						</c:if>
 							
 						</div>

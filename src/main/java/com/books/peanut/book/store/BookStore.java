@@ -299,5 +299,12 @@ public interface BookStore {
 	/**별점많은 오리지널북 카테고리별 4개*/
 	List<OriginBook> selectTop4Ori(SqlSessionTemplate session, String category);
 
+	/**오리지널 도서 인포수정*/
+	int updateOriBookInfo(SqlSessionTemplate session, OriginBook oBook);
+	/**해시태그 수정*/
+	int updateOriHashTag(SqlSessionTemplate session, HashTag hTag);
+	/**일반도서 인포 수정하기*/
+	int updateNorBookInfo(SqlSessionTemplate session, NormalBook nBook);
+
 
 }

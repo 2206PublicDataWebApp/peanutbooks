@@ -793,4 +793,25 @@ public class BookStoreLogic implements BookStore {
 		return oList;
 	}
 
+	/**오리지널 도서 인포 수정*/
+	@Override
+	public int updateOriBookInfo(SqlSessionTemplate session, OriginBook oBook) {
+		int result = session.update("wirterMapper.updateOriBookInfo",oBook);
+		return result;
+	}
+
+	/**해시태그 수정*/
+	@Override
+	public int updateOriHashTag(SqlSessionTemplate session, HashTag hTag) {
+		int result = session.update("wirterMapper.updateOriHashTag",hTag);
+		return result;
+	}
+
+	/**일반도서 인포 수정하기*/
+	@Override
+	public int updateNorBookInfo(SqlSessionTemplate session, NormalBook nBook) {
+		int result = session.update("adminWirteMapper.updateNorBookInfo",nBook);
+		return result;
+	}
+
 }

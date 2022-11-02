@@ -47,6 +47,7 @@
                     <div class="align-items-center">
                         <div class="align-items-center">
                             <img class="headerimg" src="/resources/bookImg/${nBook.coverRename }">
+                            
 
 
                         </div>

@@ -53,16 +53,25 @@ header .col-md-6 {
     #logo {
         width: 100%;
         height: auto;
-        margin-top: 0.5rem;
+        margin:0;
+        padding:0 !important;
     }
 
     #login-icon {
         width: 2rem;
         height: auto;
-        padding-top: 2rem;
+        padding:1rem 0;
+        padding-top : 1.2rem;
 
     }
-
+    #menubar{
+    padding:0;
+    padding-top : 0.5rem !important;
+    
+    }
+	#menubar-area+div{
+	padding:0 !important;
+	}
     .menu-font {
         font-size: 1rem;
         padding: 0 !important;
@@ -82,12 +91,14 @@ header .col-md-6 {
 }
 
 #main {
-    background-image: url(/resources/img/landscape-g963b9f6b9_1920.jpg);
-    background-size: cover;
+	background-color:#FFE969;
+    background-image: url(/resources/img/main_img.png);
+    background-size: 100% auto;
     background-repeat: no-repeat;
-    height: 45rem;
+    height: 47rem;
     padding-top: 5rem;
     background-attachment: fixed;
+    background-position:center;
 }
 
 main img {
@@ -100,6 +111,7 @@ main img {
 }
 
 #main-text #main-title {
+	margin-top:1rem;
     font-family: 'GangwonEdu_OTFBoldA';
     font-size: 5rem;
 }
@@ -230,7 +242,11 @@ footer a {
 }
 
 @media (max-width:500px) {
-
+ 	#main{
+ 	background-position :0  5rem;
+ 	height : 17rem;
+ 	}
+	
     main img {
         width: 100%;
         height: auto;
@@ -239,10 +255,14 @@ footer a {
     #main-text {
         margin: 2rem;
     }
+    
+    #main-text{
+    margin-top:0.5rem !important;
+    }
 
     #main-title {
-
-        font-size: 3rem !important;
+		margin:0rem !important;
+        font-size: 2.5rem !important;
     }
 
     #main-title2 {
@@ -266,6 +286,11 @@ footer a {
     }
     .menu-font{
         padding-left: 0.5rem;
+    }
+    
+    #section2-title{
+    margin-top:1rem;
+    font-size:1.2rem;
     }
 
 
