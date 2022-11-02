@@ -22,7 +22,7 @@ main {
     min-height: 100%;
     padding-bottom: 5rem;
      z-index:10;
-     padding-top:8rem
+     padding-top:5rem
 }
 
 footer {
@@ -40,11 +40,12 @@ header hr {
 
 
 #logo {
-    height: 4.5rem;
+    height: 4rem;
     margin-top: 0.5rem;
     padding-top: 0.5rem;
     margin-bottom: 0.5rem;
 }
+
 
 header li {
     list-style: none;
@@ -59,6 +60,11 @@ header li {
     align-items: flex-end
 }
 
+#header-area li:hover{
+	cursor : pointer;
+}
+
+
 #header-menu-icon {
     text-align: right;
 }
@@ -70,6 +76,10 @@ header li {
     padding-bottom: 0.5rem;
     padding-right: 0.5rem;
     margin-right: 1.5rem;
+}
+
+#header-menu-icon img:hover, #admin-icon-area img:hover, #point-icon-area img:hover{
+	cursor:pointer;
 }
 
 #menu-bar {
@@ -93,26 +103,6 @@ header li {
 
 }
 
-@media (max-width:500px) {
-	
-	 #logo {
-        width: 120%;
-        height: auto;
-        margin-top: 0.5rem;
-    }
-
-    #header-menu-icon img {
-        width: 1.9rem;
-        margin-right: 0.3rem;
-    }
-    
-    #menu-bar li{
-        font-size: 1.2rem;
-        
-    }
-
-
-}
 
 #mypage {
 
@@ -288,6 +278,40 @@ header li{
 	margin-top: 2px;
 	
 	
+}
+
+
+@media (max-width:500px) {
+    #logo {
+        width: 120%;
+        height: auto;
+        margin-top: 0.5rem;
+    }
+
+    #header-menu-icon img {
+        width: 1.9rem;
+        margin-right: 0.3rem;
+    }
+    
+    #menu-bar li{
+        font-size: 1.2rem;
+    }
+    
+    #header-menu-icon {
+    padding:0;
+    margin-left:0 !important;
+    }
+    
+    #header-area>div{
+    padding-left:0 !important;
+    margin-left:1rem ;
+    }
+    
+    #togglemenu{
+    margin-left:0 !important;
+    }
+
+
 }
 
 

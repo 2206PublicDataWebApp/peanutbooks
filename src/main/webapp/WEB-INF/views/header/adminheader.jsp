@@ -28,7 +28,7 @@
 
 		<div class="container">
 			<div class="row" id="header-area">
-				<div class="col-md-3 col-3">
+				<div class="col-md-3 col-4">
 					<a href="/"><img src="/resources/img/logo/logo.png" id="logo" alt="" id="logo"></a>
 				</div>
 				<div class="col-md-5 d-md-block d-none">
@@ -41,7 +41,7 @@
 					</ul>
 
 				</div>
-				<div class="col-md-4 col-7" id="header-menu-icon">
+				<div class="col-md-4 col-6" id="header-menu-icon">
 					<img src="/resources/img/header/icons8-search (2).png" alt=""
 						id="search-icon"> 
 					<img
@@ -211,7 +211,7 @@
 
 			</div>
 		</div>
-
+<input type="hidden" id="member-id" value="${sessionScope.loginMember.memberId}">
 	</header>
 
 	<script src="/resources/js/headerJs.js"></script>

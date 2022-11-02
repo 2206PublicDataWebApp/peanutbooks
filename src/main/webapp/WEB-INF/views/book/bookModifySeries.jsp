@@ -80,6 +80,10 @@
 			<article id="first-contents">
 				<h2>수정</h2>
 				<span> 
+				
+				<c:if test="${oSeries.seriesNo == 1 }">
+				<input type="hidden" name="paidCheck">
+				</c:if>
 				<c:if test="${oSeries.seriesNo != 1 }">
 				<label> <input type="hidden" name="seriesNo"
 							value="${oSeries.seriesNo}"> 

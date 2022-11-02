@@ -1,6 +1,14 @@
 
 
 
+document.getElementById("pay-check").onchange=function(){
+
+	if(document.getElementById("pay-check").checked) {
+	    document.getElementById("paidCheckHidden").disabled = true;
+	}
+}
+
+
 var content = document.querySelector('[name="modifyContents"]'); //현재 로드한 시리즈의 내용값
 
 function contentsInSumNote(){

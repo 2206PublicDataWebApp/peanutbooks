@@ -15,11 +15,7 @@ var userOn = false;
 var pointOn = false;
 var adminOn= false;
 
-/*document.querySelector(main).addEventListener('mousedown', function(){
-if(userOn){ mypage.style.display = 'none'; userOn=false}
-if(pointOn){point.style.display='none';pointOn = false;}
-if(adminOn){adminPage.style.display='none'; adminOn= false;}
-});*/
+
 
 
 user.onclick = function () {

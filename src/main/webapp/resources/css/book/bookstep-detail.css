@@ -84,15 +84,18 @@ hr{
     #main-text{
         width:auto;
     }
-#next-button-area{
-	 text-align: center;
-}
-
-#next-button-area img{
-	width:2rem;
-	margin-right:6%;
-	margin-left:6%
-}
+	#next-button-area{
+		 text-align: center;
+	}
+	
+	#next-button-area img{
+		width:2rem;
+		margin-right:6%;
+		margin-left:6%
+	}
+	#header-area{
+		height: 15rem;
+	}
     
 }
 
@@ -100,6 +103,7 @@ hr{
 	position:relative;
 	z-index:20;
 	background-color:white;
+	padding-bottom:3rem;
 }
 
 #two{
