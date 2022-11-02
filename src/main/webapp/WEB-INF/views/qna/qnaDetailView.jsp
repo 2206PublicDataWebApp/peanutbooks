@@ -11,16 +11,9 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
- 
   
 </head>
- <style>
-	.container {
-		width: 70%;
-		max-width: 1000px;
-		margin: 0 auto;
-	}
-
+<style>
 	.btn {
 	  appearance: none;
 	    -webkit-appearance: none;
@@ -33,16 +26,19 @@
 	    -ms-transition: background-color 100ms linear;
 	     transition: background-color 100ms linear;
 	}
-	label:hover{
-		cursor:pointer;
+	.mainUl {
+		list-style-type: none;
+		padding: 0px;
 	}
-     a:hover{
-         /* .navi>li>:hover{  이렇게해도 된다. */
-         font-size: 1em;
-         font-weight: bold;
-     }
+	
+	.mainLi {
+		display: inline-block;
+		margin-left: 18px;
+		margin-right: 18px;
+		font-size: 18px;
+		/* font-weight: bold; */
+	}
 </style> 
-
 
 <body>
 <!-- header start -->
@@ -51,136 +47,159 @@
 
 <!-- main contents start -->
 <main>
-<br><br>	
-<div class="container">
-
-	<br><br>
-${sessionScope.loginMember.memberId}님 환영합니다!
-
-	<div class="container text-center">
-		<div class="row row-cols-1">
-		   <div class="col" style="background-color: #5e5e5e; color: white; height:45px" vertical-align: middle;>${loginMember.memberId}님의 문의 내역 확인</div>        
-		</div>
+	<br>
+	<section class="container">
+	<!-- 세부페이지 head 시작 -->
+		<!-- 세부페이지 큰 제목 -->
+		<div class="container text-center">
+			<div class="row row-cols-2">
+				<div class="col" style="background-color: #5e5e5e; color: white; height:45px; vertical-align: middle;"><a href="/qna/list.kh">문의내역</a></div>
+				<div class="col" style="background-color: #c9c9c9; color: white; height:45px; vertical-align: middle;"><a href="/qna/writeView">문의작성</a></div>
+			</div>
+		<!-- 세부페이지 큰 제목 끝 -->
 		<br>
-		<div class="row row-cols-7" style="background-color:#e0e0e0; padding:20px">
-		    <div class="col-2" style="text-align:right;">
-		    	총문의<br>1&nbsp;&nbsp;&nbsp;
-		    </div>
-		    <div class="col"><img src="/resources/img/sidebar.png"></div>
-		    <div class="col">답변완료<br>1</div>
-		    <div class="col"><img src="/resources/img/sidebar.png"></div>
-		    <div class="col">처리중<br>1</div>
-		    <div class="col"><img src="/resources/img/sidebar.png"></div>
-		    <div class="col-2" style="text-align:left;">&nbsp;&nbsp;접수<br>&nbsp;&nbsp;&nbsp;&nbsp;1</div>
+		<hr>
+			<!-- 세부 메뉴 시작 -->
+			<ul class="mainUl">
+	    		<li class="mainLi"><div style="text-align:right">
+			    		<a href="/qna/list.kh">총문의<br>1&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			    	</div>
+			    </li>
+			    <li class="mainLi">
+			    	<div class="col"><img src="/resources/img/sidebar.png"></div>
+			    </li>
+	    		<li class="mainLi">
+	    			<div style="text-align:center">
+			    		<a href="/qna/list.kh">답변완료<br>1</a>
+			    	</div>
+				</li>
+				<li class="mainLi">
+			    	<div class="col"><img src="/resources/img/sidebar.png"></div>
+			    </li>
+	    		<li class="mainLi">
+	    			<div style="text-align:center">
+			    		<a href="/qna/list.kh">처리중<br>1</a>
+			    	</div>
+				</li>
+				<li class="mainLi">
+			    	<div class="col"><img src="/resources/img/sidebar.png"></div>
+			    </li>
+	    		<li class="mainLi">
+	    			<div style="text-align:left">
+			    		<a href="/qna/list.kh">접수<br>&nbsp;&nbsp;&nbsp;&nbsp;1</a>
+			    	</div>
+	    		</li>
+	 		</ul>
+	 		<!-- 세부 메뉴 끝 -->
+		<hr>
+		<br>
+		<!-- 세부페이지 body 시작 -->
+	
+			<div class="row row-cols-1">
+				<table align="center" class="table col-6" border="0px">
+					<c:if test="${qna.qnaStatus eq 'Y'}">
+					<tr>
+						<td class="col-6" colspan="2" style="color: gray";>※관리자가 답변을 작성한 게시물은 수정할 수 없습니다.</td>
+					</tr>
+					</c:if>
+					<tr>
+						<td class="col-2" align="center">문의유형</td>
+						<td class="col-4">
+							<c:if test="${qna.qnaCategory == 'member' }">회원관련</c:if>
+							<c:if test="${qna.qnaCategory == 'point' }">포인트관련</c:if>
+							<c:if test="${qna.qnaCategory == 'books' }">도서관련</c:if>
+							<c:if test="${qna.qnaCategory == 'others' }">기타</c:if>
+						</td>
+					</tr>
+					<tr>
+						<td class="col-2" align="center">제목</td>
+						<td class="col-4"><input type="text" name="qnaTitle" class="form-control" value="${qna.qnaTitle }"></td>
+					</tr>
+					<tr>
+						<td class="col-2" align="center">작성일</td>
+						<td class="col-4">${qna.qCreateDate }
+					</tr>
+					<c:if test="${qna.qUpdateDate ne null}">
+					<tr>
+						<td class="col-2" align="center">수정일</td>
+						<td class="col-4">${qna.qUpdateDate }</td>
+					</tr>
+					</c:if>
+					<tr>
+						<td class="col-2" align="center">내용</td>
+						<td class="col-4"><textarea class="form-control" id="exampleFormControlTextarea1" cols="5" rows="5" name="qnaContents">${qna.qnaContents }</textarea>  </td>
+					</tr>
+				<!-- 첨부파일 -->
+					<tr>
+						<td class="col-2" align="center" rowspan="3">첨부파일(선택)</td>
+						<td class="col-4" style="border:none;">
+					     <!-- 첨부파일 1영역 -->
+							<div id="file1" class="row my-1" >
+								 <c:if test="${qna.qnaFileRename01 ne null}">
+				 			        <div class="col"><img src="/resources/qnaUploadFiles/${qna.qnaFileRename01 }" style="width:300px; height:300px;"></div>
+			 			        </c:if>
+							</div>
+						</td>
+						<!-- 첨부파일1영역종료 -->
+					</tr>
+					<tr>
+						<td class="col-6" colspan="2" style="border:none";>
+						<!-- 첨부파일 2영역 -->
+							<div id="file2" class="row my-1">
+								<c:if test="${qna.qnaFileRename02 ne null}">
+				 			        <div class="col"><img src="/resources/qnaUploadFiles/${qna.qnaFileRename02 }" style="width:150px; height:150px;"></div>
+			 			        </c:if>
+							</div>
+						</td>
+						<!-- 첨부파일2영역종료 -->
+					</tr>
+					<tr>
+						<td class="col-6" colspan="2">
+						<!-- 첨부파일 3영역 -->
+							<div id="file3" class="row my-1">
+								<c:if test="${qna.qnaFileRename03 ne null}">
+				 			        <div class="col"><img src="/resources/qnaUploadFiles/${qna.qnaFileRename03 }" style="width:150px; height:150px;"></div>
+			 			        </c:if>
+							</div>
+					    </td>
+					<!-- 첨부파일3영역종료 -->
+					</tr>
+				<!-- 첨부파일 -->
+					
+					<c:if test="${qna.qnaStatus eq 'N'}">
+					<tr>
+						<td class="col-6" colspan="2" align="center" style="border:none;">
+							<button type="button" onclick="location.href='/qna/modifyView.kh?qnaNo=${qna.qnaNo }&page=${page }&searchCondition=${searchCondition}&searchValue=${searchValue}'" class="btn btn-warning btn-sm">수정</button>
+							<input onclick="qnaRemove(${qna.qnaNo}, ${page});" type="button" value="삭제" class="btn btn-warning btn-sm">
+							<button type="button" onclick="backBtn()" class="btn btn-warning btn-sm">목록</button>
+							 
+						</td>
+					</tr>
+					</c:if>
+					<c:if test="${qna.qnaStatus eq 'Y'}">
+					<tr>
+						<td class="col-6" colspan="2" align="center" style="border:none;">
+							<button type="button" onclick="backBtn()" class="btn btn-warning btn-sm">목록</button> 
+						</td>
+					</tr>
+					<tr>
+						<td class="col-2" align="center">작성자</td>
+						<td class="col-4">${qna.answerWriter }</td>
+					</tr>
+					<tr>
+						<td width="20%" align="center">작성일</td>
+						<td width="80%">${qna.aCreateDate }</td>
+					</tr>
+					<tr>
+						<td class="col-2" align="center">내용</td>
+						<td class="col-4"><textarea class="form-control" id="exampleFormControlTextarea1" cols="3" rows="5" name="qnaContents" readonly>${qna.answerContents } </textarea></td>
+					</tr>
+					</c:if>
+				</table>
+			</div>
+			<!-- 1:1 문의 입력 폼 End -->
 		</div>
-	</div>
-	<br><br>
-	
-	<div class="row row-cols-1">
-		<table class="table">
-			<c:if test="${qna.qnaStatus eq 'Y'}">
-			<tr>
-				<td colspan="2" style="color: gray";>※관리자가 답변을 작성한 게시물은 수정할 수 없습니다.</td>
-			</tr>
-			</c:if>
-			<tr>
-				<td width="20%" align="center">문의유형</td>
-				<td width="80%">
-				<c:if test="${qna.qnaCategory == 'member' }">회원관련</c:if>
-				<c:if test="${qna.qnaCategory == 'point' }">포인트관련</c:if>
-				<c:if test="${qna.qnaCategory == 'books' }">도서관련</c:if>
-				<c:if test="${qna.qnaCategory == 'others' }">기타</c:if>
-				</td>
-			</tr>
-			<tr>
-				<td width="20%" align="center">제목</td>
-				<td width="80%"><input type="text" name="qnaTitle" class="form-control" value="${qna.qnaTitle }"></td>
-			</tr>
-			<tr>
-				<td width="20%" align="center">작성일</td>
-				<td width="80%">${qna.qCreateDate }
-			</tr>
-			<c:if test="${qna.qUpdateDate ne null}">
-			<tr>
-				<td width="20%" align="center">수정일</td>
-				<td width="80%">${qna.qUpdateDate }</td>
-			</tr>
-			</c:if>
-			<tr>
-				<td width="20%" align="center">내용</td>
-				<td width="80%"><textarea class="form-control" id="exampleFormControlTextarea1" cols="5" rows="5" name="qnaContents">${qna.qnaContents }</textarea>  </td>
-			</tr>
-		<!-- 첨부파일 -->
-			<tr>
-				<td width="20%" align="center" rowspan="3">첨부파일(선택)</td>
-				<td width="80%" style="border:none";>
-			     <!-- 첨부파일 1영역 -->
-					<div id="file1" class="row my-1" >
-						 <c:if test="${qna.qnaFileRename01 ne null}">
-		 			        <div class="col"><img src="/resources/qnaUploadFiles/${qna.qnaFileRename01 }" style="width:150px; height:150px;"></div>
-	 			        </c:if>
-					</div>
-				</td>
-				<!-- 첨부파일1영역종료 -->
-			</tr>
-			<tr>
-				<td style="border:none";>
-				<!-- 첨부파일 2영역 -->
-					<div id="file2" class="row my-1">
-						<c:if test="${qna.qnaFileRename02 ne null}">
-		 			        <div class="col"><img src="/resources/qnaUploadFiles/${qna.qnaFileRename02 }" style="width:150px; height:150px;"></div>
-	 			        </c:if>
-					</div>
-				</td>
-				<!-- 첨부파일2영역종료 -->
-			</tr>
-			<tr>
-				<td>
-				<!-- 첨부파일 3영역 -->
-					<div id="file3" class="row my-1">
-						<c:if test="${qna.qnaFileRename03 ne null}">
-		 			        <div class="col"><img src="/resources/qnaUploadFiles/${qna.qnaFileRename03 }" style="width:150px; height:150px;"></div>
-	 			        </c:if>
-					</div>
-			    </td>
-			<!-- 첨부파일3영역종료 -->
-			</tr>
-		<!-- 첨부파일 -->
-			
-			<c:if test="${qna.qnaStatus eq 'N'}">
-			<tr>
-				<td colspan="2" align="center" style="border:none;">
-					<button type="button" onclick="location.href='/qna/modifyView.kh?qnaNo=${qna.qnaNo }&page=${page }&searchCondition=${searchCondition}&searchValue=${searchValue}'" class="btn btn-warning btn-sm">수정</button>
-					<input onclick="qnaRemove(${qna.qnaNo}, ${page});" type="button" value="삭제" class="btn btn-warning btn-sm">
-					<button type="button" onclick="backBtn()" class="btn btn-warning btn-sm">목록</button>
-					 
-				</td>
-			</tr>
-			</c:if>
-			<c:if test="${qna.qnaStatus eq 'Y'}">
-			<tr>
-				<td colspan="2" align="center" style="border:none;">
-					<button type="button" onclick="backBtn()" class="btn btn-warning btn-sm">목록</button> 
-				</td>
-			</tr>
-			<tr>
-				<td width="20%" align="center">작성자</td>
-				<td width="80%">${qna.answerWriter }</td>
-			</tr>
-			<tr>
-				<td width="20%" align="center">작성일</td>
-				<td width="80%">${qna.aCreateDate }</td>
-			</tr>
-			<tr>
-				<td width="20%" align="center">내용</td>
-				<td width="80%"><textarea class="form-control" id="exampleFormControlTextarea1" cols="3" rows="5" name="qnaContents" readonly>${qna.answerContents } </textarea></td>
-			</tr>
-			</c:if>
-		</table>
-	</div>
-	<!-- 1:1 문의 입력 폼 End -->
-	
-</div>
+	</section>
 <br><br>
 </main>
 <!-- main contents End -->

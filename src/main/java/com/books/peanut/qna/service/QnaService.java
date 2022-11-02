@@ -29,5 +29,7 @@ public interface QnaService {
 	public List<Qna> printAllByValue(String searchCondition, String searchValue, int currentPage, int aqnaLimit);
 	//관리자 카테고리별 리스트
 	public List<Qna> printAllByCategory(String qnaCategory, int currentPage, int categoryLimit);
+	//관리자 카테리고별 페이지 갯수
+	public int getTotalCount(String qnaCategory);
 
 }

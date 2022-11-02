@@ -20,34 +20,66 @@
 <link rel="shortcut icon" href="/resources/img/icons8-book-32.png">
 <link rel="stylesheet" href="/resources/css/book/writemenu.css">
 <style>
-	ul {
+	.mainUl {
 		list-style-type: none;
 		padding: 0px;
 	}
 	
-	li {
+	.mainLi {
 		display: inline-block;
-		margin-left: 16px;
+		margin-left: 18px;
+		margin-right: 18px;
 		font-size: 18px;
 		/* font-weight: bold; */
 	}
+
 </style>
 </head>
 <body>
 	<jsp:include page="../header/adminheader.jsp" />
 	<main>
 		<section class="container">
-
-			<article id="list-area" class="row">
-			<hr>
-				<!-- <div id="title">전체 시리즈 목록</div> -->
-				<ul>
-		    		<li><a href="/admin/writerMenu.do">전체도서</a></li>
-		    		<li><a href="/admin/approveYN.kh?checkPermission=Y&page=${currentPage }">승인도서</a></li>
-		    		<li><a href="/admin/approveYN.kh?checkPermission=N&page=${currentPage }">보류도서</a></li>
-		    		<li><a href="/admin/reApproveList.kh?page=${currentPage }">재승인도서</a></li>
-	  			</ul>
-			<hr>
+			<div class="container text-center">
+				<div class="row row-cols-1">
+					<div class="col" style="background-color: #5e5e5e; color: white; height:45px; vertical-align: middle;">도서 리스트</div>
+				</div>
+			<br>
+				<hr>
+					<!-- <div id="title">전체 시리즈 목록</div> -->
+					<ul class="mainUl">
+			    		<li class="mainLi"><div style="text-align:right">
+					    		<a href="/admin/writerMenu.do">전체회원<br></a>
+					    	</div>
+					    </li>
+					    <li class="mainLi">
+					    	<div class="col"><img src="/resources/img/sidebar.png"></div>
+					    </li>
+			    		<li class="mainLi">
+			    			<div style="text-align:center">
+					    		<a href="/admin/approveYN.kh?checkPermission=Y&page=${currentPage }">승인도서</a>
+					    	</div>
+						</li>
+						<li class="mainLi">
+					    	<div class="col"><img src="/resources/img/sidebar.png"></div>
+					    </li>
+			    		<li class="mainLi">
+			    			<div style="text-align:center">
+					    		<a href="/admin/approveYN.kh?checkPermission=N&page=${currentPage }">보류도서</a>
+					    	</div>
+						</li>
+						<li class="mainLi">
+					    	<div class="col"><img src="/resources/img/sidebar.png"></div>
+					    </li>
+			    		<li class="mainLi">
+			    			<div style="text-align:left">
+					    		<a href="/admin/reApproveList.kh?page=${currentPage }">재승인도서</a>
+					    	</div>
+			    		</li>
+			 		</ul>
+				<hr>
+			</div>
+			<br>
+		<article id="list-area" class="row" >
 				<!-- 내가 쓴 시리즈 출력 -->
 				<c:if test="${mbList!=null }">
 					<!-- 시리즈 반복 -->

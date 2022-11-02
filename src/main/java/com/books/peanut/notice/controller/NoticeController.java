@@ -81,7 +81,6 @@ public class NoticeController {
 		
 	}
 
-
 	//공지사항 전체 리스트
 	@RequestMapping(value="/notice/list.kh", method = RequestMethod.GET)
 	public ModelAndView noticeListView(
@@ -126,7 +125,9 @@ public class NoticeController {
 	public ModelAndView noticeDetailView(
 			ModelAndView mv
 			, @RequestParam("noticeNo") Integer noticeNo
-			, @RequestParam("page") int page) {
+			, @RequestParam("page") int page
+			, HttpSession session) {
+		Member member = (Member)session.getAttribute("loginMember");
 		try {
 			Notice notice = nService.printOneByNo(noticeNo);
 			mv.addObject("notice", notice);
@@ -260,7 +261,7 @@ public class NoticeController {
 			, @RequestParam(value="page", required=false) Integer page) {
 		try {
 			int currentPage = (page != null) ? page : 1;
-			int totalCount = nService.getTotalCount("","");
+			int totalCount = nService.getTotalCount(noticeCategory);
 			int categoryLimit = 10;
 			int naviLimit = 5;
 			int maxPage;
@@ -278,7 +279,7 @@ public class NoticeController {
 			}else {
 				mv.addObject("nList", null);
 			}
-			mv.addObject("urlVal", "search");
+			mv.addObject("urlVal", "categoryCount");
 			mv.addObject("noticeCategory", noticeCategory);
 			mv.addObject("maxPage", maxPage);
 			mv.addObject("currentPage", currentPage);

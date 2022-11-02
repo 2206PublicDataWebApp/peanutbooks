@@ -63,8 +63,13 @@
 			AND N_STATUS = 'Y'
 		</where>
 	</select>
+	<!-- 카테고리별 리스트 출력 -->
 	<select id="selectAllCategory" resultMap="noticeResultMap">
 		SELECT * FROM NOTICE_TBL WHERE NOTICE_CATEGORY=#{noticeCategory} AND N_STATUS = 'Y' ORDER BY NOTICE_NO DESC
+	</select>
+	<!-- 카테고리별 페이지 갯수 -->
+	<select id="selectTotalCategoryList"  resultType="_int">
+		SELECT count(*) FROM NOTICE_TBL WHERE NOTICE_CATEGORY=#{noticeCategory} AND N_STATUS = 'Y' 
 	</select>
 	<select id="selectAllNotice" resultMap="noticeResultMap">
 		SELECT * FROM NOTICE_TBL WHERE N_STATUS = 'Y' ORDER BY NOTICE_NO DESC
