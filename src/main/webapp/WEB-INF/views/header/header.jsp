@@ -37,22 +37,22 @@
 				</div>
 				<div class="col-md-5 d-md-block d-none">
 					<ul>
-						<li onclick="location.href='/'">피넛 픽</li>
-						<li onclick="location.href='/book/bookNorList.do'">도서</li>
-						<li onclick="location.href='/book/bookOriList.do'">피넛 오리지널</li>
+						<li onclick="location.href='/'" class="cl-effect-1">피넛 픽</li>
+						<li onclick="location.href='/book/bookNorList.do'"class="cl-effect-1">도서</li>
+						<li onclick="location.href='/book/bookOriList.do'"class="cl-effect-1">피넛 오리지널</li>
 					</ul>
 
                 </div>
                 
                 <div class="col-md-4 col-6" id="header-menu-icon">
-                    <img src="/resources/img/header/icons8-search (2).png" alt="" id="search-icon" onclick="location.href='/book/bookSearch.do'">
-                    <img src="/resources/img/header/icons8-book (3).png" alt="" id="book-icon" onclick="location.href='/book/mybooks.do'">
-                    <img src="/resources/img/header/icons8-peanut-48 (6).png" alt="" id="p-icon">
+                    <img src="/resources/img/header/icons8-search (2).png" alt="" id="search-icon"onclick="location.href='/book/bookSearch.do'">
+                    <img src="/resources/img/header/icons8-book (3).png" alt="" id="book-icon"  onclick="location.href='/book/mybooks.do'">
+                    <img src="/resources/img/header/icons8-peanut-48 (6).png" alt="" id="p-icon" >
                     <img src="/resources/img/header/icons8-user.png" alt="" id="user-icon"
                     <c:if test="${loginMember.adminYN=='Y' }">style="display:none;"</c:if>
                     >
                     <!--관리자 체크해서 나타남-->
-                    <img src="/resources/img/header/icons8-monarch-48.png" alt="" id="admin-icon"        
+                    <img src="/resources/img/header/icons8-monarch-48.png" alt="" id="admin-icon"       
                      <c:if test="${loginMember.adminYN=='N' }">style="display:none;"</c:if>
                     >
                 </div>
@@ -224,7 +224,7 @@
 
 			</div>
 		</div>
-
+<hr>
 	</header>
 
 

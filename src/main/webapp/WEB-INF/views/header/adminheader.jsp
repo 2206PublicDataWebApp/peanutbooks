@@ -77,6 +77,20 @@
 				<li>회원</li>
 			</ul>
 		</div>
+		
+			<!--피넛 누르면 나타나는 부분  -->
+		<div id="peanutMenu">
+	        <nav>	
+	            <ul >                
+	                <li class="pnZone" id="pay"><a href="/pay/admin_list.kh" >결제조회</a></li>
+	                <li class="pnZone"><a href="/peanut/admin_list.kh?memberId=${loginMember.memberId }" >땅콩확인</a></li>
+	                <li class="pnZone"><a href="/writer/admin_list.kh" >작가정산</a></li>               
+	               		
+	            </ul>
+	        </nav>	
+        	<div id="contain">
+       		</div>    
+    	</div>
 
 		<!--회원 정보 툴팁-->
 		<div class="container" id="mypage-tooltip-area">

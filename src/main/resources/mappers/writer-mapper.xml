@@ -157,10 +157,10 @@ from origin_book where category = #{category} and status like 'Y%' and BOOK_PERM
 
  	<!-- 조회수 높은 동화이미지, 시 이미지 하나씩 가져오기 -->
   	<select id="selectOneOriimg" resultType="string">
-  		select CORVER_RENAME from  origin_book where category = 'tale' and ROWNUM=1 order by view_count desc
+  		select CORVER_RENAME from  origin_book where category = 'novel' and ROWNUM=1 order by view_count desc
   	</select>
   	<select id="selectOneOriimg2" resultType="string">
-  		select CORVER_RENAME from  origin_book where category = 'poem' and ROWNUM=1 order by view_count desc
+  		select CORVER_RENAME from  origin_book where category = 'tale' and ROWNUM=1 order by view_count desc
   	</select>
   	
   	
@@ -196,7 +196,7 @@ from origin_book where category = #{category} and status like 'Y%' and BOOK_PERM
   <!-- 카테고리별 가장 별점많은 도서 4개 -->
   <select id="selectTop4Ori" resultMap="oriBookResultMap"> 
 	    select * from
-	(select ori_book_no, book_title, corver_rename, category, status,score, ROW_NUMBER() over (order by score desc) r 
+	(select ori_book_no, book_title, corver_rename, category,book_info, status,score, ROW_NUMBER() over (order by score desc) r 
 	from origin_book where category = #{category} and status like 'Y%')where r between 1 and 4
   </select>
   	

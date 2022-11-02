@@ -9,6 +9,7 @@ loginicon.onclick = function () {
         check = false;
     }
 }
+var test = false;
 window.addEventListener('scroll', function () {
 
     if (matchMedia("screen and (max-width: 500px)").matches) {
@@ -23,6 +24,7 @@ window.addEventListener('scroll', function () {
 
         if (window.scrollY > 250) {
             document.querySelector('#section2-title').style.animation = 'Rontext 0.3s ease-out forwards';
+        	test = true;
         }
 
         if (window.scrollY >250  && window.scrollY < 420) {
@@ -52,9 +54,10 @@ window.addEventListener('scroll', function () {
 
         if (window.scrollY > 600) {
             document.querySelector('#section2-title').style.animation = 'Rontext 0.3s ease-out forwards';
+        test = true;
         }
 
-        if ( window.scrollY <= 600) {
+        if ( window.scrollY <= 600 && test) {
             document.querySelector('#section2-title').style.animation = 'ontext 0.3s ease-out forwards';
         }
 

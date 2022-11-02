@@ -310,6 +310,10 @@ header li{
     #togglemenu{
     margin-left:0 !important;
     }
+    
+    #logo {
+    content: url("/resources/img/logo/logo-1.png");
+    }
 
 
 }
@@ -333,3 +337,59 @@ header li{
       opacity: 0;
     }
   }
+  
+  
+  
+  
+  /**1102 은정님 추가**/
+  
+   #peanutMenu{
+        width:100%;        
+        font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+        padding:0;
+        margin:0 auto;
+        display: block;      
+    }
+    #peanutMenu nav{
+        margin:0;      
+        width:100%;        
+        height: 100%;
+        padding-left:40%;
+        text-align: left;  
+        border-bottom: 1px solid rgb(201, 196, 196);                    
+    }  
+   #peanutMenu nav ul{
+        width: 100%;
+        height: 100%;
+        display: inline;
+        padding:0px;        
+
+    }
+   #peanutMenu nav ul li{
+    display: inline;
+    list-style: none;   
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top:1rem;   
+    font-size: 0.7rem;
+    color: darkgray;
+    padding-bottom: 0.5rem;
+    font-weight: 500;
+    text-align: center;
+}  
+#peanutMenu nav ul li a{
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    
+@media (min-width:550px){
+	 #peanutMenu nav{ 
+	 	padding-left:20%;
+	 }
+	 
+	 .pnZone{
+	 	padding-left: 1rem;
+	 	padding-rigth: 1rem;
+	 }
+  
+}

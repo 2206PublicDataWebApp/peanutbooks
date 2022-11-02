@@ -39,7 +39,10 @@
                 <div class="col-md-8 col-6 row d-md-block d-none" id="header-menu">
                     <div class="row" id="menu-text">
                         <div class="col-md-8 col-d-none"></div>
-                        <div class="col-md-2 col-6 menu-font">도서문의</div>
+                        <div class="col-md-2 col-6 menu-font">
+                        <a href="mailto:hey.upup78786@gmail.com">도서문의</a>
+                        
+                        </div>
                         <div class="col-md-2 col-6 menu-font"><a href="/member/joinView.pb">회원가입</a></div>
 
                     </div>

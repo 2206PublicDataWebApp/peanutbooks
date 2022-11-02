@@ -125,12 +125,12 @@
 	</select>
   	
   	
-  	<!-- 조회수 높은 소설이미지, 동화 이미지 하나씩 가져오기 -->
+  	<!-- 조회수 높은 동화이미지, 시 이미지 하나씩 가져오기 -->
   	<select id="selectOneNorimg" resultType="string">
-  		select COVER_RENAME from  normal_book where category = 'novel' and ROWNUM=1 order by view_count desc
+  		select COVER_RENAME from  normal_book where category = 'tale' and ROWNUM=1 order by view_count desc
   	</select>
   	<select id="selectOneNorimg2" resultType="string">
-  		select COVER_RENAME from  normal_book where category = 'tale' and ROWNUM=1 order by view_count desc
+  		select COVER_RENAME from  normal_book where category = 'poem' and ROWNUM=1 order by view_count desc
   	</select>
   	
   	 	<!-- 카테고리별 도서 갯수, 모든 도서 -->

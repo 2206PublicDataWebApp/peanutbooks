@@ -101,8 +101,8 @@
 						<div id="main-recommand"
 							class="card mb-3 rounded border container row">
 
-							<div class="row g-0">
-								<div class="col-md-3 rounded" id="recommnad-pic-1"onclick="location.href='/book/norBookInfo?bookNo=${topScoreDe.bookNo}'">
+							<div class="row g-0" onclick="location.href='/book/norBookInfo?bookNo=${topScoreDe.bookNo}'">
+								<div class="col-md-3 rounded" id="recommnad-pic-1">
 									<img src="./resources/bookImg/${topScoreDe.coverRename }"
 										class="img-fluid rounded-start" alt="...">
 								</div>
@@ -127,13 +127,18 @@
 						
 						<!--  동화 탑 4 반복 시작 -->
 						<c:forEach items="${topTale }" var="topTale">
-						<div class="col-md-3 col-6" onclick="location.href='/book/norBookInfo?bookNo=${topTale.bookNo}'">
-							<div class="cate-img">
-								<img src="./resources/bookImg/${topTale.coverRename }"
-									class="rounded" alt="">
-							</div>
-							<div class="book-name">${topTale.bookTitle }</div>
-						</div>
+						
+						<figure class="snip1361 col-md-3 col-6" onclick="location.href='/book/norBookInfo?bookNo=${topTale.bookNo}'">
+						  <div class="cate-img">
+						  	<img src="/resources/bookImg/${topTale.coverRename }" class="rounded"/>
+						  </div>
+						  <figcaption>
+						    <h3 class="text-truncate">${topTale.bookTitle }</h3>
+						    <p>${topTale.bookInfo }</p>
+						  </figcaption>
+						 
+						</figure>
+						
 						</c:forEach>
 							
 					</div>
@@ -144,14 +149,19 @@
 						
 						<!-- 역사 영역 반복시작 -->
 						<c:forEach items="${topHistory }" var="topHistory">
-							<div class="col-md-3 col-6"  onclick="location.href='/book/norBookInfo?bookNo=${topHistory.bookNo}'">
-								<div class="cate-img">
-									<img src="./resources/bookImg/${topHistory.coverRename }"
-										class="rounded" alt="">
-								</div>
-									
-								<div class="book-name">${topHistory.bookTitle }</div>
-							</div>
+						
+						
+						<figure class="snip1361 col-md-3 col-6" onclick="location.href='/book/norBookInfo?bookNo=${topHistory.bookNo}'">
+						  <div class="cate-img">
+						  	<img src="/resources/bookImg/${topHistory.coverRename }" class="rounded"/>
+						  </div>
+						  <figcaption>
+						    <h3 class="text-truncate">${topHistory.bookTitle }</h3>
+						    <p>${topHistory.bookInfo }</p>
+						  </figcaption>
+						  
+						</figure>
+						
 						</c:forEach>
 
 
@@ -195,13 +205,16 @@
 							
 							<!-- 반복문 시작 -->
 							<c:forEach items="${topTOri }" var="oBook">
-							<div class="col-md-3 col-6" onclick="location.href='/book/oriBookInfo?bookNo=${oBook.bookNo}'">
-								<div class="cate-img">
-									<img src="./resources/bookImg/${oBook.coverRename }"
-										class="rounded" alt="">
-								</div>
-								<div class="book-name">${oBook.bookTitle }</div>
-							</div>
+								<figure class="snip1361 col-md-3 col-6" onclick="location.href='/book/oriBookInfo?bookNo=${oBook.bookNo}'">
+								  <div class="cate-img">
+								  	<img src="/resources/bookImg/${oBook.coverRename }" class="rounded"/>
+								  </div>
+								  <figcaption>
+								    <h3 class="text-truncate">${oBook.bookTitle }</h3>
+								    <p>${oBook.bookInfo }</p>
+								  </figcaption>
+								  
+								</figure>
 							</c:forEach>
 							
 						</div>
@@ -211,13 +224,16 @@
 							<div class="category-name">시</div>
 							<!-- 반복문 시작 -->
 							<c:forEach items="${topPOri }" var="oBook">
-							<div class="col-md-3 col-6" onclick="location.href='/book/oriBookInfo?bookNo=${oBook.bookNo}'">
-								<div class="cate-img">
-									<img src="./resources/bookImg/${oBook.coverRename }"
-										class="rounded" alt="">
-								</div>
-								<div class="book-name">${oBook.bookTitle }</div>
-							</div>
+							<figure class="snip1361 col-md-3 col-6" onclick="location.href='/book/oriBookInfo?bookNo=${oBook.bookNo}'">
+								  <div class="cate-img">
+								  	<img src="/resources/bookImg/${oBook.coverRename }" class="rounded"/>
+								  </div>
+								  <figcaption>
+								    <h3 class="text-truncate">${oBook.bookTitle }</h3>
+								    <p>${oBook.bookInfo }</p>
+								  </figcaption>
+								  
+								</figure>
 							</c:forEach>
 
 

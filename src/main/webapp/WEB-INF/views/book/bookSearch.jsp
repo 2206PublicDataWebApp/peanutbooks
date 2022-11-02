@@ -70,7 +70,7 @@
 					<span class="tagbax" onclick="location.href='/book/bookSearchList.do?tag=gag&bookCate=origin'">배꼽 빠지는</span> 
 					<span class="tagbax" onclick="location.href='/book/bookSearchList.do?tag=move&bookCate=origin'">마음이 따뜻해지는</span>
 					<span class="tagbax" onclick="location.href='/book/bookSearchList.do?tag=heart&bookCate=origin'">설레이는</span> 
-					<span class="tagbax" onclick="location.href='/book/bookSearchList.do?tag=heart&bookCate=origin'">눈물이 나는</span>
+					<span class="tagbax" onclick="location.href='/book/bookSearchList.do?tag=tear&bookCate=origin'">눈물이 나는</span>
 					<span class="tagbax" onclick="location.href='/book/bookSearchList.do?tag=popcorn&bookCate=origin'">팝콘 각</span>
 					<span class="tagbax" onclick="location.href='/book/bookSearchList.do?tag=cider&bookCate=origin'">사이다 마시는</span>
 				</div>

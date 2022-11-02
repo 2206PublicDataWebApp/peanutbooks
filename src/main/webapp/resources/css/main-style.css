@@ -91,7 +91,6 @@ main {
 .cate-img {
     overflow: hidden;
     height: 25rem;
-    padding: 0.5rem;
     border-radius: 1rem;
     padding-top:0.5rem;
     text-align: center;
@@ -107,10 +106,7 @@ main {
 .book-name {
     text-align: center;
 }
- .cate-img:hover{
-	transform: scale(1.1);
-	transition : 0.2s;
-}
+
 
 main img{
 	    box-shadow: 0 5px 5px rgba(0,0,0,0.18),0 4px 5px 0 rgba(0,0,0,0.15);
@@ -192,6 +188,96 @@ main img{
     #comment h4{
     font-size:1rem;
     }
+    .second-category, .third-category{
+    margin-right : 0.5rem !important;
+    }
 
 }
+
+/**북 호버용 애니메이션*/
+.snip1361 {
+  position: relative;
+  overflow: hidden;
+  color: #141414;
+  text-align: left;
+  line-height: 1.7em;
+  font-size: 1.2rem;
+  padding-right:0 !important;
+ 
+  border-radius-bottom: 0.5rem;
+  
+}
+.snip1361 * {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all 0.35s ease;
+  transition: all 0.35s ease;
+}
+.snip1361 img {
+  max-width: 100%;
+  vertical-align: top;
+}
+.snip1361 figcaption {
+  position: absolute;
+  top: calc(77%);
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 1rem 1.5rem 2rem;
+  border-radius-bottom: 0.5rem;
+
+}
+.snip1361 figcaption:before {
+  position: absolute;
+  content: '';
+  z-index: 2;
+  bottom: 100%;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background-image: -webkit-linear-gradient(top, transparent 0%, rgba(0, 0, 0, 0.5) 100%);
+  background-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.5) 100%);
+ 
+}
+
+.snip1361 h3,
+.snip1361 p {
+  margin: 0 0 10px;
+  color : white;
+}
+
+.snip1361 h3 {
+  font-weight: 500;
+  font-size: 1.2em;
+  line-height: 2.5em;
+  text-transform: uppercase;
+}
+.snip1361 p {
+  font-size: 0.9em;
+  letter-spacing: 1px;
+  opacity: 0.9;
+  height:10rem;
+  border-radius-bottom: 0.5rem;
+}
+
+.snip1361:hover figcaption,
+.snip1361.hover figcaption {
+  top: 45%;
+    
+}
+
+figure:hover{
+	cursor:pointer;
+}
+
+
+ @media (max-width:500px) {
+ 	.snip1361 h3 {
+	  font-weight: 500;
+	  font-size: 1em;
+	  line-height: 1.2em;
+	  text-transform: uppercase;
+	  height:2rem;
+	  width:100%;
+}
+ }
     
