@@ -78,5 +78,11 @@ public class MemberStoreLogic implements MemberStore{
 		int result = session.selectOne("MemberMapper.checkAuthKey", paramMap);
 		return result;
 	}
+	// 이메일 인증 여부 업데이트
+	@Override
+	public int updateEmailYN(SqlSession session, HashMap<String, String> paramMap) {
+		int result = session.update("MemberMapper.updateEmailYN", paramMap);
+		return result;
+	}
 	
 }

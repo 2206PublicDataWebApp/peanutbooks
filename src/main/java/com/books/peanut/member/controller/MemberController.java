@@ -109,7 +109,8 @@ public class MemberController {
 	}
 	
 	// 인증 키 검사
-	@RequestMapping(value="/membe/checkAuthKey.pb", method=RequestMethod.GET)
+	@ResponseBody
+	@RequestMapping(value="/member/checkAuthKey.pb", method=RequestMethod.GET)
 	public String checkAuthKey(
 			@RequestParam("authKey") String authKey,
 			@RequestParam("memberId") String memberId) {
@@ -118,6 +119,19 @@ public class MemberController {
 		paramMap.put("memberId", memberId);
 		int result = mService.checkAuthKey(paramMap);
 		return String.valueOf(result);
+	}
+	
+	// 이메일 인증
+	@RequestMapping(value="/member/authEmail.pb", method=RequestMethod.POST)
+	public ModelAndView authEmail(
+			@RequestParam("memberId") String memberId,
+			@RequestParam("authKey") String authKey,
+			ModelAndView mv) {
+		HashMap<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("authKey", authKey);
+		paramMap.put("memberId", memberId);
+		mService.authEmail(paramMap);
+		return mv;
 	}
 	
 	/**

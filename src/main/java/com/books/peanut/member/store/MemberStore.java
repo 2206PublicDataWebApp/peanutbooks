@@ -29,5 +29,7 @@ public interface MemberStore {
 	public int selectWrittenBooks(SqlSession session, String memberId);
 	// 이메일 인증 키 검사
 	public int checkAuthKey(SqlSession session, HashMap<String, String> paramMap);
+	// 이메일 인증 여부 업데이트
+	public int updateEmailYN(SqlSession session, HashMap<String, String> paramMap);
 
 }
