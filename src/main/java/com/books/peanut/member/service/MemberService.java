@@ -1,10 +1,14 @@
 package com.books.peanut.member.service;
 
+import java.util.HashMap;
+
 import com.books.peanut.member.domain.Member;
 
 public interface MemberService {
 	// 회원가입
 	int registerMember(Member member);
+	// 인증 키 저장
+	void saveAuthKey(String authKey, String mEmail);
 	// 별명 유효성 검사
 	int checkNickname(String mNickname);
 	// 아이디 유효성 검사
@@ -21,5 +25,7 @@ public interface MemberService {
 //	int countSavedBooks(String memberId);
 	// 로그인한 회원이 등록한 작품 수 가져오기
 	int countWrittenBooks(String memberId);
+	// 이메일 인증 키 검사
+	int checkAuthKey(HashMap<String, String> paramMap);
 
 }

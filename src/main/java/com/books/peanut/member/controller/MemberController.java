@@ -1,5 +1,6 @@
 package com.books.peanut.member.controller;
 
+import java.util.HashMap;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -21,7 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.books.peanut.member.domain.Member;
 import com.books.peanut.member.service.MemberService;
 import com.books.peanut.pay.payService.PayService;
-
 
 @Controller
 public class MemberController {
@@ -52,8 +52,13 @@ public class MemberController {
 			@ModelAttribute Member member,
 			ModelAndView mv) {
 		try {
-			String authNum = this.sendEmail(member.getmEmail());
-			int result = mService.registerMember(member);
+			int result = mService.registerMember(member); // 회원가입
+			
+			String authKey = this.sendEmail(member.getmEmail()); // 메일 발송 및 인증 키 저장
+			String mEmail = member.getmEmail();
+			
+			mService.saveAuthKey(authKey, mEmail); // 메일 발송 후 해당 메일의 인증 키만 업데이트로 저장
+			
 			if(result > 0) {
 				mv.addObject("msg", "입력하신 이메일 주소로 인증번호를 발송했습니다."); // 회원가입 성공 시 alert 창 띄운 후
 				mv.addObject("url", "/member/confirmEmailView.pb?memberId="+member.getMemberId()); // 인증번호 입력 페이지로 이동
@@ -101,6 +106,30 @@ public class MemberController {
 		String authNum = Integer.toString(authKey); // ajax로 반환하는 값은 String 타입만 가능하므로 형변환 처리
 		
 		return authNum;
+	}
+	
+	// 인증 키 검사
+	@RequestMapping(value="/membe/checkAuthKey.pb", method=RequestMethod.GET)
+	public String checkAuthKey(
+			@RequestParam("authKey") String authKey,
+			@RequestParam("memberId") String memberId) {
+		HashMap<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("authKey", authKey);
+		paramMap.put("memberId", memberId);
+		int result = mService.checkAuthKey(paramMap);
+		return String.valueOf(result);
+	}
+	
+	/**
+	 * 이메일 인증 확인 화면
+	 * @return
+	 */
+	@RequestMapping(value="/member/confirmEmailView.pb", method=RequestMethod.GET)
+	public String confirmEmailView(
+			@RequestParam("memberId") String memberId,
+			Model model) {
+		model.addAttribute("memberId", memberId);
+		return "member/confirmEmail";
 	}
 	
 	/**
@@ -246,17 +275,6 @@ public class MemberController {
 	@RequestMapping(value="/member/resetPw.pb", method=RequestMethod.GET)
 	public String resetPwView() {
 		return "member/resetPw";
-	}
-	
-	/**
-	 * 이메일 인증 확인 화면
-	 * @return
-	 */
-	@RequestMapping(value="/member/confirmEmailView.pb", method=RequestMethod.GET)
-	public String confirmEmailView(@RequestParam("memberId") String memberId
-			, Model model) {
-		model.addAttribute("memberId", memberId);
-		return "member/confirmEmail";
 	}
 	
 	/**

@@ -17,11 +17,16 @@
 		<result property="kakaoId" column="KAKAO_ID"/> <!-- 카카오 아이디 -->
 		<result property="accType" column="ACC_TYPE"/> <!-- 계정 종류(일반/네이버/카카오) -->
 		<result property="adminYN" column="ADMIN_YN"/> <!-- 관리자 여부 -->
+		<result property="authKey" column="AUTH_KEY"/> <!-- 이메일 인증 키 -->
 	</resultMap>
 	<!-- 회원가입 -->
 	<insert id="insertMember">
-		INSERT INTO MEMBER_TBL VALUES(#{memberId}, #{memberPw}, #{mNickname}, #{mEmail}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, NULL, NULL, NULL, DEFAULT)
+		INSERT INTO MEMBER_TBL VALUES(#{memberId}, #{memberPw}, #{mNickname}, #{mEmail}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, NULL, NULL, NULL, DEFAULT, NULL)
 	</insert>
+	<!-- 인증 키 저장 -->
+	<update id="updateAuthKey">
+		UPDATE MEMBER_TBL SET AUTH_KEY = #{authKey} WHERE M_EMAIL = #{mEmail}
+	</update>
 	<!-- 별명 유효성 검사 -->
 	<select id="checkNickname" resultType="_int">
 		SELECT COUNT(*) FROM MEMBER_TBL WHERE M_NICKNAME = #{mNickname} AND DELETE_YN = 'N'
@@ -46,6 +51,10 @@
 	<update id="deleteMember">
 		UPDATE MEMBER_TBL SET DELETE_YN = 'Y' WHERE MEMBER_ID = #{memberId}
 	</update>
+	<!-- 이메일 인증 키 검사 -->
+	<select id="checkAuthKey" resultType="_int">
+		SELECT COUNT(*) FROM MEMBER_TBL WHERE MEMBER_ID = #{memberId} AND AUTH_KEY = #{authKey}
+	</select>
 	<!-- 이메일 인증 여부 변경 -->
 <!-- 	<update id="updateEmailYN" parameterType="Member">
 		UPDATE MEMBER_TBL SET EMAIL_YN = 'Y' WHERE M_EMAIL = #{mEmail} AND AUTH_KEY = #{authKey}
