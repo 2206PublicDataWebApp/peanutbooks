@@ -8,6 +8,23 @@ main {
 	
 }
 
+.inner{
+	width:2rem;
+    content: "";
+    position: absolute;
+    top: 0.5rem;
+    bottom: 0;
+    left: 1.2rem;
+    background: linear-gradient(90deg,rgba(0,0,0,.05),rgba(0,0,0,.05) .01%,rgba(0,0,0,.05) 5.97%,hsla(0,0%,100%,.3) 15.89%,hsla(0,0%,100%,0) 28.19%,rgba(0,0,0,.05) 0,rgba(0,0,0,.0277927) 46.96%,hsla(0,0%,100%,0) 47.51%,hsla(0,0%,100%,.1) 54.14%,hsla(0,0%,100%,0));
+}
+
+
+
+
+
+
+
+
 .carousel-item {
     overflow: hidden;
     height: 30rem;
@@ -91,15 +108,17 @@ main {
 .cate-img {
     overflow: hidden;
     height: 25rem;
-    border-radius: 1rem;
     padding-top:0.5rem;
     text-align: center;
+   	
 }
 
 .cate-img img {
     height: 100% ;
     width: 100% ;
     object-fit: cover;
+    border-radius: 1rem 1rem 1rem 0;
+     box-shadow: 5px 5px 5px gray;
     
 }
 
@@ -204,7 +223,6 @@ main img{
   font-size: 1.2rem;
   padding-right:0 !important;
  
-  border-radius-bottom: 0.5rem;
   
 }
 .snip1361 * {
@@ -216,6 +234,7 @@ main img{
 .snip1361 img {
   max-width: 100%;
   vertical-align: top;
+  box-shadow: -0.2rem -0.3rem 0.3rem gray;
 }
 .snip1361 figcaption {
   position: absolute;

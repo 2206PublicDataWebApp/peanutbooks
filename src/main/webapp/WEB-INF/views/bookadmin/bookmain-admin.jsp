@@ -33,6 +33,7 @@
 			<article class="container" id="fisrt-article">
 				<div id="info-article" class="row">
 					<div class="img-area col-md-6">
+					<div class="inner"></div>
 						<img src="/resources/bookImg/${nBook.coverRename}" alt="표지그림">
 
 					</div>

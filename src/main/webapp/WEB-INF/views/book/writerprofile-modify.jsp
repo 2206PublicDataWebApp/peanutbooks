@@ -20,6 +20,7 @@
 	crossorigin="anonymous"></script>
 <link rel="shortcut icon" href="/resources/img/icons8-book-32.png">
 <link rel="stylesheet" href="/resources/css/book/writerprofile.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -28,6 +29,7 @@
 	<main>
 		<form action="/book/profileModify.do" method="post"
 			enctype="multipart/form-data">
+			<input type="hidden" name="removeImg">
 			<section class="container">
 
 				<article id="header-area">
@@ -55,21 +57,32 @@
 				<article id="profile" class="row">
 					<div class="profile-pic-area col-md-6">
 						<div class="align-items-center">
-							<div class="align-items-center">
+							<div class="align-items-center" id="picParent">
 								<img class="detailImg mx-auto"
-									src="/resources/bookImg/${writer.mainPicRename }"> <label
-									class="input-file-button float-md-start"> <img
+									src="/resources/bookImg/${writer.mainPicRename }" id="proPic"> 
+									<img
 									src="/resources/img/book/icons8-camera-96.png" alt=""
-									id="camera"> <input type="file" name="profilePicture"
-									class="isFile" style="display: none"
-									accept="image/jpeg, image/png, image/jpg"
-									onchange="imgView(this);">
-								</label>
+									id="camera" onclick="picModifyMenu();"> 
+									<!--  여기부터 사진 삭제/교체메뉴 -->
+										<div id="profilePicMenu">
+											<div id="menu1" onclick="removeProPic()">사진삭제</div>
+											<label
+											class="input-file-button float-md-start"> 
+											
+												<div id="menu2">사진수정</div>
+											
+												<input type="file" name="profilePicture"
+												class="isFile" style="display: none"
+												accept="image/jpeg, image/png, image/jpg"
+												onchange="imgView1(this);">
+										</label>
+										</div><!-- 사진교체 종료 -->
 
 							</div>
 
 						</div>
 					</div>
+
 
 					<div class="col-md-6">
 						<div id="wirter-name">
@@ -96,7 +109,9 @@
 </body>
 
 <script src="/resources/js/book/writerprofile.js"></script>
-
+<script type="text/javascript">
+document.querySelector('#profilePicMenu').style.display='none';
+</script>
 <c:if test="${msg !=null }">
 	<script>	
 		alert('프로필등록완료');

@@ -167,13 +167,42 @@ public class ReplyServiceLogic implements ReplyService {
 		int result = rStore.insertReReply(session,rReply);
 		return result;
 	}
+	
 
+	/**리리플 불러오기*/
 	@Override
 	public List<ReReply> BookReReply(ReReply r) {
 		List<ReReply> rRreply = rStore.selectOneBookReReply(session,r);
 		return rRreply;
 	}
-	
+
+	/**리플쓴사람 찾기*/
+	@Override
+	public String checkReReplyMember(Integer rNo) {
+		String memberId = rStore.selectReplymember(session,rNo);
+		return memberId;
+	}
+
+	/**리리플 삭제*/
+	@Override
+	public int removeReReply(Integer rNo) {
+		int result = rStore.deleteReReply(session,rNo);
+		return result;
+	}
+
+	/**리리플 하나 불러오기*/
+	@Override
+	public String getReReply(String rNo) {
+		String contents = rStore.selectOneReReply(session,rNo);
+		return contents;
+	}
+
+	/**리리플 수정하기*/
+	@Override
+	public int modifyReReply(ReReply rReply) {
+		int result = rStore.updateReReply(session,rReply);
+		return result;
+	}
 
 
 	

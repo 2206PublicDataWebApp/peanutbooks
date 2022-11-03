@@ -16,6 +16,7 @@ import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -265,7 +266,7 @@ public class BookController {
 		} else {
 			if (bookCate.equals("origin")) { // 피넛 오리지널 이라면
 				int getTotalCount = bService.countAllOriginCategory(category);// 페이징용 갯수 가져오기
-				int bookLimit = 20;
+				int bookLimit = 18;
 				BookPageController bpCon = new BookPageController();
 				BookPage bPage = bpCon.boardList(page, getTotalCount, bookLimit);
 
@@ -681,7 +682,7 @@ public class BookController {
 			int getTotalCountNor = bService.NorBookSearchValueCount(tag, step, searchValue, category); // 가져올 목록의 총 갯수
 																										// 파악하기
 
-			int boardLimit = 20;
+			int boardLimit = 18;
 			BookPageController bpContOri = new BookPageController();// 페이징 해주는 클래스
 			BookPageController bpContNor = new BookPageController();// 페이징 해주는 클래스
 
@@ -954,6 +955,7 @@ public class BookController {
 	@RequestMapping(value = "/book/profileModify.do", method = RequestMethod.POST)
 	public ModelAndView profileModify(ModelAndView mv, @ModelAttribute WriterProfile wrtiePro,
 			@RequestParam(value = "headerPicture", required = false) MultipartFile headerPic,
+			@RequestParam(value = "removeImg", required = false, defaultValue = "Not") String removeImg,
 			@RequestParam(value = "profilePicture", required = false) MultipartFile proPic, HttpServletRequest request,
 			HttpSession session) {
 
@@ -965,6 +967,14 @@ public class BookController {
 		wrtiePro.setHeadPicRename(oneWriter.getHeadPicRename());
 		wrtiePro.setMainPic(oneWriter.getMainPic());
 		wrtiePro.setMainPicRename(oneWriter.getMainPicRename());
+		
+		
+		if(!removeImg.equals("Not")) {
+			fileDelete(request, wrtiePro.getMainPicRename());
+			wrtiePro.setMainPic("defaultImg.jpg");
+			wrtiePro.setMainPicRename("defaultImg.jpg");			
+		}
+		
 
 		// 사진 저장 시작
 
@@ -978,6 +988,8 @@ public class BookController {
 			wrtiePro.setMainPicRename(mainPicRename);
 
 		}
+		
+
 
 		String headPic = headerPic.getOriginalFilename();
 		if (proPic != null && !headPic.equals("")) {
@@ -2294,6 +2306,7 @@ public class BookController {
 
 	}
 	
+
 
 	
 	

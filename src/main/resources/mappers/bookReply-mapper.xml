@@ -55,6 +55,15 @@
 	insert into re_reply values(seq_rereply.nextval, #{bookNo},#{category}, #{memberId}, #{reContens}, default,#{replyNo})
 	</insert>
 	
+	<!-- 리리플 지우기 -->
+	<delete id="deleteReReply">
+	delete from re_reply where RE_REPLY_NO= #{rNo}
+	</delete>
+	
+	<update id="updateOneRereply">
+	update re_reply set RE_CONTETNS =#{reContens} where RE_REPLY_NO=#{reReplyNo}
+	</update>
+	
 	<resultMap type="ReReply" id="reReplyResultMap">
 	<id property="reReplyNo" column="RE_REPLY_NO"/>
 	<result property="replyNo" column="REPLY_NO"/>
@@ -71,6 +80,16 @@
 
 	select * from re_reply join member_tbl using(member_id) where book_no =#{bookNo} and category = #{category} order by RE_REPLY_NO desc
 	</select>
+	<!-- 리리플 작성자 가져오기 -->
+	<select id="selectReplymember" resultType="string">
+	select member_id from re_reply where RE_REPLY_NO = #{rNo}
+	</select>
+	<!-- 리플내용 가져오기 -->
+	<select id="selectOneReReply"  resultType="string">
+	select RE_CONTETNS from re_reply where RE_REPLY_NO = #{rNo}
+	
+	</select>
+	
 	
 	
 	<!-- 별점 주기 쿼리문 -->

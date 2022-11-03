@@ -25,7 +25,8 @@ public class ReReply {
 	@Override
 	public String toString() {
 		return "ReReply [reReplyNo=" + reReplyNo + ", replyNo=" + replyNo + ", bookNo=" + bookNo + ", category="
-				+ category + ", memberId=" + memberId + ", reContens=" + reContens + ", insertDate=" + insertDate + "]";
+				+ category + ", memberId=" + memberId + ", reContens=" + reContens + ", insertDate=" + insertDate
+				+ ", mNickName=" + mNickName + "]";
 	}
 	public int getReReplyNo() {
 		return reReplyNo;

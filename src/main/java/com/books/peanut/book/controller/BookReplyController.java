@@ -252,6 +252,16 @@ public class BookReplyController {
 		return replyContents;
 		
 	}
+	
+	/** 리리플 내용 가져오기 */
+	@ResponseBody
+	@RequestMapping(value = "/book/getOneReReply", method = RequestMethod.GET, produces = "text/plain;charset=utf-8")
+	public String getOneReReply(@RequestParam(value = "rNo") String rNo) {
+		
+		String replyContents = rService.getReReply(rNo);
+		return replyContents;
+		
+	}
 
 	/** 피넛 오리지널 리플 수정하기 */
 	@ResponseBody
@@ -286,6 +296,29 @@ public class BookReplyController {
 		int result = 0;
 		if (repleId.equals(memberId)) {
 			result = rService.modifyNorReply(nbReply);
+		} else {
+			result = 0;
+		}
+		
+		return result + "";
+		
+	
+	}
+	/** 리 리플 수정하기 */
+	@ResponseBody
+	@RequestMapping(value = "/book/modifyReReply", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
+	public String modifyReReply(HttpSession session, @ModelAttribute ReReply rReply) {
+		
+		logger.info(rReply.toString());
+		
+		Member member = (Member) session.getAttribute("loginMember");
+		String memberId = member.getMemberId();
+		
+		// 리플 쓴 사람 체크하기
+		String repleId = rService.checkReReplyMember(rReply.getReReplyNo());
+		int result = 0;
+		if (repleId.equals(memberId)) {
+			result = rService.modifyReReply(rReply);
 		} else {
 			result = 0;
 		}
@@ -328,6 +361,27 @@ public class BookReplyController {
 		int result = 0;
 		if (repleId.equals(memberId)) {
 			result = rService.removeNorReply(rNo);
+		} else {
+			result = 0;
+		}
+		
+		return result + "";
+		
+	}
+	
+	/** 리리플 삭제하기 */
+	@ResponseBody
+	@RequestMapping(value = "/book/removeReReply", method = RequestMethod.GET, produces = "text/plain;charset=utf-8")
+	public String removeReReply(HttpSession session, @RequestParam(value = "replyNo") Integer rNo) {
+		
+		Member member = (Member) session.getAttribute("loginMember");
+		String memberId = member.getMemberId();
+		
+		// 리플 쓴 사람 체크하기
+		String repleId = rService.checkReReplyMember(rNo);
+		int result = 0;
+		if (repleId.equals(memberId)) {
+			result = rService.removeReReply(rNo);
 		} else {
 			result = 0;
 		}

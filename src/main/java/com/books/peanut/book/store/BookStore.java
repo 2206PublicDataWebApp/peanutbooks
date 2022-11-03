@@ -312,5 +312,4 @@ public interface BookStore {
 	/**피넛 오리지널 수정분 업로드*/
 	int updateModifyOne(SqlSessionTemplate session, OriginBookSeries oModifyS);
 
-
 }

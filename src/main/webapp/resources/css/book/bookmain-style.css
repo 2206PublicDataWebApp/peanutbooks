@@ -29,6 +29,7 @@ main .img-area img {
 	height: 100%;
 	object-fit: cover;
 	border-radius: 0.5rem;
+	box-shadow: 10px 10px 22px 10px gray;
 }
 
 #page {
@@ -90,6 +91,7 @@ main .userbutton a {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+
 }
 
 #title {
@@ -97,25 +99,49 @@ main .userbutton a {
 }
 
 #bookopenbutton {
-	background-color: rgb(236, 236, 236);
+	background: linear-gradient(-45deg, #FFD384, #FF884B, #FF884B, #FF577F);
+   background-size: 400% 400%;	
 	border: 0;
-	width: 7rem;
-	height: 2rem;
+	width: 100%;
+	height: 5rem;
 	border-radius: 0.5rem;
-	transition: 0.2s;
+	
+	color:white;
+
 }
 
 #bookopenbutton:hover {
-	background-color: #FFD384;
-	transition: 0.5s;
+  
+	background: linear-gradient(-45deg, #FFD384, #FF884B, #FF884B, #FF577F);
+   background-size: 400% 400%;
+   animation: gradient 2s ease-out forwards;
+	
+	
+}
+
+@keyframes gradient {
+   0% {
+      background-position: 0% 50%;
+   }
+   50% {
+      background-position: 100% 50%;
+   }
+   100% {
+      background-position: 0% 50%;
+   }
+}
+
+.openbutton{
+	width: 60%;
 }
 
 .userbutton .row {
-	background-color: rgb(236, 236, 236);
+	background-color:;
 	border-radius: 0.5rem;
 	width: 60%;
 	text-align: center;
 	transition: 0.2s;
+	border:1px solid black;
 }
 
 .userbutton .row div:hover {
@@ -234,6 +260,21 @@ main .userbutton a {
 	text-align: right;
 }
 
+
+.img-area{
+	position:relative;
+	
+}
+.inner{
+	width:2rem;
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 1rem;
+    background: linear-gradient(90deg,rgba(0,0,0,.05),rgba(0,0,0,.05) .01%,rgba(0,0,0,.05) 5.97%,hsla(0,0%,100%,.3) 15.89%,hsla(0,0%,100%,0) 28.19%,rgba(0,0,0,.05) 0,rgba(0,0,0,.0277927) 46.96%,hsla(0,0%,100%,0) 47.51%,hsla(0,0%,100%,.1) 54.14%,hsla(0,0%,100%,0));
+}
+
 #reply-text {
 	width: 100%;
 }
@@ -320,10 +361,15 @@ main .userbutton a {
 		margin-bottom: 0.5rem;
 	}
 	.img-area {
-		height: 20rem;
+		height: 23rem !important;
 		width: 100%;
 		overflow: hidden;
 	}
+	
+	main .img-area img {
+		box-shadow: 1px 1px 1px 1px gray;	
+	}
+	
 	#page>small:not(.nowPage), #page span {
 		width: 1.5rem;
 	}
@@ -346,4 +392,7 @@ main .userbutton a {
 .star-fill{
 	display:none;
 }
+
+
+
 

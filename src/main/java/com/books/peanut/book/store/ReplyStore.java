@@ -79,5 +79,17 @@ public interface ReplyStore {
 	/**리리플 가져오기*/
 	List<ReReply> selectOneBookReReply(SqlSessionTemplate session, ReReply r);
 
+	/**리리플 작성자 가져오기*/
+	String selectReplymember(SqlSessionTemplate session, Integer rNo);
+
+	/**리리플 삭제*/
+	int deleteReReply(SqlSessionTemplate session, Integer rNo);
+
+	/**리리플 하나 불러오기*/
+	String selectOneReReply(SqlSessionTemplate session, String rNo);
+
+	/**리리플 수정하기*/
+	int updateReReply(SqlSessionTemplate session, ReReply rReply);
+
 
 }

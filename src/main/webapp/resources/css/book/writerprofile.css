@@ -31,6 +31,9 @@ main {
     width: 3rem;
     height: 3rem;
 }
+#camera:hover, #camera1:hover{
+	cursor:pointer;
+}
 
 .headerimg{
     width: 100%;
@@ -94,4 +97,65 @@ main {
         margin: 0 !important;
     }
     
+}
+
+/*사진 교체용 툴팁*/
+
+#profilePicMenu{
+	position:absolute;
+	left:45%;
+	bottom: 3rem;
+	background-color: rgba(0,0,0,0.6);
+	height:5rem;
+	transition:2rem;
+	padding:0.8rem;
+	border-radius:0.5rem;
+	text-align:center;
+	color:white;
+	
+}
+#menu1,#menu2{
+	padding: 0.2rem 0;
+	text-align:center;
+	
+}
+#menu1:hover,#menu2:hover{
+	font-weight:700;
+	cursor:pointer;
+}
+
+#picParent{
+	position:relative;
+}
+
+
+@media (max-width:500px) {
+   #profilePicMenu{
+   left:65%;
+   }
+   
+    }
+
+@keyframes ontext{
+    0%{
+        opacity: 0%;
+        transform: translateY(5rem);
+
+    }
+    100%{
+        opacity: 100%;
+        transform: translateY(0rem);
+    }
+}
+
+@keyframes Rontext{
+    0%{
+        opacity: 100%;
+        transform: translateY(0rem);
+
+    }
+    100%{
+        opacity: 0%;
+        transform: translateY(5rem);
+    }
 }

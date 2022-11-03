@@ -33,8 +33,9 @@
 			<article class="container" id="fisrt-article">
 				<div id="info-article" class="row">
 					<div class="img-area col-md-6">
+						<div class="inner">
+						</div>
 						<img src="/resources/bookImg/${oBook.coverRename}" alt="표지그림">
-
 					</div>
 					<div class="info-area col-md-6">
 						<div id="title">${oBook.bookTitle }</div>
@@ -55,7 +56,18 @@
 
 
 						<div class="openbutton">
+						
+						<!-- 상세 열람 버튼 -->
+						
+						
+						
+						
 							<button id="bookopenbutton" onclick="window.open('/book/bookStep.do?bookNo=${oBook.bookNo}&category=origin')">상세 열람</button>
+						
+						
+						
+						
+						
 						</div>
 						<div class="userbutton container">
 							<div class="row">

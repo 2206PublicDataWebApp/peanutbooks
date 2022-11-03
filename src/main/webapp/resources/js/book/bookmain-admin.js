@@ -73,6 +73,7 @@ $.ajax({
 					}
 				str+='</span></div>';
 				str+='<div class="text-truncate col-6 date">';
+				str+='<small class="rereply" id="reply'+result[i].replyNo+'" onclick="Rereply('+result[i].replyNo+','+rPage+');">답글달기</small> ';
 				str+='<small>'+result[i].insertDate+'</small>';
 				str+='</div></div></div>';
 				
@@ -94,11 +95,66 @@ $.ajax({
 					 page +='<span onclick="printReply('+bookNo+',\''+userId+'\','+(rPage+1)+')"> > </span>';
 				 }
 				$('#page').html(page);
-			 }		 
+			 }
+				 if(result!=0){
+				 	reReplyAll(rPage,result[0].totalCount)	
+				 }		 
 			},
 	error:function(){}
 	});
 };
+
+
+//대댓글 출력하기
+function reReplyAll(rPage,count){
+	$.ajax({
+		url:"/book/ReReplyPrint",
+		type:"post",
+		data:{"bookNo":bookNo,"category":"normal"},
+		success:function(result){
+			for(var i in result){
+				var str ="";
+					str ='<div class="row  d-flex justify-content-center repleOne mt-2 ps-5" id="rRe'+result[i].reReplyNo+'">';
+					str+='<div class="card ps-3 pe-3 pt-2 pb-2">';	
+					str+='<div class="d-flex row justify-content-between align-items-center">';
+					str+='<div class="user col-12 d-flex flex-row align-items-center">';
+					str+='<span class="col-md-1 col-3 d-inline-block text-truncate">';
+					str+='<small class="font-weight-bold username">'+result[i].mNickName+'</small>';
+					str+='</span>';
+					str+='<span class="col-md-11 col-8">';
+					str+='<small class="font-weight-bold">';
+					str+=result[i].reContens;
+					str+='</small>';
+					str+='</span>';
+					str+='</div></div>';
+					str+='<div class="mt-2">';
+					str+='<div class="reply row">';
+					str+='<div class="col-6">';
+						if(userId==result[i].memberId){
+							str+='<span class="modify-del-button"> <small onclick="replyReRemove('+result[i].reReplyNo+','+rPage+');">삭제</small> <small onclick="rereplymodifyView('+result[i].reReplyNo+','+rPage+');">수정</small>';
+						}
+					str+='</span></div>';
+					str+='<div class="text-truncate col-6 date">';
+					str+='<small>'+result[i].insertDate+'</small>';
+					str+='</div></div></div>';
+				
+				$('#'+result[i].replyNo).append(str);
+				
+				}
+				totalCount =count+(result.length);
+				$('#replyLength').html(totalCount);
+					
+		},
+		error:function(){}
+	})
+	
+
+}
+
+
+
+
+
 
 //일반도서 댓글 삭제하기
 function replyRemove(rNo, rPage){
@@ -123,6 +179,33 @@ function replyRemove(rNo, rPage){
 	
 }
 
+
+//대댓글 삭제
+function replyReRemove(rNo, rPage){
+
+
+	if(confirm('댓글을 삭제하시겠습니까?')){
+			$.ajax({
+				url:"/book/removeReReply",
+				data:{"replyNo":rNo},
+				type:"get",
+				success:function(result){
+					alert('삭제했습니다');
+					if(result>0){
+						printReply(bookNo,userId,rPage);
+					}else{
+						alert('작성자가 아닙니다');
+					
+					}
+			
+				},
+				error:function(){}
+			})
+		};
+
+}
+
+
 //일반도서 수정 댓글열기
 function replymodifyView(rNo,rPage){
 	$.ajax({
@@ -144,6 +227,32 @@ function replymodifyView(rNo,rPage){
 	})
 }
 
+//대댓글 수정창 만들기
+function rereplymodifyView(rNo,rPage){
+	$.ajax({
+		url:"/book/getOneReReply",
+		data:{"rNo":rNo},
+		type:"get",
+		success:function(result){
+		console.log(result);
+		var str="";
+		str+='<div class="row">'
+		str+='<div class="col-md-11 col-9">'
+		str+='<textarea name="reRContents'+rNo+'" id="reply-text" rows="3">'+result+'</textarea></div>'							
+		str+='<div class="col-md-1 col-3 reply-button-area">'
+		str+='<button id="reply-button1" onclick="modifyReReply('+rNo+','+rPage+')">수정</button> <button id="reply-button2" onclick="printReply('+bookNo+',\''+userId+'\','+rPage+')">취소</button></div></div>'
+		
+		$('#rRe'+rNo).html(str);
+	
+		
+		},
+		error:function(){}
+	})
+}
+
+
+
+
 //일반도서 댓글 수정하기
 
 function modifyReply(replyNo,rPage){
@@ -164,6 +273,29 @@ $.ajax({
 });
 
 }
+
+//대댓글수정하기
+function modifyReReply(replyNo,rPage){
+var reContents = $('[name=reRContents'+replyNo+']').val();
+$.ajax({
+	url:"/book/modifyReReply",
+	data:{"reReplyNo":replyNo, "reContens":reContents},
+	type:"post",
+	success:function(result){
+		if(result>0){
+			alert('수정완료')
+			printReply(bookNo,userId,rPage);
+		}else{
+			alert('작성자 아이디가 아닙니다')
+		}
+	},
+	error:function(){}
+});
+
+}
+
+
+
 
 //별점주기 스크립트
 
@@ -349,4 +481,38 @@ function addMybooks(category,bookNo){
 		error : function(){}
 	})
 }
+
+
+
+//대댓창 만들기
+function Rereply(replylNo,rPage){
+
+		var str="";
+		str+='<div class="row mt-2">'
+		str+='<div class="col-md-11 col-9">'
+		str+='<textarea name="reRContents'+replylNo+'" id="reply-text" rows="3"></textarea></div>'							
+		str+='<div class="col-md-1 col-3 reply-button-area">'
+		str+='<button id="reply-button1" onclick="reReplyAdd('+replylNo+','+rPage+')">답글</button> <button id="reply-button2" onclick="printReply('+bookNo+',\''+userId+'\','+rPage+')">취소</button></div></div>'
+
+	console.log($('#'+replylNo));
+	$('#'+replylNo).append(str)
+}
+
+//대댓 등록
+function reReplyAdd(rNo,rPage){
+var rContents = $('[name=reRContents'+rNo+']').val();
+	 $.ajax({
+	 url:"/book/bookReReplyRegist.do",
+	 type:"post",
+	 data:{"reContens":rContents,"replyNo":rNo,"bookNo":bookNo,"category":"normal"},
+	 success:function(){
+	 
+		 printReply(bookNo,userId,rPage);
+	 
+	 },
+	 error:function(){}
+	 })
+
+}
+
 

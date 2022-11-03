@@ -636,7 +636,7 @@ public NormalBook getTopScore(String string) {
 		int result = bStore.updateModifyOne(session,oModifyS);
 		return result;
 	}
-	
+
 
 
 

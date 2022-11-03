@@ -103,6 +103,7 @@
 
 							<div class="row g-0" onclick="location.href='/book/norBookInfo?bookNo=${topScoreDe.bookNo}'">
 								<div class="col-md-3 rounded" id="recommnad-pic-1">
+									
 									<img src="./resources/bookImg/${topScoreDe.coverRename }"
 										class="img-fluid rounded-start" alt="...">
 								</div>
@@ -130,7 +131,8 @@
 						
 						<figure class="snip1361 col-md-3 col-6" onclick="location.href='/book/norBookInfo?bookNo=${topTale.bookNo}'">
 						  <div class="cate-img">
-						  	<img src="/resources/bookImg/${topTale.coverRename }" class="rounded"/>
+						 	 <div class="inner"></div>
+						  	<img src="/resources/bookImg/${topTale.coverRename }"/>
 						  </div>
 						  <figcaption>
 						    <h3 class="text-truncate">${topTale.bookTitle }</h3>
@@ -153,7 +155,8 @@
 						
 						<figure class="snip1361 col-md-3 col-6" onclick="location.href='/book/norBookInfo?bookNo=${topHistory.bookNo}'">
 						  <div class="cate-img">
-						  	<img src="/resources/bookImg/${topHistory.coverRename }" class="rounded"/>
+						   <div class="inner"></div>
+						  	<img src="/resources/bookImg/${topHistory.coverRename }"/>
 						  </div>
 						  <figcaption>
 						    <h3 class="text-truncate">${topHistory.bookTitle }</h3>
@@ -207,7 +210,8 @@
 							<c:forEach items="${topTOri }" var="oBook">
 								<figure class="snip1361 col-md-3 col-6" onclick="location.href='/book/oriBookInfo?bookNo=${oBook.bookNo}'">
 								  <div class="cate-img">
-								  	<img src="/resources/bookImg/${oBook.coverRename }" class="rounded"/>
+								   <div class="inner"></div>
+								  	<img src="/resources/bookImg/${oBook.coverRename }" />
 								  </div>
 								  <figcaption>
 								    <h3 class="text-truncate">${oBook.bookTitle }</h3>
@@ -226,7 +230,8 @@
 							<c:forEach items="${topPOri }" var="oBook">
 							<figure class="snip1361 col-md-3 col-6" onclick="location.href='/book/oriBookInfo?bookNo=${oBook.bookNo}'">
 								  <div class="cate-img">
-								  	<img src="/resources/bookImg/${oBook.coverRename }" class="rounded"/>
+								   <div class="inner"></div>
+								  	<img src="/resources/bookImg/${oBook.coverRename }" />
 								  </div>
 								  <figcaption>
 								    <h3 class="text-truncate">${oBook.bookTitle }</h3>

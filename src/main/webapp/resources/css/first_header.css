@@ -382,11 +382,11 @@ footer a {
 @keyframes Rontext{
     0%{
         opacity: 100%;
-        transform: translateY(1.5rem);
+        transform: translateY(0rem);
 
     }
     100%{
         opacity: 0%;
-        transform: translateY(0rem);
+        transform: translateY(1.5rem);
     }
 }

@@ -81,5 +81,18 @@ public interface ReplyService {
 	/**리리플 불러오기*/
 	List<ReReply> BookReReply(ReReply r);
 
+	/**리리플 등록한 사람 찾기*/
+	String checkReReplyMember(Integer rNo);
+
+	/**리리플 삭제*/
+	int removeReReply(Integer rNo);
+
+	/**리리플 내용 가져오기*/
+	String getReReply(String rNo);
+
+	/**리리플 수정하기*/
+	int modifyReReply(ReReply rReply);
+
+
 
 }

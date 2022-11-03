@@ -24,6 +24,21 @@ function imgView(obj) {
     imgCheck()
 
 };
+function imgView1(obj) {
+
+    var imgid = obj.parentElement.parentElement.previousElementSibling.previousElementSibling;
+
+    imgid.src = URL.createObjectURL(event.target.files[0]);
+    imgid.onload = function() {
+        URL.revokeObjectURL(imgid.src) // free memory
+        if(imgid.src!=''){
+            imgid.style.background='white';
+        }
+
+    }
+    imgCheck()
+
+};
 
 
 var imgFile = document.querySelectorAll('.isFile');
@@ -42,3 +57,29 @@ function imgCheck() {
     }
 
 };
+
+
+//사진 수정메뉴 띄우기
+
+
+function picModifyMenu(){
+	if(document.querySelector('#profilePicMenu').style.display=='none'){
+		document.querySelector('#profilePicMenu').style.display='block';
+		document.querySelector('#profilePicMenu').style.animation = 'ontext 0.3s ease-out forwards';
+	 }else{
+	 	document.querySelector('#profilePicMenu').style.animation = 'Rontext 0.3s ease-out forwards';
+	 	setTimeout(function(){	
+			document.querySelector('#profilePicMenu').style.display='none';			
+		}, 300);
+	 	
+	 }
+}
+
+//사진삭제
+function removeProPic(){
+document.querySelector('#proPic').src='/resources/bookImg/defaultImg.jpg'
+document.querySelector('[name=removeImg]').value="default";
+
+}
+
+

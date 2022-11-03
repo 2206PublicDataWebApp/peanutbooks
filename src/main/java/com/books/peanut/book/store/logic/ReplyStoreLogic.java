@@ -188,4 +188,32 @@ public class ReplyStoreLogic implements ReplyStore{
 		return rReply;
 	}
 
+	/**리리플 작성자 가져오기*/
+	@Override
+	public String selectReplymember(SqlSessionTemplate session, Integer rNo) {
+		String memberId= session.selectOne("bookReplyMapper.selectReplymember",rNo);
+		return memberId;
+	}
+
+	/**리리플 삭제*/
+	@Override
+	public int deleteReReply(SqlSessionTemplate session, Integer rNo) {
+		int result = session.delete("bookReplyMapper.deleteReReply",rNo);
+		return result;
+	}
+
+	/**리리플 하나 불러오기*/
+	@Override
+	public String selectOneReReply(SqlSessionTemplate session, String rNo) {
+		String contents = session.selectOne("bookReplyMapper.selectOneReReply",rNo);
+		return contents;
+	}
+
+	/**리리플 수정하기*/
+	@Override
+	public int updateReReply(SqlSessionTemplate session, ReReply rReply) {
+		int result = session.update("bookReplyMapper.updateOneRereply",rReply);
+		return result;
+	}
+
 }
