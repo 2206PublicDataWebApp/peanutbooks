@@ -17,7 +17,6 @@ var adminOn= false;
 
 
 
-
 user.onclick = function () {
     if (mypage.style.display == 'none') {
         mypage.style.animation = 'fade-in 0.3s ease-out forwards'
