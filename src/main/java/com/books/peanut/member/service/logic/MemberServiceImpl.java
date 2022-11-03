@@ -1,5 +1,7 @@
 package com.books.peanut.member.service.logic;
 
+import java.util.HashMap;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,11 @@ public class MemberServiceImpl implements MemberService{
 	public int registerMember(Member member) {
 		int result = mStore.insertMember(session, member);
 		return result;
+	}
+	// 인증 키 저장
+	@Override
+	public void saveAuthKey(String authKey, String mEmail) {
+		mStore.updateAuthKey(session, authKey, mEmail);
 	}
 	// 별명 유효성 검사
 	@Override
@@ -67,6 +74,12 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int countWrittenBooks(String memberId) {
 		int result = mStore.selectWrittenBooks(session, memberId);
+		return result;
+	}
+	// 이메일 인증 키 저장
+	@Override
+	public int checkAuthKey(HashMap<String, String> paramMap) {
+		int result = mStore.checkAuthKey(session, paramMap);
 		return result;
 	}
 

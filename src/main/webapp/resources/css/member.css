@@ -115,8 +115,8 @@ form{
 
 /* 회원가입 */
 #pn-logo img{ /* 땅콩북스 로고 이미지 */
-    width: 160px;
-    height: 100px;
+    width: 200px;
+    height: auto;
 }
 #pn-logo{ /* 땅콩북스 로고 영역 */
     margin-top: 50px;

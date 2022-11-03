@@ -1,5 +1,7 @@
 package com.books.peanut.member.store;
 
+import java.util.HashMap;
+
 import org.apache.ibatis.session.SqlSession;
 
 import com.books.peanut.member.domain.Member;
@@ -7,6 +9,8 @@ import com.books.peanut.member.domain.Member;
 public interface MemberStore {
 	// 회원가입
 	public int insertMember(SqlSession session, Member member);
+	// 인증 키 저장
+	public void updateAuthKey(SqlSession session, String authKey, String mEmail);
 	// 별명 유효성 검사
 	public int checkNickname(SqlSession session, String mNickname);
 	// 아이디 유효성 검사
@@ -23,5 +27,7 @@ public interface MemberStore {
 //	public int selectSavedBooks(SqlSession session, String memberId);
 	// 로그인한 회원이 등록한 작품 수 가져오기
 	public int selectWrittenBooks(SqlSession session, String memberId);
+	// 이메일 인증 키 검사
+	public int checkAuthKey(SqlSession session, HashMap<String, String> paramMap);
 
 }

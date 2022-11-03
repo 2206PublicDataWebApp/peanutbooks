@@ -16,17 +16,20 @@
 <body>
     <div class="row">
         <div id="login-img" class="col-lg-8"></div>
-        <input type="hidden" name="memberId" value="${memberId }">
+        <input type="hidden" name="memberId" value="${memberId}">
         <div id="login-area" class="col-lg-4">	
             <div><h3 id="login-hl">이메일 인증</h3></div>
             <div id="msg-area">
-                <input type="text" name="" placeholder="인증번호">
+                <input id="authKey" type="text" name="authKey" placeholder="인증번호">
                 <div><button id="join-btn" type="button">확인</button></div>
             </div>
         </div>
     </div>
     <script>
-    	
+    	$("join-btn").on("click", function(){
+    		var authNum = $("#authKey").val();
+    		
+    	});
     </script>
 </body>
 </html>

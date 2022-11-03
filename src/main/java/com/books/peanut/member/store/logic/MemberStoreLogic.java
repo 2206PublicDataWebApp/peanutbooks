@@ -1,5 +1,7 @@
 package com.books.peanut.member.store.logic;
 
+import java.util.HashMap;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +15,14 @@ public class MemberStoreLogic implements MemberStore{
 	public int insertMember(SqlSession session, Member member){
 		int result = session.insert("MemberMapper.insertMember", member);
 		return result;
+	}
+	// 인증 키 저장
+	@Override
+	public void updateAuthKey(SqlSession session, String authKey, String mEmail) {
+		HashMap<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("authKey", authKey);
+		paramMap.put("mEmail", mEmail);
+		session.update("MemberMapper.updateAuthKey", paramMap);
 	}
 	// 별명 유효성 검사
 	@Override
@@ -60,6 +70,12 @@ public class MemberStoreLogic implements MemberStore{
 	@Override
 	public int selectWrittenBooks(SqlSession session, String memberId) {
 		int result = session.selectOne("MemberMapper.selectWrittenBooks", memberId);
+		return result;
+	}
+	// 이메일 인증 키 검사
+	@Override
+	public int checkAuthKey(SqlSession session, HashMap<String, String> paramMap) {
+		int result = session.selectOne("MemberMapper.checkAuthKey", paramMap);
 		return result;
 	}
 	
