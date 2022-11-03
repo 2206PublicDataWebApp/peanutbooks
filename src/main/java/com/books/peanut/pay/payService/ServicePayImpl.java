@@ -77,29 +77,53 @@ public class ServicePayImpl implements PayService {
 		String lastDate = pStore.seasonTicketDate(session,memberId);		
 		return lastDate;		
 	}
-	//땅콩포인트 리스트
+
+/////////////////////////////////////땅콩관련
+	
+	//관리자 검색시 땅콩 포인트 합계
 	@Override
-	public List<PeanutPoint> peanutList(String memberId,Pagemarker pm) {
-		List<PeanutPoint> pList=pStore.peanutList(session, memberId,pm);
-		return pList;
-	}
-	//땅콩포인트페이징 전체 갯수
-	@Override
-	public int getTotalCount(String memberId) {
-		int num=pStore.getTotalCount(session,memberId);
-		return num;
-	}
-	//id별 땅콩 포인트 합계
-	@Override
-	public int getPPsum(String memberId) {
-		int ppSum = pStore.getPPsum(session, memberId);
+	public int searchPNsum(String memberId) {
+		int ppSum = pStore.searchPNsum(session, memberId);
 		return ppSum;
 	}
+	//검색시 땅콩포인트페이징 전체 갯수
+	@Override
+	public int searchPNcount(String memberId, String ppDate) {
+		int num=pStore.searchPNcount(session, memberId, ppDate);
+		return num;
+	}
+	//관리자 검색시 땅콩포인트 리스트
+	@Override
+	public List<PeanutPoint> getPNList(String memberId, String ppDate, Pagemarker pm) {
+		List<PeanutPoint> pList=pStore.getPNList(session, memberId, ppDate, pm);
+		return pList;
+	}
+	//로그인시 id별 땅콩 포인트 합계
+	@Override
+	public int getPNsum(String memberId) {
+		int ppSum = pStore.getPNsum(session, memberId);
+		return ppSum;
+	}
+	//id별 땅콩포인트페이징 전체 갯수
+	@Override
+	public int getPNcount(String memberId, String ppDate) {
+		int num=pStore.getPNcount(session, memberId, ppDate);
+		return num;
+	}
+	//id별 땅콩포인트 리스트
+		@Override
+		public List<PeanutPoint> searchPNList(String memberId, String ppDate, Pagemarker pm) {
+			List<PeanutPoint> pList=pStore.searchPNList(session, memberId, ppDate,pm);
+			return pList;
+		}
 	//땅콩갯수 memberId넣기
 	@Override
 	public void putMemberPoint(Member member) {
 		pStore.putMemberPoint(session, member);		
 	}
+	
+///////////////////////////////////작가정산관련
+	
 	//작가정산위한 도서 리스트 확인
 	@Override
 	public List<OriginBook> originListGet(String memberId) {
@@ -134,6 +158,7 @@ public class ServicePayImpl implements PayService {
 		int num=pStore.writerPayStatusOne(session, wrpayNo);
 		return num;
 	}
+
 	
 
 	

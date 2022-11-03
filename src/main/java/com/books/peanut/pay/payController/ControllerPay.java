@@ -97,7 +97,7 @@ public class ControllerPay {
 				p_t_input = pService.peanutTableInput(pp);
 				//결제성공후 포인트 넣어주고 멤버테이블에 반영하기
 				Member member=new Member();
-				int ppSum = pService.getPPsum(memberId);
+				int ppSum = pService.getPNsum(memberId);
 				member.setMemberId(memberId);
 				member.setmPoint(ppSum);
 				pService.putMemberPoint(member);
@@ -116,25 +116,26 @@ public class ControllerPay {
 	
 	
 ///////////////////////////////////////////////////////////////////	
-	//땅콩리스트
+	//일반 id별 땅콩리스트 - 관리자와 틀린것은 admin도 그냥 멤버로 고려된다는 것
 	@RequestMapping(value="/peanut/listStart.kh", method=RequestMethod.GET)
 	public ModelAndView peanutListGo( 
-			ModelAndView mv , String memberId
-			, @RequestParam(value= "page", required = false) Integer page		
+			ModelAndView mv , String memberId			
+			, @RequestParam(value= "page", required = false) Integer page	
+			, @RequestParam(value = "searchDate", required = false) String ppDate
 			){
-		int ppSum = pService.getPPsum(memberId);
+		int ppSum = pService.getPNsum(memberId);
 		Member member=new Member();
 		member.setMemberId(memberId);
 		member.setmPoint(ppSum);
 		pService.putMemberPoint(member);
 		
 		Pagemarker pm=new Pagemarker();
-		pm.setTotalCount(pService.getTotalCount(memberId));
+		pm.setTotalCount(pService.getPNcount(memberId,ppDate));
 		pm.setCurrentPage((page != null) ? page : 1);
 		pm.pageInfo(pm.getCurrentPage(), pm.getTotalCount());
 		mv.addObject("pm", pm);
 		
-		List<PeanutPoint> pList=pService.peanutList(memberId,pm);
+		List<PeanutPoint> pList=pService.getPNList(memberId,ppDate,pm);
 		for(int i=0;i<pList.size();i++) {
 			PeanutPoint pp = pList.get(i);
 			if(!(pp.getBookName()==null)) {
@@ -146,6 +147,7 @@ public class ControllerPay {
 				
 			}
 		}
+		mv.addObject("printID", memberId);
 		mv.addObject("ppSum", ppSum);
 		mv.addObject("pList", pList);
 		mv.setViewName("/peanetPay/peanutList");		
@@ -155,17 +157,19 @@ public class ControllerPay {
 	//관리자 땅콩리스트 확인
 		@RequestMapping(value="/peanut/admin_list.kh", method=RequestMethod.GET)
 		public ModelAndView adminListGo( 
-				ModelAndView mv , String memberId
-				, @RequestParam(value= "page", required = false) Integer page		
+				ModelAndView mv 
+				, @RequestParam(value= "page", required = false) Integer page
+				, @RequestParam(value = "memberId", required = false) String memberId
+				, @RequestParam(value = "searchDate", required = false) String ppDate
 				){
-			int ppSum = pService.getPPsum(memberId);
+			int ppSum = pService.searchPNsum(memberId);
 			Pagemarker pm=new Pagemarker();
-			pm.setTotalCount(pService.getTotalCount(memberId));
+			pm.setTotalCount(pService.searchPNcount(memberId,ppDate));
 			pm.setCurrentPage((page != null) ? page : 1);
 			pm.pageInfo(pm.getCurrentPage(), pm.getTotalCount());
 			mv.addObject("pm", pm);
 			
-			List<PeanutPoint> pList=pService.peanutList(memberId,pm);
+			List<PeanutPoint> pList=pService.searchPNList(memberId,ppDate,pm);
 			for(int i=0;i<pList.size();i++) {
 				PeanutPoint pp = pList.get(i);
 				if(!(pp.getBookName()==null)) {
@@ -177,6 +181,12 @@ public class ControllerPay {
 					
 				}
 			}
+			if(memberId.equals("admin")){
+				mv.addObject("printId","all");				
+			}else {
+				mv.addObject("printId",memberId);	
+			}
+			mv.addObject("searchppDate", ppDate);			
 			mv.addObject("ppSum", ppSum);
 			mv.addObject("pList", pList);
 			mv.setViewName("/peanetPay/adminPNList");		
@@ -185,8 +195,8 @@ public class ControllerPay {
 	// 헤더에서 포인트조회하는 부분
 	@ResponseBody
 	@RequestMapping(value="/ppoint/pointsum.kh", method=RequestMethod.GET)
-	public String pointSum(String memberId) {
-		int ppSum = pService.getPPsum(memberId);
+	public String getIdpnSum(String memberId) {
+		int ppSum = pService.getPNsum(memberId);
 		return String.valueOf(ppSum);
 	}
 	

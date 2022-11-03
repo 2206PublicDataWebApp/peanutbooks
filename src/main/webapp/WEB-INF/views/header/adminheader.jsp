@@ -268,7 +268,12 @@
       location.href="/chat/move.kh";
    }
 
-	
+ //221103 은정님 추가
+
+
+	function mainPN(){
+		document.getElementById('peanutMenu').style.display='block';
+	}
 	</script>
 </body>
 

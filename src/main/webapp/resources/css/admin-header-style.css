@@ -346,7 +346,8 @@ header li{
         width:100%;        
         font-family: 'Spoqa Han Sans Neo', 'sans-serif';
         padding:0;
-        margin:0 auto;      
+        margin:0 auto;   
+        display:none;   
     }
     #peanutMenu nav{
         margin:0;      
@@ -369,7 +370,7 @@ header li{
     padding-left: 1rem;
     padding-right: 1rem;
     padding-top:1rem;   
-    font-size: 0.7rem;
+    font-size: 0.85rem;
     color: darkgray;
     padding-bottom: 0.5rem;
     font-weight: 500;

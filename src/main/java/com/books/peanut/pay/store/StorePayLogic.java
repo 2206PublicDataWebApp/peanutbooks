@@ -31,7 +31,7 @@ public class StorePayLogic implements StorePay{
 		Pay payone=session.selectOne("payPoint_Mapper.selectOdNo",pay);
 		return payone;
 	}
-//결제 api 성공
+	//결제 api 성공
 	@Override
 	public int orderSuccess(SqlSessionTemplate session, Pay payApi) {
 		int result=session.update("payPoint_Mapper.updataOrder",payApi);
@@ -77,50 +77,89 @@ public class StorePayLogic implements StorePay{
 		String lastDate = session.selectOne("payPoint_Mapper.selectLastSSticket",memberId);		
 		return lastDate;		
 	}
-	//땅콩포인트 리스트
+////////////////////////////////땅콩 포인트 	
+	//괌리자 검색시 땅콩 포인트 합계
 	@Override
-	public List<PeanutPoint> peanutList(SqlSessionTemplate session, String memberId,Pagemarker pm) {
+	public int searchPNsum(SqlSessionTemplate session, String memberId) {		
+		Integer ppSum = session.selectOne("payPoint_Mapper.admin_searchppSum", memberId);
+		if(ppSum==null) {
+			ppSum=0;			
+		}
+		return ppSum;
+	}
+	//관리자 검색시 땅콩포인트 페이징 전체 갯수
+	@Override
+	public int searchPNcount(SqlSessionTemplate session,String memberId, String ppDate) {
+		HashMap<String, String > paramMap=new HashMap<String, String>();
+		paramMap.put("memberId",memberId);
+		paramMap.put("ppDate",ppDate);
+		int num=session.selectOne("payPoint_Mapper.admin_ppListCount",paramMap);
+		return num;
+	}
+	//관리자 검색시 땅콩포인트 리스트
+	@Override
+	public List<PeanutPoint> searchPNList(SqlSessionTemplate session, String memberId,String ppDate, Pagemarker pm) {
 		int offset=(pm.getCurrentPage()-1)*pm.getLimit();		
 		RowBounds rowBounds = new RowBounds(offset,pm.getLimit());
 		//null, rowBounds 같이 진행해줘야 자동으로 처리된다.
 		HashMap<String, String > paramMap=new HashMap<String, String>();
 		paramMap.put("memberId",memberId);
-		List<PeanutPoint> pList=session.selectList("payPoint_Mapper.peanutpointLsit", paramMap ,rowBounds);
+		paramMap.put("ppDate",ppDate);
+		List<PeanutPoint> pList=session.selectList("payPoint_Mapper.admin_peanutpointLsit", paramMap ,rowBounds);
 		return pList;
 	}
-	//땅콩포인트 페이징 전체 갯수
+	
+	//로그인시id별 땅콩 포인트 합계
 	@Override
-	public int getTotalCount(SqlSessionTemplate session,String memberId) {
-		int num=session.selectOne("payPoint_Mapper.ppListCount",memberId);
-		return num;
-	}
-	//id별 땅콩 포인트 합계
-	@Override
-	public int getPPsum(SqlSessionTemplate session, String memberId) {
+	public int getPNsum(SqlSessionTemplate session, String memberId) {
 		Integer ppSum = session.selectOne("payPoint_Mapper.idppSum", memberId);
 		if(ppSum==null) {
 			ppSum=0;			
 		}
 		return ppSum;
 	}
-	//포인트 계산하기
+	//id 땅콩포인트 페이징 전체 갯수
+	@Override
+	public int getPNcount(SqlSessionTemplate session,String memberId, String ppDate) {
+		HashMap<String, String > paramMap=new HashMap<String, String>();
+		paramMap.put("memberId",memberId);
+		paramMap.put("ppDate",ppDate);
+		int num=session.selectOne("payPoint_Mapper.ppListCount",paramMap);
+		return num;
+	}
+	//id별 땅콩포인트 리스트
+	@Override
+	public List<PeanutPoint> getPNList(SqlSessionTemplate session, String memberId,String ppDate, Pagemarker pm) {
+		int offset=(pm.getCurrentPage()-1)*pm.getLimit();		
+		RowBounds rowBounds = new RowBounds(offset,pm.getLimit());
+		//null, rowBounds 같이 진행해줘야 자동으로 처리된다.
+		HashMap<String, String > paramMap=new HashMap<String, String>();
+		paramMap.put("memberId",memberId);
+		paramMap.put("ppDate",ppDate);
+		List<PeanutPoint> pList=session.selectList("payPoint_Mapper.peanut_pointLsit", paramMap ,rowBounds);
+		return pList;
+	}
+	//member- point 수정하기
 	@Override
 	public void putMemberPoint(SqlSessionTemplate session, Member member) {
 		session.update("payPoint_Mapper.memberPoint",member);
 	}
+
+///////////////////////////////////////// 작가 정산관련
+	
 	//작가정산위한 도서 리스트 확인
 	@Override
 	public List<OriginBook> originListGet(SqlSessionTemplate session, String memberId) {
 		List<OriginBook> obList=session.selectList("payPoint_Mapper.OriginBookNo",memberId);
 		return obList;
 	}
-	//도서번호로 시리즈 조회
+	//작가도서번호로 시리즈 조회
 	@Override
 	public List<OriginBookSeries> findSeriseNo(SqlSessionTemplate session, OriginBookSeries obs) {
 		List<OriginBookSeries> obsList= session.selectList("payPoint_Mapper.origin_B_S_list", obs);
 		return obsList;
 	}
-	//지급접수후 포인트 차감
+	//작가지급접수후 포인트 차감
 	@Override
 	public int updatePaidCount(SqlSessionTemplate session, WriterPay writerP) {
 		int num=session.update("payPoint_Mapper.updatePaid_count",writerP);
@@ -140,6 +179,6 @@ public class StorePayLogic implements StorePay{
 	public int writerPayStatusOne(SqlSessionTemplate session, String wrpayNo) {
 		int num=session.update("payPoint_Mapper.updateWriterpay",wrpayNo);
 		return num;
-	}	
+	}
 
 }

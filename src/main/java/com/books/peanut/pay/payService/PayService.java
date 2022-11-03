@@ -18,7 +18,7 @@ public interface PayService {
 	public int orderin(Pay pay);
 
 	public Pay orderNoOne(Pay pay);
-//결제api성공
+ //결제api성공
 	public int orderSuccess(Pay payApi);
 
 	public int writerReceipt(WriterPay writerP);
@@ -32,14 +32,25 @@ public interface PayService {
 	public int memberStChange(String memberId);
 	// 로그인시 구독권 여부 및 날짜 확인하는 부분
 	public String seasonTicketDate(String memberId);
-	//땅콩포인트 리스트
-	public List<PeanutPoint> peanutList(String memberId,Pagemarker pm);
-	//페이징 전체 갯수
-	public int getTotalCount(String memberId);
-	//id별 땅콩 포인트 합계
-	public int getPPsum(String memberId);
+	
+/////////////////////땅콩
+	//관리자 검색시 땅콩 포인트 합계
+	public int searchPNsum(String memberId);
+	//관리자 검색시 페이징 전체 갯수
+	public int searchPNcount(String memberId, String ppDate);
+	//관리자 검색시 땅콩포인트 리스트
+	public List<PeanutPoint> searchPNList(String memberId,String ppDate,Pagemarker pm);
+	
+	//로그인시 id별 땅콩 포인트 합계
+	public int getPNsum(String memberId);
+	//id별 페이징 전체 갯수
+	public int getPNcount(String memberId, String ppDate);
+	//id별 땅콩포인트 리스트
+	public List<PeanutPoint> getPNList(String memberId,String ppDate,Pagemarker pm);
 	//땅콩갯수 memberId넣기
 	public void putMemberPoint(Member member);
+	
+//////////////////////////////////작가료 지급
 	//작가정산위한 도서 리스트 확인
 	public List<OriginBook> originListGet(String memberId);
 	//도서번호로 시리즈 조회
@@ -50,5 +61,8 @@ public interface PayService {
 	public int getwritetP_Count();
 	//작가 정산접수 관리자 승인처리
 	public int writerPayStatusOne(String wrpayNo1);
+
+
+
 
 }

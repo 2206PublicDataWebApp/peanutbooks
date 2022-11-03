@@ -14,16 +14,16 @@
 <body>
 <jsp:include page="../header/header.jsp"></jsp:include>
 	<main>
-		<h1></h1>
+		<h1 id="h"></h1>
 		<div id="spanDIV">
 			<div class="totalpeanet"><img alt="" src="../resources/img/icons8-peanut-64.png"/></div>
-			<div class="totalpeanet">${ppSum}개</div>
+			<div class="totalpeanet">${printID }님의 남은 땅콩은 ${ppSum}개</div>
 		</div>
 		<div id="table">
 			<c:if test="${empty pList }">
 				<table>
 					<tr>
-						<td>땅콩이 없습니다.</td>
+						<td id="emptyTD">땅콩이 없습니다.</td>
 					</tr>
 				</table>
 			</c:if>

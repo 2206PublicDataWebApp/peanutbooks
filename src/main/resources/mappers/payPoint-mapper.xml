@@ -143,41 +143,73 @@
   		 INSERT INTO PEANUTPOINT_TBL 
   		 VALUES (SQN_PEANUT_NO.NEXTVAL,SYSDATE,${peanutPoint},'Y',DEFAULT,DEFAULT,#{memberId},#{orderNo},DEFAULT)
   	</insert>
-  	<!-- 땅콩 전체 리스트  -->
-  	<select id="peanutpointLsit" resultMap="peanutResultMap">
-  		SELECT * FROM PEANUTPOINT_TBL 
-  		<where>
-	  		<if test="memberId == 'admin'" > </if> 		
-	  		
-	  		<if test="memberId != 'admin'" >
-	  			MEMBER_ID=#{memberId }
-	  		</if> 
-  		</where>
-  		ORDER BY PP_DATE DESC
+  	  	
+  	<!--관리자 검색시   땅콩 갯수  -->
+  	<select id="admin_searchppSum" resultType="_int">
+  		SELECT SUM(PEANUT_POINT) FROM PEANUTPOINT_TBL 
+  		WHERE MEMBER_ID=#{memberId }
   	</select>
-  	<!--땅콩 리스트 전체 갯수 구하기  -->
-  	<select id="ppListCount" resultType="_int">
+  	
+  	<!--검색시 땅콩 리스트 페이지전체 갯수 구하기  -->
+  	<select id="admin_ppListCount" resultType="_int">
   		SELECT COUNT(*) FROM PEANUTPOINT_TBL 
   		  	<where>
-	  		<if test="memberId == 'admin'" > </if> 		
-	  		
-	  		<if test="memberId != 'admin'" >
-	  			MEMBER_ID=#{memberId }
-	  		</if> 
+		  		<if test="memberId == 'admin' and (ppDate==null or ppDate == '') " > </if>	  		
+		  		<if test="memberId != 'admin' and (ppDate==null or ppDate == '') " >
+		  			MEMBER_ID=#{memberId }
+		  		</if> 	
+				<if
+					test="(memberId == null or memberId == '') and (ppDate!=null and ppDate != '')">
+					TO_CHAR((PP_DATE),'YYYY-MM-DD')=#{ppDate } 				
+				</if>
   			</where>
   	</select>
   	
+  	<!--검색시  땅콩  리스트  -->
+  	<select id="admin_peanutpointLsit" resultMap="peanutResultMap">
+  		SELECT * FROM PEANUTPOINT_TBL 
+  		<where>
+ 			<if test="memberId == 'admin' and (ppDate==null or ppDate == '') " > </if>	  		
+	  		<if test="memberId != 'admin' and (ppDate==null or ppDate == '') " >
+	  			MEMBER_ID=#{memberId }
+	  		</if> 	
+			<if
+				test="(memberId == null or memberId == '') and (ppDate!=null and ppDate != '')">
+				TO_CHAR((PP_DATE),'YYYY-MM-DD')=#{ppDate } 				
+			</if> 
+  		</where>
+  		ORDER BY PP_DATE DESC
+  	</select>
+  	
+  	<!--id별 로그인 시에 땅콩 갯수  -->
   	<select id="idppSum" resultType="_int">
   		SELECT SUM(PEANUT_POINT) FROM PEANUTPOINT_TBL 
-  		  	<where>
-	  		<if test="memberId == 'admin'" > </if> 		
-	  		
-	  		<if test="memberId != 'admin'" >
-	  			MEMBER_ID=#{memberId }
-	  		</if> 
-  			</where>
+  		WHERE MEMBER_ID=#{memberId }
   	</select>
-  
+  	
+  	<!--id별 땅콩 리스트 전체페이지 갯수 구하기  -->
+  	<select id="ppListCount" resultType="_int">
+  		SELECT COUNT(*) FROM PEANUTPOINT_TBL 
+  		<where>
+	  		MEMBER_ID=#{memberId } 
+			<if
+				test="(ppDate!=null) and (ppDate != '')">
+				AND TO_CHAR((PP_DATE),'YYYY-MM-DD')=#{ppDate } 				
+			</if>
+  		</where>			
+  	</select>
+    <!--id별 땅콩 전체 리스트  -->
+  	<select id="peanut_pointLsit" resultMap="peanutResultMap">
+  		SELECT * FROM PEANUTPOINT_TBL 
+  		WHERE MEMBER_ID=#{memberId }  		
+	  		
+			<if
+				test="(ppDate!=null) and (ppDate != '')">
+				AND TO_CHAR((PP_DATE),'YYYY-MM-DD')=#{ppDate } 				
+			</if>
+		
+  	<!-- 	ORDER BY PP_DATE DESC -->
+  	</select>
   	
   	<resultMap 	 type="SeasonTicket" 		id="seasonTicketResultMap">
   		<id 	 property="orderNo" 		column="ORDER_NO"/> 

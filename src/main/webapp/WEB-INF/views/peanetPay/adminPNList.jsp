@@ -23,16 +23,20 @@
 				<option value="id">아이디</option>
 				<option value="date">날짜</option>
 			</select> 		
-			<div id="inputZone">
-				<input type="text" style="display:none" >						
-				<input type="date" style="display:none">				
-			</div>
+			
+			<input class="inputzone" type="text" style="display:none" >						
+			<input class="inputzone" type="date" style="display:none">				
+			
 			<button id="csBtn" onclick="pNutSearch();">검 색</button>
 
 		</div>
 		<div id="spanDIV">
 			<div class="totalpeanet"><img alt="" src="../resources/img/icons8-peanut-64.png"/></div>
-			<div class="totalpeanet">${ppSum}개</div>
+			<div class="totalpeanet">${printId } 의 남은 땅콩은 ${ppSum}개</div> 
+			<c:if test="${!empty searchppDate }" ><div id="result">${searchppDate } 기준</div></c:if>
+			<c:if test="${empty printId }" ><div id="result">전체 기준</div></c:if>
+			<c:if test="${printId=='all' }" ><div id="result">전체 기준</div></c:if>
+			<c:if test="${!empty printId }" ><div id="result">${printId }기준</div></c:if>
 		</div>	
 		<div id="table">
 			<c:if test="${empty pList }">
@@ -48,11 +52,11 @@
 					<table>						
 						<tr>							
 							<c:if test="${!empty PeanutPoint.bookName }">
-								<td class="contexnts"><button class="numbtn">${PeanutPoint.peanutNo }</button>&nbsp;&nbsp;${PeanutPoint.bookName } </td>
+								<td class="contexnts"><button class="numbtn">${PeanutPoint.peanutNo }</button>&nbsp;&nbsp;${PeanutPoint.bookName } &nbsp;&nbsp;${PeanutPoint.memberId }</td>
 							</c:if>
 							<c:if test="${empty PeanutPoint.bookName }">
-								<td class="contexnts"><button class="numbtn">${PeanutPoint.peanutNo }</button>&nbsp;&nbsp;땅콩충전</td>
-							</c:if>
+								<td class="contexnts"><button class="numbtn">${PeanutPoint.peanutNo }</button>&nbsp;&nbsp;땅콩충전 &nbsp;&nbsp;${PeanutPoint.memberId }</td>
+							</c:if>							
 							<td rowspan="2" class="monitercontrol"></td>
 							<td rowspan="2" class="peanet"><span>${PeanutPoint.peanutPoint}</span></td>
 						</tr>
@@ -107,13 +111,14 @@
 		</div>
 	</main>
 	<jsp:include page="../footer/footer.jsp"></jsp:include>
+	
 <script>
 	/* 페이징  */
 	function pagePNSearch(page){
 		
-		//var csDate=$('input[type=date]').val();			
+		var ppDate=$('input[type=date]').val();			
 		var memberId="${loginMember.memberId }";		
-		location.href="/peanut/admin_list.kh?page="+page+"&memberId="+memberId;   //+"&searchDate="+csDate;
+		location.href="/peanut/admin_list.kh?page="+page+"&memberId="+memberId+"&searchDate="+ppDate;
 	}
 	
 	/* 검색창 display  */
@@ -131,15 +136,15 @@
 	});
 	
 	/* 검색버튼  */
-	function chatsearch(){
-		var csDate=$('input[type=date]').val();
+	function pNutSearch(){
+		var ppDate=$('input[type=date]').val();
 		var memberId=$('input[type=text]').val();
-		if($('#select option').eq(1).is(':checked')){	
-			location.href="/consult/endList.kh?csMemberId="+memberId;
-		}else if($('#select option').eq(2).is(':checked')){
-			location.href="/consult/endList.kh?searchDate="+csDate;
+		if($('#selectPN option').eq(1).is(':checked')){	
+			location.href="/peanut/admin_list.kh?memberId="+memberId;
+		}else if($('#selectPN option').eq(2).is(':checked')){
+			location.href="/peanut/admin_list.kh?searchDate="+ppDate;
 		}else{
-			location.href="/consult/endList.kh";
+			location.href="/peanut/admin_list.kh";
 		};
 			
 	}
