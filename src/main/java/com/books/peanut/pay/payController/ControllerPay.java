@@ -151,6 +151,37 @@ public class ControllerPay {
 		mv.setViewName("/peanetPay/peanutList");		
 		return mv;		
 	}
+	
+	//관리자 땅콩리스트 확인
+		@RequestMapping(value="/peanut/admin_list.kh", method=RequestMethod.GET)
+		public ModelAndView adminListGo( 
+				ModelAndView mv , String memberId
+				, @RequestParam(value= "page", required = false) Integer page		
+				){
+			int ppSum = pService.getPPsum(memberId);
+			Pagemarker pm=new Pagemarker();
+			pm.setTotalCount(pService.getTotalCount(memberId));
+			pm.setCurrentPage((page != null) ? page : 1);
+			pm.pageInfo(pm.getCurrentPage(), pm.getTotalCount());
+			mv.addObject("pm", pm);
+			
+			List<PeanutPoint> pList=pService.peanutList(memberId,pm);
+			for(int i=0;i<pList.size();i++) {
+				PeanutPoint pp = pList.get(i);
+				if(!(pp.getBookName()==null)) {
+					if(pp.getBookName().length()>10) {
+						pp.setBookName(pp.getBookName().substring(0,10)+"...");
+						pList.set(i, pp);			
+					
+					}
+					
+				}
+			}
+			mv.addObject("ppSum", ppSum);
+			mv.addObject("pList", pList);
+			mv.setViewName("/peanetPay/adminPNList");		
+			return mv;		
+		}
 	// 헤더에서 포인트조회하는 부분
 	@ResponseBody
 	@RequestMapping(value="/ppoint/pointsum.kh", method=RequestMethod.GET)
@@ -207,7 +238,7 @@ public class ControllerPay {
 		
 	//관리자가 작가 정산리스트 화면으로가기
 	@ResponseBody
-	@RequestMapping(value="/writer/list.kh", method=RequestMethod.GET)
+	@RequestMapping(value="/writer/admin_list.kh", method=RequestMethod.GET)
 	public ModelAndView writerList(
 			ModelAndView mv,
 			@RequestParam(value= "page", required = false) Integer page ){

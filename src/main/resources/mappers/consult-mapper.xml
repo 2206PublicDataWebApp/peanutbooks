@@ -34,73 +34,109 @@
  <!--서버 매핑  --> 
 	 <!--채팅 시작 버튼 변경여부  -->
 	 <update id="switchUpdate">
-		UPDATE CHATSWITCH SET ON_OFF=#{on_off}
+		UPDATE CHATSWITCH 
+		SET ON_OFF=#{on_off}
 	 </update>
 	 
 	 <select id="switchbtncheck" resultType="string">
-	 	SELECT ON_OFF FROM CHATSWITCH
+	 	SELECT ON_OFF 
+	 	FROM CHATSWITCH
 	 </select>
 
   	<!--채팅리스트전체 조회  -->
   	<select id="chatList"  resultMap="ChatResultMap">
-  		SELECT * FROM CHATSERVER_TBL WHERE CS_RESULT='N' ORDER BY TITLE_NO DESC
+  		SELECT * FROM CHATSERVER_TBL 
+  		WHERE CS_RESULT='N' 
+  		ORDER BY TITLE_NO DESC
   	</select>
   	
 <!--   	titleNo 조회 -->
   	<select id="serchtitleNo" resultType="_int">
-  		SELECT MAX(TITLE_NO) FROM CHATSERVER_TBL WHERE CS_MEMBERID=#{csMemberId} AND CS_TITLE = #{csTitle} AND CS_MAIL=#{csMail} AND CS_RESULT ='N'
+  		SELECT MAX(TITLE_NO) FROM CHATSERVER_TBL 
+  		WHERE CS_MEMBERID=#{csMemberId} 
+  			AND CS_TITLE = #{csTitle} 
+  			AND CS_MAIL=#{csMail} 
+  			AND CS_RESULT ='N'
    	</select>
 
   	<!-- 종료 상담건 조회 -->
   	<select id="chatEndList"  resultMap="ChatResultMap">
-  		SELECT * FROM CHATSERVER_TBL 
-  		 	<where>
-	  		<if test="(csDate==null or csDate == '') and (csMemberId == null or csMemberId == '' )">CS_RESULT !='N'</if>
-	  		<if test="(csDate!=null and csDate != '') and (csMemberId == null or csMemberId == '')">TO_CHAR((CS_DATE),'YYYY-MM-DD')=#{csDate } AND CS_RESULT !='N'</if>
-	  		<if test="(csDate==null or csDate == '') and (csMemberId !=null and csMemberId != '') ">CS_MEMBERID=#{csMemberId } AND CS_RESULT !='N'</if>
-	  		</where>
+		SELECT * FROM CHATSERVER_TBL
+		<where>
+			<if
+				test="(csDate==null or csDate == '') and (csMemberId == null or csMemberId == '' )">
+				CS_RESULT !='N'
+			</if>
+			<if
+				test="(csDate!=null and csDate != '') and (csMemberId == null or csMemberId == '')">
+				TO_CHAR((CS_DATE),'YYYY-MM-DD')=#{csDate } 
+				AND CS_RESULT !='N'
+			</if>
+			<if
+				test="(csDate==null or csDate == '') and (csMemberId !=null and csMemberId != '') ">
+				CS_MEMBERID=#{csMemberId } 
+				AND CS_RESULT !='N'
+			</if>
+		</where>
   		ORDER BY TITLE_NO DESC
   	</select>
   		
   	<!--채팅 종료 리스트 전체 카운트 조회  -->
-	<select id="chatListcount"  resultType="_int">
-  		SELECT count(*) FROM CHATSERVER_TBL 
-  		 	<where>
-	  		<if test="(csDate==null or csDate == '') and (csMemberId == null or csMemberId == '' )">CS_RESULT !='N'</if>
-	  		<if test="(csDate!=null and csDate != '') and (csMemberId == null or csMemberId == '')">TO_CHAR((CS_DATE),'YYYY-MM-DD')=#{csDate } AND CS_RESULT !='N'</if>
-	  		<if test="(csDate==null or csDate == '') and (csMemberId !=null and csMemberId != '') ">CS_MEMBERID=#{csMemberId } AND CS_RESULT !='N'</if>
-	  		</where>
-  		ORDER BY TITLE_NO DESC
-  	</select>
+	<select id="chatListcount" resultType="_int">
+		SELECT count(*) FROM CHATSERVER_TBL
+		<where>
+			<if
+				test="(csDate==null or csDate == '') and (csMemberId == null or csMemberId == '' )">
+				CS_RESULT !='N'
+			</if>
+			<if
+				test="(csDate!=null and csDate != '') and (csMemberId == null or csMemberId == '')">
+				TO_CHAR((CS_DATE),'YYYY-MM-DD')=#{csDate } 
+				AND CS_RESULT !='N'
+			</if>
+			<if
+				test="(csDate==null or csDate == '') and (csMemberId !=null and csMemberId != '') ">
+				CS_MEMBERID=#{csMemberId } 
+				AND CS_RESULT !='N'</if>
+		</where>
+		ORDER BY TITLE_NO DESC
+	</select>
 
   	<!--상담결과 입력  -->
   	<update id="reportUpdate">
-  		 UPDATE CHATSERVER_TBL SET CS_RESULT =#{csResult} WHERE TITLE_NO =#{titleNo}
+  		 UPDATE CHATSERVER_TBL 
+  		 SET CS_RESULT =#{csResult} 
+  		 WHERE TITLE_NO =#{titleNo}
   	</update>  	
  <!--써버 종료  -->
  
  <!--고객 매핑  -->
  	<!-- 고객채팅 접수 저장 -->
  	<insert id="reseciptChat">
- 		INSERT INTO CHATSERVER_TBL VALUES (SEQ_SERVERCHAT_NO.NEXTVAL,#{csMemberId},#{csTitle},SYSDATE,#{csMail},DEFAULT)
+ 		INSERT INTO CHATSERVER_TBL 
+ 		VALUES (SEQ_SERVERCHAT_NO.NEXTVAL,#{csMemberId},#{csTitle},SYSDATE,#{csMail},DEFAULT)
  	</insert>
  
  	<!-- 고객과 관리자 채팅 내용저장. -->
 	<insert id="inClientChat">
-    	INSERT INTO CHATCONSULT_TBL VALUES (SEQ_CHAT_NO.NEXTVAL,#{cMemberId},#{cContexts},SYSDATE,#{cEmail},#{titleNo})
+    	INSERT INTO CHATCONSULT_TBL 
+    	VALUES (SEQ_CHAT_NO.NEXTVAL,#{cMemberId},#{cContexts},SYSDATE,#{cEmail},#{titleNo})
   	</insert>
  	 <!-- 실시간 채팅 리스트조회--> 
  	<select id="nowSelectChat" resultMap="clientResultMap">
- 		SELECT * FROM CHATCONSULT_TBL WHERE TITLE_NO=#{titleNo} 
+ 		SELECT * FROM CHATCONSULT_TBL 
+ 		WHERE TITLE_NO=#{titleNo} 
  	</select> 
  	
  	<!--id,titleNo 상담내용 상세보기  -->
  	<select id="detailList" resultMap="clientResultMap">
- 		SELECT * FROM CHATCONSULT_TBL WHERE TITLE_NO=${titleNo} ORDER BY TITLE_NO DESC, C_DATE DESC
+ 		SELECT * FROM CHATCONSULT_TBL 
+ 		WHERE TITLE_NO=${titleNo} ORDER BY TITLE_NO DESC, C_DATE DESC
  	</select> 
  	 <!--id,titleNo 상담내용 전체갯수  -->
  	<select id="detailcount" resultType="_int">
- 		SELECT count(*) FROM CHATCONSULT_TBL WHERE TITLE_NO=${titleNo}
+ 		SELECT count(*) FROM CHATCONSULT_TBL 
+ 		WHERE TITLE_NO=${titleNo}
  	</select>
  		
  <!--고객 완료.  --> 
