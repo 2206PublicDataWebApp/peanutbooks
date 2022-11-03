@@ -72,6 +72,9 @@
 	<select id="selectAllQnaCount" resultType="_int">
 		SELECT COUNT(*) FROM QNA_TBL
 		<where>
+			<if test="searchCondition.toString() == 'name'">
+ 				MEMBER_ID LIKE '%'||#{searchValue}||'%'
+ 			</if>
 			<if test="searchCondition.toString() == 'title'">
 				QNA_TITLE LIKE '%'||#{searchValue}||'%'
 			</if>
@@ -79,7 +82,8 @@
 				QNA_CONTENTS LIKE '%'||#{searchValue}||'%'
 			</if>
 			<if test="searchCondition.toString() == 'all'">
-				QNA_TITLE LIKE '%'||#{searchValue}||'%'
+				MEMBER_ID LIKE '%'||#{searchValue}||'%'
+				OR QNA_TITLE LIKE '%'||#{searchValue}||'%'
 				OR QNA_CONTENTS LIKE '%'||#{searchValue}||'%'
 			</if>
 		</where>

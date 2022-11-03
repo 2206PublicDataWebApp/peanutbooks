@@ -56,6 +56,7 @@ public class BookApproveController {
 				mv.addObject("osList", osList);
 			}
 			mv.addObject("bPage", bPage);
+			mv.addObject("page", page);
 			mv.setViewName("/bookApprove/BAwritermenu");
 		}
 		return mv;
@@ -97,7 +98,7 @@ public class BookApproveController {
 	@RequestMapping(value="/admin/approveYN.kh", method=RequestMethod.GET)
 	public ModelAndView approveYNList(
 			ModelAndView mv
-			, @RequestParam("checkPermission") String checkPermission
+			, @RequestParam(value="checkPermission",defaultValue = "all") String checkPermission
 			, @RequestParam(value="page", required=false) Integer page) {
 		try {
 			int getTotalCount = BAService.checkPermissionCount(checkPermission);
@@ -115,6 +116,8 @@ public class BookApproveController {
 				mv.addObject("osList", osList);
 			}
 			mv.addObject("bPage", bPage);
+			mv.addObject("page", page);
+			mv.addObject("checkPermission", checkPermission);
 			mv.setViewName("/bookApprove/BAwritermenu");
 			
 		} catch (Exception e) {
@@ -136,15 +139,16 @@ public class BookApproveController {
 			
 			if(getTotalCount > 0) {
 				List<ModifyBookSeries> mbList = BAService.reApproveList(bPage.getCurrentPage(), boardLimit);
+				mv.addObject("mbList", mbList);
 				
 //				for(int i=0; i<mbList.size(); i++) {
 //					String bookTitle = bService.getBookTitle(mbList.get(i).getBookNo());
 //					mbList.get(i).setBookTitle(bookTitle);
 //				}
-				mv.addObject("mbList", mbList);
-				mv.addObject("bPage", bPage);
-				mv.setViewName("/bookApprove/BAreApprovemenu");
 			}
+				mv.addObject("bPage", bPage);
+				mv.addObject("page", page);
+				mv.setViewName("/bookApprove/BAreApprovemenu");
 		} catch (Exception e) {
 			mv.addObject("msg", e.toString()).setViewName("common/errorPage");
 		}		

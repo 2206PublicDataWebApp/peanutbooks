@@ -97,8 +97,8 @@
 		<div class="row row-cols-1" style="width:80%";>
 			<table align="center" class="table col-6" style="border-color:skyblue;">
 				<tr>
-					<td class="col-2" width="20%" align="center">문의유형</td>
-					<td class="col-4" width="80%">
+					<td class="col-2" align="center">문의유형</td>
+					<td class="col-4">
 						<c:if test="${qna.qnaCategory == 'member' }">회원관련</c:if>
 						<c:if test="${qna.qnaCategory == 'point' }">포인트관련</c:if>
 						<c:if test="${qna.qnaCategory == 'books' }">도서관련</c:if>
@@ -235,8 +235,9 @@
 			</form>
 			<!-- 관리자 답변 작성 폼  -->
 		</div>
+		<br>
+	<hr>
 	</section>
-<br><br>
 </main>
 <!-- main contents End -->
 

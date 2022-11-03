@@ -39,6 +39,7 @@
 	<jsp:include page="../header/adminheader.jsp" />
 	<main>
 		<section class="container">
+		<br><br>
 			<div class="container text-center">
 				<div class="row row-cols-1">
 					<div class="col" style="background-color: #5e5e5e; color: white; height:45px; vertical-align: middle;">도서 리스트</div>
@@ -56,7 +57,7 @@
 					    </li>
 			    		<li class="mainLi">
 			    			<div style="text-align:center">
-					    		<a href="/admin/approveYN.kh?checkPermission=Y&page=${currentPage }">승인도서</a>
+					    		<a href="/admin/approveYN.kh?checkPermission=Y">승인도서</a>
 					    	</div>
 						</li>
 						<li class="mainLi">
@@ -64,7 +65,7 @@
 					    </li>
 			    		<li class="mainLi">
 			    			<div style="text-align:center">
-					    		<a href="/admin/approveYN.kh?checkPermission=N&page=${currentPage }">보류도서</a>
+					    		<a href="/admin/approveYN.kh?checkPermission=N">보류도서</a>
 					    	</div>
 						</li>
 						<li class="mainLi">
@@ -72,7 +73,7 @@
 					    </li>
 			    		<li class="mainLi">
 			    			<div style="text-align:left">
-					    		<a href="/admin/reApproveList.kh?page=${currentPage }">재승인도서</a>
+					    		<a href="/admin/reApproveList.kh">재승인도서</a>
 					    	</div>
 			    		</li>
 			 		</ul>
@@ -113,7 +114,9 @@
 					<!-- 시리즈 반복문 종료 -->
 				</c:if>
 				<!-- 시리즈 출력 종료 -->
-
+				<c:if test="${mbList eq null }">
+					<div id="book-title" class="text-truncate">데이터가 존재하지 않습니다.</div>
+				</c:if>
 			</article>
 
 			<!--  페이징 영역 -->
@@ -161,8 +164,10 @@
 			<!-- 페이징 영역 종료 -->
 
 
-		</section>
-	</main>
+		<br>
+	<hr>
+	</section>
+</main>
 	<jsp:include page="../footer/footer.jsp" />
 <script>
 	function reApproveCheck(bookNo, seriesNo, currentPage) {

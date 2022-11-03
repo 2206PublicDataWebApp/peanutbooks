@@ -44,11 +44,11 @@
 				<table align="center" class="table col-7" border="0px">
 					<tr>
 						<td class="col-7" style="border:none;">
-							<div style="display: inline-block; margin: 0 5px;  float: left;">
+							<div style="display: inline-block; margin: 5px;  float: left;">
 							<h4 align="center">공지사항</h4>
 							</div>
 							<!-- div 오른쪽 정렬 -->
-							<div style="display: inline-block; margin: 0 5px;  float: right;">
+							<div style="display: inline-block; margin: 5px;  float: right;">
 							<form action="/notice/search.kh" method="get" >
 								<div style= "display: inline-block">
 									<select class="form-select" name="searchCondition" >
@@ -79,10 +79,10 @@
 					<tr>
 						<td class="col-7" style="border:none;" td colspan="4" align="right">
 							<a href="/notice/list.kh" style="color: black"> 전체 | </a>
-							<a href="/notice/categoryCount.kh?noticeCategory=notice&page=${currentPage }" style="color: black"> 공지 |</a>
-							<a href="/notice/categoryCount.kh?noticeCategory=update&page=${currentPage }" style="color: black"> 업데이트 |</a>
-							<a href="/notice/categoryCount.kh?noticeCategory=event&page=${currentPage }" style="color: black"> 이벤트 |</a>
-							<a href="/notice/categoryCount.kh?noticeCategory=info&page=${currentPage }" style="color: black"> 안내 </a>
+							<a href="/notice/categoryCount.kh?noticeCategory=notice&page=${bPage.currentPage }" style="color: black"> 공지 |</a>
+							<a href="/notice/categoryCount.kh?noticeCategory=update&page=${bPage.currentPage }" style="color: black"> 업데이트 |</a>
+							<a href="/notice/categoryCount.kh?noticeCategory=event&page=${bPage.currentPage }" style="color: black"> 이벤트 |</a>
+							<a href="/notice/categoryCount.kh?noticeCategory=info&page=${bPage.currentPage }" style="color: black"> 안내 </a>
 						</td>
 					</tr>
 					<!-- 카테고리별 리스트 끝 -->
@@ -96,7 +96,7 @@
 								<c:if test="${notice.noticeCategory == 'event'}">이벤트</c:if>
 								<c:if test="${notice.noticeCategory == 'info'}">안내</c:if>
 							</td>
-							<td class="col-4" align="left"><a href="/notice/noticeDetailView.kh?noticeNo=${notice.noticeNo }&page=${currentPage }" style="color: black">${notice.noticeTitle }</a></td>
+							<td class="col-4" align="left"><a href="/notice/noticeDetailView.kh?noticeNo=${notice.noticeNo }&page=${bPage.currentPage }" style="color: black">${notice.noticeTitle }</a></td>
 							<td class="col-1">${notice.nCreateDate }</td>
 						</tr>
 					</c:forEach>
@@ -107,28 +107,59 @@
 					</tr>
 				</c:if>
 					<tr align="center" height="20">
-			            <td colspan="4" style="border:none;">
-			                <c:if test="${currentPage != 1}">
-			                    <a href="/notice/${urlVal }.kh?page=${currentPage - 1 }&searchCondition=${searchCondition}&searchValue=${searchValue}">[이전]</a>
-			                </c:if>
-			                <c:forEach var="p" begin = "${startNavi }" end="${endNavi }">
-			                    <c:if test="${currentPage eq p }">
-			                        <b>${p}</b> 
-			                    </c:if>
-			                    <c:if test="${currentPage ne p }">
-			                        <a href = "/notice/${urlVal }.kh?page=${p }&searchCondition=${searchCondition }&searchValue=${searchValue }">${p}</a>
-			                    </c:if>
-			                </c:forEach>
-			            <c:if test = "${currentPage < maxPage }">
-			                <a href = "/notice/${urlVal}.kh?page=${currentPage + 1}&searchCondition=${searchCondition}&searchValue=${searchValue}">[다음]</a>
-			            </c:if>
+			            <td colspan="6" style="border:none;">
+						    <!--  페이징 영역 -->
+							<article id="page-area">
+				
+								<!-- 이전 페이지 출력 -->
+								<c:if test="${bPage.startNavi != 1 && bPage.startNavi > 0  }">
+									<span class="prev"> <a
+										href="/notice/list.kh?page=${bPage.startNavi-1 }"> [이전] </a>
+									</span>
+								</c:if>
+				
+								<!-- 페이지 번호 출력 -->
+								<c:forEach var="p" begin="${bPage.startNavi}"
+									end="${bPage.endNavi}">
+				
+									
+									<c:if test="${p == bPage.currentPage  }">
+										<span class="pageNow"> 
+											${p }
+										</span>	
+									</c:if> 
+									<c:if test="${p == 0  }">
+										<span class="pageNow"> 
+											${p+1 }	
+										</span>	
+									</c:if>
+									
+				
+									<c:if test="${p != bPage.currentPage && p !=0}">
+										<span class="pages"> <a href="/notice/list.kh?page=${p }">${p }</a>
+										</span>
+									</c:if>
+				
+								</c:forEach>
+								<!-- 다음 페이지 출력 -->
+								<c:if test="${bPage.endNavi ne bPage.maxPage  }">
+									<span class="next"> <a
+										href="/notice/list.kh?page=${bPage.endNavi+1 }"> [다음] </a>
+									</span>
+								</c:if>
+				
+				
+							</article>
+							<!-- 페이징 영역 종료 -->
 			            </td>
 			        </tr>
 				</table>
 			</div>
 		</div>
-	</section>
-<br><br>
+	<br>
+		<hr>
+		</section>
+<br>
 </main>
 <!-- main contents End -->
 

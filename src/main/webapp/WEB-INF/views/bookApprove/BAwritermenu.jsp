@@ -39,6 +39,7 @@
 	<jsp:include page="../header/adminheader.jsp" />
 	<main>
 		<section class="container">
+		<br><br>
 			<div class="container text-center">
 				<div class="row row-cols-1">
 					<div class="col" style="background-color: #5e5e5e; color: white; height:45px; vertical-align: middle;">도서 리스트</div>
@@ -56,7 +57,7 @@
 					    </li>
 			    		<li class="mainLi">
 			    			<div style="text-align:center">
-					    		<a href="/admin/approveYN.kh?checkPermission=Y&page=${currentPage }">승인도서</a>
+					    		<a href="/admin/approveYN.kh?checkPermission=Y">승인도서</a>
 					    	</div>
 						</li>
 						<li class="mainLi">
@@ -64,7 +65,7 @@
 					    </li>
 			    		<li class="mainLi">
 			    			<div style="text-align:center">
-					    		<a href="/admin/approveYN.kh?checkPermission=N&page=${currentPage }">보류도서</a>
+					    		<a href="/admin/approveYN.kh?checkPermission=N">보류도서</a>
 					    	</div>
 						</li>
 						<li class="mainLi">
@@ -72,7 +73,7 @@
 					    </li>
 			    		<li class="mainLi">
 			    			<div style="text-align:left">
-					    		<a href="/admin/reApproveList.kh?page=${currentPage }">재승인도서</a>
+					    		<a href="/admin/reApproveList.kh">재승인도서</a>
 					    	</div>
 			    		</li>
 			 		</ul>
@@ -131,7 +132,7 @@
 				<!-- 이전 페이지 출력 -->
 				<c:if test="${bPage.startNavi != 1 && bPage.startNavi > 0  }">
 					<span class="prev"> <a
-						href="/admin/writerMenu.do?page=${bPage.startNavi-1 }"> < </a>
+						href="/admin/approveYN.kh.do?page=${bPage.startNavi-1 }&checkPermission=${checkPermission}"> < </a>
 					</span>
 				</c:if>
 
@@ -153,7 +154,7 @@
 					
 
 					<c:if test="${p != bPage.currentPage && p !=0}">
-						<span class="pages"> <a href="/admin/writerMenu.do?page=${p }">${p }</a>
+						<span class="pages"> <a href="/admin/approveYN.kh?page=${p }&checkPermission=${checkPermission}">${p }</a>
 						</span>
 					</c:if>
 
@@ -161,7 +162,7 @@
 				<!-- 다음 페이지 출력 -->
 				<c:if test="${bPage.endNavi ne bPage.maxPage  }">
 					<span class="next"> <a
-						href="/admin/writerMenu.do?page=${bPage.endNavi+1 }"> > </a>
+						href="/admin/approveYN.kh?page=${bPage.endNavi+1 }&checkPermission=${checkPermission}"> > </a>
 					</span>
 				</c:if>
 
@@ -169,9 +170,10 @@
 			</article>
 			<!-- 페이징 영역 종료 -->
 
-
-		</section>
-	</main>
+		<br>
+		<hr>
+	</section>
+</main>
 	<jsp:include page="../footer/footer.jsp" />
 <script>
 	function approveCheck(bookNo, seriesNo, currentPage) {

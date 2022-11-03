@@ -81,8 +81,7 @@ public class QnaStoreLogic implements QnaStore {
 	public List<Qna> selectAllQna(SqlSessionTemplate session, int currentPage, int aqnaLimit) {
 		int offset = (currentPage-1)*aqnaLimit;
 		RowBounds rowBounds = new RowBounds(offset, aqnaLimit);
-		List<Qna> aList 
-		= session.selectList("QnaMapper.selectAllQna"
+		List<Qna> aList = session.selectList("QnaMapper.selectAllQna"
 				, null, rowBounds);
 		return aList;
 	}

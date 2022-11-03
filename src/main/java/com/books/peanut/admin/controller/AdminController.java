@@ -1,8 +1,8 @@
 package com.books.peanut.admin.controller;
 
+
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +43,10 @@ public class AdminController {
 			if(getTotalCount>0){
 				List<Member> mList = BAService.allMembers(bPage.getCurrentPage(), memberLimit);
 				mv.addObject("mList", mList);
+				System.out.println(mList);
 			}
 			mv.addObject("bPage", bPage);
+			mv.addObject("page", page);
 			mv.setViewName("/admin/memberListView");
 
 		}
@@ -147,6 +149,7 @@ public class AdminController {
 				mv.addObject("mList", mList);
 			}
 			mv.addObject("bPage", bPage);
+			mv.addObject("page", page);
 			mv.addObject("searchCondition", searchCondition);
 			mv.addObject("searchValue", searchValue);
 			mv.setViewName("/admin/memberListView");

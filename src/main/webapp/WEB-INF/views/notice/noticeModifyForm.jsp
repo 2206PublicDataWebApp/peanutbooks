@@ -38,76 +38,88 @@
 
 <!-- main contents start -->
 <main>
-<br><br>	
-<div class="container">
-
-	<h3 align="center">${notice.noticeNo }번 공지사항 수정하기</h3>
-	<br><br>
+	<section class="container">
+	<!-- 세부페이지 head 시작 -->
+		<!-- 세부페이지 큰 제목 -->
+		<br>
+		<div class="container text-center">
+			<hr>
+		<!-- 세부페이지 큰 제목 끝 -->
+		<br>
 		
-	<form action="/notice/modify.kh" method="post" enctype="multipart/form-data" name="noticeForm">
-		<input type="hidden" name="page" value="${page }">
-		<input type="hidden" name="noticeNo" value="${notice.noticeNo }">
-		<input type="hidden" name="noticeFilename" value="${notice.noticeFilename }">
-		<input type="hidden" name="noticeFileRename" value="${notice.noticeFileRename }">
-		<table align="center" class="table col-10">
-			<tr>
-				<td  class="col-2" scope="col" align="center">종류</td>
-				<td>
-					<select name="noticeCategory"  class="form-select" aria-label="Default select example" >
-						<option value="notice" <c:if test="${notice.noticeCategory == 'notice'}">selected</c:if>>공지</option>
-						<option value="update" <c:if test="${notice.noticeCategory == 'update'}">selected</c:if>>업데이트</option>
-						<option value="event" <c:if test="${notice.noticeCategory == 'event'}">selected</c:if>>이벤트</option>
-						<option value="info" <c:if test="${notice.noticeCategory == 'info'}">selected</c:if>>안내</option>
-					</select>
-				</td>
-			<tr>
-				<td  class="col-2" scope="col" align="center">작성자</td>
-				<td><input type="text" name="noticeWriter"  class="form-control" value="${notice.noticeWriter }" readonly></td>
-			</tr>
-			<tr>
-				<td  class="col-2" scope="col" align="center">제목</td>
-				<td><input type="text" name="noticeTitle" onkeyup="titleLengthCk(this);" class="form-control" value="${notice.noticeTitle }"></td>
-			</tr>
-			<tr>
-				<td  class="col-2" scope="col" align="center">내용</td>
-				<td> <textarea class="form-control" id="exampleFormControlTextarea1" cols="50" rows="20" name="noticeContents">${notice.noticeContents }</textarea>  </td>
-			</tr>
-		<c:if test="${!empty notice.noticeFileRename }">
-			<tr>
-				<td  class="col-2" scope="col" align="center">첨부파일</td>
-				<td>
-					<a href=""  onclick="fnImgPop(this.src)"><img alt="본문이미지" 
-					src="/resources/nuploadFiles/${notice.noticeFileRename }" 
-					style="width:200px; height:200px;" onclick="fnImgPop(this.src)"></a>
-				</td>
-			</tr>
-			<tr>
-				<td  class="col-2" scope="col" align="center">첨부파일 수정</td>
-				<td>
-					<input type="file" name="reloadFile">
-					<a href="#">${notice.noticeFilename }</a>
-				</td>
-			</tr>
-		</c:if>
-		<c:if test="${empty notice.noticeFileRename }">
-			<tr>
-				<td>첨부파일</td>
-				<td>
-					<input type="file" name="reloadFile">
-				</td>
-			</tr>
-		</c:if>
-			<tr>
-				<td colspan="2" align="center">
-					<input onclick="noticeCheck();" type="button" value="수정" class="btn btn-warning btn-sm">
-					<button type="button" onclick="backBtn()" class="btn btn-warning btn-sm">목록</button> 
-					 
-				</td>
-			</tr>
-		</table>
-	</form>
-</div>
-<br><br>
+		<!-- 세부페이지 body 시작 -->
+			<div class="row row-cols-1">
+				<h3 align="center">${notice.noticeNo }번 공지사항 수정하기</h3>
+				<br>
+					
+				<form action="/notice/modify.kh" method="post" enctype="multipart/form-data" name="noticeForm">
+					<input type="hidden" name="page" value="${page }">
+					<input type="hidden" name="noticeNo" value="${notice.noticeNo }">
+					<input type="hidden" name="noticeFilename" value="${notice.noticeFilename }">
+					<input type="hidden" name="noticeFileRename" value="${notice.noticeFileRename }">
+					<table align="center" class="table col-10">
+						<tr>
+							<td class="col-2" scope="col" align="center">종류</td>
+							<td>
+								<select name="noticeCategory"  class="form-select" aria-label="Default select example" >
+									<option value="notice" <c:if test="${notice.noticeCategory == 'notice'}">selected</c:if>>공지</option>
+									<option value="update" <c:if test="${notice.noticeCategory == 'update'}">selected</c:if>>업데이트</option>
+									<option value="event" <c:if test="${notice.noticeCategory == 'event'}">selected</c:if>>이벤트</option>
+									<option value="info" <c:if test="${notice.noticeCategory == 'info'}">selected</c:if>>안내</option>
+								</select>
+							</td>
+						<tr>
+							<td  class="col-2" scope="col" align="center">작성자</td>
+							<td><input type="text" name="noticeWriter"  class="form-control" value="${notice.noticeWriter }" readonly></td>
+						</tr>
+						<tr>
+							<td  class="col-2" scope="col" align="center">제목</td>
+							<td><input type="text" name="noticeTitle" onkeyup="titleLengthCk(this);" class="form-control" value="${notice.noticeTitle }"></td>
+						</tr>
+						<tr>
+							<td  class="col-2" scope="col" align="center">내용</td>
+							<td> <textarea class="form-control" id="exampleFormControlTextarea1" cols="5" rows="5" name="noticeContents">${notice.noticeContents }</textarea>  </td>
+						</tr>
+					<c:if test="${!empty notice.noticeFileRename }">
+						<tr>
+							<td  class="col-2" scope="col" align="center">첨부파일</td>
+							<td>
+								<a href=""  onclick="fnImgPop(this.src)"><img alt="본문이미지" 
+								src="/resources/nuploadFiles/${notice.noticeFileRename }" 
+								style="width:200px; height:200px;" onclick="fnImgPop(this.src)"></a>
+							</td>
+						</tr>
+						<tr>
+							<td  class="col-2" scope="col" align="center">첨부파일 수정</td>
+							<td>
+								<input type="file" name="reloadFile">
+								<a href="#">${notice.noticeFilename }</a>
+							</td>
+						</tr>
+					</c:if>
+					<c:if test="${empty notice.noticeFileRename }">
+						<tr>
+							<td>첨부파일</td>
+							<td>
+								<input type="file" name="reloadFile">
+							</td>
+						</tr>
+					</c:if>
+						<tr>
+							<td colspan="2" align="center">
+								<input onclick="noticeCheck();" type="button" value="수정" class="btn btn-warning btn-sm">
+								<button type="button" onclick="backBtn()" class="btn btn-warning btn-sm">목록</button> 
+								 
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
+	<br>
+	<hr>
+	</section>
+<br>
 </main>
 <!-- main contents End -->
 

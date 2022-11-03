@@ -98,7 +98,6 @@ public class BookApproveStoreLogic implements BookApproveStore{
 	public List<Member> selectAllMembers(SqlSession session, int i, int memberLimit) {
 		int offset = (i-1)*memberLimit;
 		RowBounds rowBounds= new RowBounds(offset,memberLimit);
-		
 		List<Member> mList = session.selectList("BookApproveMapper.selectAllMembers", null, rowBounds);
 		return mList;
 	}

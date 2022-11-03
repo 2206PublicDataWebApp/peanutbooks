@@ -135,10 +135,10 @@
 				<tr>
 					<td class="col-7" style="border:none;" td colspan="6" align="right">
 						<a href="/admin/qnaList.kh" style="color: black"> 전체 | </a>
-						<a href="/admin/categoryCount.kh?qnaCategory=member&page=${currentPage }" style="color: black"> 회원문의 |</a>
-						<a href="/admin/categoryCount.kh?qnaCategory=point&page=${currentPage }" style="color: black"> 포인트문의 |</a>
-						<a href="/admin/categoryCount.kh?qnaCategory=books&page=${currentPage }" style="color: black"> 도서문의 |</a>
-						<a href="/admin/categoryCount.kh?qnaCategory=others&page=${currentPage }" style="color: black"> 기타 </a>
+						<a href="/admin/categoryCount.kh?qnaCategory=member&page=${bPage.currentPage }" style="color: black"> 회원문의 |</a>
+						<a href="/admin/categoryCount.kh?qnaCategory=point&page=${bPage.currentPage }" style="color: black"> 포인트문의 |</a>
+						<a href="/admin/categoryCount.kh?qnaCategory=books&page=${bPage.currentPage }" style="color: black"> 도서문의 |</a>
+						<a href="/admin/categoryCount.kh?qnaCategory=others&page=${bPage.currentPage }" style="color: black"> 기타 </a>
 					</td>
 				</tr>
 				<!-- 카테고리별 리스트 끝 -->
@@ -161,7 +161,7 @@
 								<c:if test="${qna.qnaCategory == 'others' }">기타</c:if>
 							</td>
 							<td>${qna.memberId }</td>
-							<td align="left"><a href="/admin/aqnaDetailView.kh?qnaNo=${qna.qnaNo }&page=${currentPage }&searchCondition=${searchCondition}&searchValue=${searchValue}" style="color: black">${qna.qnaTitle }</a></td>
+							<td align="left"><a href="/admin/aqnaDetailView.kh?qnaNo=${qna.qnaNo }&page=${bPage.currentPage }&searchCondition=${searchCondition}&searchValue=${searchValue}" style="color: black">${qna.qnaTitle }</a></td>
 							<td>
 								<c:if test="${qna.qnaStatus eq 'Y' }">
 									<b style="color: #2d532c;">답변완료</b>
@@ -176,32 +176,60 @@
 				</c:if>
 				<c:if test="${empty aList }">
 					<tr>
-						<td colspan="6" align="center"><b>작성된 게시물이 없습니다.</b></td>
+						<td colspan="6" align="center" ><b>작성된 게시물이 없습니다.</b></td>
 					</tr>
 				</c:if>
 					<tr align="center" height="20">
-			            <td colspan="6" style="border:none;">
-			                <c:if test="${currentPage != 1}">
-			                    <a href="/admin/${urlVal }.kh?page=${currentPage - 1 }&searchCondition=${searchCondition}&searchValue=${searchValue}">[이전]</a>
-			                </c:if>
-			                <c:forEach var="p" begin = "${startNavi }" end="${endNavi }">
-			                    <c:if test="${currentPage eq p }">
-			                        <b>${p}</b> 
-			                    </c:if>
-			                    <c:if test="${currentPage ne p }">
-			                        <a href = "/admin/${urlVal }.kh?page=${p }&searchCondition=${searchCondition }&searchValue=${searchValue }">${p}</a>
-			                    </c:if>
-			                </c:forEach>
-			            <c:if test = "${currentPage < maxPage }">
-			                <a href = "/admin/${urlVal}.kh?page=${currentPage + 1}&searchCondition=${searchCondition}&searchValue=${searchValue}">[다음]</a>
-			            </c:if>
-			            </td>
+						<td colspan="6" align="center" style="border:none;">
+			            <!--  페이징 영역 -->
+							<article id="page-area">
+				
+								<!-- 이전 페이지 출력 -->
+								<c:if test="${bPage.startNavi != 1 && bPage.startNavi > 0  }">
+									<span class="prev"> 
+										<a href="/admin/qnaList.kh?page=${bPage.startNavi-1 }"> [이전] </a>
+									</span>
+								</c:if>
+				
+								<!-- 페이지 번호 출력 -->
+								<c:forEach var="p" begin="${bPage.startNavi}"
+									end="${bPage.endNavi}">
+				
+									
+									<c:if test="${p == bPage.currentPage  }">
+										<span class="pageNow"> 
+											${p }
+										</span>	
+									</c:if> 
+									<c:if test="${p == 0  }">
+										<span class="pageNow"> 
+											${p+1 }	
+										</span>	
+									</c:if>
+									
+				
+									<c:if test="${p != bPage.currentPage && p !=0}">
+										<span class="pages"> <a href="/admin/qnaList.kh?page=${p }">${p }</a>
+										</span>
+									</c:if>
+				
+								</c:forEach>
+								<!-- 다음 페이지 출력 -->
+								<c:if test="${bPage.endNavi ne bPage.maxPage  }">
+									<span class="next"> <a
+										href="/admin/qnaList?page=${bPage.endNavi+1 }"> [다음] </a>
+									</span>
+								</c:if>
+							</article>
+							<!-- 페이징 영역 종료 -->
+						</td>
 			        </tr>
 				</table>
 			</div>
 		</div>
+	<br>
+	<hr>
 	</section>
-<br><br>
 </main>
 <!-- main contents End -->
 
