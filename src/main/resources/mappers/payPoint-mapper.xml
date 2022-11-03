@@ -17,17 +17,23 @@
   	</resultMap>
   	<!--주문 확정내용 입력  -->
   	<insert id="insertPay">
-		 INSERT INTO PAY VALUES((#{orderNo}||'-'||SQN_PAY_NO.NEXTVAL), ${pay},default,#{memberId},#{orderContents},'')
+		 INSERT INTO PAY 
+		 VALUES((#{orderNo}||'-'||SQN_PAY_NO.NEXTVAL), ${pay},default,#{memberId},#{orderContents},'')
 	</insert>
 	<!--확정된 주문번호 가져오기 입력된것중 가장 마지막 값을 가져오게 됨  -->
 	<select id="selectOdNo" resultMap="payResultMap">
 		SELECT * FROM(
- 		 SELECT * FROM PAY WHERE MEMBER_ID=#{memberId} AND ORDER_NO LIKE #{orderNo}||'%' AND PAY= #{pay} ORDER BY ROWNUM DESC)
- 		 WHERE ROWNUM =1	
+	 		SELECT * FROM PAY 
+	 		WHERE MEMBER_ID=#{memberId} 
+	 			AND ORDER_NO LIKE #{orderNo}||'%' 
+	 			AND PAY= #{pay} 
+	 		ORDER BY ROWNUM DESC)
+ 		WHERE ROWNUM =1	
 	</select>
 	<!--주문성공시 orderStatus 값 변경  -->
 	<update id="updataOrder">
-		UPDATE PAY SET ORDER_STATUS='Y', IMP_UID=#{imp_uid} WHERE ORDER_NO=#{orderNo}	
+		UPDATE PAY SET ORDER_STATUS='Y', IMP_UID=#{imp_uid} 
+		WHERE ORDER_NO=#{orderNo}	
 	</update>	
 	
 	<!--작가 정산관련 부분  -->
@@ -47,7 +53,8 @@
   	
   	<!-- 작가 결제 요청시 저장 -->
     <insert id="insertreceiptWP">
-    	INSERT INTO POINTCHANGE_TBL VALUES(#{memberId},#{seriesNo},#{ori_bookNo},DEFAULT,#{bankName},#{bankNo},${payment},DEFAULT, SQN_WRITERPAY_NO.NEXTVAL, ${changeP})    	
+    	INSERT INTO POINTCHANGE_TBL 
+    	VALUES(#{memberId},#{seriesNo},#{ori_bookNo},DEFAULT,#{bankName},#{bankNo},${payment},DEFAULT, SQN_WRITERPAY_NO.NEXTVAL, ${changeP})    	
     </insert>
     <!-- 작가 정산 리스트 전체 갯수 구하기  -->
   	<select id="wPListCount" resultType="_int">
@@ -55,11 +62,13 @@
   	</select>
     <!--작가정산리스트 출력 -->
     <select id="selectwrList" resultMap="WriterPayResultMap">
-    	SELECT * FROM POINTCHANGE_TBL ORDER BY PUTDATE DESC
+    	SELECT * FROM POINTCHANGE_TBL 
+    	ORDER BY PUTDATE DESC
     </select>
     <!--관리자가 작자정산접수승인  -->
     <update id="updateWriterpay">
-    	UPDATE POINTCHANGE_TBL SET BANK_STATUS='Y' WHERE WRPAY_NO=${wrpayNo}
+    	UPDATE POINTCHANGE_TBL SET BANK_STATUS='Y' 
+    	WHERE WRPAY_NO=${wrpayNo}
     </update>  
   
   	
@@ -83,11 +92,13 @@
   	</resultMap>
   	  <!--도서번호  시리즈 정보 받기  -->
   	<select id="origin_B_S_list" resultMap="OriginBookSeriesResultMap">
-  		SELECT * FROM ORI_SERIES WHERE ORI_BOOK_NO =${bookNo } AND PAID_CHECK='Y'
+  		SELECT * FROM ORI_SERIES 
+  		WHERE ORI_BOOK_NO =${bookNo } AND PAID_CHECK='Y'
   	</select>
   	<!--작가정산 접수후 포인트 차감하기  -->
   	<update id="updatePaid_count">
-  		UPDATE ORI_SERIES SET PAID_COUNT=PAID_COUNT-TO_NUMBER(${changeP }) WHERE ORI_BOOK_NO =#{ori_bookNo } AND SERIES_NO=${seriesNo }
+  		UPDATE ORI_SERIES SET PAID_COUNT=PAID_COUNT-TO_NUMBER(${changeP }) 
+  		WHERE ORI_BOOK_NO =#{ori_bookNo } AND SERIES_NO=${seriesNo }
   	</update>
   	
   	<!--  책 넘버 먼저 가져 오는 부분 -->
@@ -109,7 +120,8 @@
   	</resultMap>
   	<!--작가 책 정보 받기  -->
   	<select id="OriginBookNo" resultMap="OriginBookResultMap">
-  		SELECT * FROM ORIGIN_BOOK WHERE MEMBER_ID = #{memberId }  	
+  		SELECT * FROM ORIGIN_BOOK 
+  		WHERE MEMBER_ID = #{memberId }  	
   	</select>
  
   <!--땅콩 포인트 관련  -->	
@@ -128,19 +140,42 @@
   	</resultMap>
   	
   	<insert id="insertPeanut">
-  		 INSERT INTO PEANUTPOINT_TBL VALUES (SQN_PEANUT_NO.NEXTVAL,SYSDATE,${peanutPoint},'Y',DEFAULT,DEFAULT,#{memberId},#{orderNo},DEFAULT)
+  		 INSERT INTO PEANUTPOINT_TBL 
+  		 VALUES (SQN_PEANUT_NO.NEXTVAL,SYSDATE,${peanutPoint},'Y',DEFAULT,DEFAULT,#{memberId},#{orderNo},DEFAULT)
   	</insert>
   	<!-- 땅콩 전체 리스트  -->
   	<select id="peanutpointLsit" resultMap="peanutResultMap">
-  		SELECT * FROM PEANUTPOINT_TBL WHERE MEMBER_ID=#{memberId } ORDER BY PP_DATE DESC
+  		SELECT * FROM PEANUTPOINT_TBL 
+  		<where>
+	  		<if test="memberId == 'admin'" > </if> 		
+	  		
+	  		<if test="memberId != 'admin'" >
+	  			MEMBER_ID=#{memberId }
+	  		</if> 
+  		</where>
+  		ORDER BY PP_DATE DESC
   	</select>
   	<!--땅콩 리스트 전체 갯수 구하기  -->
   	<select id="ppListCount" resultType="_int">
-  		SELECT COUNT(*) FROM PEANUTPOINT_TBL WHERE MEMBER_ID=#{memberId }
+  		SELECT COUNT(*) FROM PEANUTPOINT_TBL 
+  		  	<where>
+	  		<if test="memberId == 'admin'" > </if> 		
+	  		
+	  		<if test="memberId != 'admin'" >
+	  			MEMBER_ID=#{memberId }
+	  		</if> 
+  			</where>
   	</select>
   	
   	<select id="idppSum" resultType="_int">
-  		SELECT SUM(PEANUT_POINT) FROM PEANUTPOINT_TBL WHERE MEMBER_ID = #{memberId } 
+  		SELECT SUM(PEANUT_POINT) FROM PEANUTPOINT_TBL 
+  		  	<where>
+	  		<if test="memberId == 'admin'" > </if> 		
+	  		
+	  		<if test="memberId != 'admin'" >
+	  			MEMBER_ID=#{memberId }
+	  		</if> 
+  			</where>
   	</select>
   
   	
@@ -155,13 +190,15 @@
   	
   	<!--결제후 구독권 등록  -->
  	<insert id="insertSSticket">
-		 INSERT INTO SEASONTICKET_TBL VALUES(#{orderNo}, SYSDATE,ADD_MONTHS(SYSDATE,1),#{memberId},'N')
+		 INSERT INTO SEASONTICKET_TBL 
+		 VALUES(#{orderNo}, SYSDATE,ADD_MONTHS(SYSDATE,1),#{memberId},'N')
 	</insert>
 
 		
 	<!--  로그인시 구독여부 및 마지막 날짜확인 -->  
 	<select id="selectLastSSticket" resultType="string">		
-		SELECT TO_CHAR(LAST_DATE+1/(60*24),'YYYY-MM-DD HH24:MI:SS') FROM SEASONTICKET_TBL WHERE MEMBER_ID=#{memberId} AND EXPIRY_YN='N' 	
+		SELECT TO_CHAR(LAST_DATE+1/(60*24),'YYYY-MM-DD HH24:MI:SS') FROM SEASONTICKET_TBL 
+		WHERE MEMBER_ID=#{memberId} AND EXPIRY_YN='N' 	
 	</select>
 	
 	
@@ -183,11 +220,13 @@
 	
 	<!--구독권 구매 후 member 구독권 y/n변경  -->
 	<update id="updateMemberSSticket">
-		UPDATE MEMBER_TBL SET SUB_YN='Y' WHERE MEMBER_ID=#{memberId}
+		UPDATE MEMBER_TBL SET SUB_YN='Y' 
+		WHERE MEMBER_ID=#{memberId}
 	</update>
 	<!--땅콩정산하여 멤버 포인트에 넣기  -->
 	<update id="memberPoint">
-		UPDATE MEMBER_TBL SET M_POINT=${mPoint} WHERE MEMBER_ID=#{memberId}
+		UPDATE MEMBER_TBL SET M_POINT=${mPoint}
+		WHERE MEMBER_ID=#{memberId}
 	</update>
 	
   </mapper>

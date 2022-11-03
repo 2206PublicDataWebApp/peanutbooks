@@ -11,6 +11,7 @@
 	<script src='../resources/js/jquery-3.6.0.min.js' ></script>
 </head>
 <body>
+<jsp:include page="../header/adminheader.jsp"></jsp:include>
 <h1>정산 접수 내역</h1>
 <main id='putMain'>
     <div id='table'>

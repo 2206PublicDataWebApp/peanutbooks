@@ -98,7 +98,7 @@
 					<c:forEach begin="${pm.startNavi}" end="${pm.endNavi }" var="p">
 
 						<a class="page-active" href="javascript:void(0);"
-							onclick="pageChatSearch(${p});"> <%-- 	href="/consult/endList.kh?page=${p }&memberId=${memberId}&csDate=$('input[type=date]').prop('defaultValue') "> --%>
+							onclick="pageChatSearch(${p});"> 
 							${p}
 						</a>
 
@@ -122,7 +122,7 @@
 			</div>
 			</c:if>
 
-	</div>
+		</div>
 	</div>
 
 </main>
