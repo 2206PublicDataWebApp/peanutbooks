@@ -38,10 +38,13 @@ public class BookApproveStoreLogic implements BookApproveStore{
 	//승인 도서 리스트
 	@Override
 	public List<OriginBookSeries> selectCheckPermissionList(SqlSession session, int i, int limit,
-			String checkPermission) {
+			String checkPermission, String step) {
 		int offset = (i-1)*limit;
 		RowBounds rowBounds= new RowBounds(offset,limit);
-		List<OriginBookSeries> osList = session.selectList("BookApproveMapper.selectCheckPermissionList",checkPermission, rowBounds);
+		HashMap hMap = new HashMap<String, String>();
+		hMap.put("checkPermission", checkPermission);
+		hMap.put("step", step);
+		List<OriginBookSeries> osList = session.selectList("BookApproveMapper.selectCheckPermissionList",hMap, rowBounds);
 		return osList;
 	}
 	//보류 도서 갯수

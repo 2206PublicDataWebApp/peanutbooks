@@ -86,14 +86,14 @@
 	</select>
 	<!-- 회원별 qna게시판 리스트 페이징 -->
 	<select id="selectMemberQna" resultMap="qnaResultMap">
-		SELECT * FROM QNA_TBL WHERE MEMBER_ID = #{memberId} ORDER BY QNA_NO DESC
+		SELECT QNA_NO, QNA_CATEGORY, MEMBER_ID, QNA_TITLE, QNA_STATUS, QNA_CREATEDATE FROM QNA_TBL WHERE MEMBER_ID = #{memberId} ORDER BY QNA_NO DESC
 	</select>
 	<select id="selectOneByNo" resultMap="qnaResultMap">
- 			SELECT * FROM QNA_TBL WHERE QNA_NO = #{qnaNo}
+ 		SELECT * FROM QNA_TBL WHERE QNA_NO = #{qnaNo}
  	</select>
  	<!-- 회원별 상세검색 페이지 출력 -->
  	<select id="selectMemberByValue" resultMap="qnaResultMap">
- 		SELECT * FROM QNA_TBL
+ 		SELECT QNA_NO, QNA_CATEGORY, MEMBER_ID, QNA_TITLE, QNA_STATUS, QNA_CREATEDATE FROM QNA_TBL
  		<where>
  			<if test="searchCondition.toString() == 'title'">
  				QNA_TITLE LIKE '%'||#{searchValue}||'%'
@@ -110,7 +110,7 @@
  	</select>
  	<!-- 관리자 상세검색 페이지 출력 -->
  	<select id="selectAllByValue" resultMap="qnaResultMap">
- 		SELECT * FROM QNA_TBL
+ 		SELECT QNA_NO, QNA_CATEGORY, MEMBER_ID, QNA_TITLE, QNA_STATUS, QNA_CREATEDATE FROM QNA_TBL
  		<where>
  			<if test="searchCondition.toString() == 'name'">
  				MEMBER_ID LIKE '%'||#{searchValue}||'%'
@@ -130,7 +130,7 @@
  	</select>
  	<!-- 관리자 총게시물 리스트 페이징 -->
  	<select id="selectAllQna" resultMap="qnaResultMap">
- 		SELECT * FROM QNA_TBL ORDER BY QNA_NO DESC
+ 		SELECT QNA_NO, QNA_CATEGORY, MEMBER_ID, QNA_TITLE, QNA_STATUS, QNA_CREATEDATE FROM QNA_TBL ORDER BY QNA_NO DESC
  	</select>
 	<!-- 게시물 카테고리별 갯수 -->
 	<select id="selectCategoryList" resultType="_int">
@@ -138,6 +138,6 @@
 	</select>
  	<!-- 관리자 게시물 카테고리별 리스트 -->
  	<select id="selectAllCategory" resultMap="qnaResultMap">
-		SELECT * FROM QNA_TBL WHERE QNA_CATEGORY=#{qnaCategory} ORDER BY QNA_NO DESC
+		SELECT QNA_NO, QNA_CATEGORY, MEMBER_ID, QNA_TITLE, QNA_STATUS, QNA_CREATEDATE FROM QNA_TBL WHERE QNA_CATEGORY=#{qnaCategory} ORDER BY QNA_NO DESC
 	</select>
 </mapper> 

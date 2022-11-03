@@ -42,8 +42,8 @@ public class BookApproveServiceImpl implements BookApproveService {
 	}
 	//승인된 게시물 리스트 출력
 	@Override
-	public List<OriginBookSeries> checkPermission(int i, int boardLimit, String checkPermission) {
-		List<OriginBookSeries> osList = BAStore.selectCheckPermissionList(session, i, boardLimit, checkPermission);
+	public List<OriginBookSeries> checkPermission(int i, int boardLimit, String checkPermission, String step) {
+		List<OriginBookSeries> osList = BAStore.selectCheckPermissionList(session, i, boardLimit, checkPermission, step);
 		return osList;
 	}
 	//재승인된 게시물 갯수

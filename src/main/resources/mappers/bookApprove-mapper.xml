@@ -79,12 +79,34 @@
 	
 	<!-- 승인/보류 리스트 갯수 가져오기 -->
 	<select id="selectCheckPermission" resultType="_int">
-		select count(*) from ori_series join origin_book using(ori_book_no) where CHECK_PERMISSION=#{checkPermission}
+		select count(*)
+		from ORI_SERIES a 
+		join ORIGIN_BOOK b on a.ORI_BOOK_NO = b.ORI_BOOK_NO
+		join BOOK_PERMISSION c on b.ORI_BOOK_NO = c.ORI_BOOK_NO and a.series_no = c.book_series_no
+		<where>
+		<if test="checkPermission.toString() != 'all'">
+		CHECK_PERMISSION=#{checkPermission}
+		</if>
+		</where>
 	</select>
 	
 	<!-- 승인/보류 리스트 가져오기 -->
 	<select id="selectCheckPermissionList" resultMap="oriSeriesResultMap">
-		select * from ori_series join origin_book using(ori_book_no) where CHECK_PERMISSION=#{checkPermission} order by SERIES_NO DESC
+		select a.SERIES_NO, a.ORI_BOOK_NO, b.BOOK_TITLE, a.TITLE, a.SUB_PIC_RE, a.CHECK_PERMISSION
+		from ORI_SERIES a 
+		join ORIGIN_BOOK b on a.ORI_BOOK_NO = b.ORI_BOOK_NO
+		join BOOK_PERMISSION c on b.ORI_BOOK_NO = c.ORI_BOOK_NO and a.series_no = c.book_series_no
+		<where>
+		<if test="checkPermission.toString() != 'all'">
+		CHECK_PERMISSION=#{checkPermission}
+		</if>
+		</where> 
+		<if test="step.toString() == 'date'">
+		order by APPROVE_DATE DESC nulls last
+		</if>
+		<if test="step.toString() == 'number'">
+		order by APPROVE_NO
+		</if>
 	</select>
 	
 	<!--  재승인 리스트 갯수 가져오기 -->
@@ -104,7 +126,7 @@
 
 	<!-- 도서 승인 -->
 	<update id="updateApproveBooks">
-		UPDATE BOOK_PERMISSION SET approve='Y' APPROVE_DATE = sysdate WHERE ORI_BOOK_NO = #{bookNo} and book_series_no = #{seriesNo}
+		UPDATE BOOK_PERMISSION SET approve='Y', APPROVE_DATE = SYSDATE WHERE ORI_BOOK_NO = #{bookNo} and book_series_no = #{seriesNo}
 	</update>
 	<update id="updateOriBookApprove">
 		Update origin_book set BOOK_PERMISSION = 'Y' where ori_book_no = #{bookNo}
@@ -115,7 +137,7 @@
 	
 	<!-- 도서 재승인 -->
 	<update id="updateREAppInPermission">
-		insert into book_permission values(seq_permission.nextval,#{bookNo},'Y',null,SYSDATE,null,#{seriesNo})
+		insert into BOOK_PERMISSION values(seq_permission.nextval,#{bookNo},'Y',SYSDATE,SYSDATE,null,#{seriesNo})
 	</update>
 	<update id="updateReAppUpSeries">
 		update ori_series set CHECK_PERMISSION = 'Y', MODIFY_DATE = SYSDATE where SERIES_NO = ${seriesNo} and ORI_BOOK_NO = #{bookNo}
@@ -159,7 +181,7 @@
  	</select>
  	<!-- 회원상세 검색 -->
  	<select id="selectSearchAllMember" resultMap="memberResultMap">
- 		SELECT * FROM MEMBER_TBL 
+ 		SELECT M_NICKNAME, MEMBER_ID, M_POINT, DELETE_YN, JOIN_DATE FROM MEMBER_TBL 
  		<where>
  			<if test="searchCondition.toString() == 'name'">
  				M_NICKNAME LIKE '%'||#{searchValue}||'%' 
@@ -171,11 +193,12 @@
  				M_NICKNAME LIKE '%'||#{searchValue}||'%'
  				OR MEMBER_ID LIKE '%'||#{searchValue}||'%'
  			</if>
+ 			ORDER BY JOIN_DATE DESC
  		</where>
  	</select>
  	<!-- 전체회원 출력 -->
  	<select id="selectAllMembers" resultMap="memberResultMap">
- 		SELECT * FROM MEMBER_TBL ORDER BY JOIN_DATE DESC
+ 		SELECT M_NICKNAME, MEMBER_ID, M_POINT, DELETE_YN, JOIN_DATE FROM MEMBER_TBL ORDER BY JOIN_DATE DESC
  	</select>
  	<!-- 회원상세보기 -->
  	<select id="selectOneById" resultMap="memberResultMap">
