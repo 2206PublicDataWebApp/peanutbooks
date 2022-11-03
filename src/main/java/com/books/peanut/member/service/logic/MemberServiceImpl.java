@@ -82,5 +82,11 @@ public class MemberServiceImpl implements MemberService{
 		int result = mStore.checkAuthKey(session, paramMap);
 		return result;
 	}
+	// 이메일 인증 여부 업데이트
+	@Override
+	public int authEmail(HashMap<String, String> paramMap) {
+		int result = mStore.updateEmailYN(session, paramMap);
+		return result;
+	}
 
 }

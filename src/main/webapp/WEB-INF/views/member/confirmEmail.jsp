@@ -16,19 +16,38 @@
 <body>
     <div class="row">
         <div id="login-img" class="col-lg-8"></div>
-        <input type="hidden" name="memberId" value="${memberId}">
+        <input id="email-memberId" name="memberId" type="hidden" value="${memberId}">
         <div id="login-area" class="col-lg-4">	
             <div><h3 id="login-hl">이메일 인증</h3></div>
             <div id="msg-area">
-                <input id="authKey" type="text" name="authKey" placeholder="인증번호">
+                <input id="email-authKey" type="text" placeholder="인증번호">
                 <div><button id="join-btn" type="button">확인</button></div>
             </div>
         </div>
     </div>
     <script>
     	$("join-btn").on("click", function(){
-    		var authNum = $("#authKey").val();
-    		
+    		var authKey = $("#email-authKey").val();
+    		var memberId = $("#email-memberId").val();
+    		if(authKey == ""){
+    			alert("인증번호를 입력해 주세요.");
+    		}else{
+    			$.ajax({
+    				url: "/member/checkAuthKey.pb",
+    				data: {"authKey", authKey},
+    					  {"memberId", memberId},
+    				type: "get",
+    				success: function(result){
+    					if(result != 0){
+    						alert("인증에 성공하여 회원가입이 완료되었습니다.<br>로그인 해 주세요.");
+    						return true;
+    					}else{
+    						alert("인증번호가 올바르지 않습니다. 다시 확인해 주세요.");
+    						return false;
+    					}
+    				}
+    			})
+    		}
     	});
     </script>
 </body>

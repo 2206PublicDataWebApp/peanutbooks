@@ -52,13 +52,13 @@
 		UPDATE MEMBER_TBL SET DELETE_YN = 'Y' WHERE MEMBER_ID = #{memberId}
 	</update>
 	<!-- 이메일 인증 키 검사 -->
-	<select id="checkAuthKey" resultType="_int">
+ 	<select id="checkAuthKey" resultType="_int">
 		SELECT COUNT(*) FROM MEMBER_TBL WHERE MEMBER_ID = #{memberId} AND AUTH_KEY = #{authKey}
 	</select>
 	<!-- 이메일 인증 여부 변경 -->
-<!-- 	<update id="updateEmailYN" parameterType="Member">
-		UPDATE MEMBER_TBL SET EMAIL_YN = 'Y' WHERE M_EMAIL = #{mEmail} AND AUTH_KEY = #{authKey}
-	</update> -->
+ 	<update id="updateEmailYN" parameterType="Member">
+		UPDATE MEMBER_TBL SET EMAIL_YN = 'Y' WHERE MEMBER_ID = #{memberId} AND AUTH_KEY = #{authKey}
+	</update>
 	
 	<resultMap type="OriginBookSeries" id="oriSeriesResultMap">
 		<id property="seriesNo" column="SERIES_NO"/>
