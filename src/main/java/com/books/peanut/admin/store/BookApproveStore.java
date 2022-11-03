@@ -19,7 +19,7 @@ public interface BookApproveStore {
 	public int selectCheckPermissionCount(SqlSession session, String checkPermission);
 	//승인, 보류 리스트 출력
 	public List<OriginBookSeries> selectCheckPermissionList(SqlSession session, int i, int boardLimit,
-			String checkPermission);
+			String checkPermission, String step);
 	//책 승인
 	public int updateApproveBooks(SqlSession session, Integer bookNo, Integer seriesNo);
 	//책 재승인

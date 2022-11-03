@@ -16,7 +16,7 @@ public interface BookApproveService {
 	//승인보류 게시물 갯수
 	public int checkPermissionCount(String checkPermission);
 	//승인보류 게시물 리스트 출력
-	public List<OriginBookSeries> checkPermission(int currentPage, int boardLimit, String checkPermission);
+	public List<OriginBookSeries> checkPermission(int currentPage, int boardLimit, String checkPermission, String step);
 	//재승인 게시물 갯수
 	public int reApproveCount();
 	//재승인 게시물 리스트 출력

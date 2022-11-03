@@ -34,30 +34,8 @@ public class BookApproveController {
 	public ModelAndView writerMenu(ModelAndView mv, HttpSession session,
 			@RequestParam(value = "page", required = false) Integer page) {
 
+			mv.setViewName("redirect:/admin/approveYN.kh");
 		
-		 Member member = (Member)session.getAttribute("loginMember"); 
-		 if((member.getAdminYN().charAt(0) + "").equals("N")) { // 세션에서 관리자 체크가 안된다면
-			 mv.addObject("msg", "관리자만 접속가능합니다"); mv.setViewName("/common/errorPage"); 
-		} else {
-		
-			int getTotlaCount = BAService.allOriSeriesCount(); // 가지고올 책의 갯수 파악
-		
-			int boardLimit = 20;
-			BookPageController bpCont = new BookPageController();// 페이징 해주는 클래스
-			BookPage bPage = bpCont.boardList(page, getTotlaCount, boardLimit); // 클래스에서 페이징해온 숫자를 가지고옴
-
-			if (getTotlaCount > 0) {
-				List<OriginBookSeries> osList = BAService.allOriSeries(bPage.getCurrentPage(), boardLimit);
-
-				for (int i = 0; i < osList.size(); i++) {
-					String bookTitle = bService.getBookTitle(osList.get(i).getBookNo());
-					osList.get(i).setBookTitle(bookTitle);// 각 시리즈의 책 제목 가지고옴
-				}
-				mv.addObject("osList", osList);
-			}
-			mv.addObject("bPage", bPage);
-			mv.setViewName("/bookApprove/BAwritermenu");
-		}
 		return mv;
 
 	}
@@ -97,8 +75,9 @@ public class BookApproveController {
 	@RequestMapping(value="/admin/approveYN.kh", method=RequestMethod.GET)
 	public ModelAndView approveYNList(
 			ModelAndView mv
-			, @RequestParam("checkPermission") String checkPermission
-			, @RequestParam(value="page", required=false) Integer page) {
+			, @RequestParam(value="checkPermission", defaultValue = "all") String checkPermission
+			, @RequestParam(value="page", required=false) Integer page,
+			@RequestParam(value="step", required=false,defaultValue = "date")String step) {
 		try {
 			int getTotalCount = BAService.checkPermissionCount(checkPermission);
 			int boardLimit = 20;
@@ -106,7 +85,7 @@ public class BookApproveController {
 			BookPage bPage = bpCont.boardList(page, getTotalCount, boardLimit);
 			
 			if(getTotalCount > 0) {
-				List<OriginBookSeries> osList = BAService.checkPermission(bPage.getCurrentPage(), boardLimit, checkPermission);
+				List<OriginBookSeries> osList = BAService.checkPermission(bPage.getCurrentPage(), boardLimit, checkPermission, step);
 				
 				for (int i = 0; i < osList.size(); i++) {
 					String bookTitle = bService.getBookTitle(osList.get(i).getBookNo());
@@ -114,6 +93,7 @@ public class BookApproveController {
 				}
 				mv.addObject("osList", osList);
 			}
+			mv.addObject("checkPermission", checkPermission);
 			mv.addObject("bPage", bPage);
 			mv.setViewName("/bookApprove/BAwritermenu");
 			

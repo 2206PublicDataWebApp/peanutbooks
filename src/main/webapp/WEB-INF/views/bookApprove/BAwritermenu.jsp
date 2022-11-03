@@ -32,6 +32,11 @@
 		font-size: 18px;
 		/* font-weight: bold; */
 	}
+	
+	#colText{
+	padding-top: 0.7rem;
+	}
+	
 
 </style>
 </head>
@@ -41,7 +46,7 @@
 		<section class="container">
 			<div class="container text-center">
 				<div class="row row-cols-1">
-					<div class="col" style="background-color: #5e5e5e; color: white; height:45px; vertical-align: middle;">도서 리스트</div>
+					<div class="col"  id="colText"style="background-color: #5e5e5e; color: white; height:45px; vertical-align: middle;">도서 리스트</div>
 				</div>
 			<br>
 				<hr>
@@ -56,7 +61,7 @@
 					    </li>
 			    		<li class="mainLi">
 			    			<div style="text-align:center">
-					    		<a href="/admin/approveYN.kh?checkPermission=Y&page=${currentPage }">승인도서</a>
+					    		<a href="/admin/approveYN.kh?checkPermission=Y&step=date">승인도서</a>
 					    	</div>
 						</li>
 						<li class="mainLi">
@@ -64,7 +69,7 @@
 					    </li>
 			    		<li class="mainLi">
 			    			<div style="text-align:center">
-					    		<a href="/admin/approveYN.kh?checkPermission=N&page=${currentPage }">보류도서</a>
+					    		<a href="/admin/approveYN.kh?checkPermission=N&step=number">보류도서</a>
 					    	</div>
 						</li>
 						<li class="mainLi">
@@ -72,7 +77,7 @@
 					    </li>
 			    		<li class="mainLi">
 			    			<div style="text-align:left">
-					    		<a href="/admin/reApproveList.kh?page=${currentPage }">재승인도서</a>
+					    		<a href="/admin/reApproveList.kh">재승인도서</a>
 					    	</div>
 			    		</li>
 			 		</ul>
@@ -97,7 +102,7 @@
 							
 								<c:if test="${oSeries.checkPermission == 'Y' }">
 									<button type="button" class="btn btn-danger btn-sm" style="width:55pt;height:20pt;">승인완료</button>
-									<button type="button" onclick="rejectCheck('${oSeries.bookNo }','${oSeries.seriesNo }',${currentPage })" class="btn btn-dark btn-sm" style="width:55pt;height:20pt;">승인취소</button>
+									<%-- <button type="button" onclick="rejectCheck('${oSeries.bookNo }','${oSeries.seriesNo }',${currentPage })" class="btn btn-dark btn-sm" style="width:55pt;height:20pt;">승인취소</button> --%>
 								</c:if>
 								
 								
@@ -131,7 +136,7 @@
 				<!-- 이전 페이지 출력 -->
 				<c:if test="${bPage.startNavi != 1 && bPage.startNavi > 0  }">
 					<span class="prev"> <a
-						href="/admin/writerMenu.do?page=${bPage.startNavi-1 }"> < </a>
+						href="/admin/approveYN.kh?page=${bPage.startNavi-1 }&checkPermission=${checkPermission}"> < </a>
 					</span>
 				</c:if>
 
@@ -153,7 +158,7 @@
 					
 
 					<c:if test="${p != bPage.currentPage && p !=0}">
-						<span class="pages"> <a href="/admin/writerMenu.do?page=${p }">${p }</a>
+						<span class="pages"> <a href="/admin/approveYN.kh?page=${p }&checkPermission=${checkPermission}">${p }</a>
 						</span>
 					</c:if>
 
@@ -161,7 +166,7 @@
 				<!-- 다음 페이지 출력 -->
 				<c:if test="${bPage.endNavi ne bPage.maxPage  }">
 					<span class="next"> <a
-						href="/admin/writerMenu.do?page=${bPage.endNavi+1 }"> > </a>
+						href="/admin/approveYN.kh?page=${bPage.endNavi+1 }&checkPermission=${checkPermission}"> > </a>
 					</span>
 				</c:if>
 

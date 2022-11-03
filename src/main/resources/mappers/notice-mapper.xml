@@ -48,7 +48,7 @@
 		</where>
 	</select>
 	<select id="selectAllByValue" resultMap="noticeResultMap">
-		SELECT * FROM NOTICE_TBL 
+		SELECT NOTICE_NO, NOTICE_CATEGORY, NOTICE_TITLE, N_CREATEDATE FROM NOTICE_TBL 
 		<where>
 			<if test="searchCondition.toString() == 'title'">
 				NOTICE_TITLE LIKE '%'||#{searchValue}||'%'
@@ -65,14 +65,14 @@
 	</select>
 	<!-- 카테고리별 리스트 출력 -->
 	<select id="selectAllCategory" resultMap="noticeResultMap">
-		SELECT * FROM NOTICE_TBL WHERE NOTICE_CATEGORY=#{noticeCategory} AND N_STATUS = 'Y' ORDER BY NOTICE_NO DESC
+		SELECT NOTICE_NO, NOTICE_CATEGORY, NOTICE_TITLE, N_CREATEDATE FROM NOTICE_TBL WHERE NOTICE_CATEGORY=#{noticeCategory} AND N_STATUS = 'Y' ORDER BY NOTICE_NO DESC
 	</select>
 	<!-- 카테고리별 페이지 갯수 -->
 	<select id="selectTotalCategoryList"  resultType="_int">
 		SELECT count(*) FROM NOTICE_TBL WHERE NOTICE_CATEGORY=#{noticeCategory} AND N_STATUS = 'Y' 
 	</select>
 	<select id="selectAllNotice" resultMap="noticeResultMap">
-		SELECT * FROM NOTICE_TBL WHERE N_STATUS = 'Y' ORDER BY NOTICE_NO DESC
+		SELECT NOTICE_NO, NOTICE_CATEGORY, NOTICE_TITLE, N_CREATEDATE FROM NOTICE_TBL WHERE N_STATUS = 'Y' ORDER BY NOTICE_NO DESC
 	</select>
 	<select id="selectOneByNo" resultMap="noticeResultMap">
 		SELECT * FROM NOTICE_TBL WHERE NOTICE_NO = #{noticeNo } AND N_STATUS = 'Y'

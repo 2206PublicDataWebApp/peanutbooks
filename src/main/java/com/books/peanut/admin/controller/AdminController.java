@@ -113,7 +113,7 @@ public class AdminController {
 		try {
 			int result = BAService.modifyOnById(member);
 			if(result > 0) {
-				mv.setViewName("/admin/memberDetailView");
+				mv.setViewName("redirect:/admin/adminListView.kh");
 			}else {
 				mv.setViewName("/admin/memberModifyView");
 			}
