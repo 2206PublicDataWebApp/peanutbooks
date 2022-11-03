@@ -2,9 +2,12 @@ package com.books.peanut.book.controller;
 
 import java.util.List;
 
+
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -20,6 +23,7 @@ import com.books.peanut.book.domain.NormalBookReply;
 import com.books.peanut.book.domain.OriginBook;
 import com.books.peanut.book.domain.OriginBookReply;
 import com.books.peanut.book.domain.OriginBookSeries;
+import com.books.peanut.book.domain.ReReply;
 import com.books.peanut.book.domain.Star;
 import com.books.peanut.book.service.ReplyService;
 import com.books.peanut.book.service.logic.BookServiceImpl;
@@ -30,6 +34,7 @@ import com.google.gson.JsonObject;
 
 @Controller
 public class BookReplyController {
+	private static final Logger logger = LoggerFactory.getLogger(BookController.class);
 
 	@Autowired
 	ReplyService rService;
@@ -52,6 +57,30 @@ public class BookReplyController {
 
 		return result + "";
 	}
+	
+	
+	/**
+	 * 리 리플 등록
+	 * 
+	 * @param mv
+	 * @param obReply
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/book/bookReReplyRegist.do", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+	public String registReply(@ModelAttribute ReReply rReply, HttpSession session) {
+		
+		logger.info(rReply.toString());
+		
+		
+		Member member = (Member) session.getAttribute("loginMember");
+		rReply.setMemberId(member.getMemberId());
+		int result = rService.registOneReReply(rReply);
+		
+		return result + "";
+	}
+	
+	
 	/**
 	 * 일반도서 리플등록
 	 * 
@@ -166,6 +195,38 @@ public class BookReplyController {
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 			
 			return gson.toJson(nbReply);
+			
+		}
+		
+		return null;
+		
+	}
+	
+	/** 리리플 불러오기
+	* 
+	* @param bookNo
+	* @return
+			*/
+			@ResponseBody
+			@RequestMapping(value = "/book/ReReplyPrint", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+	public String AllnorReplyList(@RequestParam("bookNo") String bookNo, String category
+			) {
+
+				ReReply r = new ReReply();
+				r.setBookNo(bookNo);
+				r.setCategory(category);
+		
+		// 리플목록 가져오기
+		List<ReReply> rReply = rService.BookReReply(r);
+
+		
+		
+		// 가져온 리플목록 반환하기
+		if (!rReply.isEmpty()) {
+			
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			
+			return gson.toJson(rReply);
 			
 		}
 		

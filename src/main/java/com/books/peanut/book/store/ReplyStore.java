@@ -8,6 +8,7 @@ import com.books.peanut.book.domain.NormalBook;
 import com.books.peanut.book.domain.NormalBookReply;
 import com.books.peanut.book.domain.OriginBook;
 import com.books.peanut.book.domain.OriginBookReply;
+import com.books.peanut.book.domain.ReReply;
 import com.books.peanut.book.domain.Star;
 
 public interface ReplyStore {
@@ -71,6 +72,12 @@ public interface ReplyStore {
 
 	/**일반도서 리플삭제*/
 	int deleteNorReply(SqlSessionTemplate session, int replyNo);
+
+	/**리리플등록*/
+	int insertReReply(SqlSessionTemplate session, ReReply rReply);
+
+	/**리리플 가져오기*/
+	List<ReReply> selectOneBookReReply(SqlSessionTemplate session, ReReply r);
 
 
 }

@@ -814,4 +814,26 @@ public class BookStoreLogic implements BookStore {
 		return result;
 	}
 
+	/**수정테이블의 시리즈 한편 가져오기*/
+	@Override
+	public OriginBookSeries selectOneModifySeries(SqlSessionTemplate session, int seriesNo, int bookNo) {
+		OriginBookSeries os = new OriginBookSeries();
+		os.setBookNo(bookNo+"");
+		os.setSeriesNo(seriesNo);
+		OriginBookSeries oSeries = session.selectOne("wirterMapper.ModifyOneSeries",os);
+		return oSeries;
+	}
+
+	/**피넛 오리지널 수정분 업로드*/
+	@Override
+	public int updateModifyOne(SqlSessionTemplate session, OriginBookSeries oModifyS) {
+		int result = session.update("wirterMapper.updateModifyOne",oModifyS); //도서 테이블에 수정
+		result += session.delete("BookApproveMapper.updateReAppDelModify",oModifyS);//수정테이블에서 삭제
+		result += session.update("BookApproveMapper.updateReAppUpSeries",oModifyS);//도서 허가 테이블에서 해당도서를 Y로
+		result += session.update("BookApproveMapper.updateOriBookApprove",oModifyS);//도서테이블에서 해당도서를 승인
+		
+		
+		return result;
+	}
+
 }

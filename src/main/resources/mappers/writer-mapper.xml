@@ -242,6 +242,13 @@ from origin_book where category = #{category} and status like 'Y%' and BOOK_PERM
 update ori_series set status = 'N' where ORI_BOOK_NO = #{bookNo}
 </update>
 
+<!-- 수정한 피넛 오리지널 테이블에 전송 -->
+<update id="updateModifyOne">
+update ori_series set CHECK_PERMISSION= 'Y', CONTENTS = #{modifyContents}, SUB_PIC =#{subPic}, SUB_PIC_RE = #{subPicRename},
+PAID_CHECK = #{paidCheck}, TITLE = #{title}, MODIFY_DATE = SYSDATE
+where  SERIES_NO =#{seriesNo} and ORI_BOOK_NO = #{bookNo}
+</update>
+
 
 <resultMap type="OriginBookSeries" id="oriSeriesResultMap">
 <id property="seriesNo" column="SERIES_NO"/>
@@ -305,6 +312,11 @@ update ori_series set status = 'N' where ORI_BOOK_NO = #{bookNo}
 <!-- 허가되고 삭제되지 않은 시리즈 1편 가져오기 -->
   <select id="SelectOneBookSeriesStatus" resultMap="oriSeriesResultMap">
   select SERIES_NO, SUB_PIC_RE, TITLE  from ori_series where ORI_BOOK_NO = #{bookNo} and SERIES_NO = #{seriesNo} and status like 'Y%' and CHECK_PERMISSION like 'Y%'
+  </select>
+  
+  <!-- 수정한 시리즈 한편 가져오기 -->
+  <select id="ModifyOneSeries" resultMap="oriSeriesResultMap">
+  select * from modify_ori_series where ORI_BOOK_NO = #{bookNo}  and SERIES_NO = #{seriesNo}
   </select>
   
 

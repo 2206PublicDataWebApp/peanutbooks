@@ -96,7 +96,7 @@
 
 							<!-- 각 시리즈 삽화 출력 -->
 							<div id="img"
-								onclick="window.open('/book/OridetailSeries.do?bookNo=${oSeries.bookNo }&seriesNo=${oSeries.seriesNo }')">
+								onclick="window.open('/book/OridetailSeriesModify.do?bookNo=${oSeries.bookNo }&seriesNo=${oSeries.seriesNo }')">
 
 								<img src="/resources/bookImg/${oSeries.subPicRename }" alt="">
 							</div>
@@ -105,7 +105,7 @@
 							<div id="book-title" class="text-truncate"
 								onclick="location.href='/book/oriBookInfo?bookNo=${oSeries.bookNo }'">${oSeries.bookTitle }</div>
 							<div id="book-info" class="text-truncate"
-								onclick="window.open('/book/OridetailSeries.do?bookNo=${oSeries.bookNo }&seriesNo=${oSeries.seriesNo }')"">${oSeries.seriesNo }화
+								onclick="window.open('/book/OridetailSeries.do?bookNo=${oSeries.bookNo }&seriesNo=${oSeries.seriesNo }')">${oSeries.seriesNo }화
 								${oSeries.title }</div>
 
 						</div>
@@ -167,7 +167,7 @@
 <script>
 	function reApproveCheck(bookNo, seriesNo, currentPage) {
 		if(confirm("재승인하시겠습니까?")) {
-			location.href = "/admin/reApprove.kh?bookNo="+bookNo +"&seriesNo="+seriesNo+"&page="+currentPage;
+			location.href = "/admin/reApprove.do?bookNo="+bookNo +"&seriesNo="+seriesNo;
 		}
 	}
 

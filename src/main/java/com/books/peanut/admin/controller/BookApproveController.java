@@ -143,11 +143,12 @@ public class BookApproveController {
 //				}
 				mv.addObject("mbList", mbList);
 				mv.addObject("bPage", bPage);
-				mv.setViewName("/bookApprove/BAreApprovemenu");
+				
 			}
 		} catch (Exception e) {
 			mv.addObject("msg", e.toString()).setViewName("common/errorPage");
-		}		
+		}
+		mv.setViewName("/bookApprove/BAreApprovemenu");
 		return mv;
 		
 	}

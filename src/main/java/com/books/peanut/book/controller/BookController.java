@@ -2232,5 +2232,71 @@ public class BookController {
 		}
 		return mv;
 	}
+	
+	
+	/**
+	 * 피넛 오리지널 시리즈 수정 열람
+	 * 
+	 * @param mv
+	 * @param session
+	 * @param seriesNo
+	 * @param bookNo
+	 * @return
+	 */
+	@RequestMapping(value = "/book/OridetailSeriesModify.do", method = RequestMethod.GET)
+	public ModelAndView detailOribookModifySeries(ModelAndView mv, HttpSession session, int seriesNo, int bookNo) {
+		Member member = (Member) session.getAttribute("loginMember");
+		if (member.getAdminYN().equals("Y")) {// 로그인 여부 체크
+
+				String bookTitle = bService.getBookTitle(bookNo + ""); // 책 이름 가져옴
+				OriginBookSeries obSeries = bService.getOneModifySeries(seriesNo, bookNo); // 수정테이블 시리즈 한편가져오기
+
+				mv.addObject("obSeries",obSeries);
+				mv.setViewName("bookApprove/bookstep-detail");
+			
+		
+				
+
+			
+		
+		}
+		return mv;
+	}
+	
+	
+	/**
+	 * 피넛 오리지널 시리즈 수정 승인
+	 * 
+	 * @param mv
+	 * @param session
+	 * @param obSeries
+	 * @param subPicture
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/reApprove.do", method = RequestMethod.GET)
+	public ModelAndView norSeriesModify(ModelAndView mv, HttpSession session, Integer bookNo, Integer seriesNo,
+			HttpServletRequest request) {
+
+		OriginBookSeries oModifyS = bService.getOneModifySeries(seriesNo, bookNo);
+		OriginBookSeries oSeries = bService.getOneSeries(seriesNo, bookNo);
+		
+		if(!oModifyS.getSubPicRename().equals(oSeries.getSubPicRename())) { //삽화를 바꿨다면
+			
+			fileDelete(request,oSeries.getSubPicRename()); //원래 삽화 삭제
+		}
+		
+
+		int result = bService.modifyOriSeriesProve(oModifyS); // 수정테이블 내역 전송하기
+		mv.setViewName("redirect:/admin/reApproveList.kh");
+
+		return mv;
+
+	}
+	
+
+	
+	
+	
 
 }

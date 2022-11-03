@@ -306,5 +306,11 @@ public interface BookStore {
 	/**일반도서 인포 수정하기*/
 	int updateNorBookInfo(SqlSessionTemplate session, NormalBook nBook);
 
+	/**수정테이블의 수정 시리즈 가져오기*/
+	OriginBookSeries selectOneModifySeries(SqlSessionTemplate session, int seriesNo, int bookNo);
+
+	/**피넛 오리지널 수정분 업로드*/
+	int updateModifyOne(SqlSessionTemplate session, OriginBookSeries oModifyS);
+
 
 }
