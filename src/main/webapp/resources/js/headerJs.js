@@ -158,3 +158,12 @@ admin.onclick = function () {
     }
 
 }
+
+
+
+//221103 은정님 추가
+
+   document.getElementById('peanutMenu').style.display='none';
+	function mainPN(){
+		document.getElementById('peanutMenu').style.display='block';
+	}

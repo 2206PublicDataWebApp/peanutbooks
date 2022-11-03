@@ -22,7 +22,7 @@ main {
     min-height: 100%;
     padding-bottom: 5rem;
      z-index:10;
-     padding-top:5rem
+     padding-top:8rem
 }
 
 footer {
@@ -342,13 +342,11 @@ header li{
   
   
   /**1102 은정님 추가**/
-  
-   #peanutMenu{
+	 #peanutMenu{
         width:100%;        
         font-family: 'Spoqa Han Sans Neo', 'sans-serif';
         padding:0;
-        margin:0 auto;
-        display: block;      
+        margin:0 auto;      
     }
     #peanutMenu nav{
         margin:0;      
@@ -376,13 +374,16 @@ header li{
     padding-bottom: 0.5rem;
     font-weight: 500;
     text-align: center;
+   /*  cursor: pointer; */
 }  
 #peanutMenu nav ul li a{
     text-align: center;
     text-decoration: none;
     color: inherit;
     
-@media (min-width:550px){
+
+
+@media(min-width:550px){
 	 #peanutMenu nav{ 
 	 	padding-left:20%;
 	 }
@@ -393,3 +394,5 @@ header li{
 	 }
   
 }
+
+
