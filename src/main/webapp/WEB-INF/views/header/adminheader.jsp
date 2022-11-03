@@ -187,7 +187,7 @@
 
 					</div>
 					<div id="logout-area">
-						<button id="logout">로그아웃</button>
+						<button id="logout" onclick="location.href='/member/logout.pb';">로그아웃</button>
 					</div>
 
 				</div>
@@ -267,6 +267,13 @@
    function chatManager(){ 
       location.href="/chat/move.kh";
    }
+   
+
+	//피넛 소메뉴
+   document.getElementById('peanutMenu').style.display='none';
+	function mainPN(){
+		document.getElementById('peanutMenu').style.display='block';
+	}
 
 	
 	</script>

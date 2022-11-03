@@ -10,6 +10,7 @@ import com.books.peanut.book.domain.NormalBook;
 import com.books.peanut.book.domain.NormalBookReply;
 import com.books.peanut.book.domain.OriginBook;
 import com.books.peanut.book.domain.OriginBookReply;
+import com.books.peanut.book.domain.ReReply;
 import com.books.peanut.book.domain.Star;
 import com.books.peanut.book.store.ReplyStore;
 
@@ -171,6 +172,20 @@ public class ReplyStoreLogic implements ReplyStore{
 	public int deleteNorReply(SqlSessionTemplate session, int rNo) {
 		int result = session.delete("bookReplyMapper.deleteNorReply",rNo);
 		return result;
+	}
+
+	/**리리플 등록*/
+	@Override
+	public int insertReReply(SqlSessionTemplate session, ReReply rReply) {
+		int result = session.insert("bookReplyMapper.insertReReply",rReply);
+		return result;
+	}
+
+	/**리리플 불러오기*/
+	@Override
+	public List<ReReply> selectOneBookReReply(SqlSessionTemplate session, ReReply r) {
+		List<ReReply> rReply = session.selectList("bookReplyMapper.selectOneBookReReply",r);
+		return rReply;
 	}
 
 }

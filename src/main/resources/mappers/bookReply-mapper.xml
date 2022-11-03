@@ -9,6 +9,8 @@
 	insert into origin_reply values(seq_orireplyno.nextval, #{bookNo}, #{memberId}, #{reContents}, default)
 	</insert>
 	
+
+	
 	<!-- 피널 오리지널 리플 수정하기 -->
 	<update id="updateOriReply">
 	update origin_reply set RE_CONTETNS = #{reContents} where REPLY_NO= #{replyNo}
@@ -45,6 +47,30 @@
 	select MEMBERID from origin_reply where REPLY_NO= #{rNo}
 	</select>
 	
+	
+	<!-- 리리플 영역 -->
+	
+	<!-- 리 리플 쓰기 -->
+	<insert id="insertReReply">
+	insert into re_reply values(seq_rereply.nextval, #{bookNo},#{category}, #{memberId}, #{reContens}, default,#{replyNo})
+	</insert>
+	
+	<resultMap type="ReReply" id="reReplyResultMap">
+	<id property="reReplyNo" column="RE_REPLY_NO"/>
+	<result property="replyNo" column="REPLY_NO"/>
+	<result property="bookNo" column="BOOK_NO"/>
+	<result property="category" column="CATEGORY"/>
+	<result property="memberId" column="MEMBER_ID"/>
+	<result property="reContens" column="RE_CONTETNS"/>
+	<result property="insertDate" column="INSERT_DATE"/>
+	<result property="mNickName" column="M_NICKNAME"/>
+	
+	</resultMap>
+	
+	<select id="selectOneBookReReply" resultMap="reReplyResultMap">
+
+	select * from re_reply join member_tbl using(member_id) where book_no =#{bookNo} and category = #{category} order by RE_REPLY_NO desc
+	</select>
 	
 	
 	<!-- 별점 주기 쿼리문 -->

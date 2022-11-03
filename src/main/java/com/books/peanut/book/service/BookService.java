@@ -301,6 +301,12 @@ public interface BookService {
 	/**일반도서 인포 수정하기*/
 	int modifyNorBooksInfo(NormalBook nBook);
 
+	/**수정테이블의 시리즈 한편가져오기*/
+	OriginBookSeries getOneModifySeries(int seriesNo, int bookNo);
+
+	/**피넛 오리지널 수정 승인*/
+	int modifyOriSeriesProve(OriginBookSeries oModifyS);
+
 
 	
 

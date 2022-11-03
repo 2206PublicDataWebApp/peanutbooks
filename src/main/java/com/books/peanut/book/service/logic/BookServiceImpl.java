@@ -623,6 +623,21 @@ public NormalBook getTopScore(String string) {
 		return result;
 	}
 
+	/**수정테이블의 시리즈 한편가져오기*/
+	@Override
+	public OriginBookSeries getOneModifySeries(int seriesNo, int bookNo) {
+		OriginBookSeries oSeries = bStore.selectOneModifySeries(session,seriesNo, bookNo);
+		return oSeries;
+	}
+
+	/**피넛 오리지널 수정 승인*/
+	@Override
+	public int modifyOriSeriesProve(OriginBookSeries oModifyS) {
+		int result = bStore.updateModifyOne(session,oModifyS);
+		return result;
+	}
+	
+
 
 
 

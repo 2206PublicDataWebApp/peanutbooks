@@ -70,6 +70,7 @@ $.ajax({
 					}
 				str+='</span></div>';
 				str+='<div class="text-truncate col-6 date">';
+				str+='<small class="rereply" id="reply'+result[i].replyNo+'" onclick="Rereply('+result[i].replyNo+','+rPage+');">답글달기</small> ';
 				str+='<small>'+result[i].insertDate+'</small>';
 				str+='</div></div></div>';
 				
@@ -91,11 +92,62 @@ $.ajax({
 					 page +='<span onclick="printReply('+bookNo+',\''+userId+'\','+(rPage+1)+')"> > </span>';
 				 }
 				$('#page').html(page);
-			} 		 
+			} 
+			reReplyAll(rPage)		 
 			},
 	error:function(){}
 	});
+	
+	
+	
+	
 };
+
+
+//대댓글 출력하기
+function reReplyAll(rPage){
+	$.ajax({
+		url:"/book/ReReplyPrint",
+		type:"post",
+		data:{"bookNo":bookNo,"category":"origin"},
+		success:function(result){
+			for(var i in result){
+				var str ="";
+					str ='<div class="row  d-flex justify-content-center repleOne mt-2 ps-5" id="rRe'+result[i].replyNo+'">';
+					str+='<div class="card ps-3 pe-3 pt-2 pb-2">';	
+					str+='<div class="d-flex row justify-content-between align-items-center">';
+					str+='<div class="user col-12 d-flex flex-row align-items-center">';
+					str+='<span class="col-md-1 col-3 d-inline-block text-truncate">';
+					str+='<small class="font-weight-bold username">'+result[i].mNickName+'</small>';
+					str+='</span>';
+					str+='<span class="col-md-11 col-8">';
+					str+='<small class="font-weight-bold">';
+					str+=result[i].reContens;
+					str+='</small>';
+					str+='</span>';
+					str+='</div></div>';
+					str+='<div class="mt-2">';
+					str+='<div class="reply row">';
+					str+='<div class="col-6">';
+						if(userId==result[i].memberId){
+							str+='<span class="modify-del-button"> <small onclick="replyReRemove(\'rRe'+result[i].reReplyNo+'\','+rPage+');">삭제</small> <small onclick="replymodifyView('+result[i].replyNo+','+rPage+');">수정</small>';
+						}
+					str+='</span></div>';
+					str+='<div class="text-truncate col-6 date">';
+					str+='<small>'+result[i].insertDate+'</small>';
+					str+='</div></div></div>';
+				
+				$('#'+result[i].replyNo).append(str);
+				
+				}
+					
+		},
+		error:function(){}
+	})
+	
+
+}
+
 
 function replyRemove(rNo, rPage){
 	if(confirm('댓글을 삭제하시겠습니까?')){
@@ -119,6 +171,32 @@ function replyRemove(rNo, rPage){
 	
 }
 
+//대댓글 삭제
+function replyReRemove(rNo, rPage){
+
+	if(confirm('댓글을 삭제하시겠습니까?')){
+			$.ajax({
+				url:"/book/removeReReply",
+				data:{"reReplyNo":rNo},
+				type:"get",
+				success:function(result){
+					alert('삭제했습니다');
+					if(result>0){
+						printReply(bookNo,userId,rPage);
+					}else{
+						alert('작성자가 아닙니다');
+					
+					}
+			
+				},
+				error:function(){}
+			})
+		};
+
+}
+
+
+//댓글 수정창 만들기
 function replymodifyView(rNo,rPage){
 	$.ajax({
 		url:"/book/oribookOneReply",
@@ -340,4 +418,36 @@ function addMybooks(category,bookNo){
 		},
 		error : function(){}
 	})
+}
+
+
+//대댓창 만들기
+function Rereply(replylNo,rPage){
+
+		var str="";
+		str+='<div class="row mt-2">'
+		str+='<div class="col-md-11 col-9">'
+		str+='<textarea name="reRContents'+replylNo+'" id="reply-text" rows="3"></textarea></div>'							
+		str+='<div class="col-md-1 col-3 reply-button-area">'
+		str+='<button id="reply-button1" onclick="reReplyAdd('+replylNo+','+rPage+')">답글</button> <button id="reply-button2" onclick="printReply('+bookNo+',\''+userId+'\','+rPage+')">취소</button></div></div>'
+
+	console.log($('#'+replylNo));
+	$('#'+replylNo).append(str)
+}
+
+//대댓 등록
+function reReplyAdd(rNo,rPage){
+var rContents = $('[name=reRContents'+rNo+']').val();
+	 $.ajax({
+	 url:"/book/bookReReplyRegist.do",
+	 type:"post",
+	 data:{"reContens":rContents,"replyNo":rNo,"bookNo":bookNo,"category":"origin"},
+	 success:function(){
+	 
+		 printReply(bookNo,userId,rPage);
+	 
+	 },
+	 error:function(){}
+	 })
+
 }

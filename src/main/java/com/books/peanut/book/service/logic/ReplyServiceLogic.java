@@ -10,6 +10,7 @@ import com.books.peanut.book.domain.NormalBook;
 import com.books.peanut.book.domain.NormalBookReply;
 import com.books.peanut.book.domain.OriginBook;
 import com.books.peanut.book.domain.OriginBookReply;
+import com.books.peanut.book.domain.ReReply;
 import com.books.peanut.book.domain.Star;
 import com.books.peanut.book.service.ReplyService;
 import com.books.peanut.book.store.ReplyStore;
@@ -158,6 +159,19 @@ public class ReplyServiceLogic implements ReplyService {
 		int replyNo = (int)rNo;
 		int result = rStore.deleteNorReply(session,replyNo);
 		return result;
+	}
+
+	/**리리플 등록*/
+	@Override
+	public int registOneReReply(ReReply rReply) {
+		int result = rStore.insertReReply(session,rReply);
+		return result;
+	}
+
+	@Override
+	public List<ReReply> BookReReply(ReReply r) {
+		List<ReReply> rRreply = rStore.selectOneBookReReply(session,r);
+		return rRreply;
 	}
 	
 

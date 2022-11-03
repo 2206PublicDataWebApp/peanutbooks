@@ -8,6 +8,7 @@ import com.books.peanut.book.domain.NormalBook;
 import com.books.peanut.book.domain.NormalBookReply;
 import com.books.peanut.book.domain.OriginBook;
 import com.books.peanut.book.domain.OriginBookReply;
+import com.books.peanut.book.domain.ReReply;
 import com.books.peanut.book.domain.Star;
 
 
@@ -73,6 +74,12 @@ public interface ReplyService {
 
 	/**일반도서 리플삭제*/
 	int removeNorReply(Integer rNo);
+
+	/**리리플 등록*/
+	int registOneReReply(ReReply rReply);
+
+	/**리리플 불러오기*/
+	List<ReReply> BookReReply(ReReply r);
 
 
 }
