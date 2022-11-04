@@ -1,5 +1,6 @@
 package com.books.peanut.book.store.logic;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
@@ -215,5 +216,31 @@ public class ReplyStoreLogic implements ReplyStore{
 		int result = session.update("bookReplyMapper.updateOneRereply",rReply);
 		return result;
 	}
+
+	/**리리플달렸는지 확인하기*/
+	@Override
+	public int countReReply(SqlSessionTemplate session, Integer rNo, String category) {
+		HashMap<String, String> hMap = new HashMap<String, String>();
+		hMap.put("rNo",rNo+"");
+		hMap.put("category",category);
+		int result = session.selectOne("bookReplyMapper.SelectcountReReply",hMap);
+		return result;
+	}
+
+	/**피넛 오리지널 댓글 삭제했다고 내용 변경하기*/
+	@Override
+	public int UpdateRemoveOriReply(SqlSessionTemplate session, Integer rNo) {
+		int result = session.update("bookReplyMapper.UpdateRemoveOriReply",rNo);
+		return result;
+	}
+
+	/**피넛 오리지널 댓글 삭제했다고 내용 변경하기*/
+	@Override
+	public int UpdateRemoveNorReply(SqlSessionTemplate session, Integer rNo) {
+		int result = session.update("bookReplyMapper.UpdateRemoveNorReply",rNo);
+		return result;
+		}
+	
+	
 
 }

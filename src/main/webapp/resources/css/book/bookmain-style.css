@@ -4,6 +4,10 @@ main {
 	font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 }
 
+.rereply:hover{
+	cursor:pointer;
+}
+
 .userbutton>div>div{
 	cursor:pointer;
 }

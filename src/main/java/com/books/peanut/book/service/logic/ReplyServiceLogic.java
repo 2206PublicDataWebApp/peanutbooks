@@ -204,6 +204,27 @@ public class ReplyServiceLogic implements ReplyService {
 		return result;
 	}
 
+	/**리리플 달렸는지 확인하기*/
+	@Override
+	public int checkReReply(Integer rNo,  String category) {
+		int result = rStore.countReReply(session,rNo,category);
+		return result;
+	}
+
+	/**피넛 오리지널 댓글 삭제했다고 내용 변경하기*/
+	@Override
+	public int UpdateRemoveOriReply(Integer rNo) {
+		int result = rStore.UpdateRemoveOriReply(session,rNo);
+		return result;
+	}
+
+	/**일반도서  댓글 삭제했다고 내용 변경하기*/
+	@Override
+	public int UpdateRemoveNorReply(Integer rNo) {
+		int result = rStore.UpdateRemoveNorReply(session,rNo);
+		return result;
+	}
+
 
 	
 }

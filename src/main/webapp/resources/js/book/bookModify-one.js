@@ -80,10 +80,7 @@ function imgCheck() {
         obj.value = str2;
         fnChkByte(obj, maxByte);
      }
-     else
-     {
-        document.getElementById('byteInfo').innerText = rbyte;
-     }
+     
    
    
   }

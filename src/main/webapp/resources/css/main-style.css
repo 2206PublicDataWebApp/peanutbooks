@@ -9,7 +9,7 @@ main {
 }
 
 .inner{
-	width:2rem;
+	max-width:1rem !important;
     content: "";
     position: absolute;
     top: 0.5rem;
@@ -108,17 +108,18 @@ main {
 .cate-img {
     overflow: hidden;
     height: 25rem;
-    padding-top:0.5rem;
+    width:100%;
     text-align: center;
-   	
+  	box-shadow: -0.2rem -0.3rem 0.3rem gray;   	
+  	border-radius: 1rem 1rem 1rem 0;
+  	margin-top:0.5rem;
 }
 
-.cate-img img {
+.cate-img>img{
     height: 100% ;
     width: 100% ;
     object-fit: cover;
-    border-radius: 1rem 1rem 1rem 0;
-     box-shadow: 5px 5px 5px gray;
+
     
 }
 
@@ -186,8 +187,7 @@ main img{
     @media (max-width:500px) {
     .cate-img {
     padding:0;
-        padding-top:0.2rem;
-    }
+       }
     .category-name{
     font-size:1.5rem;
     padding-bottom:0;
@@ -216,25 +216,33 @@ main img{
 /**북 호버용 애니메이션*/
 .snip1361 {
   position: relative;
+  top:5;
   overflow: hidden;
   color: #141414;
   text-align: left;
   line-height: 1.7em;
   font-size: 1.2rem;
-  padding-right:0 !important;
+  width:95%;
+ 
  
   
+}
+
+figcaption{
+	
+	max-width:19.2rem;
 }
 .snip1361 * {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   -webkit-transition: all 0.35s ease;
   transition: all 0.35s ease;
+  width:100%;
 }
 .snip1361 img {
   max-width: 100%;
   vertical-align: top;
-  box-shadow: -0.2rem -0.3rem 0.3rem gray;
+
 }
 .snip1361 figcaption {
   position: absolute;
@@ -267,7 +275,7 @@ main img{
 .snip1361 h3 {
   font-weight: 500;
   font-size: 1.2em;
-  line-height: 2.5em;
+  line-height: 2.7em;
   text-transform: uppercase;
 }
 .snip1361 p {
@@ -298,5 +306,10 @@ figure:hover{
 	  height:2rem;
 	  width:100%;
 }
+
+	.snip1361{
+		padding-right:0 !important;
+			
+	}
  }
     

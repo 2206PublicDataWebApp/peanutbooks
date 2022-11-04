@@ -91,5 +91,15 @@ public interface ReplyStore {
 	/**리리플 수정하기*/
 	int updateReReply(SqlSessionTemplate session, ReReply rReply);
 
+	/**리리플 달렸는지 확인하기
+	 * @param category */
+	int countReReply(SqlSessionTemplate session, Integer rNo, String category);
+
+	/**피넛 오리지널 댓글 삭제했다고 내용 변경하기*/
+	int UpdateRemoveOriReply(SqlSessionTemplate session, Integer rNo);
+
+	/**일반도서 댓글 삭제했다고 내용 변경하기*/
+	int UpdateRemoveNorReply(SqlSessionTemplate session, Integer rNo);
+
 
 }

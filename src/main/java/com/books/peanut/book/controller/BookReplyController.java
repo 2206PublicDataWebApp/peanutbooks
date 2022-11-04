@@ -2,7 +2,6 @@ package com.books.peanut.book.controller;
 
 import java.util.List;
 
-
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
@@ -57,8 +56,7 @@ public class BookReplyController {
 
 		return result + "";
 	}
-	
-	
+
 	/**
 	 * 리 리플 등록
 	 * 
@@ -69,18 +67,16 @@ public class BookReplyController {
 	@ResponseBody
 	@RequestMapping(value = "/book/bookReReplyRegist.do", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
 	public String registReply(@ModelAttribute ReReply rReply, HttpSession session) {
-		
+
 		logger.info(rReply.toString());
-		
-		
+
 		Member member = (Member) session.getAttribute("loginMember");
 		rReply.setMemberId(member.getMemberId());
 		int result = rService.registOneReReply(rReply);
-		
+
 		return result + "";
 	}
-	
-	
+
 	/**
 	 * 일반도서 리플등록
 	 * 
@@ -91,12 +87,12 @@ public class BookReplyController {
 	@ResponseBody
 	@RequestMapping(value = "/book/norBookReplyRegist", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
 	public String registNorReply(@ModelAttribute NormalBookReply nbReply, HttpSession session) {
-		
+
 		Member member = (Member) session.getAttribute("loginMember");
-		
+
 		nbReply.setMemberId(member.getMemberId());
 		int result = rService.registNorOneReply(nbReply);
-		
+
 		return result + "";
 	}
 
@@ -113,7 +109,9 @@ public class BookReplyController {
 
 		// 리플 수계산하기
 		int totalCount = rService.getTotalCount(bookNo);
-		if(totalCount==0) {return "0";}
+		if (totalCount == 0) {
+			return "0";
+		}
 		// 페이지당 출력될 변수 메소드로 가져오기
 		int boardLimit = 10;// 출력될 리플수
 		String navi = boardList(rPage, totalCount, boardLimit);
@@ -150,7 +148,7 @@ public class BookReplyController {
 		return null;
 
 	}
-	
+
 	/**
 	 * 일반도서 리플 불러오기
 	 * 
@@ -161,10 +159,12 @@ public class BookReplyController {
 	@RequestMapping(value = "/book/norBookAllReply", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
 	public String AllnorReplyList(@RequestParam("bookNo") String bookNo,
 			@RequestParam(value = "rPage", required = false) Integer rPage) {
-		
+
 		// 리플 수계산하기
 		int totalCount = rService.getTotalNorReplyCount(bookNo);
-		if(totalCount==0) {return "0";}
+		if (totalCount == 0) {
+			return "0";
+		}
 		// 페이지당 출력될 변수 메소드로 가져오기
 		int boardLimit = 10;// 출력될 리플수
 		String navi = boardList(rPage, totalCount, boardLimit);
@@ -172,66 +172,64 @@ public class BookReplyController {
 		int endNavi = Integer.parseInt(navi.split(",")[1]);
 		int maxPage = Integer.parseInt(navi.split(",")[2]);
 		int currentPage = Integer.parseInt(navi.split(",")[3]);
-		
+
 		// 리플목록 가져오기
 		List<NormalBookReply> nbReply = rService.norBookReply(bookNo, currentPage, boardLimit);
-		
+
 		nbReply.get(0).setEndNavi(endNavi);
 		nbReply.get(0).setStartNavi(startNavi);
 		nbReply.get(0).setMaxPage(maxPage);
 		nbReply.get(0).setCurrentPage(currentPage);
 		nbReply.get(0).setTotalCount(totalCount);
-		
+
 		// 가져온 리플목록에 닉네임 추가하기
 		for (int i = 0; i < nbReply.size(); i++) {
 			String mNickName = rService.getMemberNickName(nbReply.get(i).getMemberId());
 			nbReply.get(i).setmNickName(mNickName);
-			
+
 		}
-		
+
 		// 가져온 리플목록 반환하기
 		if (!nbReply.isEmpty()) {
-			
-			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-			
-			return gson.toJson(nbReply);
-			
-		}
-		
-		return null;
-		
-	}
-	
-	/** 리리플 불러오기
-	* 
-	* @param bookNo
-	* @return
-			*/
-			@ResponseBody
-			@RequestMapping(value = "/book/ReReplyPrint", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
-	public String AllnorReplyList(@RequestParam("bookNo") String bookNo, String category
-			) {
 
-				ReReply r = new ReReply();
-				r.setBookNo(bookNo);
-				r.setCategory(category);
-		
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+
+			return gson.toJson(nbReply);
+
+		}
+
+		return null;
+
+	}
+
+	/**
+	 * 리리플 불러오기
+	 * 
+	 * @param bookNo
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/book/ReReplyPrint", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+	public String AllnorReplyList(@RequestParam("bookNo") String bookNo, String category) {
+
+		ReReply r = new ReReply();
+		r.setBookNo(bookNo);
+		r.setCategory(category);
+
 		// 리플목록 가져오기
 		List<ReReply> rReply = rService.BookReReply(r);
 
-		
-		
 		// 가져온 리플목록 반환하기
 		if (!rReply.isEmpty()) {
-			
+
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-			
+
 			return gson.toJson(rReply);
-			
+
 		}
-		
+
 		return null;
-		
+
 	}
 
 	/** 피넛 오리지널 리플 내용 가져오기 */
@@ -243,24 +241,25 @@ public class BookReplyController {
 		return replyContents;
 
 	}
+
 	/** 일반도서 리플 내용 가져오기 */
 	@ResponseBody
 	@RequestMapping(value = "/book/norbookOneReply", method = RequestMethod.GET, produces = "text/plain;charset=utf-8")
 	public String nriBookOneReply(@RequestParam(value = "rNo") String rNo) {
-		
+
 		String replyContents = rService.getNorOneReply(rNo);
 		return replyContents;
-		
+
 	}
-	
+
 	/** 리리플 내용 가져오기 */
 	@ResponseBody
 	@RequestMapping(value = "/book/getOneReReply", method = RequestMethod.GET, produces = "text/plain;charset=utf-8")
 	public String getOneReReply(@RequestParam(value = "rNo") String rNo) {
-		
+
 		String replyContents = rService.getReReply(rNo);
 		return replyContents;
-		
+
 	}
 
 	/** 피넛 오리지널 리플 수정하기 */
@@ -283,14 +282,15 @@ public class BookReplyController {
 		return result + "";
 
 	}
+
 	/** 일반도서 리플 수정하기 */
 	@ResponseBody
 	@RequestMapping(value = "/book/modifyNorReply", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
 	public String modifyNorReply(HttpSession session, @ModelAttribute NormalBookReply nbReply) {
-		
+
 		Member member = (Member) session.getAttribute("loginMember");
 		String memberId = member.getMemberId();
-		
+
 		// 리플 쓴 사람 체크하기
 		String repleId = rService.checkNorReplyMember(nbReply.getReplyNo());
 		int result = 0;
@@ -299,21 +299,21 @@ public class BookReplyController {
 		} else {
 			result = 0;
 		}
-		
+
 		return result + "";
-		
-	
+
 	}
+
 	/** 리 리플 수정하기 */
 	@ResponseBody
 	@RequestMapping(value = "/book/modifyReReply", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
 	public String modifyReReply(HttpSession session, @ModelAttribute ReReply rReply) {
-		
+
 		logger.info(rReply.toString());
-		
+
 		Member member = (Member) session.getAttribute("loginMember");
 		String memberId = member.getMemberId();
-		
+
 		// 리플 쓴 사람 체크하기
 		String repleId = rService.checkReReplyMember(rReply.getReReplyNo());
 		int result = 0;
@@ -322,9 +322,9 @@ public class BookReplyController {
 		} else {
 			result = 0;
 		}
-		
+
 		return result + "";
-		
+
 	}
 
 	/** 피넛 오리지널 리플 삭제하기 */
@@ -338,8 +338,14 @@ public class BookReplyController {
 		// 리플 쓴 사람 체크하기
 		String repleId = rService.checkOriReplyMember(rNo);
 		int result = 0;
-		if (repleId.equals(memberId)) {
-			result = rService.removeOriReply(rNo);
+		if (repleId.equals(memberId) || member.getAdminYN().equals("Y")) {
+			int checkRerpley = rService.checkReReply(rNo, "origin");// 리리플 달렸는지 확인하기
+			if (checkRerpley > 0) {
+				result = rService.UpdateRemoveOriReply(rNo);
+			} else {
+
+				result = rService.removeOriReply(rNo);
+			}
 		} else {
 			result = 0;
 		}
@@ -347,47 +353,53 @@ public class BookReplyController {
 		return result + "";
 
 	}
-	
+
 	/** 일반도서 리플 삭제하기 */
 	@ResponseBody
 	@RequestMapping(value = "/book/removeNorReply", method = RequestMethod.GET, produces = "text/plain;charset=utf-8")
 	public String removeNorReply(HttpSession session, @RequestParam(value = "rNo") Integer rNo) {
-		
+
 		Member member = (Member) session.getAttribute("loginMember");
 		String memberId = member.getMemberId();
-		
+
 		// 리플 쓴 사람 체크하기
 		String repleId = rService.checkNorReplyMember(rNo);
 		int result = 0;
-		if (repleId.equals(memberId)) {
-			result = rService.removeNorReply(rNo);
+		if (repleId.equals(memberId) || member.getAdminYN().equals("Y")) {
+			int checkRerpley = rService.checkReReply(rNo, "normal");// 리리플 달렸는지 확인하기
+
+			if (checkRerpley > 0) {
+				result = rService.UpdateRemoveNorReply(rNo);
+			} else {
+				result = rService.removeNorReply(rNo);
+			}
 		} else {
 			result = 0;
 		}
-		
+
 		return result + "";
-		
+
 	}
-	
+
 	/** 리리플 삭제하기 */
 	@ResponseBody
 	@RequestMapping(value = "/book/removeReReply", method = RequestMethod.GET, produces = "text/plain;charset=utf-8")
 	public String removeReReply(HttpSession session, @RequestParam(value = "replyNo") Integer rNo) {
-		
+
 		Member member = (Member) session.getAttribute("loginMember");
 		String memberId = member.getMemberId();
-		
+
 		// 리플 쓴 사람 체크하기
 		String repleId = rService.checkReReplyMember(rNo);
 		int result = 0;
-		if (repleId.equals(memberId)) {
+		if (repleId.equals(memberId) || member.getAdminYN().equals("Y")) {
 			result = rService.removeReReply(rNo);
 		} else {
 			result = 0;
 		}
-		
+
 		return result + "";
-		
+
 	}
 
 	/** 페이징하기 */
@@ -486,7 +498,7 @@ public class BookReplyController {
 
 		star.setMemberId(member.getMemberId());
 
-		int result = rService.removeScore(star); //별점지우기
+		int result = rService.removeScore(star); // 별점지우기
 		Gson gson = new Gson();
 		int score = 0;
 
@@ -498,7 +510,7 @@ public class BookReplyController {
 			}
 			oBook.setScore(score);
 			return gson.toJson(oBook);
-		}else if(star.getCategory().equals("normal")) {
+		} else if (star.getCategory().equals("normal")) {
 			NormalBook nBook = rService.showOneNorBook(star.getBookNo()); // 일반도서 가져오기
 			if (nBook.getScore() != 0 || nBook.getScoreCount() != 0) {
 				score = nBook.getScore() / nBook.getScoreCount(); // 도서 정보안에 score를 평균내서 계산한다

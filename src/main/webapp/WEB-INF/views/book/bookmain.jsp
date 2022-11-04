@@ -62,7 +62,7 @@
 						
 						
 						
-							<button id="bookopenbutton" onclick="window.open('/book/bookStep.do?bookNo=${oBook.bookNo}&category=origin')">상세 열람</button>
+							<button id="bookopenbutton" onclick="window.open('/book/bookStep.do?bookNo=${oBook.bookNo}&category=origin')">읽기보기</button>
 						
 						
 						
@@ -305,6 +305,7 @@
 
 var bookNo = ${oBook.bookNo};
 var userId = '${loginMember.memberId}';
+var admin ='${loginMember.adminYN}'
 </script>
 <script src="/resources/js/book/bookmain.js"></script>
 

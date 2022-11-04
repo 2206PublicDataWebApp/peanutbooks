@@ -43,6 +43,7 @@ import com.books.peanut.book.service.BookService;
 import com.books.peanut.member.domain.Member;
 import com.books.peanut.pay.domain.PeanutPoint;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 @Controller
 public class BookController {
@@ -76,6 +77,7 @@ public class BookController {
 		return mv;
 
 	}
+
 	/**
 	 * 피넛 오리지널 도서 수정 창 연결
 	 * 
@@ -85,26 +87,26 @@ public class BookController {
 	 */
 	@RequestMapping(value = "/book/OriBookModifyView.do", method = RequestMethod.GET)
 	public ModelAndView OriBookModifyView(ModelAndView mv, HttpSession session, String bookNo) {
-		
+
 		Member member = (Member) session.getAttribute("loginMember");
 		if (member == null) {
 			mv.setViewName("/");
 		} else if (member.getAdminYN().equals("Y")) {
 			OriginBook oBook = bService.showOnebook(bookNo);
 			HashTag hTag = bService.getBookTga(bookNo, "origin");
-			mv.addObject("oBook",oBook);
-			mv.addObject("hTag",hTag);
+			mv.addObject("oBook", oBook);
+			mv.addObject("hTag", hTag);
 			mv.setViewName("/book/modifyBook");
-			
+
 		} else {
 			mv.setViewName("/");
-			
+
 		}
-		
+
 		return mv;
-		
+
 	}
-	
+
 	/**
 	 * 일반 도서 수정 창 연결
 	 * 
@@ -114,24 +116,24 @@ public class BookController {
 	 */
 	@RequestMapping(value = "/book/NorBookModifyView.do", method = RequestMethod.GET)
 	public ModelAndView NorBookModifyView(ModelAndView mv, HttpSession session, String bookNo) {
-		
+
 		Member member = (Member) session.getAttribute("loginMember");
 		if (member == null) {
 			mv.setViewName("/");
 		} else if (member.getAdminYN().equals("Y")) {
 			NormalBook nBook = bService.showOneNorbook(bookNo);
 			HashTag hTag = bService.getBookTga(bookNo, "normal");
-			mv.addObject("nBook",nBook);
-			mv.addObject("hTag",hTag);
+			mv.addObject("nBook", nBook);
+			mv.addObject("hTag", hTag);
 			mv.setViewName("/bookadmin/modifyBook");
-			
+
 		} else {
 			mv.setViewName("/");
-			
+
 		}
-		
+
 		return mv;
-		
+
 	}
 
 	/**
@@ -967,14 +969,12 @@ public class BookController {
 		wrtiePro.setHeadPicRename(oneWriter.getHeadPicRename());
 		wrtiePro.setMainPic(oneWriter.getMainPic());
 		wrtiePro.setMainPicRename(oneWriter.getMainPicRename());
-		
-		
-		if(!removeImg.equals("Not")) {
+
+		if (!removeImg.equals("Not")) {
 			fileDelete(request, wrtiePro.getMainPicRename());
 			wrtiePro.setMainPic("defaultImg.jpg");
-			wrtiePro.setMainPicRename("defaultImg.jpg");			
+			wrtiePro.setMainPicRename("defaultImg.jpg");
 		}
-		
 
 		// 사진 저장 시작
 
@@ -988,8 +988,6 @@ public class BookController {
 			wrtiePro.setMainPicRename(mainPicRename);
 
 		}
-		
-
 
 		String headPic = headerPic.getOriginalFilename();
 		if (proPic != null && !headPic.equals("")) {
@@ -1051,7 +1049,9 @@ public class BookController {
 
 			}
 
+			
 			List<OriginBookSeries> osList = bService.getSeriesTitle(bookNo); // 도서 시리즈 이름만 가져오기
+			
 			String category = "origin";
 			HashTag hTag = bService.getBookTga(bookNo, category); // 도서 태그가져오기
 			HashTag OneTag = changeKo(hTag);// 태그 한글로 변경
@@ -1077,8 +1077,15 @@ public class BookController {
 			starOne.setMemberId(member.getMemberId());
 			Star star = bService.getOneBookStar(starOne);// 내가 준 별점 가져오기
 
-			int osListSize = osList.size(); // 다음화가될 시리즈 번호 계산
-			int nextSeriesNo = osList.get(osListSize - 1).getSeriesNo() + 1;// 다음화가될 시리즈 번호 계산
+			int osListSize = 0; // 다음화가될 시리즈 번호 계산
+			int nextSeriesNo = 0;// 다음화가될 시리즈 번호 계산		
+			
+			if(!osList.isEmpty()) {
+				
+				 osListSize = osList.size(); // 다음화가될 시리즈 번호 계산
+				 nextSeriesNo = osList.get(osListSize - 1).getSeriesNo() + 1;// 다음화가될 시리즈 번호 계산
+				
+			}
 
 			// 내 서재 등록여부 체크하기
 			Library library = new Library();
@@ -1151,10 +1158,16 @@ public class BookController {
 			starOne.setCategory(category);
 			starOne.setMemberId(member.getMemberId());
 			Star star = bService.getOneBookStar(starOne);// 내가 준 별점 가져오기
+			
+			
 			if (!status.equals("N")) {
+				
+				if(!nsList.isEmpty()) {
 				int nslistSize = nsList.size(); // 다음화 누르면 등록될 시리즈 번호 계산
 				int nextSeriesNo = nsList.get(nslistSize - 1).getSeriesNo() + 1;// 다음화 누르면 등록될 시리즈 번호 계산
 				mv.addObject("nextSeriesNo", nextSeriesNo);
+				
+				}
 			}
 
 			// 내 서재 등록여부 체크하기
@@ -1368,14 +1381,13 @@ public class BookController {
 					}
 
 				}
-		
-					// 조회수 영역
-					int viewCount = bService.registViewCount(member, seriesNo, bookNo, pCheck);
 
-					mv.addObject("bookTitle", bookTitle);
-					mv.addObject("obSeries", obSeries);
-					mv.setViewName("/book/bookstep-detail");
-				
+				// 조회수 영역
+				int viewCount = bService.registViewCount(member, seriesNo, bookNo, pCheck);
+
+				mv.addObject("bookTitle", bookTitle);
+				mv.addObject("obSeries", obSeries);
+				mv.setViewName("/book/bookstep-detail");
 
 			} else {
 
@@ -1675,7 +1687,6 @@ public class BookController {
 			@RequestParam(value = "subPicture", required = false) MultipartFile subPicture,
 			HttpServletRequest request) {
 
-		logger.info(obSeries.toString());
 		// 삽화 저장
 		String picName = subPicture.getOriginalFilename(); // 파일 이름 가져오기
 		if (!picName.equals("")) {
@@ -1800,10 +1811,10 @@ public class BookController {
 		// 삽화 수정
 		String picName = subPicture.getOriginalFilename(); // 전송한 사진 이름 가져오기
 		if (subPicture != null && !picName.equals("")) { // 만약 전송한 사진이 있거나 사진이름이 없는게 아니라면
-			
-			fileDelete(request,nbSeries.getSubpicRename());
+
+			fileDelete(request, nbSeries.getSubpicRename());
 			String subPicRename = fileSave(picName, request, subPicture, "sub");// 파일을 저장한다, 파일이름,리퀘스트,저장된파일, 추가할이름
-			
+
 			nbSeries.setSubPic(picName);
 			nbSeries.setSubpicRename(subPicRename);
 
@@ -1816,6 +1827,7 @@ public class BookController {
 		return mv;
 
 	}
+
 	/**
 	 * 피넛 오리지널 도서 인포 수정
 	 * 
@@ -1827,34 +1839,33 @@ public class BookController {
 	 * @return
 	 */
 	@RequestMapping(value = "/book/ModifyOriBook.do", method = RequestMethod.POST)
-	public ModelAndView oriModify(ModelAndView mv, HttpSession session,
-			@ModelAttribute OriginBook oBook,@ModelAttribute HashTag hTag,
-			@RequestParam(value = "coverpic", required = false) MultipartFile coverpic,
+	public ModelAndView oriModify(ModelAndView mv, HttpSession session, @ModelAttribute OriginBook oBook,
+			@ModelAttribute HashTag hTag, @RequestParam(value = "coverpic", required = false) MultipartFile coverpic,
 			HttpServletRequest request) {
-		
+
 		// 삽화 수정
 		String picName = coverpic.getOriginalFilename(); // 전송한 사진 이름 가져오기
 		if (coverpic != null && !picName.equals("")) { // 만약 전송한 사진이 있거나 사진이름이 없는게 아니라면
-			
+
 			fileDelete(request, oBook.getCoverRename());
 			String coverPicRename = fileSave(picName, request, coverpic, "sub");// 파일을 저장한다, 파일이름,리퀘스트,저장된파일, 추가할이름
-			
+
 			oBook.setCover(picName);
 			oBook.setCoverRename(coverPicRename);
-			
+
 		}
-		
+
 		int result = bService.modifyOriBookInfo(oBook); // 인포 수정 전송
 		hTag.setCategory("origin");
 		result += bService.modifyOriBookTag(hTag); // 인포 수정 전송
-		
-		
+
 		mv.addObject("bookNo", oBook.getBookNo());
 		mv.setViewName("redirect:/book/oriBookInfo");
-		
+
 		return mv;
-		
+
 	}
+
 	/**
 	 * 일반 도서 인포 수정
 	 * 
@@ -1866,33 +1877,31 @@ public class BookController {
 	 * @return
 	 */
 	@RequestMapping(value = "/book/ModifyNorBook.do", method = RequestMethod.POST)
-	public ModelAndView norModify(ModelAndView mv, HttpSession session,
-			@ModelAttribute NormalBook nBook,@ModelAttribute HashTag hTag,
-			@RequestParam(value = "coverpic", required = false) MultipartFile coverpic,
+	public ModelAndView norModify(ModelAndView mv, HttpSession session, @ModelAttribute NormalBook nBook,
+			@ModelAttribute HashTag hTag, @RequestParam(value = "coverpic", required = false) MultipartFile coverpic,
 			HttpServletRequest request) {
-		
+
 		// 삽화 수정
 		String picName = coverpic.getOriginalFilename(); // 전송한 사진 이름 가져오기
 		if (coverpic != null && !picName.equals("")) { // 만약 전송한 사진이 있거나 사진이름이 없는게 아니라면
-			
+
 			fileDelete(request, nBook.getCoverRename());
 			String coverPicRename = fileSave(picName, request, coverpic, "sub");// 파일을 저장한다, 파일이름,리퀘스트,저장된파일, 추가할이름
-			
+
 			nBook.setCover(picName);
 			nBook.setCoverRename(coverPicRename);
-			
+
 		}
-		
+
 		int result = bService.modifyNorBooksInfo(nBook); // 인포 수정 전송
 		hTag.setCategory("normal");
 		result += bService.modifyOriBookTag(hTag); // 인포 수정 전송
-		
-		
+
 		mv.addObject("bookNo", nBook.getBookNo());
 		mv.setViewName("redirect:/book/norBookInfo");
-		
+
 		return mv;
-		
+
 	}
 
 	/**
@@ -2223,15 +2232,14 @@ public class BookController {
 		} else {
 
 			List<NormalBook> nList = bService.getRankTopBook(); // 조회수 상위 3개 도서
-			NormalBook topScoreDe = bService.getTopScore("detective"); //추리에서 가장 별점많은 1개 가져오기(평균아님)
-			List<NormalBook> topScore4tale = bService.getTopScore4("tale"); //추리에서 가장 별점많은 1개 가져오기(평균아님)
-			List<NormalBook> topScore4history = bService.getTopScore4("history"); //추리에서 가장 별점많은 1개 가져오기(평균아님)
+			NormalBook topScoreDe = bService.getTopScore("detective"); // 추리에서 가장 별점많은 1개 가져오기(평균아님)
+			List<NormalBook> topScore4tale = bService.getTopScore4("tale"); // 추리에서 가장 별점많은 1개 가져오기(평균아님)
+			List<NormalBook> topScore4history = bService.getTopScore4("history"); // 추리에서 가장 별점많은 1개 가져오기(평균아님)
 
-			OriginBook topScoreNovel = bService.getTopScoreOri("novel"); //가장 별점많은 소설 가져오기
-			List<OriginBook> topScore4taleOri = bService.getTopScore4Ori("tale");//오리지널 별점많은 동화 4개
-			List<OriginBook> topScore4talePoem = bService.getTopScore4Ori("poem");//오리지널 별점많은 시 4개
-					
-			
+			OriginBook topScoreNovel = bService.getTopScoreOri("novel"); // 가장 별점많은 소설 가져오기
+			List<OriginBook> topScore4taleOri = bService.getTopScore4Ori("tale");// 오리지널 별점많은 동화 4개
+			List<OriginBook> topScore4talePoem = bService.getTopScore4Ori("poem");// 오리지널 별점많은 시 4개
+
 			mv.addObject("nList", nList);
 			mv.addObject("topScoreDe", topScoreDe);
 			mv.addObject("topTale", topScore4tale);
@@ -2244,8 +2252,7 @@ public class BookController {
 		}
 		return mv;
 	}
-	
-	
+
 	/**
 	 * 피넛 오리지널 시리즈 수정 열람
 	 * 
@@ -2260,22 +2267,16 @@ public class BookController {
 		Member member = (Member) session.getAttribute("loginMember");
 		if (member.getAdminYN().equals("Y")) {// 로그인 여부 체크
 
-				String bookTitle = bService.getBookTitle(bookNo + ""); // 책 이름 가져옴
-				OriginBookSeries obSeries = bService.getOneModifySeries(seriesNo, bookNo); // 수정테이블 시리즈 한편가져오기
+			String bookTitle = bService.getBookTitle(bookNo + ""); // 책 이름 가져옴
+			OriginBookSeries obSeries = bService.getOneModifySeries(seriesNo, bookNo); // 수정테이블 시리즈 한편가져오기
 
-				mv.addObject("obSeries",obSeries);
-				mv.setViewName("bookApprove/bookstep-detail");
-			
-		
-				
+			mv.addObject("obSeries", obSeries);
+			mv.setViewName("bookApprove/bookstep-detail");
 
-			
-		
 		}
 		return mv;
 	}
-	
-	
+
 	/**
 	 * 피넛 오리지널 시리즈 수정 승인
 	 * 
@@ -2292,12 +2293,11 @@ public class BookController {
 
 		OriginBookSeries oModifyS = bService.getOneModifySeries(seriesNo, bookNo);
 		OriginBookSeries oSeries = bService.getOneSeries(seriesNo, bookNo);
-		
-		if(!oModifyS.getSubPicRename().equals(oSeries.getSubPicRename())) { //삽화를 바꿨다면
-			
-			fileDelete(request,oSeries.getSubPicRename()); //원래 삽화 삭제
+
+		if (!oModifyS.getSubPicRename().equals(oSeries.getSubPicRename())) { // 삽화를 바꿨다면
+
+			fileDelete(request, oSeries.getSubPicRename()); // 원래 삽화 삭제
 		}
-		
 
 		int result = bService.modifyOriSeriesProve(oModifyS); // 수정테이블 내역 전송하기
 		mv.setViewName("redirect:/admin/reApproveList.kh");
@@ -2305,11 +2305,26 @@ public class BookController {
 		return mv;
 
 	}
-	
 
+	// 섬머노트 파일 업로드
+	@RequestMapping(value = "/uploadSummernoteImageFile", produces = "application/json; charset=utf8", method = RequestMethod.POST)
+	@ResponseBody
+	public String UploadSummerNoteImg(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request) {
+		JsonObject jsonObject = new JsonObject();
 
-	
-	
-	
+		String fileName = multipartFile.getOriginalFilename(); // 파일 이름 가져오기
+		if (!fileName.equals("")) {
+
+			String picRename = fileSave(fileName, request, multipartFile, "summer");
+
+			jsonObject.addProperty("url", "/resources/bookImg/" + picRename); // contextroot + resources + 저장할 내부
+																				// 폴더명
+			jsonObject.addProperty("responseCode", "success");
+
+		}
+		String a = jsonObject.toString();
+		return a;
+
+	}
 
 }

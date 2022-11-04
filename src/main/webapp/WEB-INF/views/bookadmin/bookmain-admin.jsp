@@ -57,7 +57,7 @@
 
 
 						<div class="openbutton">
-							<button id="bookopenbutton" onclick="window.open('/book/bookStep.do?bookNo=${nBook.bookNo}&category=normal')">상세 열람</button>
+							<button id="bookopenbutton" onclick="window.open('/book/bookStep.do?bookNo=${nBook.bookNo}&category=normal')">읽어 보기</button>
 						</div>
 						<div class="userbutton container">
 							<div class="row">

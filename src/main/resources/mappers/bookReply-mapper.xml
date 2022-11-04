@@ -9,6 +9,10 @@
 	insert into origin_reply values(seq_orireplyno.nextval, #{bookNo}, #{memberId}, #{reContents}, default)
 	</insert>
 	
+	<!-- 피넛 오리지널 삭제했다고 내용 변경하기 -->
+	<update id="UpdateRemoveOriReply">
+	update origin_reply set RE_CONTETNS = '이 댓글은 삭제되었습니다', MEMBERID = '' where REPLY_NO= #{replyNo}
+	</update>
 
 	
 	<!-- 피널 오리지널 리플 수정하기 -->
@@ -90,6 +94,10 @@
 	
 	</select>
 	
+	<select id="SelectcountReReply" resultType="_int">
+	select count(RE_REPLY_NO) from re_reply where REPLY_NO = #{rNo} and CATEGORY =#{category}
+	</select>
+	
 	
 	
 	<!-- 별점 주기 쿼리문 -->
@@ -153,6 +161,11 @@
 	<!-- 일반도서 리플 삭제 -->
 	<update id="deleteNorReply">
 	delete normal_reply where REPLY_NO= #{rNo}
+	</update>
+	
+	<!-- 일반도서 댓들 수정했다고 내용 변경하기 -->
+	<update id="UpdateRemoveNorReply">
+	update normal_reply set CONTENTS = '이 댓글은 삭제되었습니다', MEMBER_ID = '' where REPLY_NO= #{replyNo}
 	</update>
 	
 	<resultMap type="NormalBookReply" id="norBookReplyResultMap">

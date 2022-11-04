@@ -68,9 +68,15 @@ $.ajax({
 					if(userId==result[i].memberId){
 						str+='<span class="modify-del-button"> <small onclick="replyRemove('+result[i].replyNo+','+rPage+');">삭제</small> <small onclick="replymodifyView('+result[i].replyNo+','+rPage+');">수정</small>';
 					}
+					if(userId!=result[i].memberId && admin=='Y'){
+							str+='<span class="modify-del-button"> <small onclick="replyRemove('+result[i].replyNo+','+rPage+');">삭제</small>';
+						}
 				str+='</span></div>';
 				str+='<div class="text-truncate col-6 date">';
-				str+='<small class="rereply" id="reply'+result[i].replyNo+'" onclick="Rereply('+result[i].replyNo+','+rPage+');">답글달기</small> ';
+				
+				if(result[i].reContents != '이 댓글은 삭제되었습니다'){
+					str+='<small class="rereply" id="reply'+result[i].replyNo+'" onclick="Rereply('+result[i].replyNo+','+rPage+');">답글달기</small> ';
+				}
 				str+='<small>'+result[i].insertDate+'</small>';
 				str+='</div></div></div>';
 				
@@ -133,6 +139,9 @@ function reReplyAll(rPage,count){
 					str+='<div class="col-6">';
 						if(userId==result[i].memberId){
 							str+='<span class="modify-del-button"> <small onclick="replyReRemove('+result[i].reReplyNo+','+rPage+');">삭제</small> <small onclick="rereplymodifyView('+result[i].reReplyNo+','+rPage+');">수정</small>';
+						}
+						if(userId!=result[i].memberId && admin=='Y'){
+							str+='<span class="modify-del-button"> <small onclick="replyReRemove('+result[i].reReplyNo+','+rPage+');">삭제</small>';
 						}
 					str+='</span></div>';
 					str+='<div class="text-truncate col-6 date">';

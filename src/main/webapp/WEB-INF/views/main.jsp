@@ -28,6 +28,8 @@
 						data-bs-slide-to="1" aria-label="Slide 2"></button>
 					<button type="button" data-bs-target="#carouselExampleCaptions"
 						data-bs-slide-to="2" aria-label="Slide 3"></button>
+					<button type="button" data-bs-target="#carouselExampleCaptions"
+						data-bs-slide-to="3" aria-label="Slide 4"></button>
 				</div>
 				<div class="carousel-inner">
 				<!-- 프로모션 영역 조회수 1위에 작품이 자동 노출됨 -->
@@ -74,6 +76,17 @@
 						<div class="carousel-caption d-md-block text-truncate">
 							<h4>${nList[2].bookTitle }</h4>
 							<p>${nList[2].bookInfo }</p>
+						</div>
+					</div>
+					
+					<!-- 이벤트 구역 -->
+					<div class="carousel-item" data-bs-interval="3000"									
+					onclick="location.href='/book/norBookInfo?bookNo=${nList[2].bookNo }'"					
+					>
+						<img src="/resources/img/event.png"
+							class="d-block" alt="이벤트">
+						<div class="carousel-caption d-md-block text-truncate">
+							
 						</div>
 					</div>
 				

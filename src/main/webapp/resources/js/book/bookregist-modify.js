@@ -63,9 +63,42 @@ $('#summernote').summernote({
       ['para', ['ul', 'ol', 'paragraph']],
       ['table', ['table']],
       ['insert', ['link']],
-      ['view', ['fullscreen', 'codeview', 'help']]
-    ]
+      ['view', ['fullscreen', 'codeview', 'help']],
+      ['insert', ['link', 'picture']]
+    ],
+    
+    callbacks : { //여기 부분이 이미지를 첨부하는 부분
+            onImageUpload : function(files, editor,
+            welEditable) {
+            for (var i = files.length - 1; i >= 0; i--) {
+            uploadSummernoteImageFile(files[i],
+            this);
+            		}
+            	}
+            }
+         
+ 
+     
   });
+  
+  //섬머노트 파일저장
+    function uploadSummernoteImageFile(file, el) {
+			data = new FormData();
+			data.append("file", file);
+			
+			$.ajax({
+				data : data,
+				type : "POST",
+				url : "/uploadSummernoteImageFile",
+				contentType : false,
+				enctype : 'multipart/form-data',
+				processData : false,
+				success : function(data) {
+					$(el).summernote('editor.insertImage', data.url);
+				}
+			});
+		}
+  
 
   document.querySelector('.note-editable').onblur = function(){
     var textarea = document.querySelector('[ name="modifyContents"]');
