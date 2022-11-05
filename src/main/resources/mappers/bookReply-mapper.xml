@@ -196,4 +196,73 @@
 	<select id="selectOneNorBookReply" resultType="string">
 	select CONTENTS from normal_reply where REPLY_NO= #{rNo}
 	</select>
+	
+	<!-- 출석이벤트 영역 -->
+	
+	<!-- 첫 출석 이벤트 참여 -->
+	<insert id="insertFirstAttend">
+	insert into attendance values(default,null,null,null,null,#{memberId})
+	</insert>
+	
+	<update id="udateSecondEvent">
+	update attendance set second = sysdate where memberId= #{memberId}
+	</update>
+	
+	<update id="udateThirdEvent">
+	update attendance set third = sysdate where memberId= #{memberId}
+	</update>
+	
+	<update id="udateFourthEvent">
+	update attendance set fourth = sysdate where memberId= #{memberId}
+	</update>
+	
+	<update id="udateFifthEvent">
+	update attendance set fifth = sysdate where memberId= #{memberId}
+	</update>
+	
+	<resultMap type="Attendance" id="AttendanceResultMap"></resultMap>
+	
+	<!-- 오늘 출석이벤트 참여여부 확인 -->
+	<select id="selectTodayAttend" resultType="_int">
+	select count(*) from attendance where memberId= #{memberId} and 
+	(to_char(first,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD')or
+	 to_char(second,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD') or 
+	 to_char(third,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD') or 
+	 to_char(fourth,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD') or 
+	 to_char(fifth,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD'))
+	</select>
+	
+	<!-- 출석이벤트 한적있는지 확인 -->
+	<select id="selectcheckFirstAttend" resultType="_int">
+	select count(*) from attendance where memberId= #{memberId}
+	</select>
+	
+	<!-- 이벤트 참여 전부 가져오기 -->
+	<select id="selectAttendEvent" resultType="_int">
+	select count(*) from attendance 
+	<where>
+		memberId= #{memberId} 
+		<if test="string.toString()=='two'">
+		and second is not null
+		</if>
+		<if test="string.toString()=='three'">
+		and third is not null
+		</if>
+		<if test="string.toString()=='four'">
+		and fourth is not null
+		</if>
+		<if test="string.toString()=='five'">
+		and fifth is not null
+		</if>
+	</where>
+	
+	</select>
+	
+	<insert id="UpdateEventPeanut">
+	insert into peanutpoint_tbl values
+	(SQN_PEANUT_NO.nextval,sysdate,+5,'Y',null,null,#{memberId},'출석이벤트성공',null)
+	</insert>
+	
+	
+	 
 </mapper>

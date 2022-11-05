@@ -81,7 +81,7 @@
 					
 					<!-- 이벤트 구역 -->
 					<div class="carousel-item" data-bs-interval="3000"									
-					onclick="location.href='/book/norBookInfo?bookNo=${nList[2].bookNo }'"					
+					onclick="location.href='/book/attendaceEvent.do'"					
 					>
 						<img src="/resources/img/event.png"
 							class="d-block" alt="이벤트">

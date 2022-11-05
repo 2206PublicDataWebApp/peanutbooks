@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.books.peanut.book.domain.Attendance;
 import com.books.peanut.book.domain.NormalBook;
 import com.books.peanut.book.domain.NormalBookReply;
 import com.books.peanut.book.domain.OriginBook;
@@ -100,6 +101,35 @@ public interface ReplyStore {
 
 	/**일반도서 댓글 삭제했다고 내용 변경하기*/
 	int UpdateRemoveNorReply(SqlSessionTemplate session, Integer rNo);
+
+	/**오늘 이벤트 했는지 확인*/
+	int selectTodayAttend(SqlSessionTemplate session, String memberId);
+
+	/**출석 이벤트 한적있는지 확인*/
+	int selectcheckFirstAttend(SqlSessionTemplate session, String memberId);
+
+	/**첫 이벤트 참여*/
+	int insertFirstAttend(SqlSessionTemplate session, String memberId);
+
+	/**이벤트 몇번 참여했는지 체크
+	 * @param string */
+		int selectAttendEvent(SqlSessionTemplate session, String memberId, String string);
+	
+	/**두번째 출석 이벤트 추가*/
+	int udateSecondEvent(SqlSessionTemplate session, String memberId);
+
+	/**세번째 출석 이벤트 추가*/
+	int udateThirdEvent(SqlSessionTemplate session, String memberId);
+
+	/**네번째 출석 이벤트 추가*/
+	int udateFourthEvent(SqlSessionTemplate session, String memberId);
+
+	/**다섯번째 출석 이벤트 추가*/
+	int udateFifthEvent(SqlSessionTemplate session, String memberId);
+
+	/**출석이벤트로 피넛 5개줌*/
+	int UpdateEventPeanut(SqlSessionTemplate session, String memberId);
+
 
 
 }

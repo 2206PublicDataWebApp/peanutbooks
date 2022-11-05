@@ -62,7 +62,7 @@
 						
 						
 						
-							<button id="bookopenbutton" onclick="window.open('/book/bookStep.do?bookNo=${oBook.bookNo}&category=origin')">읽기보기</button>
+							<button id="bookopenbutton" onclick="window.open('/book/bookStep.do?bookNo=${oBook.bookNo}&category=origin')">읽어보기</button>
 						
 						
 						

@@ -225,6 +225,69 @@ public class ReplyServiceLogic implements ReplyService {
 		return result;
 	}
 
+	/**오늘이벤트 했는지 확인*/
+	@Override
+	public int checkTodayAttend(String memberId) {
+		int result =  rStore.selectTodayAttend(session,memberId);
+		return result;
+	}
+
+	/**출석이벤트 한적 있는지 확인*/
+	@Override
+	public int checkFirst(String memberId) {
+		int result = rStore.selectcheckFirstAttend(session,memberId);
+		return result;
+	}
+
+	/**첫 이벤트 참여*/
+	@Override
+	public int addFirstEvent(String memberId) {
+		int result = rStore.insertFirstAttend(session,memberId);
+		return result;
+	}
+
+	/**몇번째 이벤트 했는지 확인*/
+	@Override
+	public int checkAttendEvent(String memberId, String string) {
+		int result = rStore.selectAttendEvent(session,memberId,string);
+		return result;
+	}
+
+	/**두번째 출석 이벤트 추가*/
+	@Override
+	public int addSecondEvent(String memberId) {
+		int result = rStore.udateSecondEvent(session,memberId);
+		return result;
+	}
+
+	/**세번째 출석 이벤트 추가*/
+	@Override
+	public int addThirdEvent(String memberId) {
+		int result = rStore.udateThirdEvent(session,memberId);
+		return result;
+	}
+
+	/**네번째 출석 이벤트 추가*/
+	@Override
+	public int addFourthEvent(String memberId) {
+		int result = rStore.udateFourthEvent(session,memberId);
+		return result;
+	}
+
+	/**다섯번째 출석 이벤트 추가*/
+	@Override
+	public int addFifthEvent(String memberId) {
+		int result = rStore.udateFifthEvent(session,memberId);
+		return result;
+	}
+
+	/**출석 이벤트로 피넛 5개 줌*/
+	@Override
+	public int addUpdateEventPeanut(String memberId) {
+		int result = rStore.UpdateEventPeanut(session,memberId);
+		return result;
+	}
+
 
 	
 }

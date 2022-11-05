@@ -7,6 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.books.peanut.book.domain.Attendance;
 import com.books.peanut.book.domain.NormalBook;
 import com.books.peanut.book.domain.NormalBookReply;
 import com.books.peanut.book.domain.OriginBook;
@@ -240,7 +241,74 @@ public class ReplyStoreLogic implements ReplyStore{
 		int result = session.update("bookReplyMapper.UpdateRemoveNorReply",rNo);
 		return result;
 		}
+
+	/**오늘 이벤트 했는지 확인*/
+	@Override
+	public int selectTodayAttend(SqlSessionTemplate session, String memberId) {
+		int result = session.selectOne("bookReplyMapper.selectTodayAttend",memberId);
+		return result;
+	}
+
+	/**이벤트 참여한적 있는지 확인*/
+	@Override
+	public int selectcheckFirstAttend(SqlSessionTemplate session, String memberId) {
+		int result = session.selectOne("bookReplyMapper.selectcheckFirstAttend",memberId);
+		return result;
+	}
+
+	/**첫 이벤트 참여*/
+	@Override
+	public int insertFirstAttend(SqlSessionTemplate session, String memberId) {
+		int result = session.insert("bookReplyMapper.insertFirstAttend",memberId);
+		return result;
+	}
+
+	/**이벤트 몇번 참여했는지 확인*/
+	@Override
+	public int selectAttendEvent(SqlSessionTemplate session, String memberId,String string) {
+		HashMap<String, String> hMap = new HashMap<String, String>();
+		hMap.put("memberId", memberId);
+		hMap.put("string", string);
+		int result = session.selectOne("bookReplyMapper.selectAttendEvent",hMap);
+		return result;
+	}
+
+	/**두번째 출석 이벤트 추가*/
+	@Override
+	public int udateSecondEvent(SqlSessionTemplate session, String memberId) {
+		int result = session.update("bookReplyMapper.udateSecondEvent",memberId);
+		return result;
+	}
+	/**세번째 출석 이벤트 추가*/
+	@Override
+	public int udateThirdEvent(SqlSessionTemplate session, String memberId) {
+		int result = session.update("bookReplyMapper.udateThirdEvent",memberId);
+		return result;
+	}
+
+	/**네번째 출석 이벤트 추가*/
+	@Override
+	public int udateFourthEvent(SqlSessionTemplate session, String memberId) {
+		int result = session.update("bookReplyMapper.udateFourthEvent",memberId);
+		return result;
+	}
 	
+	/**다섯번째 출석 이벤트 추가*/
+	@Override
+	public int udateFifthEvent(SqlSessionTemplate session, String memberId) {
+		int result = session.update("bookReplyMapper.udateFifthEvent",memberId);
+		return result;
+	}
+
+	/**출석이벤트로 피넛 5개줌*/
+	@Override
+	public int UpdateEventPeanut(SqlSessionTemplate session, String memberId) {
+		int result = session.insert("bookReplyMapper.UpdateEventPeanut",memberId);
+		return result;
+	}
+
+
+
 	
 
 }

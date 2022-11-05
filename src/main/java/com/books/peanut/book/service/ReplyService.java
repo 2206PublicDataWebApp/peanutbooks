@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.books.peanut.book.domain.Attendance;
 import com.books.peanut.book.domain.NormalBook;
 import com.books.peanut.book.domain.NormalBookReply;
 import com.books.peanut.book.domain.OriginBook;
@@ -102,6 +103,33 @@ public interface ReplyService {
 
 	/**일반도서  댓글 삭제했다고 내용 변경하기*/
 	int UpdateRemoveNorReply(Integer rNo);
+
+	/**출석이벤트 오늘 한적있는지 확인*/
+	int checkTodayAttend(String memberId);
+
+	/**출석이벤트를 참여한적 있는지 확인*/
+	int checkFirst(String memberId);
+
+	/**첫 출석이벤트 참여*/
+	int addFirstEvent(String memberId);
+
+	/**이벤트 여부 확인하기
+	 * @param string */
+	int checkAttendEvent(String memberId, String string);
+
+	/**두번쨰 이벤트 추가
+	 * @param memberId */
+	int addSecondEvent(String memberId);
+	/**세번쨰 이벤트 추가*/
+	int addThirdEvent(String memberId);
+	/**네번쨰 이벤트 추가*/
+	int addFourthEvent(String memberId);
+	/**다섯번쨰 이벤트 추가*/
+	int addFifthEvent(String memberId);
+
+	/**출석이벤트로 피넛 5개줌*/
+	int addUpdateEventPeanut(String memberId);
+
 
 
 
