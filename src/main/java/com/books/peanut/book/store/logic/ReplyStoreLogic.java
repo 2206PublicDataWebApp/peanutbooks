@@ -304,6 +304,7 @@ public class ReplyStoreLogic implements ReplyStore{
 	@Override
 	public int UpdateEventPeanut(SqlSessionTemplate session, String memberId) {
 		int result = session.insert("bookReplyMapper.UpdateEventPeanut",memberId);
+		result += session.update("bookReplyMapper.updateMemberPoint",memberId);
 		return result;
 	}
 

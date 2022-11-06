@@ -263,6 +263,10 @@
 	(SQN_PEANUT_NO.nextval,sysdate,+5,'Y',null,null,#{memberId},'출석이벤트성공',null)
 	</insert>
 	
+	<update id="updateMemberPoint">
+	update member_tbl set m_point= m_point+5 where member_id = #{memberId}
+	</update>
+	
 	
 	 
 </mapper>
