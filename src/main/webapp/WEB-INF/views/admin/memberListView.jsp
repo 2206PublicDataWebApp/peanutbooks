@@ -34,6 +34,9 @@
 		font-size: 18px;
 		/* font-weight: bold; */
 	}
+	#colText{
+		padding-top: 0.7rem;
+	}
 </style> 
 <body>
 <!-- header start -->
@@ -48,7 +51,7 @@
 		<!-- 세부페이지 큰 제목 -->
 		<div class="container text-center">
 			<div class="row row-cols-1">
-				<div class="col" style="background-color: #5e5e5e; color: white; height:45px; vertical-align: middle;">회원리스트</div>
+				<div class="col" id="colText" style="background-color: #5e5e5e; color: white; height:45px; vertical-align: middle;">회원리스트</div>
 			</div>
 		<!-- 세부페이지 큰 제목 끝 -->
 		<br>
@@ -211,6 +214,7 @@
 			</div>
 		</div>
 	<br>
+	<hr>
 	</section>
 </main>
 <!-- main contents End -->

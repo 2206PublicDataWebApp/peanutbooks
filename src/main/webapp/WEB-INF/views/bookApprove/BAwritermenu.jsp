@@ -46,14 +46,14 @@
 		<section class="container">
 			<div class="container text-center">
 				<div class="row row-cols-1">
-					<div class="col"  id="colText"style="background-color: #5e5e5e; color: white; height:45px; vertical-align: middle;">도서 리스트</div>
+					<div class="col" id="colText" style="background-color: #5e5e5e; color: white; height:45px; vertical-align: middle;">도서 리스트</div>
 				</div>
 			<br>
 				<hr>
 					<!-- <div id="title">전체 시리즈 목록</div> -->
 					<ul class="mainUl">
 			    		<li class="mainLi"><div style="text-align:right">
-					    		<a href="/admin/writerMenu.do">전체도서<br></a>
+					    		<a href="/admin/approveYN.kh">전체도서<br></a>
 					    	</div>
 					    </li>
 					    <li class="mainLi">
@@ -174,7 +174,7 @@
 			</article>
 			<!-- 페이징 영역 종료 -->
 
-
+		<hr>
 		</section>
 	</main>
 	<jsp:include page="../footer/footer.jsp" />

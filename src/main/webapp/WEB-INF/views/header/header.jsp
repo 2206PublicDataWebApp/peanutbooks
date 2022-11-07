@@ -119,7 +119,7 @@
 						</div>
 						<div class="col-4">
 
-							<a href="/notice/list.kh"><img src="/resources/img/header/icons8-noticeboard-50.png" alt="">
+							<a href="/notice/noticeUserList.do"><img src="/resources/img/header/icons8-noticeboard-50.png" alt="">
 							<br>공지사항</a>
 						</div>
 

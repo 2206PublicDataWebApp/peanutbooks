@@ -11,9 +11,9 @@ public interface NoticeStore {
 	//공지사항 작성
 	public int insertNotice(SqlSession session, Notice notice);
 	//페이징을 위한 총게시물 카운트
-	public int selectTotalCount(SqlSession session, String searchCondition, String searchValue);
+	public int selectTotalCount(SqlSession session, String searchCondition, String searchValue, String nStatus);
 	//전체게시물 출력
-	public List<Notice> selectAllNotice(SqlSession session, int currentPage, int noticeLimit);
+	public List<Notice> selectAllNotice(SqlSession session, int currentPage, int noticeLimit, String nStatus);
 	//공지사항 상세페이지보기
 	public Notice selectOneByNo(SqlSession session, Integer noticeNo);
 	//공지사항 조회수 올리기
@@ -31,5 +31,9 @@ public interface NoticeStore {
 			int categoryLimit);
 	//공지사항 조건검색 페이지 갯수
 	public int selectTotalCount(SqlSession session, String noticeCategory);
+	//공지사항 노출 선택
+	public int updateStatus(SqlSession session, String noticeNo, String nStatus);
+	//유저 공지사항 리스트뷰
+	public List<Notice> selectNoticeUser(SqlSession session, String noticeCategory);
 
 }

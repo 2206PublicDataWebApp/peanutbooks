@@ -39,6 +39,9 @@
 		font-size: 18px;
 		/* font-weight: bold; */
 	}
+	#colText{
+		padding-top: 0.7rem;
+	}
 </style> 
 
 <body>
@@ -53,7 +56,7 @@
 		<!-- 세부페이지 큰 제목 -->
 		<div class="container text-center">
 			<div class="row row-cols-1">
-			   <div class="col" style="background-color: #5e5e5e; color: white; height:45px" vertical-align: middle;>${qna.memberId}님의 문의 내역 확인</div>        
+			   <div class="col" id="colText" style="background-color: #5e5e5e; color: white; height:45px" vertical-align: middle;>${qna.memberId}님의 문의 내역 확인</div>        
 			</div>
 		<!-- 세부페이지 큰 제목 끝 -->
 		<br>
@@ -97,8 +100,8 @@
 		<div class="row row-cols-1" style="width:80%";>
 			<table align="center" class="table col-6" style="border-color:skyblue;">
 				<tr>
-					<td class="col-2" width="20%" align="center">문의유형</td>
-					<td class="col-4" width="80%">
+					<td class="col-2" align="center">문의유형</td>
+					<td class="col-4">
 						<c:if test="${qna.qnaCategory == 'member' }">회원관련</c:if>
 						<c:if test="${qna.qnaCategory == 'point' }">포인트관련</c:if>
 						<c:if test="${qna.qnaCategory == 'books' }">도서관련</c:if>
@@ -119,7 +122,7 @@
 				</tr>
 				<tr>
 					<td class="col-2" align="center">작성일</td>
-					<td class="col-4" align="left">${qna.qCreateDate }</td>
+					<td class="col-4">${qna.qCreateDate }</td>
 				</tr>
 			<c:if test="${qna.qUpdateDate ne null}">
 				<tr>
@@ -137,28 +140,45 @@
 				<tr>
 					<td class="col-2" align="center" rowspan="3">첨부파일</td>
 					<td class="col-4" style="border:none";>
-				<!-- 첨부파일 1영역 -->
-						<div id="file1" class="row my-1" >
-							 <c:if test="${qna.qnaFileRename01 ne null}">
-			 			        <div class="col"><img src="/resources/qnaUploadFiles/${qna.qnaFileRename01 }" style="width:150px; height:150px;"></div>
-		 			        </c:if>
+				     
+			            <div class="question-area container">
+			                <div class="accordion rounded" id="accordionExample">
+			                    <div class="accordion-item rounded ">
+			                        <h2 class="accordion-header rounded" id="headingOne">
+			                            <button class="accordion-button rounded collapsed" type="button" data-bs-toggle="collapse"
+			                                data-bs-target="#collapseOne" aria-controls="collapseOne">
+			                                첨부된 파일 보기
+			                            </button>
+			                        </h2>
+			                        <div id="collapseOne" class="accordion-collapse collapse rounded" aria-labelledby="headingOne">
+			                            <div class="accordion-body">
+									     <!-- 첨부파일 1영역 -->
+											<div id="file1" class="row my-1" >
+												 <c:if test="${qna.qnaFileRename01 ne null}">
+								 			        <div class="col"><img src="/resources/qnaUploadFiles/${qna.qnaFileRename01 }" style="width:150px; height:150px;"></div>
+							 			        </c:if>
+											</div>
+										<!-- 첨부파일1영역종료 -->
+						
+										<!-- 첨부파일 2영역 -->
+											<div id="file2" class="row my-1">
+												<c:if test="${qna.qnaFileRename02 ne null}">
+								 			        <div class="col"><img src="/resources/qnaUploadFiles/${qna.qnaFileRename02 }" style="width:150px; height:150px;"></div>
+							 			        </c:if>
+											</div>
+										<!-- 첨부파일2영역종료 -->
+										<!-- 첨부파일 3영역 -->
+											<div id="file3" class="row my-1">
+												<c:if test="${qna.qnaFileRename03 ne null}">
+								 			        <div class="col"><img src="/resources/qnaUploadFiles/${qna.qnaFileRename03 }" style="width:150px; height:150px;"></div>
+							 			        </c:if>
+											</div>
+									<!-- 첨부파일3영역종료 -->
+			                            </div>
+			                        </div>
+			                    </div>
+							</div>
 						</div>
-					<!-- 첨부파일1영역종료 -->
-	
-					<!-- 첨부파일 2영역 -->
-						<div id="file2" class="row my-1">
-							<c:if test="${qna.qnaFileRename02 ne null}">
-			 			        <div class="col"><img src="/resources/qnaUploadFiles/${qna.qnaFileRename02 }" style="width:150px; height:150px;"></div>
-		 			        </c:if>
-						</div>
-					<!-- 첨부파일2영역종료 -->
-					<!-- 첨부파일 3영역 -->
-						<div id="file3" class="row my-1">
-							<c:if test="${qna.qnaFileRename03 ne null}">
-			 			        <div class="col"><img src="/resources/qnaUploadFiles/${qna.qnaFileRename03 }" style="width:150px; height:150px;"></div>
-		 			        </c:if>
-						</div>
-				<!-- 첨부파일3영역종료 -->
 					<!-- 첨부파일 -->
 					</td>
 				</tr>
@@ -187,7 +207,7 @@
 				<c:if test="${qna.aCreateDate ne null}">
 				<tr>
 					<td class="col-2" align="center">작성일</td>
-					<td class="col-4" align="left">${qna.aCreateDate }</td>
+					<td class="col-4">${qna.aCreateDate }</td>
 				</tr>
 				</c:if>
 				<tr>
@@ -218,8 +238,9 @@
 			</form>
 			<!-- 관리자 답변 작성 폼  -->
 		</div>
+		<br>
+	<hr>
 	</section>
-<br><br>
 </main>
 <!-- main contents End -->
 

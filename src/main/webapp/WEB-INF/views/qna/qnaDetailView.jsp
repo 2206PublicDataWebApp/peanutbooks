@@ -38,6 +38,9 @@
 		font-size: 18px;
 		/* font-weight: bold; */
 	}
+	#colText{
+		padding-top: 0.7rem;
+	}
 </style> 
 
 <body>
@@ -53,8 +56,8 @@
 		<!-- 세부페이지 큰 제목 -->
 		<div class="container text-center">
 			<div class="row row-cols-2">
-				<div class="col" style="background-color: #5e5e5e; color: white; height:45px; vertical-align: middle;"><a href="/qna/list.kh">문의내역</a></div>
-				<div class="col" style="background-color: #c9c9c9; color: white; height:45px; vertical-align: middle;"><a href="/qna/writeView">문의작성</a></div>
+				<div class="col" id="colText" style="background-color: #5e5e5e; color: white; height:45px; vertical-align: middle;"><a href="/qna/list.kh">문의내역</a></div>
+				<div class="col" id="colText" style="background-color: #c9c9c9; color: white; height:45px; vertical-align: middle;"><a href="/qna/writeView">문의작성</a></div>
 			</div>
 		<!-- 세부페이지 큰 제목 끝 -->
 		<br>
@@ -96,15 +99,15 @@
 		<!-- 세부페이지 body 시작 -->
 	
 			<div class="row row-cols-1">
-				<table align="center" class="table col-6" border="0px">
+				<table align="center" class="table col-6" border="0" style="width:80%;">
 					<c:if test="${qna.qnaStatus eq 'Y'}">
 					<tr>
-						<td class="col-6" colspan="2" style="color: gray";>※관리자가 답변을 작성한 게시물은 수정할 수 없습니다.</td>
+						<td class="col-6" colspan="2" style="color:gray";>※관리자가 답변을 작성한 게시물은 수정할 수 없습니다.</td>
 					</tr>
 					</c:if>
 					<tr>
 						<td class="col-2" align="center">문의유형</td>
-						<td class="col-4">
+						<td class="col-4" align="left">
 							<c:if test="${qna.qnaCategory == 'member' }">회원관련</c:if>
 							<c:if test="${qna.qnaCategory == 'point' }">포인트관련</c:if>
 							<c:if test="${qna.qnaCategory == 'books' }">도서관련</c:if>
@@ -113,26 +116,26 @@
 					</tr>
 					<tr>
 						<td class="col-2" align="center">제목</td>
-						<td class="col-4"><input type="text" name="qnaTitle" class="form-control" value="${qna.qnaTitle }"></td>
+						<td class="col-4" align="left">${qna.qnaTitle }</td>
 					</tr>
 					<tr>
 						<td class="col-2" align="center">작성일</td>
-						<td class="col-4">${qna.qCreateDate }
+						<td class="col-4" align="left">${qna.qCreateDate }</td>
 					</tr>
 					<c:if test="${qna.qUpdateDate ne null}">
 					<tr>
 						<td class="col-2" align="center">수정일</td>
-						<td class="col-4">${qna.qUpdateDate }</td>
+						<td class="col-4" align="left">${qna.qUpdateDate }</td>
 					</tr>
 					</c:if>
 					<tr>
 						<td class="col-2" align="center">내용</td>
-						<td class="col-4"><textarea class="form-control" id="exampleFormControlTextarea1" cols="5" rows="5" name="qnaContents">${qna.qnaContents }</textarea>  </td>
+						<td class="col-4"><textarea class="form-control" id="exampleFormControlTextarea1" cols="5" rows="5" name="qnaContents" readonly>${qna.qnaContents }</textarea>  </td>
 					</tr>
 				<!-- 첨부파일 -->
 					<tr>
 						<td class="col-2" align="center" rowspan="3">첨부파일(선택)</td>
-						<td class="col-4" style="border:none;">
+						<td class="col-4" style="border:none;" align="left">
 					     <!-- 첨부파일 1영역 -->
 							<div id="file1" class="row my-1" >
 								 <c:if test="${qna.qnaFileRename01 ne null}">
@@ -143,7 +146,7 @@
 						<!-- 첨부파일1영역종료 -->
 					</tr>
 					<tr>
-						<td class="col-6" colspan="2" style="border:none";>
+						<td class="col-4" colspan="2" style="border:none";  align="left">
 						<!-- 첨부파일 2영역 -->
 							<div id="file2" class="row my-1">
 								<c:if test="${qna.qnaFileRename02 ne null}">
@@ -154,7 +157,7 @@
 						<!-- 첨부파일2영역종료 -->
 					</tr>
 					<tr>
-						<td class="col-6" colspan="2">
+						<td class="col-4" colspan="2"  align="left">
 						<!-- 첨부파일 3영역 -->
 							<div id="file3" class="row my-1">
 								<c:if test="${qna.qnaFileRename03 ne null}">
@@ -199,8 +202,9 @@
 			</div>
 			<!-- 1:1 문의 입력 폼 End -->
 		</div>
+		<hr>
 	</section>
-<br><br>
+<br>
 </main>
 <!-- main contents End -->
 

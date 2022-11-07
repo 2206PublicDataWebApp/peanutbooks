@@ -10,18 +10,30 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
  <style>
-	.container {
-		width: 70%;
-		max-width: 1000px;
-		margin: 0 auto;
+	.mainUl {
+		list-style-type: none;
+		padding: 0px;
 	}
-	a {
-		text-decoration:none !important
+	
+	.mainLi {
+		display: inline-block;
+		margin-left: 18px;
+		margin-right: 18px;
+		font-size: 18px;
+		/* font-weight: bold; */
 	}
-	a:hover { 
-		text-decoration:none !important
+	#colText{
+		padding-top: 0.7rem;
 	}
-</style>  
+	@keyframes blink-effect {
+		50% {
+		    opacity: 0;
+		}
+	}
+	.blink {
+	 	animation: blink-effect 1s step-end infinite;
+	 }
+</style> 
 <body>
 <!-- header start -->
 <jsp:include page="../header/header.jsp"></jsp:include>
@@ -34,9 +46,35 @@
 		<!-- 세부페이지 큰 제목 -->
 		<br>
 		<div class="container text-center">
-			<hr>
 		<!-- 세부페이지 큰 제목 끝 -->
 		<br>
+		<hr>
+					<!-- <div id="title">전체 시리즈 목록</div> -->
+					<ul class="mainUl">
+			    		<li class="mainLi"><div style="text-align:right">
+					    		<a href="/notice/list.kh">전체공지사항<br>
+					    		</a>
+					    	</div>
+					    </li>
+					    <li class="mainLi">
+					    	<div class="col"><img src="/resources/img/sidebar.png"></div>
+					    </li>
+			    		<li class="mainLi">
+			    			<div style="text-align:center">
+					    		<a href="/notice/list.kh?nStatus=Y">게시</a>
+					    	</div>
+						</li>
+						<li class="mainLi">
+					    	<div class="col"><img src="/resources/img/sidebar.png"></div>
+					    </li>
+			    		<li class="mainLi">
+			    			<div style="text-align:center">
+					    		<a href="/notice/list.kh?nStatus=N">보류</a>
+					    	</div>
+						</li>
+			 		</ul>
+				<hr>
+			</div>
 		
 		<!-- 세부페이지 body 시작 -->
 		<!-- 검색 -->
@@ -44,11 +82,11 @@
 				<table align="center" class="table col-7" border="0px">
 					<tr>
 						<td class="col-7" style="border:none;">
-							<div style="display: inline-block; margin: 0 5px;  float: left;">
+							<div style="display: inline-block; margin: 5px;  float: left;">
 							<h4 align="center">공지사항</h4>
 							</div>
 							<!-- div 오른쪽 정렬 -->
-							<div style="display: inline-block; margin: 0 5px;  float: right;">
+							<div style="display: inline-block; margin: 5px;  float: right;">
 							<form action="/notice/search.kh" method="get" >
 								<div style= "display: inline-block">
 									<select class="form-select" name="searchCondition" >
@@ -77,13 +115,20 @@
 				<table align="center" class="table col-7">
 					<!-- 카테고리별 리스트 시작 -->
 					<tr>
-						<td class="col-7" style="border:none;" td colspan="4" align="right">
+						<td class="col-8" style="border:none;" colspan="5" align="right">
 							<a href="/notice/list.kh" style="color: black"> 전체 | </a>
-							<a href="/notice/categoryCount.kh?noticeCategory=notice&page=${currentPage }" style="color: black"> 공지 |</a>
-							<a href="/notice/categoryCount.kh?noticeCategory=update&page=${currentPage }" style="color: black"> 업데이트 |</a>
-							<a href="/notice/categoryCount.kh?noticeCategory=event&page=${currentPage }" style="color: black"> 이벤트 |</a>
-							<a href="/notice/categoryCount.kh?noticeCategory=info&page=${currentPage }" style="color: black"> 안내 </a>
+							<a href="/notice/categoryCount.kh?noticeCategory=notice&nStatus=Y" style="color: black"> 공지 |</a>
+							<a href="/notice/categoryCount.kh?noticeCategory=update&nStatus=Y" style="color: black"> 업데이트 |</a>
+							<a href="/notice/categoryCount.kh?noticeCategory=event&nStatus=Y" style="color: black"> 이벤트 |</a>
+							<a href="/notice/categoryCount.kh?noticeCategory=info&nStatus=Y" style="color: black"> 안내 </a>
 						</td>
+					</tr>
+					<tr>
+						<td>번호</td>
+						<td>유형</td>
+						<td>제목</td>
+						<td>작성일</td>
+						<td>노출</td>
 					</tr>
 					<!-- 카테고리별 리스트 끝 -->
 				<c:if test="${!empty nList }">
@@ -96,42 +141,84 @@
 								<c:if test="${notice.noticeCategory == 'event'}">이벤트</c:if>
 								<c:if test="${notice.noticeCategory == 'info'}">안내</c:if>
 							</td>
-							<td class="col-4" align="left"><a href="/notice/noticeDetailView.kh?noticeNo=${notice.noticeNo }&page=${currentPage }" style="color: black">${notice.noticeTitle }</a></td>
+							<td class="col-4" align="left">
+								<div style= "display: inline-block"><a href="/notice/noticeDetailView.kh?noticeNo=${notice.noticeNo }&page=${bPage.currentPage }" style="color: black">${notice.noticeTitle }</a></div>
+								<c:if test="${notice.nStatus eq 'Y'}"><div style= "display: inline-block"><p class="blink" style="color: #ed436d; font-size:0.8em; font-weight: bold;">게시중</p></div></c:if>
+								
+							</td>
 							<td class="col-1">${notice.nCreateDate }</td>
+							<td class="col-1">
+							<c:if test="${notice.nStatus eq 'Y'}">
+								<button type="button" onclick="location.href='/notice/chooseNotice.do?noticeNo=${notice.noticeNo}&nStatus=N&page=${bPage.currentPage}'" class="btn btn-danger btn-sm" style="width:40pt;height:20pt;">보류</button>
+							</c:if>
+							<c:if test="${notice.nStatus eq 'N'}">
+								<button type="button" onclick="location.href='/notice/chooseNotice.do?noticeNo=${notice.noticeNo}&nStatus=Y&page=${bPage.currentPage}'" class="btn btn-success btn-sm" style="width:40pt;height:20pt;">게시</button>
+							</c:if>
+							</td>
 						</tr>
 					</c:forEach>
 				</c:if>
 				<c:if test="${empty nList }">
 					<tr>
-						<td colspan="4" align="center"><b>데이터가 존재하지 않습니다.</b></td>
+						<td colspan="5" align="center"><b>데이터가 존재하지 않습니다.</b></td>
 					</tr>
 				</c:if>
 					<tr align="center" height="20">
-			            <td colspan="4" style="border:none;">
-			                <c:if test="${currentPage != 1}">
-			                    <a href="/notice/${urlVal }.kh?page=${currentPage - 1 }&searchCondition=${searchCondition}&searchValue=${searchValue}">[이전]</a>
-			                </c:if>
-			                <c:forEach var="p" begin = "${startNavi }" end="${endNavi }">
-			                    <c:if test="${currentPage eq p }">
-			                        <b>${p}</b> 
-			                    </c:if>
-			                    <c:if test="${currentPage ne p }">
-			                        <a href = "/notice/${urlVal }.kh?page=${p }&searchCondition=${searchCondition }&searchValue=${searchValue }">${p}</a>
-			                    </c:if>
-			                </c:forEach>
-			            <c:if test = "${currentPage < maxPage }">
-			                <a href = "/notice/${urlVal}.kh?page=${currentPage + 1}&searchCondition=${searchCondition}&searchValue=${searchValue}">[다음]</a>
-			            </c:if>
+			            <td colspan="5" style="border:none;">
+			       
+			       <c:if test="notice.noticeCategory"></c:if>
+						    <!--  페이징 영역 -->
+							<article id="page-area">
+				
+								<!-- 이전 페이지 출력 -->
+								<c:if test="${bPage.startNavi != 1 && bPage.startNavi > 0  }">
+									<span class="prev"> <a
+										href="/notice/list.kh?page=${bPage.startNavi-1 }"> [이전] </a>
+									</span>
+								</c:if>
+				
+								<!-- 페이지 번호 출력 -->
+								<c:forEach var="p" begin="${bPage.startNavi}"
+									end="${bPage.endNavi}">
+				
+									
+									<c:if test="${p == bPage.currentPage  }">
+										<span class="pageNow"> 
+											${p }
+										</span>	
+									</c:if> 
+									<c:if test="${p == 0  }">
+										<span class="pageNow"> 
+											${p+1 }	
+										</span>	
+									</c:if>
+									
+				
+									<c:if test="${p != bPage.currentPage && p !=0}">
+										<span class="pages"> <a href="/notice/list.kh?page=${p }&noticeCategory=${noticeCategory}">${p }</a>
+										</span>
+									</c:if>
+				
+								</c:forEach>
+								<!-- 다음 페이지 출력 -->
+								<c:if test="${bPage.endNavi ne bPage.maxPage  }">
+									<span class="next"> <a
+										href="/notice/list.kh?page=${bPage.endNavi+1 }&noticeCategory=${noticeCategory}"> [다음] </a>
+									</span>
+								</c:if>
+							</article>
+							<!-- 페이징 영역 종료 -->
 			            </td>
 			        </tr>
 				</table>
 			</div>
 		</div>
-	</section>
-<br><br>
+	<br>
+		<hr>
+		</section>
+<br>
 </main>
 <!-- main contents End -->
-
 
 
 <!-- Footer -->
