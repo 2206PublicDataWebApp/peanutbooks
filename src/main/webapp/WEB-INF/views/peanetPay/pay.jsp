@@ -126,7 +126,7 @@
 	    var mEmail= '${sessionScope.loginMember.mEmail}';  
 	    
 	    $('#seasonticket').on('click', function(){
-	    	if(!${empty sessionScope.lastDate}){
+	    	if(${!empty sessionScope.lastDate}){
 				alert("구독권 만료후 구매 부탁드립니다. 이용해 주셔서 감사합니다.");
 				$('#seasonticket').prop("checked",false);
 			};
@@ -154,9 +154,9 @@
 	    
 	    orderName=$('input[type="radio"]:checked').parent().parent().next().attr('name');  //결제 분류명
 	    payMoney=$('input[type="radio"]:checked').val();  // 결제할 값   	    
-	    dm=String(d.getFullYear());
-	    dm+=String(d.getMonth()+1);
-	    dm+=String(d.getDate());
+	    dm=d.getFullYear();
+	    dm+=('0'+(d.getMonth()+1)).slice(-2);
+	    dm+=('0'+d.getDate()).slice(-2);
 	    orderNo=orderName+"-"+dm;                        //주문번호 분류명과 날짜 합친것
 	    orderContents=$('input[type="radio"]:checked').parent().parent().next().text()+"구매"; // 주문내용
 	    

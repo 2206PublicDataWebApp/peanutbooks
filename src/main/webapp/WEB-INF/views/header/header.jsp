@@ -92,6 +92,8 @@
 						</div>
 					</c:if>
 					<div id="mypage-icon-area" class="row">
+					
+					
 						<div class="col-4">
 							<img src="/resources/img/header/icons8-notification-64.png"
 								alt=""> <br>알림

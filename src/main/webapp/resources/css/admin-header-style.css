@@ -342,14 +342,14 @@ header li{
   
   
   /**1102 은정님 추가**/
-	 #peanutMenu{
+	.subMenu{
         width:100%;        
         font-family: 'Spoqa Han Sans Neo', 'sans-serif';
         padding:0;
         margin:0 auto;   
         display:none;   
     }
-    #peanutMenu nav{
+    .subMenu nav{
         margin:0;      
         width:100%;        
         height: 100%;
@@ -357,14 +357,14 @@ header li{
         text-align: left;  
         border-bottom: 1px solid rgb(201, 196, 196);                    
     }  
-   #peanutMenu nav ul{
+   .subMenu nav ul{
         width: 100%;
         height: 100%;
         display: inline;
         padding:0px;        
 
     }
-   #peanutMenu nav ul li{
+   .subMenu nav ul li{
     display: inline;
     list-style: none;   
     padding-left: 1rem;
@@ -377,7 +377,7 @@ header li{
     text-align: center;
    /*  cursor: pointer; */
 }  
-#peanutMenu nav ul li a{
+.subMenu nav ul li a{
     text-align: center;
     text-decoration: none;
     color: inherit;
@@ -385,7 +385,7 @@ header li{
 
 
 @media(min-width:550px){
-	 #peanutMenu nav{ 
+	 .subMenu nav{ 
 	 	padding-left:20%;
 	 }
 	 

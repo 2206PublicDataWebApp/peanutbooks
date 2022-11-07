@@ -33,7 +33,7 @@ public class ControllerPay {
 	@Autowired
 	public PayService pService;
 
-
+////////////////////////////결제 관련 화면
 	//결제 창으로 이동
 	@RequestMapping(value="/pay/start.kh", method=RequestMethod.GET)
 	public ModelAndView payGo(			
@@ -113,7 +113,47 @@ public class ControllerPay {
 			return "failure";
 		}
 	}
-	
+	//관리자 결제 내역 조회
+	@RequestMapping(value="/pay/admin_list.kh", method=RequestMethod.GET)
+	public ModelAndView pay_AdminSearch(ModelAndView mv,String memberId			
+			, @RequestParam(value= "page", required = false) Integer page	
+			, @RequestParam(value = "startDate", required = false) String startDate			
+			, @RequestParam(value = "endDate", required = false) String endDate			
+			) {
+		String start_date="";
+		String end_date="";
+		//startDate 값이 22-11-04 이렇게 오기때문에 분리하여 221104로 재합치기 위한 부분
+		//null이나 ""로 입력되면 자연히 start_date의 ""값으로 매핑조회하게 됨
+		if(!(startDate==null) && !(startDate.equals("")) ) {
+			String[] sd=startDate.split("-");
+				for(int i=0;i<sd.length;i++) {
+					start_date+=sd[i];			
+				}
+		}
+		if(!(endDate==null) && !(endDate.equals("")) ) {
+			String[] ed=endDate.split("-");
+				for(int i=0;i<ed.length;i++) {
+					end_date+=ed[i];		
+				}
+		}
+		
+		Pagemarker pm=new Pagemarker();
+		pm.setTotalCount(pService.getPayCount(memberId, start_date, end_date));
+		pm.setCurrentPage((page != null) ? page : 1);
+		pm.pageInfo(pm.getCurrentPage(), pm.getTotalCount());
+		mv.addObject("pm", pm);
+		
+		List<Pay> payList = pService.payListsearch(pm, memberId, start_date, end_date);
+		mv.addObject("printId", memberId);
+		mv.addObject("sta_date", startDate);
+		mv.addObject("end_date", endDate);
+		mv.addObject("payList", payList);
+		mv.setViewName("/peanetPay/payList");		
+		return mv;	
+		
+
+	}
+
 	
 ///////////////////////////////////////////////////////////////////	
 	//일반 id별 땅콩리스트 - 관리자와 틀린것은 admin도 그냥 멤버로 고려된다는 것
@@ -181,7 +221,7 @@ public class ControllerPay {
 					
 				}
 			}
-			if(memberId.equals("admin")){
+			if(memberId.equals("admin") || memberId.equals("")){
 				mv.addObject("printId","all");				
 			}else {
 				mv.addObject("printId",memberId);	

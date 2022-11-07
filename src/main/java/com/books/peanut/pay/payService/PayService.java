@@ -61,6 +61,10 @@ public interface PayService {
 	public int getwritetP_Count();
 	//작가 정산접수 관리자 승인처리
 	public int writerPayStatusOne(String wrpayNo1);
+	//관리자 결제리스트 전체페이지갯수
+	public int getPayCount(String memberId, String startDate, String endDate);
+	//관리자 결제리스트 조회
+	public List<Pay> payListsearch(Pagemarker pm, String memberId, String sDate, String eDate);
 
 
 

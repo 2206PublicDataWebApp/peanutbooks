@@ -180,5 +180,28 @@ public class StorePayLogic implements StorePay{
 		int num=session.update("payPoint_Mapper.updateWriterpay",wrpayNo);
 		return num;
 	}
+	//관리자 결제리스트 전체페이지갯수
+	@Override
+	public int getPayCount(SqlSessionTemplate session, String memberId, String startDate, String endDate) {
+		HashMap<String, String > paramMap=new HashMap<String, String>();
+		paramMap.put("memberId",memberId);
+		paramMap.put("startDate",startDate);
+		paramMap.put("endDate",endDate);		
+		int num=session.selectOne("payPoint_Mapper.admin_payCount",paramMap);
+		return num;
+	}
+	//관리자 결제리스트 조회
+	@Override
+	public List<Pay> payListsearch(SqlSessionTemplate session, Pagemarker pm, String memberId, String startDate, String endDate) {
+		int offset=(pm.getCurrentPage()-1)*pm.getLimit();		
+		RowBounds rowBounds = new RowBounds(offset,pm.getLimit());
+		//null, rowBounds 같이 진행해줘야 자동으로 처리된다.
+		HashMap<String, String > paramMap=new HashMap<String, String>();
+		paramMap.put("memberId",memberId);
+		paramMap.put("startDate",startDate);
+		paramMap.put("endDate",endDate);		
+		List<Pay> payList=session.selectList("payPoint_Mapper.admin_payList", paramMap ,rowBounds);
+		return payList;
+	}
 
 }

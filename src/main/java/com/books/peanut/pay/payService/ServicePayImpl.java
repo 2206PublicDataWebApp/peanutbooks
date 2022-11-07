@@ -158,6 +158,18 @@ public class ServicePayImpl implements PayService {
 		int num=pStore.writerPayStatusOne(session, wrpayNo);
 		return num;
 	}
+	//관리자 결제리스트 전체페이지갯수
+	@Override
+	public int getPayCount(String memberId, String startDate, String endDate) {
+		int num=pStore.getPayCount(session, memberId, startDate, endDate);
+		return num;
+	}
+	//관리자 결제리스트 조회
+	@Override
+	public List<Pay> payListsearch(Pagemarker pm, String memberId, String startDate, String endDate) {
+		List<Pay> payList = pStore.payListsearch(session, pm,  memberId, startDate, endDate);
+		return payList;
+	}
 
 	
 

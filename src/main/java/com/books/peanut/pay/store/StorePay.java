@@ -63,6 +63,10 @@ public interface StorePay {
 	public int getwritetP_Count(SqlSessionTemplate session);
 	//작가 정산접수 관리자 승인처리
 	public int writerPayStatusOne(SqlSessionTemplate session,String wrpayNo);
+	//관리자 결제리스트 전체페이지갯수
+	public int getPayCount(SqlSessionTemplate session, String memberId, String startDate, String endDate);
+	//관리자 결제리스트 조회
+	public List<Pay> payListsearch(SqlSessionTemplate session, Pagemarker pm, String memberId, String startDate, String endDate);
 	
 
 

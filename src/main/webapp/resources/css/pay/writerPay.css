@@ -1,6 +1,8 @@
 @charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
 body{
-    width: 100%; 
+    width: 100%;
+    font-family: 'Jua', sans-serif;  
 }
 
 section{
@@ -16,7 +18,7 @@ h2{
     padding-bottom: 20px;
     padding-left: 4rem;
     margin-bottom: 5rem;    
-    font-weight: bold;
+    font-family: 'Jua', sans-serif; 
 }
 table{      
     width: 100%;
@@ -24,6 +26,7 @@ table{
     padding-left: 30px;    
     border-collapse: separate!important;    
     border-spacing: 0 12px !important;
+    font-family: 'Jua', sans-serif; 
     font-size: 20px;    
 }
 
@@ -43,6 +46,7 @@ td input,td select{
     height: 43px;
     margin-left: 10px;
     padding-left: 10px;
+    font-family: 'Jua', sans-serif; 
     font-size: 20px;
     border-radius: 0.5em;   
 	border-color: rgb(252, 248, 248);
@@ -61,15 +65,20 @@ td input:focus {
     outline: none  !important; 
     border-color: #fff; box-shadow: 0 0 8px #f7a409;
 }
-
-
 .btn{
-    width: 100%;
-    margin: 0 auto;
-    margin-top: 30px; 
+	width:100%;
+	margin-top: 30px; 
     display:block; 
-	text-align:center; 	
+	text-align:center;		
 }
+
+/*  #paybtn{
+    width: 300px;
+    margin: 0 auto;
+  
+	font-family: 'Jua', sans-serif;
+	font-size:30px; 	
+} */
 button{	
 	text-align:center;
     width: 400px;
@@ -83,8 +92,8 @@ button{
     transition:800ms ease all;
     outline:none;  
     border-radius: 0.5em !important;  
-    font-size: 1.5rem;
-    font-weight: bold;   
+    font-size: 1.5rem !important;
+    font-family: 'Jua', sans-serif !important;;   
   }
   
  
@@ -102,12 +111,12 @@ button{
     height:2px;
     width:0;
     background: #fff;
-    transition:400ms ease all;
-    
+    transition:400ms ease all !important;;
+    font-family: 'Jua', sans-serif !important;;
   }
   button:after{
     right:inherit;
-    top:inherit;
+    top:inherit; 
     left:0;
     bottom:0;
     text-align: center;
