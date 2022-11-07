@@ -33,7 +33,7 @@
 				</div>
 				<div class="col-md-5 d-md-block d-none">
 					<ul>
-						<li><a href="/admin/qnaList.kh">게시판</a></li>
+						<li><a href="javascript:void(0);"  onclick="mainboard();">게시판</a></li>
 						<li><a href="/admin/writerMenu.do">도서</a></li>
 						<li onclick="mainPN();">피넛</li>
 						<li><a href="/admin/adminListView.kh">회원</a></li>
@@ -71,7 +71,7 @@
 
 		<div id="menu-bar">
 			<ul>
-				<li>게시판</li>
+				<li onclick="mainboard();">게시판</li>
 				<li><a href="/admin/bookApprove/bookApproveView.kh">도서</a></li>
 				<li onclick="mainPN();">피넛</li>
 				<li>회원</li>
@@ -91,6 +91,24 @@
         	<div id="contain">
        		</div>    
     	</div>
+    	
+    	
+    	
+    			<!--게시판 누르면 나타나는 부분  -->
+		<div class="subMenu" id="boardMenu">
+	        <nav>	
+	            <ul >                
+	                <li class="pnZone" ><a href="/admin/qnaList.kh" >공지사항</a></li>
+	                <li class="pnZone"><a href="#" >소메뉴예정1</a></li>
+	                <li class="pnZone"><a href="#" >소메뉴예정2</a></li>               
+	               		
+	            </ul>
+	        </nav>	
+        	<div id="contain">
+       		</div>    
+    	</div>
+    	
+    	
 
 		<!--회원 정보 툴팁-->
 		<div class="container" id="mypage-tooltip-area">
@@ -275,12 +293,15 @@
 		document.getElementById('peanutMenu').style.display='block';
 	}
 
- //221103 은정님 추가
-
-
-	function mainPN(){
-		document.getElementById('peanutMenu').style.display='block';
+	//게시판 소메뉴
+	document.getElementById('boardMenu').style.display = 'none';
+	function mainboard() {
+		document.getElementById('boardMenu').style.display = 'block';
+		document.getElementById('peanutMenu').style.display = 'none';
 	}
+
+
+
 	</script>
 </body>
 
