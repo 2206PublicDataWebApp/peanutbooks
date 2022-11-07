@@ -57,7 +57,7 @@
             </tr>
         </table>
     </div>
-    <div class="btn"><button onclick="writerPay();" style="font-size:20px;">지급요청</button></div>   
+    <div class="btn"><button id="paybtn" onclick="writerPay();">지급요청</button></div>   
     
 </section>
 

@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>땅콩사용리스트</title>
-<link rel="stylesheet" href="../resources/css/pay/peanetList.css" ></link>
+<link rel="stylesheet" href="/resources/css/pay/peanetList.css" ></link>
 <script scr="../resources/js/jquery-3.6.0.min.js"></script>
 </head>
 <body>
@@ -32,19 +32,20 @@
 				<c:forEach items="${pList }" var="PeanutPoint" varStatus="i">
 					<table>						
 						<tr>							
+							<td class="tableNo" rowspan="2"><button class="numbtn">${i.count +((pm.currentPage-1)*10) }</button></td>
 							<c:if test="${!empty PeanutPoint.bookName }">
-								<td class="contexnts"><button class="numbtn">${PeanutPoint.peanutNo }</button>&nbsp;&nbsp;${PeanutPoint.bookName } </td>
+								<td class="contexnts">&nbsp;&nbsp;${PeanutPoint.bookName } </td>
 							</c:if>
 							<c:if test="${empty PeanutPoint.bookName }">
-								<td class="contexnts"><button class="numbtn">${PeanutPoint.peanutNo }</button>&nbsp;&nbsp;땅콩충전</td>
+								<td class="contexnts">&nbsp;&nbsp;땅콩충전</td>
 							</c:if>
 							<td rowspan="2" class="monitercontrol"></td>
 							<td rowspan="2" class="peanet"><span>${PeanutPoint.peanutPoint}</span></td>
 						</tr>
 						<tr>
-							<td class="date">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<fmt:formatDate
+							<td class="date" colspan="3" >&nbsp;&nbsp;<fmt:formatDate
 									value="${PeanutPoint.ppDate }"
-									pattern="yyyy년MM월dd일 HH시 mm분 ss초" /></td>
+									pattern="yyyy년MM월dd일 HH시 mm분 ss초" /></td>							
 						</tr>
 						<tr class="line"></tr>
 					</table>

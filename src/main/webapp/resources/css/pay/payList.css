@@ -1,0 +1,338 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+#body{
+	margin: 0 auto;
+	height: auto;
+	padding-top: 10rem;
+	margin-bottom: 5rem;
+	padding-bottom: 5rem;
+	text-align:center;
+	
+}
+
+/* 검색창 꾸미기 */
+#searchZone{
+  display:flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  width: 100%;
+  height: auto;    
+  font-size: 1.2em;
+  font-family: 'Jua', sans-serif;  
+   
+}
+
+#selectPay{
+  width: 150px;
+  height: 2.5rem;    
+  border: 1px solid grey;
+  border-radius: 0.5em;
+  padding-left: 15px;
+}
+.input{
+  width: 150px;  
+  height: 2.5rem;
+  margin-left: 10px;
+  border: 1px solid grey;
+  border-radius: 0.5em;
+  padding-left: 15px;
+}
+#dateSet{
+  width: 30%;  
+  height: 100%;
+  text-align: center;
+  padding-left: 15px;
+}
+
+#dateSet>div:nth-child(1){
+    width: 45%;
+    float: left;
+}
+#dateSet>div:nth-child(2){
+	width: 50%;
+    float: left;
+}
+#start,#end{
+	float: left;
+    width: 7rem;
+    height: 2.5rem;
+    margin-left: 10px;
+    border: 1px solid grey;
+    border-radius: 0.5em;
+    padding-left: 15px;
+    font-size: .7em;
+}
+
+.dateBtn{
+  width: 70px;
+  height: 2.5rem;
+  line-height: 100%;
+  border: 1px #ccc solid;
+  border-radius: 0.3em;
+  background-color: #ccc;
+  text-align: center;
+  cursor: pointer;
+  color: #fff;
+  font-size: .7em;
+  transition: all 0.9s,color 0.3;
+  padding-left: 2px;
+}
+#searchBtn{  
+  width: 100px;
+  height: 2.5rem
+  line-height: 100%;
+  margin-left: 10px;
+  border: 1px #ccc solid;
+  border-radius: 0.5em;
+  background-color: #ccc;
+  text-align: center;
+  cursor:pointer;
+  color:#fff;
+  transition:all 0.9s,color 0.3;
+}   
+  .dateBtn:hover,
+  #searchBtn:hover{
+    color: #FFF;
+    box-shadow:-200px 0 0 0 rgba(0,0,0,0.5) inset;
+  }
+/*검색창화면 줄어들었을때   */
+@media(max-width:600px){
+	#searchZone{
+	    flex-wrap: wrap;
+	    height: auto;
+	    justify-content: space-around;
+	}
+	#selectPay{
+		width: 19rem;
+		height: 2.2rem;
+		margin-bottom: 0.7rem;
+	}
+	.input{		
+		display:block;
+		width: 19rem;
+		height: 2.2rem;
+		margin-left: 0;
+	}
+	#dateSet{
+		width:100%;
+		padding-left:0;
+	}
+	#dateSet>div:nth-child(1),	
+	#dateSet>div:nth-child(2){
+		width:100%;	
+		display:inline-flex;
+		justify-content: space-evenly;
+		padding-left: 5rem;
+    	padding-right: 5rem;
+	}
+	
+	#start,#end{
+	
+	    width: 9rem;
+	    height: 2.2rem;
+    	float: left;
+    	margin: 0.5rem;
+	}
+	
+	#searchBtn{
+		width: 19rem;
+		height: 2.2rem;
+  	  	margin-top: 0.7rem;
+  	  	margin-left: 0;
+	}
+	
+}
+ /*검색창 종료  */
+
+
+/*테이블 css부분  */
+
+caption{
+caption-side:top;
+}
+.responsive-table {
+  margin : 0 auto;
+  margin-bottom: 1.5em;
+  font-size: 1.4em;
+  font-family: 'Jua', sans-serif; 
+  
+}
+.responsive-table thead {
+  position: absolute;
+  clip: rect(1px 1px 1px 1px);
+  /* IE6, IE7 */
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 0;
+  border: 0;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+}
+.responsive-table thead th {
+  background-color: #1d96b2;
+  border: 1px solid #1d96b2;
+  font-weight: normal;
+  text-align: center;
+  color: white;
+}
+.responsive-table thead th:first-of-type {
+  text-align: center;
+}
+.responsive-table tbody,
+.responsive-table tr,
+.responsive-table th,
+.responsive-table td {
+  display: block;
+  padding: 0;
+  text-align: center;
+  white-space: normal;
+}
+.responsive-table th,
+.responsive-table td {
+  padding: .5em;
+  vertical-align: middle;
+}
+.responsive-table caption {
+  margin-bottom: 1em;
+  font-size: 1em;
+  font-weight: bold;
+  text-align: center;
+}
+.responsive-table tfoot {
+  font-size: .8em;
+  font-style: italic;
+}
+.responsive-table tbody tr {
+  margin-bottom: 1em;
+  border: 2px solid #1d96b2;
+}
+.responsive-table tbody tr:last-of-type {
+  margin-bottom: 0;
+}
+.responsive-table tbody th[scope="row"] {
+  background-color: #1d96b2;
+  color: white;
+}
+.responsive-table tbody td[data-type=currency] {
+  text-align: center;
+}
+.responsive-table tbody td[data-title]:before {
+  content: attr(data-title);
+  float: left;
+  font-size: 1em;
+  color: rgba(94, 93, 82, 0.75);
+}
+.responsive-table tbody td {
+  text-align: center;
+  border-bottom: 1px solid #1d96b2;
+}
+
+
+@media (min-width: 32em) {
+  .responsive-table {    
+    font-size: 1em;
+  }
+  .responsive-table thead {
+    position: relative;
+    clip: auto;
+    height: auto;
+    width: auto;
+   
+    overflow: auto;
+  }
+  .responsive-table tr {
+    display: table-row;
+  }
+  .responsive-table th,
+  .responsive-table td {
+    display: table-cell;
+    padding: .5em;
+  }
+
+  .responsive-table caption {
+    font-size: 1.5em;
+  }
+  .responsive-table tbody {
+    display: table-row-group;
+  }
+  .responsive-table tbody tr {
+    display: table-row;
+    border-width: 1px;
+  }
+  .responsive-table tbody tr:nth-of-type(even) {
+    background-color: rgba(94, 93, 82, 0.1);
+  }
+  .responsive-table tbody th[scope="row"] {
+    background-color: transparent;
+    color: #5e5d52;
+    text-align: left;
+  }
+  .responsive-table tbody td {
+    text-align: center;
+  }
+  .responsive-table tbody td[data-title]:before {
+    content: none;
+  }
+}
+@media (min-width: 62em) {
+  .responsive-table {
+    font-size: 1.2em;
+  }
+  .responsive-table th,
+  .responsive-table td {
+    padding: .75em .5em;
+  }
+  .responsive-table tfoot {
+    font-size: .9em;
+  }
+}
+
+@media (min-width: 75em) {
+  .responsive-table th,
+  .responsive-table td {
+    padding: .75em;
+  }
+}
+/* 테이블 종료  */ 
+
+/* 페이징  */
+.page_wrap{
+	padding-top:1rem;
+}
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.pagination > a,
+.pagination > span {
+    background-color: #fff;
+    color: #323232;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    margin: 0 5px 8px;
+    border-radius: 5px;
+    min-width: 20px;
+    padding: 0 10px;
+    height: 40px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    text-decoration: none;
+    position: relative;
+    font-family: 'Jua', sans-serif; 
+}
+.pagination > span {
+    pointer-events: none;
+}
+.pagination svg {
+    height: 24px;
+    width: 24px;
+}
+
+.pagination > a:hover {
+    background-color: #FFD384 !important;
+    color: #fff;
+}

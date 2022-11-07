@@ -88,11 +88,10 @@
 		}
 	};
 
-	var countData=-1;
+	
 	function collList() {
 		console.log("출력준비");
-		var titleNo = ${param.titleNo};
-		//$('#after').html('');
+		var titleNo = ${param.titleNo};		
 
 		$.ajax({
 			url : "/client/listprint.kh",
@@ -100,8 +99,8 @@
 			data : {titleNo : titleNo},
 			success : function(result) {
 				for ( var i in result) {
-				//var $chat = $('.chat').data("'"+result[i].consultNo+"'"); 값이 undefined가되어 포기						
- 			 	if (i>countData) {						
+					var $chat = $('.chat[data-consult-no="' + result[i].consultNo + '"]');					
+ 			 		if ($chat.length < 1) {						
  						addChat(result[i].consultNo, result[i].cMemberId,
  								result[i].cContexts, result[i].cDate);	 					
 					}
@@ -112,22 +111,19 @@
 			}
 		});
 	}
-	
+	//넘겨진 채팅 내용을 받아서 화면에 출력해줌
 	function addChat(consultNo, cMemberId, cContext, cDate) {			
 		countData++;
 		if (cMemberId === 'admin') {
 			$('#after').append(
-					'<div class="chat right" data-'+consultNo+'="' + consultNo +'" >'
+					'<div class="chat right" data-consult-no="' + consultNo +'" >'
 							+ '<div class="icon"><img src="../resources/img/live-chat.png"></div>'
 							+ '<div class="middleBox"><span class="dateBox">'
 							+ cDate + '</span>' + '<span class="contextBox">'
 							+ cContext + '</span></div></div>');
-			//var a=$('#after>.chat').data(consultNo);
-			//console.log("데이터 값 확인: "+ a);
-
 		} else {
 			$('#after').append(
-					'<div class="chat left" data-'+consultNo+'="' + consultNo + '">'
+					'<div class="chat left" data-consult-no="' + consultNo + '">'
 							+ '<div class="icon"><img src="../resources/img/programmer.png"></div>'
 							+ '<div class="middleBox"><span class="contextBox">'
 							+ cContext + '</span><span class="dateBox">'

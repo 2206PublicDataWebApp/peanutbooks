@@ -7,7 +7,7 @@
 <head>
 <meta charset='UTF-8'>
 <title>작가정산요청서</title>
-<link rel='stylesheet' href='../resources/css/pay/writerpayList.css'>
+<link rel='stylesheet' href="/resources/css/pay/writerpayList.css">
 	<script src='../resources/js/jquery-3.6.0.min.js' ></script>
 </head>
 <body>

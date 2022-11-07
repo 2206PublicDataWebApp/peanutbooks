@@ -1,4 +1,4 @@
- @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
 body {
 	width: 100%;
 	margin: 0%;
@@ -17,19 +17,6 @@ body {
 	font-size: 30px;
 }
 
-/*테이블의 숫자 버튼  */
-.numbtn {
-	background-color: #fff;
-	color: #323232;
-	align-items: center;
-	font-size: 16px;
-	width: 3rem;
-	border-color: #fff;
-	border-radius: 0.5em;
-	height: 40px;
-	box-shadow: 0 0.5px 3px rgba(0, 0, 0, 0.15);
-	font-family: 'Jua', sans-serif;
-}
 
 #spanDIV {
 	margin: 0 auto;
@@ -38,6 +25,20 @@ body {
 	text-align: center;
 }
 
+/*테이블의 숫자 버튼  */
+.numbtn {
+	background-color: #fff;
+	color: #323232;
+	align-items: center;
+	font-size: 16px;
+	width: 3rem;
+	margin-top:0px;
+	border-color: #fff;
+	border-radius: 0.5em;
+	height: 40px;
+	box-shadow: 0 0.5px 3px rgba(0, 0, 0, 0.15);
+	font-family: 'Jua', sans-serif;
+}
 .totalpeanet {
 	width: 400px;
 	font-size: 25px;
@@ -45,6 +46,29 @@ body {
 	display: inline;
 	justify-content: center;
 	text-align: center;
+}
+.contexnts {
+	width: 35%;
+	height: 50%;
+	font-size: 20px;
+	font-weight: bold;
+	padding: 5px;
+}
+
+.peanet {
+	width: 16%;
+	text-align: center;
+	font-size: x-large;
+	font-weight: 800;
+	background-color: #dcdcdc;
+	border: 2rem solid transparent;
+	border-radius: 0.5em;
+}
+
+.date {
+	margin-left: 10px;
+	height: 50%;
+	font-size: 16px;
 }
 
 #table {
@@ -57,30 +81,12 @@ table {
 	border-collapse: collapse;
 	font-family: 'Jua', sans-serif;
 }
-
-.contexnts {
-	width: 40%;
-	height: 30px;
-	font-size: 20px;
-	font-weight: bold;
-	padding: 5px;
+table>tr{
+	width:100%;
+	height:85px;
 }
-
-.peanet {
-	width: 20%;
-	text-align: center;
-	font-size: x-large;
-	font-weight: 800;
-	background-color: #dcdcdc;
-	border: 2rem solid transparent;
-	border-radius: 0.5em;
-}
-
-.date {
-	margin-left: 10px;
-	height: 10px;
-	font-size: 16px;
-	padding: 5px;
+.tableNo{
+	width: 10%;
 }
 
 .line {

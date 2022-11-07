@@ -31,12 +31,13 @@
 
 		</div>
 		<div id="spanDIV">
-			<div class="totalpeanet"><img alt="" src="../resources/img/icons8-peanut-64.png"/></div>
-			<div class="totalpeanet">${printId } 의 남은 땅콩은 ${ppSum}개</div> 
-			<c:if test="${!empty searchppDate }" ><div id="result">${searchppDate } 기준</div></c:if>
-			<c:if test="${empty printId }" ><div id="result">전체 기준</div></c:if>
-			<c:if test="${printId=='all' }" ><div id="result">전체 기준</div></c:if>
-			<c:if test="${!empty printId }" ><div id="result">${printId }기준</div></c:if>
+<!-- 			<div class="totalpeanet"><img alt="" src="../resources/img/icons8-peanut-64.png"/></div> -->
+			<!-- <div class="totalpeanet">${printId } 의 남은 땅콩은 ${ppSum}개</div>  -->
+			<div calss=totalpeanet">
+				<c:if test="${!empty searchppDate }" ><div id="result">${searchppDate } 기준</div></c:if>
+				<c:if test="${empty printId || printId=='all' }" ><div id="result">전체 기준</div></c:if>				
+				<c:if test="${!empty printId }" ><div id="result">${printId }기준</div></c:if>
+			</div>
 		</div>	
 		<div id="table">
 			<c:if test="${empty pList }">

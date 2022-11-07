@@ -11,15 +11,17 @@
 		<result  property="orderNo" 			column="ORDER_NO"/> 	
 		<result  property="pay" 				column="PAY"/> 
 		<result  property="orderStatus" 		column="ORDER_STATUS"/> 
-		<result  property="memberId" 			column="MEMBERI_ID"/> 		
+		<result  property="memberId" 			column="MEMBER_ID"/> 		
 		<result  property="orderContents"		column="ORDER_CONTENTS"/> 
 		<result  property="imp_uid" 			column="IMP_UID"/> 
   	</resultMap>
+  	
   	<!--주문 확정내용 입력  -->
   	<insert id="insertPay">
 		 INSERT INTO PAY 
 		 VALUES((#{orderNo}||'-'||SQN_PAY_NO.NEXTVAL), ${pay},default,#{memberId},#{orderContents},'')
 	</insert>
+	
 	<!--확정된 주문번호 가져오기 입력된것중 가장 마지막 값을 가져오게 됨  -->
 	<select id="selectOdNo" resultMap="payResultMap">
 		SELECT * FROM(
@@ -30,12 +32,45 @@
 	 		ORDER BY ROWNUM DESC)
  		WHERE ROWNUM =1	
 	</select>
+	
 	<!--주문성공시 orderStatus 값 변경  -->
 	<update id="updataOrder">
 		UPDATE PAY SET ORDER_STATUS='Y', IMP_UID=#{imp_uid} 
 		WHERE ORDER_NO=#{orderNo}	
 	</update>	
-	
+		
+	<!--관리자 결제내역조회시 전체 페이지 수 확인  -->
+    <select id="admin_payCount" resultType="_int">
+  		SELECT COUNT(*) FROM PAY 
+  		  	<where>
+		  		<if test="(memberId == null or memberId == '' ) and (startDate == null or startDate == '') " > 
+		  			ORDER_STATUS='Y'
+		  		</if>	  				  		
+		  		<if test="(memberId != null and memberId !='' ) and (startDate == null or startDate == '') " >
+		  			MEMBER_ID=#{memberId } AND ORDER_STATUS='Y'
+		  		</if> 				
+				<if test="(memberId == null or memberId == '' ) and (startDate !=null and startDate != '')">
+				 	REGEXP_SUBSTR(ORDER_NO,'[^-]+',1,2) BETWEEN #{startDate } AND #{endDate } AND ORDER_STATUS='Y'			
+				</if>	
+  			</where>
+  	</select>
+  	
+  		<!--관리자 결제내역리스트 확인  -->
+    <select id="admin_payList"  resultMap="payResultMap">
+  		SELECT * FROM PAY 
+  		  	<where>
+		  		<if test="(memberId == null or memberId == '' ) and (startDate == null or startDate == '') " > 
+		  			ORDER_STATUS='Y'
+		  		</if>	  				  		
+		  		<if test="(memberId != null and memberId !='' ) and (startDate == null or startDate == '') " >
+		  			MEMBER_ID=#{memberId } AND ORDER_STATUS='Y'
+		  		</if> 				
+				<if test="(memberId == null or memberId == '' ) and (startDate !=null and startDate != '')">
+					REGEXP_SUBSTR(ORDER_NO,'[^-]+',1,2) BETWEEN #{startDate } AND #{endDate } AND ORDER_STATUS='Y'				
+				</if>				
+  			</where>
+  	</select>
+  
 	<!--작가 정산관련 부분  -->
 	<resultMap 	 type="WriterPay" 				id="WriterPayResultMap">
   		<id 	 property="memberId" 			column="MEMBER_ID"/> <!--id   -->
@@ -70,7 +105,7 @@
     	UPDATE POINTCHANGE_TBL SET BANK_STATUS='Y' 
     	WHERE WRPAY_NO=${wrpayNo}
     </update>  
-  
+   
   	
   	<!-- 시리즈 가져오는 부분  -->
   	<resultMap 	 type="OriginBookSeries" 		id="OriginBookSeriesResultMap">
@@ -147,7 +182,16 @@
   	<!--관리자 검색시   땅콩 갯수  -->
   	<select id="admin_searchppSum" resultType="_int">
   		SELECT SUM(PEANUT_POINT) FROM PEANUTPOINT_TBL 
-  		WHERE MEMBER_ID=#{memberId }
+  		<where>
+	  		<if test="(memberId == 'admin' memberId != null or memberId != '') and (ppDate==null or ppDate == '') " > </if>	  		
+	  		<if test="(memberId != 'admin' memberId != null or memberId != '') and (ppDate==null or ppDate == '') " >
+	  			MEMBER_ID=#{memberId }
+	  		</if> 	
+			<if
+				test="(memberId != 'admin' memberId == null or memberId == '') and (ppDate!=null and ppDate != '')">
+				TO_CHAR((PP_DATE),'YYYY-MM-DD')=#{ppDate } 				
+			</if>
+		</where>		
   	</select>
   	
   	<!--검색시 땅콩 리스트 페이지전체 갯수 구하기  -->
@@ -208,7 +252,7 @@
 				AND TO_CHAR((PP_DATE),'YYYY-MM-DD')=#{ppDate } 				
 			</if>
 		
-  	<!-- 	ORDER BY PP_DATE DESC -->
+  	 	ORDER BY PP_DATE DESC 
   	</select>
   	
   	<resultMap 	 type="SeasonTicket" 		id="seasonTicketResultMap">
