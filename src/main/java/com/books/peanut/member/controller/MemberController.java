@@ -72,6 +72,26 @@ public class MemberController {
 		return mv;
 	}
 	
+	// 아이디 찾기
+	@ResponseBody
+	@RequestMapping(value="/member/findIdAuth.pb", method=RequestMethod.GET)
+	public String findIdAuth(
+			@RequestParam("mEmail") String mEmail,
+			Model model) {
+		try {
+			mService.resetAuthKey(mEmail); // 기존 인증 키 삭제
+			String authKey = sendEmail(mEmail); // 인증 메일 발송
+			mService.saveAuthKey(authKey, mEmail); // 인증키 db에 저장
+			String memberId = mService.findIdByEmail(mEmail); // 이메일로 아이디 찾기
+			System.out.println(memberId);
+			model.addAttribute("memberId", memberId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "member/forgotId";
+	}
+	
 	/**
 	 * 인증 메일 전송
 	 * @param mEmail
@@ -85,7 +105,7 @@ public class MemberController {
 		Random random = new Random();
 		int authKey = random.nextInt(88888) + 11111;
 		
-		String subject = "[땅콩북스] 회원가입 인증번호";
+		String subject = "[땅콩북스] 인증번호";
 		String content = "아래의 인증번호를 인증번호 입력창에 입력하세요.<br>인증번호는 " + authKey + " 입니다."; // 이미지 첨부 -> "내용" + "<img src=\"이미지 경로\">"
 		String from = "땅콩북스 <realpeanutbooks@gmail.com>"; // 이메일만 혹은 이름 + <이메일> 가능
 		String to = mEmail;
@@ -108,7 +128,12 @@ public class MemberController {
 		return authNum;
 	}
 	
-	// 인증 키 검사
+	/**
+	 * 인증 키 검사
+	 * @param authKey
+	 * @param memberId
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value="/member/checkAuthKey.pb", method=RequestMethod.GET)
 	public String checkAuthKey(
@@ -121,7 +146,13 @@ public class MemberController {
 		return String.valueOf(result);
 	}
 	
-	// 이메일 인증
+	/**
+	 * 이메일 인증(이메일 인증 여부 컬럼 'Y'로 업데이트)
+	 * @param memberId
+	 * @param authKey
+	 * @param mv
+	 * @return
+	 */
 	@RequestMapping(value="/member/authEmail.pb", method=RequestMethod.POST)
 	public ModelAndView authEmail(
 			@RequestParam("memberId") String memberId,
@@ -130,7 +161,12 @@ public class MemberController {
 		HashMap<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("authKey", authKey);
 		paramMap.put("memberId", memberId);
-		mService.authEmail(paramMap);
+		int result = mService.authEmail(paramMap);
+		if(result > 0) {
+			mv.setViewName("redirect:/"); // 성공 시 로그인 전 메인 페이지로
+		}else {
+			mv.setViewName("redirect:/member/confirmEmailView.pb?memberId="+memberId); // 실패 시 parameter 가지고 기존 페이지로 돌아가기
+		}
 		return mv;
 	}
 	
@@ -376,15 +412,6 @@ public class MemberController {
 			mv.addObject("msg", e.toString()).setViewName("common/errorPage");
 		}
 		return mv;
-	}
-	
-	/**
-	 * 알림 - 내 알림 화면
-	 * @return
-	 */
-	@RequestMapping(value="/news/myNews.pb", method=RequestMethod.GET)
-	public String myNewsView() {
-		return "news/news-my";
 	}
 
 	//은정이가 잠깐 사용할 예정

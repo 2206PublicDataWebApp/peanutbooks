@@ -18,11 +18,12 @@ public class MemberStoreLogic implements MemberStore{
 	}
 	// 인증 키 저장
 	@Override
-	public void updateAuthKey(SqlSession session, String authKey, String mEmail) {
+	public int updateAuthKey(SqlSession session, String authKey, String mEmail) {
 		HashMap<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("authKey", authKey);
 		paramMap.put("mEmail", mEmail);
-		session.update("MemberMapper.updateAuthKey", paramMap);
+		int result = session.update("MemberMapper.updateAuthKey", paramMap);
+		return result;
 	}
 	// 별명 유효성 검사
 	@Override
@@ -83,6 +84,17 @@ public class MemberStoreLogic implements MemberStore{
 	public int updateEmailYN(SqlSession session, HashMap<String, String> paramMap) {
 		int result = session.update("MemberMapper.updateEmailYN", paramMap);
 		return result;
+	}
+	// 기존 인증 키 삭제
+	@Override
+	public void resetAuthKey(SqlSession session, String mEmail) {
+		session.update("MemberMapper.resetAuthKey", mEmail);
+	}
+	// 이메일로 아이디 찾기
+	@Override
+	public String findIdByEmail(SqlSession session, String mEmail) {
+		String memberId = session.selectOne("MemberMapper.findIdByEmail", mEmail);
+		return memberId;
 	}
 	
 }
