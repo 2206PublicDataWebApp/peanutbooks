@@ -1,0 +1,147 @@
+section{
+    max-width: 500px !important;
+    height: 620px;
+    background-image: url('/resources/img/peanutcess/peanut-homeback.png');
+    position: relative;
+    background-size: cover;
+ 
+}
+
+
+main{
+    background-image: url('/resources/img/peanutcess/floral-g38e257a95_1920.jpg');
+    background-attachment: fixed;
+    background-repeat: repeat-y;
+    
+}
+
+#up-area, #down-area{
+    height: 25%;
+}
+#center-area{
+    height: 50%;
+    text-align: center;
+    position: relative;
+
+}
+
+@font-face {
+    font-family: 'Y_Spotlight';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/Y_Spotlight.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+#img-area{
+    text-align: center;
+    max-width: 100%;
+    
+}
+
+
+#text-area{
+    position: absolute;
+    left: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    font-size: 2rem;
+    top:70%;
+    font-family: 'Y_Spotlight';
+}
+
+
+#char-img>img{
+   max-width:  100%;
+}
+
+#down-area{
+    background-image: url('/resources/img/peanutcess/textbox.jpg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    color:white;
+    padding:1.5rem
+}
+#status-area{
+    background-image: url('/resources/img/peanutcess/textbox-1.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    color:white;
+    background-position: center;
+    padding:1.5rem
+}
+.sche-area{
+    background-image: url('/resources/img/peanutcess/textbox-1.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    color:white;
+    background-position: center;
+    padding:1rem;
+  
+}
+
+
+#sche-area1{
+    height: 25%;
+    
+}
+#sche-area2{
+    height: 75%;
+    
+}
+
+li:hover{
+    cursor:pointer;
+}
+#down-area:hover{
+    cursor:pointer;
+    
+    
+}
+
+#sche-play{
+    background-image: url('/resources/img/peanutcess/youchien_tatemono.png');
+    background-size: 100% 100%;
+    position: relative;
+    height: 100%;
+    background-color: white;
+}
+
+#sche-play>img{
+    max-height: 100%;
+}
+
+@media (max-width:400px) {
+    section:not(#down-area) {
+         font-size: 0.9rem;
+    }
+    article>div{
+        padding : 1rem 0.8rem !important;
+    }
+
+    #sche-div{
+        padding: 0.3rem !important;
+    }
+
+    ul{
+        margin: 0;
+    }
+    li{
+        padding: 0 0.2rem;
+    }
+    
+    #sche-area1{
+        padding: 0.5rem;
+    }
+}
+@keyframes bounce{
+    0%{
+        top: 45%;
+    }
+    70%{
+        top: 50%;
+    }
+    100%{
+        top: 55%;
+    }
+}

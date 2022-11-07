@@ -19,12 +19,21 @@ public class NormalBook {
 	private String writerInfo;
 	private int scoreCount;
 	
+	private String hashTag3;
+	
+	
 	
 	
 	
 	
 	
 
+	public String getHashTag3() {
+		return hashTag3;
+	}
+	public void setHashTag3(String hashTag3) {
+		this.hashTag3 = hashTag3;
+	}
 	public int getScoreCount() {
 		return scoreCount;
 	}

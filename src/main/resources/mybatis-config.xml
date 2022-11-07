@@ -36,6 +36,7 @@
 		<typeAlias type="com.books.peanut.book.domain.ReReply" alias="ReReply"/>
 		<typeAlias type="com.books.peanut.book.domain.peanutPaidSeries" alias="peanutPaidSeries"/>
 		<typeAlias type="com.books.peanut.book.domain.Attendance" alias="Attendance"/>
+		<typeAlias type="com.books.peanut.book.domain.PeanutCess" alias="PeanutCess"/>
 		
 
 	</typeAliases>
@@ -48,6 +49,7 @@
 	<mapper resource="/mappers/bookReply-mapper.xml"/>
 	<mapper resource="/mappers/bookAdmin-mapper.xml"/>
 	<mapper resource="/mappers/library-mapper.xml"/>
+	<mapper resource="/mappers/peanutcess-mapper.xml"/>
 	
 	<!--은정꺼  -->
 	<mapper resource="/mappers/consult-mapper.xml" />

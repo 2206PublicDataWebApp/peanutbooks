@@ -5,6 +5,8 @@ public class PeanutCess {
 	//기본정보
 	private String memberId;
 	private String name;
+	private int birthMonth;
+	private int birthDay;
 	
 	//파라메터
 	private int money;
@@ -15,6 +17,7 @@ public class PeanutCess {
 	private int manner;
 	private int art;
 	private int study;
+	private int stress;
 	
 	//아르바이트
 	private int farm;
@@ -30,6 +33,30 @@ public class PeanutCess {
 	private String ending;
 	private int turn;
 	private String age;
+	
+	
+	
+	
+	
+
+	public int getStress() {
+		return stress;
+	}
+	public void setStress(int stress) {
+		this.stress = stress;
+	}
+	public int getBirthMonth() {
+		return birthMonth;
+	}
+	public void setBirthMonth(int birthMonth) {
+		this.birthMonth = birthMonth;
+	}
+	public int getBirthDay() {
+		return birthDay;
+	}
+	public void setBirthDay(int birthDay) {
+		this.birthDay = birthDay;
+	}
 	public String getMemberId() {
 		return memberId;
 	}
@@ -146,11 +173,12 @@ public class PeanutCess {
 	}
 	@Override
 	public String toString() {
-		return "PeanutCess [memberId=" + memberId + ", name=" + name + ", money=" + money + ", power=" + power
-				+ ", music=" + music + ", strong=" + strong + ", cook=" + cook + ", manner=" + manner + ", art=" + art
-				+ ", study=" + study + ", farm=" + farm + ", cafe=" + cafe + ", child=" + child + ", material="
-				+ material + ", artschool=" + artschool + ", musicschool=" + musicschool + ", ending=" + ending
-				+ ", turn=" + turn + ", age=" + age + "]";
+		return "PeanutCess [memberId=" + memberId + ", name=" + name + ", birthMonth=" + birthMonth + ", birthDay="
+				+ birthDay + ", money=" + money + ", power=" + power + ", music=" + music + ", strong=" + strong
+				+ ", cook=" + cook + ", manner=" + manner + ", art=" + art + ", study=" + study + ", stress=" + stress
+				+ ", farm=" + farm + ", cafe=" + cafe + ", child=" + child + ", material=" + material + ", artschool="
+				+ artschool + ", musicschool=" + musicschool + ", ending=" + ending + ", turn=" + turn + ", age=" + age
+				+ "]";
 	}
 	
 

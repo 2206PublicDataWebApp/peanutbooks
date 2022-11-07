@@ -1,0 +1,104 @@
+section{
+   	margin-top:1rem;
+    max-width: 500px !important;
+    height: 620px;
+    background-color: white;
+    position: relative;
+ 
+}
+
+footer{
+	margin-top:5rem;
+}
+
+
+main{
+    background-image: url('/resources/img/peanutcess/floral-g38e257a95_1920.jpg');
+    background-attachment: fixed;
+    background-repeat: repeat-y;
+    
+}
+
+#up-area, #down-area{
+    height: 25%;
+}
+#center-area{
+    height: 50%;
+    text-align: center;
+    position: relative;
+
+}
+
+@font-face {
+    font-family: 'Y_Spotlight';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/Y_Spotlight.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+#img-area{
+    text-align: center;
+    max-width: 100%;
+    
+}
+
+
+#text-area{
+    position: absolute;
+    left: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    font-size: 2rem;
+    top:70%;
+    font-family: 'Y_Spotlight';
+}
+
+#img-area>img{
+    object-fit: cover;
+    height: 100%;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+    animation: bounce 3s alternate infinite;
+    position: absolute;
+}
+
+#char-img>img{
+    height: 100%;
+}
+
+#down-area{
+    background-image: url('/resources/img/peanutcess/textbox.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    color:white;
+    padding:1.5rem
+}
+
+
+
+#down-area:hover{
+    cursor:pointer;
+    
+    
+}
+
+@media(max-witdh:500px){
+	section{
+	margin-top:0;
+	}
+}
+
+@keyframes bounce{
+    0%{
+        top: 20%;
+    }
+    50%{
+        top: 30%;
+    }
+    100%{
+        top: 40%;
+    }
+}

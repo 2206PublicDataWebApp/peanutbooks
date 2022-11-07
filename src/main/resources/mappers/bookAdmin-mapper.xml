@@ -39,8 +39,27 @@
 	  	<result property="adminId" column="ADMINID"/>
 	  	<result property="writerInfo" column="WRITER_INFO"/>
 	  	<result property="scoreCount" column="SCORECOUNT"/>
+	  	<result property="hashTag3" column="hashTag3"/>
   	</resultMap>
   	
+  	<!-- 내 서재 도서  최근 3개 가져오기 -->
+  	<select id="selectBookMark" resultMap="nBookResultMap">
+  	
+  	 select * from(
+	 select hashtag3, book_title, row_number() over (order by library_no desc)r
+	 from(select nor_book_no "nor_book_no", cover_rename, book_info,book_title,
+	'normal' as "category",'Y' as "BOOK_PERMISSION",view_count from normal_book 
+	union all 
+	select ori_book_no "nor_book_no", corver_rename "cover_rename",
+	book_info,book_title,'origin' as"category",BOOK_PERMISSION, 
+	view_count from origin_book 
+	where status like 'Y%' and BOOK_PERMISSION like 'Y%')  join hash_tag on "nor_book_no" = book_no and category = category
+	join library on "nor_book_no" = library.book_no and library.category = "category" and library.category= hash_tag.category 
+	where library.member_id =#{memberId}
+	)where r between 1 and 3
+  	
+  		
+  	</select>
   	
   	<!-- 일반도서 제목 가져오기 -->
   	<select id="selectNorBookTitle" resultType="string">

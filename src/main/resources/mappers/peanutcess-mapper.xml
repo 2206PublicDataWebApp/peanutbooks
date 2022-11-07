@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
+  <mapper namespace="peanutcessMapper">
+  
+  <!-- 게임 첫 저장 이름, 생일만-->
+  <insert id="insertGameDate">
+  insert into peanutcess values(#{memberId},#{name},null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0,'1501',#{birthMonth},#{birthDay},null)
+  </insert>
+  
+  
+  <!-- 게임 데이터 삭제 -->
+  <delete id="deleteMemberGameDate">
+  delete from peanutcess where member_id = #{memberId}
+  </delete>
+  
+  <!-- 데이터 저장 -->
+  <update id="updateStatus">
+  
+  update peanutcess set money=#{money}, power=#{power},music=#{music},strong=#{strong},
+  cook=#{cook},manner=#{manner},art=#{art},
+  study=#{study},farm=#{farm},cafe=#{cafe},child=#{child},material=#{material},artschool=#{artschool}
+  ,musicschool=#{musicschool},turn=#{turn},stress=#{stress}
+  where member_id = #{memberId}
+  
+  </update>
+  
+  <resultMap type="PeanutCess" id="PeanutCessResultMAp">
+  <id property="memberId" column="MEMBER_ID"/>
+  <result property="name" column="name"/>
+  <result property="money" column="money"/>
+  <result property="power" column="power"/>
+  <result property="music" column="music"/>
+  <result property="strong" column="strong"/>
+  <result property="cook" column="cook"/>
+  <result property="manner" column="manner"/>
+  <result property="art" column="art"/>
+  <result property="study" column="study"/>
+  <result property="farm" column="farm"/>
+  <result property="cafe" column="cafe"/>
+  <result property="child" column="child"/>
+  <result property="material" column="material"/>
+  <result property="artschool" column="artschool"/>
+  <result property="musicschool" column="musicschool"/>
+  <result property="ending" column="ending"/>
+  <result property="turn" column="turn"/>
+  <result property="age" column="age"/>
+  <result property="birthMonth" column="BIRTHMONTH"/>
+  <result property="birthDay" column="birthDay"/>
+  <result property="stress" column="stress"/>
+  </resultMap>
+  
+  
+  <!-- 게임한적있는지 체크 -->
+  <select id="selectOneMemberCount" resultType="_int">
+   select count(member_id) from peanutcess where member_id = #{memberId}
+  </select>
+  
+  <!-- 닉네임 가져오기 -->
+  <select id="selectMemberNickName" resultType="string">
+  	select m_Nickname from member_tbl where member_id = #{memberId}
+  </select>
+  
+  <select id="selectOneMemberDate" resultMap="PeanutCessResultMAp">
+  select * from peanutcess where member_id = #{memberId} 
+  </select>
+  
+  
+  
+  
+  
+  
+  
+  
+  </mapper>

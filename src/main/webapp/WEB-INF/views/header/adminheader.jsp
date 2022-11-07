@@ -34,7 +34,7 @@
 				<div class="col-md-5 d-md-block d-none">
 					<ul>
 						<li><a href="javascript:void(0);"  onclick="mainboard();">게시판</a></li>
-						<li><a href="/admin/writerMenu.do">도서</a></li>
+						<li> <a href="/admin/approveYN.kh">도서</a></li>
 
 						<li onclick="mainPN();">피넛</li>
 						<li><a href="/admin/adminListView.kh">회원</a></li>
@@ -74,14 +74,14 @@
 		<div id="menu-bar">
 			<ul>
 				<li onclick="mainboard();">게시판</li>
-				<li><a href="/admin/bookApprove/bookApproveView.kh">도서</a></li>
+				<li><a href="/admin/bookApproveView.kh">도서</a></li>
 				<li onclick="mainPN();">피넛</li>
 				<li>회원</li>
 			</ul>
 		</div>
 		
 			<!--피넛 누르면 나타나는 부분  -->
-		<div id="peanutMenu">
+		<div class="subMenu" id="peanutMenu">
 	        <nav>	
 	            <ul >                
 	                <li class="pnZone" id="pay"><a href="/pay/admin_list.kh" >결제조회</a></li>
@@ -294,6 +294,7 @@
    document.getElementById('peanutMenu').style.display='none';
 	function mainPN(){
 		document.getElementById('peanutMenu').style.display='block';
+		document.getElementById('boardMenu').style.display = 'none';
 	}
 
 	//게시판 소메뉴
