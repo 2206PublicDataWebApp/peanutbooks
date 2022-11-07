@@ -29,7 +29,7 @@
 		<div class="container">
 			<div class="row" id="header-area">
 				<div class="col-md-3 col-4">
-					<a href="/"><img src="/resources/img/logo/logo.png" id="logo" alt="" id="logo"></a>
+					<a href="/"><img src="/resources/img/logo/logo-1.png" id="logo" alt="" id="logo"></a>
 				</div>
 				<div class="col-md-5 d-md-block d-none">
 					<ul>
