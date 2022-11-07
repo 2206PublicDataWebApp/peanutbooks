@@ -8,7 +8,7 @@ public interface MemberService {
 	// 회원가입
 	int registerMember(Member member);
 	// 인증 키 저장
-	void saveAuthKey(String authKey, String mEmail);
+	int saveAuthKey(String authKey, String mEmail);
 	// 별명 유효성 검사
 	int checkNickname(String mNickname);
 	// 아이디 유효성 검사
@@ -29,5 +29,9 @@ public interface MemberService {
 	int checkAuthKey(HashMap<String, String> paramMap);
 	// 이메일 인증 여부 업데이트
 	int authEmail(HashMap<String, String> paramMap);
+	// 기존 인증 키 삭제
+	void resetAuthKey(String mEmail);
+	// 이메일로 아이디 찾기
+	String findIdByEmail(String mEmail);
 
 }

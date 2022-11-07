@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,25 +24,29 @@
 					<button type="button">
 						<span>내 알림</span>
 					</button>
-					<button type="button">
+<!-- 					<button type="button">
 						<span>공지</span>
-					</button>
+					</button> -->
 					<button type="button">
 						<span>이벤트/프로모션</span>
 					</button>
 				</div>
 			</div>
 			<div class="news-area">
-				<!-- 반복 영역 -->
-				<div class="news-contents-area">
-					<span class="news-contents">
-						알림
-					</span>
-					<span class="delete-icon">
-						<a><img alt="닫기" src="../resources/img/news/icons8-close-48.png"></a>
-					</span>
-				</div>
-				<!-- 반복 영역 -->
+				<!-- 반복 영역 시작 -->
+				<%-- <c:if test="${!empty nList}"> --%>
+					<%-- <c:forEach items="${nList}" var="notice"> --%>
+						<div class="news-contents-area">
+							<span class="news-contents">
+								<%-- <a>${notice.noticeTitle}</a> --%>
+							</span>
+							<span class="delete-icon">
+								<a><img alt="닫기" src="../resources/img/news/icons8-close-48.png"></a>
+							</span>
+						</div>
+					<%-- </c:forEach> --%>
+				<%-- </c:if> --%>
+				<!-- 반복 영역 끝-->
 			</div>
 		</div>
 	</main>

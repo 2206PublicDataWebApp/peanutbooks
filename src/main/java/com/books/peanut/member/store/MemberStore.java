@@ -10,7 +10,7 @@ public interface MemberStore {
 	// 회원가입
 	public int insertMember(SqlSession session, Member member);
 	// 인증 키 저장
-	public void updateAuthKey(SqlSession session, String authKey, String mEmail);
+	public int updateAuthKey(SqlSession session, String authKey, String mEmail);
 	// 별명 유효성 검사
 	public int checkNickname(SqlSession session, String mNickname);
 	// 아이디 유효성 검사
@@ -31,5 +31,9 @@ public interface MemberStore {
 	public int checkAuthKey(SqlSession session, HashMap<String, String> paramMap);
 	// 이메일 인증 여부 업데이트
 	public int updateEmailYN(SqlSession session, HashMap<String, String> paramMap);
+	// 기존 인증 삭제
+	public void resetAuthKey(SqlSession session, String mEmail);
+	// 이메일로 아이디 찾기
+	public String findIdByEmail(SqlSession session, String mEmail);
 
 }

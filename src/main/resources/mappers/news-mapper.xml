@@ -12,4 +12,22 @@
 		<result property="readYN" column="READ_YN"/> <!-- 알림 읽음 여부 -->
 		<result property="newsType" column="NEWS_TYPE"/> <!-- 알림 종류 -->
 	</resultMap>
+<!-- 	<resultMap type="Notice" id="noticeResultMap">
+		<id column="NOTICE_NO" property="noticeNo" /> 공지 번호
+		<result column="NOTICE_WRITER" property="noticeWriter" /> 공지 작성자
+		<result column="NOTICE_CATEGORY" property="noticeCategory" /> 공지 종류
+		<result column="NOTICE_TITLE" property="noticeTitle" /> 공지 제목
+		<result column="NOTICE_CONTENTS" property="noticeContents" /> 공지 내용
+		<result column="NOTICE_COUNT" property="nCount" /> 공지 조회수 ?
+		<result column="N_CREATEDATE" property="nCreateDate" /> 공지 작성일
+		<result column="N_UPDATEDATE" property="nUpdateDate" /> 공지 수정일
+		<result column="N_DELIVER" property="nDeliver" /> 공지 알림 등록 여부
+		<result column="N_STATUS" property="nStatus" /> 공지 상태 ?
+		<result column="NOTICE_FILENAME" property="noticeFilename" /> 공지 사진
+		<result column="NOTICE_FILERENAME" property="noticeFileRename" /> 공지 사진 수정
+		<result column="NOTICE_FILEPATH" property="noticeFilepath" /> 공지 사진 경로
+	</resultMap>
+	<select id="selectNoticeList" resultMap="noticeResultMap">
+		SELECT * FROM NOTICE_TBL WHERE N_STATUS = 'Y' ORDER BY NOTICE_NO DESC
+	</select> -->
 </mapper>

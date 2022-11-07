@@ -179,6 +179,11 @@ form{
 #msg-area input{
 	width: 100%;
 }
+#email-authKey{
+	height: 40px;
+	border: 0.5px solid lightgray;
+	border-radius: 3px;
+}
 
 /* 아이디 찾기 */
 #findId-hl{ /* 아이디 찾기 제목 */

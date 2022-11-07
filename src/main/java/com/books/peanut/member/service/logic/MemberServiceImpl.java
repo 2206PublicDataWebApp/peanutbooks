@@ -25,8 +25,9 @@ public class MemberServiceImpl implements MemberService{
 	}
 	// 인증 키 저장
 	@Override
-	public void saveAuthKey(String authKey, String mEmail) {
-		mStore.updateAuthKey(session, authKey, mEmail);
+	public int saveAuthKey(String authKey, String mEmail) {
+		int result = mStore.updateAuthKey(session, authKey, mEmail);
+		return result;
 	}
 	// 별명 유효성 검사
 	@Override
@@ -87,6 +88,17 @@ public class MemberServiceImpl implements MemberService{
 	public int authEmail(HashMap<String, String> paramMap) {
 		int result = mStore.updateEmailYN(session, paramMap);
 		return result;
+	}
+	// 기존 인증 키 삭제
+	@Override
+	public void resetAuthKey(String mEmail) {
+		mStore.resetAuthKey(session, mEmail);
+	}
+	// 이메일로 아이디 찾기
+	@Override
+	public String findIdByEmail(String mEmail) {
+		String memberId = mStore.findIdByEmail(session, mEmail);
+		return memberId;
 	}
 
 }
