@@ -8,9 +8,9 @@ public interface NoticeService {
 	//공지사항 입력
 	public int registeNotice(Notice notice);
 	//공지사항 전체갯수 출력
-	public int getTotalCount(String searchCondition, String searchValue);
+	public int getTotalCount(String searchCondition, String searchValue, String nStatus);
 	//공지사항 전체리스트 출력
-	public List<Notice> printAllNotice(int currentPage, int noticeLimit);
+	public List<Notice> printAllNotice(int currentPage, int noticeLimit, String nStatus);
 	//공지사항 상세페이지
 	public Notice printOneByNo(Integer noticeNo);
 	//공지사항 삭제
@@ -30,6 +30,10 @@ public interface NoticeService {
 			String noticeCategory
 			, int currentPage
 			, int categoryLimit);
+	//공지사항 노출 선택
+	public int chooseStatus(String noticeNo, String nStatus);
+	//회원 공지사항 리스트뷰
+	public List<Notice> noticeUserList(String noticeCategory);
 
 
 }

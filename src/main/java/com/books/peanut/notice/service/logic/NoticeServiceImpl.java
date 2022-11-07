@@ -26,14 +26,14 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 	//공지사항 전체페이지 갯수
 	@Override
-	public int getTotalCount(String searchCondition, String searchValue) {
-		int totalCount = nStore.selectTotalCount(session, searchCondition, searchValue);
+	public int getTotalCount(String searchCondition, String searchValue, String nStatus) {
+		int totalCount = nStore.selectTotalCount(session, searchCondition, searchValue, nStatus);
 		return totalCount;
 	}
 	//공지사항 전체리스트
 	@Override
-	public List<Notice> printAllNotice(int currentPage, int noticeLimit) {
-		List<Notice> nList = nStore.selectAllNotice(session, currentPage, noticeLimit);
+	public List<Notice> printAllNotice(int currentPage, int noticeLimit, String nStatus) {
+		List<Notice> nList = nStore.selectAllNotice(session, currentPage, noticeLimit, nStatus);
 		return nList;
 	}
 	//공지사항 상세페이지
@@ -85,6 +85,17 @@ public class NoticeServiceImpl implements NoticeService{
 	public int getTotalCount(String noticeCategory) {
 		int totalCount = nStore.selectTotalCount(session, noticeCategory);
 		return totalCount;
+	}
+	//공지사항 노출 선택
+	@Override
+	public int chooseStatus(String noticeNo, String nStatus) {
+		int result = nStore.updateStatus(session, noticeNo, nStatus);
+		return result;
+	}
+	@Override
+	public List<Notice> noticeUserList(String noticeCategory) {
+		List<Notice> nList = nStore.selectNoticeUser(session, noticeCategory);
+		return nList;
 	}
 
 

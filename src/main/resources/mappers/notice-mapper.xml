@@ -44,11 +44,13 @@
 				NOTICE_TITLE LIKE '%'||#{searchValue}||'%'
 				OR NOTICE_CONTENTS LIKE '%'||#{searchValue}||'%'
 			</if>
-			AND N_STATUS = 'Y'
+ 			<if test="nStatus.toString() != 'all'">
+			N_STATUS = #{nStatus}
+			</if>
 		</where>
 	</select>
 	<select id="selectAllByValue" resultMap="noticeResultMap">
-		SELECT NOTICE_NO, NOTICE_CATEGORY, NOTICE_TITLE, N_CREATEDATE FROM NOTICE_TBL 
+		SELECT NOTICE_NO, NOTICE_CATEGORY, NOTICE_TITLE, N_CREATEDATE, N_STATUS FROM NOTICE_TBL
 		<where>
 			<if test="searchCondition.toString() == 'title'">
 				NOTICE_TITLE LIKE '%'||#{searchValue}||'%'
@@ -60,24 +62,53 @@
 				NOTICE_TITLE LIKE '%'||#{searchValue}||'%'
 				OR NOTICE_CONTENTS LIKE '%'||#{searchValue}||'%'
 			</if>
-			AND N_STATUS = 'Y'
+ 			<if test="status.toString() != 'all'">
+			N_STATUS = #{status}
+			</if>
 		</where>
 	</select>
 	<!-- 카테고리별 리스트 출력 -->
 	<select id="selectAllCategory" resultMap="noticeResultMap">
-		SELECT NOTICE_NO, NOTICE_CATEGORY, NOTICE_TITLE, N_CREATEDATE FROM NOTICE_TBL WHERE NOTICE_CATEGORY=#{noticeCategory} AND N_STATUS = 'Y' ORDER BY NOTICE_NO DESC
+		SELECT NOTICE_NO, NOTICE_CATEGORY, NOTICE_TITLE, N_CREATEDATE, N_STATUS FROM NOTICE_TBL 
+		<where>
+			<if test="noticeCategory.toString() != 'all'">
+				NOTICE_CATEGORY=#{noticeCategory}
+			</if>
+		</where>
+		ORDER BY NOTICE_NO DESC
 	</select>
 	<!-- 카테고리별 페이지 갯수 -->
 	<select id="selectTotalCategoryList"  resultType="_int">
-		SELECT count(*) FROM NOTICE_TBL WHERE NOTICE_CATEGORY=#{noticeCategory} AND N_STATUS = 'Y' 
+		SELECT count(*) FROM NOTICE_TBL WHERE NOTICE_CATEGORY=#{noticeCategory}  
 	</select>
 	<select id="selectAllNotice" resultMap="noticeResultMap">
-		SELECT NOTICE_NO, NOTICE_CATEGORY, NOTICE_TITLE, N_CREATEDATE FROM NOTICE_TBL WHERE N_STATUS = 'Y' ORDER BY NOTICE_NO DESC
+		SELECT NOTICE_NO, NOTICE_CATEGORY, NOTICE_TITLE, N_CREATEDATE, N_STATUS FROM NOTICE_TBL 
+		<where>
+			<if test="status.toString() != 'all'">
+			N_STATUS = #{status}
+			</if>
+		</where>
+			ORDER BY NOTICE_NO DESC
 	</select>
 	<select id="selectOneByNo" resultMap="noticeResultMap">
-		SELECT * FROM NOTICE_TBL WHERE NOTICE_NO = #{noticeNo } AND N_STATUS = 'Y'
+		SELECT * FROM NOTICE_TBL WHERE NOTICE_NO = #{noticeNo } 
 	</select>
 	<update id="updateCount">
 		UPDATE NOTICE_TBL SET NOTICE_COUNT = NOTICE_COUNT + 1 WHERE NOTICE_NO = #{noticeNo}
 	</update>
+	<update id="updateStatus">
+		UPDATE NOTICE_TBL SET N_STATUS=#{nStatus}, N_UPDATEDATE= default  WHERE NOTICE_NO = #{noticeNo}
+	</update>
+	<select id="selectNoticeUser" resultMap="noticeResultMap">
+		SELECT * FROM NOTICE_TBL 
+		<where>
+			<if test="noticeCategory.toString() != 'all'">
+				NOTICE_CATEGORY=#{noticeCategory}
+			</if>
+			<if test="nStatus != null">
+				AND N_STATUS = 'Y'
+			</if>
+		</where>
+		ORDER BY NOTICE_NO DESC
+	</select>
 </mapper>

@@ -20,21 +20,22 @@ public class NoticeStoreLogic implements NoticeStore {
 	}
 	//공지사항 총 개시물 갯수
 	@Override
-	public int selectTotalCount(SqlSession session, String searchCondition, String searchValue) {
+	public int selectTotalCount(SqlSession session, String searchCondition, String searchValue, String nStatus) {
 		HashMap<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("searchCondition", searchCondition);
 		paramMap.put("searchValue", searchValue);
+		paramMap.put("nStatus", nStatus);
 		int totalCount = session.selectOne("NoticeMapper.selectTotalCount", paramMap);
 		return totalCount;
 	}
 	//공지사항 총 개시물 리스트
 	@Override
-	public List<Notice> selectAllNotice(SqlSession session, int currentPage, int noticeLimit) {
+	public List<Notice> selectAllNotice(SqlSession session, int currentPage, int noticeLimit, String nStatus) {
 		int offset = (currentPage-1)*noticeLimit;
 		RowBounds rowBounds = new RowBounds(offset, noticeLimit);
 		List<Notice> nList 
 		= session.selectList("NoticeMapper.selectAllNotice"
-				, null, rowBounds);
+				, nStatus, rowBounds);
 		return nList;
 	}
 	//공지사항 상세보기
@@ -43,7 +44,7 @@ public class NoticeStoreLogic implements NoticeStore {
 		Notice notice = session.selectOne("NoticeMapper.selectOneByNo", noticeNo);
 		return notice;
 	}
-	//공지사항 조회수 ================================================ 미정
+	//공지사항 조회수 ======================
 	@Override
 	public int updateNoticeCount(SqlSession session, int noticeNo) {
 		int result = session.update("NoticeMapper.updateCount", noticeNo);
@@ -97,6 +98,21 @@ public class NoticeStoreLogic implements NoticeStore {
 	public int selectTotalCount(SqlSession session, String noticeCategory) {
 		int totalCount = session.selectOne("NoticeMapper.selectTotalCategoryList", noticeCategory);
 		return totalCount;
+	}
+	//공지사항 노출 선택
+	@Override
+	public int updateStatus(SqlSession session, String noticeNo, String nStatus) {
+		HashMap<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("noticeNo", noticeNo);
+		paramMap.put("nStatus", nStatus);
+		int result = session.update("NoticeMapper.updateStatus", paramMap);
+		return result;
+	}
+	//유저 공지사항 리스트뷰
+	@Override
+	public List<Notice> selectNoticeUser(SqlSession session, String noticeCategory) {
+		List<Notice> nList = session.selectList("NoticeMapper.selectNoticeUser", noticeCategory);
+		return nList;
 	}
 
 }

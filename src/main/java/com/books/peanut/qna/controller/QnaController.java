@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.books.peanut.book.controller.BookPageController;
+import com.books.peanut.book.domain.BookPage;
 import com.books.peanut.member.domain.Member;
 import com.books.peanut.qna.domain.Qna;
 import com.books.peanut.qna.service.QnaService;
@@ -133,40 +135,21 @@ public class QnaController {
 			try {
 				Member member = (Member)session.getAttribute("loginMember");
 				String memberId = member.getMemberId();
-				//페이징 구현
-				int currentPage = (page != null) ? page : 1;
-				// 삼항연산자를 이용하여 페이지값 확인
-				// 현재 페이지 = 넘겨받은 페이지값이 널이 아니면 페이지값, 널이면 1
-				
 				int totalCount = qService.getTotalCount(memberId,"","");
 				int qnaLimit = 10; // 한페이지당 출력한 게시물 수
-				int naviLimit = 5; // 한 화면에 출력할 게시판 페이지 수
-				int maxPage;	// 총게시물 수
-				int startNavi; //한 화면에 출력되는 게시판 페이지의 처음 수
-				int endNavi; //한 화면에 출력되는 게시판 페이지의 마지막 수
-				maxPage = (int)((double)totalCount/qnaLimit + 0.9);
-				startNavi = ((int)((double)currentPage/naviLimit+0.9)-1)*naviLimit+1;
-				endNavi = startNavi + naviLimit - 1;
-				if(maxPage < endNavi) {
-					endNavi = maxPage;
-				}
-				List<Qna> qList = qService.printMemberQna(currentPage, qnaLimit, memberId);
-				if(!qList.isEmpty()) {
-					mv.addObject("memberId", memberId);
-					mv.addObject("urlVal", "list");
-					mv.addObject("maxPage", maxPage);
-					mv.addObject("currentPage", currentPage);
-					mv.addObject("startNavi", startNavi);
-					mv.addObject("endNavi", endNavi);
+				BookPageController bpCont = new BookPageController();
+				BookPage bPage = bpCont.boardList(page, totalCount, qnaLimit);
+				
+				if(totalCount>0) {
+					List<Qna> qList = qService.printMemberQna(bPage.getCurrentPage(), qnaLimit, memberId);
 					mv.addObject("qList", qList);
-					///페이징 종료
-					
-					/// 검색어 전송 ///
-//					mv.addObject("pageNow", currentPage);
+				}
+					mv.addObject("memberId", memberId);
+					mv.addObject("bPage", bPage);
+					mv.addObject("page", page);
 					mv.addObject("searchValue", searchValue);
 					mv.addObject("searchCondition", searchCondition);
-				}
-				mv.setViewName("/qna/qnaListView");
+					mv.setViewName("/qna/qnaListView");
 			} catch (Exception e) {
 				e.printStackTrace();
 				mv.addObject("msg", e.getMessage());
@@ -363,34 +346,20 @@ public class QnaController {
 			try {
 				Member member = (Member)session.getAttribute("loginMember");
 				String memberId = member.getMemberId();
-				
-				int currentPage = (page != null) ? page : 1;
 				int totalCount = qService.getTotalCount(memberId, searchCondition, searchValue);
 				int qnaLimit = 10;
-				int naviLimit = 5;
-				int maxPage;
-				int startNavi;
-				int endNavi;
-				maxPage = (int)((double)totalCount/qnaLimit + 0.9);
-				startNavi = ((int)((double)currentPage/naviLimit+0.9)-1)*naviLimit+1;
-				endNavi = startNavi + naviLimit - 1;
-				if(maxPage < endNavi) {
-					endNavi = maxPage;
-				}
-				List<Qna> qList = qService.printMemberByValue(
-						memberId, searchCondition, searchValue, currentPage, qnaLimit);
-				if(!qList.isEmpty()) {
+				BookPageController bpCont = new BookPageController();
+				BookPage bPage = bpCont.boardList(page, totalCount, qnaLimit);
+				
+				if(totalCount > 0) {
+					List<Qna> qList = qService.printMemberByValue(memberId
+							, searchCondition, searchValue, bPage.getCurrentPage(), qnaLimit);
 					mv.addObject("qList", qList);
-				}else {
-					mv.addObject("qList", null);
 				}
-				mv.addObject("urlVal", "search");
+				mv.addObject("bPage", bPage);
+				mv.addObject("page", page);
 				mv.addObject("searchCondition", searchCondition);
 				mv.addObject("searchValue", searchValue);
-				mv.addObject("maxPage", maxPage);
-				mv.addObject("currentPage", currentPage);
-				mv.addObject("startNavi", startNavi);
-				mv.addObject("endNavi", endNavi);
 				mv.setViewName("qna/qnaListView");
 				
 			} catch (Exception e) {
@@ -419,44 +388,23 @@ public class QnaController {
 			, @RequestParam(value="searchCondition", required = false) String searchCondition
 			, @RequestParam(value="searchValue", required = false) String searchValue
 			, HttpSession session) {
-		Member loginMember = (Member)session.getAttribute("loginMember");
-		if(loginMember == null) {
-			mv.setViewName("member/login");
+		Member member = (Member) session.getAttribute("loginMember");
+		if((member.getAdminYN().charAt(0) + "").equals("N")) {
+			mv.addObject("msg", "관리자만 접속가능합니다");
+			mv.setViewName("/common/errorPage");
 		}else {
 			try {
-
-				//페이징 구현
-				int currentPage = (page != null) ? page : 1;
-				// 삼항연산자를 이용하여 페이지값 확인
-				// 현재 페이지 = 넘겨받은 페이지값이 널이 아니면 페이지값, 널이면 1
-				
 				int totalCount = qService.getTotalCount("","");   // 총게시물 구하기(페이징위해)
 				int aqnaLimit = 10; // 한페이지당 출력한 게시물 수
-				int naviLimit = 5; // 한 화면에 출력할 게시판 페이지 수
-				int maxPage;	// 총게시물 수
-				int startNavi; //한 화면에 출력되는 게시판 페이지의 처음 수
-				int endNavi; //한 화면에 출력되는 게시판 페이지의 마지막 수
-				maxPage = (int)((double)totalCount/aqnaLimit + 0.9);
-				startNavi = ((int)((double)currentPage/naviLimit+0.9)-1)*naviLimit+1;
-				endNavi = startNavi + naviLimit - 1;
-				if(maxPage < endNavi) {
-					endNavi = maxPage;
-				}
-				List<Qna> aList = qService.printAllQna(currentPage, aqnaLimit);
-				if(!aList.isEmpty()) {
-					mv.addObject("urlVal", "qnaList");
-					mv.addObject("maxPage", maxPage);
-					mv.addObject("currentPage", currentPage);
-					mv.addObject("startNavi", startNavi);
-					mv.addObject("endNavi", endNavi);
+				BookPageController bpCont = new BookPageController();
+				BookPage bPage = bpCont.boardList(page, totalCount, aqnaLimit);
+
+				if(totalCount > 0) {
+					List<Qna> aList = qService.printAllQna(bPage.getCurrentPage(), aqnaLimit);
 					mv.addObject("aList", aList);
-					///페이징 종료
-					
-					/// 검색어 전송 ///
-//					mv.addObject("pageNow", currentPage);
-					mv.addObject("searchValue", searchValue);
-					mv.addObject("searchCondition", searchCondition);
 				}
+				mv.addObject("bPage", bPage);
+				mv.addObject("page", page);
 				mv.setViewName("/admin/aqnaListView");
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -533,34 +481,20 @@ public class QnaController {
 			, HttpSession session) {
 
 		try {
-			
-			int currentPage = (page != null) ? page : 1;
 			int totalCount = qService.getTotalCount(searchCondition, searchValue);
 			int aqnaLimit = 10;
-			int naviLimit = 5;
-			int maxPage;
-			int startNavi;
-			int endNavi;
-			maxPage = (int)((double)totalCount/aqnaLimit + 0.9);
-			startNavi = ((int)((double)currentPage/naviLimit+0.9)-1)*naviLimit+1;
-			endNavi = startNavi + naviLimit - 1;
-			if(maxPage < endNavi) {
-				endNavi = maxPage;
-			}
-			List<Qna> aList = qService.printAllByValue(searchCondition, searchValue, currentPage, aqnaLimit);
-			if(!aList.isEmpty()) {
-				mv.addObject("aList", aList);
-			}else {
-				mv.addObject("aList", null);
-			}
-				mv.addObject("urlVal", "search");
-				mv.addObject("searchCondition", searchCondition);
-				mv.addObject("searchValue", searchValue);
-				mv.addObject("maxPage", maxPage);
-				mv.addObject("currentPage", currentPage);
-				mv.addObject("startNavi", startNavi);
-				mv.addObject("endNavi", endNavi);
-				mv.setViewName("admin/aqnaListView");
+			BookPageController bpCont = new BookPageController();
+			BookPage bPage = bpCont.boardList(page, totalCount, aqnaLimit);
+			
+				if(totalCount>0) {
+					List<Qna> aList = qService.printAllByValue(searchCondition, searchValue, bPage.getCurrentPage(), aqnaLimit);
+					mv.addObject("aList", aList);
+				}
+					mv.addObject("bPage", bPage);
+					mv.addObject("page", page);
+					mv.addObject("searchCondition", searchCondition);
+					mv.addObject("searchValue", searchValue);
+					mv.setViewName("admin/aqnaListView");
 				
 			} catch (Exception e) {
 				mv.addObject("msg", e.toString()).setViewName("common/errorPage");
@@ -574,31 +508,18 @@ public class QnaController {
 			, @RequestParam("qnaCategory") String qnaCategory
 			, @RequestParam(value="page", required=false) Integer page) {
 		try {
-			int currentPage = (page != null) ? page : 1;
 			int totalCount = qService.getTotalCount(qnaCategory);
 			int categoryLimit = 10;
-			int naviLimit = 5;
-			int maxPage;
-			int startNavi;
-			int endNavi;
-			maxPage = (int)((double)totalCount/categoryLimit + 0.9);
-			startNavi = ((int)((double)currentPage/naviLimit+0.9)-1)*naviLimit+1;
-			endNavi = startNavi + naviLimit - 1;
-			if(maxPage < endNavi) {
-				endNavi = maxPage;
-			}
-			List<Qna> aList = qService.printAllByCategory(qnaCategory, currentPage, categoryLimit);
-			if(!aList.isEmpty()) {
+			BookPageController bpCont = new BookPageController();
+			BookPage bPage = bpCont.boardList(page, totalCount, categoryLimit);
+			
+			if(totalCount>0) {
+				List<Qna> aList = qService.printAllByCategory(qnaCategory, bPage.getCurrentPage(), categoryLimit);
 				mv.addObject("aList", aList);
-			}else {
-				mv.addObject("aList", null);
 			}
-			mv.addObject("urlVal", "categoryCount");
+			mv.addObject("bPage", bPage);
+			mv.addObject("page", page);
 			mv.addObject("qnaCategory", qnaCategory);
-			mv.addObject("maxPage", maxPage);
-			mv.addObject("currentPage", currentPage);
-			mv.addObject("startNavi", startNavi);
-			mv.addObject("endNavi", endNavi);
 			mv.setViewName("admin/aqnaListView");
 		} catch (Exception e) {
 			mv.addObject("msg", e.toString()).setViewName("common/errorPage");

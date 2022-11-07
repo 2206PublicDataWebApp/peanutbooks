@@ -35,9 +35,11 @@
 					<ul>
 						<li><a href="javascript:void(0);"  onclick="mainboard();">게시판</a></li>
 						<li><a href="/admin/writerMenu.do">도서</a></li>
+
 						<li onclick="mainPN();">피넛</li>
 						<li><a href="/admin/adminListView.kh">회원</a></li>
-						<li id="admintext">관리자홈</li>
+						
+						<!-- <li id="admintext">관리자홈</li> -->
 					</ul>
 
 				</div>
@@ -123,8 +125,8 @@
 
 					<div id="mypage-icon-area" class="row">
 						<div class="col-4">
-							<img src="/resources/img/header/icons8-notification-64.png"
-								alt=""> <br>알림
+							<a href="/news/newsList.do"><img src="/resources/img/header/icons8-notification-64.png"
+								alt=""> <br>알림</a>
 						</div>
 						<div class="col-4">
 							<img src="/resources/img/header/icons8-gear-50.png" alt="">
@@ -174,8 +176,9 @@
 
 					<div id="admin-icon-area" class="row">
 						<div class="col-4">
+							<a href="/news/newsList.do">
 							<img src="/resources/img/header/icons8-notification-64.png"
-								alt=""> <br>알림
+								alt=""> <br>알림</a>
 						</div>
 						<div class="col-4">
 							<img src="/resources/img/header/icons8-gear-50.png" alt="">

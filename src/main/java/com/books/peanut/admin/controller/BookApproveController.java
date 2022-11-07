@@ -30,15 +30,15 @@ public class BookApproveController {
 	@Autowired
 	private BookService bService;
 	//도서 승인리스트 출력
-	@RequestMapping(value = "/admin/writerMenu.do", method = RequestMethod.GET)
-	public ModelAndView writerMenu(ModelAndView mv, HttpSession session,
-			@RequestParam(value = "page", required = false) Integer page) {
-
-			mv.setViewName("redirect:/admin/approveYN.kh");
-		
-		return mv;
-
-	}
+//	@RequestMapping(value = "/admin/writerMenu.do", method = RequestMethod.GET)
+//	public ModelAndView writerMenu(ModelAndView mv, HttpSession session,
+//			@RequestParam(value = "page", required = false) Integer page) {
+//
+//			mv.setViewName("redirect:/admin/approveYN.kh");
+//		
+//		return mv;
+//
+//	}
 	//도서 승인 기능
 	@RequestMapping(value="/admin/approve.kh", method=RequestMethod.GET)
 	public ModelAndView bookApprove(
@@ -71,13 +71,13 @@ public class BookApproveController {
 		return mv;
 	}
 	
-	//book 수정보류 리스트
+	//도서 리스트(all, 승인, 보류)
 	@RequestMapping(value="/admin/approveYN.kh", method=RequestMethod.GET)
 	public ModelAndView approveYNList(
 			ModelAndView mv
 			, @RequestParam(value="checkPermission", defaultValue = "all") String checkPermission
-			, @RequestParam(value="page", required=false) Integer page,
-			@RequestParam(value="step", required=false,defaultValue = "date")String step) {
+			, @RequestParam(value="page", required=false) Integer page
+			, @RequestParam(value="step", required=false, defaultValue = "date")String step) {
 		try {
 			int getTotalCount = BAService.checkPermissionCount(checkPermission);
 			int boardLimit = 20;
@@ -117,10 +117,6 @@ public class BookApproveController {
 			if(getTotalCount > 0) {
 				List<ModifyBookSeries> mbList = BAService.reApproveList(bPage.getCurrentPage(), boardLimit);
 				
-//				for(int i=0; i<mbList.size(); i++) {
-//					String bookTitle = bService.getBookTitle(mbList.get(i).getBookNo());
-//					mbList.get(i).setBookTitle(bookTitle);
-//				}
 				mv.addObject("mbList", mbList);
 				mv.addObject("bPage", bPage);
 				

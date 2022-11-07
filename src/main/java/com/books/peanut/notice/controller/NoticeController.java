@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.books.peanut.book.controller.BookPageController;
+import com.books.peanut.book.domain.BookPage;
 import com.books.peanut.member.domain.Member;
 import com.books.peanut.notice.domain.Notice;
 import com.books.peanut.notice.service.NoticeService;
@@ -85,32 +87,22 @@ public class NoticeController {
 	@RequestMapping(value="/notice/list.kh", method = RequestMethod.GET)
 	public ModelAndView noticeListView(
 			ModelAndView mv
-			, @RequestParam(value="page", required = false) Integer page){
+			, @RequestParam(value="page", required = false) Integer page
+			, @RequestParam(value="nStatus", required = false, defaultValue="all") String nStatus){
 		try {
 			//페이징
-			int currentPage = (page != null) ? page : 1;
-			int totalCount = nService.getTotalCount("", "");
+			int totalCount = nService.getTotalCount("", "", nStatus);
 			int noticeLimit = 10;
-			int naviLimit = 5;
-			int maxPage;
-			int startNavi;
-			int endNavi;
-
-			maxPage = (int) ((double) totalCount / noticeLimit + 0.9);
-			startNavi = ((int) ((double) currentPage / naviLimit + 0.9) - 1) * naviLimit + 1;
-			endNavi = startNavi + naviLimit - 1;
-			if (maxPage < endNavi) {
-				endNavi = maxPage;
-			}
-			List<Notice> nList = nService.printAllNotice(currentPage, noticeLimit);
-			if(!nList.isEmpty()) {
-				mv.addObject("urlVal", "list");
-				mv.addObject("maxPage", maxPage);
-				mv.addObject("currentPage", currentPage);
-				mv.addObject("startNavi", startNavi);
-				mv.addObject("endNavi", endNavi);
+			BookPageController bpCont = new BookPageController();
+			BookPage bPage = bpCont.boardList(page, totalCount, noticeLimit);
+			System.out.println(nStatus);
+			if(totalCount>0) {
+				List<Notice> nList = nService.printAllNotice(bPage.getCurrentPage(), noticeLimit, nStatus);
 				mv.addObject("nList", nList);
 			}
+			mv.addObject("nStatus", nStatus);
+			mv.addObject("bPage", bPage);
+			mv.addObject("page", page);
 			mv.setViewName("notice/noticeListView");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -125,7 +117,7 @@ public class NoticeController {
 	public ModelAndView noticeDetailView(
 			ModelAndView mv
 			, @RequestParam("noticeNo") Integer noticeNo
-			, @RequestParam("page") int page
+			, @RequestParam(value="page", required=false) Integer page
 			, HttpSession session) {
 		Member member = (Member)session.getAttribute("loginMember");
 		try {
@@ -219,33 +211,21 @@ public class NoticeController {
 			, @RequestParam(value="page", required=false) Integer page) {
 				
 		try {
-			int currentPage = (page != null) ? page : 1;
-			int totalCount = nService.getTotalCount(searchCondition, searchValue);
+			int totalCount = nService.getTotalCount(searchCondition, searchValue,"");
 			int noticeLimit = 10;
-			int naviLimit = 5;
-			int maxPage;
-			int startNavi;
-			int endNavi;
-			maxPage = (int)((double)totalCount/noticeLimit + 0.9);
-			startNavi = ((int)((double)currentPage/naviLimit+0.9)-1)*naviLimit+1;
-			endNavi = startNavi + naviLimit - 1;
-			if(maxPage < endNavi) {
-				endNavi = maxPage;
-			}
-			List<Notice> nList = nService.printAllByValue(
-					searchCondition, searchValue, currentPage, noticeLimit);
-			if(!nList.isEmpty()) {
+			BookPageController bpCont = new BookPageController();
+			BookPage bPage = bpCont.boardList(page, totalCount, noticeLimit);
+			
+			if(totalCount>0) {
+				List<Notice> nList = nService.printAllByValue(
+						searchCondition, searchValue, bPage.getCurrentPage(), noticeLimit);
 				mv.addObject("nList", nList);
-			}else {
-				mv.addObject("nList", null);
+				
 			}
-			mv.addObject("urlVal", "search");
+			mv.addObject("bPage", bPage);
+			mv.addObject("page", page);
 			mv.addObject("searchCondition", searchCondition);
 			mv.addObject("searchValue", searchValue);
-			mv.addObject("maxPage", maxPage);
-			mv.addObject("currentPage", currentPage);
-			mv.addObject("startNavi", startNavi);
-			mv.addObject("endNavi", endNavi);
 			mv.setViewName("notice/noticeListView");
 		} catch (Exception e) {
 			mv.addObject("msg", e.toString()).setViewName("common/errorPage");
@@ -258,34 +238,22 @@ public class NoticeController {
 	public ModelAndView noticeCategoryList(
 			ModelAndView mv
 			, @RequestParam("noticeCategory") String noticeCategory
-			, @RequestParam(value="page", required=false) Integer page) {
+			, @RequestParam(value="page", required=false) Integer page
+			, @RequestParam(value="nStatus", required = false, defaultValue="all") String nStatus) {
 		try {
-			int currentPage = (page != null) ? page : 1;
 			int totalCount = nService.getTotalCount(noticeCategory);
 			int categoryLimit = 10;
-			int naviLimit = 5;
-			int maxPage;
-			int startNavi;
-			int endNavi;
-			maxPage = (int)((double)totalCount/categoryLimit + 0.9);
-			startNavi = ((int)((double)currentPage/naviLimit+0.9)-1)*naviLimit+1;
-			endNavi = startNavi + naviLimit - 1;
-			if(maxPage < endNavi) {
-				endNavi = maxPage;
-			}
-			List<Notice> nList = nService.printAllByCategory(noticeCategory, currentPage, categoryLimit);
-			if(!nList.isEmpty()) {
+
+			BookPageController bpCont = new BookPageController();
+			BookPage bPage = bpCont.boardList(page, totalCount, categoryLimit);
+			if(totalCount>0) {
+				List<Notice> nList = nService.printAllByCategory(noticeCategory, bPage.getCurrentPage(), categoryLimit);
 				mv.addObject("nList", nList);
-			}else {
-				mv.addObject("nList", null);
 			}
-			mv.addObject("urlVal", "categoryCount");
+			mv.addObject("bPage", bPage);
+			mv.addObject("page", page);
 			mv.addObject("noticeCategory", noticeCategory);
-			mv.addObject("maxPage", maxPage);
-			mv.addObject("currentPage", currentPage);
-			mv.addObject("startNavi", startNavi);
-			mv.addObject("endNavi", endNavi);
-			mv.setViewName("notice/noticeListView");
+			mv.setViewName("notice/noticetCategoryView");
 		} catch (Exception e) {
 			mv.addObject("msg", e.toString()).setViewName("common/errorPage");
 		}
@@ -293,6 +261,43 @@ public class NoticeController {
 		
 	}
 	
+	//공지사항 노출/비노출 선택
+	@RequestMapping(value="/notice/chooseNotice.do", method=RequestMethod.GET)
+	public ModelAndView noticeChoose(
+			ModelAndView mv
+			, @RequestParam("noticeNo") String noticeNo
+			, @RequestParam("nStatus") String nStatus
+			, @RequestParam("page") Integer page) {
+		try {
+			int result = nService.chooseStatus(noticeNo, nStatus);
+			if(result > 0) {
+				mv.setViewName("redirect:/notice/list.kh?page="+page+"&nStatus="+nStatus);
+			}
+		} catch (Exception e) {
+			mv.addObject("msg", e.toString()).setViewName("common/errorPage");
+		}		
+		
+		return mv;
+		
+	}
 	
+	//공지사항 회원 리스트
+	@RequestMapping(value="/notice/noticeUserList.do", method=RequestMethod.GET)
+	public ModelAndView noticeUserView(
+			ModelAndView mv
+			, @RequestParam(value="noticeCategory", required=false, defaultValue="all") String noticeCategory) {
+		try {
+			System.out.println(noticeCategory);
+			List<Notice> nList = nService.noticeUserList(noticeCategory);
+			mv.addObject("nList", nList);
+			mv.addObject("noticeCategory", noticeCategory);
+			mv.setViewName("notice/noticeListUserView");
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return mv;
+		
+	}
 	
 }

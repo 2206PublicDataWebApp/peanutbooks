@@ -37,7 +37,6 @@
 		<!-- 세부페이지 큰 제목 -->
 		<br>
 		<div class="container text-center">
-			<hr>
 		<!-- 세부페이지 큰 제목 끝 -->
 		<br>
 		
@@ -66,7 +65,7 @@
 					</tr>
 					<tr>
 						<td  class="col-2" scope="col" align="center">내용</td>
-						<td>${notice.noticeContents }
+						<td><textarea class="form-control" id="exampleFormControlTextarea1" cols="5" rows="5" name="noticeContents">${notice.noticeContents }</textarea>
 							<br>
 							<c:if test="${!empty notice.noticeFileRename }">
 								<a href=""  onclick="fnImgPop(this.src)"><img alt="본문이미지" 
@@ -119,8 +118,10 @@
 				</table>
 			</c:if>
 		</div>
-	</section>
-<br><br>
+	<br>
+		<hr>
+		</section>
+<br>
 </main>
 <!-- main contents End -->
 
