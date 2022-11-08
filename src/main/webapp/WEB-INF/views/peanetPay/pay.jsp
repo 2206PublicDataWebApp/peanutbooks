@@ -223,7 +223,10 @@
 							'pay' : $('#paymoney').val()
 						},
 						success : function(result) {
-							alert('결제 성공');
+							//결제성공시 팝업							
+							var windo = "status=no ,toolbar=no,scrollbars=no, menubar=no,resizable=no,titlebar=no, width=400,height=400";
+							window.open("/pay/paySuccessPop.kh?memberId="+memberId,"PopupWin", windo);
+							
 							location.href = '/';
 						},
 						error : function(e) {

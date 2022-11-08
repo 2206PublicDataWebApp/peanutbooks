@@ -86,8 +86,7 @@
 	            <ul >                
 	                <li class="pnZone" id="pay"><a href="/pay/admin_list.kh" >결제조회</a></li>
 	                <li class="pnZone"><a href="/peanut/admin_list.kh?memberId=${loginMember.memberId }" >땅콩확인</a></li>
-	                <li class="pnZone"><a href="/writer/admin_list.kh" >작가정산</a></li>       
-	               		
+	                <li class="pnZone"><a href="/writer/admin_list.kh" >작가정산</a></li>    		
 	            </ul>
 	        </nav>	
         	<div id="contain">

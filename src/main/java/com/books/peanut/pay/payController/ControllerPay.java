@@ -118,6 +118,17 @@ public class ControllerPay {
 			return "failure";
 		}
 	}
+	
+	// API결제 성공시 데이터 DB전달
+	@ResponseBody
+	@RequestMapping(value="/pay/paySuccessPop.kh", method=RequestMethod.POST)
+	public ModelAndView paySuccessPop(ModelAndView mv, 
+			HttpServletRequest request, String memberId) {			
+		return mv;		
+	}
+
+	
+	
 	//관리자 결제 내역 조회
 	@RequestMapping(value="/pay/admin_list.kh", method=RequestMethod.GET)
 	public ModelAndView pay_AdminSearch(ModelAndView mv,String memberId			
