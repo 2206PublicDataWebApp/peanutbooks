@@ -28,4 +28,13 @@ public interface PeanutCessService {
 	/**스테이터스 저장*/
 	int firstBookStatus(PeanutCess pCess);
 
+	/**모든 스테이터스 저장*/
+	int saveStatusAll(PeanutCess pCess);
+
+	/**여왕엔딩 도달시 저장된 엔딩있는지 확인*/
+	int getEnding(String memberId);
+
+	/**엔딩저장하고 땅콩주기*/
+	int addEnding(String memberId, String ending);
+
 }

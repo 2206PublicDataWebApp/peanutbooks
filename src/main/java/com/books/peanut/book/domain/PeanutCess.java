@@ -32,7 +32,7 @@ public class PeanutCess {
 	//게임시스템
 	private String ending;
 	private int turn;
-	private String age;
+	private int age;
 	
 	
 	
@@ -165,10 +165,10 @@ public class PeanutCess {
 	public void setTurn(int turn) {
 		this.turn = turn;
 	}
-	public String getAge() {
+	public int getAge() {
 		return age;
 	}
-	public void setAge(String age) {
+	public void setAge(int age) {
 		this.age = age;
 	}
 	@Override

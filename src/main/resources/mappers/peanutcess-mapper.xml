@@ -11,6 +11,11 @@
   insert into peanutcess values(#{memberId},#{name},null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0,'1501',#{birthMonth},#{birthDay},null)
   </insert>
   
+  <!-- 엔딩저장 -->
+  <update id="UpdateaddEnding">
+   update peanutcess set ending = #{ending} where member_id = #{memberId}
+  </update>
+  
   
   <!-- 게임 데이터 삭제 -->
   <delete id="deleteMemberGameDate">
@@ -25,6 +30,16 @@
   study=#{study},farm=#{farm},cafe=#{cafe},child=#{child},material=#{material},artschool=#{artschool}
   ,musicschool=#{musicschool},turn=#{turn},stress=#{stress}
   where member_id = #{memberId}
+  
+  </update>
+  
+  <!-- 모든 데이터 저장 -->
+  <update id="updateStatusAll">
+	  update peanutcess set money=#{money}, power=#{power},music=#{music},strong=#{strong},
+	  cook=#{cook},manner=#{manner},art=#{art},
+	  study=#{study},farm=#{farm},cafe=#{cafe},child=#{child},material=#{material},artschool=#{artschool}
+	  ,musicschool=#{musicschool},turn=#{turn},stress=#{stress},age=#{age}
+	  where member_id = #{memberId}
   
   </update>
   
@@ -68,10 +83,22 @@
   select * from peanutcess where member_id = #{memberId} 
   </select>
   
+  <!-- 여왕엔딩 여부 체크 -->
+  <select id="countQeenEnding" resultType="_int">
+  select count(*) from peanutcess where member_id = #{memberId} and ending='qeen'
+  </select>
   
   
   
   
+  <!-- 멤버테이블에 땅콩 추가 -->
+  <update id="updateMemberPeanut">
+  update member_tbl set M_POINT = M_POINT+5 where member_id = #{memberId}
+  
+  </update>
+  <insert id="insertPeanut">
+  	insert into peanutpoint_tbl values(sqn_peanut_no.nextval,sysdate,5,'Y',null,null,#{memberId},'여왕엔딩축하금',null)
+  </insert>
   
   
   

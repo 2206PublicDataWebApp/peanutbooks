@@ -71,4 +71,25 @@ public class PeanutCessServiceImpl implements PeanutCessService {
 		return result;
 	}
 
+	/**모든 스테이터스 저장*/
+	@Override
+	public int saveStatusAll(PeanutCess pCess) {
+		int result =  pStore.updateStatusAll(pCess,session);
+		return result;
+	}
+
+	/**여왕엔딩 저장 여부 확인*/
+	@Override
+	public int getEnding(String memberId) {
+		int result = pStore.countQeenEnding(memberId,session);
+		return result;
+	}
+
+	/**엔딩저장하고 땅콩주기*/
+	@Override
+	public int addEnding(String memberId, String ending) {
+		int result = pStore.UpdateaddEnding(memberId,ending,session);
+		return result;
+	}
+
 }

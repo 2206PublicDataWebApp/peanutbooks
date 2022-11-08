@@ -1,3 +1,13 @@
+
+if(mon==13){
+	mon = 1;
+	age = age+1
+}
+
+$('#age-area').html(age+'살 '+mon+'월');
+
+
+
 $('.status-area').css('display','none');
 $('#sche-area2').css('display','none');
 
@@ -29,7 +39,7 @@ function makeSche(){
 	var str = '';
 	str+= '<ul><li id="job">아르바이트를 한다</li>'
 	str+='<li id="school">공부를 한다</li>'
-	str+='<li id="rest">20살까지 논다</li>'
+	str+='<li onclick="restEnd();" >20살까지 논다</li>'
 	$('#sche-area1').html(str);
 	$('#text').html('공주님의 스케쥴을 지정해주세요<br> 한달에 1개씩 총 4번의 스케쥴을 정할수 있어요')
 	
@@ -38,6 +48,7 @@ function makeSche(){
 		str+= '<ul><li id="fram">농장알바(10피넛↑)</li>'
 		str+='<li id="child">보모알바(10피넛↑)</li>'
 		str+='<li id="cafe">식당알바(10피넛↑)</li>'
+		str+='<li id="Onerest">휴식한다</li>'
 		$('#sche-area2').html(str);
 		
 		$('#fram').on('click',function(){
@@ -80,6 +91,19 @@ function makeSche(){
 			}	
 		});
 		
+		$('#Onerest').on('click',function(){
+			if(scheduler.length<4){
+				scheduler.push('rest');
+				$('#text').html(scheduler.length+'번째 스케쥴은 휴식을 해요');
+				//스케쥴 꽉차면 실행하기
+				if(scheduler.length==4){
+					startSche();
+					}
+			}else{
+			$('#text').html('스케쥴이 꽉 찼어요');
+			}	
+		});
+		
 		
 		
 	});
@@ -89,6 +113,7 @@ function makeSche(){
 		str+= '<ul><li id="music">음악교실(20피넛↓)</li>'
 		str+='<li id="art">미술교실(20피넛↓)</li>'
 		str+='<li id="material">무술교실(20피넛↓)</li>'
+		str+='<li id="Onerest">휴식한다</li>'
 		$('#sche-area2').html(str);
 		
 		$('#music').on('click',function(){
@@ -120,6 +145,19 @@ function makeSche(){
 			if(scheduler.length<4){
 				scheduler.push('material');
 				$('#text').html(scheduler.length+'번째 스케쥴은 무술공부를 해요');
+				//스케쥴 꽉차면 실행하기
+				if(scheduler.length==4){
+					startSche();
+					}
+			}else{
+			$('#text').html('스케쥴이 꽉 찼어요');
+			}	
+		});
+		
+		$('#Onerest').on('click',function(){
+			if(scheduler.length<4){
+				scheduler.push('rest');
+				$('#text').html(scheduler.length+'번째 스케쥴은 휴식을 해요');
 				//스케쥴 꽉차면 실행하기
 				if(scheduler.length==4){
 					startSche();
@@ -174,7 +212,10 @@ function startSche(){
 		}else if(scheduler[i] == 'material'){
 			KrSche[i] = '무술교실'
 		}else if(scheduler[i] == 'art'){
-			KrSche[i] = '미술교실'}
+			KrSche[i] = '미술교실'
+		}else if(scheduler[i] == 'rest'){
+			KrSche[i] = '휴식한다'
+		}
 	}
 	
 	
@@ -192,17 +233,9 @@ function startSche(){
 	})
 	
 	//스케쥴 실행
-//	$('#goSche').on('click',function(){
-//		$.ajax({
-//			url:"",
-//			type:"post",
-//			data:{"sche1":},
-//			success:function(){}
-//			
-		
-//		})
-//	})
-
+	$('#goSche').on('click',function(){
+		location.href="/peanutcess/scheDo1.do?sche1="+scheduler[0]+"&sche2="+scheduler[1]+"&sche3="+scheduler[2]+"&sche4="+scheduler[3]
+	});
 
 }
 
@@ -212,10 +245,112 @@ $('#gotoShop').on('click',function(){
 
 	$('#sche-area2').css('display','block');
 	var str = '';
-	str+= '<ul><li id="buy">물건을 산다</li>'
+	str+= '<ul><li id="buy" onclick="buyStore();">물건을 산다</li>'
 	$('#sche-area2').html(str);
 
 	$('#text').html('상점에서 물건을 살수 있어요');
 
 })
 
+
+//20살까지 놀기
+
+function restEnd() {
+
+location.href='/book/restEnd.do'
+
+}
+
+//물건사기
+function buyStore(){
+	 var str = '';
+	 str+= '<ul><li onclick="rotto();">복권을 산다.(50피넛)</li>';
+	 str+= '<li onclick="item()">아이템을 산다.</li></ul>';
+
+	$('#sche-area2').html(str);
+
+}
+
+//로또하기
+
+ function rotto(){
+ 	if(money<50){
+ 		$('#text').html('돈이 없어요');
+ 	}else{
+ 	 if(confirm('복권을 구매합니다')){
+ 	 
+ 	 	$.ajax({
+ 	 		url:"/peanutcess/rotto.do",
+ 	 		type:"get",
+ 	 		success:function(result){
+ 	 		console.log(result);
+ 	 			if(result=='true'){
+ 	 				alert('당첨되었습니다!');
+ 	 				alert('200피넛을 받습니다!');
+ 	 				money = money+150;
+ 	 				$('#money-area').html('소지금 : '+money+' 피넛');
+ 	 			}else{
+ 	 				alert('꽝...');
+ 	 				alert('50피넛을 잃었습니다....');
+ 	 				money = money-50;
+ 	 				$('#money-area').html('소지금 : '+money+' 피넛');
+ 	 			
+ 	 			}
+ 	 		}
+ 	 	
+ 	 	
+ 	 	})
+ 	 
+ 	 }
+ 	}
+ 
+ }
+ 
+ //아이템사기 
+ function item(){
+ 	var str = '';
+ 	str += '<ul><li onclick="buyItem(\'artBook\')">그림책 100피넛</li>';
+ 	str += '<li onclick="buyItem(\'musicBook\')">악보 100피넛</li>';
+ 	str += '<li onclick="buyItem(\'knife\')">목검 100피넛</li></ul>';
+ 	$('#sche-area2').html(str);
+ 
+ }
+
+//아이템별 구입
+function buyItem(item){
+	if(money<100){
+		
+		$('#text').html('돈이 없어요');
+	
+	}else{
+		$.ajax({
+			url:"/peanutcess/buyitem.do",
+			type:"get",
+			data:{"item":item},
+			success:function(result){
+				alert('아이템을 구입하셨습니다.');
+				if(item=='artBook'){
+					alert('미술이 10, 공부가 10 증가합니다.');
+				}else if(item=='musicBook'){
+					alert('음악이 10, 예절이 10 증가합니다.');
+				}else{
+					alert('힘이 10, 근성이 10 증가합니다.');
+				}
+				
+				$('#statusPower').html(result.power);
+				$('#statuscook').html(result.cook);
+				$('#statusmanner').html(result.manner);
+				$('#statusmusic').html(result.music);
+				$('#statusPower').html(result.power);
+				$('#statusart').html(result.art);
+				$('#statusstudy').html(result.study);
+				$('#money-area').html('소지금 :'+result.money+ '피넛');
+				money = result.money;
+
+				
+				
+			}
+		
+		})
+}
+}

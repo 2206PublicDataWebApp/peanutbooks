@@ -32,4 +32,13 @@ public interface PeanutCessStore {
 	/**스테이터스 저장*/
 	int updateBookStatus(PeanutCess pCess,SqlSessionTemplate session);
 
+	/**모든 스테이터스 저장*/
+	int updateStatusAll(PeanutCess pCess, SqlSessionTemplate session);
+
+	/**여왕엔딩 저장여부 확인*/
+	int countQeenEnding(String memberId, SqlSessionTemplate session);
+
+	/**엔딩저장하고 땅콩주기*/
+	int UpdateaddEnding(String memberId, String ending, SqlSessionTemplate session);
+
 }

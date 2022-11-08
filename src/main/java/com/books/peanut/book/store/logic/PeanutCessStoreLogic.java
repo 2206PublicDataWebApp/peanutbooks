@@ -61,4 +61,34 @@ public class PeanutCessStoreLogic implements PeanutCessStore{
 		return result;
 	}
 
+	/**모든 스테이터스 저장*/
+	@Override
+	public int updateStatusAll(PeanutCess pCess, SqlSessionTemplate session) {
+		int result = session.update("peanutcessMapper.updateStatusAll", pCess);
+		return result;
+	}
+
+	
+	/**여왕엔딩 저장여부 확인*/
+	@Override
+	public int countQeenEnding(String memberId, SqlSessionTemplate session) {
+		int result = session.selectOne("peanutcessMapper.countQeenEnding", memberId);
+		return result;
+	}
+
+	/**엔딩저장하고 땅콩주기*/
+	@Override
+	public int UpdateaddEnding(String memberId, String ending, SqlSessionTemplate session) {
+		PeanutCess pC= new PeanutCess();
+		pC.setMemberId(memberId);
+		pC.setEnding(ending);
+		
+		if(ending.equals("qeen")) {//여왕엔딩은 땅콩 5개
+			int result1= session.insert("peanutcessMapper.insertPeanut",memberId);
+			result1 += session.update("peanutcessMapper.updateMemberPeanut",memberId);
+		}
+		int result = session.update("peanutcessMapper.UpdateaddEnding", pC);
+		return result;
+	}
+
 }

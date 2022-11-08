@@ -5,7 +5,7 @@ $('#sche-area2').css('display','none');
 
 
  firstText( function() { 
-    secontTest();
+    secontTest(callback);
  })
 
 function secontTest(){
@@ -17,7 +17,7 @@ alert('끝')}
 
 var desa = 1;
 
-function firstText(){
+function firstText(callback){
 		
 		let bookTitle = new Array();
 		let bookTag = new Array();
@@ -65,9 +65,9 @@ function firstText(){
 
 
 		if(str.length>2){		
-				$('.down-area1').on('click',function(){$('#text').html(str[2]); result--;})
+				$('.down-area1').on('click',function(){$('#text').html(str[2]); })
 				}
-			
+						
 		})			
 	}
 	

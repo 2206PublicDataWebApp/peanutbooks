@@ -25,16 +25,19 @@
         <section class="container">
            <article id="up-area" class="row">
             <div id="status-area" class="col-4">
-                ${age }살 ${mon}월
-                <br>
-                소지금 : ${pCess.money } 피넛
+            	<div id="age-area">
+                	${age }살 ${mon}월
+            	</div>
+                <div id="money-area">
+                	소지금 : ${pCess.money } 피넛
+                </div>
 
             </div>
             <div id="status-area" class="col-8 status-area">
                 ${pCess.name } 공주님 <br>
-                힘 : ${pCess.power } /  근성 : ${pCess.strong } / 학력 : ${pCess.study }<br>
-                요리 : ${pCess.cook } / 음악 : ${pCess.music } / 미술 : ${pCess.art }<br>
-                예절 : ${pCess.manner } / 스트레스 : ${pCess.stress }
+                힘 : <span id="statusPower">${pCess.power }</span> /  근성 : <span id="statusstrong">${pCess.strong }</span> / 학력 : <span id="statusstudy">${pCess.study }</span><br>
+                요리 : <span id="statuscook">${pCess.cook }</span> / 음악 : <span id="statusmusic">${pCess.music }</span> / 미술 : <span id="statusart">${pCess.art }</span><br>
+                예절 : <span id="statusmanner">${pCess.manner }</span> / 스트레스 : <span id="statusstress">${pCess.stress }</span>
             </div>
 
            </article>
@@ -82,12 +85,15 @@
 
  
 
-<script src="/resources/js/peanutcess/peanutcess-main.js">
 
-</script>
+
 <script type="text/javascript">
 var nick = '${nickName}';
 var name = '${pCess.name}'
+var mon = ${mon};
+var age = ${age};
+var money =${pCess.money}
 
 </script>
+<script src="/resources/js/peanutcess/peanutcess-main.js"></script>
 </html>
