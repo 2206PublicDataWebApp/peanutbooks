@@ -192,16 +192,16 @@ function startSche(){
 	})
 	
 	//스케쥴 실행
-	$('#goSche').on('click',function(){
-		$.ajax({
-			url:"",
-			type:"post",
-			data:{"sche1":},
-			success:function(){}
-			
+//	$('#goSche').on('click',function(){
+//		$.ajax({
+//			url:"",
+//			type:"post",
+//			data:{"sche1":},
+//			success:function(){}
+//			
 		
-		})
-	})
+//		})
+//	})
 
 
 }

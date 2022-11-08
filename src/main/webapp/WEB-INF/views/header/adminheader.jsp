@@ -37,7 +37,6 @@
 
 						<li> <a href="/admin/approveYN.kh">도서</a></li>
 
-
 						<li onclick="mainPN();">피넛</li>
 						<li><a href="/admin/adminListView.kh">회원</a></li>
 						
@@ -85,13 +84,13 @@
 		</div>
 		
 			<!--피넛 누르면 나타나는 부분  -->
+
 		<div class="subMenu" id="peanutMenu">
 	        <nav>	
 	            <ul >                
 	                <li class="pnZone" id="pay"><a href="/pay/admin_list.kh" >결제조회</a></li>
 	                <li class="pnZone"><a href="/peanut/admin_list.kh?memberId=${loginMember.memberId }" >땅콩확인</a></li>
-	                <li class="pnZone"><a href="/writer/admin_list.kh" >작가정산</a></li>               
-	               		
+	                <li class="pnZone"><a href="/writer/admin_list.kh" >작가정산</a></li>    		
 	            </ul>
 	        </nav>	
         	<div id="contain">
@@ -100,14 +99,15 @@
     	
     	
     	
-    			<!--게시판 누르면 나타나는 부분  -->
+    	<!--게시판 누르면 나타나는 부분  -->
 		<div class="subMenu" id="boardMenu">
 	        <nav>	
 	            <ul >                
+
 	                <li class="pnZone" ><a href="/admin/qnaList.kh" >1:1문의 게시판</a></li>
 	                <li class="pnZone"><a href="/notice/list.kh" >공지사항</a></li>
 	                <li class="pnZone"><a href="#" >소메뉴예정2</a></li>               
-	               		
+
 	            </ul>
 	        </nav>	
         	<div id="contain">
@@ -295,20 +295,30 @@
    
 
 	//피넛 소메뉴
-   document.getElementById('peanutMenu').style.display='none';
+    document.getElementById('peanutMenu').style.display='none';
 	function mainPN(){
-		document.getElementById('peanutMenu').style.display='block';
-		document.getElementById('boardMenu').style.display = 'none';
+
+		var p1btn = document.getElementById('peanutMenu').style.display;
+		if (p1btn == 'none') {
+			document.getElementById('peanutMenu').style.display='block';
+			document.getElementById('boardMenu').style.display = 'none';
+		} else {
+			document.getElementById('peanutMenu').style.display='none';
+		}
+
 	}
 
 	//게시판 소메뉴
-	document.getElementById('boardMenu').style.display = 'none';
-	function mainboard() {
-		document.getElementById('boardMenu').style.display = 'block';
-		document.getElementById('peanutMenu').style.display = 'none';
+	 document.getElementById('boardMenu').style.display='none';
+	function mainboard(){
+		var p1btn = document.getElementById('boardMenu').style.display;
+		if (p1btn == 'none') {
+			document.getElementById('boardMenu').style.display='block';
+			document.getElementById('peanutMenu').style.display = 'none';
+		} else {
+			document.getElementById('boardMenu').style.display='none';
+		}
 	}
-
-
 
 	</script>
 </body>

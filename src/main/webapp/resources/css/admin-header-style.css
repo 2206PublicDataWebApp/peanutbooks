@@ -399,8 +399,8 @@ header li{
    .subMenu nav ul{
         width: 100%;
         height: 100%;
-        display: inline;
-        padding:0px;        
+        display: inline;       
+        padding:0px;  
 
     }
    .subMenu nav ul li{
@@ -413,17 +413,15 @@ header li{
     color: darkgray;
     padding-bottom: 0.5rem;
     font-weight: 500;
-    text-align: center;
-   /*  cursor: pointer; */
-}  
+    text-align: center; 
+	}  
 
 
-.subMenu nav ul li a{
-    text-align: center;
-    text-decoration: none;
-    color: inherit;
-    
-
+	.subMenu nav ul li a{
+	    text-align: center;
+	    text-decoration: none;
+	    color: inherit;
+	}
 
 
 @media(min-width:550px){
@@ -435,11 +433,11 @@ header li{
 	 	padding-left: 1rem;
 	 	padding-rigth: 1rem;
 	 }
-	 #subMenu nav{ 
+	 .subMenu nav{ 
 	 	padding-left:20%;
 	 }
 	 
-	 .bdZone{
+	 .pnZone{
 	 	padding-left: 1rem;
 	 	padding-rigth: 1rem;
 	 }

@@ -3,6 +3,7 @@ package com.books.peanut.pay.payController;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
@@ -70,7 +71,8 @@ public class ControllerPay {
 	// API결제 성공시 데이터 DB전달
 	@ResponseBody
 	@RequestMapping(value="/pay/success.kh", method=RequestMethod.POST)
-	public String paySussess(String orderNo, String memberId, Integer pay, String imp_uid, Pay payApi) {
+	public String paySussess(String orderNo, String memberId, Integer pay, String imp_uid, Pay payApi
+			,HttpServletRequest request) {
 		String[] arr = orderNo.split("-");
 		String table = arr[0];
 		payApi.setImp_uid(imp_uid);
@@ -86,7 +88,10 @@ public class ControllerPay {
 				st.setMemberId(memberId);
 				p_t_input = pService.seasonticketInput(st);
 				m_st_YN = pService.memberStChange(memberId);
-				
+				// 성공시 session에 구독권기간을 넣는 부분이다.
+				HttpSession session = request.getSession();
+				String lastDate = pService.seasonTicketDate(memberId);			
+				session.setAttribute("lastDate", lastDate);
 				
 				
 			} else {
@@ -113,6 +118,17 @@ public class ControllerPay {
 			return "failure";
 		}
 	}
+	
+	// API결제 성공시 데이터 DB전달
+	@ResponseBody
+	@RequestMapping(value="/pay/paySuccessPop.kh", method=RequestMethod.POST)
+	public ModelAndView paySuccessPop(ModelAndView mv, 
+			HttpServletRequest request, String memberId) {			
+		return mv;		
+	}
+
+	
+	
 	//관리자 결제 내역 조회
 	@RequestMapping(value="/pay/admin_list.kh", method=RequestMethod.GET)
 	public ModelAndView pay_AdminSearch(ModelAndView mv,String memberId			
@@ -202,7 +218,7 @@ public class ControllerPay {
 				, @RequestParam(value = "memberId", required = false) String memberId
 				, @RequestParam(value = "searchDate", required = false) String ppDate
 				){
-			int ppSum = pService.searchPNsum(memberId);
+			//int ppSum = pService.searchPNsum(memberId);
 			Pagemarker pm=new Pagemarker();
 			pm.setTotalCount(pService.searchPNcount(memberId,ppDate));
 			pm.setCurrentPage((page != null) ? page : 1);
@@ -210,24 +226,33 @@ public class ControllerPay {
 			mv.addObject("pm", pm);
 			
 			List<PeanutPoint> pList=pService.searchPNList(memberId,ppDate,pm);
-			for(int i=0;i<pList.size();i++) {
-				PeanutPoint pp = pList.get(i);
-				if(!(pp.getBookName()==null)) {
-					if(pp.getBookName().length()>10) {
-						pp.setBookName(pp.getBookName().substring(0,10)+"...");
-						pList.set(i, pp);			
-					
+			if(!(pList.isEmpty()) || pList==null){
+				for(int i=0;i<pList.size();i++) {
+					PeanutPoint pp = pList.get(i);
+					if(!(pp.getBookName()==null)) {
+						if(pp.getBookName().length()>10) {
+							pp.setBookName(pp.getBookName().substring(0,10)+"...");
+							pList.set(i, pp);			
+						
+						}
+						
 					}
-					
 				}
-			}
-			if(memberId.equals("admin") || memberId.equals("")){
-				mv.addObject("printId","all");				
-			}else {
-				mv.addObject("printId",memberId);	
-			}
+				mv.addObject("pList", pList);
+			} else {
+				mv.addObject("pList", pList);
+			}			
+
+			//if(memberId.equals("admin") || memberId.equals("") || memberId==null){
+//			if(memberId.equals("") || memberId==null ){
+//				mv.addObject("printId","all");			
+//			
+//			}else {
+//				mv.addObject("printId",memberId);	
+//			}
+			mv.addObject("printId",memberId);
 			mv.addObject("searchppDate", ppDate);			
-			mv.addObject("ppSum", ppSum);
+			//mv.addObject("ppSum", ppSum);
 			mv.addObject("pList", pList);
 			mv.setViewName("/peanetPay/adminPNList");		
 			return mv;		

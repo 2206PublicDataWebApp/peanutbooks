@@ -34,7 +34,7 @@
 						<tr>							
 							<td class="tableNo" rowspan="2"><button class="numbtn">${i.count +((pm.currentPage-1)*10) }</button></td>
 							<c:if test="${!empty PeanutPoint.bookName }">
-								<td class="contexnts">&nbsp;&nbsp;${PeanutPoint.bookName } </td>
+								<td class="contexnts">${PeanutPoint.bookName } </td>
 							</c:if>
 							<c:if test="${empty PeanutPoint.bookName }">
 								<td class="contexnts">&nbsp;&nbsp;땅콩충전</td>
@@ -43,7 +43,7 @@
 							<td rowspan="2" class="peanet"><span>${PeanutPoint.peanutPoint}</span></td>
 						</tr>
 						<tr>
-							<td class="date" colspan="3" >&nbsp;&nbsp;<fmt:formatDate
+							<td class="date" colspan="3" >&nbsp;<fmt:formatDate
 									value="${PeanutPoint.ppDate }"
 									pattern="yyyy년MM월dd일 HH시 mm분 ss초" /></td>							
 						</tr>

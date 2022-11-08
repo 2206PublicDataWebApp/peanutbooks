@@ -115,18 +115,19 @@
 
 <script type="text/javascript">
 
-	    var orderName='';  //결제 분류명
-	    var payMoney='';  // 결제할 값
-	    var d=new Date();
-	    var dm='';         // 년월일 합칠 변수
-	    var orderNo='';   //주문번호 분류명과 날짜 합친것
-	    var orderContents='' // 주문내용
-	    var merchant_uid=''; //결제 주문번호 넣을 곳
-	    var memberId= '${sessionScope.loginMember.memberId}';
-	    var mEmail= '${sessionScope.loginMember.mEmail}';  
+	    var orderName = '';//결제 분류명
+	    var payMoney = '';  // 결제할 값  
+	    var d = new Date();
+	    var dm = '';         // 년월일 합칠 변수
+	    var orderNo = '';   //주문번호 분류명과 날짜 합친것
+	    var orderContents = '';
+	    var merchant_uid = ''; //결제 주문번호 넣을 곳
+	    var memberId = '${sessionScope.loginMember.memberId}';
+	    var mEmail = '${sessionScope.loginMember.mEmail}';  
+	  
 	    
 	    $('#seasonticket').on('click', function(){
-	    	if(${!empty sessionScope.lastDate}){
+	    	if(!(${empty sessionScope.lastDate})){
 				alert("구독권 만료후 구매 부탁드립니다. 이용해 주셔서 감사합니다.");
 				$('#seasonticket').prop("checked",false);
 			};
@@ -135,30 +136,35 @@
 	    
 	    
 	    $('#ordercheck').on('click', function(){
+	    	orderName= $('input[type="radio"]:checked').parent().parent().next().attr('name');//결제 분류명
+	    	payMoney= $('input[type="radio"]:checked').val();  // 결제할 값 
+	    	orderContents=$('input[type="radio"]:checked').parent().parent().next().text()+"구매"; // 주문내용
+	    	
+	    	if(orderName==null){
+	    		alert("구매내용을 선택 해주세요.");
+	    	} else{
 	
-		    if ($('#history').css('display')=='none'){
-			    $('#ordercheck').css('background-color','red');
-			    $('#ordercheck').css('color','#fff');
-			    $('#ordercheck').html('주 문 취 소');    
-			    $('#history').css('display','block');
-			    $('#pay').css('display','block');
-			    orderList(); 
-			    
-			  } else{           
-			    location.href='/pay/start.kh';
-			  }	
-				
+			    if ($('#history').css('display')=='none'){
+				    $('#ordercheck').css('background-color','red');
+				    $('#ordercheck').css('color','#fff');
+				    $('#ordercheck').html('주 문 취 소');    
+				    $('#history').css('display','block');
+				    $('#pay').css('display','block');
+				    orderList(); 
+				    
+				  } else{           
+				    location.href='/pay/start.kh';
+				  };	
+	    	}				
 	})
 	
-	function orderList(){
-	    
-	    orderName=$('input[type="radio"]:checked').parent().parent().next().attr('name');  //결제 분류명
-	    payMoney=$('input[type="radio"]:checked').val();  // 결제할 값   	    
+	function orderList(){	    
+	   	    
 	    dm=d.getFullYear();
 	    dm+=('0'+(d.getMonth()+1)).slice(-2);
 	    dm+=('0'+d.getDate()).slice(-2);
 	    orderNo=orderName+"-"+dm;                        //주문번호 분류명과 날짜 합친것
-	    orderContents=$('input[type="radio"]:checked').parent().parent().next().text()+"구매"; // 주문내용
+	    
 	    
 	    $.ajax({
 	    	url:'/pay/orderIN.kh',
@@ -217,7 +223,10 @@
 							'pay' : $('#paymoney').val()
 						},
 						success : function(result) {
-							alert('결제 성공');
+							//결제성공시 팝업							
+							var windo = "status=no ,toolbar=no,scrollbars=no, menubar=no,resizable=no,titlebar=no, width=400,height=400";
+							window.open("/pay/paySuccessPop.kh?memberId="+memberId,"PopupWin", windo);
+							
 							location.href = '/';
 						},
 						error : function(e) {

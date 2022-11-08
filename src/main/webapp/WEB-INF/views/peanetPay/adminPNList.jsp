@@ -15,7 +15,7 @@
 <body>
 <jsp:include page="../header/adminheader.jsp"></jsp:include>
 	<main>
-		<h1></h1>
+		<h1>땅콩 내역 조회</h1>
 		<div id="searchbtn">
 			<label for="selectPN" ></label>
 			<select id="selectPN" >
@@ -27,18 +27,26 @@
 			<input class="inputzone" type="text" style="display:none" >						
 			<input class="inputzone" type="date" style="display:none">				
 			
-			<button id="csBtn" onclick="pNutSearch();">검 색</button>
+			<button id="csBtn" class="btnbox" onclick="pNutSearch();">검 색</button>
 
 		</div>
-		<div id="spanDIV">
-<!-- 			<div class="totalpeanet"><img alt="" src="../resources/img/icons8-peanut-64.png"/></div> -->
-			<!-- <div class="totalpeanet">${printId } 의 남은 땅콩은 ${ppSum}개</div>  -->
-			<div calss=totalpeanet">
-				<c:if test="${!empty searchppDate }" ><div id="result">${searchppDate } 기준</div></c:if>
-				<c:if test="${empty printId || printId=='all' }" ><div id="result">전체 기준</div></c:if>				
-				<c:if test="${!empty printId }" ><div id="result">${printId }기준</div></c:if>
+		<div id="markZone">
+			<div id="markpeanut">
+				<c:if
+					test="${!empty searchppDate and (empty printId || printId =='' ) }">
+					<button class="result">${searchppDate }</button>
+				</c:if>
+				<c:if
+					test="${(empty printId  || printId=='admin' || printId=='') and empty searchppDate  }">
+					<button class="result">전체 </button>
+				</c:if>
+				<c:if
+					test="${!empty printId and printId !='' and printId !='admin' and empty searchppDate }">
+					<button class="result">${printId }</button>
+				</c:if>
 			</div>
-		</div>	
+
+		</div>
 		<div id="table">
 			<c:if test="${empty pList }">
 				<table>
@@ -50,25 +58,27 @@
 
 			<c:if test="${!empty pList  }">
 				<c:forEach items="${pList }" var="PeanutPoint" varStatus="i">
-					<table>						
-						<tr>							
+					<table>
+						<tr>
+							<td class="tableNo" rowspan="2"><button class="numbtn">${i.count +((pm.currentPage-1)*10) }</button></td>
 							<c:if test="${!empty PeanutPoint.bookName }">
-								<td class="contexnts"><button class="numbtn">${PeanutPoint.peanutNo }</button>&nbsp;&nbsp;${PeanutPoint.bookName } &nbsp;&nbsp;${PeanutPoint.memberId }</td>
+								<td class="contexnts">${PeanutPoint.bookName }</td>
 							</c:if>
 							<c:if test="${empty PeanutPoint.bookName }">
-								<td class="contexnts"><button class="numbtn">${PeanutPoint.peanutNo }</button>&nbsp;&nbsp;땅콩충전 &nbsp;&nbsp;${PeanutPoint.memberId }</td>
-							</c:if>							
+								<td class="contexnts">&nbsp;&nbsp;땅콩충전</td>
+							</c:if>
 							<td rowspan="2" class="monitercontrol"></td>
 							<td rowspan="2" class="peanet"><span>${PeanutPoint.peanutPoint}</span></td>
 						</tr>
 						<tr>
-							<td class="date">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<fmt:formatDate
+							<td class="date" colspan="3">&nbsp;<fmt:formatDate
 									value="${PeanutPoint.ppDate }"
 									pattern="yyyy년MM월dd일 HH시 mm분 ss초" /></td>
 						</tr>
 						<tr class="line"></tr>
 					</table>
 				</c:forEach>
+				</div>
 				<div class="page_wrap">
 					<div class="pagination">
 						<c:if test="${pm.startNavi !=1}">
@@ -109,16 +119,16 @@
 					</div>
 				</div>
 			</c:if>
-		</div>
+		
 	</main>
 	<jsp:include page="../footer/footer.jsp"></jsp:include>
 	
 <script>
 	/* 페이징  */
-	function pagePNSearch(page){
+	function pagePNSearch(page){ 
 		
-		var ppDate=$('input[type=date]').val();			
-		var memberId="${loginMember.memberId }";		
+		var ppDate="${searchppDate }";			
+		var memberId="${printId }";		
 		location.href="/peanut/admin_list.kh?page="+page+"&memberId="+memberId+"&searchDate="+ppDate;
 	}
 	
