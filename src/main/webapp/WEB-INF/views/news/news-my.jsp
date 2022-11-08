@@ -34,18 +34,21 @@
 			</div>
 			<div class="news-area">
 				<!-- 반복 영역 시작 -->
-				<%-- <c:if test="${!empty nList}"> --%>
-					<%-- <c:forEach items="${nList}" var="notice"> --%>
+				<c:if test="${empty nList}">
+					<div class="news-msg">도착한 알림이 없습니다.</div>
+				</c:if>
+				<c:if test="${!empty nList}">
+					<c:forEach items="${nList}" var="news" varStatus="i">
 						<div class="news-contents-area">
 							<span class="news-contents">
-								<%-- <a>${notice.noticeTitle}</a> --%>
+								<a href="/book/oriBookInfo?bookNo=${news.refBookNo}">${news.newsContents}</a>
 							</span>
 							<span class="delete-icon">
-								<a><img alt="닫기" src="../resources/img/news/icons8-close-48.png"></a>
+								<a href="#"><img alt="닫기" src="../resources/img/news/icons8-close-48.png"></a>
 							</span>
 						</div>
-					<%-- </c:forEach> --%>
-				<%-- </c:if> --%>
+					</c:forEach>
+				</c:if>
 				<!-- 반복 영역 끝-->
 			</div>
 		</div>

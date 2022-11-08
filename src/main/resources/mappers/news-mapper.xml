@@ -7,27 +7,51 @@
 		<id property="newsNo" column="NEWS_NO"/> <!-- 알림 번호 -->
 		<result property="memberId" column="MEMBER_ID"/> <!-- 회원 아이디 -->
 		<result property="newsContents" column="NEWS_CONTENTS"/> <!-- 알림 내용 -->
-		<result property="refNoticeNo" column="REF_NOTICE_NO"/> <!-- 참고 공지 번호 -->
 		<result property="refBookNo" column="REF_BOOK_NO"/> <!-- 참고 도서 번호 -->
 		<result property="readYN" column="READ_YN"/> <!-- 알림 읽음 여부 -->
 		<result property="newsType" column="NEWS_TYPE"/> <!-- 알림 종류 -->
 	</resultMap>
-<!-- 	<resultMap type="Notice" id="noticeResultMap">
-		<id column="NOTICE_NO" property="noticeNo" /> 공지 번호
-		<result column="NOTICE_WRITER" property="noticeWriter" /> 공지 작성자
-		<result column="NOTICE_CATEGORY" property="noticeCategory" /> 공지 종류
-		<result column="NOTICE_TITLE" property="noticeTitle" /> 공지 제목
-		<result column="NOTICE_CONTENTS" property="noticeContents" /> 공지 내용
-		<result column="NOTICE_COUNT" property="nCount" /> 공지 조회수 ?
-		<result column="N_CREATEDATE" property="nCreateDate" /> 공지 작성일
-		<result column="N_UPDATEDATE" property="nUpdateDate" /> 공지 수정일
-		<result column="N_DELIVER" property="nDeliver" /> 공지 알림 등록 여부
-		<result column="N_STATUS" property="nStatus" /> 공지 상태 ?
-		<result column="NOTICE_FILENAME" property="noticeFilename" /> 공지 사진
-		<result column="NOTICE_FILERENAME" property="noticeFileRename" /> 공지 사진 수정
-		<result column="NOTICE_FILEPATH" property="noticeFilepath" /> 공지 사진 경로
+	<!-- 내 알림 등록(내 서재 등록 도서 신작 알림) -->
+ 	<insert id="insertNews">
+		INSERT INTO NEWS_TBL VALUES(NEWS_SEQ.NEXTVAL, #{memberId}, #{newsContents}, #{refBookNo}, DEFAULT, 'my')
+	</insert>
+	<!-- 알림 목록 조회 -->
+	<select id="selectNewsList" resultMap="newsResultMap">
+		SELECT * FROM NEWS_TBL WHERE MEMBER_ID = #{memberId} ORDER BY NEWS_NO DESC
+	</select>
+	
+ 	<resultMap type="Library" id="libraryResultMap">
+ 		<id column="MEMBER_ID" property="memberId" />
+ 		<result column="BOOK_NO" property="bookNo" />
+ 		<result column="CATEGORY" property="category" />
+ 		<result column="LIBRARY_NO" property="libraryNo" />
+ 		<result column="title" property="bookTitle" />
+ 		<result column="picName" property="picName" />
+ 	</resultMap>
+	<!-- 해당 도서가 저장된 아이디 리스트 가져오기 -->
+	<select id="selectMemberIdByBookNo" resultMap="libraryResultMap">
+		SELECT MEMBER_ID FROM LIBRARY WHERE CATEGORY = 'origin' AND BOOK_NO = #{bookNo}
+	</select>
+	
+	<resultMap type="OriginBook" id="oriBookResultMap">
+		<id property="bookNo" column="ORI_BOOK_NO"/>
+		<result property="bookTitle" column="BOOK_TITLE"/>
+		<result property="bookInfo" column="BOOK_INFO"/>
+		<result property="category" column="CATEGORY"/>
+		<result property="insertDate" column="INSERT_DATE"/>
+		<result property="cover" column="CORVER"/>
+		<result property="coverRename" column="CORVER_RENAME"/>
+		<result property="status" column="STATUS"/>
+		<result property="score" column="SCORE"/>
+		<result property="viewCount" column="VIEW_COUNT"/>
+		<result property="memberId" column="MEMBER_ID"/>
+		<result property="checkPermission" column="BOOK_PERMISSION"/>
+		<result property="scoreCount" column="SCORE_COUNT"/>
+		<result property="memberNickName" column="M_NICKNAME"/>
 	</resultMap>
-	<select id="selectNoticeList" resultMap="noticeResultMap">
-		SELECT * FROM NOTICE_TBL WHERE N_STATUS = 'Y' ORDER BY NOTICE_NO DESC
-	</select> -->
+	<!-- 도서 번호로 도서 제목 가져오기 -->
+	<select id="selectBookTitleByNo" resultMap="oriBookResultMap">
+		SELECT BOOK_TITLE FROM ORIGIN_BOOK WHERE ORI_BOOK_NO = #{bookNo}
+	</select>
+	
 </mapper>
