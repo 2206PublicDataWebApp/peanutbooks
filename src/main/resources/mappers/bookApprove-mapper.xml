@@ -145,6 +145,8 @@
 	<update id="updateReAppDelModify">
 		DELETE FROM modify_ori_series WHERE ori_book_no = #{bookNo} and series_no = #{seriesNo}
 	</update>
+	
+	
  	
  	<!-- admin 회원관리 -->
  	<resultMap type="Member" id="memberResultMap">
@@ -177,6 +179,14 @@
  				M_NICKNAME LIKE '%'||#{searchValue}||'%'
  				OR MEMBER_ID LIKE '%'||#{searchValue}||'%'
  			</if>
+ 			<if test="code.toString() != 'all'">
+	 			<if test="code.toString() == 'today'">
+ 					JOIN_DATE LIKE SYSDATE
+ 				</if>
+ 				<if test="code.toString() == 'del'">
+ 					DELETE_YN LIKE 'Y'
+ 				</if>
+ 			</if>
  		</where>
  	</select>
  	<!-- 회원상세 검색 -->
@@ -198,7 +208,18 @@
  	</select>
  	<!-- 전체회원 출력 -->
  	<select id="selectAllMembers" resultMap="memberResultMap">
- 		SELECT M_NICKNAME, MEMBER_ID, M_POINT, DELETE_YN, JOIN_DATE FROM MEMBER_TBL ORDER BY JOIN_DATE DESC
+ 		SELECT M_NICKNAME, MEMBER_ID, M_POINT, DELETE_YN, JOIN_DATE FROM MEMBER_TBL 
+ 		<where>
+ 			<if test="code.toString() != 'all'">
+	 			<if test="code.toString() == 'today'">
+ 					JOIN_DATE LIKE SYSDATE
+ 				</if>
+ 				<if test="code.toString() == 'del'">
+ 					DELETE_YN LIKE 'Y'
+ 				</if>
+ 			</if>
+ 		</where>
+ 		ORDER BY JOIN_DATE DESC
  	</select>
  	<!-- 회원상세보기 -->
  	<select id="selectOneById" resultMap="memberResultMap">
@@ -215,4 +236,37 @@
  		, ADMIN_YN = #{adminYN} 
  		WHERE MEMBER_ID = #{memberId}
  	</update>
+ 	<!-- 회원 상태별로 카운트 -->
+	<select id="selectTotalCount" resultType="_int">
+ 		SELECT count(*) FROM MEMBER_TBL
+ 	</select>
+ 	<select id="selectTodayCount" resultType="_int">
+ 		SELECT count(*) FROM MEMBER_TBL WHERE JOIN_DATE LIKE SYSDATE
+ 	</select>
+ 	<select id="selectDeleteMemberCount" resultType="_int">
+ 		SELECT count(*) FROM MEMBER_TBL WHERE DELETE_YN = 'Y'
+ 	</select>
+ 	
+ 	<!-- 도서 상태별로 카운트 -->
+ 	<select id="selectAllBoos" resultType="_int">
+ 		select count(*)
+		from ORI_SERIES a 
+		join ORIGIN_BOOK b on a.ORI_BOOK_NO = b.ORI_BOOK_NO
+		join BOOK_PERMISSION c on b.ORI_BOOK_NO = c.ORI_BOOK_NO and a.series_no = c.book_series_no
+ 	</select>
+ 	<select id="selectApproveYes" resultType="_int">
+ 		select count(*)
+		from ORI_SERIES a 
+		join ORIGIN_BOOK b on a.ORI_BOOK_NO = b.ORI_BOOK_NO
+		join BOOK_PERMISSION c on b.ORI_BOOK_NO = c.ORI_BOOK_NO and a.series_no = c.book_series_no
+		WHERE CHECK_PERMISSION='Y'
+ 	</select>
+ 	<select id="selectApproveNo" resultType="_int">
+ 		select count(*)
+		from ORI_SERIES a 
+		join ORIGIN_BOOK b on a.ORI_BOOK_NO = b.ORI_BOOK_NO
+		join BOOK_PERMISSION c on b.ORI_BOOK_NO = c.ORI_BOOK_NO and a.series_no = c.book_series_no
+		WHERE CHECK_PERMISSION='N'
+ 	</select>
+ 	
  </mapper>

@@ -34,6 +34,11 @@ public interface NoticeService {
 	public int chooseStatus(String noticeNo, String nStatus);
 	//회원 공지사항 리스트뷰
 	public List<Notice> noticeUserList(String noticeCategory);
+	
+	//공지사항 상황별 카운트
+	public int totalBoard();
+	public int showBoard();
+	public int hideBoard();
 
 
 }

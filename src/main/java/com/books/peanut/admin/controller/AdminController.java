@@ -28,23 +28,33 @@ public class AdminController {
 	public ModelAndView adminAllList(
 			ModelAndView mv
 			, HttpSession session
-			, @RequestParam(value="page", required=false) Integer page) {
+			, @RequestParam(value="page", required=false) Integer page
+			, @RequestParam(value="code", required=false, defaultValue="all") String code) {
 		Member member = (Member) session.getAttribute("loginMember");
 		if((member.getAdminYN().charAt(0) + "").equals("N")) {
 			mv.addObject("msg", "관리자만 접속가능합니다");
 			mv.setViewName("/common/errorPage");
 			
 		}else {
-			int getTotalCount = BAService.allMemberCount("","");
+			//전체회원/오늘가입회원/탈퇴회원
+			int todayCount = BAService.todayJoinCount();
+			int deleteCount = BAService.deleteMemberCount();
+			int totalCount = BAService.todalCount();
+			
+			int getTotalCount = BAService.allMemberCount("","", code);
 			int memberLimit = 10;
 			BookPageController bpCont = new BookPageController();// 페이징 해주는 클래스
 			BookPage bPage = bpCont.boardList(page, getTotalCount, memberLimit); // 클래스에서 페이징해온 숫자를 가지고옴
 			
 			if(getTotalCount>0){
-				List<Member> mList = BAService.allMembers(bPage.getCurrentPage(), memberLimit);
+				List<Member> mList = BAService.allMembers(bPage.getCurrentPage(), memberLimit, code);
 				mv.addObject("mList", mList);
 			}
+			mv.addObject("totalCount", totalCount);
+			mv.addObject("todayCount", todayCount);
+			mv.addObject("deleteCount", deleteCount);
 			mv.addObject("bPage", bPage);
+			mv.addObject("code", code);
 			mv.setViewName("/admin/memberListView");
 
 		}
@@ -59,6 +69,13 @@ public class AdminController {
 			, @RequestParam("memberId") String memberId) {
 		try {
 			Member member = BAService.printOneById(memberId);
+			int todayCount = BAService.todayJoinCount();
+			int deleteCount = BAService.deleteMemberCount();
+			int totalCount = BAService.todalCount();
+			
+			mv.addObject("totalCount", totalCount);
+			mv.addObject("todayCount", todayCount);
+			mv.addObject("deleteCount", deleteCount);
 			mv.addObject("member", member);
 			mv.addObject("page", page);
 			mv.setViewName("/admin/memberDetailView");
@@ -95,6 +112,13 @@ public class AdminController {
 			, @RequestParam("memberId") String memberId) {
 		try {
 			Member member = BAService.printOneById(memberId);
+			int todayCount = BAService.todayJoinCount();
+			int deleteCount = BAService.deleteMemberCount();
+			int totalCount = BAService.todalCount();
+			
+			mv.addObject("totalCount", totalCount);
+			mv.addObject("todayCount", todayCount);
+			mv.addObject("deleteCount", deleteCount);
 			mv.addObject("member", member);
 			mv.addObject("page", page);
 			mv.setViewName("/admin/memberModifyForm");
@@ -137,7 +161,7 @@ public class AdminController {
 			mv.setViewName("/common/errorPage");
 			
 		}else {
-			int getTotalCount = BAService.allMemberCount(searchCondition, searchValue);
+			int getTotalCount = BAService.allMemberCount(searchCondition, searchValue,"");
 			int memberLimit = 10;
 			BookPageController bpCont = new BookPageController();// 페이징 해주는 클래스
 			BookPage bPage = bpCont.boardList(page, getTotalCount, memberLimit); // 클래스에서 페이징해온 숫자를 가지고옴
@@ -154,5 +178,7 @@ public class AdminController {
 		}
 		return mv;
 	}
+	
+	//알림
 	
 }

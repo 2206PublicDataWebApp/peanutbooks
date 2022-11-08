@@ -87,27 +87,42 @@ public class NoticeController {
 	@RequestMapping(value="/notice/list.kh", method = RequestMethod.GET)
 	public ModelAndView noticeListView(
 			ModelAndView mv
+			, HttpSession session
 			, @RequestParam(value="page", required = false) Integer page
 			, @RequestParam(value="nStatus", required = false, defaultValue="all") String nStatus){
-		try {
-			//페이징
-			int totalCount = nService.getTotalCount("", "", nStatus);
-			int noticeLimit = 10;
-			BookPageController bpCont = new BookPageController();
-			BookPage bPage = bpCont.boardList(page, totalCount, noticeLimit);
-			System.out.println(nStatus);
-			if(totalCount>0) {
-				List<Notice> nList = nService.printAllNotice(bPage.getCurrentPage(), noticeLimit, nStatus);
-				mv.addObject("nList", nList);
-			}
-			mv.addObject("nStatus", nStatus);
-			mv.addObject("bPage", bPage);
-			mv.addObject("page", page);
-			mv.setViewName("notice/noticeListView");
-		} catch (Exception e) {
-			e.printStackTrace();
-			mv.addObject("msg", e.getMessage());
+		Member member = (Member) session.getAttribute("loginMember");
+		if((member.getAdminYN().charAt(0) + "").equals("N")) {
+			mv.addObject("msg", "관리자만 접속가능합니다");
 			mv.setViewName("/common/errorPage");
+			
+		}else {
+			try {
+				//페이징
+				int totalBoard = nService.totalBoard();
+				int showBoard = nService.showBoard();
+				int hideBoard = nService.hideBoard();
+				
+				int totalCount = nService.getTotalCount("", "", nStatus);
+				int noticeLimit = 10;
+				BookPageController bpCont = new BookPageController();
+				BookPage bPage = bpCont.boardList(page, totalCount, noticeLimit);
+				System.out.println(nStatus);
+				if(totalCount>0) {
+					List<Notice> nList = nService.printAllNotice(bPage.getCurrentPage(), noticeLimit, nStatus);
+					mv.addObject("nList", nList);
+				}
+				mv.addObject("totalBoard",totalBoard);
+				mv.addObject("showBoard",showBoard);
+				mv.addObject("hideBoard",hideBoard);
+				mv.addObject("nStatus", nStatus);
+				mv.addObject("bPage", bPage);
+				mv.addObject("page", page);
+				mv.setViewName("notice/noticeListView");
+			} catch (Exception e) {
+				e.printStackTrace();
+				mv.addObject("msg", e.getMessage());
+				mv.setViewName("/common/errorPage");
+			}
 		}
 		return mv;
 	}
@@ -121,7 +136,13 @@ public class NoticeController {
 			, HttpSession session) {
 		Member member = (Member)session.getAttribute("loginMember");
 		try {
+			int totalBoard = nService.totalBoard();
+			int showBoard = nService.showBoard();
+			int hideBoard = nService.hideBoard();
 			Notice notice = nService.printOneByNo(noticeNo);
+			mv.addObject("totalBoard",totalBoard);
+			mv.addObject("showBoard",showBoard);
+			mv.addObject("hideBoard",hideBoard);
 			mv.addObject("notice", notice);
 			mv.addObject("page", page);
 			mv.setViewName("notice/noticeDetailView");
@@ -156,7 +177,13 @@ public class NoticeController {
 			, @RequestParam("page") int page
 			, @RequestParam("noticeNo") Integer noticeNo) {
 		try {
+			int totalBoard = nService.totalBoard();
+			int showBoard = nService.showBoard();
+			int hideBoard = nService.hideBoard();
 			Notice notice = nService.printOneByNo(noticeNo);
+			mv.addObject("totalBoard",totalBoard);
+			mv.addObject("showBoard",showBoard);
+			mv.addObject("hideBoard",hideBoard);
 			mv.addObject("notice", notice);
 			mv.addObject("page", page);
 			mv.setViewName("/notice/noticeModifyForm");
@@ -271,7 +298,7 @@ public class NoticeController {
 		try {
 			int result = nService.chooseStatus(noticeNo, nStatus);
 			if(result > 0) {
-				mv.setViewName("redirect:/notice/list.kh?page="+page+"&nStatus="+nStatus);
+				mv.setViewName("redirect:/notice/list.kh?page="+page);
 			}
 		} catch (Exception e) {
 			mv.addObject("msg", e.toString()).setViewName("common/errorPage");

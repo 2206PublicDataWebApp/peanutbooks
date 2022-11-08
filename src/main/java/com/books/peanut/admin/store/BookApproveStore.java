@@ -31,9 +31,9 @@ public interface BookApproveStore {
 	
 	
 	//전체 회원 개수
-	public int selectAllMember(SqlSession session, String searchCondition, String searchValue);
+	public int selectAllMember(SqlSession session, String searchCondition, String searchValue, String code);
 	//전체 회원 리스트 출력
-	public List<Member> selectAllMembers(SqlSession session, int i, int memberLimit);
+	public List<Member> selectAllMembers(SqlSession session, int i, int memberLimit, String code);
 	//회원 상세보기
 	public Member selectOneById(SqlSession session, String memberId);
 	//회원 삭제
@@ -42,6 +42,14 @@ public interface BookApproveStore {
 	public List<Member> selectSeachAllMember(SqlSession session, String searchCondition, String searchValue, int i, int limit);
 	//회원 정보수정
 	public int updateMemberModify(SqlSession session, Member member);
+	//회원 상태별로 카운트
+	public int selectTodayCount(SqlSession session);
+	public int selectDeleteMemberCount(SqlSession session);
+	public int selectTotalCount(SqlSession session);
+	//도서 상태별로 카운트
+	public int selectAllBooks(SqlSession session);
+	public int selectApproveYes(SqlSession session);
+	public int selectApproveNo(SqlSession session);
 
 
 	

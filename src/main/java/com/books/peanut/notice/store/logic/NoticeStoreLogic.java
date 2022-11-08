@@ -114,6 +114,21 @@ public class NoticeStoreLogic implements NoticeStore {
 		List<Notice> nList = session.selectList("NoticeMapper.selectNoticeUser", noticeCategory);
 		return nList;
 	}
+	@Override
+	public int selectAllBoard(SqlSession session) {
+		int result = session.selectOne("NoticeMapper.selectAllBoard");
+		return result;
+	}
+	@Override
+	public int selectShowBoard(SqlSession session) {
+		int result = session.selectOne("NoticeMapper.selectShowBoard");
+				return result;
+	}
+	@Override
+	public int selectHideBoard(SqlSession session) {
+		int result = session.selectOne("NoticeMapper.selectHideBoard");
+				return result;
+	}
 
 }
 

@@ -36,7 +36,7 @@
 </style> 
 <body>
 <!-- header start -->
-<jsp:include page="../header/header.jsp"></jsp:include>
+<jsp:include page="../header/adminheader.jsp"></jsp:include>
 <!-- header End -->
 
 <!-- main contents start -->
@@ -44,42 +44,43 @@
 	<section class="container">
 	<!-- 세부페이지 head 시작 -->
 		<!-- 세부페이지 큰 제목 -->
-		<br>
 		<div class="container text-center">
 		<!-- 세부페이지 큰 제목 끝 -->
-		<br>
 		<hr>
-					<!-- <div id="title">전체 시리즈 목록</div> -->
-					<ul class="mainUl">
-			    		<li class="mainLi"><div style="text-align:right">
-					    		<a href="/notice/list.kh">전체공지사항<br>
-					    		</a>
-					    	</div>
-					    </li>
-					    <li class="mainLi">
-					    	<div class="col"><img src="/resources/img/sidebar.png"></div>
-					    </li>
-			    		<li class="mainLi">
-			    			<div style="text-align:center">
-					    		<a href="/notice/list.kh?nStatus=Y">게시</a>
-					    	</div>
-						</li>
-						<li class="mainLi">
-					    	<div class="col"><img src="/resources/img/sidebar.png"></div>
-					    </li>
-			    		<li class="mainLi">
-			    			<div style="text-align:center">
-					    		<a href="/notice/list.kh?nStatus=N">보류</a>
-					    	</div>
-						</li>
-			 		</ul>
-				<hr>
-			</div>
+			<!-- <div id="title">전체 시리즈 목록</div> -->
+			<ul class="mainUl">
+	    		<li class="mainLi"><div style="text-align:center">
+			    		<a href="/notice/list.kh">전체공지사항<br>
+			    		${totalBoard }
+			    		</a>
+			    	</div>
+			    </li>
+			    <li class="mainLi">
+			    	<div class="col"><img src="/resources/img/sidebar.png"></div>
+			    </li>
+	    		<li class="mainLi">
+	    			<div style="text-align:center">
+			    		<a href="/notice/list.kh?nStatus=Y">게시<br>
+			    		${showBoard }</a>
+			    	</div>
+				</li>
+				<li class="mainLi">
+			    	<div class="col"><img src="/resources/img/sidebar.png"></div>
+			    </li>
+	    		<li class="mainLi">
+	    			<div style="text-align:center">
+			    		<a href="/notice/list.kh?nStatus=N">보류<br>
+			    		${hideBoard }</a>
+			    	</div>
+				</li>
+	 		</ul>
+		<hr>
+		</div>
 		
 		<!-- 세부페이지 body 시작 -->
 		<!-- 검색 -->
 			<div class="row row-cols-1">
-				<table align="center" class="table col-7" border="0px">
+				<table align="center" class="table col-7" border="0px" style="width:80%;">
 					<tr>
 						<td class="col-7" style="border:none;">
 							<div style="display: inline-block; margin: 5px;  float: left;">
@@ -112,7 +113,7 @@
 	
 		<!-- 리스트 출력 -->
 			<div class="row row-cols-1">
-				<table align="center" class="table col-7">
+				<table align="center" class="table col-7" style="width:80%;">
 					<!-- 카테고리별 리스트 시작 -->
 					<tr>
 						<td class="col-8" style="border:none;" colspan="5" align="right">

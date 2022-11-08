@@ -97,6 +97,21 @@ public class NoticeServiceImpl implements NoticeService{
 		List<Notice> nList = nStore.selectNoticeUser(session, noticeCategory);
 		return nList;
 	}
+	@Override
+	public int totalBoard() {
+		int result = nStore.selectAllBoard(session);
+		return result;
+	}
+	@Override
+	public int showBoard() {
+		int result = nStore.selectShowBoard(session);
+		return result;
+	}
+	@Override
+	public int hideBoard() {
+		int result = nStore.selectHideBoard(session);
+		return result;
+	}
 
 
 

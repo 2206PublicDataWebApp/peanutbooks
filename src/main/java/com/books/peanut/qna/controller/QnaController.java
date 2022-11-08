@@ -33,8 +33,8 @@ public class QnaController {
 	@RequestMapping(value="/qna/writeView", method=RequestMethod.GET)
 	public String showQnaWriter(HttpSession session) {
 //		로그인 유저용
-		Member loginMember = (Member) session.getAttribute("loginMember");
-		if(loginMember != null) {
+		Member member = (Member) session.getAttribute("loginMember");
+		if(member != null) {
 			return "/qna/qnaWriteForm";
 		}
 		return "member/login";
@@ -53,6 +53,7 @@ public class QnaController {
 	public ModelAndView registQan(ModelAndView mv, @ModelAttribute Qna qna,
 			@RequestParam(value = "uploadFile", required = false) List<MultipartFile> uploadFile
 			, HttpServletRequest request) {
+		
 		try {
 
 			// 파일등록시작//
@@ -127,21 +128,25 @@ public class QnaController {
 			, @RequestParam(value="page", required = false) Integer page
 			, @RequestParam(value="searchCondition", required = false) String searchCondition
 			, @RequestParam(value="searchValue", required = false) String searchValue
+			, @RequestParam(value="qnaStatus", required = false, defaultValue="all") String qnaStatus
 			, HttpSession session) {
-		Member loginMember = (Member)session.getAttribute("loginMember");
-		if(loginMember == null) {
+		Member member = (Member)session.getAttribute("loginMember");
+		if(member == null) {
 			mv.setViewName("member/login");
-		}else {
+		}else { 
 			try {
-				Member member = (Member)session.getAttribute("loginMember");
 				String memberId = member.getMemberId();
-				int totalCount = qService.getTotalCount(memberId,"","");
+				int totalQna = qService.totalQna(memberId);
+				int totalAnswer = qService.totalAnswer(memberId);
+				int totalNoAnswer = qService.totalNoAnswer(memberId);	
+				
+				int totalCount = qService.getTotalCount(memberId,"","",qnaStatus);
 				int qnaLimit = 10; // 한페이지당 출력한 게시물 수
 				BookPageController bpCont = new BookPageController();
 				BookPage bPage = bpCont.boardList(page, totalCount, qnaLimit);
 				
 				if(totalCount>0) {
-					List<Qna> qList = qService.printMemberQna(bPage.getCurrentPage(), qnaLimit, memberId);
+					List<Qna> qList = qService.printMemberQna(bPage.getCurrentPage(), qnaLimit, memberId, qnaStatus);
 					mv.addObject("qList", qList);
 				}
 					mv.addObject("memberId", memberId);
@@ -149,6 +154,9 @@ public class QnaController {
 					mv.addObject("page", page);
 					mv.addObject("searchValue", searchValue);
 					mv.addObject("searchCondition", searchCondition);
+					mv.addObject("totalQna", totalQna);
+					mv.addObject("totalAnswer", totalAnswer);
+					mv.addObject("totalNoAnswer", totalNoAnswer);
 					mv.setViewName("/qna/qnaListView");
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -172,17 +180,31 @@ public class QnaController {
 			, @RequestParam(value="searchCondition", required=false) String searchCondition
 			, @RequestParam(value="searchValue", required=false) String searchValue
 			, @RequestParam(value="page", required=false) Integer page
-			, @RequestParam("qnaNo") Integer qnaNo) {
-		try {
-			Qna qna = qService.printOneByNo(qnaNo);
-			mv.addObject("qna", qna);
-			mv.addObject("page", page);
-			mv.addObject("searchCondition", searchCondition);
-			mv.addObject("searchValue", searchValue);
-			mv.setViewName("qna/qnaDetailView");
-		} catch (Exception e) {
-			mv.addObject("msg", e.getMessage());
-			mv.setViewName("common/errorPage");
+			, @RequestParam("qnaNo") Integer qnaNo
+			, HttpSession session) {
+		Member member = (Member)session.getAttribute("loginMember");
+		if(member == null) {
+			mv.setViewName("member/login");
+		}else { 
+			try {
+				String memberId = member.getMemberId();
+				int totalQna = qService.totalQna(memberId);
+				int totalAnswer = qService.totalAnswer(memberId);
+				int totalNoAnswer = qService.totalNoAnswer(memberId);	
+			
+				Qna qna = qService.printOneByNo(qnaNo);
+				mv.addObject("qna", qna);
+				mv.addObject("page", page);
+				mv.addObject("searchCondition", searchCondition);
+				mv.addObject("searchValue", searchValue);
+				mv.addObject("totalQna", totalQna);
+				mv.addObject("totalAnswer", totalAnswer);
+				mv.addObject("totalNoAnswer", totalNoAnswer);
+				mv.setViewName("qna/qnaDetailView");
+			} catch (Exception e) {
+				mv.addObject("msg", e.getMessage());
+				mv.setViewName("common/errorPage");
+			}
 		}
 		return mv;
 		
@@ -223,16 +245,30 @@ public class QnaController {
 	public ModelAndView qnaModifyView(
 			ModelAndView mv
 			, @RequestParam("page") int page
-			, @RequestParam("qnaNo") Integer qnaNo) {
-		try {
-			Qna qna = qService.printOneByNo(qnaNo);
-			mv.addObject("qna", qna);
-			mv.addObject("page", page);
-			mv.setViewName("/qna/qnaModifyForm");
-			
-		} catch (Exception e) {
-			mv.addObject("msg", e.getMessage());
-			mv.setViewName("common/errorPage");
+			, @RequestParam("qnaNo") Integer qnaNo
+			, HttpSession session) {
+		Member member = (Member)session.getAttribute("loginMember");
+		if(member == null) {
+			mv.setViewName("member/login");
+		}else { 
+			try {
+				String memberId = member.getMemberId();
+				int totalQna = qService.totalQna();
+				int totalAnswer = qService.totalAnswer();
+				int totalNoAnswer = qService.totalNoAnswer();
+				
+				Qna qna = qService.printOneByNo(qnaNo);
+				mv.addObject("qna", qna);
+				mv.addObject("page", page);
+				mv.addObject("totalQna", totalQna);
+				mv.addObject("totalAnswer", totalAnswer);
+				mv.addObject("totalNoAnswer", totalNoAnswer);
+				mv.setViewName("/qna/qnaModifyForm");
+				
+			} catch (Exception e) {
+				mv.addObject("msg", e.getMessage());
+				mv.setViewName("common/errorPage");
+			}
 		}
 		return mv;
 	}
@@ -346,7 +382,7 @@ public class QnaController {
 			try {
 				Member member = (Member)session.getAttribute("loginMember");
 				String memberId = member.getMemberId();
-				int totalCount = qService.getTotalCount(memberId, searchCondition, searchValue);
+				int totalCount = qService.getTotalCount(memberId, searchCondition, searchValue,"");
 				int qnaLimit = 10;
 				BookPageController bpCont = new BookPageController();
 				BookPage bPage = bpCont.boardList(page, totalCount, qnaLimit);
@@ -387,6 +423,7 @@ public class QnaController {
 			, @RequestParam(value="page", required = false) Integer page
 			, @RequestParam(value="searchCondition", required = false) String searchCondition
 			, @RequestParam(value="searchValue", required = false) String searchValue
+			, @RequestParam(value="qnaStatus", required = false, defaultValue="all") String qnaStatus
 			, HttpSession session) {
 		Member member = (Member) session.getAttribute("loginMember");
 		if((member.getAdminYN().charAt(0) + "").equals("N")) {
@@ -394,17 +431,24 @@ public class QnaController {
 			mv.setViewName("/common/errorPage");
 		}else {
 			try {
-				int totalCount = qService.getTotalCount("","");   // 총게시물 구하기(페이징위해)
+				int totalQna = qService.totalQna();
+				int totalAnswer = qService.totalAnswer();
+				int totalNoAnswer = qService.totalNoAnswer();
+				
+				int totalCount = qService.getTotalCount("","",qnaStatus);   // 총게시물 구하기(페이징위해)
 				int aqnaLimit = 10; // 한페이지당 출력한 게시물 수
 				BookPageController bpCont = new BookPageController();
 				BookPage bPage = bpCont.boardList(page, totalCount, aqnaLimit);
 
 				if(totalCount > 0) {
-					List<Qna> aList = qService.printAllQna(bPage.getCurrentPage(), aqnaLimit);
+					List<Qna> aList = qService.printAllQna(bPage.getCurrentPage(), aqnaLimit, qnaStatus);
 					mv.addObject("aList", aList);
 				}
 				mv.addObject("bPage", bPage);
 				mv.addObject("page", page);
+				mv.addObject("totalQna", totalQna);
+				mv.addObject("totalAnswer", totalAnswer);
+				mv.addObject("totalNoAnswer", totalNoAnswer);
 				mv.setViewName("/admin/aqnaListView");
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -433,11 +477,18 @@ public class QnaController {
 			, @RequestParam("qnaNo") Integer qnaNo)  {
 		
 		try {
+			int totalQna = qService.totalQna();
+			int totalAnswer = qService.totalAnswer();
+			int totalNoAnswer = qService.totalNoAnswer();
+			
 			Qna qna = qService.printOneByNo(qnaNo);
 			mv.addObject("qna", qna);
 			mv.addObject("page", page);
 			mv.addObject("searchCondition", searchCondition);
 			mv.addObject("searchValue", searchValue);
+			mv.addObject("totalQna", totalQna);
+			mv.addObject("totalAnswer", totalAnswer);
+			mv.addObject("totalNoAnswer", totalNoAnswer);
 			mv.setViewName("admin/aqnaDetailView");
 		} catch (Exception e) {
 			mv.addObject("msg", e.getMessage());
@@ -481,7 +532,7 @@ public class QnaController {
 			, HttpSession session) {
 
 		try {
-			int totalCount = qService.getTotalCount(searchCondition, searchValue);
+			int totalCount = qService.getTotalCount(searchCondition, searchValue,"");
 			int aqnaLimit = 10;
 			BookPageController bpCont = new BookPageController();
 			BookPage bPage = bpCont.boardList(page, totalCount, aqnaLimit);

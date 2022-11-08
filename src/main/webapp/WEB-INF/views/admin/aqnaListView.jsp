@@ -64,8 +64,9 @@
 		<hr>
 			<!-- 세부 메뉴 시작 -->
 			<ul class="mainUl">
-	    		<li class="mainLi"><div style="text-align:right">
-			    		<a href="/admin/qnaList.kh">총문의<br>1&nbsp;&nbsp;&nbsp;&nbsp;</a>
+	    		<li class="mainLi"><div style="text-align:center">
+			    		<a href="/admin/qnaList.kh">총문의<br>
+			    		${totalQna }</a>
 			    	</div>
 			    </li>
 			    <li class="mainLi">
@@ -73,7 +74,8 @@
 			    </li>
 	    		<li class="mainLi">
 	    			<div style="text-align:center">
-			    		<a href="/admin/qnaList.kh">답변완료<br>1</a>
+			    		<a href="/admin/qnaList.kh?qnaStatus=Y">답변완료<br>
+			    		${totalAnswer }</a>
 			    	</div>
 				</li>
 				<li class="mainLi">
@@ -81,17 +83,10 @@
 			    </li>
 	    		<li class="mainLi">
 	    			<div style="text-align:center">
-			    		<a href="/admin/qnaList.kh">처리중<br>1</a>
+			    		<a href="/admin/qnaList.kh?qnaStatus=N">처리중<br>
+			    		${totalNoAnswer }</a>
 			    	</div>
 				</li>
-				<li class="mainLi">
-			    	<div class="col"><img src="/resources/img/sidebar.png"></div>
-			    </li>
-	    		<li class="mainLi">
-	    			<div style="text-align:left">
-			    		<a href="/admin/qnaList.kh">접수<br>&nbsp;&nbsp;&nbsp;&nbsp;1</a>
-			    	</div>
-	    		</li>
 	 		</ul>
 	 		<!-- 세부 메뉴 끝 -->
 		<hr>
@@ -100,7 +95,7 @@
 		
 		<div class="row row-cols-1">
 		<!-- 검색 -->
-			<table align="center" class="table col-6" border="0px">
+			<table align="center" class="table col-6" border="0px" style="width:80%;">
 				<tr>
 					<td class="col-6" style="border:none;">
 						<div style="display: inline-block; margin: 0 5px;  float: left;">
@@ -133,7 +128,7 @@
 	
 		<!-- 리스트 출력 -->
 		<div class="row row-cols-1">
-			<table align="center" class="table col-7">
+			<table align="center" class="table col-7" style="width:90%;">
 				<!-- 카테고리별 리스트 시작 -->
 				<tr>
 					<td class="col-7" style="border:none;" td colspan="6" align="right">
@@ -212,7 +207,7 @@
 									
 				
 									<c:if test="${p != bPage.currentPage && p !=0}">
-										<span class="pages"> <a href="/admin/qnaList.kh?page=${p }">${p }</a>
+										<span class="pages"> <a href="/admin/qnaList.kh?page=${p }&qnaStatus=${qna.qnaStatus}">${p }</a>
 										</span>
 									</c:if>
 				
@@ -220,7 +215,7 @@
 								<!-- 다음 페이지 출력 -->
 								<c:if test="${bPage.endNavi ne bPage.maxPage  }">
 									<span class="next"> <a
-										href="/admin/qnaList?page=${bPage.endNavi+1 }"> [다음] </a>
+										href="/admin/qnaList?page=${bPage.endNavi+1 }&qnaStatus=${qna.qnaStatus}"> [다음] </a>
 									</span>
 								</c:if>
 							</article>

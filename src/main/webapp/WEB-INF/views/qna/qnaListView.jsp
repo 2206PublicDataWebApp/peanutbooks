@@ -65,8 +65,9 @@
 		<hr>
 			<!-- 세부 메뉴 시작 -->
 			<ul class="mainUl">
-	    		<li class="mainLi"><div style="text-align:right">
-			    		<a href="/qna/list.kh">총문의<br>1&nbsp;&nbsp;&nbsp;&nbsp;</a>
+	    		<li class="mainLi"><div style="text-align:center">
+			    		<a href="/qna/list.kh">총문의<br>
+			    		${totalQna }</a>
 			    	</div>
 			    </li>
 			    <li class="mainLi">
@@ -74,7 +75,8 @@
 			    </li>
 	    		<li class="mainLi">
 	    			<div style="text-align:center">
-			    		<a href="/qna/list.kh">답변완료<br>1</a>
+			    		<a href="/qna/list.kh?qnaStatus=Y">답변완료<br>
+						${totalAnswer }</a>
 			    	</div>
 				</li>
 				<li class="mainLi">
@@ -82,17 +84,10 @@
 			    </li>
 	    		<li class="mainLi">
 	    			<div style="text-align:center">
-			    		<a href="/qna/list.kh">처리중<br>1</a>
+			    		<a href="/qna/list.kh?qnaStatus=N">처리중<br>
+						${totalNoAnswer }</a>
 			    	</div>
 				</li>
-				<li class="mainLi">
-			    	<div class="col"><img src="/resources/img/sidebar.png"></div>
-			    </li>
-	    		<li class="mainLi">
-	    			<div style="text-align:left">
-			    		<a href="/qna/list.kh">접수<br>&nbsp;&nbsp;&nbsp;&nbsp;1</a>
-			    	</div>
-	    		</li>
 	 		</ul>
 	 		<!-- 세부 메뉴 끝 -->
 		<hr>
@@ -208,7 +203,7 @@
 									
 				
 									<c:if test="${p != bPage.currentPage && p !=0}">
-										<span class="pages"> <a href="/qna/list.kh?page=${p }">${p }</a>
+										<span class="pages"> <a href="/qna/list.kh?page=${p }&qnaStatus=${qna.qnaStatus}">${p }</a>
 										</span>
 									</c:if>
 				
@@ -216,7 +211,7 @@
 								<!-- 다음 페이지 출력 -->
 								<c:if test="${bPage.endNavi ne bPage.maxPage  }">
 									<span class="next"> <a
-										href="/qna/list?page=${bPage.endNavi+1 }"> [다음] </a>
+										href="/qna/list?page=${bPage.endNavi+1 }&qnaStatus=${qna.qnaStatus}"> [다음] </a>
 									</span>
 								</c:if>
 							</article>

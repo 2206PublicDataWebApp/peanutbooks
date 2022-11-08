@@ -49,8 +49,9 @@
 				<hr>
 					<!-- <div id="title">전체 시리즈 목록</div> -->
 					<ul class="mainUl">
-			    		<li class="mainLi"><div style="text-align:right">
-					    		<a href="/admin/approveYN.kh">전체도서<br></a>
+			    		<li class="mainLi"><div style="text-align:center">
+					    		<a href="/admin/approveYN.kh">전체도서<br>
+					    		${allBooks }</a>
 					    	</div>
 					    </li>
 					    <li class="mainLi">
@@ -58,7 +59,8 @@
 					    </li>
 			    		<li class="mainLi">
 			    			<div style="text-align:center">
-					    		<a href="/admin/approveYN.kh?checkPermission=Y&page=${currentPage }">승인도서</a>
+					    		<a href="/admin/approveYN.kh?checkPermission=Y&step=date">승인도서<br>
+					    		${approveYes }</a>
 					    	</div>
 						</li>
 						<li class="mainLi">
@@ -66,15 +68,17 @@
 					    </li>
 			    		<li class="mainLi">
 			    			<div style="text-align:center">
-					    		<a href="/admin/approveYN.kh?checkPermission=N&page=${currentPage }">보류도서</a>
+					    		<a href="/admin/approveYN.kh?checkPermission=N&step=number">보류도서<br>
+					    		${approveNo }</a>
 					    	</div>
 						</li>
 						<li class="mainLi">
 					    	<div class="col"><img src="/resources/img/sidebar.png"></div>
 					    </li>
 			    		<li class="mainLi">
-			    			<div style="text-align:left">
-					    		<a href="/admin/reApproveList.kh?page=${currentPage }">재승인도서</a>
+			    			<div style="text-align:center">
+					    		<a href="/admin/reApproveList.kh">재승인도서<br>
+					    		${reApproveBooks }</a>
 					    	</div>
 			    		</li>
 			 		</ul>

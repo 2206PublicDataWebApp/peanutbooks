@@ -58,8 +58,8 @@
 		<hr>
 			<!-- 세부 메뉴 시작 -->
 			<ul class="mainUl">
-	    		<li class="mainLi"><div style="text-align:right">
-			    		<a href="/admin/adminListView.kh">전체회원<br>1&nbsp;&nbsp;&nbsp;&nbsp;</a>
+	    		<li class="mainLi"><div style="text-align:center">
+			    		<a href="/admin/adminListView.kh?code=all">전체회원<br>${totalCount }</a>
 			    	</div>
 			    </li>
 			    <li class="mainLi">
@@ -67,7 +67,7 @@
 			    </li>
 	    		<li class="mainLi">
 	    			<div style="text-align:center">
-			    		<a href="/admin/adminListView.kh">오늘가입<br>1</a>
+			    		<a href="/admin/adminListView.kh?code=today">오늘가입<br>${todayCount }</a>
 			    	</div>
 				</li>
 				<li class="mainLi">
@@ -75,17 +75,9 @@
 			    </li>
 	    		<li class="mainLi">
 	    			<div style="text-align:center">
-			    		<a href="/admin/adminListView.kh">탈퇴회원<br>1</a>
+			    		<a href="/admin/adminListView.kh?code=del">탈퇴회원<br>${deleteCount }</a>
 			    	</div>
 				</li>
-				<li class="mainLi">
-			    	<div class="col"><img src="/resources/img/sidebar.png"></div>
-			    </li>
-	    		<li class="mainLi">
-	    			<div style="text-align:left">
-			    		<a href="/admin/adminListView.kh">휴면회원<br>&nbsp;&nbsp;&nbsp;&nbsp;1</a>
-			    	</div>
-	    		</li>
 	 		</ul>
 	 		<!-- 세부 메뉴 끝 -->
 		<hr>
@@ -193,15 +185,14 @@
 									
 				
 									<c:if test="${p != bPage.currentPage && p !=0}">
-										<span class="pages"> <a href="/admin/adminListView.kh?page=${p }">${p }</a>
+										<span class="pages"> <a href="/admin/adminListView.kh?page=${p }&code=${code}">${p }</a>
 										</span>
 									</c:if>
 				
 								</c:forEach>
 								<!-- 다음 페이지 출력 -->
 								<c:if test="${bPage.endNavi ne bPage.maxPage  }">
-									<span class="next"> <a
-										href="/admin/adminListView.kh?page=${bPage.endNavi+1 }"> > </a>
+									<span class="next"> <a href="/admin/adminListView.kh?page=${bPage.endNavi+1 }&code=${code}"> > </a>
 									</span>
 								</c:if>
 				

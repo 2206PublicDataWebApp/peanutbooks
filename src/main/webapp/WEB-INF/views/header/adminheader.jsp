@@ -34,7 +34,9 @@
 				<div class="col-md-5 d-md-block d-none">
 					<ul>
 						<li><a href="javascript:void(0);"  onclick="mainboard();">게시판</a></li>
+
 						<li> <a href="/admin/approveYN.kh">도서</a></li>
+
 
 						<li onclick="mainPN();">피넛</li>
 						<li><a href="/admin/adminListView.kh">회원</a></li>
@@ -74,9 +76,11 @@
 		<div id="menu-bar">
 			<ul>
 				<li onclick="mainboard();">게시판</li>
-				<li><a href="/admin/bookApproveView.kh">도서</a></li>
+
+				<li><a href="/admin/approveYN.kh">도서</a></li>
+
 				<li onclick="mainPN();">피넛</li>
-				<li>회원</li>
+				<li><a href="/admin/adminListView.kh">회원</a></li>
 			</ul>
 		</div>
 		
@@ -100,8 +104,8 @@
 		<div class="subMenu" id="boardMenu">
 	        <nav>	
 	            <ul >                
-	                <li class="pnZone" ><a href="/admin/qnaList.kh" >공지사항</a></li>
-	                <li class="pnZone"><a href="#" >소메뉴예정1</a></li>
+	                <li class="pnZone" ><a href="/admin/qnaList.kh" >1:1문의 게시판</a></li>
+	                <li class="pnZone"><a href="/notice/list.kh" >공지사항</a></li>
 	                <li class="pnZone"><a href="#" >소메뉴예정2</a></li>               
 	               		
 	            </ul>
@@ -196,7 +200,7 @@
 						</div>
 						<div class="col-4">
 
-							<a href="/notice/list.kh"><img src="/resources/img/header/icons8-noticeboard-50.png" alt=""></a>
+							<a href="/notice/noticeUserList.do"><img src="/resources/img/header/icons8-noticeboard-50.png" alt=""></a>
 							<br>공지사항
 						</div>
 

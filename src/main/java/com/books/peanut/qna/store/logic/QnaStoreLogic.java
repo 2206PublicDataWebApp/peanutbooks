@@ -19,9 +19,10 @@ public class QnaStoreLogic implements QnaStore {
 	}
 	//회원별 qna게시판 총게시물 구하기
 	@Override
-	public int selectMemberQnaCount(SqlSessionTemplate session, String memberId, String searchCondition, String searchValue) {
+	public int selectMemberQnaCount(SqlSessionTemplate session, String memberId, String searchCondition, String searchValue, String qnaStatus) {
 		HashMap<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("memberId", memberId);
+		paramMap.put("qnaStatus", qnaStatus);
 		paramMap.put("searchCondition", searchCondition);
 		paramMap.put("searchValue", searchValue);
 		int totalCount = session.selectOne("QnaMapper.selectMemberQnaCount", paramMap);
@@ -29,10 +30,13 @@ public class QnaStoreLogic implements QnaStore {
 	}
 	//회원별 qna게시판 리스트 페이징
 	@Override
-	public List<Qna> selectMemberQna(SqlSessionTemplate session, String memberId, int currentPage, int qnaLimit) {
+	public List<Qna> selectMemberQna(SqlSessionTemplate session, String memberId, int currentPage, int qnaLimit, String qnaStatus) {
 		int offset = (currentPage - 1) * qnaLimit;
 		RowBounds rowBounds = new RowBounds(offset, qnaLimit);
-		List<Qna> qList = session.selectList("QnaMapper.selectMemberQna", memberId, rowBounds);
+		HashMap<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("memberId", memberId);
+		paramMap.put("qnaStatus", qnaStatus);
+		List<Qna> qList = session.selectList("QnaMapper.selectMemberQna", paramMap, rowBounds);
 		return qList;
 	}
 	//회원 게시물 상세보기
@@ -68,22 +72,23 @@ public class QnaStoreLogic implements QnaStore {
 	}
 	//관리자 qna게시판 총게시물 구하기
 	@Override
-	public int selectAllCount(SqlSessionTemplate session, String searchCondition, String searchValue) {
+	public int selectAllCount(SqlSessionTemplate session, String searchCondition, String searchValue, String qnaStatus) {
 		HashMap<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("searchCondition", searchCondition);
 		paramMap.put("searchValue", searchValue);
+		paramMap.put("qnaStatus", qnaStatus);
 		int totalCount = session.selectOne("QnaMapper.selectAllQnaCount", paramMap);
 		return totalCount;
 	}
 
 	//관리자 Qna게시판 리스트 페이징 
 	@Override
-	public List<Qna> selectAllQna(SqlSessionTemplate session, int currentPage, int aqnaLimit) {
+	public List<Qna> selectAllQna(SqlSessionTemplate session, int currentPage, int aqnaLimit, String qnaStatus) {
 		int offset = (currentPage-1)*aqnaLimit;
 		RowBounds rowBounds = new RowBounds(offset, aqnaLimit);
 		List<Qna> aList 
 		= session.selectList("QnaMapper.selectAllQna"
-				, null, rowBounds);
+				, qnaStatus, rowBounds);
 		return aList;
 	}
 	//관리자 회원문의글 답변
@@ -121,5 +126,37 @@ public class QnaStoreLogic implements QnaStore {
 	public int selectCategoryCount(SqlSessionTemplate session, String qnaCategory) {
 		int totalCount = session.selectOne("QnaMapper.selectCategoryList", qnaCategory);
 		return totalCount;
+	}
+	//회원 답변상황에 따른 리스트 카운트
+	@Override
+	public int selectTotalQna(SqlSessionTemplate session, String memberId) {
+		int result = session.selectOne("QnaMapper.selectTotalQna", memberId);
+		return result;
+	}
+	@Override
+	public int selectTotalAnswer(SqlSessionTemplate session, String memberId) {
+		int result = session.selectOne("QnaMapper.selectTotalAnswer", memberId);
+		return result;
+	}
+	@Override
+	public int selectTotalNoAnswer(SqlSessionTemplate session, String memberId) {
+		int result = session.selectOne("QnaMapper.selectTotalNoAnswer", memberId);
+		return result;
+	}
+	//관리자 답변상황에 따른 리스트 카운트
+	@Override
+	public int selectTotalQna(SqlSessionTemplate session) {
+		int result = session.selectOne("QnaMapper.selectTotalQnaAdmin");
+		return result;
+	}
+	@Override
+	public int selectTotalAnswer(SqlSessionTemplate session) {
+		int result = session.selectOne("QnaMapper.selectTotalAnswerAdmin");
+		return result;
+	}
+	@Override
+	public int selectTotalNoAnswer(SqlSessionTemplate session) {
+		int result = session.selectOne("QnaMapper.selectTotalNoAnswerAdmin");
+		return result;
 	}
 }

@@ -89,20 +89,22 @@ public class BookApproveStoreLogic implements BookApproveStore{
 	
 	//전체 회원 갯수
 	@Override
-	public int selectAllMember(SqlSession session, String searchCondition, String searchValue) {
+	public int selectAllMember(SqlSession session, String searchCondition, String searchValue, String code) {
 		HashMap<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("searchCondition", searchCondition);
 		paramMap.put("searchValue", searchValue);
+		paramMap.put("code", code);
 		int count = session.selectOne("BookApproveMapper.selectAllMemberCount", paramMap);
 		return count;
 	}
 	//전체 회원 리스트
 	@Override
-	public List<Member> selectAllMembers(SqlSession session, int i, int memberLimit) {
+	public List<Member> selectAllMembers(SqlSession session, int i, int memberLimit, String code) {
 		int offset = (i-1)*memberLimit;
 		RowBounds rowBounds= new RowBounds(offset,memberLimit);
-		
-		List<Member> mList = session.selectList("BookApproveMapper.selectAllMembers", null, rowBounds);
+		HashMap<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("code", code);
+		List<Member> mList = session.selectList("BookApproveMapper.selectAllMembers", paramMap, rowBounds);
 		return mList;
 	}
 	//회원 상세보기
@@ -117,6 +119,7 @@ public class BookApproveStoreLogic implements BookApproveStore{
 		int result = session.delete("BookApproveMapper.deleteOneById", memberId);
 		return result;
 	}
+	//회원 리스트 출력
 	@Override
 	public List<Member> selectSeachAllMember(
 			SqlSession session
@@ -132,11 +135,46 @@ public class BookApproveStoreLogic implements BookApproveStore{
 		List<Member> mList = session.selectList("BookApproveMapper.selectSearchAllMember", paramMap, rowBounds);
 		return mList;
 	}
+	//회원정보수정
 	@Override
 	public int updateMemberModify(SqlSession session, Member member) {
 		int result = session.update("BookApproveMapper.updateMemberModify", member);
 		return result;
 	}
+	//회원 상태별로 카운트
+	@Override
+	public int selectTodayCount(SqlSession session) {
+		int result = session.selectOne("BookApproveMapper.selectTodayCount");
+		return result;
+	}
+	@Override
+	public int selectDeleteMemberCount(SqlSession session) {
+		int result = session.selectOne("BookApproveMapper.selectDeleteMemberCount");
+		return result;
+	}
+	@Override
+	public int selectTotalCount(SqlSession session) {
+		int result = session.selectOne("BookApproveMapper.selectTotalCount");
+		return result;
+	}
+	//도서 상태별로 카운트
+	@Override
+	public int selectAllBooks(SqlSession session) {
+		int result = session.selectOne("BookApproveMapper.selectAllBoos");
+		return result;
+	}
+	@Override
+	public int selectApproveYes(SqlSession session) {
+		int result = session.selectOne("BookApproveMapper.selectApproveYes");
+		return result;
+	}
+	@Override
+	public int selectApproveNo(SqlSession session) {
+		int result = session.selectOne("BookApproveMapper.selectApproveNo");
+		return result;
+	}
+
+
 
 
 	

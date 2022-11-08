@@ -64,8 +64,9 @@
 		<hr>
 			<!-- 세부 메뉴 시작 -->
 			<ul class="mainUl">
-	    		<li class="mainLi"><div style="text-align:right">
-			    		<a href="/qna/list.kh">총문의<br>1&nbsp;&nbsp;&nbsp;&nbsp;</a>
+	    		<li class="mainLi"><div style="text-align:center">
+			    		<a href="/qna/list.kh">총문의<br>
+			    		${totalQna }</a>
 			    	</div>
 			    </li>
 			    <li class="mainLi">
@@ -73,7 +74,8 @@
 			    </li>
 	    		<li class="mainLi">
 	    			<div style="text-align:center">
-			    		<a href="/qna/list.kh">답변완료<br>1</a>
+			    		<a href="/qna/list.kh?qnaStatus=Y">답변완료<br>
+						${totalAnswer }</a>
 			    	</div>
 				</li>
 				<li class="mainLi">
@@ -81,27 +83,23 @@
 			    </li>
 	    		<li class="mainLi">
 	    			<div style="text-align:center">
-			    		<a href="/qna/list.kh">처리중<br>1</a>
+			    		<a href="/qna/list.kh?qnaStatus=N">처리중<br>
+						${totalNoAnswer }</a>
 			    	</div>
 				</li>
-				<li class="mainLi">
-			    	<div class="col"><img src="/resources/img/sidebar.png"></div>
-			    </li>
-	    		<li class="mainLi">
-	    			<div style="text-align:left">
-			    		<a href="/qna/list.kh">접수<br>&nbsp;&nbsp;&nbsp;&nbsp;1</a>
-			    	</div>
-	    		</li>
 	 		</ul>
 	 		<!-- 세부 메뉴 끝 -->
 		<hr>
 		<br>
+		
 		<!-- 세부페이지 body 시작 -->
 	
 			<div class="row row-cols-1">
 				<table align="center" class="table col-6" border="0" style="width:80%;">
-					<c:if test="${qna.qnaStatus eq 'Y'}">
 					<tr>
+						<td colspan="2"><h3>문의 내용</h3></td>
+					<tr>
+					<c:if test="${qna.qnaStatus eq 'Y'}">
 						<td class="col-6" colspan="2" style="color:gray";>※관리자가 답변을 작성한 게시물은 수정할 수 없습니다.</td>
 					</tr>
 					</c:if>
@@ -175,7 +173,6 @@
 							<button type="button" onclick="location.href='/qna/modifyView.kh?qnaNo=${qna.qnaNo }&page=${page }&searchCondition=${searchCondition}&searchValue=${searchValue}'" class="btn btn-warning btn-sm">수정</button>
 							<input onclick="qnaRemove(${qna.qnaNo}, ${page});" type="button" value="삭제" class="btn btn-warning btn-sm">
 							<button type="button" onclick="backBtn()" class="btn btn-warning btn-sm">목록</button>
-							 
 						</td>
 					</tr>
 					</c:if>

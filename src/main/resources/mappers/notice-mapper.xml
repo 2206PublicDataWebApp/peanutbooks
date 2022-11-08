@@ -111,4 +111,13 @@
 		</where>
 		ORDER BY NOTICE_NO DESC
 	</select>
+	<select id="selectAllBoard" resultType="_int">
+		SELECT count(*) FROM NOTICE_TBL
+	</select>
+	<select id="selectShowBoard" resultType="_int">
+		SELECT count(*) FROM NOTICE_TBL where N_STATUS='Y'
+	</select>
+	<select id="selectHideBoard" resultType="_int">
+		SELECT count(*) FROM NOTICE_TBL where N_STATUS='N'
+	</select>
 </mapper>

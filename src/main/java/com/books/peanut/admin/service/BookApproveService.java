@@ -27,11 +27,10 @@ public interface BookApproveService {
 	//도서 재승인하기
 	public int reApproveBooks(Integer bookNo, Integer seriesNo);
 	
-	
 	//전체 회원 갯수
-	public int allMemberCount(String searchCondition, String searchValue);
+	public int allMemberCount(String searchCondition, String searchValue, String code);
 	//전체 회원 리스트 출력
-	public List<Member> allMembers(int currentPage, int memberLimit);
+	public List<Member> allMembers(int currentPage, int memberLimit, String code);
 	//회원 상세 보기
 	public Member printOneById(String memberId);
 	//회원 삭제
@@ -40,6 +39,15 @@ public interface BookApproveService {
 	public List<Member> searchMembers(String searchCondition, String searchValue, int currentPage, int memberLimit);
 	//회원 정보 수정
 	public int modifyOnById(Member member);
+	//회원 상태별로 카운트
+	public int todayJoinCount();
+	public int deleteMemberCount();
+	public int todalCount();
+	//도서 상태별로 카운드
+	public int allBooks();
+	public int approveYes();
+	public int approveNo();
+
 
 	
 	
