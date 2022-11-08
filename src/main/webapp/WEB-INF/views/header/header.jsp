@@ -95,8 +95,10 @@
 					
 					
 						<div class="col-4">
-							<img src="/resources/img/header/icons8-notification-64.png"
-								alt=""> <br>알림
+							<a href="/news/newsList.pb">
+								<img src="/resources/img/header/icons8-notification-64.png"
+									alt=""> <br>알림
+							</a>
 						</div>
 						<div class="col-4">
 							<a href="/member/memberInfo.pb">

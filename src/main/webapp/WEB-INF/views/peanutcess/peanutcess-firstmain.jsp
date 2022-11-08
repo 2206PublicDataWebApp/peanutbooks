@@ -92,8 +92,6 @@
 
  
 
-<script src="/resources/js/peanutcess/peanutcess-main.js">
-
 </script>
 <script type="text/javascript">
 var nick = '${nickName}';

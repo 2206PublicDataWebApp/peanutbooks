@@ -1,4 +1,8 @@
-;
+
+$('.status-area').css('display','none');
+$('#status-area').css('display','none');
+$('#sche-area2').css('display','none');
+
 
  firstText( function() { 
     secontTest();
