@@ -1,11 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap'); */
 body {
 	width: 100%;
 	margin: 0%;
 	background-color: #fff;
-	font-family: 'Jua', sans-serif; 
+	font-family: 'Noto Sans KR', sans-serif; 
 }
-
+main{
+	width: 100%;
+	margin: auto;
+}
 #h {
 	margin-top: 3rem;
 }
@@ -37,7 +41,7 @@ body {
 	border-radius: 0.5em;
 	height: 40px;
 	box-shadow: 0 0.5px 3px rgba(0, 0, 0, 0.15);
-	font-family: 'Jua', sans-serif;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 .totalpeanet {
 	width: 400px;
@@ -79,7 +83,7 @@ body {
 table {
 	width: 100%;
 	border-collapse: collapse;
-	font-family: 'Jua', sans-serif;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 table>tr{
 	width:100%;
@@ -95,12 +99,38 @@ table>tr{
 }
 
 @media ( max-width :800px) {
+	main{
+	width:100%;
+	margin : 0 auto;
+	}
 	.monitercontrol {
 		display: none;
 	}
 	#table {
-		width: 600px;
+		width: 100%;
 	}
+}
+@media ( max-width :400px) {
+	main{
+		width:100%;
+		margin : 0 auto;
+	}
+	#h{margin-top:1rem;}
+	#spanDIV{
+		width:100%;
+		margin : 0 auto;
+		font-size:1rem;
+		padding-left:0.5rem;
+	}
+	
+	table{
+		 width:100%;
+		 border:none !important;
+	 }
+	.tableNo{font-size:1rem;}
+	.contexnts{font-size:1rem;}
+	.date{font-size:0.8rem;}
+	.peanet{width:10%;}
 }
 
 
@@ -122,16 +152,16 @@ table>tr{
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 20px;
+    font-size: 18px;
     margin: 0 5px 8px;
     border-radius: 5px;
-    min-width: 20px;
-    padding: 0 10px;
+    min-width: 18px;
+    padding: 0 8px;
     height: 40px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
     text-decoration: none;
     position: relative;
-    font-family: 'Jua', sans-serif; 
+    font-family: 'Noto Sans KR', sans-serif; 
 }
 .pagination > span {
     pointer-events: none;

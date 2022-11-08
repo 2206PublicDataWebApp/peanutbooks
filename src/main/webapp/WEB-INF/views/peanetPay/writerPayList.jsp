@@ -103,6 +103,8 @@
 		</div>
 	</div>
 </main>
+
+<jsp:include page="../footer/footer.jsp"></jsp:include>
 <script>
 	function putWRpay(wrpayNo) {
 		$.ajax({

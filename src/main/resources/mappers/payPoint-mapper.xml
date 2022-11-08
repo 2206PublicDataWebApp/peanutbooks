@@ -183,12 +183,12 @@
   	<select id="admin_searchppSum" resultType="_int">
   		SELECT SUM(PEANUT_POINT) FROM PEANUTPOINT_TBL 
   		<where>
-	  		<if test="(memberId == 'admin' memberId != null or memberId != '') and (ppDate==null or ppDate == '') " > </if>	  		
-	  		<if test="(memberId != 'admin' memberId != null or memberId != '') and (ppDate==null or ppDate == '') " >
+	  		<if test="memberId == 'admin'  and (ppDate==null or ppDate == '') " > </if>	  		
+	  		<if test="(memberId != 'admin' or memberId != null or memberId != '') and (ppDate==null or ppDate == '') " >
 	  			MEMBER_ID=#{memberId }
 	  		</if> 	
 			<if
-				test="(memberId != 'admin' memberId == null or memberId == '') and (ppDate!=null and ppDate != '')">
+				test="(memberId != 'admin' or memberId == null or memberId == '') and (ppDate!=null and ppDate != '')">
 				TO_CHAR((PP_DATE),'YYYY-MM-DD')=#{ppDate } 				
 			</if>
 		</where>		
@@ -198,8 +198,8 @@
   	<select id="admin_ppListCount" resultType="_int">
   		SELECT COUNT(*) FROM PEANUTPOINT_TBL 
   		  	<where>
-		  		<if test="memberId == 'admin' and (ppDate==null or ppDate == '') " > </if>	  		
-		  		<if test="memberId != 'admin' and (ppDate==null or ppDate == '') " >
+		  		<if test="memberId == 'admin' or memberId == null or memberId == '' " > </if>	  		
+		  		<if test="(memberId != 'admin' and memberId != null and memberId != '') and (ppDate==null or ppDate == '') " >
 		  			MEMBER_ID=#{memberId }
 		  		</if> 	
 				<if
@@ -213,14 +213,14 @@
   	<select id="admin_peanutpointLsit" resultMap="peanutResultMap">
   		SELECT * FROM PEANUTPOINT_TBL 
   		<where>
- 			<if test="memberId == 'admin' and (ppDate==null or ppDate == '') " > </if>	  		
-	  		<if test="memberId != 'admin' and (ppDate==null or ppDate == '') " >
-	  			MEMBER_ID=#{memberId }
-	  		</if> 	
-			<if
-				test="(memberId == null or memberId == '') and (ppDate!=null and ppDate != '')">
-				TO_CHAR((PP_DATE),'YYYY-MM-DD')=#{ppDate } 				
-			</if> 
+ 			<if test="memberId == 'admin' or memberId == null or memberId == '' " > </if>	  		
+		  		<if test="(memberId != 'admin' and memberId != null and memberId != '') and (ppDate==null or ppDate == '') " >
+		  			MEMBER_ID=#{memberId }
+		  		</if> 	
+				<if
+					test="(memberId == null or memberId == '') and (ppDate!=null and ppDate != '')">
+					TO_CHAR((PP_DATE),'YYYY-MM-DD')=#{ppDate } 				
+				</if>
   		</where>
   		ORDER BY PP_DATE DESC
   	</select>

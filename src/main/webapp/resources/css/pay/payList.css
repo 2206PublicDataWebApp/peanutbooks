@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
 
 #body{
 	margin: 0 auto;
@@ -18,7 +18,7 @@
   width: 100%;
   height: auto;    
   font-size: 1.2em;
-  font-family: 'Jua', sans-serif;  
+  font-family: 'Noto Sans KR', sans-serif;  
    
 }
 
@@ -79,7 +79,7 @@
 }
 #searchBtn{  
   width: 100px;
-  height: 2.5rem
+  height: 2.5rem;
   line-height: 100%;
   margin-left: 10px;
   border: 1px #ccc solid;
@@ -154,7 +154,7 @@ caption-side:top;
   margin : 0 auto;
   margin-bottom: 1.5em;
   font-size: 1.4em;
-  font-family: 'Jua', sans-serif; 
+  font-family: 'Noto Sans KR', sans-serif; 
   
 }
 .responsive-table thead {
