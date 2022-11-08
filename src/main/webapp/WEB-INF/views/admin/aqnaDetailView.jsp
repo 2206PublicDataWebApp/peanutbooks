@@ -63,8 +63,9 @@
 		<hr>
 			<!-- 세부 메뉴 시작 -->
 			<ul class="mainUl">
-	    		<li class="mainLi"><div style="text-align:right">
-			    		<a href="/admin/qnaList.kh">총문의<br>1&nbsp;&nbsp;&nbsp;&nbsp;</a>
+	    		<li class="mainLi"><div style="text-align:center">
+			    		<a href="/admin/qnaList.kh">총문의<br>
+			    		${totalQna }</a>
 			    	</div>
 			    </li>
 			    <li class="mainLi">
@@ -72,7 +73,8 @@
 			    </li>
 	    		<li class="mainLi">
 	    			<div style="text-align:center">
-			    		<a href="/admin/qnaList.kh">답변완료<br>1</a>
+			    		<a href="/admin/qnaList.kh?qnaStatus=Y">답변완료<br>
+			    		${totalAnswer }</a>
 			    	</div>
 				</li>
 				<li class="mainLi">
@@ -80,28 +82,24 @@
 			    </li>
 	    		<li class="mainLi">
 	    			<div style="text-align:center">
-			    		<a href="/admin/qnaList.kh">처리중<br>1</a>
+			    		<a href="/admin/qnaList.kh?qnaStatus=N">처리중<br>
+			    		${totalNoAnswer }</a>
 			    	</div>
 				</li>
-				<li class="mainLi">
-			    	<div class="col"><img src="/resources/img/sidebar.png"></div>
-			    </li>
-	    		<li class="mainLi">
-	    			<div style="text-align:left">
-			    		<a href="/admin/qnaList.kh">접수<br>&nbsp;&nbsp;&nbsp;&nbsp;1</a>
-			    	</div>
-	    		</li>
 	 		</ul>
 	 		<!-- 세부 메뉴 끝 -->
 		<hr>
 		<br>
 		<!-- 세부페이지 body 시작 -->
 
-		<div class="row row-cols-1" style="width:80%";>
+		<div class="row row-cols-1" style="width:80%; margin: 0 auto;">
 			<table align="center" class="table col-6" style="border-color:skyblue;">
 				<tr>
+					<td colspan="2"><h3>1:1문의내역</h3></td>
+				</tr>
+				<tr>
 					<td class="col-2" align="center">문의유형</td>
-					<td class="col-4">
+					<td class="col-4" align="left">
 						<c:if test="${qna.qnaCategory == 'member' }">회원관련</c:if>
 						<c:if test="${qna.qnaCategory == 'point' }">포인트관련</c:if>
 						<c:if test="${qna.qnaCategory == 'books' }">도서관련</c:if>
@@ -196,7 +194,7 @@
 			<input type="hidden" name="searchValue" value="${searchValue}">  
 			<table class="table col-6" style="border-color:orange";>
 				<tr>
-					<td class="col-6" colspan="2" align="center"><b>회원 문의 답변</b></td>
+					<td class="col-6" colspan="2" align="center"><h3>회원 문의 답변</h3></td>
 				</tr>
 				<tr>
 					<td class="col-2" align="center">작성자</td>

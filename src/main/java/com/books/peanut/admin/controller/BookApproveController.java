@@ -1,5 +1,6 @@
 package com.books.peanut.admin.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,10 +19,12 @@ import com.books.peanut.admin.domain.ModifyBookSeries;
 import com.books.peanut.admin.service.BookApproveService;
 import com.books.peanut.book.controller.BookPageController;
 import com.books.peanut.book.domain.BookPage;
+import com.books.peanut.book.domain.Library;
 import com.books.peanut.book.domain.OriginBook;
 import com.books.peanut.book.domain.OriginBookSeries;
 import com.books.peanut.book.service.BookService;
 import com.books.peanut.member.domain.Member;
+import com.books.peanut.news.service.NewsService;
 
 @Controller
 public class BookApproveController {
@@ -29,17 +32,51 @@ public class BookApproveController {
 	private BookApproveService BAService;
 	@Autowired
 	private BookService bService;
-	//도서 승인리스트 출력
-//	@RequestMapping(value = "/admin/writerMenu.do", method = RequestMethod.GET)
-//	public ModelAndView writerMenu(ModelAndView mv, HttpSession session,
-//			@RequestParam(value = "page", required = false) Integer page) {
-//
-//			mv.setViewName("redirect:/admin/approveYN.kh");
-//		
-//		return mv;
-//
-//	}
-	//도서 승인 기능
+	@Autowired
+	private NewsService nService;
+
+	//도서 리스트(all, 승인, 보류)
+	@RequestMapping(value="/admin/approveYN.kh", method=RequestMethod.GET)
+	public ModelAndView approveYNList(
+			ModelAndView mv
+			, @RequestParam(value="checkPermission", defaultValue = "all") String checkPermission
+			, @RequestParam(value="page", required=false) Integer page
+			, @RequestParam(value="step", required=false, defaultValue = "date")String step) {
+		try {
+			int allBooks = BAService.allBooks();
+			int approveYes = BAService.approveYes();
+			int approveNo = BAService.approveNo();
+			int reApproveBooks = BAService.reApproveCount();
+			
+			int getTotalCount = BAService.checkPermissionCount(checkPermission);
+			int boardLimit = 20;
+			BookPageController bpCont = new BookPageController();
+			BookPage bPage = bpCont.boardList(page, getTotalCount, boardLimit);
+			
+			if(getTotalCount > 0) {
+				List<OriginBookSeries> osList = BAService.checkPermission(bPage.getCurrentPage(), boardLimit, checkPermission, step);
+				
+				for (int i = 0; i < osList.size(); i++) {
+					String bookTitle = bService.getBookTitle(osList.get(i).getBookNo());
+					osList.get(i).setBookTitle(bookTitle);// 각 시리즈의 책 제목 가지고옴
+				}
+				mv.addObject("osList", osList);
+			}
+			mv.addObject("allBooks", allBooks);
+			mv.addObject("approveYes", approveYes);
+			mv.addObject("approveNo", approveNo);
+			mv.addObject("reApproveBooks", reApproveBooks);
+			mv.addObject("checkPermission", checkPermission);
+			mv.addObject("bPage", bPage);
+			mv.setViewName("/bookApprove/BAwritermenu");
+			
+		} catch (Exception e) {
+			mv.addObject("msg", e.toString()).setViewName("common/errorPage");
+		}
+		return mv;
+	}
+	
+	//도서 승인
 	@RequestMapping(value="/admin/approve.kh", method=RequestMethod.GET)
 	public ModelAndView bookApprove(
 			@RequestParam("bookNo") Integer bookNo
@@ -56,7 +93,17 @@ public class BookApproveController {
 				int result = BAService.approveBooks(bookNo,seriesNo);
 				mv.addObject("page", page);
 				if(result > 0) {
-					mv.setViewName("redirect:/admin/writerMenu.do");
+					mv.setViewName("redirect:/admin/approveYN.kh");
+	               /* 알림 등록 시작 */
+	               List<Library> lList = nService.selectMemberIdByBookNo(bookNo); // 해당 도서를 서재에 저장한 회원 아이디 리스트 가져오기
+	               OriginBook originBook = nService.selectBookTitleByNo(bookNo); // 알림 내용에 들어갈 해당 도서 제목 가져오기 
+	               String newsContents = "저장하신 <"+originBook.getBookTitle()+">의 새로운 회차가 등록되었어요!";
+	               HashMap<String, Object> paramMap = new HashMap<String, Object>();
+	               paramMap.put("lList", lList); // 회원 아이디 들어있는 library 형 리스트
+	               paramMap.put("refBookNo", bookNo); // 참고 도서 번호(승인 시 사용된)
+	               paramMap.put("newsContents", newsContents); // 알림 내용
+	               nService.insertNews(paramMap); // 도서 등록
+	               /* 알림 등록 끝 */
 				}else {
 					mv.addObject("msg", "승인 실패");
 					mv.setViewName("common/errorPage");
@@ -71,37 +118,6 @@ public class BookApproveController {
 		return mv;
 	}
 	
-	//도서 리스트(all, 승인, 보류)
-	@RequestMapping(value="/admin/approveYN.kh", method=RequestMethod.GET)
-	public ModelAndView approveYNList(
-			ModelAndView mv
-			, @RequestParam(value="checkPermission", defaultValue = "all") String checkPermission
-			, @RequestParam(value="page", required=false) Integer page
-			, @RequestParam(value="step", required=false, defaultValue = "date")String step) {
-		try {
-			int getTotalCount = BAService.checkPermissionCount(checkPermission);
-			int boardLimit = 20;
-			BookPageController bpCont = new BookPageController();
-			BookPage bPage = bpCont.boardList(page, getTotalCount, boardLimit);
-			
-			if(getTotalCount > 0) {
-				List<OriginBookSeries> osList = BAService.checkPermission(bPage.getCurrentPage(), boardLimit, checkPermission, step);
-				
-				for (int i = 0; i < osList.size(); i++) {
-					String bookTitle = bService.getBookTitle(osList.get(i).getBookNo());
-					osList.get(i).setBookTitle(bookTitle);// 각 시리즈의 책 제목 가지고옴
-				}
-				mv.addObject("osList", osList);
-			}
-			mv.addObject("checkPermission", checkPermission);
-			mv.addObject("bPage", bPage);
-			mv.setViewName("/bookApprove/BAwritermenu");
-			
-		} catch (Exception e) {
-			mv.addObject("msg", e.toString()).setViewName("common/errorPage");
-		}
-		return mv;
-	}
 	
 	//재승인 리스트
 	@RequestMapping(value="/admin/reApproveList.kh", method=RequestMethod.GET)
@@ -109,18 +125,27 @@ public class BookApproveController {
 			ModelAndView mv
 			, @RequestParam(value="page", required=false) Integer page) {
 		try {
+			int allBooks = BAService.allBooks();
+			int approveYes = BAService.approveYes();
+			int approveNo = BAService.approveNo();
+			int reApproveBooks = BAService.reApproveCount();
+			
 			int getTotalCount = BAService.reApproveCount();   //전체 게시물갯수
 			int boardLimit = 20;  //20개씩 출력
 			BookPageController bpCont = new BookPageController();
 			BookPage bPage = bpCont.boardList(page, getTotalCount, boardLimit);
 			
-			if(getTotalCount > 0) {
+//			if(getTotalCount > 0) {
 				List<ModifyBookSeries> mbList = BAService.reApproveList(bPage.getCurrentPage(), boardLimit);
 				
 				mv.addObject("mbList", mbList);
 				mv.addObject("bPage", bPage);
+				mv.addObject("allBooks", allBooks);
+				mv.addObject("approveYes", approveYes);
+				mv.addObject("approveNo", approveNo);
+				mv.addObject("reApproveBooks", reApproveBooks);
 				
-			}
+//			}
 		} catch (Exception e) {
 			mv.addObject("msg", e.toString()).setViewName("common/errorPage");
 		}
@@ -136,11 +161,11 @@ public class BookApproveController {
 			, @RequestParam(value="currentPage", required=false) Integer page
 			, ModelAndView mv
 			, HttpSession session) {
-//		Member member = (Member)session.getAttribute("loginMember");
-//		if((member.getAdminYN().charAt(0)+"").contentEquals("N")) {
-//			mv.addObject("msg", "관리자만 접속가능합니다.");
-//			mv.setViewName("/common/errorPage");
-//		}else {
+		Member member = (Member)session.getAttribute("loginMember");
+		if((member.getAdminYN().charAt(0)+"").contentEquals("N")) {
+			mv.addObject("msg", "관리자만 접속가능합니다.");
+			mv.setViewName("/common/errorPage");
+		}else {
 			try {
 				int result = BAService.reApproveBooks(bookNo,seriesNo);
 				mv.addObject("page", page);
@@ -155,8 +180,9 @@ public class BookApproveController {
 				mv.addObject("msg", e.getMessage());
 				mv.setViewName("/common/errorPage");
 			}
-//		}
+		}
 		return mv;
 	}
+	
 	
 }

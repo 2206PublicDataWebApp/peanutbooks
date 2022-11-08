@@ -23,14 +23,14 @@ public class QnaServiceImpl implements QnaService {
 	}
 	//회원별 게시물 상세검색 출력갯수
 	@Override
-	public int getTotalCount(String memberId, String searchCondition, String searchValue) {
-		int totalCount = qStore.selectMemberQnaCount(session, memberId, searchCondition, searchValue);
+	public int getTotalCount(String memberId, String searchCondition, String searchValue, String qnaStatus) {
+		int totalCount = qStore.selectMemberQnaCount(session, memberId, searchCondition, searchValue, qnaStatus);
 		return totalCount;
 	}
 	//회원별 게시물 출력
 	@Override
-	public List<Qna> printMemberQna(int currentPage, int qnaLimit, String memberId) {
-		List<Qna> qList = qStore.selectMemberQna(session, memberId, currentPage, qnaLimit);
+	public List<Qna> printMemberQna(int currentPage, int qnaLimit, String memberId, String qnaStatus) {
+		List<Qna> qList = qStore.selectMemberQna(session, memberId, currentPage, qnaLimit, qnaStatus);
 		return qList;
 	}
 	//게시물 상세보기
@@ -59,14 +59,14 @@ public class QnaServiceImpl implements QnaService {
 	}
 	//게시물 전체 갯수
 	@Override
-	public int getTotalCount(String searchCondition, String searchValue) {
-		int totalCount = qStore.selectAllCount(session, searchCondition, searchValue);
+	public int getTotalCount(String searchCondition, String searchValue, String qnaStatus) {
+		int totalCount = qStore.selectAllCount(session, searchCondition, searchValue, qnaStatus);
 		return totalCount;
 	}
 	//게시물 전체 출력
 	@Override
-	public List<Qna> printAllQna(int currentPage, int aqnaLimit) {
-		List<Qna> aList = qStore.selectAllQna(session, currentPage, aqnaLimit);
+	public List<Qna> printAllQna(int currentPage, int aqnaLimit, String qnaStatus) {
+		List<Qna> aList = qStore.selectAllQna(session, currentPage, aqnaLimit, qnaStatus);
 		return aList;
 	}
 	//관리자 회원문의글 답변
@@ -96,6 +96,38 @@ public class QnaServiceImpl implements QnaService {
 	@Override
 	public int getTotalCount(String qnaCategory) {
 		int result = qStore.selectCategoryCount(session, qnaCategory);
+		return result;
+	}
+	//회원 답변상황에 따른 리스트 카운트
+	@Override
+	public int totalQna(String memberId) {
+		int result = qStore.selectTotalQna(session, memberId);
+		return result;
+	}
+	@Override
+	public int totalAnswer(String memberId) {
+		int result = qStore.selectTotalAnswer(session,memberId);
+		return result;
+	}
+	@Override
+	public int totalNoAnswer(String memberId) {
+		int result = qStore.selectTotalNoAnswer(session, memberId);
+		return result;
+	}
+	//관리자 답변상황에 따른 리스트 카운트
+	@Override
+	public int totalQna() {
+		int result = qStore.selectTotalQna(session);
+		return result;
+	}
+	@Override
+	public int totalAnswer() {
+		int result = qStore.selectTotalAnswer(session);
+		return result;
+	}
+	@Override
+	public int totalNoAnswer() {
+		int result = qStore.selectTotalNoAnswer(session);
 		return result;
 	}
 

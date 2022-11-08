@@ -40,14 +40,47 @@
 
 <!-- main contents start -->
 <main>
-<br><br>	
-<div class="container">
-
+	<section class="container">
+	<!-- 세부페이지 head 시작 -->
+		<!-- 세부페이지 큰 제목 -->
+		<div class="container text-center">
+		<!-- 세부페이지 큰 제목 끝 -->
+		<hr>
+			<!-- <div id="title">전체 시리즈 목록</div> -->
+			<ul class="mainUl">
+	    		<li class="mainLi"><div style="text-align:center">
+			    		<a href="/notice/list.kh">전체공지사항<br>
+			    		${totalBoard }
+			    		</a>
+			    	</div>
+			    </li>
+			    <li class="mainLi">
+			    	<div class="col"><img src="/resources/img/sidebar.png"></div>
+			    </li>
+	    		<li class="mainLi">
+	    			<div style="text-align:center">
+			    		<a href="/notice/list.kh?nStatus=Y">게시<br>
+			    		${showBoard }</a>
+			    	</div>
+				</li>
+				<li class="mainLi">
+			    	<div class="col"><img src="/resources/img/sidebar.png"></div>
+			    </li>
+	    		<li class="mainLi">
+	    			<div style="text-align:center">
+			    		<a href="/notice/list.kh?nStatus=N">보류<br>
+			    		${hideBoard }</a>
+			    	</div>
+				</li>
+	 		</ul>
+		<hr>
+		</div>
+		<!-- 세부페이지 body 시작 -->
 	<h3 align="center">공지사항 작성</h3>
 	<br><br>
 	
 	<form action="/notice/register.kh" method="post" enctype="multipart/form-data" name="noticeForm">
-		<table align="center" class="table col-10">
+		<table align="center" class="table col-10" style="width:80%;">
 			<tr>
 				<td  class="col-2" scope="col" align="center">선택</td>
 				<td>
@@ -84,8 +117,10 @@
 			</tr>
 		</table>
 	</form>
-</div>
-<br><br>
+	<br>
+	<hr>
+	</section>
+<br>
 </main>
 <!-- main contents End -->
 

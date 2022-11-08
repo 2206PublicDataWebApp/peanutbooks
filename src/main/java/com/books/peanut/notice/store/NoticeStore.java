@@ -35,5 +35,9 @@ public interface NoticeStore {
 	public int updateStatus(SqlSession session, String noticeNo, String nStatus);
 	//유저 공지사항 리스트뷰
 	public List<Notice> selectNoticeUser(SqlSession session, String noticeCategory);
+	//공지항 상황별 카운트
+	public int selectAllBoard(SqlSession session);
+	public int selectShowBoard(SqlSession session);
+	public int selectHideBoard(SqlSession session);
 
 }

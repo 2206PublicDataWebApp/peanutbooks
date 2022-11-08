@@ -24,6 +24,29 @@
 	    -ms-transition: background-color 100ms linear;
 	     transition: background-color 100ms linear;
 	}
+		.mainUl {
+		list-style-type: none;
+		padding: 0px;
+	}
+	
+	.mainLi {
+		display: inline-block;
+		margin-left: 18px;
+		margin-right: 18px;
+		font-size: 18px;
+		/* font-weight: bold; */
+	}
+	#colText{
+		padding-top: 0.7rem;
+	}
+	@keyframes blink-effect {
+		50% {
+		    opacity: 0;
+		}
+	}
+	.blink {
+	 	animation: blink-effect 1s step-end infinite;
+	 }
 </style> 
 <body>
 <!-- header start -->
@@ -35,17 +58,44 @@
 	<section class="container">
 	<!-- 세부페이지 head 시작 -->
 		<!-- 세부페이지 큰 제목 -->
-		<br>
 		<div class="container text-center">
 		<!-- 세부페이지 큰 제목 끝 -->
-		<br>
-		
+		<hr>
+			<!-- <div id="title">전체 시리즈 목록</div> -->
+			<ul class="mainUl">
+	    		<li class="mainLi"><div style="text-align:center">
+			    		<a href="/notice/list.kh">전체공지사항<br>
+			    		${totalBoard }
+			    		</a>
+			    	</div>
+			    </li>
+			    <li class="mainLi">
+			    	<div class="col"><img src="/resources/img/sidebar.png"></div>
+			    </li>
+	    		<li class="mainLi">
+	    			<div style="text-align:center">
+			    		<a href="/notice/list.kh?nStatus=Y">게시<br>
+			    		${showBoard }</a>
+			    	</div>
+				</li>
+				<li class="mainLi">
+			    	<div class="col"><img src="/resources/img/sidebar.png"></div>
+			    </li>
+	    		<li class="mainLi">
+	    			<div style="text-align:center">
+			    		<a href="/notice/list.kh?nStatus=N">보류<br>
+			    		${hideBoard }</a>
+			    	</div>
+				</li>
+	 		</ul>
+		<hr>
+		</div>
 		<!-- 세부페이지 body 시작 -->
 
 		<h3 align="center">공지사항 상세 페이지</h3>
 		<br><br>
 			<c:if test="${loginMember.adminYN=='Y' }">
-				<table align="center" class="table col-10">
+				<table align="center" class="table col-10" style="width:80%;">
 					<tr>
 						<td  class="col-2" scope="col" align="center">종류</td>
 						<td>

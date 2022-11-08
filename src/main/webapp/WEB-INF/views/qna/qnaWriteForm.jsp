@@ -53,7 +53,7 @@
 <main>
 	<section class="container">
 	<!-- 세부페이지 head 시작 -->
-	<br>
+	<br><br>
 		<!-- 세부페이지 큰 제목 -->
 		<div class="container text-center">
 			<div class="row row-cols-2">
@@ -61,45 +61,16 @@
 				<div class="col" id="colText" style="background-color: #c9c9c9; color: white; height:45px; vertical-align: middle;"><a href="/qna/writeView">문의작성</a></div>
 			</div>
 		<br>
-		<hr>
-			<!-- 세부 메뉴 시작 -->
-			<ul class="mainUl">
-	    		<li class="mainLi"><div style="text-align:right">
-			    		<a href="/admin/qnaList.kh">총문의<br>1&nbsp;&nbsp;&nbsp;&nbsp;</a>
-			    	</div>
-			    </li>
-			    <li class="mainLi">
-			    	<div class="col"><img src="/resources/img/sidebar.png"></div>
-			    </li>
-	    		<li class="mainLi">
-	    			<div style="text-align:center">
-			    		<a href="/admin/qnaList.kh">답변완료<br>1</a>
-			    	</div>
-				</li>
-				<li class="mainLi">
-			    	<div class="col"><img src="/resources/img/sidebar.png"></div>
-			    </li>
-	    		<li class="mainLi">
-	    			<div style="text-align:center">
-			    		<a href="/admin/qnaList.kh">처리중<br>1</a>
-			    	</div>
-				</li>
-				<li class="mainLi">
-			    	<div class="col"><img src="/resources/img/sidebar.png"></div>
-			    </li>
-	    		<li class="mainLi">
-	    			<div style="text-align:left">
-			    		<a href="/admin/qnaList.kh">접수<br>&nbsp;&nbsp;&nbsp;&nbsp;1</a>
-			    	</div>
-	    		</li>
-	 		</ul>
-	 		<!-- 세부 메뉴 끝 -->
+
+			<!-- 세부페이지 큰 제목 끝 -->
+	
+		<h3>1:1 문의사항 작성</h1>
 		<hr>
 		<br>
 		<!-- 세부페이지 body 시작 -->
 	
 		<!-- 1:1 문의 입력 폼 Start -->
-		<div class="row row-cols-1" style="width:80%";>
+		<div class="row row-cols-1" style="width:80%; margin: 0 auto";>
 			<form action="/qna/register.kh" method="post" enctype="multipart/form-data" name="qnaForm" id="qnaForm">
 			<%-- <input type="hidden" name="memberId" value="${loginMember.memberId }"> --%>
 				<table align="center" class="table col-6" style="border-color:skyblue;">

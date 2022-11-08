@@ -73,14 +73,14 @@ public class BookApproveServiceImpl implements BookApproveService {
 
 	//전체 회원 갯수
 	@Override
-	public int allMemberCount(String searchCondition, String searchValue) {
-		int count = BAStore.selectAllMember(session, searchCondition, searchValue);
+	public int allMemberCount(String searchCondition, String searchValue, String code) {
+		int count = BAStore.selectAllMember(session, searchCondition, searchValue, code);
 		return count;
 	}
 	//전체 회원 리스트 출력
 	@Override
-	public List<Member> allMembers(int i, int memberLimit) {
-		List<Member> mList = BAStore.selectAllMembers(session, i, memberLimit);
+	public List<Member> allMembers(int i, int memberLimit, String code) {
+		List<Member> mList = BAStore.selectAllMembers(session, i, memberLimit, code);
 		return mList;
 	}
 	//회원상세 페이지
@@ -107,6 +107,38 @@ public class BookApproveServiceImpl implements BookApproveService {
 		int result = BAStore.updateMemberModify(session, member);
 		return result;
 	}
+	//회원 상태별로 카운트
+	@Override
+	public int todayJoinCount() {
+		int result = BAStore.selectTodayCount(session);
+		return result;
+	}
+	@Override
+	public int deleteMemberCount() {
+		int result = BAStore.selectDeleteMemberCount(session);
+		return result;
+	}
+	@Override
+	public int todalCount() {
+		int result = BAStore.selectTotalCount(session);
+		return result;
+	}
+	@Override
+	public int allBooks() {
+		int result = BAStore.selectAllBooks(session);
+		return result;
+	}
+	@Override
+	public int approveYes() {
+		int result = BAStore.selectApproveYes(session);
+		return result;
+	}
+	@Override
+	public int approveNo() {
+		int result = BAStore.selectApproveNo(session);
+		return result;
+	}
+	
 
 
 

@@ -55,18 +55,21 @@
 	<section class="container">
 	<!-- 세부페이지 head 시작 -->
 	<br>
+		<!-- 세부페이지 head 시작 -->
 		<!-- 세부페이지 큰 제목 -->
 		<div class="container text-center">
 			<div class="row row-cols-2">
 				<div class="col" id="colText" style="background-color: #5e5e5e; color: white; height:45px; vertical-align: middle;"><a href="/qna/list.kh">문의내역</a></div>
 				<div class="col" id="colText" style="background-color: #c9c9c9; color: white; height:45px; vertical-align: middle;"><a href="/qna/writeView">문의작성</a></div>
 			</div>
+		<!-- 세부페이지 큰 제목 끝 -->
 		<br>
-			<hr>
+		<hr>
 			<!-- 세부 메뉴 시작 -->
 			<ul class="mainUl">
-	    		<li class="mainLi"><div style="text-align:right">
-			    		<a href="/admin/qnaList.kh">총문의<br>1&nbsp;&nbsp;&nbsp;&nbsp;</a>
+	    		<li class="mainLi"><div style="text-align:center">
+			    		<a href="/qna/list.kh">총문의<br>
+			    		${totalQna }</a>
 			    	</div>
 			    </li>
 			    <li class="mainLi">
@@ -74,7 +77,8 @@
 			    </li>
 	    		<li class="mainLi">
 	    			<div style="text-align:center">
-			    		<a href="/admin/qnaList.kh">답변완료<br>1</a>
+			    		<a href="/qna/list.kh?qnaStatus=Y">답변완료<br>
+						${totalAnswer }</a>
 			    	</div>
 				</li>
 				<li class="mainLi">
@@ -82,30 +86,27 @@
 			    </li>
 	    		<li class="mainLi">
 	    			<div style="text-align:center">
-			    		<a href="/admin/qnaList.kh">처리중<br>1</a>
+			    		<a href="/qna/list.kh?qnaStatus=N">처리중<br>
+						${totalNoAnswer }</a>
 			    	</div>
 				</li>
-				<li class="mainLi">
-			    	<div class="col"><img src="/resources/img/sidebar.png"></div>
-			    </li>
-	    		<li class="mainLi">
-	    			<div style="text-align:left">
-			    		<a href="/admin/qnaList.kh">접수<br>&nbsp;&nbsp;&nbsp;&nbsp;1</a>
-			    	</div>
-	    		</li>
 	 		</ul>
 	 		<!-- 세부 메뉴 끝 -->
-			<hr>
+		<hr>
+		<br>
 		
-		<br><br>
+		<!-- 세부페이지 body 시작 -->
 		
 		<!-- 1:1 문의 입력 폼 Start -->
-			<div class="row row-cols-1" style="width:80%";>
+			<div class="row row-cols-1" style="width:90% ; margin: 0 auto;">
 				<form action="/qna/modify.kh" method="post" enctype="multipart/form-data" name="qnaForm" id="qnaForm">
 				<input type="hidden" name="memberId" value="${loginMember.memberId }">
 				<input type="hidden" name="page" value="${page }">
 				<input type="hidden" name="qnaNo" value="${qna.qnaNo }">
 				<table align="center" class="table col-6">
+					<tr>
+						<td colspan="2"><h3>문의 내용 수정</h3></td>
+					<tr>
 					<tr>
 						<td class="col-2" align="center">문의유형</td>
 						<td class="col-4">
@@ -126,7 +127,7 @@
 					</tr>
 					<tr>
 						<td class="col-2" align="center">내용</td>
-						<td class="col-4"><textarea class="form-control" id="exampleFormControlTextarea1" cols="20" rows="20" name="qnaContents">${qna.qnaContents }</textarea>  </td>
+						<td class="col-4"><textarea class="form-control" id="exampleFormControlTextarea1" cols="5" rows="5" name="qnaContents">${qna.qnaContents }</textarea>  </td>
 					</tr>
 					<tr>
 						<td class="col-2" align="center" rowspan="3">첨부파일(선택)</td>
@@ -204,8 +205,8 @@
 						<td class="col-4" colspan="2" align="center" style="border:none;">
 							<input onclick="qnaCheck();" type="button" value="수정" class="btn btn-warning btn-sm">
 							<input type="reset" value="취소" class="btn btn-warning btn-sm">
-							<button type="button" onclick="backBtn()" class="btn btn-warning btn-sm">목록</button> 
-							 
+							<!-- <button type="button" onclick="backBtn()" class="btn btn-warning btn-sm">목록</button> --> 
+							<button type="button" onclick="location.href='/qna/list.kh?page=${page }&qnaStatus=${qna.qnaStatus}'" class="btn btn-warning btn-sm">목록</button>  
 						</td>
 					</tr>
 				</table>
