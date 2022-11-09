@@ -513,3 +513,16 @@ var rContents = $('[name=reRContents'+rNo+']').val();
 	 })
 
 }
+
+//작가일때 승인안됐으면 도서 삭제
+function removeOriginBookMember(BookNo,SeriesNo){
+	if(confirm('삭제 하시겠습니까?')){
+		location.href='/book/removeOneSerieseMember?bookNo='+BookNo+'&seriesNo='+SeriesNo;
+	}
+}
+
+function removeOriginBookOne(bookNo){
+	if(confirm('삭제 하시겠습니까?')){
+		location.href='/book/removeOneBookMember?bookNo='+bookNo;
+	}
+}

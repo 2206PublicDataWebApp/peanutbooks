@@ -817,23 +817,52 @@ public class BookStoreLogic implements BookStore {
 
 	/**수정테이블의 시리즈 한편 가져오기*/
 	@Override
-	public OriginBookSeries selectOneModifySeries(SqlSessionTemplate session, int seriesNo, int bookNo) {
+	public OriginBookSeries selectOneModifySeries(SqlSessionTemplate session, int modifyNo) {
 		OriginBookSeries os = new OriginBookSeries();
-		os.setBookNo(bookNo+"");
-		os.setSeriesNo(seriesNo);
-		OriginBookSeries oSeries = session.selectOne("wirterMapper.ModifyOneSeries",os);
+		OriginBookSeries oSeries = session.selectOne("wirterMapper.ModifyOneSeries",modifyNo);
 		return oSeries;
 	}
 
 	/**피넛 오리지널 수정분 업로드*/
 	@Override
-	public int updateModifyOne(SqlSessionTemplate session, OriginBookSeries oModifyS) {
+	public int updateModifyOne(SqlSessionTemplate session, OriginBookSeries oModifyS,int modifyNo) {
 		int result = session.update("wirterMapper.updateModifyOne",oModifyS); //도서 테이블에 수정
-		result += session.delete("BookApproveMapper.updateReAppDelModify",oModifyS);//수정테이블에서 삭제
+		result += session.delete("BookApproveMapper.updateReAppDelModify",modifyNo);//수정테이블에서 삭제
 		result += session.update("BookApproveMapper.updateReAppUpSeries",oModifyS);//도서 허가 테이블에서 해당도서를 Y로
 		result += session.update("BookApproveMapper.updateOriBookApprove",oModifyS);//도서테이블에서 해당도서를 승인
 		
 		
+		return result;
+	}
+
+	/**시리즈 하나 삭제하기*/
+	@Override
+	public int deleteOneSeries(SqlSessionTemplate session, Integer seriesNo, Integer bookNo) {
+		OriginBookSeries ob = new OriginBookSeries();
+		ob.setBookNo(bookNo+"");
+		ob.setSeriesNo(seriesNo);
+		
+		int result = session.delete("wirterMapper.deleteOneSeries",ob);//수정테이블에서 삭제
+		return result;
+	}
+
+	/**수정테이블에 있는지 확인*/
+	@Override
+	public int SelectmodifyCheck(SqlSessionTemplate session, OriginBookSeries obSeries) {
+		int result = session.selectOne("wirterMapper.SelectmodifyCheck",obSeries);//수정테이블에서 삭제
+		if(result>0) {
+			result += session.update("wirterMapper.updateModify",obSeries);
+		}
+		return result;
+	}
+
+	/**책 영구삭제*/
+	@Override
+	public int deleteOneObook(SqlSessionTemplate session, String bookNo) {
+		int result = session.delete("wirterMapper.deleteOneBook",bookNo);//수정테이블에서 삭제
+		result += session.delete("wirterMapper.deleteOneBookAllseries",bookNo);//시리즈 전체삭제
+		result += session.delete("wirterMapper.modifyBookDelete",bookNo);//모디파이 테이블에 있는거 삭제
+		result += session.delete("wirterMapper.PermissionBookDelete",bookNo);//모디파이 테이블에 있는거 삭제
 		return result;
 	}
 

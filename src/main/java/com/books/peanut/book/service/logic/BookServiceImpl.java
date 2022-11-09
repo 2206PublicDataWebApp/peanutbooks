@@ -625,15 +625,37 @@ public NormalBook getTopScore(String string) {
 
 	/**수정테이블의 시리즈 한편가져오기*/
 	@Override
-	public OriginBookSeries getOneModifySeries(int seriesNo, int bookNo) {
-		OriginBookSeries oSeries = bStore.selectOneModifySeries(session,seriesNo, bookNo);
+	public OriginBookSeries getOneModifySeries(int modifyNo) {
+		OriginBookSeries oSeries = bStore.selectOneModifySeries(session,modifyNo);
 		return oSeries;
 	}
 
 	/**피넛 오리지널 수정 승인*/
 	@Override
-	public int modifyOriSeriesProve(OriginBookSeries oModifyS) {
-		int result = bStore.updateModifyOne(session,oModifyS);
+	public int modifyOriSeriesProve(OriginBookSeries oModifyS, int modifyNo) {
+		int result = bStore.updateModifyOne(session,oModifyS,modifyNo);
+		return result;
+	}
+
+	
+	/**시리즈 하나 삭제하기*/
+	@Override
+	public int removeOneORiBookSeries(Integer seriesNo, Integer bookNo) {
+		int result = bStore.deleteOneSeries(session,seriesNo,bookNo);
+		return result;
+	}
+
+	/**수정 테이블에 존재여부 확인*/
+	@Override
+	public int modifyCheck(OriginBookSeries obSeries) {
+		int result = bStore.SelectmodifyCheck(session,obSeries);
+		return result;
+	}
+
+	/**책 영구삭제*/
+	@Override
+	public int removeOriBookMember(String bookNo) {
+		int result = bStore.deleteOneObook(session,bookNo);
 		return result;
 	}
 

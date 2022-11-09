@@ -84,10 +84,19 @@
 				<c:if test="${oSeries.seriesNo != 1 }">
 				<label> <input type="hidden" name="seriesNo"
 							value="${oSeries.seriesNo}"> 
-							<input type="checkbox"
-							name="paidCheck" id="pay-check" <c:if test="${oSeries.paidCheck == 'Y '}">checked</c:if> > 유료화 여부
-							<input type="hidden" id="paidCheckHidden"  name="paidCheck" value="N">
-					
+							<input type="checkbox" 
+							name="paid-Check" id="pay-check" <c:if test="${oSeries.paidCheck == 'Y '}">checked</c:if> 
+							onchange="paidCheck1();"> 
+							유료화 여부
+							<input type="hidden" id="paidCheckHidden"  name="paidCheck" 
+							<c:if test="${oSeries.paidCheck == 'Y '}">
+							value="Y"
+							</c:if>
+							<c:if test="${oSeries.paidCheck == 'N '}">
+							value="N"
+							</c:if>
+							>
+												
 					</label> 
 					</c:if>
 					</span>

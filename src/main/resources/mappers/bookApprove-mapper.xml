@@ -65,6 +65,7 @@
 		<result property="modifyContents" column="MODIFY_CONTENTS"/>
 		<result property="insertDate" column="INSERT_DATE"/>
 		<result property="paidCheck" column="PAID_CHECK"/>
+		<result property="modifyNo" column="MODIFY_NO"/>
 	</resultMap>
  	
  	<!-- 회원이 작성한 피넛 오리지널 시리즈의 숫자 가져오기 -->
@@ -143,7 +144,7 @@
 		update ori_series set CHECK_PERMISSION = 'Y', MODIFY_DATE = SYSDATE where SERIES_NO = ${seriesNo} and ORI_BOOK_NO = #{bookNo}
 	</update>
 	<update id="updateReAppDelModify">
-		DELETE FROM modify_ori_series WHERE ori_book_no = #{bookNo} and series_no = #{seriesNo}
+		DELETE FROM modify_ori_series WHERE modify_No =#{modifyNo}
 	</update>
 	
 	

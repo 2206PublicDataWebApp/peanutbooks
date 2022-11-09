@@ -87,12 +87,14 @@ public class BookController {
 	 */
 	@RequestMapping(value = "/book/OriBookModifyView.do", method = RequestMethod.GET)
 	public ModelAndView OriBookModifyView(ModelAndView mv, HttpSession session, String bookNo) {
-
+		
+		OriginBook oBook = bService.showOnebook(bookNo);
 		Member member = (Member) session.getAttribute("loginMember");
+		String MemberId = member.getMemberId();
 		if (member == null) {
 			mv.setViewName("/");
-		} else if (member.getAdminYN().equals("Y")) {
-			OriginBook oBook = bService.showOnebook(bookNo);
+		} else if (member.getAdminYN().equals("Y") || (oBook.getMemberId().equals(MemberId) && oBook.getCheckPermission().equals("N"))) {
+
 			HashTag hTag = bService.getBookTga(bookNo, "origin");
 			mv.addObject("oBook", oBook);
 			mv.addObject("hTag", hTag);
@@ -1777,15 +1779,13 @@ public class BookController {
 
 		}
 
-		String paid = "N";
-		if (obSeries.getSeriesNo() != 1) {
-			if (obSeries.getPaidCheck().equals("on")) {
-				paid = "Y";
-			}
-		}
-		obSeries.setPaidCheck(paid);
+		
+		
+		int resultOne = bService.modifyCheck(obSeries);//수정 테이블에 있는지 확인
 
-		int result = bService.modifyOriSeries(obSeries); // 다음화 시리즈만 데이터베이스에 전송하기
+		if(resultOne == 0) {
+			int result = bService.modifyOriSeries(obSeries); // 다음화 시리즈만 데이터베이스에 전송하기
+		}
 		mv.addObject("bookNo", obSeries.getBookNo());
 		mv.setViewName("redirect:/book/oriBookInfo");
 
@@ -1932,6 +1932,36 @@ public class BookController {
 
 		return mv;
 
+	}
+	
+	
+	/**
+	 * 피넛 오리지널 시리즈 사용자 삭제(복구불가)
+	 * 
+	 * @param mv
+	 * @param session
+	 * @param obSeries
+	 * @param subPicture
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/book/removeOneBookMember", method = RequestMethod.GET)
+	public ModelAndView removeOneBookMember(ModelAndView mv, HttpSession session,
+			@RequestParam(value = "bookNo") String bookNo) {
+		Member member = (Member) session.getAttribute("loginMember");
+		OriginBook oB = bService.showOnebook(bookNo);
+	
+		
+		if (oB.getMemberId().equals(member.getMemberId())&&oB.getCheckPermission().equals("N")) {
+			
+				int result = bService.removeOriBookMember(bookNo); //책 영구삭제 및 모든 시리즈 삭제
+			mv.addObject("bookNo", bookNo);
+		}
+		
+		mv.setViewName("redirect:/book/writerMenu.do");
+		
+		return mv;
+		
 	}
 
 	/**
@@ -2266,12 +2296,12 @@ public class BookController {
 	 * @return
 	 */
 	@RequestMapping(value = "/book/OridetailSeriesModify.do", method = RequestMethod.GET)
-	public ModelAndView detailOribookModifySeries(ModelAndView mv, HttpSession session, int seriesNo, int bookNo) {
+	public ModelAndView detailOribookModifySeries(ModelAndView mv, HttpSession session, int seriesNo, int bookNo, int modifyNo) {
 		Member member = (Member) session.getAttribute("loginMember");
 		if (member.getAdminYN().equals("Y")) {// 로그인 여부 체크
 
 			String bookTitle = bService.getBookTitle(bookNo + ""); // 책 이름 가져옴
-			OriginBookSeries obSeries = bService.getOneModifySeries(seriesNo, bookNo); // 수정테이블 시리즈 한편가져오기
+			OriginBookSeries obSeries = bService.getOneModifySeries(modifyNo); // 수정테이블 시리즈 한편가져오기
 
 			mv.addObject("obSeries", obSeries);
 			mv.setViewName("bookApprove/bookstep-detail");
@@ -2291,10 +2321,10 @@ public class BookController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/reApprove.do", method = RequestMethod.GET)
-	public ModelAndView norSeriesModify(ModelAndView mv, HttpSession session, Integer bookNo, Integer seriesNo,
+	public ModelAndView norSeriesModify(ModelAndView mv, HttpSession session, Integer bookNo, Integer seriesNo, int modifyNo,
 			HttpServletRequest request) {
 
-		OriginBookSeries oModifyS = bService.getOneModifySeries(seriesNo, bookNo);
+		OriginBookSeries oModifyS = bService.getOneModifySeries(modifyNo);
 		OriginBookSeries oSeries = bService.getOneSeries(seriesNo, bookNo);
 
 		if (!oModifyS.getSubPicRename().equals(oSeries.getSubPicRename())) { // 삽화를 바꿨다면
@@ -2302,11 +2332,42 @@ public class BookController {
 			fileDelete(request, oSeries.getSubPicRename()); // 원래 삽화 삭제
 		}
 
-		int result = bService.modifyOriSeriesProve(oModifyS); // 수정테이블 내역 전송하기
+		int result = bService.modifyOriSeriesProve(oModifyS,modifyNo); // 수정테이블 내역 전송하기
 		mv.setViewName("redirect:/admin/reApproveList.kh");
 
 		return mv;
 
+	}
+	
+	/**
+	 * 승인 안된책 삭제
+	 * 
+	 * @param mv
+	 * @param session
+	 * @param obSeries
+	 * @param subPicture
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/book/removeOneSerieseMember", method = RequestMethod.GET)
+	public ModelAndView removeOneSerieseMember(ModelAndView mv, HttpSession session, Integer bookNo, Integer seriesNo
+			) {
+		
+		Member member = (Member)session.getAttribute("loginMember");
+		String memberId = member.getMemberId();
+		
+		OriginBookSeries oSeries = bService.getOneSeries(seriesNo, bookNo);
+		int result = bService.checkWriter(bookNo, memberId) ;
+		if(oSeries.getCheckPermission().equals("N") && result>0) {
+			int result1 = bService.removeOneORiBookSeries(seriesNo, bookNo);
+			mv.addObject("bookNo",bookNo);
+			mv.setViewName("redirect:/book/oriBookInfo");
+			
+			
+		}
+		
+		return mv;
+		
 	}
 
 	// 섬머노트 파일 업로드
@@ -2329,5 +2390,7 @@ public class BookController {
 		return a;
 
 	}
+	
+	
 
 }

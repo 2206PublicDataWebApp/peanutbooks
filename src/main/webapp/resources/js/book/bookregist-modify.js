@@ -147,3 +147,14 @@ $('#summernote').summernote({
    
   }
   
+  //유료화 여부
+  function paidCheck1(){
+  	if(document.getElementById("pay-check").checked){
+  		document.getElementById("paidCheckHidden").value = 'Y';
+  		
+  	}else{
+  		document.getElementById("paidCheckHidden").value = 'N';
+  		
+  		}
+  }
+  

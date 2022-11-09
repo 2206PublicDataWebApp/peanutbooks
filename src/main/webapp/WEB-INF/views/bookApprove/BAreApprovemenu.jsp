@@ -96,13 +96,13 @@
 							<!-- 승인여부 체크 -->
 							<div id="check">
 							<input type="hidden" value="${oSeries.bookNo }" name="bookNo">
-								<button type="button" onclick="reApproveCheck('${oSeries.bookNo }','${oSeries.seriesNo }',${currentPage })" class="btn btn-warning btn-sm" style="width:50pt;height:20pt;">재승인</button>
+								<button type="button" onclick="reApproveCheck('${oSeries.bookNo }','${oSeries.seriesNo }',${oSeries.modifyNo },${currentPage })" class="btn btn-warning btn-sm" style="width:50pt;height:20pt;">재승인</button>
 								<button type="button" class="btn btn-dark btn-sm" style="width:40pt;height:20pt;">보류</button>
 							</div>
 
 							<!-- 각 시리즈 삽화 출력 -->
 							<div id="img"
-								onclick="window.open('/book/OridetailSeriesModify.do?bookNo=${oSeries.bookNo }&seriesNo=${oSeries.seriesNo }')">
+								onclick="window.open('/book/OridetailSeriesModify.do?bookNo=${oSeries.bookNo }&seriesNo=${oSeries.seriesNo }&modifyNo=${oSeries.modifyNo }')">
 
 								<img src="/resources/bookImg/${oSeries.subPicRename }" alt="">
 							</div>
@@ -172,9 +172,9 @@
 	</main>
 	<jsp:include page="../footer/footer.jsp" />
 <script>
-	function reApproveCheck(bookNo, seriesNo, currentPage) {
+	function reApproveCheck(bookNo, seriesNo,modifyNo, currentPage) {
 		if(confirm("재승인하시겠습니까?")) {
-			location.href = "/admin/reApprove.do?bookNo="+bookNo +"&seriesNo="+seriesNo;
+			location.href = "/admin/reApprove.do?bookNo="+bookNo +"&seriesNo="+seriesNo+"&modifyNo="+modifyNo;
 		}
 	}
 

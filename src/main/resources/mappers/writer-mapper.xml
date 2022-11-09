@@ -47,6 +47,10 @@
 	where ORI_BOOK_NO = #{bookNo}
 </update>
 
+<!--  책 영구삭제-->
+<delete id="deleteOneBook">
+	delete from origin_book where ORI_BOOK_NO = #{bookNo}
+</delete>
 
 <resultMap type="OriginBook" id="oriBookResultMap">
 <id property="bookNo"  column="ORI_BOOK_NO"/>
@@ -209,6 +213,7 @@ from origin_book where category = #{category} and status like 'Y%' and BOOK_PERM
 	insert into book_permission values(seq_permission.nextval,oribookseq.currval,null,null,null,null,#{seriesNo})
 </insert>
 <insert id="insertPermission2">
+
 	insert into book_permission values(seq_permission.nextval,#{bookNo},null,null,null,null,#{seriesNo})
 </insert>
 
@@ -227,7 +232,7 @@ from origin_book where category = #{category} and status like 'Y%' and BOOK_PERM
 
 <!-- 오리지널 시리즈 수정 -->
 <insert id="updateOriSeries">
-	insert into modify_ori_series values(#{seriesNo},#{bookNo},#{subPic},#{subPicRename},#{title},#{modifyContents},default,#{paidCheck})
+	insert into modify_ori_series values(#{seriesNo},#{bookNo},#{subPic},#{subPicRename},#{title},#{modifyContents},default,#{paidCheck},seq_modify.nextval)
 </insert>
 <!-- 시리즈 수정 신청테이블에 추가 -->
 <insert id="permissionModify">
@@ -249,6 +254,15 @@ PAID_CHECK = #{paidCheck}, TITLE = #{title}, MODIFY_DATE = SYSDATE
 where  SERIES_NO =#{seriesNo} and ORI_BOOK_NO = #{bookNo}
 </update>
 
+<delete id="deleteOneSeries">
+	delete from ori_series where SERIES_NO =#{seriesNo} and ORI_BOOK_NO = #{bookNo}
+
+</delete>
+
+<!-- 책한권 시리즈 영구 삭제 -->
+<delete id="deleteOneBookAllseries">
+	delete from ori_series where ORI_BOOK_NO = #{bookNo}
+</delete>
 
 <resultMap type="OriginBookSeries" id="oriSeriesResultMap">
 <id property="seriesNo" column="SERIES_NO"/>
@@ -316,10 +330,23 @@ where  SERIES_NO =#{seriesNo} and ORI_BOOK_NO = #{bookNo}
   
   <!-- 수정한 시리즈 한편 가져오기 -->
   <select id="ModifyOneSeries" resultMap="oriSeriesResultMap">
-  select * from modify_ori_series where ORI_BOOK_NO = #{bookNo}  and SERIES_NO = #{seriesNo}
+  select * from modify_ori_series where modify_no = ${modifyNo}
   </select>
   
-
+  
+  
+  <!-- 수정테이블 -->
+  <!-- 수정테이블에 있는지 확인 -->
+	<select id="SelectmodifyCheck" resultType="_int">
+	select count(*) from modify_ori_series where ORI_BOOK_NO = #{bookNo} and SERIES_NO = #{seriesNo}
+	</select>
+	<!-- 수정테이블 업데이트 -->
+	<update id="updateModify">
+	update modify_ori_series 
+	set sub_pic = #{subPic} , SUB_PIC_RE = #{subPicRename}, TITLE = #{title}, MODIFY_CONTENTS=#{modifyContents},
+	INSERT_DATE = sysdate, PAID_CHECK = #{paidCheck}	
+	where ORI_BOOK_NO = #{bookNo} and SERIES_NO = #{seriesNo}
+	</update>
 
 
 
@@ -418,5 +445,15 @@ where  SERIES_NO =#{seriesNo} and ORI_BOOK_NO = #{bookNo}
 	<select id="selectOneFreeCountMember" resultType="int">
 	select count(*) from view_count where book_no =#{bookNo} and series_no = #{seriesNo} and category = #{category} and season_check='N ' and member_id=#{memberId}
 	</select>
+  
+  <!-- 책 삭제 관련 -->
+  
+  <delete id="modifyBookDelete">
+  	delete from modify_ori_series where ori_book_no = #{bookNo}
+  </delete>
+  <delete id="PermissionBookDelete">
+  	delete from book_Permission where ori_book_no = #{bookNo}
+  
+  </delete>
   
   </mapper>

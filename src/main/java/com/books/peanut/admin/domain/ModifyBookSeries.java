@@ -11,6 +11,16 @@ public class ModifyBookSeries {
 	private String checkPermission;
 	private String insertDate;
 	private String paidCheck;
+	private int modifyNo;
+	
+	
+	
+	public int getModifyNo() {
+		return modifyNo;
+	}
+	public void setModifyNo(int modifyNo) {
+		this.modifyNo = modifyNo;
+	}
 	public int getSeriesNo() {
 		return seriesNo;
 	}

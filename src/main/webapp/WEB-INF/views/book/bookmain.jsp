@@ -99,6 +99,12 @@
 						<!-- 작가일때만 보이는 버튼 -->
 						<c:if test="${loginMember.memberId == oBook.memberId}">
 							<button onclick="registOriNext(${oBook.bookNo},${nextSeriesNo});">다음편 쓰기</button>
+							<!-- 책이 승인되지 않았으면 -->
+							<c:if test="${oBook.checkPermission == 'N'}">
+								<button  onclick="location.href='/book/OriBookModifyView.do?bookNo=${oBook.bookNo}';">수정하기</button>
+								<button  onclick="removeOriginBookOne(${oBook.bookNo});">삭제하기</button>
+							</c:if>
+						
 						</c:if>
 						
 						<!-- 관리자일때만 보이는 버튼 -->
@@ -134,11 +140,11 @@
 									<c:if test="${oSeries.status == 'Y'}"> ${oSeries.title }</c:if>
 									<!-- 작성자 일때만 수정버튼 보임 -->
 									<c:if test="${loginMember.memberId == oBook.memberId}">
-										<button onclick="location.href='/book/oriSeriesModifyView.do?bookNo=${oBook.bookNo}&seriesNo=${i.index +1 }'">수정</button>
+										<button onclick="location.href='/book/oriSeriesModifyView.do?bookNo=${oBook.bookNo}&seriesNo=${oSeries.seriesNo }'">수정</button>
 									</c:if>
 										<!--  관리자 일때만 삭제 버튼 보임 -->
 									<c:if test="${loginMember.adminYN == 'Y'}">
-										<button onclick="removeORiSeries(${oBook.bookNo},${i.index +1 })">삭제</button>
+										<button onclick="removeORiSeries(${oBook.bookNo},${oSeries.seriesNo })">삭제</button>
 									</c:if>
 									
 									
@@ -152,11 +158,18 @@
 										<c:if test="${oSeries.status == 'Y'}"> ${oSeries.title } : 이 시리즈는 승인되지 않았습니다</c:if>
 										<!-- 작성자 일때만 수정버튼 보임 -->
 										<c:if test="${loginMember.memberId == oBook.memberId}">
-											<button onclick="location.href='/book/oriSeriesModifyView.do?bookNo=${oBook.bookNo}&seriesNo=${i.index +1 }'">수정</button>
+											<button onclick="location.href='/book/oriSeriesModifyView.do?bookNo=${oBook.bookNo}&seriesNo=${oSeries.seriesNo }'">수정</button>
+											<c:if test="${oSeries.checkPermission == 'N' }">
+												<button  onclick="removeOriginBookMember(${oBook.bookNo},${oSeries.seriesNo });">삭제하기</button>
+												
+												
+												
+												
+											</c:if>
 										</c:if>
 										<!--  관리자 일때만 삭제 버튼 보임 -->
 										<c:if test="${loginMember.adminYN == 'Y'}">
-											<button onclick="removeORiSeries(${oBook.bookNo},${i.index +1 })">삭제</button>
+											<button onclick="removeORiSeries(${oBook.bookNo},${oSeries.seriesNo  })">삭제</button>
 										</c:if>
 										
 									</li>

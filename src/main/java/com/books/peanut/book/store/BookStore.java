@@ -307,9 +307,18 @@ public interface BookStore {
 	int updateNorBookInfo(SqlSessionTemplate session, NormalBook nBook);
 
 	/**수정테이블의 수정 시리즈 가져오기*/
-	OriginBookSeries selectOneModifySeries(SqlSessionTemplate session, int seriesNo, int bookNo);
+	OriginBookSeries selectOneModifySeries(SqlSessionTemplate session, int modifyNo);
 
-	/**피넛 오리지널 수정분 업로드*/
-	int updateModifyOne(SqlSessionTemplate session, OriginBookSeries oModifyS);
+	/**피넛 오리지널 수정분 업로드
+	 * @param modifyNo */
+	int updateModifyOne(SqlSessionTemplate session, OriginBookSeries oModifyS, int modifyNo);
+
+	/**시리즈 하나 삭제하기*/
+	int deleteOneSeries(SqlSessionTemplate session, Integer seriesNo, Integer bookNo);
+
+	/**수정테이블에 있는지 확인*/
+	int SelectmodifyCheck(SqlSessionTemplate session, OriginBookSeries obSeries);
+
+	int deleteOneObook(SqlSessionTemplate session, String bookNo);
 
 }

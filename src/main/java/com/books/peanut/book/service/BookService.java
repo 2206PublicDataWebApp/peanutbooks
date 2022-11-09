@@ -302,10 +302,20 @@ public interface BookService {
 	int modifyNorBooksInfo(NormalBook nBook);
 
 	/**수정테이블의 시리즈 한편가져오기*/
-	OriginBookSeries getOneModifySeries(int seriesNo, int bookNo);
+	OriginBookSeries getOneModifySeries(int seriesNo);
 
-	/**피넛 오리지널 수정 승인*/
-	int modifyOriSeriesProve(OriginBookSeries oModifyS);
+	/**피넛 오리지널 수정 승인
+	 * @param modifyNo */
+	int modifyOriSeriesProve(OriginBookSeries oModifyS, int modifyNo);
+
+	/**시리즈 삭제하기*/
+	int removeOneORiBookSeries(Integer seriesNo, Integer bookNo);
+
+	/**수정테이블에 있는지 확인*/
+	int modifyCheck(OriginBookSeries obSeries);
+
+	/**책 영구삭제*/
+	int removeOriBookMember(String bookNo);
 
 
 

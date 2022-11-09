@@ -29,7 +29,7 @@
 		<div class="container">
 			<div class="row" id="header-area">
 				<div class="col-md-3 col-4">
-					<a href="/"><img src="/resources/img/logo/logo-1.png" id="logo" alt="" id="logo"></a>
+					<a href="/adminMain.kh"><img src="/resources/img/logo/logo-1.png" id="logo" alt="" id="logo"></a>
 				</div>
 				<div class="col-md-5 d-md-block d-none">
 					<ul>
@@ -48,8 +48,8 @@
 					<img src="/resources/img/header/icons8-search (2).png" alt=""
 						id="search-icon"> 
 					<img
-						src="/resources/img/header/icons8-book (3).png" alt=""
-						id="book-icon" onclick="location.href='/book/mybooks.do'"> 
+						src="/resources/img/header/icons8-home-64.png" alt=""
+						id="book-icon" onclick="location.href='/'"> 
 					<img
 						src="/resources/img/header/icons8-peanut-48 (6).png" alt=""
 						id="p-icon"> 
