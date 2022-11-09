@@ -15,7 +15,8 @@
 </head>
 <body>
 <!-- 	<form action=""> -->
-		<input id="findId-memberId" type="hidden" name="memberId" value="${memberId}">
+		<input id="findId-memberId" type="text" name="memberId">
+		<input id="forgotId-authKey" type="text" name="authKey">
 	    <div class="row">
 	        <div id="login-img" class="col-lg-8"></div>
 	        <div id="findId-area" class="col-lg-4">
@@ -38,20 +39,33 @@
     			return false;
     		}else{
 	    		$.ajax({
-	    			url: "/member/findIdAuth.pb",
+	    			url: "/member/checkMemberByEmail",
 	    			data: {"mEmail": mEmail},
 	    			type: "get",
 	    			success: function(result){
 	    				if(result != 0){
 				    		alert("입력하신 이메일 주소로 인증번호를 발송했습니다.");
 				    		$("#findId-authKey").show();
-							return true;    					
+				    		$.ajax({
+				    			url: "/member/getIdByEmail.pb",
+				    			data: {"mEmail": mEmail},
+				    			type: "get",
+				    			success: function(result){
+				    				console.log(result);
+				    				$("#authKey-input").focus();
+				    				if(authData != null){
+					    				$("#findId-memberId").val();
+					    				$("#forgotId-authKey").val();
+				    				}
+				    			}
+				    		});
 	    				}else{
-	    					alert("올바르지 않은 이메일입니다. 다시 확인해 주세요.");
-	    					return false;
+	    					alert("회원정보를 다시 확인해 주세요.");
+	    					$("#email-input").focus();
+	    					$("#findId-authKey").hide();
 	    				}
 	    			}
-	    		})
+	    		});
     		}
     	});
     	

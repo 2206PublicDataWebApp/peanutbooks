@@ -1,6 +1,7 @@
 package com.books.peanut.member.store.logic;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -92,9 +93,19 @@ public class MemberStoreLogic implements MemberStore{
 	}
 	// 이메일로 아이디 찾기
 	@Override
-	public String findIdByEmail(SqlSession session, String mEmail) {
-		String memberId = session.selectOne("MemberMapper.findIdByEmail", mEmail);
+	public String getIdByEmail(SqlSession session, String mEmail) {
+		String memberId = session.selectOne("MemberMapper.getIdByEmail", mEmail);
 		return memberId;
+	}
+	@Override
+	public int checkMemberByEmail(SqlSession session, String mEmail) {
+		int result = session.selectOne("MemberMapper.checkMemberByEmail", mEmail);
+		return result;
+	}
+	@Override
+	public List<Member> getMemberInfo(SqlSession session, HashMap<String, String> authData) {
+		List<Member> result = session.selectOne("MemberMapper.getMemberInfo", authData);
+		return result;
 	}
 	
 }

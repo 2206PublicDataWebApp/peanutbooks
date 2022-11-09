@@ -64,8 +64,15 @@
 		UPDATE MEMBER_TBL SET AUTH_KEY = NULL WHERE M_EMAIL = #{mEmail}
 	</update>
 	<!-- 이메일로 아이디 찾기 -->
-	<select id="findIdByEmail" resultType="string">
+	<select id="getIdByEmail" resultType="string">
 		SELECT MEMBER_ID FROM MEMBER_TBL WHERE M_EMAIL = #{mEmail} AND DELETE_YN = 'N'
+	</select>
+	<!-- 이메일로 회원 여부 확인 -->
+	<select id="checkMemberByEmail" resultType="_int">
+		SELECT COUNT(*) FROM MEMBER_TBL WHERE M_EMAIL = #{mEmail} AND DELETE_YN = 'N'
+	</select>
+	<select id="getMemberInfo" resultMap="memberResultMap">
+		SELECT * FROM MEMBER_TBL WHERE MEMBER_ID = #{memberId} AND AUTH_KEY = #{authKey} AND DELETE_YN = 'N'
 	</select>
 	
 	<resultMap type="OriginBookSeries" id="oriSeriesResultMap">

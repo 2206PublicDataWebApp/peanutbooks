@@ -1,8 +1,9 @@
 package com.books.peanut.member.service.logic;
 
 import java.util.HashMap;
+import java.util.List;
 
-import org.mybatis.spring.SqlSessionTemplate;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ import com.books.peanut.member.store.MemberStore;
 @Service
 public class MemberServiceImpl implements MemberService{
 	@Autowired
-	private SqlSessionTemplate session;
+	private SqlSession session;
 	@Autowired
 	private MemberStore mStore;
 
@@ -96,9 +97,20 @@ public class MemberServiceImpl implements MemberService{
 	}
 	// 이메일로 아이디 찾기
 	@Override
-	public String findIdByEmail(String mEmail) {
-		String memberId = mStore.findIdByEmail(session, mEmail);
+	public String getIdByEmail(String mEmail) {
+		String memberId = mStore.getIdByEmail(session, mEmail);
 		return memberId;
+	}
+	// 이메일로 회원 여부 확인
+	@Override
+	public int checkMemberByEmail(String mEmail) {
+		int result = mStore.checkMemberByEmail(session, mEmail);
+		return result;
+	}
+	@Override
+	public List<Member> getMemberInfo(HashMap<String, String> authData) {
+		List<Member> result = mStore.getMemberInfo(session, authData);
+		return result;
 	}
 
 }
