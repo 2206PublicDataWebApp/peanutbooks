@@ -119,11 +119,11 @@ public class ControllerPay {
 		}
 	}
 	
-	// API결제 성공시 데이터 DB전달
-	@ResponseBody
-	@RequestMapping(value="/pay/paySuccessPop.kh", method=RequestMethod.POST)
+	// API결제 성공후 popup 띄우기
+	@RequestMapping(value="/pay/paySuccessPop.kh", method=RequestMethod.GET)
 	public ModelAndView paySuccessPop(ModelAndView mv, 
-			HttpServletRequest request, String memberId) {			
+			HttpServletRequest request, String memberId) {
+			mv.setViewName("/peanetPay/paySuccessPop");
 		return mv;		
 	}
 
