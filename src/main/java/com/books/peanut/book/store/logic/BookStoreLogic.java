@@ -330,6 +330,7 @@ public class BookStoreLogic implements BookStore {
 		return nsList;
 	}
 
+	
 	/** 일반도서 시리즈 1개 가져오기 */
 	@Override
 	public NormalBookSeries selectOneNorSeries(SqlSessionTemplate session, int bookNo, int seriesNo) {
