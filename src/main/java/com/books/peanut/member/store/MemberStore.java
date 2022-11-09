@@ -1,6 +1,7 @@
 package com.books.peanut.member.store;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -34,6 +35,9 @@ public interface MemberStore {
 	// 기존 인증 삭제
 	public void resetAuthKey(SqlSession session, String mEmail);
 	// 이메일로 아이디 찾기
-	public String findIdByEmail(SqlSession session, String mEmail);
+	public String getIdByEmail(SqlSession session, String mEmail);
+	// 이메일로 회원 여부 확인
+	public int checkMemberByEmail(SqlSession session, String mEmail);
+	public List<Member> getMemberInfo(SqlSession session, HashMap<String, String> authData);
 
 }

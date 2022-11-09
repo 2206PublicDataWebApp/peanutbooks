@@ -1,6 +1,7 @@
 package com.books.peanut.member.service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import com.books.peanut.member.domain.Member;
 
@@ -32,6 +33,9 @@ public interface MemberService {
 	// 기존 인증 키 삭제
 	void resetAuthKey(String mEmail);
 	// 이메일로 아이디 찾기
-	String findIdByEmail(String mEmail);
+	String getIdByEmail(String mEmail);
+	// 이메일로 회원 여부 확인
+	int checkMemberByEmail(String mEmail);
+	List<Member> getMemberInfo(HashMap<String, String> authData);
 
 }

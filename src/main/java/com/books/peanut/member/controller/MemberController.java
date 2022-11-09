@@ -1,6 +1,7 @@
 package com.books.peanut.member.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -22,6 +23,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.books.peanut.member.domain.Member;
 import com.books.peanut.member.service.MemberService;
 import com.books.peanut.pay.payService.PayService;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 @Controller
 public class MemberController {
@@ -130,28 +133,61 @@ public class MemberController {
 	}
 
 	/**
-	 * 아이디 찾기
+	 * 이메일로 아이디 찾기
 	 * @param mEmail
 	 * @param model
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value="/member/findIdAuth.pb", method=RequestMethod.GET)
-	public String findIdAuth(
-			@RequestParam("mEmail") String mEmail,
-			Model model) {
+	@RequestMapping(value="/member/getIdByEmail.pb", method=RequestMethod.GET)
+	public String findIdAuth(@RequestParam("mEmail") String mEmail) {
 		try {
 			mService.resetAuthKey(mEmail); // 기존 인증 키 삭제
 			String authKey = sendEmail(mEmail); // 인증 메일 발송
 			mService.saveAuthKey(authKey, mEmail); // 인증키 db에 저장
-			String memberId = mService.findIdByEmail(mEmail); // 이메일로 아이디 찾기
-			System.out.println(memberId);
-			model.addAttribute("memberId", memberId);
+			String memberId = mService.getIdByEmail(mEmail); // 이메일로 아이디 찾기
+			HashMap<String, String> authData = new HashMap<String, String>();
+			authData.put("memberId", memberId);
+			authData.put("authKey", authKey);
+			List<Member> result = mService.getMemberInfo(authData);
+			if(!result.isEmpty()) {
+				Gson gson = new GsonBuilder().create();
+				return gson.toJson(result);
+			}
+//			List<String> authData = new ArrayList<String>();
+//			authData.add(0, memberId);
+//			authData.add(1, authKey);
+//			if(!authData.isEmpty()) {
+//				Gson gson = new GsonBuilder().create();
+//				return gson.toJson(authData);
+//			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "member/forgotId";
+		return null;
+	}
+	
+	/**
+	 * 이메일로 회원 여부 확인
+	 * @param mEmail
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/member/checkMemberByEmail", method=RequestMethod.GET)
+	public String checkMemberByEmail(@RequestParam("mEmail") String mEmail) {
+		int result = mService.checkMemberByEmail(mEmail);
+//		if(result > 0) {
+//			try {
+//				mService.resetAuthKey(mEmail); // 기존 인증 키 삭제
+//				String authKey = sendEmail(mEmail); // 인증 메일 발송
+//				mService.saveAuthKey(authKey, mEmail); // 인증키 db에 저장
+//			} catch (Exception e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+		return String.valueOf(result);
 	}
 	
 	/**
