@@ -1,5 +1,8 @@
 @charset "UTF-8";
 * { font-family: 'Spoqa Han Sans Neo', 'sans-serif'; }
+input:focus{
+	outline: none;
+}
 .news-header-top{
 	border-top: solid 1px lightgray;
     border-bottom: solid 1px lightgray;
@@ -48,6 +51,9 @@
 .news-contents{
 	font-size: 16px;
 }
+.news-contents a:visited{
+	color: lightgray !important;
+}
 .delete-icon{
 	float: right;
 }
@@ -60,4 +66,5 @@
 	padding-top: 100px;
 	padding-bottom: 100px;
 	text-align: center;
+	color: lightgray;
 }

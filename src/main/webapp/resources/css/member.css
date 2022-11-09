@@ -1,15 +1,23 @@
 @charset "UTF-8";
 * { font-family: 'Spoqa Han Sans Neo', 'sans-serif'; }
 /* 데이터 유효성 체크 */
+input:focus{
+	outline: none;
+}
+input{
+	padding: 10px;
+}
 .guide{
 	display: none;
 	font-size: 12px;
+	margin-top: 8px;
+	margin-bottom: 0;
 }
 .ok{
 	color: #14aaff;
 }
 .error{
-	color: red;
+	color: #FF577F;
 }
 /* 로그인 */
 body{ /* 전체 */
@@ -120,7 +128,7 @@ form{
 }
 #pn-logo{ /* 땅콩북스 로고 영역 */
     margin-top: 50px;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
     text-align: center;
 }
 #join-area{ /* 회원가입 폼 영역 */
@@ -130,6 +138,9 @@ form{
     width: 80%;
     margin: 0 auto;
 }
+#input-area label{
+	margin-top: 15px;
+}
 .join-inputs{ /* 회원가입 입력 칸 */
     height: 40px;
     width: 100%;
@@ -137,7 +148,7 @@ form{
     border-style: solid;
     border-radius: 3px;
     border-width: 0.5px;
-    margin-bottom: 20px;
+    margin-top: 8px;
 }
 /* .join-btn{
 	display: none;
@@ -188,7 +199,7 @@ form{
 /* 아이디 찾기 */
 #findId-hl{ /* 아이디 찾기 제목 */
     font-size: 24px;
-    margin-bottom: 70px;
+    margin-bottom: 50px;
     text-align: center;
 }
 #findId-area{ /* 아이디 찾기 폼 영역 전체*/
@@ -201,11 +212,13 @@ form{
     position: absolute;
     margin: 0 auto;
     right: 10px;
-    top: 35px;
+    top: 57px;
     bottom: 0;
     height: 30px;
     border: 0;
     border-radius: 4px;
+    font-size: 14px;
+    width: 70px;
 }
 #email-input{ /* 이메일 입력 칸 */
     height: 50px;
@@ -214,7 +227,7 @@ form{
     border-style: solid;
     border-radius: 3px;
     border-width: 0.5px;
-    margin-bottom: 20px;
+    margin-top: 8px;
 }
 #findId-authKey{ /* 인증 키 입력 칸 div */
 	display: none;
@@ -224,7 +237,7 @@ form{
 	width: 100%;
 	border: 0.5px solid lightgray;
 	border-radius: 3px;
-    margin-bottom: 20px;
+	margin-top: 8px;
 }
 #findId-btn{ /* 아이디 찾기 버튼 */
 	background-color: #ffeb60;
@@ -233,7 +246,7 @@ form{
     height: 50px;
     border-radius: 3px;
     font-weight: bold;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 /* 아이디 찾기 결과 */
@@ -354,7 +367,7 @@ form{
 #pwChk-pw{ /* 비밀번호 입력 칸 */
 	width: 100%;
 	height: 40px;
-	margin-bottom: 20px;
+	margin-top: 8px;
 	border: solid 1px #ccc;
 	border-radius: 3px;
 }
@@ -364,6 +377,7 @@ form{
     width: 100%;
     height: 45px;
     border-radius: 3px;
+    margin-top: 20px;
 }
 
 /* 회원 정보 수정 */

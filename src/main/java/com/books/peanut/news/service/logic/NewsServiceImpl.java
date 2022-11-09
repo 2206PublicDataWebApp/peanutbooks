@@ -43,5 +43,11 @@ public class NewsServiceImpl implements NewsService {
    public void insertNews(HashMap<String, Object> paramMap) {
       nStore.insertNews(session, paramMap);
    }
+   // 알림 삭제
+	@Override
+	public int deleteNewsByNo(int newsNo) {
+		int result = nStore.deleteNews(session, newsNo);
+		return result;
+	}
 
 }

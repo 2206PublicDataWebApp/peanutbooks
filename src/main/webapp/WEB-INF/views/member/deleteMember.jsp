@@ -25,9 +25,18 @@
 					<div class="div-square">
 						<p>${sessionScope.loginMember.mNickname}님의 이용현황</p>
 						<ul>
-							<li>저장된 도서 개</li>
-							<li>등록한 작품 ${sessionScope.writtenBooks}개</li>
-							<li>보유한 땅콩 ${sessionScope.loginMember.mPoint}땅콩</li>
+							<li>
+								<span>저장된 도서</span>
+								<span>${sessionScope.savedBooks}개</span>
+							</li>
+							<li>
+								<span>등록한 작품</span>
+								<span>${sessionScope.writtenBooks}개</span>
+							</li>
+							<li>
+								<span>보유한 땅콩</span>
+								<span>${sessionScope.loginMember.mPoint}땅콩</span>
+							</li>
 						</ul>
 					</div>
 					<div class="div-check">
@@ -40,10 +49,9 @@
 						<input type="checkbox" id="delete-check"><label for="delete-check">안내사항을 모두 확인하였으며, 이에 동의합니다.</label>
 					</div>
 					<div class="div-pw">
-						<label>비밀번호</label><br>
+						<label for="delete-pw1">비밀번호</label><br>
 						<input type="password" id="delete-pw1"><br>
-						<label>비밀번호 확인</label><br>
-						<input type="password" id="delete-pw2">
+						<p class="guide error pw-error-4">비밀번호를 입력해 주세요.</p>
 					</div>
 					<div class="div-btn">
 						<button type="submit" class="delete-btn">회원 탈퇴</button>
@@ -54,23 +62,36 @@
 	</main>
 	<jsp:include page="../footer/footer.jsp" />
 	<script>
+		// 기존 비밀번호 값 검사
+		$("#delete-pw1").on("keyup", function(){
+			var memberPw = $("#delete-pw1").val();
+			if(memberPw == ""){
+				$(".guide.error.pw-error-4").show();
+				$("#delete-pw1").css("border", "solid 1px #FF577F");
+			}else{
+				$(".guide.error.pw-error-4").hide();
+				$("#delete-pw1").css("border", "solid 1px #ccc");
+			}
+		});
+		// 회원 탈퇴 버튼 클릭 시
 		$(".delete-btn").on("click", function(){
 			var infoChk = $("#delete-check").is(":checked");
 			var pwChk1 = $("#delete-pw1").val();
-			var pwChk2 = $("#delete-pw2").val();
 			var memberPw = $("#delete-memberPw").val();
 			if(infoChk == false){
 				alert("탈퇴 회원 유의 사항을 읽고 동의해 주세요.");
 				return false;
-			}else if(pwChk1 == "" || pwChk2 == "" || pwChk1 != pwChk2 || pwChk1 != memberPw){
+			}else if(pwChk1 == "" || pwChk1 != memberPw){
 				alert("비밀번호를 다시 확인해 주세요.");
+				$("#delete-pw1").focus();
+				$("#delete-pw1").css("border", "solid 1px #FF577F");
 				return false;
 			}else{
 				if(confirm("정말 탈퇴하시겠습니까?\n회원 탈퇴는 되돌릴 수 없습니다.") == true){
 					alert("회원 탈퇴가 완료되었습니다.\n감사합니다.");					
 					return true;
 				}else{
-					window.location.href="/member/deleteView.pb";
+					window.location.href="/member/memberInfo.pb";
 					return false;
 				}
 			}

@@ -62,11 +62,11 @@ public class MemberStoreLogic implements MemberStore{
 		return result;
 	}
 	// 내 서재 - 저장된 도서 개수 가져오기
-//	@Override
-//	public int selectSavedBooks(SqlSession session, String memberId) {
-//		int result = session.selectOne("MemberMapper.selectSavedBooks", memberId);
-//		return result;
-//	}
+	@Override
+	public int selectSavedBooks(SqlSession session, String memberId) {
+		int result = session.selectOne("MemberMapper.selectSavedBooks", memberId);
+		return result;
+	}
 	// 로그인한 회원이 등록한 작품 수 가져오기
 	@Override
 	public int selectWrittenBooks(SqlSession session, String memberId) {

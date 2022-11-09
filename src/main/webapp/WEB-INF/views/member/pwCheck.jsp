@@ -33,22 +33,37 @@
         		<label for="pwChk-pw">비밀번호</label>
         		<input id="pwChk-memberPw" type="hidden" value="${loginMember.memberPw}">
         		<input id="pwChk-pw" type="password" required>
+        		<p class="guide error pw-error-4">비밀번호를 입력해 주세요.</p>
         		<button class="pwChk-btn" type="button" onclick="checkPw()">확인</button>
         	</div>
 	    </div>
 	</main>
 	<jsp:include page="../footer/footer.jsp" />
 	<script>
+		// 비밀번호 값 검사
+		$("#pwChk-pw").on("keyup", function(){
+			var inputPw = $("#pwChk-pw").val();
+			if(inputPw == ""){
+				$(".guide.error.pw-error-4").show();
+				$("#pwChk-pw").css("border", "solid 1px #FF577F");
+			}else{
+				$(".guide.error.pw-error-4").hide();
+				$("#pwChk-pw").css("border", "solid 1px #ccc");
+			}
+		});
+		// 확인 버튼 클릭 시
 		function checkPw(){
 			var memberPw = $("#pwChk-memberPw").val();
 			var inputPw = $("#pwChk-pw").val();
-			if(memberPw == inputPw){
-				window.location.href="/member/modifyView.pb";
-			}else if(!(inputPw.length > 4 && inputPw.length < 12)){
-				alert("비밀번호는 5~11자로 입력해주세요");
+			if(inputPw == ""){
+				alert("비밀번호를 입력해 주세요.");
+				$("#pwChk-pw").focus().css("border", "solid 1px #FF577F");
+			}else if(inputPw != memberPw){
+				alert("비밀번호가 일치하지 않습니다.");
+				$("#pwChk-pw").focus().css("border", "solid 1px #FF577F");
 			}else{
-				alert("비밀번호가 일치하지 않습니다");
-			}	
+				window.location.href="/member/modifyView.pb";
+			}
 		}
 	</script>
 </body>

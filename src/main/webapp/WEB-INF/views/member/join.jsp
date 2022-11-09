@@ -61,6 +61,7 @@
     			$(".guide.ok.nick").hide();
     			$(".guide.error.nick-error-1").hide();
     			$(".guide.error.nick-error-2").show();
+    			$("#join-nickname").css("border", "solid 1px #FF577F");
     		}else{
     			$.ajax({
     				url: "/member/checkNickname.pb",
@@ -71,10 +72,12 @@
     						$(".guide.ok.nick").hide();
     						$(".guide.error.nick-error-1").show();
     						$(".guide.error.nick-error-2").hide();
+    						$("#join-nickname").css("border", "solid 1px #FF577F");
     					}else{
     						$(".guide.ok.nick").show();
     						$(".guide.error.nick-error-1").hide();
     						$(".guide.error.nick-error-2").hide();
+    						$("#join-nickname").css("border", "solid 1px #ccc");
     					}
     				}
     			})
@@ -90,18 +93,21 @@
     			$(".guide.error.id-error-2").hide();
     			$(".guide.error.id-error-3").hide();
     			$(".guide.error.id-error-4").show();
+    			$("#join-id").css("border", "solid 1px #FF577F");
     		}else if(memberId.length < 5){
     			$(".guide.ok.id").hide();
     			$(".guide.error.id-error-1").hide();
     			$(".guide.error.id-error-2").hide();
     			$(".guide.error.id-error-3").show();
     			$(".guide.error.id-error-4").hide();
+    			$("#join-id").css("border", "solid 1px #FF577F");
     		}else if(memberId.length >= 5 && !regEx.test(memberId)){
     			$(".guide.ok.id").hide();
     			$(".guide.error.id-error-1").hide();
     			$(".guide.error.id-error-2").show();
     			$(".guide.error.id-error-3").hide();
     			$(".guide.error.id-error-4").hide();
+    			$("#join-id").css("border", "solid 1px #FF577F");
     		}else{
     			$.ajax({
     				url: "/member/checkId.pb",
@@ -114,12 +120,14 @@
     						$(".guide.error.id-error-2").hide();
     						$(".guide.error.id-error-3").hide();
     		    			$(".guide.error.id-error-4").hide();
+    		    			$("#join-id").css("border", "solid 1px #FF577F");
     					}else{
     						$(".guide.ok.id").show();
     						$(".guide.error.id-error-1").hide();
     						$(".guide.error.id-error-2").hide();
     						$(".guide.error.id-error-3").hide();
     		    			$(".guide.error.id-error-4").hide();
+    		    			$("#join-id").css("border", "solid 1px #ccc");
     					}
     				}
     			})
@@ -133,18 +141,22 @@
     			$(".guide.error.pw-error-1").hide();
     			$(".guide.error.pw-error-2").hide();
     			$(".guide.error.pw-error-3").show();
+    			$("#join-pw").css("border", "solid 1px #FF577F");
     		}else if(memberPw.length < 5){
     			$(".guide.error.pw-error-1").show();
     			$(".guide.error.pw-error-2").hide();
     			$(".guide.error.pw-error-3").hide();
+    			$("#join-pw").css("border", "solid 1px #FF577F");
     		}else if(memberPw.length >= 5 && !regEx.test(memberPw)){
     			$(".guide.error.pw-error-1").hide();
     			$(".guide.error.pw-error-2").show();
     			$(".guide.error.pw-error-3").hide();
+    			$("#join-pw").css("border", "solid 1px #FF577F");
     		}else if(memberPw.length >= 5 && regEx.test(memberPw)){
     			$(".guide.error.pw-error-1").hide();
     			$(".guide.error.pw-error-2").hide();
     			$(".guide.error.pw-error-3").hide();
+    			$("#join-pw").css("border", "solid 1px #ccc");
     		}
     	});
     	// 비밀번호 재확인
@@ -154,12 +166,15 @@
     		if(checkPw == ""){
     			$(".guide.error.pw2-error-1").hide();
     			$(".guide.error.pw2-error-2").show();
+    			$("#join-pw2").css("border", "solid 1px #FF577F");
     		}else if(originPw != checkPw){
     			$(".guide.error.pw2-error-1").show();
     			$(".guide.error.pw2-error-2").hide();
+    			$("#join-pw2").css("border", "solid 1px #FF577F");
     		}else if(originPw == checkPw){
     			$(".guide.error.pw2-error-1").hide();
     			$(".guide.error.pw2-error-2").hide();
+    			$("#join-pw2").css("border", "solid 1px #ccc");
     		}
     	});
     	// 이메일 유효성 검사
@@ -171,11 +186,13 @@
     			$(".guide.error.email-error-1").hide();
     			$(".guide.error.email-error-2").hide();
     			$(".guide.error.email-error-3").show();
+    			$("#join-email").css("border", "solid 1px #FF577F");
     		}else if(!regEx.test(mEmail)){
     			$(".guide.ok.email").hide();
     			$(".guide.error.email-error-1").hide();
     			$(".guide.error.email-error-2").show();
     			$(".guide.error.email-error-3").hide();
+    			$("#join-email").css("border", "solid 1px #FF577F");
     		}else{
     			$.ajax({
     				url: "/member/checkEmail.pb",
@@ -187,11 +204,13 @@
     						$(".guide.error.email-error-1").show();
     						$(".guide.error.email-error-2").hide();
     						$(".guide.error.email-error-3").hide();
+    						$("#join-email").css("border", "solid 1px #FF577F");
     					}else{
     						$(".guide.ok.email").show();
     						$(".guide.error.email-error-1").hide();
     						$(".guide.error.email-error-2").hide();
     						$(".guide.error.email-error-3").hide();
+    						$("#join-email").css("border", "solid 1px #ccc");
     					}
     				}
     			})

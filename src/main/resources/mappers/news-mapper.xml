@@ -19,6 +19,10 @@
 	<select id="selectNewsList" resultMap="newsResultMap">
 		SELECT * FROM NEWS_TBL WHERE MEMBER_ID = #{memberId} ORDER BY NEWS_NO DESC
 	</select>
+	<!-- 알림 삭제 -->
+	<delete id="deleteNews">
+		DELETE FROM NEWS_TBL WHERE NEWS_NO = #{newsNo}
+	</delete>
 	
  	<resultMap type="Library" id="libraryResultMap">
  		<id column="MEMBER_ID" property="memberId" />

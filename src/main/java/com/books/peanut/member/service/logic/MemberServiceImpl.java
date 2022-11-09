@@ -66,11 +66,11 @@ public class MemberServiceImpl implements MemberService{
 		return result;
 	}
 	// 내 서재 - 저장된 도서 수 가져오기
-//	@Override
-//	public int countSavedBooks(String memberId) {
-//		int result = mStore.selectSavedBooks(session, memberId);
-//		return result;
-//	}
+	@Override
+	public int countSavedBooks(String memberId) {
+		int result = mStore.selectSavedBooks(session, memberId);
+		return result;
+	}
 	// 로그인한 회원이 등록한 작품 수 가져오기
 	@Override
 	public int countWrittenBooks(String memberId) {
