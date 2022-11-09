@@ -40,6 +40,7 @@ public class PeanutCessController {
 	}
 	
 	
+	
 	/** 게임 엔딩 바로보기 */
 	@RequestMapping(value = "/book/restEnd.do", method = RequestMethod.GET)
 	public ModelAndView restEnd(ModelAndView mv, HttpSession session) {
