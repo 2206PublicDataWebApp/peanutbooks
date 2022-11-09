@@ -114,7 +114,6 @@
 <jsp:include page="../footer/footer.jsp"></jsp:include>
 
 <script type="text/javascript">
-
 	    var orderName = '';//결제 분류명
 	    var payMoney = '';  // 결제할 값  
 	    var d = new Date();
@@ -125,7 +124,7 @@
 	    var memberId = '${sessionScope.loginMember.memberId}';
 	    var mEmail = '${sessionScope.loginMember.mEmail}';  
 	  
-	    
+	   
 	    $('#seasonticket').on('click', function(){
 	    	if(!(${empty sessionScope.lastDate})){
 				alert("구독권 만료후 구매 부탁드립니다. 이용해 주셔서 감사합니다.");
@@ -223,10 +222,9 @@
 							'pay' : $('#paymoney').val()
 						},
 						success : function(result) {
+							alert("결제성공");
 							//결제성공시 팝업							
-							var windo = "status=no ,toolbar=no,scrollbars=no, menubar=no,resizable=no,titlebar=no, width=400,height=400";
-							window.open("/pay/paySuccessPop.kh?memberId="+memberId,"PopupWin", windo);
-							
+							popUp();							
 							location.href = '/';
 						},
 						error : function(e) {
@@ -254,6 +252,11 @@
 			alert("동의 체크 후 결제 가능합니다.");
 		}
 
+	}
+	function popUp(){
+		var windo = "status=no ,toolbar=no,scrollbars=no, menubar=no,resizable=no,titlebar=no, width=450,height=450";
+
+		window.open("/pay/paySuccessPop.kh","PopupWin", windo); 
 	}
 </script>
 </body>
