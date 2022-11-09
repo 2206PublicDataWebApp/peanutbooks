@@ -20,6 +20,10 @@ main{
     
 }
 
+.hover:hover{
+    text-decoration: underline;
+}
+
 #up-area, #down-area{
     height: 25%;
 }

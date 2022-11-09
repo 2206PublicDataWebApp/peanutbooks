@@ -499,23 +499,11 @@ function jobText(){
 }
 
 function next(){
-	if(thisTurn == 1){
-		thisTurn++;
-		desa=1;
-		nextText();
-		
-	}else if(thisTurn == 2){
-		thisTurn++;
-		desa=1;
-		nextText();
-	}else if(thisTurn == 3){
+	if(thisTurn != 4){
 		thisTurn++;
 		desa=1;
 		nextText();
 	}else if(thisTurn == 4){
-	 location.href='/book/gameStarting';
-	
+		location.href='/book/gameStarting';
 	}
-
-
 }

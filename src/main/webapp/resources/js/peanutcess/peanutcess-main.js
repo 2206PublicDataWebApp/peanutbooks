@@ -35,20 +35,21 @@ $('#sche-plus').on('click',function(){makeSche()});
 
 //스케쥴 입력하기
 function makeSche(){
+	$('#sche-area2').html('');
 	$('#sche-area2').css('display','block');
 	var str = '';
-	str+= '<ul><li id="job">아르바이트를 한다</li>'
-	str+='<li id="school">공부를 한다</li>'
-	str+='<li onclick="restEnd();" >20살까지 논다</li>'
+	str+= '<ul><li id="job" class="hover">아르바이트를 한다</li>'
+	str+='<li id="school"  class="hover">공부를 한다</li>'
+	str+='<li  class="hover" onclick="restEnd();" >20살까지 논다</li>'
 	$('#sche-area1').html(str);
 	$('#text').html('공주님의 스케쥴을 지정해주세요<br> 한달에 1개씩 총 4번의 스케쥴을 정할수 있어요')
 	
 	$('#job').on('click',function(){
 		var str = '';
-		str+= '<ul><li id="fram">농장알바(10피넛↑)</li>'
-		str+='<li id="child">보모알바(10피넛↑)</li>'
-		str+='<li id="cafe">식당알바(10피넛↑)</li>'
-		str+='<li id="Onerest">휴식한다</li>'
+		str+= '<ul><li id="fram"  class="hover">농장알바(10피넛↑)</li>'
+		str+='<li id="child"  class="hover">보모알바(10피넛↑)</li>'
+		str+='<li id="cafe"  class="hover">식당알바(10피넛↑)</li>'
+		str+='<li id="Onerest"  class="hover">휴식한다</li>'
 		$('#sche-area2').html(str);
 		
 		$('#fram').on('click',function(){
@@ -110,10 +111,10 @@ function makeSche(){
 	
 	$('#school').on('click',function(){
 		var str = '';
-		str+= '<ul><li id="music">음악교실(20피넛↓)</li>'
-		str+='<li id="art">미술교실(20피넛↓)</li>'
-		str+='<li id="material">무술교실(20피넛↓)</li>'
-		str+='<li id="Onerest">휴식한다</li>'
+		str+= '<ul><li id="music"  class="hover">음악교실(20피넛↓)</li>'
+		str+='<li id="art"  class="hover">미술교실(20피넛↓)</li>'
+		str+='<li id="material"  class="hover">무술교실(20피넛↓)</li>'
+		str+='<li id="Onerest"  class="hover">휴식한다</li>'
 		$('#sche-area2').html(str);
 		
 		$('#music').on('click',function(){
@@ -176,10 +177,7 @@ function makeSche(){
 	
 	});
 	
-	$('#rest').on('click',function(){
-	$.ajax({})//스테이터스 전달해서 엔딩보기
 	
-	});
 	
 	
 	
@@ -193,8 +191,8 @@ function makeSche(){
 //스케쥴실행
 function startSche(){
 	var str = '';
-	str += '<ul><li id="goSche">스케쥴을 실행한다</li>'
-	str += '<li id="stopSche"> 스케쥴을 다시짠다</li></ul>'
+	str += '<ul><li  class="hover" id="goSche">스케쥴을 실행한다</li>'
+	str += '<li  class="hover" id="stopSche"> 스케쥴을 다시짠다</li></ul>'
 	$('#sche-area1').html(str);//스케쥴 실행여부 붇기
 	
 	var str1 = '<ol>';
@@ -242,10 +240,10 @@ function startSche(){
 
 //상점가기
 $('#gotoShop').on('click',function(){
-
+	$('#sche-area2').html('');
 	$('#sche-area2').css('display','block');
 	var str = '';
-	str+= '<ul><li id="buy" onclick="buyStore();">물건을 산다</li>'
+	str+= '<ul><li id="buy"  class="hover" onclick="buyStore();">물건을 산다</li>'
 	$('#sche-area2').html(str);
 
 	$('#text').html('상점에서 물건을 살수 있어요');
@@ -256,16 +254,17 @@ $('#gotoShop').on('click',function(){
 //20살까지 놀기
 
 function restEnd() {
-
-location.href='/book/restEnd.do'
+if(confirm('바로 엔딩을 볼까요?')){
+	location.href='/book/restEnd.do'
+}
 
 }
 
 //물건사기
 function buyStore(){
 	 var str = '';
-	 str+= '<ul><li onclick="rotto();">복권을 산다.(50피넛)</li>';
-	 str+= '<li onclick="item()">아이템을 산다.</li></ul>';
+	 str+= '<ul><li  class="hover" onclick="rotto();">복권을 산다.(50피넛)</li>';
+	 str+= '<li  class="hover" onclick="item()">아이템을 산다.</li></ul>';
 
 	$('#sche-area2').html(str);
 
@@ -309,9 +308,9 @@ function buyStore(){
  //아이템사기 
  function item(){
  	var str = '';
- 	str += '<ul><li onclick="buyItem(\'artBook\')">그림책 100피넛</li>';
- 	str += '<li onclick="buyItem(\'musicBook\')">악보 100피넛</li>';
- 	str += '<li onclick="buyItem(\'knife\')">목검 100피넛</li></ul>';
+ 	str += '<ul><li  class="hover" onclick="buyItem(\'artBook\')">그림책 100피넛</li>';
+ 	str += '<li  class="hover" onclick="buyItem(\'musicBook\')">악보 100피넛</li>';
+ 	str += '<li class="hover" onclick="buyItem(\'knife\')">목검 100피넛</li></ul>';
  	$('#sche-area2').html(str);
  
  }
@@ -344,6 +343,7 @@ function buyItem(item){
 				$('#statusPower').html(result.power);
 				$('#statusart').html(result.art);
 				$('#statusstudy').html(result.study);
+				$('#statusstrong').html(result.strong);
 				$('#money-area').html('소지금 :'+result.money+ '피넛');
 				money = result.money;
 

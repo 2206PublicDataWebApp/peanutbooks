@@ -4,34 +4,35 @@ $('#status-area').css('display','none');
 $('#sche-area2').css('display','none');
 
 
- firstText( function() { 
-    secontTest(callback);
- })
+// firstText( function() { 
+//    secontTest();
+// })
 
-function secontTest(){
-alert('끝')}
-
-
+//function secontTest(){
+//alert('끝')}
 
 
+
+firstText();
 
 var desa = 1;
 
+let showFlag = 0;
 function firstText(callback){
-		
-		let bookTitle = new Array();
-		let bookTag = new Array();
+	$('#sche-area1').css('display','none');
+	let bookTitle = new Array();
+	let bookTag = new Array();
 
-		for(var i=0; i<$('.booktitle').length;i++){
-			var value = $('.booktitle').eq(i).val();
-			var value2 = $('.booktag').eq(i).val();
-			bookTitle.push(value);
-			bookTag.push(value2);
-		}
+	for(var i=0; i<$('.booktitle').length;i++){
+		var value = $('.booktitle').eq(i).val();
+		var value2 = $('.booktag').eq(i).val();
+		bookTitle.push(value);
+		bookTag.push(value2);
+	}
 
-		$('#princessImg').attr('src','/resources/img/peanutcess/book_woman.png')
-		
-		let str = new Array();
+	$('#princessImg').attr('src','/resources/img/peanutcess/book_woman.png')
+	
+	let str = new Array();
 		
 	for(var i=0; i<bookTitle.length;i++){
 		str[i] = name+' 공주님이 '+bookTitle[i]+' 도서를 읽고있습니다. <br>'
@@ -54,25 +55,37 @@ function firstText(callback){
 		}
 		
 	}
+
+
+	if(str.length==0){
+		location.href="/book/gameStarting";
+	}
+
 	$('#text').html(str[0]);
-
-
+	if(str.length==1){
+		showInSchedule();
+	}
 
 	if(str.length>1){
 		$('#down-area').on('click',function(){
-		$('#text').html(str[1]);
-		$('#down-area').attr('class','down-area1');
-
-
-		if(str.length>2){		
-				$('.down-area1').on('click',function(){$('#text').html(str[2]); })
-				}
-						
+			$('#text').html(str[1]);
+			$('#down-area').attr('class','down-area1');
+			if(str.length==2){
+				showInSchedule();
+			}
+			if(str.length>2){		
+				$('.down-area1').on('click',function(){
+					$('#text').html(str[2]);
+					showInSchedule();
+				})
+			}
 		})			
 	}
 	
+}
 
-		$('#sche-area1').html('스케쥴을 입력한다');
-		$('#sche-area1').on('click',function(){location.href="/book/gameStarting"});
-
+function showInSchedule() {
+	$('#sche-area1').css('display','block');
+	$('#sche-area1').html('<div class="hover">스케쥴을 입력한다</div>');
+	$('#sche-area1').on('click',function(){location.href="/book/gameStarting"});
 }
