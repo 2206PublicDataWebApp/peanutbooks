@@ -23,6 +23,10 @@ public class BookPageController {
 		int endNavi;// 한 화면에 출력되는 게시판 페이지의 마지막 수
 
 		maxPage = (int) ((double) totalCount / boardLimit + 0.9);
+		if(boardLimit==18) {			
+			maxPage = (int) ((double) totalCount / boardLimit + 0.95);
+		}
+		
 		startNavi = ((int) ((double) currentPage / naviLimit + 0.9) - 1) * naviLimit + 1;
 		endNavi = startNavi + naviLimit - 1;
 

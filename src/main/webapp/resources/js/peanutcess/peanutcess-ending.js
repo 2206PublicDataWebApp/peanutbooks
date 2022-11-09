@@ -22,12 +22,17 @@ function endigText(){
 	
 	if(ending=='neet'){
 		if(desa==2){
-		$('#sche-farm').html('<img src="/resources/img/peanutcess/animal_character_hamster_kurushii.png">');
-		$('#text').html('이럴수가... 공주님은 백수가 되었어요')
+			$('#sche-farm').html('<img src="/resources/img/peanutcess/animal_character_hamster_kurushii.png">');
+			$('#text').html('이럴수가... 공주님은 백수가 되었어요')
 		}else if(desa == 3){
-		$('#text').html('실망이예요...')
-		alert('게임을 완료했습니다, 초기화면으로 돌아갑니다.');
-		location.href='/book/Peanutcess.do';
+			$('#text').html('실망이예요...')
+		}else if(desa == 4){
+			$('#sche-farm').html('<img src="/resources/img/peanutcess/neet.png">');
+			$('#name-area').html(name)
+			$('#text').html('뭐하고 놀지.. 이제 놀것도 없네')
+		}else if(desa == 5){
+			alert('게임을 완료했습니다, 초기화면으로 돌아갑니다.');
+			location.href='/book/Peanutcess.do';
 		}
 		
 	

@@ -91,7 +91,6 @@
                     	<li><a href="/book/bookSearchList.do?category=${category }&step=${step }&bookCate=${bookCate}&page=${startNavi-1}">
                     		«</a></li>
                     </c:if>
-                    
                     <!-- 페이지 숫자 -->
                     <c:forEach var="p" begin="${startNavi }" end="${endNavi }">
 
@@ -99,7 +98,7 @@
                     		<li><a href="#" class="active">${p }</a></li>
                     	</c:if>
                     	<c:if test="${currentPage != p  }">
-                    		<li><a href="/book/bookSearchList.do?category=${category }&step=${step }&bookCate=${bookCate}&page=${p}" >
+                    		<li><a href="/book/bookCatogoryList.do?category=${category }&step=${step }&bookCate=${bookCate}&page=${p}" >
                     			${p }</a></li>
                     	</c:if>
                     </c:forEach>

@@ -128,7 +128,10 @@ function jobText(){
 				
 				$('#text').html('휴식을 합니다.');
 			}else if(desa == 2){
-				$('#text').html('휴식 스트레스(-10)');
+				if(sche1Result != 'ok'){
+				$('#text').html('스케쥴을 진행할수 없습니다 <br>휴식을 합니다. 스트레스(-10)');
+				}else{
+				$('#text').html('휴식 스트레스(-10)');}
 			}else if(sche1Birth == true){
 				$('#text').html('공주님의 생일이네요!<br> 용돈 20피넛을 받았습니다');
 				sche1Birth=false;
@@ -247,7 +250,10 @@ function jobText(){
 			if(desa==1){
 				$('#text').html('휴식을 합니다.');
 			}else if(desa == 2){
-				$('#text').html('휴식<br>스트레스(-10)');
+				if(sche2Result != 'ok'){
+				$('#text').html('스케쥴을 진행할수 없습니다 <br>휴식을 합니다. 스트레스(-10)');
+				}else{
+				$('#text').html('휴식 스트레스(-10)');}
 			}else if(sche2Birth == true){
 				$('#text').html('공주님의 생일이네요!<br> 용돈 20피넛을 받았습니다');
 				sche2Birth=false;
@@ -359,7 +365,10 @@ function jobText(){
 			if(desa==1){
 				$('#text').html('휴식을 합니다.');
 			}else if(desa == 2){
-				$('#text').html('휴식 : 스트레스(-10)');
+				if(sche3Result != 'ok'){
+				$('#text').html('스케쥴을 진행할수 없습니다 <br>휴식을 합니다. 스트레스(-10)');
+				}else{
+				$('#text').html('휴식 스트레스(-10)');}
 			}else if(sche3Birth == true){
 				$('#text').html('공주님의 생일이네요!<br> 용돈 20피넛을 받았습니다');
 				sche3Birth=false;
@@ -472,7 +481,10 @@ function jobText(){
 			if(desa==1){
 				$('#text').html('휴식을 합니다.');
 			}else if(desa == 2){
-				$('#text').html('휴식 : 스트레스(-10)');
+				if(sche4Result != 'ok'){
+				$('#text').html('스케쥴을 진행할수 없습니다 <br>휴식을 합니다. 스트레스(-10)');
+				}else{
+				$('#text').html('휴식 스트레스(-10)');}
 			}else if(sche4Birth == true){
 				$('#text').html('공주님의 생일이네요!<br> 용돈 20피넛을 받았습니다');
 				sche4Birth=false;

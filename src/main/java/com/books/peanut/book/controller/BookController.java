@@ -284,7 +284,7 @@ public class BookController {
 			} else if (bookCate.equals("normal")) {// 일반도서 라면
 
 				int getTotalCount = bService.countAllNormalCategory(category);// 페이징용 갯수 가져오기
-				int bookLimit = 20;
+				int bookLimit = 18;
 				BookPageController bpCon = new BookPageController();
 				BookPage bPage = bpCon.boardList(page, getTotalCount, bookLimit);
 
@@ -2191,6 +2191,9 @@ public class BookController {
 			break;
 		case "romance":
 			category = "로맨스";
+			break;
+		case "history":
+			category = "역사";
 			break;
 		case "other":
 			category = "기타";
