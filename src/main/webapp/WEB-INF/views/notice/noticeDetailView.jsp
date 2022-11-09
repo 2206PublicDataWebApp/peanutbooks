@@ -50,7 +50,7 @@
 </style> 
 <body>
 <!-- header start -->
-<jsp:include page="../header/header.jsp"></jsp:include>
+<jsp:include page="../header/adminheader.jsp"></jsp:include>
 <!-- header End -->
 
 <!-- main contents start -->
@@ -59,7 +59,11 @@
 	<!-- 세부페이지 head 시작 -->
 		<!-- 세부페이지 큰 제목 -->
 		<div class="container text-center">
+			<div class="row row-cols-1">
+			   <div class="col" id="colText" style="background-color: #5e5e5e; color: white; height:45px" vertical-align: middle;>공지사항 상세내용</div>        
+			</div>
 		<!-- 세부페이지 큰 제목 끝 -->
+		<br>
 		<hr>
 			<!-- <div id="title">전체 시리즈 목록</div> -->
 			<ul class="mainUl">
@@ -92,13 +96,12 @@
 		</div>
 		<!-- 세부페이지 body 시작 -->
 
-		<h3 align="center">공지사항 상세 페이지</h3>
-		<br><br>
+		<h4 align="center">[ 공지사항 상세 페이지 ]</h4>
 			<c:if test="${loginMember.adminYN=='Y' }">
-				<table align="center" class="table col-10" style="width:80%;">
+				<table align="center" class="table col-8" style="width:80%;">
 					<tr>
-						<td  class="col-2" scope="col" align="center">종류</td>
-						<td>
+						<td class="col-2" scope="col" align="center">종류</td>
+						<td class="col-6" >
 							<c:if test="${notice.noticeCategory == 'notice'}">공지</c:if>
 							<c:if test="${notice.noticeCategory == 'update'}">업데이트</c:if>
 							<c:if test="${notice.noticeCategory == 'event'}">이벤트</c:if>
@@ -138,7 +141,7 @@
 				</table>
 			</c:if>
 			<c:if test="${loginMember.adminYN=='N' }">
-				<table align="center" class="table col-10">
+				<table align="center" class="table col-8">
 					<tr>
 						<td>
 							<c:if test="${notice.noticeCategory == 'notice'}">[공지]</c:if>

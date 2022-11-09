@@ -19,7 +19,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.books.peanut.book.controller.BookPageController;
 import com.books.peanut.book.domain.BookPage;
+import com.books.peanut.book.domain.OriginBookSeries;
 import com.books.peanut.member.domain.Member;
+import com.books.peanut.pay.domain.WriterPay;
 import com.books.peanut.qna.domain.Qna;
 import com.books.peanut.qna.service.QnaService;
 

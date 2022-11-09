@@ -250,6 +250,7 @@
 
 			</div>
 		</div>
+<hr>
 <input type="hidden" id="member-id" value="${sessionScope.loginMember.memberId}">
 	</header>
 

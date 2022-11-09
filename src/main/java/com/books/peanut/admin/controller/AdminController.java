@@ -65,7 +65,7 @@ public class AdminController {
 	@RequestMapping(value="/admin/memberDetailView.kh", method=RequestMethod.GET)
 	public ModelAndView adminMemberDetail(
 			ModelAndView mv
-			, @RequestParam("page") int page
+			, @RequestParam(value="page", required=false, defaultValue="1") Integer page
 			, @RequestParam("memberId") String memberId) {
 		try {
 			Member member = BAService.printOneById(memberId);

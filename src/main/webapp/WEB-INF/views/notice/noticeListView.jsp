@@ -45,7 +45,11 @@
 	<!-- 세부페이지 head 시작 -->
 		<!-- 세부페이지 큰 제목 -->
 		<div class="container text-center">
+			<div class="row row-cols-1">
+			   <div class="col" id="colText" style="background-color: #5e5e5e; color: white; height:45px" vertical-align: middle;>공지사항 리스트</div>        
+			</div>
 		<!-- 세부페이지 큰 제목 끝 -->
+		<br>
 		<hr>
 			<!-- <div id="title">전체 시리즈 목록</div> -->
 			<ul class="mainUl">
@@ -113,7 +117,7 @@
 	
 		<!-- 리스트 출력 -->
 			<div class="row row-cols-1">
-				<table align="center" class="table col-7" style="width:80%;">
+				<table align="center" class="table col-8" style="width:80%;">
 					<!-- 카테고리별 리스트 시작 -->
 					<tr>
 						<td class="col-8" style="border:none;" colspan="5" align="right">
@@ -125,11 +129,11 @@
 						</td>
 					</tr>
 					<tr>
-						<td>번호</td>
-						<td>유형</td>
-						<td>제목</td>
-						<td>작성일</td>
-						<td>노출</td>
+						<th>번호</th>
+						<th>유형</th>
+						<th>제목</th>
+						<th>작성일</th>
+						<th>노출</th>
 					</tr>
 					<!-- 카테고리별 리스트 끝 -->
 				<c:if test="${!empty nList }">

@@ -11,6 +11,8 @@ import com.books.peanut.admin.domain.ModifyBookSeries;
 import com.books.peanut.admin.store.BookApproveStore;
 import com.books.peanut.book.domain.OriginBookSeries;
 import com.books.peanut.member.domain.Member;
+import com.books.peanut.pay.domain.WriterPay;
+import com.books.peanut.qna.domain.Qna;
 @Repository
 public class BookApproveStoreLogic implements BookApproveStore{
 
@@ -172,6 +174,27 @@ public class BookApproveStoreLogic implements BookApproveStore{
 	public int selectApproveNo(SqlSession session) {
 		int result = session.selectOne("BookApproveMapper.selectApproveNo");
 		return result;
+	}
+	//관리자 메인페이지
+	@Override
+	public List<Qna> selectPrintNewQna(SqlSession session) {
+		List<Qna> qList = session.selectList("BookApproveMapper.selectPrintNewQna");
+		return qList;
+	}
+	@Override
+	public List<OriginBookSeries> selectPrintNewBooks(SqlSession session) {
+		List<OriginBookSeries> osList = session.selectList("BookApproveMapper.selectPrintNewBooks");
+				return osList;
+	}
+	@Override
+	public List<Member> selectPrintNewMembers(SqlSession session) {
+		List<Member> mList = session.selectList("BookApproveMapper.selectPrintNewMembers");
+				return mList;
+	}
+	@Override
+	public List<WriterPay> selectPrintNewPay(SqlSession session) {
+		List<WriterPay> wrList = session.selectList("BookApproveMapper.selectPrintNewPay");
+				return wrList;
 	}
 
 

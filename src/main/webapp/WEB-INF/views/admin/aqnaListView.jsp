@@ -57,7 +57,7 @@
 		<!-- 세부페이지 큰 제목 -->
 		<div class="container text-center">
 			<div class="row row-cols-1">
-			   <div class="col" id="colText" style="background-color: #5e5e5e; color: white; height:45px" vertical-align: middle;>문의 내역</div>        
+			   <div class="col" id="colText" style="background-color: #5e5e5e; color: white; height:45px" vertical-align: middle;>1:1문의 리스트</div>        
 			</div>
 		<!-- 세부페이지 큰 제목 끝 -->
 		<br>
@@ -90,7 +90,6 @@
 	 		</ul>
 	 		<!-- 세부 메뉴 끝 -->
 		<hr>
-		<br>
 		<!-- 세부페이지 head 시작 -->
 		
 		<div class="row row-cols-1">
@@ -128,7 +127,7 @@
 	
 		<!-- 리스트 출력 -->
 		<div class="row row-cols-1">
-			<table align="center" class="table col-7" style="width:90%;">
+			<table align="center" class="table col-7" border="0px" style="width:80%;">
 				<!-- 카테고리별 리스트 시작 -->
 				<tr>
 					<td class="col-7" style="border:none;" td colspan="6" align="right">
