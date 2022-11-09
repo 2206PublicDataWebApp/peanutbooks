@@ -12,7 +12,7 @@
 </head>
 <body>
 <jsp:include page="../header/adminheader.jsp"></jsp:include>
-<h1>정산 접수 내역</h1>
+<h1 id="h">정산 접수 내역</h1>
 <main id='putMain'>
     <div id='table'>
         <table>
@@ -81,12 +81,17 @@
 							<path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" /></svg> </a>
 			</c:if>
 			<c:forEach begin="${pm.startNavi}" end="${pm.endNavi }" var="p">
-
-				<a class="page-active"
-					" href="/writer/list.kh?page=${p }&memberId=${loginMember.memberId}">
-					${p} </a>
-
-			</c:forEach>
+					<c:if test="${pm.currentPage eq p}">
+						<a class="page-active"
+							href="/writer/list.kh?page=${p }&memberId=${loginMember.memberId}"
+							style="background-color: grey;"> ${p} </a>
+					</c:if>
+					<c:if test="${pm.currentPage ne p}">
+						<a class="page-active"
+							href="/writer/list.kh?page=${p }&memberId=${loginMember.memberId}">
+							${p} </a>
+					</c:if>
+				</c:forEach>
 			<c:if test="${pm.maxPage > pm.currentPage }">
 				<a title="next page"
 					href="/writer/list.kh?page=${pm.endNavi+1}&memberId=${loginMember.memberId}"><svg

@@ -14,9 +14,9 @@
 <body>
 <jsp:include page="../header/header.jsp"></jsp:include>
 	<main>
-		<h1 id="h"></h1>
+		<h1 id="h">땅콩 충전 및 사용 내역</h1>
 		<div id="spanDIV">
-			<div class="totalpeanet"><img alt="" src="../resources/img/icons8-peanut-64.png"/></div>
+		<!-- 	<div class="totalpeanet"><img alt="" src="../resources/img/icons8-peanut-64.png"/></div> -->
 			<div class="totalpeanet">${printID }님의 남은 땅콩은 ${ppSum}개</div>
 		</div>
 		<div id="table">
@@ -34,13 +34,15 @@
 						<tr>							
 							<td class="tableNo" rowspan="2"><button class="numbtn">${i.count +((pm.currentPage-1)*10) }</button></td>
 							<c:if test="${!empty PeanutPoint.bookName }">
-								<td class="contexnts">${PeanutPoint.bookName } </td>
+								<td class="contexnts">${PeanutPoint.bookName } 열람</td>
+								<td rowspan="2" class="monitercontrol"></td>
+								<td rowspan="2" class="peanet"><span>${PeanutPoint.peanutPoint} 땅콩</span></td>
 							</c:if>
 							<c:if test="${empty PeanutPoint.bookName }">
 								<td class="contexnts">&nbsp;&nbsp;땅콩충전</td>
+								<td rowspan="2" class="monitercontrol"></td>
+								<td rowspan="2" class="peanet"><span>+ ${PeanutPoint.peanutPoint} 땅콩</span></td>
 							</c:if>
-							<td rowspan="2" class="monitercontrol"></td>
-							<td rowspan="2" class="peanet"><span>${PeanutPoint.peanutPoint}</span></td>
 						</tr>
 						<tr>
 							<td class="date" colspan="3" >&nbsp;<fmt:formatDate
@@ -66,11 +68,16 @@
 								<path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" /></svg> </a>
 						</c:if>
 						<c:forEach begin="${pm.startNavi}" end="${pm.endNavi }" var="p">
-
+							<c:if test="${pm.currentPage eq p}"  >					
 							<a class="page-active"
-								" href="/peanut/listStart.kh?page=${p }&memberId=${loginMember.memberId}">
+								 href="/peanut/listStart.kh?page=${p }&memberId=${loginMember.memberId}" style="background-color:grey;">
 								${p} </a>
-
+							</c:if>
+							<c:if test="${pm.currentPage ne p}"  >					
+							<a class="page-active"
+								 href="/peanut/listStart.kh?page=${p }&memberId=${loginMember.memberId}" >
+								${p} </a>
+							</c:if>
 						</c:forEach> 
 						<c:if test="${pm.maxPage > pm.currentPage }">
 							<a title="next page"

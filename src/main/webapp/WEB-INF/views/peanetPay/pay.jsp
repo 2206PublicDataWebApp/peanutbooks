@@ -103,7 +103,7 @@
                     <p>주문내용을 확인하셨습니까? </p>
                     <p>구독권은 구매후 취소불가합니다.</p>
                     <p>땅콩은 구매후 15일 안에 사용하지 않을 경우만 </p>
-                    <p>취소가능하며 잔여땅콩은 환불되지 않습니다.</p>
+                    <p>취소가능하며 사용 후 잔여땅콩은 환불되지 않습니다.</p>
                     <p>위의 내용에 동의하십니까?<input type="checkbox" value="" id="payCheck"></p> 
                 </div>
             </div>
@@ -122,9 +122,9 @@
 	    var orderContents = '';
 	    var merchant_uid = ''; //결제 주문번호 넣을 곳
 	    var memberId = '${sessionScope.loginMember.memberId}';
-	    var mEmail = '${sessionScope.loginMember.mEmail}';  
+	    var mEmail = '${sessionScope.loginMember.mEmail}'; 
 	  
-	   
+
 	    $('#seasonticket').on('click', function(){
 	    	if(!(${empty sessionScope.lastDate})){
 				alert("구독권 만료후 구매 부탁드립니다. 이용해 주셔서 감사합니다.");
@@ -253,11 +253,19 @@
 		}
 
 	}
+	var popupObj;
 	function popUp(){
 		var windo = "status=no ,toolbar=no,scrollbars=no, menubar=no,resizable=no,titlebar=no, width=450,height=450";
 
-		window.open("/pay/paySuccessPop.kh","PopupWin", windo); 
+		popupObj=window.open("/pay/paySuccessPop.kh","PopupWin", windo);
+		
+		var stoptime=setTimeout(closePopup,5000);		
 	}
+	
+	function closePopup(){
+		popupObj.close();
+	}
+	
 </script>
 </body>
 </html>

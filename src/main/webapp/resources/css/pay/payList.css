@@ -3,7 +3,7 @@
 #body{
 	margin: 0 auto;
 	height: auto;
-	padding-top: 10rem;
+	padding-top: 8rem;
 	margin-bottom: 5rem;
 	padding-bottom: 5rem;
 	text-align:center;
@@ -17,21 +17,21 @@
   margin-bottom: 20px;
   width: 100%;
   height: auto;    
-  font-size: 1.2em;
+  font-size: 0.8em;
   font-family: 'Noto Sans KR', sans-serif;  
    
 }
 
 #selectPay{
   width: 150px;
-  height: 2.5rem;    
+  height: 2rem;    
   border: 1px solid grey;
   border-radius: 0.5em;
   padding-left: 15px;
 }
 .input{
   width: 150px;  
-  height: 2.5rem;
+  height: 2rem;
   margin-left: 10px;
   border: 1px solid grey;
   border-radius: 0.5em;
@@ -55,7 +55,7 @@
 #start,#end{
 	float: left;
     width: 7rem;
-    height: 2.5rem;
+    height: 2rem;
     margin-left: 10px;
     border: 1px solid grey;
     border-radius: 0.5em;
@@ -65,7 +65,7 @@
 
 .dateBtn{
   width: 70px;
-  height: 2.5rem;
+  height: 2rem;
   line-height: 100%;
   border: 1px #ccc solid;
   border-radius: 0.3em;
@@ -79,7 +79,7 @@
 }
 #searchBtn{  
   width: 100px;
-  height: 2.5rem;
+  height: 2rem;
   line-height: 100%;
   margin-left: 10px;
   border: 1px #ccc solid;
@@ -103,14 +103,14 @@
 	    justify-content: space-around;
 	}
 	#selectPay{
-		width: 19rem;
-		height: 2.2rem;
+		width: 17rem;
+		height: 2rem;
 		margin-bottom: 0.7rem;
 	}
 	.input{		
 		display:block;
-		width: 19rem;
-		height: 2.2rem;
+		width: 17rem;
+		height: 2rem;
 		margin-left: 0;
 	}
 	#dateSet{
@@ -126,17 +126,16 @@
     	padding-right: 5rem;
 	}
 	
-	#start,#end{
-	
+	#start,#end{	
 	    width: 9rem;
-	    height: 2.2rem;
+	    height: 2rem;
     	float: left;
     	margin: 0.5rem;
 	}
 	
 	#searchBtn{
-		width: 19rem;
-		height: 2.2rem;
+		width: 17rem;
+		height: 2rem;
   	  	margin-top: 0.7rem;
   	  	margin-left: 0;
 	}
@@ -148,12 +147,14 @@
 /*테이블 css부분  */
 
 caption{
-caption-side:top;
+	caption-side:top;
+	font-size: 2em;
 }
 .responsive-table {
   margin : 0 auto;
   margin-bottom: 1.5em;
-  font-size: 1.4em;
+  width: 70%;
+  font-size: 0.5em;
   font-family: 'Noto Sans KR', sans-serif; 
   
 }
@@ -189,12 +190,12 @@ caption-side:top;
 }
 .responsive-table th,
 .responsive-table td {
-  padding: .5em;
+  padding: 0.5em;
   vertical-align: middle;
 }
 .responsive-table caption {
-  margin-bottom: 1em;
-  font-size: 1em;
+  margin-bottom: 0.5em;
+  font-size: 1.5em;
   font-weight: bold;
   text-align: center;
 }
@@ -219,7 +220,7 @@ caption-side:top;
 .responsive-table tbody td[data-title]:before {
   content: attr(data-title);
   float: left;
-  font-size: 1em;
+  font-size: 0.7em;
   color: rgba(94, 93, 82, 0.75);
 }
 .responsive-table tbody td {
@@ -229,15 +230,14 @@ caption-side:top;
 
 
 @media (min-width: 32em) {
-  .responsive-table {    
-    font-size: 1em;
+  .responsive-table {       
+    font-size: 0.7em;
   }
   .responsive-table thead {
     position: relative;
     clip: auto;
     height: auto;
-    width: auto;
-   
+    width: auto;   
     overflow: auto;
   }
   .responsive-table tr {
@@ -249,8 +249,8 @@ caption-side:top;
     padding: .5em;
   }
 
-  .responsive-table caption {
-    font-size: 1.5em;
+  .responsive-table>caption {
+    font-size: 2em;
   }
   .responsive-table tbody {
     display: table-row-group;
@@ -276,7 +276,7 @@ caption-side:top;
 }
 @media (min-width: 62em) {
   .responsive-table {
-    font-size: 1.2em;
+    font-size: 1em;
   }
   .responsive-table th,
   .responsive-table td {

@@ -9,13 +9,13 @@
 <meta charset="UTF-8">
 <title>땅콩관리자리스트</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="../resources/css/pay/adminPNList.css" ></link>
+<link rel="stylesheet" href="/resources/css/pay/adminPNList.css" ></link>
 </head>
 
 <body>
 <jsp:include page="../header/adminheader.jsp"></jsp:include>
 	<main>
-		<h1>땅콩 내역 조회</h1>
+		<h1 id="h">땅콩 내역 조회</h1>
 		<div id="searchbtn">
 			<label for="selectPN" ></label>
 			<select id="selectPN" >
@@ -62,13 +62,15 @@
 						<tr>
 							<td class="tableNo" rowspan="2"><button class="numbtn">${i.count +((pm.currentPage-1)*10) }</button></td>
 							<c:if test="${!empty PeanutPoint.bookName }">
-								<td class="contexnts">${PeanutPoint.bookName }</td>
+								<td class="contexnts">${PeanutPoint.bookName } 열람</td>
+								<td rowspan="2" class="monitercontrol"></td>
+								<td rowspan="2" class="peanet"><span>${PeanutPoint.peanutPoint} 땅콩</span></td>
 							</c:if>
 							<c:if test="${empty PeanutPoint.bookName }">
-								<td class="contexnts">&nbsp;&nbsp;땅콩충전</td>
+								<td class="contexnts">&nbsp;땅콩충전</td>
+								<td rowspan="2" class="monitercontrol"></td>
+								<td rowspan="2" class="peanet"><span>+ ${PeanutPoint.peanutPoint} 땅콩</span></td>
 							</c:if>
-							<td rowspan="2" class="monitercontrol"></td>
-							<td rowspan="2" class="peanet"><span>${PeanutPoint.peanutPoint}</span></td>
 						</tr>
 						<tr>
 							<td class="date" colspan="3">&nbsp;<fmt:formatDate
@@ -96,9 +98,16 @@
 					<path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" /></svg> </a>
 						</c:if>
 						<c:forEach begin="${pm.startNavi}" end="${pm.endNavi }" var="p">
-
-							<a class="page-active" href="javascript:void(0);"
-								onclick="pagePNSearch(${p});"> ${p} </a>
+							<c:if test="${pm.currentPage eq p}"  >					
+								<a class="page-active" href="javascript:void(0);"
+								   onclick="pagePNSearch(${p });" style="background-color:grey;">
+									${p} </a>
+							</c:if>
+							<c:if test="${pm.currentPage ne p}"  >					
+								<a class="page-active" href="javascript:void(0);"
+								   onclick="pagePNSearch(${p });" >
+									${p} </a>
+							</c:if>
 
 						</c:forEach>
 
