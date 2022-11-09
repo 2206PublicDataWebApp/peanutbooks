@@ -8,6 +8,8 @@ import com.books.peanut.admin.domain.ModifyBookSeries;
 import com.books.peanut.book.domain.OriginBook;
 import com.books.peanut.book.domain.OriginBookSeries;
 import com.books.peanut.member.domain.Member;
+import com.books.peanut.pay.domain.WriterPay;
+import com.books.peanut.qna.domain.Qna;
 
 public interface BookApproveStore {
 
@@ -50,6 +52,11 @@ public interface BookApproveStore {
 	public int selectAllBooks(SqlSession session);
 	public int selectApproveYes(SqlSession session);
 	public int selectApproveNo(SqlSession session);
+	//관리자 메인페이지
+	public List<Qna> selectPrintNewQna(SqlSession session);
+	public List<OriginBookSeries> selectPrintNewBooks(SqlSession session);
+	public List<Member> selectPrintNewMembers(SqlSession session);
+	public List<WriterPay> selectPrintNewPay(SqlSession session);
 
 
 	

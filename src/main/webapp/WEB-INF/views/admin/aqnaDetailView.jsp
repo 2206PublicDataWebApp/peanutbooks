@@ -95,7 +95,7 @@
 		<div class="row row-cols-1" style="width:80%; margin: 0 auto;">
 			<table align="center" class="table col-6" style="border-color:skyblue;">
 				<tr>
-					<td colspan="2"><h3>1:1문의내역</h3></td>
+					<td colspan="2"><h4>[ 1:1문의내역 ]</h4></td>
 				</tr>
 				<tr>
 					<td class="col-2" align="center">문의유형</td>
@@ -194,7 +194,7 @@
 			<input type="hidden" name="searchValue" value="${searchValue}">  
 			<table class="table col-6" style="border-color:orange";>
 				<tr>
-					<td class="col-6" colspan="2" align="center"><h3>회원 문의 답변</h3></td>
+					<td class="col-6" colspan="2" align="center"><h4>[ 회원 문의 답변 ]</h4></td>
 				</tr>
 				<tr>
 					<td class="col-2" align="center">작성자</td>

@@ -6,6 +6,8 @@ import com.books.peanut.admin.domain.ModifyBookSeries;
 import com.books.peanut.book.domain.OriginBook;
 import com.books.peanut.book.domain.OriginBookSeries;
 import com.books.peanut.member.domain.Member;
+import com.books.peanut.pay.domain.WriterPay;
+import com.books.peanut.qna.domain.Qna;
 
 public interface BookApproveService {
 	
@@ -47,6 +49,11 @@ public interface BookApproveService {
 	public int allBooks();
 	public int approveYes();
 	public int approveNo();
+	//관리자 메인페이지
+	public List<Qna> printNewQna();
+	public List<OriginBookSeries> printNewBooks();
+	public List<Member> printNewMembers();
+	public List<WriterPay> printNewPays();
 
 
 	

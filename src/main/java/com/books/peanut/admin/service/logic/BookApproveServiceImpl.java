@@ -12,6 +12,8 @@ import com.books.peanut.admin.store.BookApproveStore;
 import com.books.peanut.book.domain.OriginBook;
 import com.books.peanut.book.domain.OriginBookSeries;
 import com.books.peanut.member.domain.Member;
+import com.books.peanut.pay.domain.WriterPay;
+import com.books.peanut.qna.domain.Qna;
 
 
 @Service
@@ -137,6 +139,27 @@ public class BookApproveServiceImpl implements BookApproveService {
 	public int approveNo() {
 		int result = BAStore.selectApproveNo(session);
 		return result;
+	}
+	//관리자 메인페이지
+	@Override
+	public List<Qna> printNewQna() {
+		List<Qna> qList = BAStore.selectPrintNewQna(session);
+		return qList;
+	}
+	@Override
+	public List<OriginBookSeries> printNewBooks() {
+		List<OriginBookSeries> osList = BAStore.selectPrintNewBooks(session);
+		return osList;
+	}
+	@Override
+	public List<Member> printNewMembers() {
+		List<Member> mList = BAStore.selectPrintNewMembers(session);
+		return mList;
+	}
+	@Override
+	public List<WriterPay> printNewPays() {
+		List<WriterPay> wrList = BAStore.selectPrintNewPay(session);
+		return wrList;
 	}
 	
 

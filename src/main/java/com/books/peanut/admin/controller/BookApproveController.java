@@ -25,6 +25,9 @@ import com.books.peanut.book.domain.OriginBookSeries;
 import com.books.peanut.book.service.BookService;
 import com.books.peanut.member.domain.Member;
 import com.books.peanut.news.service.NewsService;
+import com.books.peanut.pay.domain.WriterPay;
+import com.books.peanut.qna.domain.Qna;
+import com.books.peanut.qna.service.QnaService;
 
 @Controller
 public class BookApproveController {
@@ -34,6 +37,8 @@ public class BookApproveController {
 	private BookService bService;
 	@Autowired
 	private NewsService nService;
+	@Autowired
+	private QnaService qService;
 
 	//도서 리스트(all, 승인, 보류)
 	@RequestMapping(value="/admin/approveYN.kh", method=RequestMethod.GET)
@@ -184,5 +189,56 @@ public class BookApproveController {
 		return mv;
 	}
 	
+	//adminMain
+	@RequestMapping(value="/adminMain.kh", method=RequestMethod.GET)
+	public ModelAndView adminMain(
+			ModelAndView mv) {
+		try {
+			
+			
+			
+			List<Qna> qList = BAService.printNewQna();
+			List<Member> mList = BAService.printNewMembers();
+			List<WriterPay> wrList = BAService.printNewPays();
+			if(!qList.isEmpty()|| !mList.isEmpty() || !wrList.isEmpty()) {
+				mv.addObject("qList", qList);
+				mv.addObject("mList", mList);
+				mv.addObject("wrList", wrList);
+				
+			}
+			//회원현황
+			int todayCount = BAService.todayJoinCount();
+			int deleteCount = BAService.deleteMemberCount();
+			int totalCount = BAService.todalCount();
+			
+			mv.addObject("totalCount", totalCount);
+			mv.addObject("todayCount", todayCount);
+			mv.addObject("deleteCount", deleteCount);
+
+			//도서현황
+			int allBooks = BAService.allBooks();
+			int approveYes = BAService.approveYes();
+			int approveNo = BAService.approveNo();
+			int reApproveBooks = BAService.reApproveCount();
+			mv.addObject("allBooks", allBooks);
+			mv.addObject("approveYes", approveYes);
+			mv.addObject("approveNo", approveNo);
+			mv.addObject("reApproveBooks", reApproveBooks);
+			mv.setViewName("/admin/adminMain");
+			
+			//문의게시판 현황
+			int totalQna = qService.totalQna();
+			int totalAnswer = qService.totalAnswer();
+			int totalNoAnswer = qService.totalNoAnswer();
+			mv.addObject("totalQna", totalQna);
+			mv.addObject("totalAnswer", totalAnswer);
+			mv.addObject("totalNoAnswer", totalNoAnswer);
+			
+		} catch (Exception e) {
+			mv.addObject("msg", e.toString()).setViewName("common/errorPage");
+		}
+		return mv;
+		
+	}
 	
 }
