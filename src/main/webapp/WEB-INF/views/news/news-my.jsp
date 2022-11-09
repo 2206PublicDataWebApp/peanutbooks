@@ -41,10 +41,10 @@
 					<c:forEach items="${nList}" var="news" varStatus="i">
 						<div class="news-contents-area">
 							<span class="news-contents">
-								<a href="/book/oriBookInfo?bookNo=${news.refBookNo}">${news.newsContents}</a>
+								<a href="/book/oriBookInfo?bookNo=${news.refBookNo}&newsNo=${news.newsNo}">${news.newsContents}</a>
 							</span>
 							<span class="delete-icon">
-								<a href="#"><img alt="닫기" src="../resources/img/news/icons8-close-48.png"></a>
+								<a href="/news/deleteNews.pb?newsNo=${news.newsNo}"><img alt="닫기" src="../resources/img/news/icons8-close-48.png"></a>
 							</span>
 						</div>
 					</c:forEach>

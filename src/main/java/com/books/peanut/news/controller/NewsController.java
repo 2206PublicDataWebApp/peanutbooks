@@ -7,8 +7,10 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.books.peanut.member.domain.Member;
@@ -26,7 +28,12 @@ public class NewsController {
 //		return "news/news-my";
 //	}
 	
-	// 알림 목록 조회
+	/**
+	 * 알림 목록 조회
+	 * @param mv
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="/news/newsList.pb", method=RequestMethod.GET)
 	public ModelAndView newsList(
 			ModelAndView mv,
@@ -42,4 +49,22 @@ public class NewsController {
 		return mv;
 	}
 	
+	/**
+	 * 알림 삭제
+	 * @param model
+	 * @param newsNo
+	 * @return
+	 */
+	@RequestMapping(value="/news/deleteNews.pb", method=RequestMethod.GET)
+	public String deleteNews(
+			Model model,
+			@RequestParam("newsNo") int newsNo) {
+		try {
+			nService.deleteNewsByNo(newsNo);
+			return "redirect:/news/newsList.pb";
+		} catch (Exception e) {
+			model.addAttribute("msg", e.toString());
+			return "common/errorPage";
+		}
+	}
 }

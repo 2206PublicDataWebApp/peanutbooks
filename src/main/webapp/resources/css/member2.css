@@ -1,15 +1,23 @@
 @charset "UTF-8";
 * { font-family: 'Spoqa Han Sans Neo', 'sans-serif'; }
 /* 데이터 유효성 체크 */
+input:focus{
+	outline: none;
+}
+input{
+	padding: 10px;
+}
 .guide{
 	display: none;
 	font-size: 12px;
+	margin-top: 8px;
+	margin-bottom: 0;
 }
 .ok{
 	color: #14aaff;
 }
 .error{
-	color: red;
+	color: #FF577F;
 }
 /* 로그인 */
 body{ /* 전체 */
@@ -380,11 +388,16 @@ form{
     border-radius: 3px;
     border-width: 0.5px;
 }
+.modify-area label{
+	margin-bottom: 8px;
+}
 #modify-nick{
 	width: 100%;
 }
 #modify-pw{
 	width: 80%;
+	color: #ccc;
+	background: #f5f5f5;
 }
 .modify-pw-btn{
 	width: 18%;
@@ -405,14 +418,13 @@ form{
 }
 #modify-newPw{
 	width: 100%;
-	margin-bottom: 25px;
 }
 #modify-newPwChk{
 	width: 100%;
+	margin-top: 15px;
 }
 #modify-pw2{
 	width: 100%;
-	margin-bottom: 25px;
 }
 #div-nick{
 	padding-bottom: 25px;
@@ -423,10 +435,12 @@ form{
 	border-top: 1px solid #ccc;
 }
 #div-newPw{
-	padding-top: 20px;
 	padding-bottom:20px;
 	border-top: 1px solid #ccc;
 	display: none;
+}
+#div-newPw label{
+	margin-top: 20px;
 }
 
 /* 회원탈퇴 */
@@ -475,14 +489,22 @@ form{
 	width: 100%;
 	height: 40px;
 }
+.div-pw label:nth-child(n+2){
+	margin-top: 15px;
+}
 #delete-pw1{
-	margin-bottom: 10px;
+	margin-top: 8px;
+	border:1px solid #ccc;
+	border-radius: 3px;
 }
 #delete-pw2{
-	margin-bottom: 24px;
+	margin-top: 8px;
+	border:1px solid #ccc;
+	border-radius: 3px;
 }
 .div-btn{
 	text-align: center;
+	margin-top: 30px;
 }
 .div-btn button{
 	color: white;
@@ -491,4 +513,8 @@ form{
 	border-radius: 3px;
 	height: 40px;
 	width: 90px;
+}
+.div-square li{
+	display: flex;
+	justify-content: space-between;
 }

@@ -33,6 +33,42 @@ public class MemberController {
 	private JavaMailSender mailSender; // mailSender Bean 의존성 주입
 	
 	/**
+	 * 인증 메일 전송
+	 * @param mEmail
+	 * @return
+	 * @throws Exception
+	 */
+//	@ResponseBody
+//	@RequestMapping(value="/member/sendEmail.pb", method=RequestMethod.GET)
+	public String sendEmail(String mEmail) throws Exception{
+		// 인증번호(난수) 생성
+		Random random = new Random();
+		int authKey = random.nextInt(88888) + 11111;
+		
+		String subject = "[땅콩북스] 인증번호";
+		String content = "아래의 인증번호를 인증번호 입력창에 입력하세요.<br>인증번호는 " + authKey + " 입니다."; // 이미지 첨부 -> "내용" + "<img src=\"이미지 경로\">"
+		String from = "땅콩북스 <realpeanutbooks@gmail.com>"; // 이메일만 혹은 이름 + <이메일> 가능
+		String to = mEmail;
+		
+		try {
+			MimeMessage msg = mailSender.createMimeMessage();
+			MimeMessageHelper msgHelper = new MimeMessageHelper(msg, true, "UTF-8"); // true는 multipart 메시지(이미지 파일 등) 사용 명시
+			
+			msgHelper.setFrom(from); // 메일 발신자
+			msgHelper.setTo(to); // 메일 수신자
+			msgHelper.setSubject(subject); // 메일 제목
+			msgHelper.setText(content, true); // 메일 내용 // true는 html 사용 명시, 사용하지 않을 시 생략 가능
+			mailSender.send(msg);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		String authNum = Integer.toString(authKey); // ajax로 반환하는 값은 String 타입만 가능하므로 형변환 처리
+		
+		return authNum;
+	}
+
+	/**
 	 * 회원가입 화면
 	 * @return
 	 */
@@ -72,7 +108,33 @@ public class MemberController {
 		return mv;
 	}
 	
-	// 아이디 찾기
+	/**
+	 * 이메일 인증 확인 화면
+	 * @return
+	 */
+	@RequestMapping(value="/member/confirmEmailView.pb", method=RequestMethod.GET)
+	public String confirmEmailView(
+			@RequestParam("memberId") String memberId,
+			Model model) {
+		model.addAttribute("memberId", memberId);
+		return "member/confirmEmail";
+	}
+
+	/**
+	 * 아이디 찾기 화면
+	 * @return
+	 */
+	@RequestMapping(value="/member/forgotId.pb", method=RequestMethod.GET)
+	public String forgotIdView() {
+		return "member/forgotId";
+	}
+
+	/**
+	 * 아이디 찾기
+	 * @param mEmail
+	 * @param model
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value="/member/findIdAuth.pb", method=RequestMethod.GET)
 	public String findIdAuth(
@@ -90,42 +152,6 @@ public class MemberController {
 			e.printStackTrace();
 		}
 		return "member/forgotId";
-	}
-	
-	/**
-	 * 인증 메일 전송
-	 * @param mEmail
-	 * @return
-	 * @throws Exception
-	 */
-//	@ResponseBody
-//	@RequestMapping(value="/member/sendEmail.pb", method=RequestMethod.GET)
-	public String sendEmail(String mEmail) throws Exception{
-		// 인증번호(난수) 생성
-		Random random = new Random();
-		int authKey = random.nextInt(88888) + 11111;
-		
-		String subject = "[땅콩북스] 인증번호";
-		String content = "아래의 인증번호를 인증번호 입력창에 입력하세요.<br>인증번호는 " + authKey + " 입니다."; // 이미지 첨부 -> "내용" + "<img src=\"이미지 경로\">"
-		String from = "땅콩북스 <realpeanutbooks@gmail.com>"; // 이메일만 혹은 이름 + <이메일> 가능
-		String to = mEmail;
-		
-		try {
-			MimeMessage msg = mailSender.createMimeMessage();
-			MimeMessageHelper msgHelper = new MimeMessageHelper(msg, true, "UTF-8"); // true는 multipart 메시지(이미지 파일 등) 사용 명시
-			
-			msgHelper.setFrom(from); // 메일 발신자
-			msgHelper.setTo(to); // 메일 수신자
-			msgHelper.setSubject(subject); // 메일 제목
-			msgHelper.setText(content, true); // 메일 내용 // true는 html 사용 명시, 사용하지 않을 시 생략 가능
-			mailSender.send(msg);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		String authNum = Integer.toString(authKey); // ajax로 반환하는 값은 String 타입만 가능하므로 형변환 처리
-		
-		return authNum;
 	}
 	
 	/**
@@ -168,18 +194,6 @@ public class MemberController {
 			mv.setViewName("redirect:/member/confirmEmailView.pb?memberId="+memberId); // 실패 시 parameter 가지고 기존 페이지로 돌아가기
 		}
 		return mv;
-	}
-	
-	/**
-	 * 이메일 인증 확인 화면
-	 * @return
-	 */
-	@RequestMapping(value="/member/confirmEmailView.pb", method=RequestMethod.GET)
-	public String confirmEmailView(
-			@RequestParam("memberId") String memberId,
-			Model model) {
-		model.addAttribute("memberId", memberId);
-		return "member/confirmEmail";
 	}
 	
 	/**
@@ -247,13 +261,13 @@ public class MemberController {
 			if(loginMember != null) {
 				HttpSession session = request.getSession();
 				session.setAttribute("loginMember", loginMember); // session에 로그인한 회원의 모든 정보(loginMember) 저장
-				// 구독권 가져오는 부분
+				// 구독권 가져오는 부분 시작
 				String lastDate = pService.seasonTicketDate(loginMember.getMemberId());			
 				session.setAttribute("lastDate", lastDate);
-				//구독권 가져오는부분 종료
+				//구독권 가져오는 부분 종료
 				// 로그인한 회원이 저장한 도서 수 가져오기
-//				int savedBooks = mService.countSavedBooks(loginMember.getMemberId());
-//				session.setAttribute("savedBooks", savedBooks);
+				int savedBooks = mService.countSavedBooks(loginMember.getMemberId());
+				session.setAttribute("savedBooks", savedBooks);
 				// 로그인한 회원이 등록한 작품 수 가져오기
 				int writtenBooks = mService.countWrittenBooks(loginMember.getMemberId());
 				session.setAttribute("writtenBooks", writtenBooks);
@@ -289,15 +303,6 @@ public class MemberController {
 			mv.addObject("msg", e.toString()).setViewName("common/errorPage"); // 에러 확인용
 		}
 		return mv;
-	}
-	
-	/**
-	 * 아이디 찾기 화면
-	 * @return
-	 */
-	@RequestMapping(value="/member/forgotId.pb", method=RequestMethod.GET)
-	public String forgotIdView() {
-		return "member/forgotId";
 	}
 	
 	/**
@@ -363,13 +368,16 @@ public class MemberController {
 	@RequestMapping(value="/member/modify.pb", method=RequestMethod.POST)
 	public ModelAndView ModifyMemberInfo(
 			@ModelAttribute Member member,
-			ModelAndView mv) {
+			ModelAndView mv,
+			@RequestParam("originPw") String originPw) {
 		try {
+			String memberPw = member.getMemberPw();
+			if(memberPw == "") { // jsp에서 전달 받은 비밀번호 값이 null일 경우(별명만 수정하거나 아무것도 수정하지 않는 경우)
+				member.setMemberPw(originPw); // 로그인 정보에서 가져온 기존 비밀번호 값을 넣어줌
+			}
 			int result = mService.modifyInfo(member);
-			if(result > 0) {
+			if(result > 0) { // 회원 정보 수정 성공
 				mv.setViewName("redirect:/member/memberInfo.pb");
-			}else{
-				mv.setViewName("redirect:/member/modifyView.pb");
 			}
 		} catch (Exception e) {
 			mv.addObject("msg", e.toString()).setViewName("common/errorPage");

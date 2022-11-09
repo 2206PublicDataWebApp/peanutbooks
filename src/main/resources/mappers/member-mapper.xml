@@ -88,5 +88,18 @@
 	<select id="selectWrittenBooks" resultType="_int">
 		SELECT COUNT(*) FROM ORIGIN_BOOK WHERE MEMBER_ID = #{memberId}
 	</select>
+	
+ 	<resultMap type="Library" id="libraryResultMap">
+ 		<id column="MEMBER_ID" property="memberId" />
+ 		<result column="BOOK_NO" property="bookNo" />
+ 		<result column="CATEGORY" property="category" />
+ 		<result column="LIBRARY_NO" property="libraryNo" />
+ 		<result column="title" property="bookTitle" />
+ 		<result column="picName" property="picName" />
+ 	</resultMap>
+ 	<!-- 로그인한 회원이 저장한 도서 수 가져오기 -->
+ 	<select id="selectSavedBooks" resultType="_int">
+ 		SELECT COUNT(*) FROM LIBRARY WHERE MEMBER_ID = #{memberId}
+ 	</select>
 </mapper>
 

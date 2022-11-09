@@ -31,7 +31,7 @@ public class NewsStoreLogic implements NewsStore {
       OriginBook bookTitle = session.selectOne("NewsMapper.selectBookTitleByNo", bookNo);
       return bookTitle;
    }
-   // 도서 등록
+   // 알림 등록
    @Override
    public void insertNews(SqlSession session, HashMap<String, Object> paramMap) {
       List<Library> lList = (List<Library>) paramMap.get("lList");
@@ -46,5 +46,11 @@ public class NewsStoreLogic implements NewsStore {
          session.insert("NewsMapper.insertNews", hMap);
       }
    }
+   // 알림 삭제
+	@Override
+	public int deleteNews(SqlSession session, int newsNo) {
+		int result = session.delete("NewsMapper.deleteNews", newsNo);
+		return result;
+	}
 
 }

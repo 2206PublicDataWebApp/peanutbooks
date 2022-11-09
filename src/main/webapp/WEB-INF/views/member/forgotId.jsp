@@ -32,21 +32,27 @@
     <script>
     	$("#email-btn").on("click", function(){
     		var mEmail = $("#email-input").val();
-    		$.ajax({
-    			url: "/member/findIdAuth.pb",
-    			data: {"mEmail": mEmail},
-    			type: "get",
-    			success: function(result){
-    				if(result != 0){
-			    		alert("입력하신 이메일 주소로 인증번호를 발송했습니다.");
-			    		$("#findId-authKey").show();
-						return true;    					
-    				}else{
-    					alert("올바르지 않은 이메일입니다. 다시 확인해 주세요.");
-    					return false;
-    				}
-    			}
-    		})
+    		if(mEmail == ""){
+    			alert("이메일을 입력해 주세요.");
+    			$("#email-input").focus();
+    			return false;
+    		}else{
+	    		$.ajax({
+	    			url: "/member/findIdAuth.pb",
+	    			data: {"mEmail": mEmail},
+	    			type: "get",
+	    			success: function(result){
+	    				if(result != 0){
+				    		alert("입력하신 이메일 주소로 인증번호를 발송했습니다.");
+				    		$("#findId-authKey").show();
+							return true;    					
+	    				}else{
+	    					alert("올바르지 않은 이메일입니다. 다시 확인해 주세요.");
+	    					return false;
+	    				}
+	    			}
+	    		})
+    		}
     	});
     	
     	$("#findId-btn").on("click", function(){
