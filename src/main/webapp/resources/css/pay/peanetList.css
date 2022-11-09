@@ -12,8 +12,10 @@ main{
 }
 #h {
 	margin-top: 3rem;
+	text-align:center;
+	font-size: 1.5rem;
 }
-
+/*땅콩이 없을때  */
 #emptyTD {
 	width: 100%;
 	height: 400px;
@@ -25,7 +27,6 @@ main{
 #spanDIV {
 	margin: 0 auto;
 	width: 800px;
-	padding-left: 20px;
 	text-align: center;
 }
 
@@ -34,19 +35,18 @@ main{
 	background-color: #fff;
 	color: #323232;
 	align-items: center;
-	font-size: 16px;
-	width: 3rem;
+	font-size: 14px;
+	width: 2.5rem;
 	margin-top:0px;
 	border-color: #fff;
 	border-radius: 0.5em;
-	height: 40px;
+	height: 34px;
 	box-shadow: 0 0.5px 3px rgba(0, 0, 0, 0.15);
 	font-family: 'Noto Sans KR', sans-serif;
 }
 .totalpeanet {
 	width: 400px;
-	font-size: 25px;
-	font-weight: bold;
+	font-size: 20px;	
 	display: inline;
 	justify-content: center;
 	text-align: center;
@@ -54,25 +54,23 @@ main{
 .contexnts {
 	width: 35%;
 	height: 50%;
-	font-size: 20px;
-	font-weight: bold;
+	font-size: 14px;
 	padding: 5px;
 }
 
 .peanet {
 	width: 16%;
 	text-align: center;
-	font-size: x-large;
-	font-weight: 800;
+	font-size: large;
 	background-color: #dcdcdc;
-	border: 2rem solid transparent;
+	border: 1rem solid transparent;
 	border-radius: 0.5em;
 }
 
 .date {
 	margin-left: 10px;
 	height: 50%;
-	font-size: 16px;
+	font-size: 10px;
 }
 
 #table {
@@ -119,18 +117,21 @@ table>tr{
 	#spanDIV{
 		width:100%;
 		margin : 0 auto;
-		font-size:1rem;
+		font-size:0.8rem;
 		padding-left:0.5rem;
 	}
-	
+	#table{ margin-left: 0.5em;}	
 	table{
 		 width:100%;
 		 border:none !important;
 	 }
 	.tableNo{font-size:1rem;}
-	.contexnts{font-size:1rem;}
-	.date{font-size:0.8rem;}
-	.peanet{width:10%;}
+	.contexnts{font-size:0.8rem;}
+	.date{font-size:0.6rem;}
+	.peanet{
+		width:10%;
+		font-size:0.8rem;
+		}
 }
 
 
@@ -152,7 +153,7 @@ table>tr{
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 18px;
+    font-size: 16px;
     margin: 0 5px 8px;
     border-radius: 5px;
     min-width: 18px;
