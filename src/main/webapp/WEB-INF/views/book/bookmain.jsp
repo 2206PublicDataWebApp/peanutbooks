@@ -81,10 +81,11 @@
 									</span>
 								</div>
 								<div class="col-4">
-									<a href="#reply-text">
+									<a href="javascript:shareKakao();" id="btnKakao">
 										<img src="/resources/img/book/icons8-reply-48.png" alt="">
-										<br> 감상쓰기
-									</a>
+										<br> 공유하기
+										</a>
+									
 								</div>
 								<div class="col-4">
 									<a href="#star-area">
@@ -303,14 +304,37 @@
 							</div>
 						
 						</div>
-					</div>
-				</div>
+				
 			</article>
 			<div id="listbutton">
 			<button onclick="history.go(-1);">이전으로</button>
 			</div>
 		</section>
+	<div id="popUp">
+		<div id = "popContents">
+			<div id="cUp" class="row">
+				<div class="iconArea col-3">
+					<img alt="" src="/resources/img/book/icons8-kakaotalk-96.png">
+				</div>
+				<div class="iconArea col-3"">
+					<img alt="" src="/resources/img/book/icons8-twitter-squared-96">
+				</div>
+				<div class="iconArea col-3"">
+					<img alt="" src="/resources/img/book/icons8-instagram-96.png">
+				</div>
+				<div class="iconArea col-3"">
+					<img alt="" src="/resources/img/book/icons8-copy-link-100.png">
+				</div>
+			
+			
+			</div>
+			<div id="cDown">
+				닫기
+			</div>
+		</div>
+	</div>
 	</main>
+	
 
 	<jsp:include page="../footer/footer.jsp" />
 </body>
@@ -318,8 +342,11 @@
 
 var bookNo = ${oBook.bookNo};
 var userId = '${loginMember.memberId}';
-var admin ='${loginMember.adminYN}'
+var admin ='${loginMember.adminYN}';
+var title = '${oBook.bookTitle}';
+var img = '${oBook.coverRename}';
 </script>
 <script src="/resources/js/book/bookmain.js"></script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 </html>

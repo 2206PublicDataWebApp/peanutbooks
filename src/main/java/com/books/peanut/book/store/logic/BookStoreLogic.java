@@ -843,6 +843,8 @@ public class BookStoreLogic implements BookStore {
 		ob.setSeriesNo(seriesNo);
 		
 		int result = session.delete("wirterMapper.deleteOneSeries",ob);//수정테이블에서 삭제
+		result += session.delete("wirterMapper.modifyBookSeriesDelete",ob);//모디파이 테이블에 있는거 삭제
+		result += session.delete("wirterMapper.PermissionBookSeiresDelete",ob);//승인테이블 삭제
 		return result;
 	}
 
@@ -862,7 +864,7 @@ public class BookStoreLogic implements BookStore {
 		int result = session.delete("wirterMapper.deleteOneBook",bookNo);//수정테이블에서 삭제
 		result += session.delete("wirterMapper.deleteOneBookAllseries",bookNo);//시리즈 전체삭제
 		result += session.delete("wirterMapper.modifyBookDelete",bookNo);//모디파이 테이블에 있는거 삭제
-		result += session.delete("wirterMapper.PermissionBookDelete",bookNo);//모디파이 테이블에 있는거 삭제
+		result += session.delete("wirterMapper.PermissionBookDelete",bookNo);//승인테이블 삭제
 		return result;
 	}
 

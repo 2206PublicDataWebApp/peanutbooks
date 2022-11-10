@@ -448,12 +448,26 @@ where  SERIES_NO =#{seriesNo} and ORI_BOOK_NO = #{bookNo}
   
   <!-- 책 삭제 관련 -->
   
+  <!-- 모디파이 테이블에 책 한권 시리즈 전부 삭제 -->
   <delete id="modifyBookDelete">
   	delete from modify_ori_series where ori_book_no = #{bookNo}
   </delete>
+  <!-- 책 허가 테이블에 책 한권 시리즈 전부 삭제 -->
   <delete id="PermissionBookDelete">
   	delete from book_Permission where ori_book_no = #{bookNo}
   
   </delete>
+  
+  <!-- 모디파이 테이블에 시리지 한개 삭제 -->
+  <delete id="modifyBookSeriesDelete">
+  	delete from modify_ori_series where ori_book_no = #{bookNo} and series_no = #{seriesNo}
+  </delete>
+  <!--  책 허가 타에블의 시리즈 한개 삭제 -->
+ 
+   <delete id="PermissionBookSeiresDelete">
+  	delete from book_Permission where ori_book_no = #{bookNo} and book_series_no = #{seriesNo}
+  
+  </delete>
+  
   
   </mapper>
