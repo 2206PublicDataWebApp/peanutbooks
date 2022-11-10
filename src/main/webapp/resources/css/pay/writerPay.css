@@ -1,33 +1,32 @@
 @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap');
 body{
-    width: 100%;
-    font-family: 'Noto Sans KR', sans-serif;   
+    width: 100%;  
 }
 
 section{
     margin: 0 auto; 
     max-width: 800px;      
     display: block; 
-	padding-top:9rem;
+	padding-top:7rem;
 	min-height:100%;
-	padding-bottom: 200px;
+	padding-bottom: 180px;
 }
-h2{
-    text-align: left;   
+#h{
+    text-align: left;  
+    font-size: 1.5rem; 
     padding-bottom: 20px;
-    padding-left: 4rem;
-    margin-bottom: 5rem;    
+    padding-left: 4rem;    
     font-family: 'Noto Sans KR', sans-serif;  
 }
+
 table{      
     width: 100%;
-    padding-top: 20px;
+    padding-top: 5px;
     padding-left: 30px;    
     border-collapse: separate!important;    
     border-spacing: 0 12px !important;
-    font-family: 'Jua', sans-serif; 
-    font-size: 20px;    
+   
 }
 
 tr{
@@ -50,7 +49,7 @@ td input,td select{
     margin-left: 10px;
     padding-left: 10px;
     font-family: 'Noto Sans KR', sans-serif;  
-    font-size: 20px;
+    font-size: 16px;
     border-radius: 0.5em;   
 	border-color: rgb(252, 248, 248);
 	box-shadow: 0 0 2px #696869 ;
@@ -68,17 +67,10 @@ td input:focus {
     outline: none  !important; 
     border-color: #fff; box-shadow: 0 0 8px #f7a409;
 }
-.btn{
-    width:100%;
-	margin-top: 30px; 
-    display:block; 
-	text-align:center;		
-}
-
 
 
  @media(max-width: 360px) {
-  h2{
+  #h{
   	padding-left: 2rem;
   	padding-bottom: 0.5rem;
   }
@@ -106,18 +98,21 @@ td input:focus {
 	margin: 0 auto;
 	}
 }
-
-#paybtn{
-	font-weigth: bold;
+.btn{
+    width:100%;
+	margin-top: 30px; 
+    display:block; 
+	text-align:center;		
 }
-button{	
+
+#paybtn{	
 	text-align:center;
     width: 400px;
     background:#FFD384;
-    font-size: 1.5rem !important;
-    font-weigth: bold !important;
+    font-size: 1.2rem;
+    font-weigth: bold;
     font-family: 'Noto Sans KR', sans-serif;   
-    color: #535353; 
+    color: #FFF; 
     border:none;
     position:relative;    
     height:60px;    
@@ -129,13 +124,11 @@ button{
   }
   
  
-  button:hover{
+  #paybtn:hover{
     background:#f7a409;
-    color: white;
- 
   }
   
-  button:before,button:after{
+  #paybtn:before, #paybtn:after{
     content: '';
     position: absolute;
     top: 0;
@@ -147,7 +140,7 @@ button{
     transition:400ms ease all !important;;
     font-family: 'Noto Sans KR', sans-serif  !important;
   }
-  button:after{
+  #paybtn:after{
     right:inherit;
     top:inherit; 
     left:0;
@@ -157,7 +150,7 @@ button{
     font-weight: bold !important;
    
   }
-  button:hover:before,button:hover:after{
+  #paybtn:hover:before, #paybtn:hover:after{
     width:100%;
     transition:800ms ease all;  
   } 

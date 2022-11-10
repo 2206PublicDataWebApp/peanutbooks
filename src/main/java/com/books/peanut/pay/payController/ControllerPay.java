@@ -264,7 +264,9 @@ public class ControllerPay {
 		int ppSum = pService.getPNsum(memberId);
 		return String.valueOf(ppSum);
 	}
-	
+	//작가정산은 ORI_SERIES 테이블에서 진행된다.
+	//VIEW_COUNT와 PAID_CHECK 컬럼에 조회수가 누적되나 유료화한책만 PAID에 같이 누적된다.
+	//정산기준은 PAID에서 진행하고 신청되면 포인트 차감 - 이후 다시 누적된다.
 	//작가 정산요청 화면 이동
 	@RequestMapping(value="/writer/writerStart.kh", method=RequestMethod.GET)
 	public ModelAndView writerPutGo( ModelAndView mv,String memberId){
@@ -276,21 +278,19 @@ public class ControllerPay {
 					o_bookList.set(i, oB);			
 				
 				}				
-			}
-			
+			}			
 			mv.addObject("o_bookList", o_bookList);
 			mv.setViewName("/peanetPay/WriterPay");
 			return mv;		
 	}
+	
 	//도서번호로 시리즈 조회
 	@ResponseBody
 	@RequestMapping(value="/writer/bookNo.kh", method=RequestMethod.POST)
 	public String findSeriseNo(@ModelAttribute OriginBookSeries obs) {
 		List<OriginBookSeries>  obsList = pService.findSeriseNo(obs);
 		Gson gson=new Gson();
-		return gson.toJson(obsList);
-		
-		
+		return gson.toJson(obsList);		
 	}
 	
 	//작가료 정산접수

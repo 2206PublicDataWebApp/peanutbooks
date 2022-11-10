@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 채팅화면</title>
-<link rel="stylesheet" href="../resources/css/chat/managerChat.css">
+<link rel="stylesheet" href="/resources/css/chat/managerChat.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -45,17 +45,21 @@
 	var printer;
 
 	$('.context').scrollTop=$('.context').scrollHeight;	
-	
+	var text=$('#usertext').val();
 	$('#getResult').on('click',function(){
-		sendChatMesage();
-	});
+		if(text != '' || text != null){
+		 sendChatMesage();
+		}
+	});	
 	
-	$('#magText').on('keyup',function(e){
-		
+	$('#magText').on('keyup',function(e){		
 		if(e.keyCode==13){
-			sendChatMesage();
+			if(text != '' || text != null){
+				 sendChatMesage();
+			}
 		};
 	});
+	
 	function sendChatMesage(){	
 		var msg=$('#magText').val();
 		if(msg==''){
@@ -99,7 +103,7 @@
 			data : {titleNo : titleNo},
 			success : function(result) {
 				for ( var i in result) {
-					var $chat = $('.chat[data-consult-no="' + result[i].consultNo + '"]');					
+					var $chat = $('.chat[data-consultno="' + result[i].consultNo + '"]');					
  			 		if ($chat.length < 1) {						
  						addChat(result[i].consultNo, result[i].cMemberId,
  								result[i].cContexts, result[i].cDate);	 					
@@ -116,14 +120,14 @@
 		countData++;
 		if (cMemberId === 'admin') {
 			$('#after').append(
-					'<div class="chat right" data-consult-no="' + consultNo +'" >'
+					'<div class="chat right" data-consultno="' + consultNo +'" >'
 							+ '<div class="icon"><img src="../resources/img/live-chat.png"></div>'
 							+ '<div class="middleBox"><span class="dateBox">'
 							+ cDate + '</span>' + '<span class="contextBox">'
 							+ cContext + '</span></div></div>');
 		} else {
 			$('#after').append(
-					'<div class="chat left" data-consult-no="' + consultNo + '">'
+					'<div class="chat left" data-consultno="' + consultNo + '">'
 							+ '<div class="icon"><img src="../resources/img/programmer.png"></div>'
 							+ '<div class="middleBox"><span class="contextBox">'
 							+ cContext + '</span><span class="dateBox">'

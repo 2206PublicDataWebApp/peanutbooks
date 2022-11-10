@@ -264,7 +264,7 @@
 
 			
 		function chatbtnSuccess(memberId) {
-			var windo = "status=no ,toolbar=no,scrollbars=no, menubar=no,resizable=no,titlebar=no,width=550,height=650";
+			var windo = "status=no ,toolbar=no,scrollbars=no, menubar=no,resizable=no,titlebar=no,width=500,height=650";
 			window.open("/consult/chatbefore.kh", "PopupWin",windo);
 		}
 		

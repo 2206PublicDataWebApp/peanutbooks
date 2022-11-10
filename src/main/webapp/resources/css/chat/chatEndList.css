@@ -2,15 +2,15 @@
 
   /* The switch - the box around the slider */
   body{
-  	margin : 0 auto !important;
-    width: 1000px; 
-    height: 1000px; 
+  	margin : 0 auto;
+    width: 100%; 
+    height: auto; 
   }
   main{
   margin : auto;
   width:100%;
   height:auto;
-  font-family: 'Jua', sans-serif;  
+  font-family: 'Noto Sans KR', sans-serif;  
   }
 
   /* 해더 */
@@ -44,11 +44,11 @@
  /* 제목 */
 #pagename{
     width: 100%;
-    height: 80px;    
-    font-size: 25px;
-    font-family: 'Jua', sans-serif;
+    height: 60px;    
+    font-size: 30px;
+    font-family: 'Noto Sans KR', sans-serif;
     color: rgb(7, 12, 43);
-    margin: 10px;    
+    margin-top: 40px;    
     justify-content: center;     
 }
 
@@ -65,7 +65,8 @@ span{
 }
 .table-responsive{
 	margin: 0 auto;
-	 width: 800px;
+	 width: 80%;
+	 margin-top: 20px; 
 	 overflow-x: hidden;
 }
 .table-light>tr{
@@ -107,7 +108,7 @@ tdody>td{
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
     text-decoration: none;
     position: relative;
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 .pagination > span {
     pointer-events: none;
@@ -141,11 +142,8 @@ select {
 #searchbtn{
   width: 100%;
   height: 2.2rem;
-  text-algin:end;
-  margin-right:20px;
-  padding-right: 0.5rem;
-  font-family: 'Jua', sans-serif;  
-   
+  text-align: center; 
+  font-family: 'Noto Sans KR', sans-serif;   
 }
 
 #select, input{

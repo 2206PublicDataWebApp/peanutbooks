@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 채팅 검색화면</title>
-<link rel="stylesheet" href="../resources/css/chat/chatDetail.css" ></link>
+<link rel="stylesheet" href="/resources/css/chat/chatDetail.css" ></link>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
@@ -69,12 +69,15 @@
 					<path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" /></svg> </a>
 					</c:if>
 					<c:forEach begin="${pm.startNavi}" end="${pm.endNavi }" var="p">
-
-						<a class="page-active" href="javascript:void(0);"
-							onclick="pageChatSearch(${p});"> <%-- 	href="/consult/endList.kh?page=${p }&memberId=${memberId}&csDate=$('input[type=date]').prop('defaultValue') "> --%>
-							${p}
-						</a>
-
+						<c:if test="${pm.currentPage eq p}">
+							<a class="page-active" href="javascript:void(0);"
+								onclick="pageChatSearch(${p});"
+								style="background-color: grey;"> ${p} </a>
+						</c:if>
+						<c:if test="${pm.currentPage ne p}">
+							<a class="page-active" href="javascript:void(0);"
+								onclick="pageChatSearch(${p});"> ${p} </a>
+						</c:if>
 					</c:forEach>
 
 

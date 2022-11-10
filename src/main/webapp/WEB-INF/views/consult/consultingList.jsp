@@ -19,43 +19,41 @@
 <!--관리자일 경우 들어갈수 있도록 다시한번 체크  -->
 <br>
 <main>
-<div>	
-    <label class="switch">
-        <input id="checkbox" type="checkbox" value="true" >
-        <span class="slider round"></span>
-      </label>
-      
-      <p style="display: '';">OFF</p>
-      <p style="display: none;">ON</p> 
-     
-
-</div>
-<div>
-    <div>
-        <span >상담 대기인원 :</span> <span id="count">명</span>
-    </div>
-    <div id="searchbtn">
-    	<button id="csBtn" onclick="endList();">종료건 조회</button>
-    </div>
-    <div>                             
-       <div id="pagename" align="center">채팅상담리스트</div>
-       <div class="table-responsive">
-            <table class="table table-striped table-hover" border="1"  id="togglePart" style="display:none;">
-                <thead class="table-light">
-                    <tr>
-                        <th scope="col">번호</th>
-                        <th scope="col">고객ID</th>
-                        <th scope="col">문의주제</th>
-                        <th scope="col">신청시간</th>
-                        <th scope="col">상담결과</th>
-                        <th scope="col"></th>                
-                    </tr>
-                </thead>
-                <tbody></tbody>
-               </table>
-		</div>
+	<div>	
+	    <label class="switch">
+	        <input id="checkbox" type="checkbox" value="true" >
+	        <span class="slider round"></span>
+	      </label>
+	      
+	      <p style="display: '';">OFF</p>
+	      <p style="display: none;">ON</p> 
+	     
+	
 	</div>
-
+	<div>
+	    <div>
+	        <span >상담 대기인원 :</span> <span id="count">명</span>
+	    </div>
+	    <div id="searchbtn">
+	    	<button id="csBtn" onclick="endList();">종료건 조회</button>
+	    </div>
+	</div>                             
+	<div id="pagename" align="center">채팅상담리스트</div>
+	<div class="table-responsive">
+         <table class="table table-striped table-hover" border="1"  id="togglePart" style="display:none;">
+             <thead class="table-light">
+                 <tr>
+                      <th scope="col">번호</th>
+                      <th scope="col">고객ID</th>
+                      <th scope="col">문의주제</th>
+                      <th scope="col">신청시간</th>
+                      <th scope="col">상담결과</th>
+                      <th scope="col"></th>                
+                  </tr>
+              </thead>
+              <tbody></tbody>
+          </table>
+	</div>
 </main>
 <jsp:include page="../footer/footer.jsp"></jsp:include>
 	<script>
@@ -66,6 +64,7 @@
 			if (p1btn == 'none') {
 				$('p').toggle();
 				$('#togglePart').toggle();
+				printer=true;
 				$.ajax({ //종료시 on/off변경								
 					url : "/manager/chatbtn.kh",
 					type : 'get',
@@ -77,7 +76,9 @@
 
 						if (result.result == "성공") {
 							alert("채팅접수를 시작합니다");
-							printer = setInterval(printList, 5000);
+							if(printer){
+							 setInterval(printList, 5000);								
+							}
 						} else {
 							console.log("접수 오류입니다. 다시 진행부탁드립니다.");
 						}
@@ -95,10 +96,12 @@
 		function chatEnd() {
 			if (confirm("정말로 종료하시겠습니까?")) {
 				$('p').toggle();
+				$('#togglePart').toggle();
 				clearInterval(printer);
-				setTimeout(function() {
-					self.close();
-				}, 50);
+				printer=false;
+/* 				setTimeout(function() {
+					printer.close();
+				}, 50); */
 
 				$.ajax({ //종료시 on/off변경								
 					url : "/manager/chatbtn.kh",

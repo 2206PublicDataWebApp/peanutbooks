@@ -1,9 +1,9 @@
 @charset "utf-8";
-@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
 body{
 	width: 450px;
-	height: 600px;	 
-    font-family: 'Jua', sans-serif;   
+	height: 550px;	 
+     font-family: 'Noto Sans KR', sans-serif;   
 }
 a {
     text-decoration: none;
@@ -33,7 +33,7 @@ a {
     width: 90px;
     height: 90px;     
     font-size: 1.3em;    
-    font-family: 'Jua', sans-serif;
+    font-family: 'Noto Sans KR', sans-serif; 
     margin-bottom: 20px;          
     background-color: #fff;
     border: 0;  
@@ -98,7 +98,7 @@ a {
     height: 4rem;  
     color: #fff;    
     font-size:1em;
-    font-family: 'Jua', sans-serif; 
+    font-family: 'Noto Sans KR', sans-serif;  
     margin-top:0.3rem;
     margin-left: 20px;          
     background-color: #FF577F;
@@ -145,7 +145,7 @@ a {
         margin-top:7px;
         padding: 10px;
         border-radius: 1ex;
-        font-family: 'Jua', sans-serif;
+        font-family: 'Noto Sans KR', sans-serif; 
         }
 
     .contextBox::before{
