@@ -74,6 +74,9 @@
 	<select id="getMemberInfo" resultMap="memberResultMap">
 		SELECT * FROM MEMBER_TBL WHERE MEMBER_ID = #{memberId} AND AUTH_KEY = #{authKey} AND DELETE_YN = 'N'
 	</select>
+	<select id="loginCheck" resultType="_int">
+		SELECT COUNT(*) FROM MEMBER_TBL WHERE MEMBER_ID = #{memberId} AND MEMBER_PW = #{memberPw} AND DELETE_YN = 'N'
+	</select>
 	
 	<resultMap type="OriginBookSeries" id="oriSeriesResultMap">
 		<id property="seriesNo" column="SERIES_NO"/>

@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../resources/css/member.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 </head>
 <body>
 	<form action="/member/login.pb" method="post">
@@ -18,8 +19,8 @@
 	        <div id="login-img" class="col-lg-8"></div> <!-- 배경 이미지 -->
 	        <div id="login-area" class="col-lg-4"> <!-- 로그인 폼 -->
 	            <div><h3 id="login-hl">로그인</h3></div>
-	            <div id="login-id"><input class="login-inputs" type="text" placeholder="아이디" name="memberId"></div>
-	            <div id="login-pw"><input class="login-inputs" type="password" placeholder="비밀번호" name="memberPw"></div>
+	            <div id="login-id"><input id="login-id-data" class="login-inputs" type="text" placeholder="아이디" name="memberId"></div>
+	            <div id="login-pw"><input id="login-pw-data" class="login-inputs" type="password" placeholder="비밀번호" name="memberPw"></div>
 	            <div><button id="login-btn" type="submit">로그인</button></div>
 	            <div id="login-others">
 	                <a href="/member/forgotId.pb">아이디 찾기</a> | <a href="/member/forgotPw.pb"> 비밀번호 재설정 </a> | <a href="/member/joinView.pb">회원가입</a>
@@ -32,5 +33,23 @@
 	        </div>
 	    </div>
     </form>
+    <script>
+    	$("#login-btn").on("click", function(){
+    		var memberId = $("#login-id-data").val();
+    		var memberPw = $("#login-pw-data").val();
+    		$.ajax({
+    			url: "/member/loginCheck.pb",
+    			data: {"memberId": memberId,
+    				   "memberPw": memberPw},
+    			type: "post",
+    			success: function(result){
+    				if(result == "0"){
+    					alert("아이디 또는 비밀번호가 일치하지 않습니다.");
+    					return false;
+    				}
+    			}
+    		});
+    	});
+    </script>
 </body>
 </html>

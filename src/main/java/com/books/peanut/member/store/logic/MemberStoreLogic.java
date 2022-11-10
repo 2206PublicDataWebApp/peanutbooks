@@ -104,7 +104,12 @@ public class MemberStoreLogic implements MemberStore{
 	}
 	@Override
 	public List<Member> getMemberInfo(SqlSession session, HashMap<String, String> authData) {
-		List<Member> result = session.selectOne("MemberMapper.getMemberInfo", authData);
+		List<Member> result = session.selectList("MemberMapper.getMemberInfo", authData);
+		return result;
+	}
+	@Override
+	public int loginCheck(SqlSession session, HashMap<String, String> paramMap) {
+		int result = session.selectOne("MemberMapper.loginCheck", paramMap);
 		return result;
 	}
 	

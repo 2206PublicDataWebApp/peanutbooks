@@ -15,8 +15,8 @@
 </head>
 <body>
 <!-- 	<form action=""> -->
-		<input id="findId-memberId" type="text" name="memberId">
-		<input id="forgotId-authKey" type="text" name="authKey">
+		<input id="findId-memberId" type="hidden" name="memberId">
+		<input id="forgotId-authKey" type="hidden" name="authKey">
 	    <div class="row">
 	        <div id="login-img" class="col-lg-8"></div>
 	        <div id="findId-area" class="col-lg-4">
@@ -46,16 +46,17 @@
 	    				if(result != 0){
 				    		alert("입력하신 이메일 주소로 인증번호를 발송했습니다.");
 				    		$("#findId-authKey").show();
+		    				$("#authKey-input").focus();
 				    		$.ajax({
 				    			url: "/member/getIdByEmail.pb",
 				    			data: {"mEmail": mEmail},
 				    			type: "get",
 				    			success: function(result){
-				    				console.log(result);
-				    				$("#authKey-input").focus();
-				    				if(authData != null){
-					    				$("#findId-memberId").val();
-					    				$("#forgotId-authKey").val();
+				    				if(result != null){
+				    					var memberId = result[0].memberId;
+				    					var authKey = result[0].authKey;
+					    				$("#findId-memberId").val(memberId);
+					    				$("#forgotId-authKey").val(authKey);
 				    				}
 				    			}
 				    		});
@@ -70,18 +71,23 @@
     	});
     	
     	$("#findId-btn").on("click", function(){
-    		var authKey = $("#authKey-input").val();
-    		var memberId = $("#findId-memberId").val();
+    		var inputAuthKey = $("#authKey-input").val(); // 입력된 인증 키
+    		var memberId = $("#findId-memberId").val(); // 해당 회원 아이디
+    		var authKey = $("#forgotId-authKey").val(); // db에 저장된 인증 키
     		if($("#findId-authKey").css("display") == "none"){
     			alert("인증요청을 해 주세요.");
-    			return false;
-    		}else if(authKey == ""){
+    		}else if(inputAuthKey == ""){
     			alert("인증번호를 입력해 주세요.");
-    			return false;
-    		}else{
-    			$.ajax({
+    			$("#authKey-input").focus();
+    		}else if(authKey == ""){
+    			alert("오류입니다. 잠시 후 다시 시도해 주세요.");
+    		}else if(inputAuthKey == authKey){
+    			alert("인증이 완료되었습니다.");
+    			location.href = "/member/idResult.pb?memberId="+memberId;
+    			
+/*     			$.ajax({
     				url: "/member/checkAuthKey.pb",
-    				data: {"authKey": authKey, "memberId": memberId},
+    				data: {"authKey": inputAuthKey, "memberId": memberId},
     				type: "get",
     				success: function(result){
     					if(result != 0){
@@ -92,7 +98,7 @@
     						return false;
     					}
     				}
-    			})
+    			}); */
     		}
     	});
     </script>

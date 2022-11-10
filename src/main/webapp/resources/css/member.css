@@ -54,7 +54,7 @@ form{
     width: 80%;
     border-color: lightgray;
     border-style: solid;
-    border-radius: 3px;
+    border-radius: 4px;
     border-width: 0.5px;
 }
 #login-id{ /* 로그인 아이디 입력 칸 */
@@ -69,7 +69,7 @@ form{
     width: 81%;
     height: 40px;
     margin-bottom: 30px;
-    border-radius: 3px;
+    border-radius: 4px;
     font-weight: bold;
 }
 #login-others a{ /* 아이디 찾기 등 */
@@ -146,7 +146,7 @@ form{
     width: 100%;
     border-color: lightgray;
     border-style: solid;
-    border-radius: 3px;
+    border-radius: 4px;
     border-width: 0.5px;
     margin-top: 8px;
 }
@@ -160,7 +160,7 @@ form{
     height: 40px;
     margin-top: 50px;
     margin-bottom: 100px;
-    border-radius: 3px;
+    border-radius: 4px;
     font-weight: bold;
 }
 /* button:disabled{ 비활성 버튼
@@ -171,7 +171,7 @@ form{
     height: 40px;
     margin-top: 50px;
     margin-bottom: 100px;
-    border-radius: 3px;
+    border-radius: 4px;
     font-weight: bold;
 } */
 @media (max-width: 1100px){
@@ -193,7 +193,7 @@ form{
 #email-authKey{
 	height: 40px;
 	border: 0.5px solid lightgray;
-	border-radius: 3px;
+	border-radius: 4px;
 }
 
 /* 아이디 찾기 */
@@ -225,7 +225,7 @@ form{
     width: 100%;
     border-color: lightgray;
     border-style: solid;
-    border-radius: 3px;
+    border-radius: 4px;
     border-width: 0.5px;
     margin-top: 8px;
 }
@@ -236,7 +236,7 @@ form{
 	height: 50px;
 	width: 100%;
 	border: 0.5px solid lightgray;
-	border-radius: 3px;
+	border-radius: 4px;
 	margin-top: 8px;
 }
 #findId-btn{ /* 아이디 찾기 버튼 */
@@ -244,25 +244,25 @@ form{
     border: 0;
     width: 100%;
     height: 50px;
-    border-radius: 3px;
-    font-weight: bold;
+    border-radius: 4px;
     margin-top: 15px;
+}
+#idresult-msg{
+	padding-top: 10px;
 }
 
 /* 아이디 찾기 결과 */
 #idresult{ /* 아이디 출력 영역 */
-    background-color: #f5f5f5;
     width: 80%;
     margin: 0 auto;
-    height: 50px;
     font-weight: bold;
     display: table;
-    border-radius: 3px;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
 }
 #idresult p{ /* 아이디 값 */
     vertical-align: middle;
     display: table-cell;
+    font-size: 20px;
 }
 #idresult-area{ /* 아이디 결과 영역 전체 */
     margin-top: 80px;
@@ -271,9 +271,6 @@ form{
 #idresult-area a{ /* 비밀번호 재설정으로 */
     text-decoration: none;
 }
-#idresult-msg{ /* 아이디 있없 안내 */
-    font-weight: bold;
-}
 
 /* 비밀번호 재설정 */
 .newpw-inputs{ /* 비밀번호 입력 칸 */
@@ -281,7 +278,7 @@ form{
     width: 100%;
     border-color: lightgray;
     border-style: solid;
-    border-radius: 3px;
+    border-radius: 4px;
     border-width: 0.5px;
     margin-bottom: 20px;
 }
@@ -298,7 +295,7 @@ form{
     width: 100%;
     height: 40px;
     margin-bottom: 30px;
-    border-radius: 3px;
+    border-radius: 4px;
     font-weight: bold;
 }
 
@@ -369,14 +366,14 @@ form{
 	height: 40px;
 	margin-top: 8px;
 	border: solid 1px #ccc;
-	border-radius: 3px;
+	border-radius: 4px;
 }
 .pwChk-btn{ /* 비번 입력 후 확인 버튼 */
 	background-color: #ffeb60;
     border: 0;
     width: 100%;
     height: 45px;
-    border-radius: 3px;
+    border-radius: 4px;
     margin-top: 20px;
 }
 
@@ -393,7 +390,7 @@ form{
 	height: 40px;
 	border-color: lightgray;
     border-style: solid;
-    border-radius: 3px;
+    border-radius: 4px;
     border-width: 0.5px;
 }
 #modify-nick{
@@ -406,7 +403,7 @@ form{
 	width: 18%;
 	background-color: #ffeb60;
     border: 0;
-    border-radius: 3px;
+    border-radius: 4px;
     height: 40px;
     margin-left:8px;
     font-size: 14px;
@@ -416,7 +413,7 @@ form{
 	background-color: #ffeb60;
     border: 0;
     height: 45px;
-    border-radius: 3px;
+    border-radius: 4px;
    	margin-top: 15px;
 }
 #modify-newPw{
@@ -504,7 +501,7 @@ form{
 	color: white;
 	background-color: #FF577F;
 	border: none;
-	border-radius: 3px;
+	border-radius: 4px;
 	height: 40px;
 	width: 90px;
 }
