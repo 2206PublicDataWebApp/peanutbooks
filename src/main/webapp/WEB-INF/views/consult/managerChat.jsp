@@ -103,7 +103,7 @@
 			data : {titleNo : titleNo},
 			success : function(result) {
 				for ( var i in result) {
-					var $chat = $('.chat[data-consultno="' + result[i].consultNo + '"]');					
+					var $chat = $('#after>div[data-consultno="' + result[i].consultNo + '"]');					
  			 		if ($chat.length < 1) {						
  						addChat(result[i].consultNo, result[i].cMemberId,
  								result[i].cContexts, result[i].cDate);	 					
@@ -117,7 +117,7 @@
 	}
 	//넘겨진 채팅 내용을 받아서 화면에 출력해줌
 	function addChat(consultNo, cMemberId, cContext, cDate) {			
-		countData++;
+		//countData++;
 		if (cMemberId === 'admin') {
 			$('#after').append(
 					'<div class="chat right" data-consultno="' + consultNo +'" >'

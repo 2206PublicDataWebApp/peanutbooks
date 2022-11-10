@@ -98,7 +98,7 @@
     <!--작가정산리스트 출력 -->
     <select id="selectwrList" resultMap="WriterPayResultMap">
     	SELECT * FROM POINTCHANGE_TBL 
-    	ORDER BY PUTDATE DESC
+    	ORDER BY PUTDATE DESC, BANK_STATUS DESC 
     </select>
     <!--관리자가 작자정산접수승인  -->
     <update id="updateWriterpay">

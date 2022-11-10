@@ -13,6 +13,20 @@
 <body>
 <jsp:include page="../header/adminheader.jsp"></jsp:include>
 <h1 id="h">정산 접수 내역</h1>
+<div id="searchbtn">			
+	<select id="selectWP" >
+		<option id="all" checked>전체</option>
+		<option id="id">아이디</option>
+		<option id="date">접수일</option>
+		<option id="end">지급건</option>
+	</select> 		
+	
+	<input class="inputzone" type="text" style="display:none" >						
+	<input class="inputzone" type="date" style="display:none">				
+	
+	<button id="wpBtn" class="btnbox" onclick="wpSearch();">검 색</button>
+</div>
+			
 <main id='putMain'>
     <div id='table'>
         <table>
@@ -69,38 +83,38 @@
 		<div class="pagination">
 
 			<c:if test="${pm.startNavi !=1}">
-				<a
-					href="/writer/list.kh?page=${1}&memberId=${loginMember.memberId}"
+					<a href="javascript:void(0);" 
+								onclick="pageWPSearch(${1});"
 					title="first page"><svg fill="currentColor">
 						<path
 							d="M17.59 18L19 16.59 14.42 12 19 7.41 17.59 6l-6 6zM11 18l1.41-1.41L7.83 12l4.58-4.59L11 6l-6 6z" /></svg>
-					First</a>
-				<a
-					href="/writer/list.kh?page=${pm.startNavi -1}&memberId=${loginMember.memberId}"
+					First</a>				
+					<a href="javascript:void(0);" 
+								onclick="pageWPSearch(${pm.startNavi -1});"
 					title="previous page"><svg fill="currentColor">
 							<path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" /></svg> </a>
 			</c:if>
 			<c:forEach begin="${pm.startNavi}" end="${pm.endNavi }" var="p">
 					<c:if test="${pm.currentPage eq p}">
 						<a class="page-active"
-							href="/writer/list.kh?page=${p }&memberId=${loginMember.memberId}"
+							href="javascript:void(0);" onclick="pageWPSearch(${p });"
 							style="background-color: grey;"> ${p} </a>
 					</c:if>
 					<c:if test="${pm.currentPage ne p}">
 						<a class="page-active"
-							href="/writer/list.kh?page=${p }&memberId=${loginMember.memberId}">
+							href="javascript:void(0);" onclick="pageWPSearch(${p });">
 							${p} </a>
 					</c:if>
 				</c:forEach>
-			<c:if test="${pm.maxPage > pm.currentPage }">
+			<c:if test="${pm.maxPage > pm.currentPage && pm.maxPage != pm.endNavi}">
 				<a title="next page"
-					href="/writer/list.kh?page=${pm.endNavi+1}&memberId=${loginMember.memberId}"><svg
+					href="javascript:void(0);" onclick="pageWPSearch(${pm.endNavi+1});"><svg
 						fill="currentColor">
 							<path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" /></svg></a>
 			</c:if>
 			<c:if test="${(pm.endNavi %5)==0 && pm.maxPage != pm.endNavi }">
 				<a
-					href=/writer/list.kh?page=${pm.maxPage}&memberId=${loginMember.memberId}"
+					href="javascript:void(0);" onclick="pageWPSearch(${pm.maxPage});"
 					title="last page">Last<svg fill="currentColor">
 						<path
 							d="M6.41 6L5 7.41 9.58 12 5 16.59 6.41 18l6-6zM13 6l-1.41 1.41L16.17 12l-4.58 4.59L13 18l6-6z" /></svg></a>
@@ -111,6 +125,49 @@
 
 <jsp:include page="../footer/footer.jsp"></jsp:include>
 <script>
+	var putDate=$('#date');
+	var memberId=$('#id');	
+	var bankStatus=$('#end');
+
+	/* 페이징  */
+	function pageWPSearch(page){ 		
+		var putDate="${putDate }";			
+		var memberId="${memberId }";
+		var bankStatus="${bankStatus }";
+		location.href="/writer/admin_list.kh?page="+page+"&memberId="+memberId+"&putDate="+putDate+"&bankStatus="+bankStatus;
+	}
+	
+	/* 검색창 display  */
+	$('#selectWP').change(function(){
+		if($('#selectWP option').eq(1).is(':checked')){
+			$('input[type="text"]').show();
+			$('input[type="date"]').hide();
+		}else if($('#selectWP option').eq(2).is(':checked')){
+			$('input[type="date"]').show();
+			$('input[type="text"]').hide();
+		}else{
+			$('input[type="text"]').hide();
+			$('input[type="date"]').hide();
+		}
+	});
+	
+	/* 검색버튼  */
+	function pNutSearch(){
+		
+		
+		if($('#selectPN option').eq(1).is(':checked')){	
+			location.href="/peanut/admin_list.kh?memberId="+memberId;
+		}else if($('#selectPN option').eq(2).is(':checked')){
+			location.href="/peanut/admin_list.kh?putDate="+putDate;
+		}else if ($('#selectWP option').eq(3).is(':checked')){
+			location.href="/peanut/admin_list.kh?bankStatus=Y";			
+		}else {
+			location.href="/writer/admin_list.kh";
+		};
+			
+	}
+	
+	/*지급승인버튼  */
 	function putWRpay(wrpayNo) {
 		$.ajax({
 			url  : '/writer/payStatus.kh',
@@ -121,7 +178,7 @@
 			success : function(result) {
 				if (result == 'success') {
 					alert('접수 완료');
-					loction.href='/writer/list.kh';
+					location.href="/writer/admin_list.kh";					
 				} else {
 					alert('실패');
 				}

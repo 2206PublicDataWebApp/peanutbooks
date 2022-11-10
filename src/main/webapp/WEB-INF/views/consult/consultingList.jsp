@@ -77,7 +77,7 @@
 						if (result.result == "성공") {
 							alert("채팅접수를 시작합니다");
 							if(printer){
-							 setInterval(printList, 5000);								
+							 printer=setInterval(printList, 5000);								
 							}
 						} else {
 							console.log("접수 오류입니다. 다시 진행부탁드립니다.");
@@ -98,10 +98,10 @@
 				$('p').toggle();
 				$('#togglePart').toggle();
 				clearInterval(printer);
-				printer=false;
-/* 				setTimeout(function() {
-					printer.close();
-				}, 50); */
+ 				setTimeout(function() {
+					printer=false;
+					self.close();
+				}, 50); 
 
 				$.ajax({ //종료시 on/off변경								
 					url : "/manager/chatbtn.kh",

@@ -316,6 +316,8 @@ public class ControllerPay {
 	@RequestMapping(value="/writer/admin_list.kh", method=RequestMethod.GET)
 	public ModelAndView writerList(
 			ModelAndView mv,
+			@RequestParam(value= "memberId", required = false) String memberId,
+			@RequestParam(value= "bankStatus", required = false) String bankStatus , 
 			@RequestParam(value= "page", required = false) Integer page ){
 		
 		Pagemarker pm=new Pagemarker();
