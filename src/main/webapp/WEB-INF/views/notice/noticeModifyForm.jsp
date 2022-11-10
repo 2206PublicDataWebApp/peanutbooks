@@ -51,7 +51,7 @@
 
 <body>
 <!-- header start -->
-<jsp:include page="../header/header.jsp"></jsp:include>
+<jsp:include page="../header/adminheader.jsp"></jsp:include>
 <!-- header End -->
 
 <!-- main contents start -->
@@ -60,7 +60,11 @@
 	<!-- 세부페이지 head 시작 -->
 		<!-- 세부페이지 큰 제목 -->
 		<div class="container text-center">
-		<!-- 세부페이지 큰 제목 끝 -->
+			<div class="row row-cols-2">
+			   <div class="col" id="colText" style="background-color: #5e5e5e; color: white; height:45px" vertical-align: middle;><a href="/notice/list.kh">공지사항 리스트</a></div>
+			   <div class="col" id="colText" style="background-color: #c9c9c9; color: white; height:45px" vertical-align: middle;><a href="/notice/writeView.kh">공지사항 작성</a></div>        
+			</div>
+		<br>
 		<hr>
 			<!-- <div id="title">전체 시리즈 목록</div> -->
 			<ul class="mainUl">
@@ -104,8 +108,8 @@
 					<input type="hidden" name="noticeFileRename" value="${notice.noticeFileRename }">
 					<table align="center" class="table col-10" style="width:80%;">
 						<tr>
-							<td class="col-2" scope="col" align="center">종류</td>
-							<td>
+							<td class="col-3" scope="col" align="center">종류</td>
+							<td class="col-7">
 								<select name="noticeCategory"  class="form-select" aria-label="Default select example" >
 									<option value="notice" <c:if test="${notice.noticeCategory == 'notice'}">selected</c:if>>공지</option>
 									<option value="update" <c:if test="${notice.noticeCategory == 'update'}">selected</c:if>>업데이트</option>
@@ -114,20 +118,20 @@
 								</select>
 							</td>
 						<tr>
-							<td  class="col-2" scope="col" align="center">작성자</td>
+							<td  class="col-3" scope="col" align="center">작성자</td>
 							<td><input type="text" name="noticeWriter"  class="form-control" value="${notice.noticeWriter }" readonly></td>
 						</tr>
 						<tr>
-							<td  class="col-2" scope="col" align="center">제목</td>
+							<td  class="col-3" scope="col" align="center">제목</td>
 							<td><input type="text" name="noticeTitle" onkeyup="titleLengthCk(this);" class="form-control" value="${notice.noticeTitle }"></td>
 						</tr>
 						<tr>
-							<td  class="col-2" scope="col" align="center">내용</td>
+							<td  class="col-3" scope="col" align="center">내용</td>
 							<td> <textarea class="form-control" id="exampleFormControlTextarea1" cols="5" rows="5" name="noticeContents">${notice.noticeContents }</textarea>  </td>
 						</tr>
 					<c:if test="${!empty notice.noticeFileRename }">
 						<tr>
-							<td  class="col-2" scope="col" align="center">첨부파일</td>
+							<td  class="col-3" scope="col" align="center">첨부파일</td>
 							<td>
 								<a href=""  onclick="fnImgPop(this.src)"><img alt="본문이미지" 
 								src="/resources/nuploadFiles/${notice.noticeFileRename }" 
@@ -135,7 +139,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td  class="col-2" scope="col" align="center">첨부파일 수정</td>
+							<td  class="col-3" scope="col" align="center">첨부파일 수정</td>
 							<td>
 								<input type="file" name="reloadFile">
 								<a href="#">${notice.noticeFilename }</a>
