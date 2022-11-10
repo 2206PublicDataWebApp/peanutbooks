@@ -47,7 +47,7 @@
 	  display: none;
 	    overflow: hidden;
 	  font-size: 14px;
-	  background-color: #f4f4f2;
+	  background-color: white;/* #f4f4f2 */
 	  padding: 27px 0;
 	}
 	  

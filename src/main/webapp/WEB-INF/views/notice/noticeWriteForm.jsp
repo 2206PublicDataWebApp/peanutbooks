@@ -11,13 +11,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 </head>
- <style>
-	.container {
-		width: 70%;
-		max-width: 1000px;
-		margin: 0 auto;
-	}
-
+<style>
 	.btn {
 	  appearance: none;
 	    -webkit-appearance: none;
@@ -30,12 +24,25 @@
 	    -ms-transition: background-color 100ms linear;
 	     transition: background-color 100ms linear;
 	}
+	.mainUl {
+		list-style-type: none;
+		padding: 0px;
+	}
+	
+	.mainLi {
+		display: inline-block;
+		margin-left: 18px;
+		margin-right: 18px;
+		font-size: 18px;
+		/* font-weight: bold; */
+	}
+	#colText{
+		padding-top: 0.7rem;
+	}
 </style> 
-
-
 <body>
 <!-- header start -->
-<jsp:include page="../header/header.jsp"></jsp:include>
+<jsp:include page="../header/adminheader.jsp"></jsp:include>
 <!-- header End -->
 
 <!-- main contents start -->
@@ -44,41 +51,15 @@
 	<!-- 세부페이지 head 시작 -->
 		<!-- 세부페이지 큰 제목 -->
 		<div class="container text-center">
+			<div class="row row-cols-2">
+			   <div class="col" id="colText" style="background-color: #5e5e5e; color: white; height:45px" vertical-align: middle;><a href="/notice/list.kh">공지사항 리스트</a></div>
+			   <div class="col" id="colText" style="background-color: #c9c9c9; color: white; height:45px" vertical-align: middle;><a href="/notice/writeView.kh">공지사항 작성</a></div>        
+			</div>
 		<!-- 세부페이지 큰 제목 끝 -->
-		<hr>
-			<!-- <div id="title">전체 시리즈 목록</div> -->
-			<ul class="mainUl">
-	    		<li class="mainLi"><div style="text-align:center">
-			    		<a href="/notice/list.kh">전체공지사항<br>
-			    		${totalBoard }
-			    		</a>
-			    	</div>
-			    </li>
-			    <li class="mainLi">
-			    	<div class="col"><img src="/resources/img/sidebar.png"></div>
-			    </li>
-	    		<li class="mainLi">
-	    			<div style="text-align:center">
-			    		<a href="/notice/list.kh?nStatus=Y">게시<br>
-			    		${showBoard }</a>
-			    	</div>
-				</li>
-				<li class="mainLi">
-			    	<div class="col"><img src="/resources/img/sidebar.png"></div>
-			    </li>
-	    		<li class="mainLi">
-	    			<div style="text-align:center">
-			    		<a href="/notice/list.kh?nStatus=N">보류<br>
-			    		${hideBoard }</a>
-			    	</div>
-				</li>
-	 		</ul>
-		<hr>
-		</div>
+		<br>
 		<!-- 세부페이지 body 시작 -->
 	<h3 align="center">공지사항 작성</h3>
-	<br><br>
-	
+	<br>	
 	<form action="/notice/register.kh" method="post" enctype="multipart/form-data" name="noticeForm">
 		<table align="center" class="table col-10" style="width:80%;">
 			<tr>
