@@ -68,7 +68,6 @@
         <jsp:include page="../footer/footer.jsp" />
 </body>
 
- 
 
 <script type="text/javascript">
      var nick = '${nickName}';
