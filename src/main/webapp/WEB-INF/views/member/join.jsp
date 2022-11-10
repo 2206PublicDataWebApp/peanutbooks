@@ -216,19 +216,6 @@
     			})
     		}
     	});
-    	// 가입 버튼 클릭 시 인증 메일 전송
-//     	$("#join-btn").on("click", function(){
-//     		var mEmail = $("#join-email").val(); // 입력한 이메일
-//     		$.ajax({
-//     			url: "/member/sendEmail.pb?mEmail=" + mEmail,
-//     			type : "get",
-//     			success : function(result) {
-//     				$("#authNum").val(result);
-//     				return true;
-//     			}
-//     		});
-//     		return false;
-//     	});
 
     	// 모든 데이터가 정상 입력 되기 전까지 가입 버튼 비활성화
 /*      	$("input").on("keyup", function(){

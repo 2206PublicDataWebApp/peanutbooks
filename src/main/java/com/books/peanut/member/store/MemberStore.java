@@ -40,5 +40,7 @@ public interface MemberStore {
 	public int checkMemberByEmail(SqlSession session, String mEmail);
 	public List<Member> getMemberInfo(SqlSession session, HashMap<String, String> authData);
 	public int loginCheck(SqlSession session, HashMap<String, String> paramMap);
+	// 비밀번호 재설정
+	public int updateMemberPw(SqlSession session, HashMap<String, String> paramMap);
 
 }

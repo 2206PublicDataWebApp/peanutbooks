@@ -117,5 +117,11 @@ public class MemberServiceImpl implements MemberService{
 		int result = mStore.loginCheck(session, paramMap);
 		return result;
 	}
+	// 비밀번호 재설정
+	@Override
+	public int resetMemberPw(HashMap<String, String> paramMap) {
+		int result = mStore.updateMemberPw(session, paramMap);
+		return result;
+	}
 
 }

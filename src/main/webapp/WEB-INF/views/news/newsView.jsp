@@ -16,21 +16,8 @@
 	<jsp:include page="../header/header.jsp" />
 	<main>
 		<div>
-			<div class="news-header-top">
+			<div class="news-header">
 			    <div>알림센터</div>
-			</div>
-			<div class="news-header-bottom">
-			    <div>
-					<button type="button">
-						<span>내 알림</span>
-					</button>
-<!-- 					<button type="button">
-						<span>공지</span>
-					</button> -->
-					<button type="button">
-						<span>이벤트/프로모션</span>
-					</button>
-				</div>
 			</div>
 			<div class="news-area">
 				<!-- 반복 영역 시작 -->
