@@ -3,7 +3,7 @@
 $('.status-area').css('display','none');
 $('#sche-area2').css('display','none');
 
-$('.age-area').html(age+'살'+monThis+'월');
+$('.age-area').html('<div class="aga-area1">'+age+'살 '+monThis+'월 </div>  <div>스케쥴을 실행합니다</div>');
 var desa =1;
 
 //대사창 누르면 실행
@@ -147,7 +147,7 @@ function jobText(){
 	
 	
 	if(thisTurn == 2){
-		$('.age-area').html(age+'살'+(monThis+1)+'월');
+		$('.age-area').html('<div class="aga-area1">'+age+'살 '+(monThis+1)+'월</div> <div>스케쥴을 실행합니다</div>');
 	
 			$('#sche-farm').html('<img src="/resources/img/peanutcess/farm.gif">');
 			$('#center-area').css('background','url(/resources/img/peanutcess/bg_farm.jpg)');
@@ -266,7 +266,7 @@ function jobText(){
 	}
 	
 	if(thisTurn == 3){
-	$('.age-area').html(age+'살'+(monThis+2)+'월');
+	$('.age-area').html('<div class="aga-area1">'+age+'살 '+(monThis+2)+'월'+'</div> <div>스케쥴을 실행합니다</div>');
 		if(sche3=='farm'){
 			$('#sche-farm').html('<img src="/resources/img/peanutcess/farm.gif">');
 			$('#center-area').css('background','url(/resources/img/peanutcess/bg_farm.jpg)');
@@ -381,7 +381,7 @@ function jobText(){
 	}
 	
 	if(thisTurn == 4){
-	$('.age-area').html(age+'살'+(monThis+3)+'월');
+	$('.age-area').html('<div class="aga-area1">'+age+'살 '+(monThis+3)+'월</div> <div>스케쥴을 실행합니다</div>');
 		if(sche4=='farm'){
 			$('#sche-farm').html('<img src="/resources/img/peanutcess/farm.gif">');
 			$('#center-area').css('background','url(/resources/img/peanutcess/bg_farm.jpg)');

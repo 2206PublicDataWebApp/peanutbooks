@@ -23,8 +23,8 @@ function onGame(){
 		$('#text').html('게임을 계속 할까요?');
 	}else if(desa ==3){
 	 	var str = '';
-	 	str+='<div id="newgame" onclick="removeGame();">새 게임을 한다</div>'
-	 	str+='<div id="gogame" onclick="goGame();">게임을 계속한다.</div>'
+	 	str+='<div id="newgame"class="hover" onclick="removeGame();">새 게임을 한다</div>'
+	 	str+='<div id="gogame" class="hover" onclick="goGame();">게임을 계속한다.</div>'
 		$('#text').html(str);
 	}
 	
@@ -81,13 +81,10 @@ function firstGame(){
 		$('#text').html(pName+'공주님은 '+bMonth+'월 '+bDay+'일이 생일이시군요!');		
 	}else if(desa ==10){
 	$('#peanutster').attr("src","/resources/img/peanutcess/animal_character_hamster.png");
-		$('#text').html(mName+'님이 좋아하는 책을 불러옵니다...');
+		$('#text').html('공주님이 서재에 있는 책을 읽고 싶으시대요!');
 	}else if(desa==11){		
 		chooseBookMark();	
 	}else if(desa==12){
-		$('#text').html('공주님이 책을 읽고 능력치를 올립니다');
-	}else if(desa==13){
-		
 		startGame();
 	}
 	

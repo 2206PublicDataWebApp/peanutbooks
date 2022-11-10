@@ -82,7 +82,7 @@ public class EventController {
 
 			mv.setViewName("/book/event");
 		} else {// 안했을때 홈으로
-			mv.setViewName("redirect:/");
+			mv.setViewName("redirect:/member/loginView.pb");
 		}
 
 		return mv;

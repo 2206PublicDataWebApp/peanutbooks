@@ -62,21 +62,23 @@ function firstText(callback){
 	}
 
 	$('#text').html(str[0]);
-	if(str.length==1){
-		showInSchedule();
-	}
+		if(str.length==1){
+			showInSchedule();
+		}
 
 	if(str.length>1){
 		$('#down-area').on('click',function(){
 			$('#text').html(str[1]);
 			$('#down-area').attr('class','down-area1');
-			if(str.length==2){
-				showInSchedule();
-			}
+				if(str.length==2){
+					showInSchedule();
+				}
 			if(str.length>2){		
 				$('.down-area1').on('click',function(){
 					$('#text').html(str[2]);
-					showInSchedule();
+					if(str.length==3){
+						showInSchedule();
+					}
 				})
 			}
 		})			

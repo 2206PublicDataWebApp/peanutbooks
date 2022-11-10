@@ -13,7 +13,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="/resources/css/peanutcess/peanutcess.css">     
+        <link rel="stylesheet" href="/resources/css/peanutcess/peanutcess.css"> 
+        <link rel="shortcut icon" href="/resources/img/icons8-book-32.png">    
          <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
     <title>땅콩북스</title>
 

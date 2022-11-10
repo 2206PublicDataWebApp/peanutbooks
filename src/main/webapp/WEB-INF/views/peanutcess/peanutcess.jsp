@@ -14,6 +14,7 @@
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous"></script>
         <link rel="stylesheet" href="/resources/css/peanutcess/peanutcess.css">
+        <link rel="shortcut icon" href="/resources/img/icons8-book-32.png">
     <title>땅콩북스</title>
 
 </head>
@@ -35,7 +36,7 @@
                 
             </article>
             <article id="down-area" onclick="location.href='/book/Peanutcess-1.do'">
-                <span id="text">
+                <span id="text" class="hover">
                     ▷ 게임을 시작합니다.
 
                 </span>

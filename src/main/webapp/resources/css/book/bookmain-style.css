@@ -6,7 +6,7 @@ main {
 
 /**팝업영역*/
 #popUp{
-	display: flex;
+	display: none;
     position: fixed;
     left: 0;
     right: 0;

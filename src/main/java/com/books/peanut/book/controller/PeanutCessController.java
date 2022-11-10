@@ -34,7 +34,7 @@ public class PeanutCessController {
 		if (session.getAttribute("loginMember") != null) {
 			mv.setViewName("/peanutcess/peanutcess");
 		} else {
-			mv.setViewName("redirect:/");
+			mv.setViewName("redirect:/member/loginView.pb");
 		}
 		return mv;
 	}
@@ -47,12 +47,12 @@ public class PeanutCessController {
 		if (session.getAttribute("loginMember") != null) {
 			Member member = (Member) session.getAttribute("loginMember");//회원정보 가져오기
 			PeanutCess pCess = pService.getOneMemberDate(member.getMemberId());//게임내역 불러오기
-			pCess.setTurn(56);//턴 마지막으로 만들기
+			pCess.setTurn(60);//턴 마지막으로 만들기
 			int result = pService.saveStatusAll(pCess);
 			
 			mv.setViewName("redirect:/book/gameStarting");
 		} else {
-			mv.setViewName("redirect:/");
+			mv.setViewName("redirect:/member/loginView.pb");
 		}
 		return mv;
 	}
@@ -71,7 +71,7 @@ public class PeanutCessController {
 			mv.setViewName("/peanutcess/peanutcess-1");
 
 		} else {
-			mv.setViewName("redirect:/");
+			mv.setViewName("redirect:/member/loginView.pb");
 		}
 		return mv;
 	}
@@ -249,7 +249,7 @@ public class PeanutCessController {
 			mv.addObject("mon", mon);
 			mv.setViewName("redirect:/book/gameStarting");
 		} else {
-			mv.setViewName("redirect:/");
+			mv.setViewName("redirect:/member/loginView.pb");
 		}
 		return mv;
 	}
@@ -261,6 +261,7 @@ public class PeanutCessController {
 		if (session.getAttribute("loginMember") != null) {
 
 			Member member = (Member) session.getAttribute("loginMember");
+			logger.info("게임 메인창에서 불러오기");
 			PeanutCess pCess = pService.getOneMemberDate(member.getMemberId()); // 저장한 분량 가져오기
 			String nickName = pService.getMemberName(member.getMemberId());// 멤버 닉네임 가져오기
 
@@ -274,7 +275,7 @@ public class PeanutCessController {
 
 			mv.addObject("nickName", nickName);
 
-			if (pCess.getTurn() >= 56) {
+			if (pCess.getTurn() >= 60) {
 				logger.info("게임엔딩");
 				String ending = endingMethod(pCess);
 				mv.setViewName("/peanutcess/peanutcess-ending");
@@ -286,7 +287,7 @@ public class PeanutCessController {
 			mv.setViewName("/peanutcess/peanutcess-main");
 
 		} else {
-			mv.setViewName("redirect:/");
+			mv.setViewName("redirect:/member/loginView.pb");
 		}
 		return mv;
 	}
@@ -367,6 +368,7 @@ public class PeanutCessController {
 	public ModelAndView scheDo(ModelAndView mv, HttpSession session, String sche1, String sche2, String sche3,
 			String sche4) {
 		Member member = (Member) session.getAttribute("loginMember");
+		logger.info("여기가 저장불러오기");
 		PeanutCess pCess = pService.getOneMemberDate(member.getMemberId()); // 저장한 분량 가져오기
 
 		String sche1Result = "ok"; // 스케쥴 실행가능여부 체크

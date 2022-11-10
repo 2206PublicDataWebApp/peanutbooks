@@ -91,8 +91,8 @@ public class BookController {
 		OriginBook oBook = bService.showOnebook(bookNo);
 		Member member = (Member) session.getAttribute("loginMember");
 		String MemberId = member.getMemberId();
-		if (member == null) {
-			mv.setViewName("/");
+		if (session.getAttribute("loginMember") == null) {
+			mv.setViewName("redirect:/member/loginView.pb");
 		} else if (member.getAdminYN().equals("Y") || (oBook.getMemberId().equals(MemberId) && oBook.getCheckPermission().equals("N"))) {
 
 			HashTag hTag = bService.getBookTga(bookNo, "origin");
@@ -101,7 +101,7 @@ public class BookController {
 			mv.setViewName("/book/modifyBook");
 
 		} else {
-			mv.setViewName("/");
+			mv.setViewName("redirect:/member/loginView.pb");
 
 		}
 
@@ -120,8 +120,8 @@ public class BookController {
 	public ModelAndView NorBookModifyView(ModelAndView mv, HttpSession session, String bookNo) {
 
 		Member member = (Member) session.getAttribute("loginMember");
-		if (member == null) {
-			mv.setViewName("/");
+		if (session.getAttribute("loginMember") == null) {
+			mv.setViewName("redirect:/member/loginView.pb");
 		} else if (member.getAdminYN().equals("Y")) {
 			NormalBook nBook = bService.showOneNorbook(bookNo);
 			HashTag hTag = bService.getBookTga(bookNo, "normal");
@@ -130,7 +130,7 @@ public class BookController {
 			mv.setViewName("/bookadmin/modifyBook");
 
 		} else {
-			mv.setViewName("/");
+			mv.setViewName("redirect:/member/loginView.pb");
 
 		}
 
@@ -149,8 +149,8 @@ public class BookController {
 	public ModelAndView bookSearchView(ModelAndView mv, HttpSession session) {
 
 		Member member = (Member) session.getAttribute("loginMember");
-		if (member == null) {
-			mv.setViewName("redirect:/");
+		if (session.getAttribute("loginMember") == null) {
+			mv.setViewName("redirect:/member/loginView.pb");
 
 		} else {
 			String img1 = bService.getNorImgName(); // 동화에서 가장 조회수 높은 그림가져오기
@@ -184,7 +184,7 @@ public class BookController {
 		Member member = (Member) session.getAttribute("loginMember");
 		if (member == null) {
 
-			mv.setViewName("redirect:/");
+			mv.setViewName("redirect:/member/loginView.pb");
 
 		} else {
 
@@ -221,7 +221,7 @@ public class BookController {
 		Member member = (Member) session.getAttribute("loginMember");
 		if (member == null) {
 
-			mv.setViewName("redirect:/");
+			mv.setViewName("redirect:/member/loginView.pb");
 
 		} else {
 
@@ -265,7 +265,7 @@ public class BookController {
 		Member member = (Member) session.getAttribute("loginMember");
 		if (member == null) {
 
-			mv.setViewName("redirect:/");
+			mv.setViewName("redirect:/member/loginView.pb");
 
 		} else {
 			if (bookCate.equals("origin")) { // 피넛 오리지널 이라면
@@ -606,7 +606,7 @@ public class BookController {
 
 			mv.setViewName("/book/bookmark");
 		} else {// 로그인안하면 메인페이지로감
-			mv.setViewName("redirect:/");
+			mv.setViewName("redirect:/member/loginView.pb");
 		}
 
 		return mv;
@@ -652,7 +652,7 @@ public class BookController {
 
 			mv.setViewName("/book/bookPaid");
 		} else {// 로그인안하면 메인페이지로감
-			mv.setViewName("redirect:/");
+			mv.setViewName("redirect:/member/loginView.pb");
 		}
 
 		return mv;
@@ -746,7 +746,7 @@ public class BookController {
 
 			mv.setViewName("/book/booklist-search");
 		} else {// 로그인안하면 메인페이지로감
-			mv.setViewName("redirect:/");
+			mv.setViewName("redirect:/member/loginView.pb");
 		}
 
 		return mv;
@@ -1125,7 +1125,7 @@ public class BookController {
 
 		// 로그인 안하면 메인페이지로 보냄
 		if (session.getAttribute("loginMember") == null) {
-			mv.setViewName("redirect:/");
+			mv.setViewName("redirect:/member/loginView.pb");
 		} else {
 			// 해당 책 가져오기
 			NormalBook nBook = bService.showOneNorbook(bookNo); // 도서 메인테이블
@@ -1433,7 +1433,7 @@ public class BookController {
 
 		} else {
 
-			mv.setViewName("redirect:/");
+			mv.setViewName("redirect:/member/loginView.pb");
 		}
 
 		return mv;

@@ -85,6 +85,10 @@ main{
     
 }
 
+.hover:hover{
+    text-decoration: underline;
+}
+
 @media(max-witdh:500px){
 	section{
 	margin-top:0;

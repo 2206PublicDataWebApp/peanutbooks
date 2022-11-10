@@ -149,11 +149,11 @@ function endigText() {
 			$('#text').html('언제나 뭐든 열심히 하시던 공주님')
 		} else if (desa == 3) {
 			$('#text').html('공주님은 공무원이 되었어요!')
-		} else if (desa == 3) {
+		} else if (desa == 4) {
 			$('#sche-farm').html('<img src="/resources/img/peanutcess/kokusai_woman.png">');
 			$('#name-area').html(name);
 			$('#text').html('이 나라를 훌륭하게 만들게요!')	;
-		} else if (desa == 3) {
+		} else if (desa == 5) {
 			$('#text').html('축하합니다!')
 			alert('게임을 완료했습니다, 초기화면으로 돌아갑니다.');
 			location.href = '/book/Peanutcess.do';

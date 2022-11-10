@@ -15,6 +15,7 @@
         crossorigin="anonymous"></script>
         <link rel="stylesheet" href="/resources/css/peanutcess/peanutcessmain.css">
         <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <link rel="shortcut icon" href="/resources/img/icons8-book-32.png">
     <title>땅콩북스</title>
 
 </head>
