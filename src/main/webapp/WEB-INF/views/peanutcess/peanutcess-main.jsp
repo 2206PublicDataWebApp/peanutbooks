@@ -46,9 +46,9 @@
                 <div class="col-6" id="sche-div">
                     <div id="sche-area1" class="sche-area">
                         <ul>
-                            <li id="sche-plus">스케쥴을 작성한다.</li>
-                            <li id="gotoShop">상점에 간다</li>
-                            <li id="viewStatus">스테이터스보기</li>
+                            <li id="sche-plus"  class="hover">스케쥴을 작성한다.</li>
+                            <li id="gotoShop"  class="hover">상점에 간다</li>
+                            <li id="viewStatus"  class="hover">스테이터스보기</li>
                         </ul>
 
                     </div>

@@ -71,38 +71,44 @@
  
 
 <script type="text/javascript">
-var nick = '${nickName}';
-var name = '${pCess.name}'
-var mon = Number(${mon});
-thisTurn = ${thisTurn};
-if(thisTurn == 1){
-	var thisT = Number(4);	
-}else if(thisTurn == 2){
-	var thisT = Number(3);
-}else if(thisTurn == 3){
-	var thisT = Number(2);	
-}else if(thisTurn == 4){
-		var thisT = Number(1);	
-}
-var sche1 = '${sche1}';
-var sche2 = '${sche2}';
-var sche3 = '${sche3}';
-var sche4 = '${sche4}';
+    debugger;
+    var nick = '${nickName}';
+    var name = '${pCess.name}'
+    var mon = Number(${mon});
+    thisTurn = ${thisTurn};
+    if(thisTurn == 1){
+        var thisT = Number(4);	
+    }else if(thisTurn == 2){
+        var thisT = Number(3);
+    }else if(thisTurn == 3){
+        var thisT = Number(2);	
+    }else if(thisTurn == 4){
+            var thisT = Number(1);	
+    }
+    var sche1 = '${sche1}';
+    var sche2 = '${sche2}';
+    var sche3 = '${sche3}';
+    var sche4 = '${sche4}';
 
-var sche1Result = '${sche1Result}';
-var sche2Result = '${sche2Result}';
-var sche3Result = '${sche3Result}';
-var sche4Result = '${sche4Result}';
+    var sche1Result = '${sche1Result}';
+    var sche2Result = '${sche2Result}';
+    var sche3Result = '${sche3Result}';
+    var sche4Result = '${sche4Result}';
 
-var sche1Birth = ${sche1Birth};
-var sche2Birth = ${sche2Birth};
-var sche3Birth = ${sche3Birth};
-var sche4Birth = ${sche4Birth};
+    var sche1Birth = ${sche1Birth};
+    var sche2Birth = ${sche2Birth};
+    var sche3Birth = ${sche3Birth};
+    var sche4Birth = ${sche4Birth};
 
-var Trun = ${turn};
+    var Trun = ${turn};
 
-var age = ${age};
-var monThis = mon- thisT;
+    var age = ${age};
+    var monThis = 0;
+        monThis = mon- thisT;
+    if(mon == 1) {
+    	 monThis = 13 - thisT;
+         age = age -1;
+    }
 
 </script>
 <script src="/resources/js/peanutcess/peanutcess-job.js">
