@@ -1,32 +1,32 @@
-@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
 
   /* The switch - the box around the slider */
   body{
-  	margin : 0 auto !important;
-  	padding-top:10px;
-    width: 720px; 
+  	margin : 0 auto;  	
+    width: 750px; 
     height: 700px; 
   }
   main{
-  margin : auto;
+  margin : o auto;
   width:100%;
   height:auto;
-  font-family: 'Jua', sans-serif;  
+  font-family: 'Noto Sans KR', sans-serif; 
   }
   #pagename{
   font-size:20px;
+  margin-bottom : 20px;
   }
 
-#togglePart{ 
+#togglePart{
+  height: 440px;
   vertical-align: middle;
   border-style: none;
   font-size: 14px;   
 }
 .table-responsive{
 	margin: 0 auto;
-	 width: 680px;
-	 
-	 overflow-x: hidden;
+	width: 90%;	 
+	overflow-x: hidden;
 }
 .table-light>tr{
 	border-top: 1px;
@@ -42,12 +42,18 @@ tdody>td{
 
 
 /* 페이징  */
-.page_wrap{
+/* .page_wrap{
 	padding-top:1rem;
 	position:fixed;
 	left:300px;
 	top:600px;
+} */
+.page_wrap{
+	margin: 0 auto;
+	width:100%;
+	margin-top: 10px;
 }
+
 .pagination {
     display: flex;
     justify-content: center;

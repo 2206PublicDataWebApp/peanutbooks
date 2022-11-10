@@ -24,6 +24,7 @@
             padding-top: 20%;
             padding-bottom: 20%;                                      
             border: 10px solid #ffca1a;
+            border-radius: 0.5em;
             text-align: center;
             align-items: center;
             font-family: 'Noto Sans KR', sans-serif;

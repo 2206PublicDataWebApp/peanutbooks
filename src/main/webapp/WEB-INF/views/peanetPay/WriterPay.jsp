@@ -13,7 +13,7 @@
 <jsp:include page="../header/header.jsp"></jsp:include>
 
 <section>
-<h2>작가 정산 요청</h2>
+<h3 id="h">작가 정산 요청</h3>
 <div>
 	 <table>
             <tr>

@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>사용자 채팅화면</title>
 
-<link rel="stylesheet" href="../resources/css/chat/userChat.css">
+<link rel="stylesheet" href="/resources/css/chat/userChat.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <style>
 </style>
@@ -93,14 +93,18 @@
 	}
 	
 	// 고객이 관리자와 채팅 시작
+	var text=$('#usertext').val();
 	$('#getResult').on('click',function(){
-		
-		sendChatMesage();
+		if(text != '' || text != null){
+		 sendChatMesage();
+		}
 	});
 	
 	$('#usertext').on('keyup',function(e){
 		if(e.keyCode==13){
-			sendChatMesage();
+			if(text != '' || text != null){
+				 sendChatMesage();
+			};
 		};
 	});
 	//메시지 보내기
