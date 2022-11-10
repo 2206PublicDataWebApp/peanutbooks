@@ -112,7 +112,7 @@
 						</c:forEach>
 
 
-						<c:if test="${pm.maxPage > pm.currentPage }">
+						<c:if test="${pm.maxPage > pm.currentPage && pm.maxPage != pm.endNavi}">
 							<a title="next page" href="javascript:void(0);"
 								onclick="pagePNSearch(${pm.endNavi+1});"><svg
 									fill="currentColor">
