@@ -88,9 +88,7 @@
 						</div>
 						<h5>작품소개</h5>
 						<textarea name="bookInfo" id="info-text" cols="30" rows="10"
-							placeholder="소개를 입력하세요"  onKeyUp="fnChkByte(this)">
-							${oBook.bookInfo }
-							</textarea>
+							placeholder="소개를 입력하세요"  onKeyUp="fnChkByte(this)">${oBook.bookInfo }</textarea>
 
 						<div id="tag-area">
 							<h5>해시태그</h5>

@@ -104,18 +104,14 @@
 						</div>
 						<h5>작품소개</h5>
 						<textarea name="bookInfo" id="info-text" cols="30" rows="10"
-							placeholder="소개를 입력하세요"  onKeyUp="fnChkByte(this)">
-							${nBook.bookInfo }
-							</textarea>
+							placeholder="소개를 입력하세요"  onKeyUp="fnChkByte(this)">${nBook.bookInfo }</textarea>
 							
 							<h5>작가소개</h5>
 							<input type="text" name="writer" id="writer-name"
 								>
 							
 							<textarea name="writerInfo" id="wirter-info" cols="10" rows="10"
-								onblur="fnChkByte(this)">
-								${nBook.writerInfo }
-								</textarea>
+								onblur="fnChkByte(this)">${nBook.writerInfo }</textarea>
 
 						<div id="tag-area">
 							<h5>해시태그</h5>

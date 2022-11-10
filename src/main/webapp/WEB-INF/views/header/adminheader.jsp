@@ -46,7 +46,7 @@
 				</div>
 				<div class="col-md-4 col-6" id="header-menu-icon">
 					<img src="/resources/img/header/icons8-search (2).png" alt=""
-						id="search-icon"> 
+						id="search-icon" onclick="location.href='/book/bookSearch.do'"> 
 					<img
 						src="/resources/img/header/icons8-home-64.png" alt=""
 						id="book-icon" onclick="location.href='/'"> 

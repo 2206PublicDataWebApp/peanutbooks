@@ -511,11 +511,11 @@ public class PeanutCessController {
 		}
 
 		pCess.setTurn(pCess.getTurn() + 4); // 턴 4개 더하기
-		String ageStr = pCess.getAge() + "";
 
 		logger.info(pCess.getAge() + "현재나이");
 
 		pCess.setAge(pCess.getAge() + 4); // 나이 4개월 더하기
+		String ageStr = pCess.getAge() + "";
 		int age = Integer.parseInt(ageStr.substring(2, 4)); // 더한 달 체크
 
 		if (age == 13) {

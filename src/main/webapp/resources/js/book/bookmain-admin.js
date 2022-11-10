@@ -525,3 +525,81 @@ var rContents = $('[name=reRContents'+rNo+']').val();
 }
 
 
+///sns공유 함수
+
+document.querySelector('#popUp').style.display='none';
+//팝업열기
+function openPop(){
+	var PopUp = document.querySelector('#popUp');
+	PopUp.style.display="flex";
+	shareKakao();
+}
+
+
+//해당 팝업닫기
+function closePop(){
+	var PopUp = document.querySelector('#popUp');
+	PopUp.style.display="none";
+}
+
+
+//링크복사하기
+function clip(){
+
+        var url = "http://127.0.0.1:9999/book/oriBookInfo?bookNo"+bookNo;    // <a>태그에서 호출한 함수인 clip 생성
+        var textarea = document.createElement("textarea");  
+        //url 변수 생성 후, textarea라는 변수에 textarea의 요소를 생성
+        
+        document.body.appendChild(textarea); //</body> 바로 위에 textarea를 추가(임시 공간이라 위치는 상관 없음)
+        url = window.document.location.href;  //url에는 현재 주소값을 넣어줌
+        textarea.value = url;  // textarea 값에 url를 넣어줌
+        textarea.select();  //textarea를 설정
+        document.execCommand("copy");   // 복사
+        document.body.removeChild(textarea); //extarea 요소를 없애줌
+        
+        alert("URL이 복사되었습니다.")  // 알림창
+    }
+
+
+//트위터
+function shareTwitter() {
+    var sendText = "땅콩북스의 "+title; // 전달할 텍스트
+    var sendUrl = "http://127.0.0.1:9999/book/oriBookInfo?bookNo"+bookNo; // 전달할 URL
+    window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
+}
+
+//페이스북
+function shareFacebook() {
+    var sendUrl = "http://127.0.0.1:9999/book/oriBookInfo?bookNo"+bookNo; // 전달할 URL
+    window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
+}
+
+//카카오톡
+function shareKakao() {
+
+
+  // 사용할 앱의 JavaScript 키 설정
+  
+           Kakao.init('851b05e5a04e6de56c5c90e2d2a0470c');
+   
+ 
+ 
+  // 카카오링크 버튼 생성
+  Kakao.Link.createDefaultButton({
+    container: '#btnKakao', // 카카오공유버튼ID
+    objectType: 'feed',
+    content: {
+      title: title, // 보여질 제목
+      description: "땅콩북스의 "+title, // 보여질 설명
+      imageUrl: "https://raw.githubusercontent.com/2206PublicDataWebApp/peanutbooks/master/src/main/webapp/resources/bookImg/"+img, // 콘텐츠 URL
+      link: {
+         mobileWebUrl: "http://127.0.0.1:9999/book/oriBookInfo?bookNo"+bookNo,
+         webUrl: "http://127.0.0.1:9999/book/oriBookInfo?bookNo"+bookNo
+      }
+    }
+  });
+}
+
+
+
+

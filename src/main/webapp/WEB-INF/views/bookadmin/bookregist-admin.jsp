@@ -134,7 +134,7 @@
 				<h2>1화 등록</h2>
 
 				<div id="contents-text">
-					<input type="text" placeholder="제목을 입력해주세요" class="text-input" name="title">
+					<input type="text" placeholder="제목을 입력해주세요" class="text-input" name="title" required="required">
 
 
 				</div>

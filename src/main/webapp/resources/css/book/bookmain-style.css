@@ -21,7 +21,11 @@ main {
     justify-content: center;
     background-color: rgba(0,0,0,.8);
     outline: 0;
-   display:none;
+   
+}
+
+.iconArea:hover , #cDown:hover{
+	cursor:pointer;
 }
 
 #popContents{
@@ -39,19 +43,33 @@ main {
     display: flex;
   	justify-content: center;
     align-items: center;
+     font-weight: bolder;
    }
 #cUp{
+	
 	height:70%;
+	margin : 0 0.5rem;
 	
 }
 
 .iconArea{
-	padding : 0.3rem;
+	 display: flex;
+  	justify-content: center;
+    align-items: center;
 	width:25%;	
+	flex-wrap: wrap;
+    align-content: center;
+  
 }
 
 .iconArea img{
 	max-width: 100%;
+}
+
+.icon-text{
+	font-size:0.8em;
+	 font-weight: bolder;
+
 }
 
 /**팝업영역종료*/

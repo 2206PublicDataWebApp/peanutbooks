@@ -1362,7 +1362,7 @@ public class BookController {
 			result += bService.checkSUbcribe(member.getMemberId());// 현재 구독 여부 체크
 
 			int wirterMember = bService.checkWriter(bookNo, member.getMemberId()); // 작가가 맞는지 체크하기
-			logger.info(wirterMember + "작가여부");
+			logger.info(paidCheck + "유료화여부");
 			String pCheck = paidCheck.charAt(0) + "";
 			if (pCheck.equals("N") || result > 0 || wirterMember > 0 || member.getAdminYN().equals("Y")) {// 유료화가 아니거나,
 																											// 구매했거나
@@ -1779,6 +1779,9 @@ public class BookController {
 
 		}
 
+		if(obSeries.getSeriesNo()==1) {
+			obSeries.setPaidCheck("N");
+		}
 		
 		
 		int resultOne = bService.modifyCheck(obSeries);//수정 테이블에 있는지 확인

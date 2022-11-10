@@ -81,7 +81,7 @@
 									</span>
 								</div>
 								<div class="col-4">
-									<a href="javascript:shareKakao();" id="btnKakao">
+									<a href="javascript:openPop();">
 										<img src="/resources/img/book/icons8-reply-48.png" alt="">
 										<br> 공유하기
 										</a>
@@ -90,7 +90,7 @@
 								<div class="col-4">
 									<a href="#star-area">
 										<img src="/resources/img/book/icons8-star-52.png" alt="">
-										<br> 별점주기
+										<br> 리뷰하기
 									</a>
 								</div>
 							</div>
@@ -313,22 +313,26 @@
 	<div id="popUp">
 		<div id = "popContents">
 			<div id="cUp" class="row">
-				<div class="iconArea col-3">
+				<div class="iconArea col-3" id="btnKakao">
 					<img alt="" src="/resources/img/book/icons8-kakaotalk-96.png">
+					<div class="icon-text">카카오톡</div>
 				</div>
-				<div class="iconArea col-3"">
-					<img alt="" src="/resources/img/book/icons8-twitter-squared-96">
+				<div class="iconArea col-3" onclick="shareTwitter()">
+					<img alt="" src="/resources/img/book/icons8-twitter-squared-96.png">
+					<div class="icon-text">트위터</div>
 				</div>
-				<div class="iconArea col-3"">
-					<img alt="" src="/resources/img/book/icons8-instagram-96.png">
+				<div class="iconArea col-3" onclick="shareFacebook()">
+					<img alt="" src="/resources/img/book/icons8-facebook-96.png">
+					<div class="icon-text">페이스북</div>
 				</div>
-				<div class="iconArea col-3"">
+				<div class="iconArea col-3" onclick="clip()">
 					<img alt="" src="/resources/img/book/icons8-copy-link-100.png">
+					<div class="icon-text">링크복사</div>
 				</div>
 			
 			
 			</div>
-			<div id="cDown">
+			<div id="cDown" onclick="closePop()">
 				닫기
 			</div>
 		</div>
