@@ -112,5 +112,11 @@ public class MemberStoreLogic implements MemberStore{
 		int result = session.selectOne("MemberMapper.loginCheck", paramMap);
 		return result;
 	}
+	// 비밀번호 재설정
+	@Override
+	public int updateMemberPw(SqlSession session, HashMap<String, String> paramMap) {
+		int result = session.update("MemberMapper.updateMemberPw", paramMap);
+		return result;
+	}
 	
 }

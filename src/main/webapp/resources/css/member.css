@@ -50,7 +50,7 @@ form{
     margin-bottom: 50px;
 }
 .login-inputs{ /* 로그인 모든 입력 칸 */
-    height: 40px;
+    height: 50px;
     width: 80%;
     border-color: lightgray;
     border-style: solid;
@@ -61,24 +61,24 @@ form{
     margin-bottom: 10px;
 }
 #login-pw{ /* 로그인 비밀번호 입력 칸 */
-    margin-bottom: 30px;
+    margin-bottom: 16px;
 }
 #login-btn{ /* 로그인 버튼 */
     background-color: #ffeb60;
     border: 0;
     width: 81%;
-    height: 40px;
+    height: 50px;
     margin-bottom: 30px;
     border-radius: 4px;
-    font-weight: bold;
 }
-#login-others a{ /* 아이디 찾기 등 */
+#login-others{ /* 아이디 찾기 등 */
+    margin-bottom: 30px;
+    color: gray;
+    font-size: 16px;
+}
+#login-others a{ 
     text-decoration: none;
     color: gray;
-    font-size: 14px;
-}
-#login-others{
-    margin-bottom: 30px;
 }
 #login-hr{ /* 로그인 구분 선 */
     width: 80%;
@@ -139,10 +139,10 @@ form{
     margin: 0 auto;
 }
 #input-area label{
-	margin-top: 15px;
+	margin-top: 8px;
 }
 .join-inputs{ /* 회원가입 입력 칸 */
-    height: 40px;
+    height: 50px;
     width: 100%;
     border-color: lightgray;
     border-style: solid;
@@ -157,11 +157,9 @@ form{
     background-color: #ffeb60;
     border: 0;
     width: 100%;
-    height: 40px;
-    margin-top: 50px;
-    margin-bottom: 100px;
+    height: 50px;
+    margin-top: 16px;
     border-radius: 4px;
-    font-weight: bold;
 }
 /* button:disabled{ 비활성 버튼
 	background-color: #f3f3f3;
@@ -212,7 +210,7 @@ form{
     position: absolute;
     margin: 0 auto;
     right: 10px;
-    top: 57px;
+    top: 50px;
     bottom: 0;
     height: 30px;
     border: 0;
@@ -245,7 +243,7 @@ form{
     width: 100%;
     height: 50px;
     border-radius: 4px;
-    margin-top: 15px;
+    margin-top: 16px;
 }
 #idresult-msg{
 	padding-top: 10px;
@@ -274,13 +272,13 @@ form{
 
 /* 비밀번호 재설정 */
 .newpw-inputs{ /* 비밀번호 입력 칸 */
-    height: 40px;
+    height: 50px;
     width: 100%;
     border-color: lightgray;
     border-style: solid;
     border-radius: 4px;
     border-width: 0.5px;
-    margin-bottom: 20px;
+    margin-top: 8px;
 }
 #newpw-area{ /* 비밀번호 재설정 영역 전체 */
     margin-top: 80px;
@@ -289,14 +287,13 @@ form{
     width: 80%;
     margin: 0 auto;
 }
-#check-btn{ /* 확인 버튼 */
+#submit-btn{ /* 확인 버튼 */
     background-color: #ffeb60;
     border: 0;
     width: 100%;
-    height: 40px;
-    margin-bottom: 30px;
+    height: 50px;
+    margin-top: 16px;
     border-radius: 4px;
-    font-weight: bold;
 }
 
 /* 내 정보 관리 */

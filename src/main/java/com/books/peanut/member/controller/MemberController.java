@@ -357,9 +357,32 @@ public class MemberController {
 	 * 비밀번호 재설정 - 새 비밀번호 입력 화면
 	 * @return
 	 */
-	@RequestMapping(value="/member/resetPw.pb", method=RequestMethod.GET)
+	@RequestMapping(value="/member/resetPwView.pb", method=RequestMethod.GET)
 	public String resetPwView() {
 		return "member/resetPw";
+	}
+	
+	// 비밀번호 재설정 시 필요한 데이터 넘기는 용
+	@RequestMapping(value="/member/sendMemberId", method=RequestMethod.POST)
+	public String sendMemberId(@RequestParam("memberId") String memberId, Model model) {
+		model.addAttribute("memberId", memberId);
+		return "member/resetPw";
+	}
+	
+	// 비밀번호 재설정(수정) 기능
+	@RequestMapping(value="/member/resetPw.pb", method=RequestMethod.POST)
+	public ModelAndView resetPw(
+			@RequestParam("memberId") String memberId, 
+			@RequestParam("memberPw") String memberPw,
+			ModelAndView mv) {
+		HashMap<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("memberId", memberId);
+		paramMap.put("memberPw", memberPw);
+		int result = mService.resetMemberPw(paramMap);
+		if(result > 0) {
+			mv.setViewName("redirect:/member/loginView.pb");
+		}
+		return mv;
 	}
 	
 	/**
@@ -472,8 +495,6 @@ public class MemberController {
 			mv.addObject("msg", e.toString()).setViewName("error"); // 에러 확인용
 		}
 		return mv;
-
-		
 	}
 	
 }

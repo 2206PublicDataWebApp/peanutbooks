@@ -49,7 +49,7 @@
 						<input type="checkbox" id="delete-check"><label for="delete-check">안내사항을 모두 확인하였으며, 이에 동의합니다.</label>
 					</div>
 					<div class="div-pw">
-						<label for="delete-pw1">비밀번호</label><br>
+						<label for="delete-pw1">비밀번호 확인</label><br>
 						<input type="password" id="delete-pw1"><br>
 						<p class="guide error pw-error-4">비밀번호를 입력해 주세요.</p>
 					</div>

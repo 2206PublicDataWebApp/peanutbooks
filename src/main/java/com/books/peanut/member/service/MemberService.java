@@ -38,5 +38,7 @@ public interface MemberService {
 	int checkMemberByEmail(String mEmail);
 	List<Member> getMemberInfo(HashMap<String, String> authData);
 	int loginCheck(HashMap<String, String> paramMap);
+	// 비밀번호 재설정
+	int resetMemberPw(HashMap<String, String> paramMap);
 
 }

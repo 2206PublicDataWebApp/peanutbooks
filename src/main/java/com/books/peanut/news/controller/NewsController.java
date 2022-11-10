@@ -21,13 +21,7 @@ import com.books.peanut.news.service.NewsService;
 public class NewsController {
 	@Autowired
 	private NewsService nService;
-	
-	// 내 알림 화면
-//	@RequestMapping(value="/news/myNews.pb", method=RequestMethod.GET)
-//	public String myNewsView() {
-//		return "news/news-my";
-//	}
-	
+
 	/**
 	 * 알림 목록 조회
 	 * @param mv
@@ -45,7 +39,7 @@ public class NewsController {
 		if(!nList.isEmpty()) { // 가져온 알림 목록이 비어있지 않으면
 			mv.addObject("nList", nList); // 아래의 jsp로 알림 정보가 담긴 nList 값을 넘김
 		}
-		mv.setViewName("news/news-my");
+		mv.setViewName("news/newsView");
 		return mv;
 	}
 	

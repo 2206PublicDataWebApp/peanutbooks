@@ -77,6 +77,10 @@
 	<select id="loginCheck" resultType="_int">
 		SELECT COUNT(*) FROM MEMBER_TBL WHERE MEMBER_ID = #{memberId} AND MEMBER_PW = #{memberPw} AND DELETE_YN = 'N'
 	</select>
+	<!-- 비밀번호 재설정 -->
+	<update id="updateMemberPw">
+		UPDATE MEMBER_TBL SET MEMBER_PW = #{memberPw} WHERE MEMBER_ID = #{memberId}
+	</update>
 	
 	<resultMap type="OriginBookSeries" id="oriSeriesResultMap">
 		<id property="seriesNo" column="SERIES_NO"/>

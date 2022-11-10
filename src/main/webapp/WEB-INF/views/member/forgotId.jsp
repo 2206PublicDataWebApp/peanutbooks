@@ -5,6 +5,8 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>땅콩북스: 아이디 찾기</title>
 	<link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="../resources/css/member.css">
@@ -14,22 +16,20 @@
    	<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 </head>
 <body>
-<!-- 	<form action=""> -->
-		<input id="findId-memberId" type="hidden" name="memberId">
-		<input id="forgotId-authKey" type="hidden" name="authKey">
-	    <div class="row">
-	        <div id="login-img" class="col-lg-8"></div>
-	        <div id="findId-area" class="col-lg-4">
-	            <div><h3 id="findId-hl">아이디 찾기</h3></div>
-	            <div id="input-area">
-	                <label for="findId-email">이메일</label>
-	                <div id="findId-email"><input id="email-input" type="text"><button type="button" id="email-btn">인증요청</button></div>
-	                <div id="findId-authKey"><input id="authKey-input" type="text" placeholder="인증번호"></div>
-	                <div><button id="findId-btn" type="button">아이디 찾기</button></div>
-	            </div>
-	        </div>
-	    </div>
-<!--     </form> -->
+	<input id="findId-memberId" type="hidden" name="memberId">
+	<input id="forgotId-authKey" type="hidden" name="authKey">
+    <div class="row">
+        <div id="login-img" class="col-lg-8"></div>
+        <div id="findId-area" class="col-lg-4">
+            <div><h3 id="findId-hl">아이디 찾기</h3></div>
+            <div id="input-area">
+                <label for="findId-email">이메일</label>
+                <div id="findId-email"><input id="email-input" type="text"><button type="button" id="email-btn">인증요청</button></div>
+                <div id="findId-authKey"><input id="authKey-input" type="text" placeholder="인증번호"></div>
+                <div><button id="findId-btn" type="button">아이디 찾기</button></div>
+            </div>
+        </div>
+    </div>
     <script>
     	$("#email-btn").on("click", function(){
     		var mEmail = $("#email-input").val();
@@ -84,21 +84,6 @@
     		}else if(inputAuthKey == authKey){
     			alert("인증이 완료되었습니다.");
     			location.href = "/member/idResult.pb?memberId="+memberId;
-    			
-/*     			$.ajax({
-    				url: "/member/checkAuthKey.pb",
-    				data: {"authKey": inputAuthKey, "memberId": memberId},
-    				type: "get",
-    				success: function(result){
-    					if(result != 0){
-    						location.href = "/member/idResult.pb?memberId="+memberId;
-    						return true;
-    					}else{
-    						alert("인증번호가 일치하지 않습니다. 다시 확인해 주세요.");
-    						return false;
-    					}
-    				}
-    			}); */
     		}
     	});
     </script>

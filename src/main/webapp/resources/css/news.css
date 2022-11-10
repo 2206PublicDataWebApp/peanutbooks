@@ -3,7 +3,7 @@
 input:focus{
 	outline: none;
 }
-.news-header-top{
+.news-header{
 	border-top: solid 1px lightgray;
     border-bottom: solid 1px lightgray;
     text-align: center;
@@ -15,33 +15,9 @@ input:focus{
     background-color: white;
     font-size: 18px;
 }
-.news-header-bottom{
-    border-bottom: solid 1px lightgray;
-    text-align: center;
-    font-weight: bold;
-    height: 44px;
-    line-height: 44px;
-    position: fixed;
-    width: 100%;
-    background-color: white;
-    margin-top: 44px;
-    font-size: 16px;
-}
-.news-header-bottom button{
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-color: transparent;
-    border: none;
-    padding-left: 12px;
-    padding-right: 12px;
-}
-.news-header-bottom button:active{
-	font-weight: bold;
-}
 .news-area{
-	width: 700px;
-	padding: 88px 16px 56px 16px;
+	width: 1000px;
+	padding: 44px 16px 56px 16px;
 	margin: 0 auto;
 }
 .news-contents-area{
@@ -52,7 +28,7 @@ input:focus{
 	font-size: 16px;
 }
 .news-contents a:visited{
-	color: lightgray !important;
+	color: #c1c1c1 !important;
 }
 .delete-icon{
 	float: right;
@@ -61,10 +37,9 @@ input:focus{
 	width: 16px;
 	height: 16px;
 }
-
 .news-msg{
 	padding-top: 100px;
 	padding-bottom: 100px;
 	text-align: center;
-	color: lightgray;
+	color: #c1c1c1;
 }

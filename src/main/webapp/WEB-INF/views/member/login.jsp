@@ -14,14 +14,14 @@
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 </head>
 <body>
-	<form action="/member/login.pb" method="post">
+	<form action="/member/login.pb" method="post" id="loginForm">
 		<div class="row">
 	        <div id="login-img" class="col-lg-8"></div> <!-- 배경 이미지 -->
 	        <div id="login-area" class="col-lg-4"> <!-- 로그인 폼 -->
 	            <div><h3 id="login-hl">로그인</h3></div>
 	            <div id="login-id"><input id="login-id-data" class="login-inputs" type="text" placeholder="아이디" name="memberId"></div>
 	            <div id="login-pw"><input id="login-pw-data" class="login-inputs" type="password" placeholder="비밀번호" name="memberPw"></div>
-	            <div><button id="login-btn" type="submit">로그인</button></div>
+	            <div><button id="login-btn" type="button">로그인</button></div>
 	            <div id="login-others">
 	                <a href="/member/forgotId.pb">아이디 찾기</a> | <a href="/member/forgotPw.pb"> 비밀번호 재설정 </a> | <a href="/member/joinView.pb">회원가입</a>
 	            </div>
@@ -46,6 +46,8 @@
     				if(result == "0"){
     					alert("아이디 또는 비밀번호가 일치하지 않습니다.");
     					return false;
+    				}else{
+    					$("#loginForm").submit();
     				}
     			}
     		});
