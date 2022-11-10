@@ -71,8 +71,7 @@
  
 
 <script type="text/javascript">
-    debugger;
-    var nick = '${nickName}';
+      var nick = '${nickName}';
     var name = '${pCess.name}'
     var mon = Number(${mon});
     thisTurn = ${thisTurn};
