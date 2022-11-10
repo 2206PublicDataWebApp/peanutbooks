@@ -71,7 +71,7 @@
  
 
 <script type="text/javascript">
-      var nick = '${nickName}';
+     var nick = '${nickName}';
     var name = '${pCess.name}'
     var mon = Number(${mon});
     thisTurn = ${thisTurn};
