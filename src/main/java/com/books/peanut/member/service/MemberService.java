@@ -37,5 +37,6 @@ public interface MemberService {
 	// 이메일로 회원 여부 확인
 	int checkMemberByEmail(String mEmail);
 	List<Member> getMemberInfo(HashMap<String, String> authData);
+	int loginCheck(HashMap<String, String> paramMap);
 
 }

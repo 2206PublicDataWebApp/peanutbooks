@@ -139,7 +139,7 @@ public class MemberController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value="/member/getIdByEmail.pb", method=RequestMethod.GET)
+	@RequestMapping(value="/member/getIdByEmail.pb", produces="application/json;charset=utf-8", method=RequestMethod.GET)
 	public String findIdAuth(@RequestParam("mEmail") String mEmail) {
 		try {
 			mService.resetAuthKey(mEmail); // 기존 인증 키 삭제
@@ -154,13 +154,6 @@ public class MemberController {
 				Gson gson = new GsonBuilder().create();
 				return gson.toJson(result);
 			}
-//			List<String> authData = new ArrayList<String>();
-//			authData.add(0, memberId);
-//			authData.add(1, authKey);
-//			if(!authData.isEmpty()) {
-//				Gson gson = new GsonBuilder().create();
-//				return gson.toJson(authData);
-//			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -177,16 +170,6 @@ public class MemberController {
 	@RequestMapping(value="/member/checkMemberByEmail", method=RequestMethod.GET)
 	public String checkMemberByEmail(@RequestParam("mEmail") String mEmail) {
 		int result = mService.checkMemberByEmail(mEmail);
-//		if(result > 0) {
-//			try {
-//				mService.resetAuthKey(mEmail); // 기존 인증 키 삭제
-//				String authKey = sendEmail(mEmail); // 인증 메일 발송
-//				mService.saveAuthKey(authKey, mEmail); // 인증키 db에 저장
-//			} catch (Exception e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
 		return String.valueOf(result);
 	}
 	
@@ -308,13 +291,24 @@ public class MemberController {
 				int writtenBooks = mService.countWrittenBooks(loginMember.getMemberId());
 				session.setAttribute("writtenBooks", writtenBooks);
 				mv.setViewName("redirect:/main"); // 로그인 성공 시 로그인 후 메인 페이지로 이동
-			} else {
-				mv.setViewName("redirect:/member/loginView.pb"); // 로그인 실패 시 로그인 페이지로 이동(임시)
 			}
 		} catch (Exception e) {
 			mv.addObject("msg", e.toString()).setViewName("common/errorPage"); // 에러 확인용
 		}
 		return mv;
+	}
+	
+	// 로그인 되는지 검사
+	@ResponseBody
+	@RequestMapping(value="/member/loginCheck.pb", produces="application/json;charset=utf-8", method=RequestMethod.POST)
+	public String loginCheck(
+			@RequestParam("memberId") String memberId,
+			@RequestParam("memberPw") String memberPw) {
+		HashMap<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("memberId", memberId);
+		paramMap.put("memberPw", memberPw);
+		int result = mService.loginCheck(paramMap);
+		return String.valueOf(result);
 	}
 	
 	/**

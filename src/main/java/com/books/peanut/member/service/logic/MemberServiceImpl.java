@@ -112,5 +112,10 @@ public class MemberServiceImpl implements MemberService{
 		List<Member> result = mStore.getMemberInfo(session, authData);
 		return result;
 	}
+	@Override
+	public int loginCheck(HashMap<String, String> paramMap) {
+		int result = mStore.loginCheck(session, paramMap);
+		return result;
+	}
 
 }

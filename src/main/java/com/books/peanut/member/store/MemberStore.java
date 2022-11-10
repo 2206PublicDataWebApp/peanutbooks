@@ -39,5 +39,6 @@ public interface MemberStore {
 	// 이메일로 회원 여부 확인
 	public int checkMemberByEmail(SqlSession session, String mEmail);
 	public List<Member> getMemberInfo(SqlSession session, HashMap<String, String> authData);
+	public int loginCheck(SqlSession session, HashMap<String, String> paramMap);
 
 }
