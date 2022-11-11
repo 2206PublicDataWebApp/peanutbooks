@@ -495,7 +495,6 @@ function jobText(){
 		}
 	}
 
-
 }
 
 function next(){
