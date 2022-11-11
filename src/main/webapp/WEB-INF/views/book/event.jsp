@@ -28,6 +28,7 @@
                 <img src="/resources/img/book/peanut.png" alt="" id="peanutCheck">
             </div>
             <img src="/resources/img/book/eventImg.png" id="evenImg">
+            <div id="eventText">출석도장을 모으면 포인트를 드려요</div>
     
             
         </div>

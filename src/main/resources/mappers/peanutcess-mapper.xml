@@ -97,7 +97,7 @@
   
   </update>
   <insert id="insertPeanut">
-  	insert into peanutpoint_tbl values(sqn_peanut_no.nextval,sysdate,5,'Y',null,null,#{memberId},'여왕엔딩축하금',null)
+  	insert into peanutpoint_tbl values(sqn_peanut_no.nextval,sysdate,5,'Y',null,'여왕엔딩축하금',#{memberId},null,null)
   </insert>
   
   

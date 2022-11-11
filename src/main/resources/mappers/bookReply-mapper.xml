@@ -260,7 +260,7 @@
 	
 	<insert id="UpdateEventPeanut">
 	insert into peanutpoint_tbl values
-	(SQN_PEANUT_NO.nextval,sysdate,+5,'Y',null,null,#{memberId},'출석이벤트성공',null)
+	(SQN_PEANUT_NO.nextval,sysdate,+5,'Y',null,'출석이벤트성공',#{memberId},null,null)
 	</insert>
 	
 	<update id="updateMemberPoint">

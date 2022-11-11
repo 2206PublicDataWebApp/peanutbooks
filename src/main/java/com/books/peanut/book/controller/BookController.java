@@ -706,7 +706,7 @@ public class BookController {
 				mv.addObject("currentPage", bPage.getCurrentPage());
 			} else {
 
-				BookPage nPage = bpContNor.boardList(page, getTotalCountOri, boardLimit); // 클래스에서 페이징해온 숫자를 가지고옴
+				BookPage nPage = bpContNor.boardList(page, getTotalCountNor, boardLimit); // 클래스에서 페이징해온 숫자를 가지고옴
 				nList = bService.allBookSearchValueNor(tag, step, searchValue, nPage.getCurrentPage(), boardLimit,
 						category);
 				mv.addObject("bList", nList); // 목록넘기기

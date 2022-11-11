@@ -78,6 +78,17 @@
 	.title.on .arrow-top {
 	  display: block; 
 	}
+	#Accordion_wrap{
+	width:70%; margin: auto;
+	}
+	@media(max-width:500px){
+		.contents img{
+		max-width : 100%;
+		}
+		#Accordion_wrap{
+		width:100%;
+		}
+	}
 </style> 
 <body>
 <!-- header start -->
@@ -98,7 +109,7 @@
 	
 	
 		<!-- 리스트 출력 -->
-		<div id="Accordion_wrap" style="width:70%; margin: auto;">
+		<div id="Accordion_wrap">
 			<h1>공지사항</h1>
 							<!-- 카테고리별 리스트 시작 -->
 				<div style="float-right">

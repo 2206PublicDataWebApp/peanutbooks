@@ -15,7 +15,6 @@ function nextText(){
 
 
 function jobText(){
-	
 	if(thisTurn == 1){
 		
 		if(sche1=='farm'){
@@ -58,7 +57,7 @@ function jobText(){
 	
 				$('#text').html('보모 알바를 합니다.');
 			}else if(desa == 2){
-				$('#text').html('보모알바<br>공부(+5), 예절(+2),<br> 용돈(+10), 스트레스(+10)');
+				$('#text').html('보모알바<br>공부(+5), 예절(+2),<br> 용돈(+10), 스트레스(+5)');
 			}else if(sche1Birth == true){
 				$('#text').html('공주님의 생일이네요!<br> 용돈 20피넛을 받았습니다');
 				sche1Birth=false;
@@ -75,7 +74,7 @@ function jobText(){
 				
 				$('#text').html('미술공부를 합니다.');
 			}else if(desa == 2){
-				$('#text').html('미술공부<br>공부(+5), 미술(+5),<br> 용돈(-20), 스트레스(+10)');
+				$('#text').html('미술공부<br>공부(+5), 미술(+5),<br> 용돈(-20), 스트레스(+5)');
 			}else if(sche1Birth == true){
 				$('#text').html('공주님의 생일이네요!<br> 용돈 20피넛을 받았습니다');
 			}else{
@@ -91,7 +90,7 @@ function jobText(){
 				
 				$('#text').html('무술공부를 합니다.');
 			}else if(desa == 2){
-				$('#text').html('무술공부<br>힘(+5), 근성(+5),<br> 용돈(-20), 스트레스(+10)');
+				$('#text').html('무술공부<br>힘(+5), 근성(+5),<br> 용돈(-20), 스트레스(+5)');
 			}else if(sche1Birth == true){
 				$('#text').html('공주님의 생일이네요!<br> 용돈 20피넛을 받았습니다');
 				sche1Birth=false;
@@ -109,7 +108,7 @@ function jobText(){
 				
 				$('#text').html('음악공부를 합니다.');
 			}else if(desa == 2){
-				$('#text').html('음악공부<br>음악(+5), 예절(+5),<br> 용돈(-20), 스트레스(+10)');
+				$('#text').html('음악공부<br>음악(+5), 예절(+5),<br> 용돈(-20), 스트레스(+5)');
 			}else if(sche1Birth == true){
 				$('#text').html('공주님의 생일이네요!<br> 용돈 20피넛을 받았습니다');
 				sche1Birth=false;
@@ -121,7 +120,7 @@ function jobText(){
 		}
 		else if(sche1=='rest'){
 		$('#sche-farm').html('');
-		$('#center-area').css('background','url()');
+		$('#center-area').css('background','url(/resources/img/peanutcess/bed.png)');
 		
 			if(desa==1){
 				
@@ -186,7 +185,7 @@ function jobText(){
 			if(desa==1){
 				$('#text').html('보모 알바를 합니다.');
 			}else if(desa == 2){
-				$('#text').html('보모알바<br>공부(+5), 예절(+2),<br> 용돈(+10), 스트레스(+10)');
+				$('#text').html('보모알바<br>공부(+5), 예절(+2),<br> 용돈(+10), 스트레스(+5)');
 			}else if(sche2Birth == true){
 				$('#text').html('공주님의 생일이네요!<br> 용돈 20피넛을 받았습니다');
 				sche2Birth=false;
@@ -202,7 +201,7 @@ function jobText(){
 			if(desa==1){
 				$('#text').html('미술공부를 합니다.');
 			}else if(desa == 2){
-				$('#text').html('미술공부<br>공부(+5), 미술(+5),<br> 용돈(-20), 스트레스(+10)');
+				$('#text').html('미술공부<br>공부(+5), 미술(+5),<br> 용돈(-20), 스트레스(+5)');
 			}else if(sche2Birth == true){
 				$('#text').html('공주님의 생일이네요!<br> 용돈 20피넛을 받았습니다');
 				sche2Birth=false;
@@ -218,7 +217,7 @@ function jobText(){
 			if(desa==1){
 				$('#text').html('무술공부를 합니다.');
 			}else if(desa == 2){
-				$('#text').html('무술공부<br>힘(+5), 근성(+5),<br> 용돈(-20), 스트레스(+10)');
+				$('#text').html('무술공부<br>힘(+5), 근성(+5),<br> 용돈(-20), 스트레스(+5)');
 			}else if(sche2Birth == true){
 				$('#text').html('공주님의 생일이네요!<br> 용돈 20피넛을 받았습니다');
 				sche2Birth=false;
@@ -234,7 +233,7 @@ function jobText(){
 			if(desa==1){
 				$('#text').html('음악공부를 합니다.');
 			}else if(desa == 2){
-				$('#text').html('음악공부<br>음악(+5), 예절(+5),<br> 용돈(-20), 스트레스(+10)');
+				$('#text').html('음악공부<br>음악(+5), 예절(+5),<br> 용돈(-20), 스트레스(+5)');
 			}else if(sche2Birth == true){
 				$('#text').html('공주님의 생일이네요!<br> 용돈 20피넛을 받았습니다');
 				sche2Birth=false;
@@ -245,13 +244,13 @@ function jobText(){
 		}
 		else if(sche2=='rest'){
 			$('#sche-farm').html('');
-			$('#center-area').css('background','url()');
+			$('#center-area').css('background','url(/resources/img/peanutcess/bed.png)');
 		
 			if(desa==1){
 				$('#text').html('휴식을 합니다.');
 			}else if(desa == 2){
 				if(sche2Result != 'ok'){
-				$('#text').html('스케쥴을 진행할수 없습니다 <br>휴식을 합니다. 스트레스(-10)');
+				$('#text').html('스케쥴을 진행할수 없습니다 <br>휴식을 합니다. 스트레스(-5)');
 				}else{
 				$('#text').html('휴식 스트레스(-10)');}
 			}else if(sche2Birth == true){
@@ -303,7 +302,7 @@ function jobText(){
 			if(desa==1){
 				$('#text').html('보모 알바를 합니다.');
 			}else if(desa == 2){
-				$('#text').html('보모알바<br>공부(+5), 예절(+2),<br> 용돈(+10), 스트레스(+10)');
+				$('#text').html('보모알바<br>공부(+5), 예절(+2),<br> 용돈(+10), 스트레스(+5)');
 			}else if(sche1Birth == true){
 				$('#text').html('공주님의 생일이네요!<br> 용돈 20피넛을 받았습니다');
 			}else{
@@ -318,7 +317,7 @@ function jobText(){
 			if(desa==1){
 				$('#text').html('미술공부를 합니다.');
 			}else if(desa == 2){
-				$('#text').html('미술공부<br>공부(+5), 미술(+5),<br> 용돈(-20), 스트레스(+10)');
+				$('#text').html('미술공부<br>공부(+5), 미술(+5),<br> 용돈(-20), 스트레스(+5)');
 			}else if(sche3Birth == true){
 				$('#text').html('공주님의 생일이네요!<br> 용돈 20피넛을 받았습니다');
 				sche3Birth=false;
@@ -334,7 +333,7 @@ function jobText(){
 			if(desa==1){
 				$('#text').html('무술공부를 합니다.');
 			}else if(desa == 2){
-				$('#text').html('무술공부<br>힘(+5), 근성(+5),<br> 용돈(-20), 스트레스(+10)');
+				$('#text').html('무술공부<br>힘(+5), 근성(+5),<br> 용돈(-20), 스트레스(+5)');
 			}else if(sche3Birth == true){
 				$('#text').html('공주님의 생일이네요!<br> 용돈 20피넛을 받았습니다');
 				sche3Birth=false;
@@ -349,7 +348,7 @@ function jobText(){
 			if(desa==1){
 				$('#text').html('음악공부를 합니다.');
 			}else if(desa == 2){
-				$('#text').html('음악공부<br>음악(+5), 예절(+5),<br> 용돈(-20), 스트레스(+10)');
+				$('#text').html('음악공부<br>음악(+5), 예절(+5),<br> 용돈(-20), 스트레스(+5)');
 			}else if(sche3Birth == true){
 				$('#text').html('공주님의 생일이네요!<br> 용돈 20피넛을 받았습니다');
 				sche3Birth=false;
@@ -360,7 +359,7 @@ function jobText(){
 		}
 		else if(sche3=='rest'){
 		$('#sche-farm').html('');
-		$('#center-area').css('background','url()');
+		$('#center-area').css('background','url(/resources/img/peanutcess/bed.png)');
 		
 			if(desa==1){
 				$('#text').html('휴식을 합니다.');
@@ -418,7 +417,7 @@ function jobText(){
 			if(desa==1){
 				$('#text').html('보모 알바를 합니다.');
 			}else if(desa == 2){
-				$('#text').html('보모알바<br>공부(+5), 예절(+2),<br> 용돈(+10), 스트레스(+10)');
+				$('#text').html('보모알바<br>공부(+5), 예절(+2),<br> 용돈(+10), 스트레스(+5)');
 			}else if(sche4Birth == true){
 				$('#text').html('공주님의 생일이네요!<br> 용돈 20피넛을 받았습니다');
 				sche4Birth=false;
@@ -434,7 +433,7 @@ function jobText(){
 			if(desa==1){
 				$('#text').html('미술공부를 합니다.');
 			}else if(desa == 2){
-				$('#text').html('미술공부<br>공부(+5), 미술(+5),<br> 용돈(-20), 스트레스(+10)');
+				$('#text').html('미술공부<br>공부(+5), 미술(+5),<br> 용돈(-20), 스트레스(+5)');
 			}else if(sche4Birth == true){
 				$('#text').html('공주님의 생일이네요!<br> 용돈 20피넛을 받았습니다');
 				sche4Birth=false;
@@ -450,7 +449,7 @@ function jobText(){
 			if(desa==1){
 				$('#text').html('무술공부를 합니다.');
 			}else if(desa == 2){
-				$('#text').html('무술공부<br>힘(+5), 근성(+5),<br> 용돈(-20), 스트레스(+10)');
+				$('#text').html('무술공부<br>힘(+5), 근성(+5),<br> 용돈(-20), 스트레스(+5)');
 			}else if(sche4Birth == true){
 				$('#text').html('공주님의 생일이네요!<br> 용돈 20피넛을 받았습니다');
 				sche4Birth=false;
@@ -465,7 +464,7 @@ function jobText(){
 			if(desa==1){
 				$('#text').html('음악공부를 합니다.');
 			}else if(desa == 2){
-				$('#text').html('음악공부<br>음악(+5), 예절(+5),<br> 용돈(-20), 스트레스(+10)');
+				$('#text').html('음악공부<br>음악(+5), 예절(+5),<br> 용돈(-20), 스트레스(+5)');
 			}else if(sche4Birth == true){
 				$('#text').html('공주님의 생일이네요!<br> 용돈 20피넛을 받았습니다');
 				sche4Birth=false;
@@ -476,7 +475,7 @@ function jobText(){
 		}
 		else if(sche4=='rest'){
 			$('#sche-farm').html('');
-			$('#center-area').css('background','url()');
+			$('#center-area').css('background','url(/resources/img/peanutcess/bed.png)');
 		
 			if(desa==1){
 				$('#text').html('휴식을 합니다.');
