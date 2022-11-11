@@ -1,6 +1,7 @@
 @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
 
 header {
+    max-width:100%;
     margin: 0 auto;
     font-family: 'Spoqa Han Sans Neo', 'sans-serif';
     font-size: 1.2rem;
@@ -20,7 +21,7 @@ main {
     min-height: 100%;
     padding-bottom: 5rem;
      z-index:10;
-     padding-top: 8rem;
+     padding-top: 8rem;     
 }
 
 footer {
@@ -55,7 +56,8 @@ header li {
 }
 
 #header-area {
-    align-items: flex-end
+    align-items: flex-end;
+    position:relative;
 }
 
 #header-area li:hover{
@@ -97,13 +99,9 @@ header li {
     justify-content: flex-end;
     padding-right: 0.5rem;
     display: flex;
-
-
 }
 
-
 #mypage {
-
     margin-top: 1rem;
     width: 10rem;
     background-color: rgb(255, 255, 255);
@@ -339,20 +337,22 @@ header li{
   /** 서브메뉴 **/
   /**1102 은정님 추가**/
 	.subMenu{
-        width:100%; 
-        margin-left:40%;
-        padding-top: 5.5rem;
-        display:none;   
+        max-width:100%; 
+        margin-left:35%;
+        display: none;
+        position: absolute;        
+        padding-top:5.5rem;
     }
     .subMenu>nav{
         margin:0;      
-        width:24em;              
+        max-width:100%;              
    /*      border-bottom: 1px solid rgb(201, 196, 196);             */        
     }  
    .subMenu nav ul{
         width: 100%;
         height: 100%;
-        display: inline;          
+        display: inline; 
+        position: fixed;         
 
     }
    .subMenu nav ul li{
@@ -364,7 +364,7 @@ header li{
     font-size: 0.85rem;
     color: darkgray;
     padding-bottom: 0.5rem;
-    font-weight: 500;
+    font-weight: bold;
     text-align: center; 
 	}  
 
@@ -376,16 +376,22 @@ header li{
 	}
 
 
-@media(min-width:550px){
-	 .subMenu nav{
-
-	 }
+@media(max-width:500px){
+	.subMenu{       
+        margin-left:0%;
+        padding-left:0%; 
+        padding-top:4rem;       
+    }
 	 
 	 .pnZone{
 	 	padding-left: 1rem;
 	 	padding-rigth: 1rem;
 	 }
 
+	.row{
+		justify-content: center;
+		
+	}
   
 }
 

@@ -124,7 +124,7 @@
 	    var memberId = '${sessionScope.loginMember.memberId}';
 	    var mEmail = '${sessionScope.loginMember.mEmail}'; 
 	  
-
+	  
 	    $('#seasonticket').on('click', function(){
 	    	if(!(${empty sessionScope.lastDate})){
 				alert("구독권 만료후 구매 부탁드립니다. 이용해 주셔서 감사합니다.");
@@ -255,7 +255,7 @@
 	}
 	var popupObj;
 	function popUp(){
-		var windo = "status=no ,toolbar=no,scrollbars=no, menubar=no,resizable=no,titlebar=no, width=450,height=450";
+		var windo = "status=no ,toolbar=no,scrollbars=no, menubar=no,resizable=no,titlebar=no, width=450,height=370";
 
 		popupObj=window.open("/pay/paySuccessPop.kh","PopupWin", windo);
 		
