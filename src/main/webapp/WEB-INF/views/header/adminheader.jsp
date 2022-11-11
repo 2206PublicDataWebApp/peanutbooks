@@ -155,8 +155,10 @@
 								alt=""> <br>알림</a>
 						</div>
 						<div class="col-4">
+							<a href="/admin/adminListView.kh">
 							<img src="/resources/img/header/icons8-gear-50.png" alt="">
 							<br>정보수정
+							</a>
 						</div>
 						<div class="col-4">
 
@@ -303,10 +305,10 @@
 		if (p1btn == 'none') {
 			document.getElementById('peanutMenu').style.display ='block';
 			document.getElementById('boardMenu').style.display = 'none';
-			document.querySelector('main').style.padding = "3rem 0 0 0";
+			document.getElementById('menu-bar').style.display = 'none';
 		} else {
 			document.getElementById('peanutMenu').style.display='none';
-			document.querySelector('main').style.padding = "8rem 0 0 0";
+		
 		}
 
 	}
@@ -318,6 +320,7 @@
 		if (p1btn == 'none') {
 			document.getElementById('boardMenu').style.display='block';
 			document.getElementById('peanutMenu').style.display = 'none';
+			document.getElementById('menu-bar').style.display = 'none';
 		} else {
 			document.getElementById('boardMenu').style.display='none';
 		}
