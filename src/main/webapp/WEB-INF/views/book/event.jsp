@@ -23,6 +23,7 @@
     <main>
         <div id="main">
 
+
             <div id="peanut-area">   
                 <img src="/resources/img/book/peanut.png" alt="" id="peanutCheck">
             </div>
