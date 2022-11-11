@@ -29,6 +29,10 @@ h1,
     margin: 1rem;
 }
 
+main h1{
+    padding-top:1rem;
+}
+
 .category {
     text-align: right;
     margin: 1rem;

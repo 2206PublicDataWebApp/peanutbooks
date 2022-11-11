@@ -30,7 +30,7 @@
                 	${age }살 ${mon}월
             	</div>
                 <div id="money-area">
-                	소지금 : ${pCess.money } 피넛
+                	소지금 : <br> ${pCess.money } 피넛
                 </div>
 
             </div>

@@ -52,7 +52,6 @@ main {
   height: 1.5rem;
   border-radius: 5px 0 0 5px;
   outline: none;
-  color: #FFD384;
   font-size: 0.8rem;
 }
 
@@ -117,7 +116,11 @@ main {
 
 @media (max-width:500px) {
   #gubun{
-    text-align: center;
+    text-align: right;
+    padding-right: 3rem;
+    font-size: 0.9rem;
+    padding-bottom: 0.5rem;
+
   }
   .searchButton {
     height: 3rem;
@@ -127,10 +130,7 @@ main {
     height: 3rem;
   }
 
-  #gubun {
-    font-size: 1.2rem;
-    padding-bottom: 0.5rem;
-  }
+ 
 
   .bi-search {
     margin-bottom: 0.5rem;

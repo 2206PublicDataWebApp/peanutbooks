@@ -11,6 +11,29 @@ footer{
 	margin-top:5% !important;
 }
 
+
+#evenImg{
+    --position: relative;
+}
+
+@font-face {
+    font-family: 'HSSaemaul-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/HSSaemaul-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+#eventText{
+    position:absolute;
+    top: 40%;
+    text-align: center;
+    width: 100%;
+    font-family: 'HSSaemaul-Regular';
+    font-size: 3rem;
+    
+}
+
+
 #main{
    
     text-align: center;
@@ -49,5 +72,13 @@ footer{
     width:100%
     
    }
+
+   #eventText{
+    top: 40%;
+
+    font-size: 1.5em;
+    
+    }
+
     
 }

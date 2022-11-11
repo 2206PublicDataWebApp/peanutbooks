@@ -26,7 +26,7 @@
         <section class="container">
             <article id="up-area" class="row">
                 <div id="status-area" class="age-area col-4">
-                    
+                    20살 엔딩
                     <br>
                     
 

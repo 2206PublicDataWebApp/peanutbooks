@@ -287,12 +287,12 @@ function buyStore(){
  	 				alert('당첨되었습니다!');
  	 				alert('200피넛을 받습니다!');
  	 				money = money+150;
- 	 				$('#money-area').html('소지금 : '+money+' 피넛');
+ 	 				$('#money-area').html('소지금 : <br>'+money+' 피넛');
  	 			}else{
  	 				alert('꽝...');
  	 				alert('50피넛을 잃었습니다....');
  	 				money = money-50;
- 	 				$('#money-area').html('소지금 : '+money+' 피넛');
+ 	 				$('#money-area').html('소지금 : <br>'+money+' 피넛');
  	 			
  	 			}
  	 		}
@@ -344,7 +344,7 @@ function buyItem(item){
 				$('#statusart').html(result.art);
 				$('#statusstudy').html(result.study);
 				$('#statusstrong').html(result.strong);
-				$('#money-area').html('소지금 :'+result.money+ '피넛');
+				$('#money-area').html('소지금 : <br>'+result.money+ '피넛');
 				money = result.money;
 
 				

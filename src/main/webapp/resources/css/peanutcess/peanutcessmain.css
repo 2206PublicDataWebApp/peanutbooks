@@ -24,6 +24,11 @@ main{
     
 }
 
+#center-area{
+    background-size: cover !important;
+    background-repeat: no-repeat !important    ;
+}
+
 .hover:hover{
     text-decoration: underline;
 }

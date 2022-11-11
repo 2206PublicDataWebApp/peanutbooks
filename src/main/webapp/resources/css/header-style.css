@@ -156,6 +156,7 @@ header li {
     width: 100%;
     right: 0;
     left: 0;
+    display: none;
     
 }
 
@@ -199,7 +200,7 @@ header li {
 
 #point-tooltip-area {
     position: absolute;
-
+    display: none;
     right: 0;
     left: 0;
    
@@ -264,6 +265,7 @@ header li {
     width: 100%;
     right: 0;
     left: 0;
+    display: none;
 
     
 }

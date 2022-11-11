@@ -26,6 +26,9 @@ main {
     border-bottom: 0.2rem solid lightgray;
 }
 
+main h1{
+    padding-top: 1rem;
+}
 h1,
 .cover-title {
     text-align: center;
