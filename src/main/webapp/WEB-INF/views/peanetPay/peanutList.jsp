@@ -9,15 +9,20 @@
 <meta charset="UTF-8">
 <title>땅콩사용리스트</title>
 <link rel="stylesheet" href="/resources/css/pay/peanetList.css" ></link>
+<link rel="shortcut icon" href="/resources/img/icons8-book-32.png">
 <script scr="../resources/js/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <jsp:include page="../header/header.jsp"></jsp:include>
-	<main>
-		<h1 id="h">땅콩 충전 및 사용 내역</h1>
+	<main id="main">
+		<h1 id="h"></h1>
+		<div style="width: 100%; display: flex; justify-content: center;">
+			<div id="title">땅콩 충전 및 사용 내역</div>
+		</div>
 		<div id="spanDIV">
 		<!-- 	<div class="totalpeanet"><img alt="" src="../resources/img/icons8-peanut-64.png"/></div> -->
 			<div class="totalpeanet">${printID }님의 남은 땅콩은 ${ppSum}개</div>
+		
 		</div>
 		<div id="table">
 			<c:if test="${empty pList }">
@@ -33,13 +38,13 @@
 					<table>						
 						<tr>							
 							<td class="tableNo" rowspan="2"><button class="numbtn">${i.count +((pm.currentPage-1)*10) }</button></td>
-							<c:if test="${!empty PeanutPoint.bookName }">
+							<c:if test="${PeanutPoint.ppStatus == 'N' }">
 								<td class="contexnts">${PeanutPoint.bookName } 열람</td>
 								<td rowspan="2" class="monitercontrol"></td>
 								<td rowspan="2" class="peanet"><span>${PeanutPoint.peanutPoint} 땅콩</span></td>
 							</c:if>
-							<c:if test="${empty PeanutPoint.bookName }">
-								<td class="contexnts">&nbsp;&nbsp;땅콩충전</td>
+							<c:if test="${PeanutPoint.ppStatus == 'Y' }">
+								<td class="contexnts">${PeanutPoint.bookName } </td>
 								<td rowspan="2" class="monitercontrol"></td>
 								<td rowspan="2" class="peanet"><span>+ ${PeanutPoint.peanutPoint} 땅콩</span></td>
 							</c:if>

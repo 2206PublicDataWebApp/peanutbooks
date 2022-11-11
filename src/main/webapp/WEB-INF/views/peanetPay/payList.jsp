@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 결제리스트</title>
+<link rel="shortcut icon" href="/resources/img/icons8-book-32.png">
 <link rel="stylesheet" href="/resources/css/pay/payList.css" ></link>
 <script src="/resources/js/jquery-3.6.0.min.js"></script>
 </head>
@@ -15,7 +16,9 @@
 <jsp:include page="../header/adminheader.jsp"></jsp:include>
 
 <div id="body">
-
+<div style="width:100%;display: flex;justify-content: center;">
+	<div id ="title">결제내역리스트</div>
+</div>
 	<div id="searchZone"> 
 		<select id="selectPay">
 			<option value="all" checked>전체</option>
@@ -41,7 +44,7 @@
 	</div>
 	
 	<table class="responsive-table">
-		<caption >결제내역리스트</caption>
+		<caption></caption>
 		<thead>
 			<tr>
 				<th scope="col">번호</th>

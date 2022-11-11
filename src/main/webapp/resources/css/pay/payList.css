@@ -9,15 +9,28 @@
 	text-align:center;
 	
 }
-
+/*제목라인  */
+#title{
+  width: 70%;
+  height:45px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  font-family: 'Noto Sans KR', sans-serif; 
+  background-color: #5e5e5e;
+  color: white;
+}
+/*제목라인 끝  */
 /* 검색창 꾸미기 */
 #searchZone{
   display:flex;
   justify-content: center;
+  margin-top: 20px;
   margin-bottom: 20px;
   width: 100%;
   height: auto;    
-  font-size: 0.8em;
+  font-size: 1em;
   font-family: 'Noto Sans KR', sans-serif;  
    
 }
@@ -97,6 +110,8 @@
   }
 /*검색창화면 줄어들었을때   */
 @media(max-width:600px){
+	#body{padding-top:6rem;}
+  	#title{width:100%;}
 	#searchZone{
 	    flex-wrap: wrap;
 	    height: auto;
@@ -146,10 +161,10 @@
 
 /*테이블 css부분  */
 
-caption{
+/* caption{
 	caption-side:top;
 	font-size: 2em;
-}
+} 제목줄 추가하여 삭제 */
 .responsive-table {
   margin : 0 auto;
   margin-bottom: 1.5em;
@@ -193,12 +208,12 @@ caption{
   padding: 0.5em;
   vertical-align: middle;
 }
-.responsive-table caption {
+/* .responsive-table caption {
   margin-bottom: 0.5em;
   font-size: 1.5em;
   font-weight: bold;
   text-align: center;
-}
+} 제목줄 추가하여 삭제 */
 .responsive-table tfoot {
   font-size: .8em;
   font-style: italic;
@@ -249,9 +264,9 @@ caption{
     padding: .5em;
   }
 
-  .responsive-table>caption {
+/*   .responsive-table>caption {
     font-size: 2em;
-  }
+  } 제목줄 추가하여 삭제 */
   .responsive-table tbody {
     display: table-row-group;
   }

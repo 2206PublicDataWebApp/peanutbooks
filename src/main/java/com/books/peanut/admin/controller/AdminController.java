@@ -17,11 +17,17 @@ import com.books.peanut.admin.service.BookApproveService;
 import com.books.peanut.book.controller.BookPageController;
 import com.books.peanut.book.domain.BookPage;
 import com.books.peanut.member.domain.Member;
+import com.books.peanut.pay.domain.PeanutPoint;
+import com.books.peanut.pay.domain.SeasonTicket;
+import com.books.peanut.pay.payService.PayService;
+import com.sun.org.apache.bcel.internal.generic.NEWARRAY;
 
 @Controller
 public class AdminController {
 	@Autowired
 	private BookApproveService BAService;
+	@Autowired
+	private PayService pService;
 	
 	//전체회원 리스트
 	@RequestMapping(value="/admin/adminListView.kh", method = RequestMethod.GET)
@@ -132,8 +138,32 @@ public class AdminController {
 	@RequestMapping(value="/admin/memberModify", method=RequestMethod.POST)
 	public ModelAndView memberModify(
 			ModelAndView mv
+			, @ModelAttribute SeasonTicket st 
+			, @ModelAttribute PeanutPoint pp
 			, @RequestParam("page") int page
 			, @ModelAttribute Member member) {
+			
+		
+		//땅콩포인트 수정/ 삭제 부분
+		if(pp.getPeanutPoint() != 0 ) {	
+				
+			int pn_P_result = pService.modifyPNpoint(pp);
+			if(pn_P_result > 0) {		
+			
+			}else {				
+//				mv.addObject("msg","실패");
+//				mv.addObject("url","/admin/memberModifyView.kh");
+//				mv.setViewName("common/alert");
+			}
+		}
+		//땅콩포인트 종료
+		//구독권 여부 반영 부분		
+		if(st.getExpiry_yn() != "" && st.getExpiry_yn() != null){		 
+			 int subYN_result=pService.modifyseasonTK(st);			
+			
+		}
+		//구독권종료
+		
 		try {
 			int result = BAService.modifyOnById(member);
 			if(result > 0) {
@@ -144,6 +174,7 @@ public class AdminController {
 		} catch (Exception e) {
 			mv.addObject("msg", e.toString());
 			mv.setViewName("common/errorPage");
+		
 		}
 		return mv;
 	}

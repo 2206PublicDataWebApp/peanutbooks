@@ -317,11 +317,12 @@ public class ControllerPay {
 	public ModelAndView writerList(
 			ModelAndView mv,
 			@RequestParam(value= "memberId", required = false) String memberId,
+			@RequestParam(value = "putDate", required = false) String putDate ,
 			@RequestParam(value= "bankStatus", required = false) String bankStatus , 
 			@RequestParam(value= "page", required = false) Integer page ){
 		
 		Pagemarker pm=new Pagemarker();
-		int count=pService.getwritetP_Count();
+		int count=pService.getwritetP_Count(memberId, bankStatus, putDate);
 		if(count==0) {			
 			mv.addObject("count", "no");
 		}else {
@@ -330,8 +331,11 @@ public class ControllerPay {
 			pm.pageInfo(pm.getCurrentPage(), pm.getTotalCount());
 			mv.addObject("pm", pm);	
 			
-			List<WriterPay> wrList = pService.wrListPrint(pm);			
+			List<WriterPay> wrList = pService.wrListPrint(pm, memberId, bankStatus, putDate);			
 			mv.addObject("wrList", wrList);
+			mv.addObject("memberId", memberId);
+			mv.addObject("putDate", putDate);
+			mv.addObject("bankStatus", bankStatus);
 			mv.setViewName("/peanetPay/writerPayList");
 		}	
 		return mv;		

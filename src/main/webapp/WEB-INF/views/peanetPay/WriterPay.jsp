@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>작가 정산 요청</title>
+<link rel="shortcut icon" href="/resources/img/icons8-book-32.png">
 <link rel="stylesheet" href="../resources/css/pay/writerPay.css">
 <script src="../resources/js/jquery-3.6.0.min.js" ></script>
 </head>

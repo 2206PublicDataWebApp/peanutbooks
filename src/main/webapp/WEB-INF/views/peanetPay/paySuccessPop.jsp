@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>결제성공</title>
+<link rel="shortcut icon" href="/resources/img/icons8-book-32.png">
  <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
 body{

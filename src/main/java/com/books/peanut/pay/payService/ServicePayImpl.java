@@ -47,12 +47,6 @@ public class ServicePayImpl implements PayService {
 		int result=pStore.writerReceipt(session,writerP);
 		return result;
 	}
-
-	@Override
-	public List<WriterPay> wrListPrint(Pagemarker pm) {
-		List<WriterPay> wrList=pStore.wrListPrint(session,pm);
-		return wrList;
-	}
 	//peanetpoint table입력
 	@Override
 	public int peanutTableInput(PeanutPoint pp) {
@@ -76,6 +70,12 @@ public class ServicePayImpl implements PayService {
 	public String seasonTicketDate(String memberId) {
 		String lastDate = pStore.seasonTicketDate(session,memberId);		
 		return lastDate;		
+	}
+	//관리자 회원정보 수정-//구독권 반영  및 member 반영
+	@Override
+	public int modifyseasonTK(SeasonTicket st) {
+		int subYN_result = pStore.modifyseasonTK(session, st);
+		return subYN_result;
 	}
 
 /////////////////////////////////////땅콩관련
@@ -121,6 +121,12 @@ public class ServicePayImpl implements PayService {
 	public void putMemberPoint(Member member) {
 		pStore.putMemberPoint(session, member);		
 	}
+	//관리자 땅콩 포인트 추가/ 삭제시
+	@Override
+	public int modifyPNpoint(PeanutPoint pp) {
+		int pn_P_result=pStore.modifyseasonTK(session, pp);
+		return pn_P_result;
+	}
 	
 ///////////////////////////////////작가정산관련
 	
@@ -148,9 +154,15 @@ public class ServicePayImpl implements PayService {
 //		int count=pStore.getwritetP_Count(session);
 //		return count;
 //	}
-	public int getwritetP_Count() {
-		int count=pStore.getwritetP_Count(session);
+	public int getwritetP_Count(String memberId, String bankStatus, String putDate) {
+		int count=pStore.getwritetP_Count(session,memberId, bankStatus, putDate);
 		return count;
+	}
+	//작가 정산리스트 출력
+	@Override
+	public List<WriterPay> wrListPrint(Pagemarker pm, String memberId, String bankStatus, String putDate) {
+		List<WriterPay> wrList=pStore.wrListPrint(session,pm,memberId, bankStatus, putDate);
+		return wrList;
 	}
 	//작가 정산접수 관리자 승인처리
 	@Override
@@ -170,6 +182,11 @@ public class ServicePayImpl implements PayService {
 		List<Pay> payList = pStore.payListsearch(session, pm,  memberId, startDate, endDate);
 		return payList;
 	}
+
+
+
+
+
 
 	
 

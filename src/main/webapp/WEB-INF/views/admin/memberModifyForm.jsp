@@ -124,16 +124,23 @@
 						</tr>
 						<tr>
 							<th class="col-2" scope="col" align="center">회원포인트</th>
-							<td class="col-5"><input type="text" name="mPoint" class="form-control" value="${member.mPoint }"></td>
+							<td class="col-5"><input type="text" class="form-control" name="peanutPoint" }" value="0" /></td>  
+								<!--mPoint는 직접 저장되지않음 땅콩테이블을 통해서 저장됨.  -->
 						</tr>
 						<tr>
-							<th class="col-2" scope="col" align="center">월구독여부</th>
-							<td class="col-5">
-								<select name="subYN" class="form-select">
-									<option value="N" <c:if test="${member.subYN eq 'N' }">selected</c:if>>X</option>
-									<option value="Y" <c:if test="${member.subYN eq 'Y' }">selected</c:if>>O</option>
-								</select>
-							</td>
+							<th class="col-2" scope="col" align="center" >땅콩변경사유</th>
+							<td class="col-5"><input type="text" class="form-control" name="bookName" ></td>
+						</tr>
+						<tr>
+							<th class="col-2" scope="col" align="center">월구독여부</th>						
+							<td class="col-5">							
+								<input type="text" class="form-control" name="expiry_yn" placeholder="만료시  Y, 구독이면  N 입력">
+								<!--구독권 변경 member테이블 직접 저장되지않음 seasonTK테이블을 통해서 저장됨.  -->						
+							</td>													
+						</tr>
+						<tr>
+							<th class="col-2" scope="col" align="center" >구독변경사유</th>
+							<td class="col-5"><input type="text" class="form-control" name="orderNo" ></td>
 						</tr>
 						<tr>
 							<th class="col-2" scope="col" align="center">회원 종류</th>

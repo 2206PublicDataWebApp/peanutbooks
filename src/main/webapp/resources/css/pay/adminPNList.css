@@ -12,11 +12,26 @@
  	padding-top:8rem;
  	
 }
- #h{
- 	font-size: 1.5rem;
- 	text-align: center;
- 	}
-  /*검색창  */
+/* 제목라인 시작 */
+#h {
+	margin: 0 auto;
+	text-align: center;
+}
+
+#title {
+	width: 100%;
+	height: 45px;;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 1.2rem;
+	font-family: 'Noto Sans KR', sans-serif;
+	background-color: #5e5e5e;
+	color: white;
+}
+ /*제목라인 끝  */
+ 
+ /*검색창  */
 select {
 	background: url("/resources/img/caret-down-fill.svg") no-repeat 95% 50%; 
 	border-radius: 0px; 
@@ -36,7 +51,7 @@ select {
   width: 100%;
   height: 2rem;  
   font-family: 'Noto Sans KR', sans-serif;   
-   
+  margin-top: 1em;
 }
 
 #selectPN{
@@ -59,7 +74,6 @@ select {
 	height: 2rem;	
 }
 #markZone{
-	margin-top: 1rem;
 	margin-bottom: 1rem;
 }
 .result{
@@ -166,11 +180,14 @@ select {
 
 @media ( max-width :1000px) {
 	main{width:100%; margin:0 auto;}
+	
  	#table{width:80%;}
 	.monitercontrol {display: none;}
 	
        
  @media ( max-width :400px) {
+ 	main{padding-top:6rem;}
+  	#title{width:100%;}
 	main{
 		width:100%;
 		margin : 0 auto;		

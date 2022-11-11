@@ -233,7 +233,7 @@
  	<!-- 회원 정보수정 -->
  	<update id="updateMemberModify">
  		UPDATE MEMBER_TBL SET M_NICKNAME = #{mNickname}, MEMBER_PW = #{memberPw} 
- 		, DELETE_YN = #{deleteYN}, M_POINT=#{mPoint}, SUB_YN=#{subYN}
+ 		, DELETE_YN = #{deleteYN}
  		, ADMIN_YN = #{adminYN} 
  		WHERE MEMBER_ID = #{memberId}
  	</update>
