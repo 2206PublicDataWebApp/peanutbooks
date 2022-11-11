@@ -27,6 +27,13 @@ public class QnaServiceImpl implements QnaService {
 		int totalCount = qStore.selectMemberQnaCount(session, memberId, searchCondition, searchValue, qnaStatus);
 		return totalCount;
 	}
+	//관리자 게시물 검색 출력갯수
+	/*
+	 * @Override public int getTotalCount(String searchCondition, String
+	 * searchValue, String qnaStatus) { int totalCount =
+	 * qStore.selectAdminQnaCount(session, searchCondition, searchValue, qnaStatus);
+	 * return totalCount; }
+	 */
 	//회원별 게시물 출력
 	@Override
 	public List<Qna> printMemberQna(int currentPage, int qnaLimit, String memberId, String qnaStatus) {
@@ -130,7 +137,6 @@ public class QnaServiceImpl implements QnaService {
 		int result = qStore.selectTotalNoAnswer(session);
 		return result;
 	}
-
 
 
 }

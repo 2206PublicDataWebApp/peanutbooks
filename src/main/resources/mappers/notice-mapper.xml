@@ -45,7 +45,7 @@
 				OR NOTICE_CONTENTS LIKE '%'||#{searchValue}||'%'
 			</if>
  			<if test="nStatus.toString() != 'all'">
-			N_STATUS = #{nStatus}
+			AND N_STATUS = #{nStatus}
 			</if>
 		</where>
 	</select>
@@ -62,8 +62,8 @@
 				NOTICE_TITLE LIKE '%'||#{searchValue}||'%'
 				OR NOTICE_CONTENTS LIKE '%'||#{searchValue}||'%'
 			</if>
- 			<if test="status.toString() != 'all'">
-			N_STATUS = #{status}
+ 			<if test="nStatus.toString() != 'all'">
+			AND N_STATUS = #{nStatus}
 			</if>
 		</where>
 	</select>

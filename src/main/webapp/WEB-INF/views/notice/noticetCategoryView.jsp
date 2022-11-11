@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
- <style>
+  <style>
 	.mainUl {
 		list-style-type: none;
 		padding: 0px;
@@ -33,10 +33,58 @@
 	.blink {
 	 	animation: blink-effect 1s step-end infinite;
 	 }
+	 #page-area {
+		font-size: 0.8rem;
+		font-weight: bolder;
+		text-align:center;
+	}
+	
+	#page-area span{
+		border-radius: 0.5rem;
+		line-height:2rem;
+		
+	}
+	
+	.pageNow, .pages{
+		display: inline-block;
+		width: 3rem;
+		height: 2rem;
+		transition: 0.2s;
+		
+	}
+	.pages{
+		background-color:#FFD384;
+		transition: 0.2s;	
+	}
+	.pageNow, .pages:hover{
+		background-color:#FF884B;
+		color:white;
+		transition : 0.2s;
+	}
+	
+	.prev, .next {
+		display: inline-block;
+		width: 3rem;
+		height: 2rem;
+		
+		
+	}
+	.pages a {
+		width:100%;
+		height:100%;
+		display:inline-block;
+	} 
+	#colText a {
+		width:100%;
+		height:100%;
+		color: white; 
+		display:inline-block;
+	} 
+
 </style> 
 <body>
 <!-- header start -->
-<jsp:include page="../header/header.jsp"></jsp:include>
+<jsp:include page="../header/adminheader.jsp"></jsp:include>
 <!-- header End -->
 
 <!-- main contents start -->
@@ -44,37 +92,43 @@
 	<section class="container">
 	<!-- 세부페이지 head 시작 -->
 		<!-- 세부페이지 큰 제목 -->
-		<br>
 		<div class="container text-center">
+			<div class="row row-cols-2">
+			   <div class="col" id="colText" style="background-color: #5e5e5e; height:45px; vertical-align: middle;"><a href="/notice/list.kh"><p style="color:white";>공지사항 리스트</p></a></div>
+			   <div class="col" id="colText" style="background-color: #c9c9c9; height:45px; vertical-align: middle;"><a href="/notice/writeView.kh">공지사항 작성</a></div>        
+			</div>
 		<!-- 세부페이지 큰 제목 끝 -->
 		<br>
 		<hr>
-					<!-- <div id="title">전체 시리즈 목록</div> -->
-					<ul class="mainUl">
-			    		<li class="mainLi"><div style="text-align:right">
-					    		<a href="/notice/list.kh">전체공지사항<br>
-					    		</a>
-					    	</div>
-					    </li>
-					    <li class="mainLi">
-					    	<div class="col"><img src="/resources/img/sidebar.png"></div>
-					    </li>
-			    		<li class="mainLi">
-			    			<div style="text-align:center">
-					    		<a href="/notice/list.kh?nStatus=Y">게시</a>
-					    	</div>
-						</li>
-						<li class="mainLi">
-					    	<div class="col"><img src="/resources/img/sidebar.png"></div>
-					    </li>
-			    		<li class="mainLi">
-			    			<div style="text-align:center">
-					    		<a href="/notice/list.kh?nStatus=N">보류</a>
-					    	</div>
-						</li>
-			 		</ul>
-				<hr>
-			</div>
+			<!-- <div id="title">전체 시리즈 목록</div> -->
+			<ul class="mainUl">
+	    		<li class="mainLi"><div style="text-align:center">
+			    		<a href="/notice/list.kh">전체공지사항<br>
+			    		${totalBoard }
+			    		</a>
+			    	</div>
+			    </li>
+			    <li class="mainLi">
+			    	<div class="col"><img src="/resources/img/sidebar.png"></div>
+			    </li>
+	    		<li class="mainLi">
+	    			<div style="text-align:center">
+			    		<a href="/notice/list.kh?nStatus=Y">게시<br>
+			    		${showBoard }</a>
+			    	</div>
+				</li>
+				<li class="mainLi">
+			    	<div class="col"><img src="/resources/img/sidebar.png"></div>
+			    </li>
+	    		<li class="mainLi">
+	    			<div style="text-align:center">
+			    		<a href="/notice/list.kh?nStatus=N">보류<br>
+			    		${hideBoard }</a>
+			    	</div>
+				</li>
+	 		</ul>
+		<hr>
+		</div>
 		
 		<!-- 세부페이지 body 시작 -->
 		<!-- 검색 -->
@@ -117,10 +171,10 @@
 					<tr>
 						<td class="col-8" style="border:none;" colspan="5" align="right">
 							<a href="/notice/list.kh" style="color: black"> 전체 | </a>
-							<a href="/notice/categoryCount.kh?noticeCategory=notice&nStatus=Y" style="color: black"> 공지 |</a>
-							<a href="/notice/categoryCount.kh?noticeCategory=update&nStatus=Y" style="color: black"> 업데이트 |</a>
-							<a href="/notice/categoryCount.kh?noticeCategory=event&nStatus=Y" style="color: black"> 이벤트 |</a>
-							<a href="/notice/categoryCount.kh?noticeCategory=info&nStatus=Y" style="color: black"> 안내 </a>
+							<a href="/notice/categoryCount.kh?noticeCategory=notice" style="color: black"> 공지 |</a>
+							<a href="/notice/categoryCount.kh?noticeCategory=update" style="color: black"> 업데이트 |</a>
+							<a href="/notice/categoryCount.kh?noticeCategory=event" style="color: black"> 이벤트 |</a>
+							<a href="/notice/categoryCount.kh?noticeCategory=info" style="color: black"> 안내 </a>
 						</td>
 					</tr>
 					<tr>

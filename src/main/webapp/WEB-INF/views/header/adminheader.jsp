@@ -249,8 +249,6 @@
 
 	                <li class="pnZone" ><a href="/admin/qnaList.kh" >1:1문의 게시판</a></li>
 	                <li class="pnZone"><a href="/notice/list.kh" >공지사항</a></li>
-	                <li class="pnZone"><a href="#" >소메뉴예정2</a></li>               
-
 	            </ul>
 	        </nav>	
     	</div>

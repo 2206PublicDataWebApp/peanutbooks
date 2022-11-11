@@ -8,6 +8,7 @@
 <title>1:1문의내역</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="shortcut icon" href="/resources/img/icons8-book-32.png">
 </head>
  <style>
 	.btn {
@@ -37,6 +38,46 @@
 	#colText{
 		padding-top: 0.7rem;
 	}
+	 #page-area {
+		font-size: 0.8rem;
+		font-weight: bolder;
+		text-align:center;
+	}
+	
+	#page-area span{
+		border-radius: 0.5rem;
+		line-height:2rem;
+		
+	}
+	
+	.pageNow, .pages{
+		display: inline-block;
+		width: 3rem;
+		height: 2rem;
+		transition: 0.2s;
+		
+	}
+	.pages{
+		background-color:#FFD384;
+		transition: 0.2s;	
+	}
+	.pageNow, .pages:hover{
+		background-color:#FF884B;
+		color:white;
+		transition : 0.2s;
+	}
+	
+	.prev, .next {
+		display: inline-block;
+		width: 3rem;
+		height: 2rem;
+		
+	}
+    .pages a {
+		width:100%;
+		height:100%;
+		display:inline-block;
+	} 
 </style> 
 <body>
 <!-- header start -->
@@ -132,10 +173,10 @@
 				<tr>
 					<td class="col-7" style="border:none;" td colspan="6" align="right">
 						<a href="/admin/qnaList.kh" style="color: black"> 전체 | </a>
-						<a href="/admin/categoryCount.kh?qnaCategory=member&page=${bPage.currentPage }" style="color: black"> 회원문의 |</a>
-						<a href="/admin/categoryCount.kh?qnaCategory=point&page=${bPage.currentPage }" style="color: black"> 포인트문의 |</a>
-						<a href="/admin/categoryCount.kh?qnaCategory=books&page=${bPage.currentPage }" style="color: black"> 도서문의 |</a>
-						<a href="/admin/categoryCount.kh?qnaCategory=others&page=${bPage.currentPage }" style="color: black"> 기타 </a>
+						<a href="/admin/categoryCount.kh?qnaCategory=member" style="color: black"> 회원문의 |</a>
+						<a href="/admin/categoryCount.kh?qnaCategory=point style="color: black"> 포인트문의 |</a>
+						<a href="/admin/categoryCount.kh?qnaCategory=books" style="color: black"> 도서문의 |</a>
+						<a href="/admin/categoryCount.kh?qnaCategory=others" style="color: black"> 기타 </a>
 					</td>
 				</tr>
 				<!-- 카테고리별 리스트 끝 -->
@@ -174,7 +215,7 @@
 				<c:if test="${empty aList }">
 					<tr>
 						<td colspan="6" align="center" >
-							<b>처리 중인 게시물이 없습니다.</b>
+							<b>게시물이 없습니다.</b>
 						</td>
 					</tr>
 				</c:if>
@@ -186,7 +227,7 @@
 								<!-- 이전 페이지 출력 -->
 								<c:if test="${bPage.startNavi != 1 && bPage.startNavi > 0  }">
 									<span class="prev"> 
-										<a href="/admin/qnaList.kh?page=${bPage.startNavi-1 }"> [이전] </a>
+										<a href="/admin/qnaList.kh?page=${bPage.startNavi-1 }&qnaStatus=${qna.qnaStatus}"> [이전] </a>
 									</span>
 								</c:if>
 				

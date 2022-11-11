@@ -19,8 +19,10 @@ public interface QnaService {
 	public int modifyQna(Qna qna);
 	//회원 상세검색
 	public List<Qna> printMemberByValue(String memberId, String searchCondition, String searchValue, int currentPage, int qnaLimit);
-	//관리자화면에서 전체 qna게시물수 가져오기
+	//관리자 전체갯수 페이징
 	public int getTotalCount(String searchCondition, String searchValue, String qnaStatus);
+	//관리자화면에서 전체 qna게시물수 가져오기
+	//public int getTotalCount(String searchCondition, String searchValue);
 	//관리자 전체 qna게시물 출력
 	public List<Qna> printAllQna(int currentPage, int aqnaLimit, String qnaStatus);
 	//관리자 문의글 답변
@@ -39,5 +41,7 @@ public interface QnaService {
 	public int totalQna();
 	public int totalAnswer();
 	public int totalNoAnswer();
+
+	
 
 }

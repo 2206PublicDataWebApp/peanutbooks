@@ -37,6 +37,47 @@
 	#colText{
 		padding-top: 0.7rem;
 	}
+	 #page-area {
+		font-size: 0.8rem;
+		font-weight: bolder;
+		text-align:center;
+	}
+	
+	#page-area span{
+		border-radius: 0.5rem;
+		line-height:2rem;
+		
+	}
+	
+	.pageNow, .pages{
+		display: inline-block;
+		width: 3rem;
+		height: 2rem;
+		transition: 0.2s;
+		
+	}
+	.pages{
+		background-color:#FFD384;
+		transition: 0.2s;	
+	}
+	.pageNow, .pages:hover{
+		background-color:#FF884B;
+		color:white;
+		transition : 0.2s;
+	}
+	
+	.prev, .next {
+		display: inline-block;
+		width: 3rem;
+		height: 2rem;
+		
+		
+	}
+    .pages a {
+		width:100%;
+		height:100%;
+		display:inline-block;
+	} 
 </style> 
 <body>
 <!-- header start -->
@@ -152,7 +193,7 @@
 				</c:if>
 				<c:if test="${empty mList }">
 					<tr>
-						<td colspan="6" align="center"><b>데이터가 존재하지 않습니다.</b></td>
+						<td colspan="6" align="center"><b>조회한 내역이 없습니다.</b></td>
 					</tr>
 				</c:if>
 					<tr align="center" height="20">

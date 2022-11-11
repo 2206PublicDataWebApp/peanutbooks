@@ -68,13 +68,15 @@ public class NoticeStoreLogic implements NoticeStore {
 			SqlSession session
 			, String searchCondition
 			, String searchValue
-			, int currentPage, int noticeLimit) {
+			, int currentPage, int noticeLimit
+			, String nStatus) {
 		int offset = (currentPage-1)*noticeLimit;
 		RowBounds rowBounds 
 		= new RowBounds(offset, noticeLimit);
 		HashMap<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("searchCondition", searchCondition);
 		paramMap.put("searchValue", searchValue);
+		paramMap.put("nStatus", nStatus);
 		List<Notice> nList 
 		= session.selectList("NoticeMapper.selectAllByValue"
 				, paramMap, rowBounds);

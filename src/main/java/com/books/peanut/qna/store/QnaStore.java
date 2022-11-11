@@ -22,6 +22,7 @@ public interface QnaStore {
 	//회원 문의게시판 상세검색
 	public List<Qna> selectMemberByValue(SqlSessionTemplate session, String memberId, String searchCondition, String searchValue,
 			int currentPage, int qnaLimit);
+
 	//관리자 전체페이지 리스트갯수
 	public int selectAllCount(SqlSessionTemplate session, String searchCondition, String searchValue, String qnaStatus);
 	//관리자 전체페이지 리스트
@@ -44,6 +45,7 @@ public interface QnaStore {
 	public int selectTotalQna(SqlSessionTemplate session);
 	public int selectTotalAnswer(SqlSessionTemplate session);
 	public int selectTotalNoAnswer(SqlSessionTemplate session);
+	
 
 
 
