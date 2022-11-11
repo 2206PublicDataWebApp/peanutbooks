@@ -119,7 +119,9 @@
 					<!-- 시리즈 반복문 종료 -->
 				</c:if>
 				<!-- 시리즈 출력 종료 -->
-
+				<c:if test="${osList==null }">
+					<p style="text-align:center;">재승인할 도서가 없습니다.</p>
+				</c:if>
 			</article>
 
 			<!--  페이징 영역 -->

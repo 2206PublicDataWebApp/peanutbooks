@@ -173,7 +173,9 @@
 				</c:if>
 				<c:if test="${empty aList }">
 					<tr>
-						<td colspan="6" align="center" ><b>작성된 게시물이 없습니다.</b></td>
+						<td colspan="6" align="center" >
+							<b>처리 중인 게시물이 없습니다.</b>
+						</td>
 					</tr>
 				</c:if>
 					<tr align="center" height="20">

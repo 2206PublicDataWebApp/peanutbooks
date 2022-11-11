@@ -108,17 +108,13 @@
 									<button type="button" class="btn btn-danger btn-sm" style="width:55pt;height:20pt;">승인완료</button>
 									<%-- <button type="button" onclick="rejectCheck('${oSeries.bookNo }','${oSeries.seriesNo }',${currentPage })" class="btn btn-dark btn-sm" style="width:55pt;height:20pt;">승인취소</button> --%>
 								</c:if>
-								
-								
 							</div>
-
 							<!-- 각 시리즈 삽화 출력 -->
 							<div id="img"
 								onclick="window.open('/book/OridetailSeries.do?bookNo=${oSeries.bookNo }&seriesNo=${oSeries.seriesNo }')">
 
 								<img src="/resources/bookImg/${oSeries.subPicRename }" alt="">
 							</div>
-
 							<!-- 책이름 및 화수 시리즈 제목 출력 -->
 							<div id="book-title" class="text-truncate"
 								onclick="location.href='/book/oriBookInfo?bookNo=${oSeries.bookNo }'">${oSeries.bookTitle }</div>
@@ -131,7 +127,9 @@
 					<!-- 시리즈 반복문 종료 -->
 				</c:if>
 				<!-- 시리즈 출력 종료 -->
-
+				<c:if test="${osList==null }">
+					<p style="text-align:center;">승인할 도서가 없습니다.</p>
+				</c:if>
 			</article>
 
 			<!--  페이징 영역 -->

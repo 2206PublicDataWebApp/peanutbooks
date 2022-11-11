@@ -46,8 +46,8 @@
 		<!-- 세부페이지 큰 제목 -->
 		<div class="container text-center">
 			<div class="row row-cols-2">
-			   <div class="col" id="colText" style="background-color: #5e5e5e; color: white; height:45px" vertical-align: middle;><a href="/notice/list.kh">공지사항 리스트</a></div>
-			   <div class="col" id="colText" style="background-color: #c9c9c9; color: white; height:45px" vertical-align: middle;><a href="/notice/writeView.kh">공지사항 작성</a></div>        
+			   <div class="col" id="colText" style="background-color: #5e5e5e; color: white; height:45px; vertical-align: middle;"><a href="/notice/list.kh">공지사항 리스트</a></div>
+			   <div class="col" id="colText" style="background-color: #c9c9c9; color: white; height:45px; vertical-align: middle;"><a href="/notice/writeView.kh">공지사항 작성</a></div>        
 			</div>
 		<!-- 세부페이지 큰 제목 끝 -->
 		<br>
@@ -166,7 +166,7 @@
 				</c:if>
 				<c:if test="${empty nList }">
 					<tr>
-						<td colspan="5" align="center"><b>데이터가 존재하지 않습니다.</b></td>
+						<td colspan="5" align="center"><b>보류 중인 게시물이 없습니다.</b></td>
 					</tr>
 				</c:if>
 					<tr align="center" height="20">
