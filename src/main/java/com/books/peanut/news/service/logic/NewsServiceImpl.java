@@ -3,7 +3,7 @@ package com.books.peanut.news.service.logic;
 import java.util.HashMap;
 import java.util.List;
 
-import org.mybatis.spring.SqlSessionTemplate;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ import com.books.peanut.news.store.NewsStore;
 @Service
 public class NewsServiceImpl implements NewsService {
    @Autowired
-   private SqlSessionTemplate session;
+   private SqlSession session;
    @Autowired
    private NewsStore nStore;
    
@@ -47,6 +47,18 @@ public class NewsServiceImpl implements NewsService {
 	@Override
 	public int deleteNewsByNo(int newsNo) {
 		int result = nStore.deleteNews(session, newsNo);
+		return result;
+	}
+	// 알림 개수 구하기
+	@Override
+	public int countNews(String memberId) {
+		int countNews = nStore.countNews(session, memberId);
+		return countNews;
+	}
+	// 알림 읽음 처리
+	@Override
+	public int readNews(int newsNo) {
+		int result = nStore.updateNewsStatus(session, newsNo);
 		return result;
 	}
 

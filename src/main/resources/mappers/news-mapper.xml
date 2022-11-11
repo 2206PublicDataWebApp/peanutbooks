@@ -23,6 +23,12 @@
 	<delete id="deleteNews">
 		DELETE FROM NEWS_TBL WHERE NEWS_NO = #{newsNo}
 	</delete>
+	<select id="countNews" resultType="_int">
+		SELECT COUNT(*) FROM NEWS_TBL WHERE MEMBER_ID = #{memberId} AND READ_YN = 'N'
+	</select>
+	<update id="updateNewsStatus">
+		UPDATE NEWS_TBL SET READ_YN = 'Y' WHERE NEWS_NO = ${newsNo}
+	</update>
 	
  	<resultMap type="Library" id="libraryResultMap">
  		<id column="MEMBER_ID" property="memberId" />

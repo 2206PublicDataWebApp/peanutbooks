@@ -20,5 +20,9 @@ public interface NewsStore {
    List<News> selectNewsList(SqlSession session, String memberId);
    // 알림 삭제
    int deleteNews(SqlSession session, int newsNo);
+   // 알림 개수 구하기
+   int countNews(SqlSession session, String memberId);
+   // 알림 읽음 처리
+   int updateNewsStatus(SqlSession session, int newsNo);
 
 }

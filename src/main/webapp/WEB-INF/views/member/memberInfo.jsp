@@ -9,6 +9,7 @@
 	<title>땅콩북스: 내 정보</title>
 	<link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="../resources/css/member2.css">
+	<link rel="shortcut icon" href="/resources/img/icons8-book-32.png">
 </head>
 <body>
 	<jsp:include page="../header/header.jsp" />

@@ -10,13 +10,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	<link rel="shortcut icon" href="/resources/img/icons8-book-32.png">
 </head>
 <body>
 	<jsp:include page="../header/header.jsp" />
 	<main>
 		<div class="info-wrapper">
 			<div class="info-header">
-			    <div>개인정보수정</div>
+			    <div>개인정보 수정</div>
 			</div>
 			<form action="/member/modify.pb" method="post">
 			<input type="hidden" value="${sessionScope.loginMember.memberId}" name="memberId">
@@ -27,6 +28,10 @@
 						<p class="guide ok nick">사용 가능한 별명입니다.</p>
 	                	<p class="guide error nick-error-1">이미 사용중인 별명입니다.</p>
 	                	<p class="guide error nick-error-2">별명을 입력해 주세요.</p>
+					</div>
+					<div id="div-id">
+						<label for="info-id">아이디</label><br>
+						<input id="info-id" type="text" value="${sessionScope.loginMember.memberId}" readonly>
 					</div>
 					<div id="div-pw">
 						<label for="modify-pw">비밀번호</label><br>
@@ -46,6 +51,10 @@
 						<input id="modify-newPwChk" type="password" placeholder="비밀번호 재입력">
 						<p class="guide error pw2-error-1">비밀번호가 일치하지 않습니다.</p>
 	                	<p class="guide error pw2-error-2">비밀번호를 입력해 주세요.</p>
+					</div>
+					<div id="div-email">
+						<label for="info-email">이메일</label><br>
+						<input id="info-email" type="text" value="${sessionScope.loginMember.mEmail}" readonly>
 					</div>
 					<button class="modify-btn" type="submit">확인</button>
 				</div>

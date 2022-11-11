@@ -17,5 +17,9 @@ public interface NewsService {
    List<News> showNewsList(String memberId);
    // 알림 삭제
    int deleteNewsByNo(int newsNo);
+   // 알림 개수 구하기
+   int countNews(String memberId);
+   // 알림 읽음 처리
+   int readNews(int newsNo);
 
 }

@@ -64,7 +64,8 @@ form{
     margin-bottom: 30px;
 }
 #login-btn{ /* 로그인 버튼 */
-    background-color: #ffeb60;
+    background-color: #FF884B;
+    color: white;
     border: 0;
     width: 81%;
     height: 40px;
@@ -151,7 +152,8 @@ form{
 	display: none;
 } */
 #join-btn{ /* 회원가입 버튼(활성) */
-    background-color: #ffeb60;
+    background-color: #FF884B;
+    color: white;
     border: 0;
     width: 100%;
     height: 40px;
@@ -230,7 +232,8 @@ form{
     margin-bottom: 20px;
 }
 #findId-btn{ /* 아이디 찾기 버튼 */
-	background-color: #ffeb60;
+    background-color: #FF884B;
+    color: white;
     border: 0;
     width: 100%;
     height: 50px;
@@ -283,7 +286,8 @@ form{
     margin: 0 auto;
 }
 #check-btn{ /* 확인 버튼 */
-    background-color: #ffeb60;
+    background-color: #FF884B;
+    color: white;
     border: 0;
     width: 100%;
     height: 40px;
@@ -330,7 +334,7 @@ form{
 /* 내 정보 - 비밀번호 확인 */
 .circle-area{ /* 자물쇠 아이콘 동그라미 영역 */
 	border-radius: 30px;
-	background-color: #ffeb60;
+	background-color: #FF884B;
 	width: 50px;
 	height: 50px;
 	line-height: 45px;
@@ -341,15 +345,14 @@ form{
 	height: 30px;
 }
 .msg-area{ /* 아이콘 + 안내 메시지 영역*/
-	background-color: #fafaf6;
+	background-color: #FFF9B0;
 	padding-top: 80px;
 	text-align: center;
-	margin-bottom: 25px;
+	margin-bottom: 30px;
 }
 .msg-area p{ /* 안내 메시지 그 자체 */
 	padding-top: 10px;
 	padding-bottom: 36px;
-	color: #6f6f6f;
 }
 .pw-input-area{ /* 비밀번호 입력 영역 */
 	padding-left: 16px;
@@ -362,12 +365,13 @@ form{
 	width: 100%;
 	height: 50px;
 	margin-top: 8px;
-	margin-bottom: 16px;
 	border: solid 1px #ccc;
 	border-radius: 4px;
 }
 .pwChk-btn{ /* 비번 입력 후 확인 버튼 */
-	background-color: #ffeb60;
+	margin-top: 20px;
+    background-color: #FF884B;
+    color: white;
     border: 0;
     width: 100%;
     height: 50px;
@@ -379,8 +383,8 @@ form{
 	padding-top: 80px;
 	width: 700px;
 	margin: 0 auto;
-	padding-left: 16px;
-	padding-right: 16px;
+	padding-left: 24px;
+	padding-right: 24px;
 	padding-bottom: 56px;
 }
 .modify-area input{
@@ -396,14 +400,25 @@ form{
 #modify-nick{
 	width: 100%;
 }
+#info-id{
+	width: 100%;
+	color: gray;
+	background: #f5f5f5;
+}
+#info-email{
+	width: 100%;
+	color: gray;
+	background: #f5f5f5;
+}
 #modify-pw{
 	width: 80%;
-	color: #ccc;
+	color: gray;
 	background: #f5f5f5;
 }
 .modify-pw-btn{
 	width: 18%;
-	background-color: #ffeb60;
+    background-color: #FF884B;
+    color: white;
     border: 0;
     border-radius: 4px;
     height: 50px;
@@ -412,37 +427,46 @@ form{
 }
 .modify-btn{
 	width: 100%;
-	background-color: #ffeb60;
+    background-color: #FF884B;
+    color: white;
     border: 0;
     height: 50px;
     border-radius: 4px;
-   	margin-top: 15px;
+   	margin-top: 24px;
 }
 #modify-newPw{
 	width: 100%;
 }
 #modify-newPwChk{
 	width: 100%;
-	margin-top: 15px;
+	margin-top: 10px;
 }
 #modify-pw2{
 	width: 100%;
+	margin-bottom: 16px;
 }
 #div-nick{
-	padding-bottom: 25px;
+	padding-bottom: 24px;
+}
+#div-id{
+	padding-top: 24px;
+	padding-bottom:24px;
+	border-top: 1px solid #ccc;
 }
 #div-pw{
-	padding-top: 20px;
-	padding-bottom:20px;
+	padding-top: 24px;
+	padding-bottom:24px;
 	border-top: 1px solid #ccc;
 }
 #div-newPw{
-	padding-bottom:20px;
+	padding-top: 24px;
+	padding-bottom:24px;
 	border-top: 1px solid #ccc;
 	display: none;
 }
-#div-newPw label{
-	margin-top: 20px;
+#div-email{
+	padding-top:24px;
+	border-top: 1px solid #ccc;
 }
 
 /* 회원탈퇴 */
