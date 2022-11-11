@@ -64,10 +64,11 @@ public class NoticeServiceImpl implements NoticeService{
 			String searchCondition
 			, String searchValue
 			, int currentPage
-			, int noticeLimit) {
+			, int noticeLimit
+			, String nStatus) {
 		List<Notice> nList = nStore.selectAllByValue(session
 				, searchCondition, searchValue
-				, currentPage, noticeLimit);
+				, currentPage, noticeLimit, nStatus);
 		return nList;
 	}
 	//카테고리별 검색

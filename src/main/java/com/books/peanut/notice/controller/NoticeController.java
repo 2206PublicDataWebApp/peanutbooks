@@ -235,17 +235,18 @@ public class NoticeController {
 			ModelAndView mv
 			, @RequestParam("searchCondition") String searchCondition
 			, @RequestParam("searchValue") String searchValue
-			, @RequestParam(value="page", required=false) Integer page) {
+			, @RequestParam(value="page", required=false) Integer page
+			, @RequestParam(value="nStatus", required = false, defaultValue="all") String nStatus) {
 				
 		try {
-			int totalCount = nService.getTotalCount(searchCondition, searchValue,"");
+			int totalCount = nService.getTotalCount(searchCondition, searchValue, nStatus);
 			int noticeLimit = 10;
 			BookPageController bpCont = new BookPageController();
 			BookPage bPage = bpCont.boardList(page, totalCount, noticeLimit);
 			
 			if(totalCount>0) {
 				List<Notice> nList = nService.printAllByValue(
-						searchCondition, searchValue, bPage.getCurrentPage(), noticeLimit);
+						searchCondition, searchValue, bPage.getCurrentPage(), noticeLimit, nStatus);
 				mv.addObject("nList", nList);
 				
 			}
@@ -268,6 +269,10 @@ public class NoticeController {
 			, @RequestParam(value="page", required=false) Integer page
 			, @RequestParam(value="nStatus", required = false, defaultValue="all") String nStatus) {
 		try {
+			int totalBoard = nService.totalBoard();
+			int showBoard = nService.showBoard();
+			int hideBoard = nService.hideBoard();
+			
 			int totalCount = nService.getTotalCount(noticeCategory);
 			int categoryLimit = 10;
 
@@ -280,7 +285,10 @@ public class NoticeController {
 			mv.addObject("bPage", bPage);
 			mv.addObject("page", page);
 			mv.addObject("noticeCategory", noticeCategory);
-			mv.setViewName("notice/noticetCategoryView");
+			mv.addObject("totalBoard",totalBoard);
+			mv.addObject("showBoard",showBoard);
+			mv.addObject("hideBoard",hideBoard);
+			mv.setViewName("notice/noticeListView");
 		} catch (Exception e) {
 			mv.addObject("msg", e.toString()).setViewName("common/errorPage");
 		}

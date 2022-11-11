@@ -25,7 +25,7 @@ public interface NoticeStore {
 	//공지사항 조건검색
 	public List<Notice> selectAllByValue(SqlSession session, 
 			String searchCondition, String searchValue,
-			int currentPage, int noticeLimit);
+			int currentPage, int noticeLimit, String nStatus);
 	public List<Notice> selectAllByCategory(SqlSession session, 
 			String noticeCategory, int currentPage,
 			int categoryLimit);

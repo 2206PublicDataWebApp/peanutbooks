@@ -33,6 +33,54 @@
 	.blink {
 	 	animation: blink-effect 1s step-end infinite;
 	 }
+	 #page-area {
+		font-size: 0.8rem;
+		font-weight: bolder;
+		text-align:center;
+	}
+	
+	#page-area span{
+		border-radius: 0.5rem;
+		line-height:2rem;
+		
+	}
+	
+	.pageNow, .pages{
+		display: inline-block;
+		width: 3rem;
+		height: 2rem;
+		transition: 0.2s;
+		
+	}
+	.pages{
+		background-color:#FFD384;
+		transition: 0.2s;	
+	}
+	.pageNow, .pages:hover{
+		background-color:#FF884B;
+		color:white;
+		transition : 0.2s;
+	}
+	
+	.prev, .next {
+		display: inline-block;
+		width: 3rem;
+		height: 2rem;
+		
+		
+	}
+	.pages a {
+		width:100%;
+		height:100%;
+		display:inline-block;
+	} 
+	#colText a {
+		width:100%;
+		height:100%;
+		color: white; 
+		display:inline-block;
+	} 
+
 </style> 
 <body>
 <!-- header start -->
@@ -46,8 +94,8 @@
 		<!-- 세부페이지 큰 제목 -->
 		<div class="container text-center">
 			<div class="row row-cols-2">
-			   <div class="col" id="colText" style="background-color: #5e5e5e; color: white; height:45px; vertical-align: middle;"><a href="/notice/list.kh">공지사항 리스트</a></div>
-			   <div class="col" id="colText" style="background-color: #c9c9c9; color: white; height:45px; vertical-align: middle;"><a href="/notice/writeView.kh">공지사항 작성</a></div>        
+			   <div class="col" id="colText" style="background-color: #5e5e5e; height:45px; vertical-align: middle;"><a href="/notice/list.kh"><p style="color:white";>공지사항 리스트</p></a></div>
+			   <div class="col" id="colText" style="background-color: #c9c9c9; height:45px; vertical-align: middle;"><a href="/notice/writeView.kh">공지사항 작성</a></div>        
 			</div>
 		<!-- 세부페이지 큰 제목 끝 -->
 		<br>
@@ -93,7 +141,7 @@
 							</div>
 							<!-- div 오른쪽 정렬 -->
 							<div style="display: inline-block; margin: 5px;  float: right;">
-							<form action="/notice/search.kh" method="get" >
+							<form action="/notice/search.kh?nStatus=${notice.nStatus }" method="get" >
 								<div style= "display: inline-block">
 									<select class="form-select" name="searchCondition" >
 										<option <c:if test="${searchCondition eq 'all'}">selected</c:if> value="all">전체</option>

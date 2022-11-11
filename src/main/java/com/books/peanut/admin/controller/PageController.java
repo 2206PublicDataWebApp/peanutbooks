@@ -2,7 +2,7 @@ package com.books.peanut.admin.controller;
 
 import com.books.peanut.book.domain.BookPage;
 
-public class BookPageController {
+public class PageController {
 	
 	
 	public BookPage boardList(Integer page, int totalCount, int boardLimit) {

@@ -19,9 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.books.peanut.book.controller.BookPageController;
 import com.books.peanut.book.domain.BookPage;
-import com.books.peanut.book.domain.OriginBookSeries;
 import com.books.peanut.member.domain.Member;
-import com.books.peanut.pay.domain.WriterPay;
 import com.books.peanut.qna.domain.Qna;
 import com.books.peanut.qna.service.QnaService;
 
@@ -382,6 +380,10 @@ public class QnaController {
 			mv.setViewName("/common/errorPage");
 		}else {
 			try {
+				int totalQna = qService.totalQna();
+				int totalAnswer = qService.totalAnswer();
+				int totalNoAnswer = qService.totalNoAnswer();
+				
 				Member member = (Member)session.getAttribute("loginMember");
 				String memberId = member.getMemberId();
 				int totalCount = qService.getTotalCount(memberId, searchCondition, searchValue,"");
@@ -398,6 +400,9 @@ public class QnaController {
 				mv.addObject("page", page);
 				mv.addObject("searchCondition", searchCondition);
 				mv.addObject("searchValue", searchValue);
+				mv.addObject("totalQna", totalQna);
+				mv.addObject("totalAnswer", totalAnswer);
+				mv.addObject("totalNoAnswer", totalNoAnswer);
 				mv.setViewName("qna/qnaListView");
 				
 			} catch (Exception e) {
@@ -531,10 +536,14 @@ public class QnaController {
 			, @RequestParam("searchCondition") String searchCondition
 			, @RequestParam("searchValue") String searchValue
 			, @RequestParam(value="page", required=false) Integer page
+			, @RequestParam(value="qnaStatus", required = false, defaultValue="all") String qnaStatus
 			, HttpSession session) {
 
 		try {
-			int totalCount = qService.getTotalCount(searchCondition, searchValue,"");
+			int totalQna = qService.totalQna();
+			int totalAnswer = qService.totalAnswer();
+			int totalNoAnswer = qService.totalNoAnswer();
+			int totalCount = qService.getTotalCount(searchCondition, searchValue, qnaStatus);
 			int aqnaLimit = 10;
 			BookPageController bpCont = new BookPageController();
 			BookPage bPage = bpCont.boardList(page, totalCount, aqnaLimit);
@@ -547,6 +556,9 @@ public class QnaController {
 					mv.addObject("page", page);
 					mv.addObject("searchCondition", searchCondition);
 					mv.addObject("searchValue", searchValue);
+					mv.addObject("totalQna", totalQna);
+					mv.addObject("totalAnswer", totalAnswer);
+					mv.addObject("totalNoAnswer", totalNoAnswer);
 					mv.setViewName("admin/aqnaListView");
 				
 			} catch (Exception e) {
@@ -559,8 +571,13 @@ public class QnaController {
 	public ModelAndView adminQnaCategoryList(
 			ModelAndView mv
 			, @RequestParam("qnaCategory") String qnaCategory
-			, @RequestParam(value="page", required=false) Integer page) {
+			, @RequestParam(value="page", required=false) Integer page
+			) {
 		try {
+			int totalQna = qService.totalQna();
+			int totalAnswer = qService.totalAnswer();
+			int totalNoAnswer = qService.totalNoAnswer();
+			
 			int totalCount = qService.getTotalCount(qnaCategory);
 			int categoryLimit = 10;
 			BookPageController bpCont = new BookPageController();
@@ -570,10 +587,13 @@ public class QnaController {
 				List<Qna> aList = qService.printAllByCategory(qnaCategory, bPage.getCurrentPage(), categoryLimit);
 				mv.addObject("aList", aList);
 			}
+			mv.addObject("totalQna", totalQna);
+			mv.addObject("totalAnswer", totalAnswer);
+			mv.addObject("totalNoAnswer", totalNoAnswer);
 			mv.addObject("bPage", bPage);
 			mv.addObject("page", page);
 			mv.addObject("qnaCategory", qnaCategory);
-			mv.setViewName("admin/aqnaListView");
+			mv.setViewName("admin/aqnaCategoryView");
 		} catch (Exception e) {
 			mv.addObject("msg", e.toString()).setViewName("common/errorPage");
 		}

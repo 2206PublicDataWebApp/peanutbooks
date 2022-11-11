@@ -66,7 +66,7 @@
 				OR QNA_CONTENTS LIKE '%'||#{searchValue}||'%'
 			</if>
 			<if test="qnaStatus.toString() != 'all'">
-				QNA_STATUS = #{qnaStatus}
+				AND QNA_STATUS = #{qnaStatus}
 			</if>
 			AND MEMBER_ID=#{memberId}
 		</where>
@@ -85,8 +85,8 @@
 				QNA_TITLE LIKE '%'||#{searchValue}||'%'
 				OR QNA_CONTENTS LIKE '%'||#{searchValue}||'%'
 			</if>
-			<if test="qnaStatus.toString() != 'all'">
-				QNA_STATUS = #{qnaStatus}
+  			<if test="qnaStatus.toString() != 'all'">
+				AND QNA_STATUS = #{qnaStatus}
 			</if>
 		</where>
 	</select>

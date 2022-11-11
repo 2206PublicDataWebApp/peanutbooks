@@ -8,6 +8,7 @@
 <title>공지사항</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="shortcut icon" href="/resources/img/icons8-book-32.png">
 </head>
  <style>
 	#colText{
