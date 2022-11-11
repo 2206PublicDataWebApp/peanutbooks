@@ -41,8 +41,6 @@ public class MemberController {
 	 * @return
 	 * @throws Exception
 	 */
-//	@ResponseBody
-//	@RequestMapping(value="/member/sendEmail.pb", method=RequestMethod.GET)
 	public String sendEmail(String mEmail) throws Exception{
 		// 인증번호(난수) 생성
 		Random random = new Random();
