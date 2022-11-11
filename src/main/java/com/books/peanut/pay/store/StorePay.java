@@ -23,8 +23,6 @@ public interface StorePay {
 	public int orderSuccess(SqlSessionTemplate session,Pay payApi);
 	//작가료 정산접수
 	public int writerReceipt(SqlSessionTemplate session, WriterPay writerP);
-
-	public List<WriterPay> wrListPrint(SqlSessionTemplate session,Pagemarker pm);
 	//peanetpoint table입력
 	public int peanutTableInput(SqlSessionTemplate session,PeanutPoint pp);
 	//seasonticket table입력
@@ -33,6 +31,8 @@ public interface StorePay {
 	public int memberStChange(SqlSessionTemplate session,String memberId);
 	// 로그인시 구독권 여부 및 날짜 확인하는 부분
 	public String seasonTicketDate(SqlSessionTemplate session, String memberId);
+	//관리자 회원정보 수정-//구독권 반영  및 member 반영
+	public int modifyseasonTK(SqlSessionTemplate session, SeasonTicket st);
 	
 ///////////////////////////땅콩관련
 	
@@ -51,7 +51,8 @@ public interface StorePay {
 	public List<PeanutPoint> getPNList(SqlSessionTemplate session, String memberId,String ppDate,Pagemarker pm);
 	//땅콩갯수 memberId넣기
 	public void putMemberPoint(SqlSessionTemplate session, Member member);
-	
+	//관리자 땅콩 포인트 추가/ 삭제시
+	public int modifyseasonTK(SqlSessionTemplate session, PeanutPoint pp);
 /////////////////////////////작가정산	
 	//작가정산위한 도서 리스트 확인
 	public List<OriginBook> originListGet(SqlSessionTemplate session, String memberId);
@@ -60,14 +61,15 @@ public interface StorePay {
 	//지급접수후 포인트 차감
 	public int updatePaidCount(SqlSessionTemplate session, WriterPay writerP);
 	//작가 정산리스트 전체갯수 구하기
-	public int getwritetP_Count(SqlSessionTemplate session);
+	public int getwritetP_Count(SqlSessionTemplate session, String memberId, String bankStatus, String putDate);
+	//작가 정산리스트 출력
+	public List<WriterPay> wrListPrint(SqlSessionTemplate session,Pagemarker pm, String memberId, String bankStatus, String putDate);
 	//작가 정산접수 관리자 승인처리
 	public int writerPayStatusOne(SqlSessionTemplate session,String wrpayNo);
 	//관리자 결제리스트 전체페이지갯수
 	public int getPayCount(SqlSessionTemplate session, String memberId, String startDate, String endDate);
 	//관리자 결제리스트 조회
-	public List<Pay> payListsearch(SqlSessionTemplate session, Pagemarker pm, String memberId, String startDate, String endDate);
-	
+	public List<Pay> payListsearch(SqlSessionTemplate session, Pagemarker pm, String memberId, String startDate, String endDate);	
 
 
 }

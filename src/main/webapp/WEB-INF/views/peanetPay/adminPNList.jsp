@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>땅콩관리자리스트</title>
+<link rel="shortcut icon" href="/resources/img/icons8-book-32.png">
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="/resources/css/pay/adminPNList.css" ></link>
 </head>
@@ -15,7 +16,11 @@
 <body>
 <jsp:include page="../header/adminheader.jsp"></jsp:include>
 	<main>
-		<h1 id="h">땅콩 내역 조회</h1>
+		<h1 id="h"></h1>
+		<div style="width: 100%; display: flex; justify-content: center;">
+			<div id="title">땅콩 충전 및 사용 내역</div>
+		</div>
+		
 		<div id="searchbtn">
 			<label for="selectPN" ></label>
 			<select id="selectPN" >

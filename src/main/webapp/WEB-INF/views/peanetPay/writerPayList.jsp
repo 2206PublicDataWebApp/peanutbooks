@@ -7,12 +7,16 @@
 <head>
 <meta charset='UTF-8'>
 <title>작가정산요청서</title>
+<link rel="shortcut icon" href="/resources/img/icons8-book-32.png">
 <link rel='stylesheet' href="/resources/css/pay/writerpayList.css">
 	<script src='../resources/js/jquery-3.6.0.min.js' ></script>
 </head>
 <body>
 <jsp:include page="../header/adminheader.jsp"></jsp:include>
-<h1 id="h">정산 접수 내역</h1>
+<h1 id="h"></h1>
+<div style="width:100%;display: flex;justify-content: center;">
+	<div id ="title">정산 접수 내역</div>
+</div>
 <div id="searchbtn">			
 	<select id="selectWP" >
 		<option id="all" checked>전체</option>
@@ -125,9 +129,7 @@
 
 <jsp:include page="../footer/footer.jsp"></jsp:include>
 <script>
-	var putDate=$('#date');
-	var memberId=$('#id');	
-	var bankStatus=$('#end');
+
 
 	/* 페이징  */
 	function pageWPSearch(page){ 		
@@ -152,15 +154,16 @@
 	});
 	
 	/* 검색버튼  */
-	function pNutSearch(){
+	function wpSearch(){
+		var memberId = $('input[type="text"]').val();
+		var putDate = $('input[type="date"]').val();		
 		
-		
-		if($('#selectPN option').eq(1).is(':checked')){	
-			location.href="/peanut/admin_list.kh?memberId="+memberId;
-		}else if($('#selectPN option').eq(2).is(':checked')){
-			location.href="/peanut/admin_list.kh?putDate="+putDate;
+		if($('#selectWP option').eq(1).is(':checked')){	
+			location.href="/writer/admin_list.kh?memberId="+memberId;
+		}else if($('#selectWP option').eq(2).is(':checked')){
+			location.href="/writer/admin_list.kh?putDate="+putDate;
 		}else if ($('#selectWP option').eq(3).is(':checked')){
-			location.href="/peanut/admin_list.kh?bankStatus=Y";			
+			location.href="/writer/admin_list.kh?bankStatus=Y";			
 		}else {
 			location.href="/writer/admin_list.kh";
 		};

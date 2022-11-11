@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>결제창</title>
-
+<link rel="shortcut icon" href="/resources/img/icons8-book-32.png">
 <link  rel="stylesheet" href="../resources/css/pay/pay.css">
 <script
   src="https://code.jquery.com/jquery-3.6.1.js"

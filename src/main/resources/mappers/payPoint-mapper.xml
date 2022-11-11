@@ -94,12 +94,33 @@
     <!-- 작가 정산 리스트 전체 갯수 구하기  -->
   	<select id="wPListCount" resultType="_int">
   		SELECT COUNT(*) FROM POINTCHANGE_TBL
+  		<where>
+ 			<if test="memberId != null and memberId != '' " > MEMBER_ID = #{memberId }</if>	  		
+	  		<if test="putDate != null and putDate != '' " >
+	  			TO_CHAR(PUTDATE,'YYYY-MM-DD')=#{putDate } 
+	  		</if> 	
+			<if test="bankStatus !=null and bankStatus != '' ">
+				BANK_STATUS = 'Y'								
+			</if>
+  		</where>
+  		ORDER BY PUTDATE DESC
   	</select>
+    
     <!--작가정산리스트 출력 -->
     <select id="selectwrList" resultMap="WriterPayResultMap">
     	SELECT * FROM POINTCHANGE_TBL 
+    	<where>
+    		<if test="memberId != null and memberId != '' " > MEMBER_ID = #{memberId}</if>	  		
+	  		<if test="putDate != null and putDate != '' " >
+	  			TO_CHAR(PUTDATE,'YYYY-MM-DD')=#{putDate } 
+	  		</if> 	
+			<if test="bankStatus !=null and bankStatus != '' ">
+				BANK_STATUS = 'Y'								
+			</if>
+		</where>
     	ORDER BY PUTDATE DESC, BANK_STATUS DESC 
     </select>
+    
     <!--관리자가 작자정산접수승인  -->
     <update id="updateWriterpay">
     	UPDATE POINTCHANGE_TBL SET BANK_STATUS='Y' 
@@ -173,10 +194,15 @@
 		<result  property="seriesNo" 			column="SERIES_NO"/>  
 		 
   	</resultMap>
-  	
+  	<!--결제 후 땅콩포인트 등록  -->
   	<insert id="insertPeanut">
   		 INSERT INTO PEANUTPOINT_TBL 
   		 VALUES (SQN_PEANUT_NO.NEXTVAL,SYSDATE,${peanutPoint},'Y',DEFAULT,DEFAULT,#{memberId},#{orderNo},DEFAULT)
+  	</insert>
+  	<!--관리자 땅콩포인트 수정  -->
+  	<insert id="admin_insert_Peanut">
+  		 INSERT INTO PEANUTPOINT_TBL 
+  		 VALUES (SQN_PEANUT_NO.NEXTVAL,SYSDATE,${peanutPoint},'Y',DEFAULT,#{bookName},#{memberId},DEFAULT,DEFAULT)
   	</insert>
   	  	
   	<!--관리자 검색시   땅콩 갯수  -->
@@ -254,6 +280,11 @@
 		
   	 	ORDER BY PP_DATE DESC 
   	</select>
+  	<!--땅콩정산하여 멤버 포인트에 넣기  -->
+	<update id="memberPoint">
+		UPDATE MEMBER_TBL SET M_POINT=${mPoint}
+		WHERE MEMBER_ID=#{memberId}
+	</update>
   	
   	<resultMap 	 type="SeasonTicket" 		id="seasonTicketResultMap">
   		<id 	 property="orderNo" 		column="ORDER_NO"/> 
@@ -276,6 +307,10 @@
 		SELECT TO_CHAR(LAST_DATE+1/(60*24),'YYYY-MM-DD HH24:MI:SS') FROM SEASONTICKET_TBL 
 		WHERE MEMBER_ID=#{memberId} AND EXPIRY_YN='N' 	
 	</select>
+	<!--관리자 회원정보수정시 구독권변경  -->
+	<update id="admin_update_st">
+		UPDATE SEASONTICKET_TBL SET EXPIRY_YN = #{expiry_yn} WHERE MEMBER_ID=#{memberId };
+	</update>
 	
 	
 	<resultMap  type="Member" 			id="memberResultMap">
@@ -299,10 +334,12 @@
 		UPDATE MEMBER_TBL SET SUB_YN='Y' 
 		WHERE MEMBER_ID=#{memberId}
 	</update>
-	<!--땅콩정산하여 멤버 포인트에 넣기  -->
-	<update id="memberPoint">
-		UPDATE MEMBER_TBL SET M_POINT=${mPoint}
+	
+	<!--관리자 구독권 여부 수정 후 member 구독권 y/n 반영  -->
+	<update id="admin_update_SSticket">
+		UPDATE MEMBER_TBL SET SUB_YN=#{subYN } 
 		WHERE MEMBER_ID=#{memberId}
 	</update>
+
 	
   </mapper>
