@@ -355,3 +355,23 @@ header li {
 	-moz-transform: translateX(0px);
 	transform: translateX(0px);
 }
+
+#news-icon{
+	position: relative;
+}
+#news-circle{
+	position: absolute;
+    right: 5px;
+    top: 0;
+    bottom: 0;
+   	border-radius: 10px;
+	background-color: red;
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	margin: 0 auto;
+	color: white;
+}
+#header-news:hover{
+	cursor: pointer;
+}

@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.books.peanut.member.domain.Member;
@@ -61,4 +62,26 @@ public class NewsController {
 			return "common/errorPage";
 		}
 	}
+	
+	/**
+	 * 알림 읽음 처리
+	 * @param newsNo
+	 */
+	@RequestMapping(value="/news/readNews.pb", method=RequestMethod.GET)
+	public void readNews(
+			@RequestParam("newsNo") int newsNo) {
+		nService.readNews(newsNo);
+	}
+	
+	// header - mypage tooltip으로 알림 개수 보내기
+	@ResponseBody
+	@RequestMapping(value="/news/sendNewsCount.pb", method=RequestMethod.GET)
+	public String sendNewsCount(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Member loginMember = (Member)session.getAttribute("loginMember");
+		int countNews = nService.countNews(loginMember.getMemberId());
+		session.setAttribute("countNews", countNews);
+		return String.valueOf(countNews);
+	}
+	
 }

@@ -94,11 +94,14 @@
 					<div id="mypage-icon-area" class="row">
 					
 					
-						<div class="col-4">
-							<a href="/news/newsList.pb">
-								<img src="/resources/img/header/icons8-notification-64.png"
-									alt=""> <br>알림
-							</a>
+						<div class="col-4" id="header-news" onclick="location.href='/news/newsList.pb'">
+							<div id="news-icon">
+								<img src="/resources/img/header/icons8-notification-50.png" alt="알림">
+								<c:if test="${sessionScope.countNews > 0}">
+									<div id="news-circle">${sessionScope.countNews}</div>
+								</c:if>
+							</div>
+							알림
 						</div>
 						<div class="col-4">
 							<a href="/member/memberInfo.pb">
@@ -145,12 +148,12 @@
 				<div class="col-md-2" id="admin">
 					<div id="name-space">관리자 입니다.</div>
 					<div id="subscribe">
-						구독<br> 2022년 11월 30일까지
+						구독<br>
 					</div>
 					<div id="admin-icon-area" class="row">
 						<div class="col-4">
 							<a href="/news/newsList.pb">
-							<img src="/resources/img/header/icons8-notification-64.png"
+							<img src="/resources/img/header/icons8-notification-50.png"
 								alt=""> <br>알림
 							</a>
 						</div>

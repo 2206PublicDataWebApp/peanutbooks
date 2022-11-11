@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.books.peanut.member.domain.Member;
 import com.books.peanut.member.service.MemberService;
+import com.books.peanut.news.service.NewsService;
 import com.books.peanut.pay.payService.PayService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -32,6 +33,8 @@ public class MemberController {
 	private MemberService mService;
 	@Autowired
 	private PayService pService;
+	@Autowired
+	private NewsService nService;
 	@Autowired
 	private JavaMailSender mailSender; // mailSender Bean 의존성 주입
 	
@@ -288,6 +291,9 @@ public class MemberController {
 				// 로그인한 회원이 등록한 작품 수 가져오기
 				int writtenBooks = mService.countWrittenBooks(loginMember.getMemberId());
 				session.setAttribute("writtenBooks", writtenBooks);
+				// 알림 개수 가져오기
+				int countNews = nService.countNews(loginMember.getMemberId());
+				session.setAttribute("countNews", countNews);
 				mv.setViewName("redirect:/main"); // 로그인 성공 시 로그인 후 메인 페이지로 이동
 			}
 		} catch (Exception e) {
@@ -420,7 +426,8 @@ public class MemberController {
 	public ModelAndView ModifyMemberInfo(
 			@ModelAttribute Member member,
 			ModelAndView mv,
-			@RequestParam("originPw") String originPw) {
+			@RequestParam("originPw") String originPw,
+			HttpServletRequest request) {
 		try {
 			String memberPw = member.getMemberPw();
 			if(memberPw == "") { // jsp에서 전달 받은 비밀번호 값이 null일 경우(별명만 수정하거나 아무것도 수정하지 않는 경우)
@@ -429,6 +436,9 @@ public class MemberController {
 			int result = mService.modifyInfo(member);
 			if(result > 0) { // 회원 정보 수정 성공
 				mv.setViewName("redirect:/member/memberInfo.pb");
+				Member loginMember = mService.loginMember(member);
+				HttpSession session = request.getSession();
+				session.setAttribute("loginMember", loginMember);
 			}
 		} catch (Exception e) {
 			mv.addObject("msg", e.toString()).setViewName("common/errorPage");

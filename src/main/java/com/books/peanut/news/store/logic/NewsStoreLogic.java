@@ -52,5 +52,17 @@ public class NewsStoreLogic implements NewsStore {
 		int result = session.delete("NewsMapper.deleteNews", newsNo);
 		return result;
 	}
+	// 알림 개수 구하기
+	@Override
+	public int countNews(SqlSession session, String memberId) {
+		int countNews = session.selectOne("NewsMapper.countNews", memberId);
+		return countNews;
+	}
+	// 알림 읽음 처리
+	@Override
+	public int updateNewsStatus(SqlSession session, int newsNo) {
+		int result = session.update("NewsMapper.updateNewsStatus", newsNo);
+		return result;
+	}
 
 }

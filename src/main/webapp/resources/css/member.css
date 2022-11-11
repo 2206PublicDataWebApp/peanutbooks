@@ -64,7 +64,8 @@ form{
     margin-bottom: 16px;
 }
 #login-btn{ /* 로그인 버튼 */
-    background-color: #ffeb60;
+    background-color: #FF884B;
+    color: white;
     border: 0;
     width: 81%;
     height: 50px;
@@ -154,7 +155,8 @@ form{
 	display: none;
 } */
 #join-btn{ /* 회원가입 버튼(활성) */
-    background-color: #ffeb60;
+    background-color: #FF884B;
+    color: white;
     border: 0;
     width: 100%;
     height: 50px;
@@ -238,7 +240,8 @@ form{
 	margin-top: 8px;
 }
 #findId-btn{ /* 아이디 찾기 버튼 */
-	background-color: #ffeb60;
+    background-color: #FF884B;
+    color: white;
     border: 0;
     width: 100%;
     height: 50px;
@@ -288,7 +291,8 @@ form{
     margin: 0 auto;
 }
 #submit-btn{ /* 확인 버튼 */
-    background-color: #ffeb60;
+    background-color: #FF884B;
+    color: white;
     border: 0;
     width: 100%;
     height: 50px;
@@ -366,7 +370,8 @@ form{
 	border-radius: 4px;
 }
 .pwChk-btn{ /* 비번 입력 후 확인 버튼 */
-	background-color: #ffeb60;
+    background-color: #FF884B;
+    color: white;
     border: 0;
     width: 100%;
     height: 45px;
@@ -398,7 +403,8 @@ form{
 }
 .modify-pw-btn{
 	width: 18%;
-	background-color: #ffeb60;
+    background-color: #FF884B;
+    color: white;
     border: 0;
     border-radius: 4px;
     height: 40px;
@@ -407,7 +413,8 @@ form{
 }
 .modify-btn{
 	width: 100%;
-	background-color: #ffeb60;
+    background-color: #FF884B;
+    color: white;
     border: 0;
     height: 45px;
     border-radius: 4px;
