@@ -31,9 +31,15 @@
 
                 </div>
                 <div class="col-3" id="footer-title-text1">
+                <a href="https://github.com/hana78786" target="_blank">
                     <img src="/resources/img/footer_image/icons8-facebook-64.png" alt="">
+                </a>
+                <a href="https://github.com/shin-eunjeong" target="_blank">
                     <img src="/resources/img/footer_image/icons8-instagram-64.png" alt="">
+                </a>
+                <a href="" target="_blank">
                     <img src="/resources/img/footer_image/icons8-tiktok-64.png" alt="">
+                </a>
                     <img src="/resources/img/footer_image/icons8-twitter-squared-64.png" alt="">
             
                    
