@@ -94,7 +94,7 @@
   </div>
   #### 사용빈도
   <div align=>
-  <img src="/readMeResource/java-61%(1)25.svg">
+  <img src="/readMeResource/java-61%25(1).svg">
   <img src="/readMeResource/javascript-30%25.svg">
   <img src="/readMeResource/css-8%25.svg">
   </div>
