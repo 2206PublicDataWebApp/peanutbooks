@@ -168,6 +168,20 @@
 <img src="/readMeResource/search-1.png">
 </p>
 
+### 열람
+<hr>
+<p align=center>
+<img src="/readMeResource/bookinfo.png">
+<img src="/readMeResource/booksns.png">
+</p>
+
+### 도서 읽기
+<hr>
+<p align=center>
+<img src="/readMeResource/bookstep.png">
+<img src="/readMeResource/bookdetail.png">
+</p>
+
 ### 내 서재
 <hr>
 <p align=center>
