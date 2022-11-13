@@ -225,7 +225,7 @@
 <img src="/readMeResource/search-1.png">
 </p>
 
-### 열람
+### 도서열람
 <hr>
 <p align=center>
 <img src="/readMeResource/bookinfo.png">
