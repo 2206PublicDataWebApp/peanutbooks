@@ -92,6 +92,13 @@
   <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">
   <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
   </div>
+  #### 사용빈도
+  <div align=>
+  <img src="/readMeResource/java-61%(1)25.svg">
+  <img src="/readMeResource/javascript-30%25.svg">
+  <img src="/readMeResource/css-8%25.svg">
+  </div>
+  
   
   
 ### 개발환경
