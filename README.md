@@ -360,7 +360,7 @@
 <img src="">
 </p>
 
-### 관리자-회원관리
+### 관리자-전체회원관리
 <hr>
 <p align=center>
 <img src="">
