@@ -1,7 +1,7 @@
 
 <h1 align="center">
   <img src="/readMeResource/logo.png"><br>
-  <b>땅콩북스 : 모두를 위한 E-book 플랫</b>
+  <b>땅콩북스 : 모두를 위한 E-book 플랫폼</b>
 </h1>
 
  <div align="center">
