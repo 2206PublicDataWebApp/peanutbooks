@@ -111,7 +111,7 @@
 |댓글 및 별점|(기능설명)|
 |내 서재|(기능설명)|
 
-## 이벤트/게임
+### 이벤트/게임
 |기능명|상세|
 |---|---|
 |출석이벤트|(기능설명)|
@@ -209,13 +209,19 @@
 ### 등록도서 목록
 <hr>
 <p align=center>
-<img src="">
+<img src="/readMeResource/bookregistList.png">
 </p>
 
 ### 도서등록
 <hr>
 <p align=center>
-<img src="">
+<img src="/readMeResource/registBook.png">
+</p>
+
+### 작가프로필등록
+<hr>
+<p align=center>
+<img src="/readMeResource/writerprofile.png">
 </p>
 
 ### 상담게시판
@@ -293,13 +299,13 @@
 ### 출석이벤트
 <hr>
 <p align=center>
-<img src="">
+<img src="/readMeResource/event.png">
 </p>
 
 
 ### 미니게임
 <hr>
 <p align=center>
-<img src="">
+<img src="/readMeResource/game.png">
 </p>
 
