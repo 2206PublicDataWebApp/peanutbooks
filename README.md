@@ -29,7 +29,7 @@
     회원들이 포인트를 지불하고 당신의 책을 구입합니다!
     
  ## 역할분담
- |🐇 양우영|🐿신은정|🐈양유진|🦔남하나|
+ |🐇 양우영|🐿 신은정|🐈 양유진|🦔 남하나|
  |:---:|:---:|:---:|:---:|
  |공지사항 게시판|채팅 상담|회원가입|도서관리 전반|
  |1:1문의 게시판|결제 API|로그인|도서검색|
@@ -120,63 +120,186 @@
 ## 프로젝트살펴보기
 ### 메인페이지
 <hr>
+<p align=center>
+<img src="/readMeResource/indexpage.png">
+</p>
+
 ### 로그인
 <hr>
+<p align=center>
+<img src="">
+</p>
+
 ### 회원가입
 <hr>
+<p align=center>
+<img src="">
+</p>
+
 ### 아이디/비밀번호 찾기
 <hr>
+<p align=center>
+<img src="">
+</p>
+
 ### 피넛픽
 <hr>
+<p align=center>
+<img src="/readMeResource/main.png">
+</p>
+
 ### 일반도서
 <hr>
+<p align=center>
+<img src="/readMeResource/norbooklist.png">
+<img src="/readMeResource/norbooklist-1.png">
+</p>
+
 ### 피넛오리지널
 <hr>
+<p align=center>
+<img src="/readMeResource/oribooklist.png">
+<img src="/readMeResource/oribooklist-1.png">
+</p>
+
 ### 도서검색
 <hr>
+<p align=center>
+<img src="/readMeResource/search.png">
+<img src="/readMeResource/search-1.png">
+</p>
+
 ### 내 서재
 <hr>
+<p align=center>
+<img src="/readMeResource/mybook.png">
+</p>
+
 ### 포인트내역
 <hr>
+<p align=center>
+<img src="">
+</p>
+
 ### 포인트충전
 <hr>
+<p align=center>
+<img src="">
+</p>
+
 ### 포인트교환
 <hr>
+<p align=center>
+<img src="">
+</p>
+
 ### 알림
 <hr>
+<p align=center>
+<img src="">
+</p>
+
+
 ### 정보수정
 <hr>
+<p align=center>
+<img src="">
+</p>
+
 ### 등록도서 목록
 <hr>
+<p align=center>
+<img src="">
+</p>
+
 ### 도서등록
 <hr>
+<p align=center>
+<img src="">
+</p>
+
 ### 상담게시판
 <hr>
+<p align=center>
+<img src="">
+</p>
+
 ### 채팅상담
 <hr>
+<p align=center>
+<img src="">
+</p>
+
 ### 공지사항
 <hr>
+<p align=center>
+<img src="">
+</p>
+
 ### 관리자-채팅상담
 <hr>
+<p align=center>
+<img src="">
+</p>
+
 ### 관리자-메인
 <hr>
+<p align=center>
+<img src="">
+</p>
+
 ### 관리자-문의게시판
 <hr>
+<p align=center>
+<img src="">
+</p>
+
 ### 관리자-공지사항
 <hr>
+<p align=center>
+<img src="">
+</p>
+
 ### 관리자-도서승인
 <hr>
+<p align=center>
+<img src="">
+</p>
+
 ### 관리자-결제조회
 <hr>
+<p align=center>
+<img src="">
+</p>
+
 ### 관리자-땅콩확인
 <hr>
+<p align=center>
+<img src="">
+</p>
+
 ### 관리자-작가정산
 <hr>
+<p align=center>
+<img src="">
+</p>
+
 ### 관리자-회원관리
 <hr>
+<p align=center>
+<img src="">
+</p>
+
 ### 출석이벤트
 <hr>
+<p align=center>
+<img src="">
+</p>
+
+
 ### 미니게임
 <hr>
-
+<p align=center>
+<img src="">
+</p>
 
