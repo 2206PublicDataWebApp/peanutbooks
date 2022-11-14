@@ -83,7 +83,9 @@
 			<!-- 검색 -->
             </div>
         </div>
-        <!-- 제목 & 검색 폼 -->
+        
+        
+        <!-- 리스트 출력 제목 & 검색 폼 -->
         <div class="category_list">
         	<!-- 카테고리별 리스트 -->
         	<a href="/admin/qnaList.kh" style="color: black"> 전체 | </a>

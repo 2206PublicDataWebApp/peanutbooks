@@ -87,14 +87,14 @@
         </div>
 	
 	
-		<!-- 리스트 출력 -->
+		<!-- 리스트 출력 제목 & 검색 폼 -->
 		<div class="board_list_wrap">
             <div class="board_list">
                 <div class="top">
                     <div class="num">번호</div>
-                    <div class="writer">이름</div>
-                    <div class="id">아이디</div>
-                    <div class="title">땅콩</div>
+                    <div class="writer">닉네임</div>
+                    <div class="mPoint">땅콩</div>
+                    <div class="title">아이디</div>
                     <div class="status">상태</div>
                     <div class="date">가입일</div>
                 </div>

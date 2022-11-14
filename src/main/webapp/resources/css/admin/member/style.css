@@ -199,12 +199,12 @@ a {
 }
 
 .board_list .num {
-    width: 10%;
+    width: 15%;
 }
 
 .board_list .title {
-    width: 45%;
-    text-align: left;
+    width: 15%;
+   /*  text-align: left; */
 }
 
 .board_list .top .title {
@@ -212,16 +212,16 @@ a {
 }
 
 .board_list .writer {
-    width: 10%;
+    width: 20%;
 }
-.board_list .category {
-    width: 10%;
+.board_list .id {
+    width: 15%;
 }
 .board_list .status {
-    width: 10%;
+    width: 15%;
 }
 .board_list .date {
-    width: 15%;
+    width: 20%;
 }
 
 
