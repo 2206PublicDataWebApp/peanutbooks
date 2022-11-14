@@ -304,12 +304,13 @@
 		
 	<!--  로그인시 구독여부 및 마지막 날짜확인 -->  
 	<select id="selectLastSSticket" resultType="string">		
-		SELECT TO_CHAR(LAST_DATE+1/(60*24),'YYYY-MM-DD HH24:MI:SS') FROM SEASONTICKET_TBL 
+		SELECT TO_CHAR(LAST_DATE+1/(60*24),'YYYY-MM-DD HH24:MI') FROM SEASONTICKET_TBL 
 		WHERE MEMBER_ID=#{memberId} AND EXPIRY_YN='N' 	
 	</select>
-	<!--관리자 회원정보수정시 구독권변경  -->
+ 	<!--관리자 회원정보수정시 구독권 만료 시킴  -->
 	<update id="admin_update_st">
-		UPDATE SEASONTICKET_TBL SET EXPIRY_YN = #{expiry_yn} WHERE MEMBER_ID=#{memberId };
+		UPDATE SEASONTICKET_TBL SET 
+		EXPIRY_YN = 'Y' WHERE MEMBER_ID=#{memberId }
 	</update>
 	
 	

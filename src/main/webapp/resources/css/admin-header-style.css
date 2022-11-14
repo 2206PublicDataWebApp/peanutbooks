@@ -78,7 +78,7 @@ header li {
     margin-right: 1.5rem;
 }
 
-#header-menu-icon img:hover, #admin-icon-area img:hover, #point-icon-area img:hover{
+#header-menu-icon img:hover, #admin-icon-area img:hover, #point-icon-area img:hover, #admin-icon-area .col-4{
 	cursor:pointer;
 }
 

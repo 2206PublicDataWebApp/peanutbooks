@@ -127,7 +127,7 @@ table>tr{
 @media ( max-width :400px) {
 	#main{
 		max-width:100%;
-			display: flex;
+		display: flex;
 		margin : 0 auto;
 		flex-wrap: wrap;
 	}
@@ -146,11 +146,11 @@ table>tr{
 		 width:100%;
 		 border:none !important;
 	 }
-	.tableNo{font-size:1rem;}
+	.tableNo{font-size:1rem;width:7%;}
 	.contexnts{font-size:0.8rem;}
 	.date{font-size:0.6rem;}
 	.peanet{
-		width:10%;
+		width:15%;
 		font-size:0.8rem;
 		}
 }

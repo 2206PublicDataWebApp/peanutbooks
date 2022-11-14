@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>관리자 채팅 상담 리스트</title>
 <link rel="shortcut icon" href="/resources/img/icons8-book-32.png">
-<link rel="stylesheet" href="../resources/css/chat/consultingList.css" ></link>
+<link rel="stylesheet" href="/resources/css/chat/consultingList.css" ></link>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
@@ -20,19 +20,18 @@
 <!--관리자일 경우 들어갈수 있도록 다시한번 체크  -->
 <br>
 <main>
-	<div>	
+	<div style="padding-left: 30%;">	
 	    <label class="switch">
 	        <input id="checkbox" type="checkbox" value="true" >
 	        <span class="slider round"></span>
-	      </label>
+	    </label>
 	      
 	      <p style="display: '';">OFF</p>
-	      <p style="display: none;">ON</p> 
-	     
-	
+	      <p style="display: none;">ON</p>
 	</div>
-	<div>
-	    <div>
+	<div id="info" style="display: none;">자리 비움 및 종료시 반드시 OFF하셔야 합니다.</div>
+	<div style="padding-left: 30%;">
+	    <div style="padding-bottom: 0.5em;">
 	        <span >상담 대기인원 :</span> <span id="count">명</span>
 	    </div>
 	    <div id="searchbtn">
@@ -65,6 +64,7 @@
 			if (p1btn == 'none') {
 				$('p').toggle();
 				$('#togglePart').toggle();
+				$('#info').toggle();
 				printer=true;
 				$.ajax({ //종료시 on/off변경								
 					url : "/manager/chatbtn.kh",
@@ -76,6 +76,7 @@
 					success : function(result) {
 
 						if (result.result == "성공") {
+							printer=true;
 							alert("채팅접수를 시작합니다");
 							if(printer){
 							 printer=setInterval(printList, 5000);								
@@ -98,11 +99,10 @@
 			if (confirm("정말로 종료하시겠습니까?")) {
 				$('p').toggle();
 				$('#togglePart').toggle();
+				$('#info').toggle();
 				clearInterval(printer);
- 				setTimeout(function() {
-					printer=false;
-					self.close();
-				}, 50); 
+ 				printer=false;
+
 
 				$.ajax({ //종료시 on/off변경								
 					url : "/manager/chatbtn.kh",
@@ -115,7 +115,7 @@
 						if (result.result == "성공") {
 							alert("채팅접수를 마감합니다.");
 							$('#count').html('');
-							$('tbody').remove();
+							$('tbody').html('');
 						} else {
 							alert("상담종료 오류입니다. 다시 진행부탁드립니다.");
 						}
@@ -153,8 +153,8 @@
 	                }
 				   
 	                $('tbody').append(a);
-	                $('#count').html(count);
 	              }
+	                $('#count').html(count);
 	                
 			  }        	
 	      })
