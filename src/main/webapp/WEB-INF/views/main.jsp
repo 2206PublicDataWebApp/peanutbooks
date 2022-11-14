@@ -277,7 +277,6 @@
 	</main>
 
 	<script src="/resources/js/main.js"></script>
-
 	<jsp:include page="./footer/footer.jsp" />
 
 
