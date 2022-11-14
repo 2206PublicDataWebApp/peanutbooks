@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.books.peanut.HomeController;
 import com.books.peanut.book.domain.WriterProfile;
 import com.books.peanut.book.domain.peanutPaidSeries;
 import com.books.peanut.book.domain.BookPage;
@@ -41,7 +40,6 @@ import com.books.peanut.book.domain.OriginBookSeries;
 import com.books.peanut.book.domain.Star;
 import com.books.peanut.book.service.BookService;
 import com.books.peanut.member.domain.Member;
-import com.books.peanut.pay.domain.PeanutPoint;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -52,6 +50,7 @@ public class BookController {
 
 	@Autowired
 	BookService bService;
+	
 
 	/**
 	 * 도서 등록 창 연결

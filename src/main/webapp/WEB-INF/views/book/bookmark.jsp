@@ -31,6 +31,7 @@
                         <div id="bookmark-haed-button">
                             <button onclick="location.href='/book/mybooks.do'">내 서재</button>
                             <button onclick="location.href='/book/myPaid.do'">소장</button>
+                            <button onclick="location.href='/book/Peanutcess.do'">미니게임</button>
                         </div>
                         <div id="bookmark-search-area" class="row">
                             <div class="col-md-3" id="gubun">

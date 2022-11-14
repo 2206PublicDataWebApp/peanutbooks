@@ -21,11 +21,9 @@ import com.books.peanut.book.domain.NormalBook;
 import com.books.peanut.book.domain.NormalBookReply;
 import com.books.peanut.book.domain.OriginBook;
 import com.books.peanut.book.domain.OriginBookReply;
-import com.books.peanut.book.domain.OriginBookSeries;
 import com.books.peanut.book.domain.ReReply;
 import com.books.peanut.book.domain.Star;
 import com.books.peanut.book.service.ReplyService;
-import com.books.peanut.book.service.logic.BookServiceImpl;
 import com.books.peanut.member.domain.Member;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -37,7 +35,7 @@ public class BookReplyController {
 
 	@Autowired
 	ReplyService rService;
-
+	
 	/**
 	 * 피넛오리지널 리플등록
 	 * 

@@ -37,7 +37,7 @@
                 <a href="https://github.com/shin-eunjeong" target="_blank">
                     <img src="/resources/img/footer_image/icons8-instagram-64.png" alt="">
                 </a>
-                <a href="" target="_blank">
+                <a href="https://github.com/yan9yujin" target="_blank">
                     <img src="/resources/img/footer_image/icons8-tiktok-64.png" alt="">
                 </a>
                     <img src="/resources/img/footer_image/icons8-twitter-squared-64.png" alt="">

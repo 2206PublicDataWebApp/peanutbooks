@@ -593,26 +593,4 @@ function shareFacebook() {
     window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
 }
 
-document.querySelector("#btnKakao").addEventListener("click",function(){
-	// 사용할 앱의 JavaScript 키 설정
-  	
-	//try {
-    //    if (Kakao) {
-    //       Kakao.init('851b05e5a04e6de56c5c90e2d2a0470c');
-    //    };
-    //} catch(e) {};
- 
- 
-  
-  
-})
-
-//카카오톡
-function shareKakao() {
-	// 카카오링크 버튼 생성
-	
-
-  
-}
-
 

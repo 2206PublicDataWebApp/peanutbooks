@@ -82,7 +82,7 @@
 	
 	<select id="selectOneBookReReply" resultMap="reReplyResultMap">
 
-	select * from re_reply join member_tbl using(member_id) where book_no =#{bookNo} and category = #{category} order by RE_REPLY_NO desc
+	select * from re_reply join member_tbl using(member_id) where book_no =#{bookNo} and category = #{category} order by RE_REPLY_NO
 	</select>
 	<!-- 리리플 작성자 가져오기 -->
 	<select id="selectReplymember" resultType="string">

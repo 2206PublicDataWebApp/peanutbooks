@@ -123,7 +123,7 @@ member_id = #{memberId} and ("title" like '%%' or "title1" like '%%')
 	<where>
 	peanutpoint_tbl.MEMBER_ID= #{memberId} and ori_series.SUB_PIC_RE like '%%' 
 	<if test="searchValue != null">
-	and (title like '%'||#{searchValue}||'%' or book_name like '%'||#{searchValue}||'%')
+	and (book_title like '%'||#{searchValue}||'%' or title like '%'||#{searchValue}||'%')
 	</if>
 	</where>
 	
