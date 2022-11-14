@@ -43,8 +43,13 @@
 								<td rowspan="2" class="monitercontrol"></td>
 								<td rowspan="2" class="peanet"><span>${PeanutPoint.peanutPoint} 땅콩</span></td>
 							</c:if>
-							<c:if test="${PeanutPoint.ppStatus == 'Y' }">
+							<c:if test="${PeanutPoint.ppStatus == 'Y' && !empty PeanutPoint.bookName }">
 								<td class="contexnts">${PeanutPoint.bookName } </td>
+								<td rowspan="2" class="monitercontrol"></td>
+								<td rowspan="2" class="peanet"><span>+ ${PeanutPoint.peanutPoint} 땅콩</span></td>
+							</c:if>
+							<c:if test="${PeanutPoint.ppStatus == 'Y' && empty PeanutPoint.bookName }">
+								<td class="contexnts">&nbsp;땅콩충전 </td>
 								<td rowspan="2" class="monitercontrol"></td>
 								<td rowspan="2" class="peanet"><span>+ ${PeanutPoint.peanutPoint} 땅콩</span></td>
 							</c:if>

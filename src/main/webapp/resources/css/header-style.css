@@ -184,9 +184,11 @@ header li {
 
 #mypage-icon-area img {
     width: 2.2rem;
-
-
 }
+
+#mypage-icon-area  .col-4:hover{
+	cursor : pointer;
+	}
 
 #logout-area {
     font-size: 0.7rem;

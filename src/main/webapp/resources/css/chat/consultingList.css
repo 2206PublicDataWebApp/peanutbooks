@@ -7,22 +7,6 @@
     height: 1000px; 
   }
 
-  /* 해더 */
-#headTwo{
-	padding-left:20px;
-	maggin-left:20px;
-    width: 1000px;
-    float: right;
-    text-align: right;
-    border-radius: 5px;
-}
-
-#headTwo button{
-    border : 0px;
-    background-color: white;
-
-}
-
 
 .switch {
   position: relative;
@@ -71,9 +55,9 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
+  -webkit-transform: translateX(55px);
   -ms-transform: translateX(26px);
-  transform: translateX(26px);
+  transform: translateX(55px);
 }
 
 /* Rounded sliders */
@@ -92,12 +76,21 @@ p {
 	font-weight:bold;
 	font-family: 'Noto Sans KR', sans-serif; 
 }
-#rowbody{
-  width:1200px;
-  margin-left: 30px;
-  margin-right: 0px;
-  height: 500px;
+/* 경고문  */
+#info{
+	position: fixed;
+	width:380px;	
+	height: 30px;
+	top:110px;
+	left:30%;
+	font-size:16px;
+	font-weigth:500;
+	text-align: center;
+	background: #800000;
+	color: #fff;
+	padding-top:2px;		
 }
+
     /* 제목 */
 #pagename{
     width: 100%;
@@ -113,8 +106,10 @@ p {
 span{  
   display: inline;
   font-size: 15px;
-  font-family: 'Noto Sans KR', sans-serif;   
-  margin-left: 30px;
+  font-family: 'Noto Sans KR', sans-serif; 
+  padding-bottom: 1em; 
+
+ 
   
 }
 /* 본문 테이블  */
@@ -165,12 +160,11 @@ tdody>td{
   width: 100%;
   height: 2.2rem;  
   font-family: 'Noto Sans KR', sans-serif;   
-  font-size:14px;
+  font-size:14px; 
 }
 #csBtn{  
   width: 200px;
-  height: 100%;
-  margin-left: 2rem;
+  height: 100%;  
   line-height: 100%;
   border: 1px #ccc solid;
   background-color: #ccc;

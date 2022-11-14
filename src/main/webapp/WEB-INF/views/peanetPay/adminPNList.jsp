@@ -66,19 +66,25 @@
 					<table>
 						<tr>
 							<td class="tableNo" rowspan="2"><button class="numbtn">${i.count +((pm.currentPage-1)*10) }</button></td>
-							<c:if test="${!empty PeanutPoint.bookName }">
+							<td class="tableId"> ${PeanutPoint.memberId }</td>
+							<c:if test="${PeanutPoint.ppStatus == 'N' }">
 								<td class="contexnts">${PeanutPoint.bookName } 열람</td>
 								<td rowspan="2" class="monitercontrol"></td>
 								<td rowspan="2" class="peanet"><span>${PeanutPoint.peanutPoint} 땅콩</span></td>
 							</c:if>
-							<c:if test="${empty PeanutPoint.bookName }">
-								<td class="contexnts">&nbsp;땅콩충전</td>
+							<c:if test="${PeanutPoint.ppStatus == 'Y' && !empty PeanutPoint.bookName }">							
+								<td class="contexnts">${PeanutPoint.bookName } </td>
+								<td rowspan="2" class="monitercontrol"></td>
+								<td rowspan="2" class="peanet"><span>+ ${PeanutPoint.peanutPoint} 땅콩</span></td>
+							</c:if>
+							<c:if test="${PeanutPoint.ppStatus == 'Y' && empty PeanutPoint.bookName }">
+								<td class="contexnts">&nbsp;땅콩충전 </td>
 								<td rowspan="2" class="monitercontrol"></td>
 								<td rowspan="2" class="peanet"><span>+ ${PeanutPoint.peanutPoint} 땅콩</span></td>
 							</c:if>
 						</tr>
 						<tr>
-							<td class="date" colspan="3">&nbsp;<fmt:formatDate
+							<td class="date" colspan="4"><fmt:formatDate
 									value="${PeanutPoint.ppDate }"
 									pattern="yyyy년MM월dd일 HH시 mm분 ss초" /></td>
 						</tr>

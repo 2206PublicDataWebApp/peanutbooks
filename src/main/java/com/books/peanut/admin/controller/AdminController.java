@@ -138,6 +138,7 @@ public class AdminController {
 	@RequestMapping(value="/admin/memberModify", method=RequestMethod.POST)
 	public ModelAndView memberModify(
 			ModelAndView mv
+			, HttpServletRequest request
 			, @ModelAttribute SeasonTicket st 
 			, @ModelAttribute PeanutPoint pp
 			, @RequestParam("page") int page
@@ -159,8 +160,13 @@ public class AdminController {
 		//땅콩포인트 종료
 		//구독권 여부 반영 부분		
 		if(st.getExpiry_yn() != "" && st.getExpiry_yn() != null){		 
-			 int subYN_result=pService.modifyseasonTK(st);			
-			
+			 int subYN_result=pService.modifyseasonTK(st);	
+			//섹션 구독권 반영
+			if(subYN_result > 0) {
+				String lastDate = pService.seasonTicketDate(member.getMemberId());	
+				HttpSession session = request.getSession();
+				session.setAttribute("lastDate", lastDate);
+			}
 		}
 		//구독권종료
 		

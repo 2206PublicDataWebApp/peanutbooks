@@ -7,14 +7,17 @@
 <meta charset="UTF-8">
 <title>작가 정산 요청</title>
 <link rel="shortcut icon" href="/resources/img/icons8-book-32.png">
-<link rel="stylesheet" href="../resources/css/pay/writerPay.css">
+<link rel="stylesheet" href="/resources/css/pay/writerPay.css">
 <script src="../resources/js/jquery-3.6.0.min.js" ></script>
 </head>
 <body>
 <jsp:include page="../header/header.jsp"></jsp:include>
 
 <section>
-<h3 id="h">작가 정산 요청</h3>
+<h3 id="h"></h3>
+		<div style="width: 100%; display: flex; justify-content: center;">
+			<div id="title">작가 정산 요청</div>
+		</div>
 <div>
 	 <table>
             <tr>

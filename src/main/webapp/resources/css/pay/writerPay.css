@@ -12,13 +12,25 @@ section{
 	min-height:100%;
 	padding-bottom: 180px;
 }
-#h{
-    text-align: left;  
-    font-size: 1.5rem; 
-    padding-bottom: 20px;
-    padding-left: 4rem;    
-    font-family: 'Noto Sans KR', sans-serif;  
+/* 제목라인 시작*/
+#h {
+	margin: 0 auto;
+	text-align: center;
+	padding-top: 2rem;}
+
+#title {
+	width: 800px;
+	height: 45px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 1.2rem;
+	font-family: 'Noto Sans KR', sans-serif;
+	background-color: #FFD384;
+	color: #353535;
+	margin-bottom: 2rem;
 }
+/*제목라인 끝  */
 
 table{      
     width: 100%;
@@ -68,36 +80,6 @@ td input:focus {
     border-color: #fff; box-shadow: 0 0 8px #f7a409;
 }
 
-
- @media(max-width: 360px) {
-  #h{
-  	padding-left: 2rem;
-  	padding-bottom: 0.5rem;
-  }
-  section{
-  	width:100%;
-  	padding-top:4.5rem;
-  	}
-  
-  table{
-  	width:100%;
-  	margin:0 auto;
-    padding-left: 0.5rem;
-
-  } 
-  tr td:first-child {
-     font-size: 0.8rem
-  }  
-  td input,td select{
-  	width: 80%;
-  	 font-size: 1rem;
-  }
-  .btn{width:100%;}
-  #paybtn{
-	max-width: 100%;
-	margin: 0 auto;
-	}
-}
 .btn{
     width:100%;
 	margin-top: 30px; 
@@ -107,7 +89,7 @@ td input:focus {
 
 #paybtn{	
 	text-align:center;
-    width: 400px;
+    width: 370px;
     background:#FFD384;
     font-size: 1.2rem;
     font-weigth: bold;
@@ -156,3 +138,33 @@ td input:focus {
   } 
   
   
+ @media(max-width: 400px) {
+  #h{
+  	padding-left: 2rem;
+  	padding-bottom: 0.5rem;
+  }
+  section{
+  	width: 100%;
+  	padding-top: 4.5rem;
+  	}
+  
+  table{
+  	width:100%;
+  	margin:0 auto;
+    padding-left: 0.5rem;
+
+  } 
+  tr td:first-child {
+     font-size: 0.8rem
+  }  
+  td input,td select{
+  	width: 80%;
+  	 font-size: 1rem;
+  }
+  .btn{width:100%;}
+  #paybtn{
+	width: 250px;
+	margin: 0 auto;
+	}
+}
+

@@ -143,6 +143,13 @@ select {
        border-collapse: collapse;
        font-family: 'Noto Sans KR', sans-serif;
    }
+   table>tr{
+		width:100%;
+		height:85px;
+	}
+	
+   .tableNo{width: 7%;	}
+   .tableId{width:150px;}
    .contexnts{
        width: 50%;
        height: 30px;
@@ -166,13 +173,6 @@ select {
         padding:5px;            
                            
     }
-    table>tr{
-		width:100%;
-		height:85px;
-	}
-    .tableNo{
-		width: 10%;
-	}
     .line{
         height: 10px;                   
         border-bottom: solid gainsboro;  
@@ -186,30 +186,38 @@ select {
 	
        
  @media ( max-width :400px) {
- 	main{padding-top:6rem;}
   	#title{width:100%;}
-	main{
-		width:100%;
-		margin : 0 auto;		
-	}
-	h1{margin-left:1rem;}
+	#h{    margin-top: -2rem;}
 	#spanDIV{
 		width:100%;
 		margin : 0 auto;
 		font-size:1rem;
 		padding-left:0.5rem;
 	}
-	#table{widith:100%; margin: 0 auto;}
+	#table{
+		width:100%; 
+		margin: 0 auto;
+}
 	table{
 		 width:100%;
 		 border:none !important;		
 	 }
-	.tableNo{font-size:0.8rem;}
-	.contexnts{font-size:0.8rem;}
+	 table tr{width:100%;}
+	.tableNo{font-size: 0.6rem;	}
+	.tableId{
+		width:80px;
+		font-size: 0.7rem;
+	    padding-left: 0.5em;
+	}
+	.contexnts{
+		width:180px;
+		font-size:0.7rem;
+		
+	}
 	.date{font-size:0.6rem;}
 	.peanet{
-		width:18%;
-		font-size:0.8rem;
+		width:80px;
+		font-size:0.6rem;
 	}
 	.monitercontrol {display: none;	}
 }

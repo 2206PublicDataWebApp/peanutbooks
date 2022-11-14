@@ -161,9 +161,10 @@
 							</a>
 						</div>
 						<div class="col-4">
-
+							<a href="/book/writerMenu.do">
 							<img src="/resources/img/header/icons8-write-48.png" alt="">
 							<br>등록 도서
+							</a>
 						</div>
 
 						<div class="col-4">

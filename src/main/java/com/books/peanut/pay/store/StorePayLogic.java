@@ -67,8 +67,11 @@ public class StorePayLogic implements StorePay{
 	//관리자 회원정보 수정-//구독권 반영  및 member 반영
 	@Override
 	public int modifyseasonTK(SqlSessionTemplate session, SeasonTicket st) {
-		int result=session.update("payPoint_Mapper.admin_update_st", st);
-		//구독권 여부 변경후  member정보에 반영
+		//기존의 구독권을 만료시킨다.
+		session.update("payPoint_Mapper.admin_update_st", st);
+		//구독권을 새로 입력한다.
+		int result=session.insert("payPoint_Mapper.insertSSticket",st);
+		//구독권 변경후  member정보에 반영//만료의 Y 이면 구독종료로 N이고 만료의 N이면 종료되지 않은거니깐 Y로 변경
 		if(result>0){
 			Member mOne=new Member();
 			mOne.setMemberId(st.getMemberId());
@@ -77,7 +80,7 @@ public class StorePayLogic implements StorePay{
 			}else {
 				mOne.setSubYN("N");
 			}
-			
+			//구독권 여부 변경후  member정보에 반영
 			int st_result = session.update("payPoint_Mapper.admin_update_SSticket",mOne);
 				if(st_result>0) {
 					result=1;
