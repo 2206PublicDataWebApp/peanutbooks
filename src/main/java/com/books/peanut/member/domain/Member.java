@@ -12,8 +12,7 @@ public class Member {
 	private String deleteYN; // 회원 탈퇴 여부
 	private int mPoint; // 회원 포인트(땅콩)
 	private String subYN; // 월 구독 여부
-	private String naverId; // 네이버 아이디
-	private String kakaoId; // 카아오 아이디
+	private String snsId; // SNS 아이디
 	private String accType; // 계정 종류(일반/네이버/카카오)
 	private String adminYN; // 관리자 여부
 	private String authKey; // 이메일 인증 키
@@ -72,17 +71,11 @@ public class Member {
 	public void setSubYN(String subYN) {
 		this.subYN = subYN;
 	}
-	public String getNaverId() {
-		return naverId;
+	public String getSnsId() {
+		return snsId;
 	}
-	public void setNaverId(String naverId) {
-		this.naverId = naverId;
-	}
-	public String getKakaoId() {
-		return kakaoId;
-	}
-	public void setKakaoId(String kakaoId) {
-		this.kakaoId = kakaoId;
+	public void setSnsId(String snsId) {
+		this.snsId = snsId;
 	}
 	public String getAccType() {
 		return accType;
@@ -107,8 +100,8 @@ public class Member {
 	public String toString() {
 		return "Member [memberId=" + memberId + ", memberPw=" + memberPw + ", mNickname=" + mNickname + ", mEmail="
 				+ mEmail + ", emailYN=" + emailYN + ", joinDate=" + joinDate + ", deleteYN=" + deleteYN + ", mPoint="
-				+ mPoint + ", subYN=" + subYN + ", naverId=" + naverId + ", kakaoId=" + kakaoId + ", accType=" + accType
-				+ ", adminYN=" + adminYN + ", authKey=" + authKey + "]";
+				+ mPoint + ", subYN=" + subYN + ", snsId=" + snsId + ", accType=" + accType + ", adminYN=" + adminYN
+				+ ", authKey=" + authKey + "]";
 	}
 	
 }

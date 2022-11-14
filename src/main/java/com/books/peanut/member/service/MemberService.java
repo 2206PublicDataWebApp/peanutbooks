@@ -40,5 +40,11 @@ public interface MemberService {
 	int loginCheck(HashMap<String, String> paramMap);
 	// 비밀번호 재설정
 	int resetMemberPw(HashMap<String, String> paramMap);
+	// 네아로 회원 확인
+	int selectMemberById(HashMap<String, String> paramMap);
+	// sns 회원가입 기능
+	int snsJoin(Member member);
+	// 네아로
+	Member snsLogin(HashMap<String, String> paramMap);
 
 }

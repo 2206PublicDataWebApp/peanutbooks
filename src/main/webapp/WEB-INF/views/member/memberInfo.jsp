@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,10 +20,18 @@
 			    <div>내 정보 관리</div>
 			</div>
 			<div class="menu-area">
+			<c:if test="${sessionScope.loginMember.accType ne 'naver'}">
             	<div class="info-menu" onclick="location.href='/member/pwCheck.pb'">
 	                <div class="menu-item txt">개인정보 수정</div>
 	                <div class="menu-item arrow">></div>
             	</div>
+            </c:if>
+            <c:if test="${sessionScope.loginMember.accType eq 'naver'}">
+            	<div class="info-menu" onclick="location.href='/member/modifyView.pb'">
+	                <div class="menu-item txt">개인정보 수정</div>
+	                <div class="menu-item arrow">></div>
+            	</div>
+            </c:if>	
 	            <div class="info-menu" onclick="location.href='/member/deleteView.pb'">
                 	<div class="menu-item txt">회원탈퇴</div>
                 	<div class="menu-item arrow">></div>

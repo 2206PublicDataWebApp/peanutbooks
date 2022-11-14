@@ -13,6 +13,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<link rel="shortcut icon" href="/resources/img/icons8-book-32.png">
+	<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+	<script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.min.js" charset="utf-8"></script>
 </head>
 <body>
 	<form action="/member/login.pb" method="post" id="loginForm">
@@ -28,13 +30,15 @@
 	            </div>
 	            <div><hr id="login-hr"></div>
 	            <div id="login-social">
-	                <img id="naver-icon" src="../resources/img/member/naver_icon.png" alt="네이버">
-	                <img src="../resources/img/member/kakao_icon.png" alt="카카오">
+	                <img onclick="location.href='${urlNaver}'" class="naver-icon" src="../resources/img/member/naver_icon.png" alt="네이버">
+	                <img onclick="location.href='${urlKakao}'" src="../resources/img/member/kakao_icon.png" alt="카카오">
 	            </div>
 	        </div>
 	    </div>
     </form>
     <script>
+    	
+    	// 로그인 데이터 유효성 검사
     	$("#login-btn").on("click", function(){
     		var memberId = $("#login-id-data").val();
     		var memberPw = $("#login-pw-data").val();

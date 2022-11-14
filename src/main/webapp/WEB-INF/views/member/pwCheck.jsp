@@ -32,7 +32,7 @@
 	        </div>
         	<div class="pw-input-area">
         		<label for="pwChk-pw">비밀번호</label>
-        		<input id="pwChk-memberPw" type="hidden" value="${loginMember.memberPw}">
+        		<input id="pwChk-memberPw" type="text" value="${loginMember.memberPw}">
         		<input id="pwChk-pw" type="password" required>
         		<p class="guide error pw-error-4">비밀번호를 입력해 주세요.</p>
         		<button class="pwChk-btn" type="button" onclick="checkPw()">확인</button>
@@ -41,7 +41,7 @@
 	</main>
 	<jsp:include page="../footer/footer.jsp" />
 	<script>
-		// 비밀번호 값 검사
+		// 비밀번호 값 공백 여부 검사
 		$("#pwChk-pw").on("keyup", function(){
 			var inputPw = $("#pwChk-pw").val();
 			if(inputPw == ""){
@@ -52,18 +52,27 @@
 				$("#pwChk-pw").css("border", "solid 1px #ccc");
 			}
 		});
-		// 확인 버튼 클릭 시
+		// 확인 버튼 클릭 시 기존 비밀번호와 일치 여부 검사
 		function checkPw(){
 			var memberPw = $("#pwChk-memberPw").val();
 			var inputPw = $("#pwChk-pw").val();
 			if(inputPw == ""){
 				alert("비밀번호를 입력해 주세요.");
 				$("#pwChk-pw").focus().css("border", "solid 1px #FF577F");
-			}else if(inputPw != memberPw){
-				alert("비밀번호가 일치하지 않습니다.");
-				$("#pwChk-pw").focus().css("border", "solid 1px #FF577F");
 			}else{
-				window.location.href="/member/modifyView.pb";
+				$.ajax({
+					url: "/member/encryptPw.pb",
+					data: {"inputPw": inputPw},
+					type: "get",
+					success: function(encryptedPw){
+						if(encryptedPw != memberPw){
+							alert("비밀번호가 일치하지 않습니다.");
+							$("#pwChk-pw").focus().css("border", "solid 1px #FF577F");
+						}else{
+							window.location.href="/member/modifyView.pb";
+						}
+					}
+				});
 			}
 		}
 	</script>
