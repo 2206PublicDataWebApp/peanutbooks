@@ -224,7 +224,9 @@
 						success : function(result) {
 							alert("결제성공");
 							//결제성공시 팝업							
-							popUp();							
+							if(orderName=='seasonticket'){
+								popUp();							
+							}
 							location.href = '/';
 						},
 						error : function(e) {
@@ -255,7 +257,7 @@
 	}
 	var popupObj;
 	function popUp(){
-		var windo = "status=no ,toolbar=no,scrollbars=no, menubar=no,resizable=no,titlebar=no, width=450,height=370";
+		var windo = "status=no ,toolbar=no,scrollbars=no, menubar=no,resizable=no,titlebar=no, width=380,height=320";
 
 		popupObj=window.open("/pay/paySuccessPop.kh","PopupWin", windo);
 		
