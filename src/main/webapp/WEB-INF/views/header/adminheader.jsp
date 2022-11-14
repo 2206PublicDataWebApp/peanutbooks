@@ -99,7 +99,7 @@
 
 					<div id="mypage-icon-area" class="row">
 						<div class="col-4">
-							<a href="/news/newsList.do"><img src="/resources/img/header/icons8-notification-64.png"
+							<a href="/news/newsList.do"><img src="/resources/img/news/icons8-close-48.png"
 								alt=""> <br>알림</a>
 						</div>
 						<div class="col-4">

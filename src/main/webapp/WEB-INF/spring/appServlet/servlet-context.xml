@@ -23,4 +23,9 @@
 	
 	<context:component-scan base-package="com.books.peanut" />
 	
+	<!-- NaverLoginBO Class에 대한 Bean 설정 추가 -->
+	<beans:bean id="naverLoginBO" class="com.books.peanut.member.controller.NaverLoginBO" />
+	
+	<!-- KakaoLoginBO Class에 대한 Bean 설정 추가 -->
+	<beans:bean id="kakaoLoginBO" class="com.books.peanut.member.controller.KakaoLoginBO" />
 </beans:beans>

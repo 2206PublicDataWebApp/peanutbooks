@@ -13,15 +13,18 @@
 		<result property="deleteYN" column="DELETE_YN"/> <!-- 회원 탈퇴 여부 -->
 		<result property="mPoint" column="M_POINT"/> <!-- 회원 포인트(땅콩) -->
 		<result property="subYN" column="SUB_YN"/> <!-- 월 구독 여부 -->
-		<result property="naverId" column="NAVER_ID"/> <!-- 네이버 아이디 -->
-		<result property="kakaoId" column="KAKAO_ID"/> <!-- 카카오 아이디 -->
+		<result property="snsId" column="SNS_ID"/> <!-- SNS 아이디 -->
 		<result property="accType" column="ACC_TYPE"/> <!-- 계정 종류(일반/네이버/카카오) -->
 		<result property="adminYN" column="ADMIN_YN"/> <!-- 관리자 여부 -->
 		<result property="authKey" column="AUTH_KEY"/> <!-- 이메일 인증 키 -->
 	</resultMap>
 	<!-- 회원가입 -->
 	<insert id="insertMember">
-		INSERT INTO MEMBER_TBL VALUES(#{memberId}, #{memberPw}, #{mNickname}, #{mEmail}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, NULL, NULL, NULL, DEFAULT, NULL)
+		INSERT INTO MEMBER_TBL VALUES(#{memberId}, #{memberPw}, #{mNickname}, #{mEmail}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, NULL, 'normal', DEFAULT, NULL)
+	</insert>
+	<!-- sns 회원가입 -->
+	<insert id="snsJoin">
+		INSERT INTO MEMBER_TBL VALUES(#{memberId}, NULL, #{mNickname}, #{mEmail}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, #{snsId}, #{accType}, DEFAULT, NULL)
 	</insert>
 	<!-- 인증 키 저장 -->
 	<update id="updateAuthKey">
@@ -81,6 +84,14 @@
 	<update id="updateMemberPw">
 		UPDATE MEMBER_TBL SET MEMBER_PW = #{memberPw} WHERE MEMBER_ID = #{memberId}
 	</update>
+	<!-- 네아로 회원 확인 -->
+	<select id="selectMemberById" resultType="_int">
+		SELECT COUNT(*) FROM MEMBER_TBL WHERE ACC_TYPE = 'naver' AND SNS_ID = #{id}
+	</select>
+	<!-- 네아로 -->
+	<select id="snsLogin" resultMap="memberResultMap">
+		SELECT * FROM MEMBER_TBL WHERE ACC_TYPE = #{accType} AND SNS_ID = #{snsId}
+	</select>
 	
 	<resultMap type="OriginBookSeries" id="oriSeriesResultMap">
 		<id property="seriesNo" column="SERIES_NO"/>

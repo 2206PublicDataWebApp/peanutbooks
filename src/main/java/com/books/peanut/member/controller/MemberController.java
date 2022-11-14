@@ -1,5 +1,6 @@
 package com.books.peanut.member.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -8,6 +9,8 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -24,6 +27,7 @@ import com.books.peanut.member.domain.Member;
 import com.books.peanut.member.service.MemberService;
 import com.books.peanut.news.service.NewsService;
 import com.books.peanut.pay.payService.PayService;
+import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -37,6 +41,16 @@ public class MemberController {
 	private NewsService nService;
 	@Autowired
 	private JavaMailSender mailSender; // mailSender Bean 의존성 주입
+	/* NaverLoginBO */
+	private NaverLoginBO naverLoginBO;
+	private String apiResult = null;
+	@Autowired
+	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
+		this.naverLoginBO = naverLoginBO;
+	}
+	/* KakaoLogin */
+	@Autowired
+	private KakaoLoginBO kakaoLoginBO;
 	
 	/**
 	 * 인증 메일 전송
@@ -92,6 +106,13 @@ public class MemberController {
 			@ModelAttribute Member member,
 			ModelAndView mv) {
 		try {
+			// 비밀번호 암호화 시작
+			System.out.println("암호화 전 비밀번호: " + member.getMemberPw());
+			String encryptedPw = Sha256.encrypt(member.getMemberPw()); // 회원가입 jsp에서 입력된 비밀번호를 암호화해서 encryptedPw에 넣기
+			member.setMemberPw(encryptedPw); // 암호화된 비밀번호를 멤버 객체의 비밀번호로 넣음
+			System.out.println("암호화 후 비밀번호: " + member.getMemberPw());
+			// 비밀번호 암호화 끝
+			
 			int result = mService.registerMember(member); // 회원가입
 			
 			String authKey = this.sendEmail(member.getmEmail()); // 메일 발송 및 인증 키 저장
@@ -105,6 +126,47 @@ public class MemberController {
 				mv.setViewName("common/alert");
 			} else {
 				mv.setViewName("redirect:/member/joinView.pb"); // 회원가입 실패 시 회원가입 페이지로 이동(임시)
+			}
+		} catch (Exception e) {
+			mv.addObject("msg", e.toString()).setViewName("common/errorPage"); // 에러 확인용
+		}
+		return mv;
+	}
+	
+	/**
+	 * sns 회원가입 화면
+	 * @return
+	 */
+	@RequestMapping(value="/member/snsjoinView.pb", method=RequestMethod.GET)
+	public String snsJoinView() {
+		return "member/snsJoin";
+	}
+	
+	/**
+	 * sns 회원가입 기능
+	 * @param member
+	 * @param mv
+	 * @return
+	 */
+	@RequestMapping(value="/member/snsJoin.pb", method=RequestMethod.POST)
+	public ModelAndView snsJoin(
+			@ModelAttribute Member member,
+			ModelAndView mv) {
+		try {
+			
+			int result = mService.snsJoin(member); // 회원가입
+			
+			String authKey = this.sendEmail(member.getmEmail()); // 메일 발송 및 인증 키 저장
+			String mEmail = member.getmEmail();
+			
+			mService.saveAuthKey(authKey, mEmail); // 메일 발송 후 해당 메일의 인증 키만 업데이트로 저장
+			
+			if(result > 0) {
+				mv.addObject("msg", "입력하신 이메일 주소로 인증번호를 발송했습니다."); // 회원가입 성공 시 alert 창 띄운 후
+				mv.addObject("url", "/member/confirmEmailView.pb?memberId="+member.getMemberId()); // 인증번호 입력 페이지로 이동
+				mv.setViewName("common/alert");
+			} else {
+				mv.setViewName("redirect:/member/snsjoinView.pb"); // 회원가입 실패 시 회원가입 페이지로 이동(임시)
 			}
 		} catch (Exception e) {
 			mv.addObject("msg", e.toString()).setViewName("common/errorPage"); // 에러 확인용
@@ -260,8 +322,144 @@ public class MemberController {
 	 * @return
 	 */
 	@RequestMapping(value="/member/loginView.pb", method=RequestMethod.GET)
-	public String memberLoginView() {
+	public String memberLoginView(Model model, HttpSession session) {
+		
+		/* 네아로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
+		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+		/* 객체 바인딩 */
+		model.addAttribute("urlNaver", naverAuthUrl);
+		
+		/* 카카오 URL */
+		String kakaoAuthUrl = kakaoLoginBO.getAuthorizationUrl(session);
+		model.addAttribute("urlKakao", kakaoAuthUrl);
+		
 		return "member/login";
+	}
+	
+	@RequestMapping(value="common/alert.pb", method=RequestMethod.GET)
+	public String alertPage() {
+		return "common/alert";
+		
+	}
+	
+	// 네이버 로그인 성공 시 callback 호출 메소드
+	@RequestMapping(value = "/callbackNaver.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView callbackNaver(
+			ModelAndView mv,
+			@RequestParam String code,
+			@RequestParam String state,
+			HttpSession session,
+			HttpServletRequest request)
+			throws Exception {
+		OAuth2AccessToken oauthToken;
+        oauthToken = naverLoginBO.getAccessToken(session, code, state);
+        // 로그인 사용자 정보를 읽어옴
+	    apiResult = naverLoginBO.getUserProfile(oauthToken);
+	    
+		JSONParser jsonParser = new JSONParser();
+		JSONObject jsonObj;
+		
+		jsonObj = (JSONObject) jsonParser.parse(apiResult);
+		JSONObject response_obj = (JSONObject) jsonObj.get("response");
+		// 프로필 조회
+		String id = (String) response_obj.get("id");
+		String email = (String) response_obj.get("email");
+		String nickname = (String) response_obj.get("nickname");
+		
+//		mv.addObject("id", id);
+//		mv.addObject("email", email);
+//		mv.addObject("nickname", nickname);
+//		mv.addObject("accType", "naver");
+//		mv.setViewName("member/snsJoin");
+
+		HashMap<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("snsId", id);
+		paramMap.put("accType", "naver");
+		int result = mService.selectMemberById(paramMap);
+		if(result > 0) {
+			Member loginMember = mService.snsLogin(paramMap);
+			if(loginMember != null) {
+				session = request.getSession();
+				session.setAttribute("loginMember", loginMember); // session에 로그인한 회원의 모든 정보(loginMember) 저장
+				// 구독권 가져오는 부분 시작
+				String lastDate = pService.seasonTicketDate(loginMember.getMemberId());			
+				session.setAttribute("lastDate", lastDate);
+				//구독권 가져오는 부분 종료
+				// 로그인한 회원이 저장한 도서 수 가져오기
+				int savedBooks = mService.countSavedBooks(loginMember.getMemberId());
+				session.setAttribute("savedBooks", savedBooks);
+				// 로그인한 회원이 등록한 작품 수 가져오기
+				int writtenBooks = mService.countWrittenBooks(loginMember.getMemberId());
+				session.setAttribute("writtenBooks", writtenBooks);
+				// 알림 개수 가져오기
+				int countNews = nService.countNews(loginMember.getMemberId());
+				session.setAttribute("countNews", countNews);
+				mv.setViewName("redirect:/main"); // 로그인 성공 시 로그인 후 메인 페이지로 이동
+			}
+		}else {
+			mv.addObject("msg", "해당 SNS로 등록된 회원정보가 없습니다.\n계정이 없는 경우 회원가입이 필요합니다.");
+			mv.addObject("url", "/member/snsjoinView.pb?snsId="+id+"&mEmail="+email+"&mNickname="+nickname+"&accType=naver");
+			mv.setViewName("common/alert");
+		}
+		
+		return mv;
+	}
+	
+	// 카카오 로그인 성공 시 callback
+	@RequestMapping(value = "/callbackKakao.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView callbackKakao(
+			ModelAndView mv,
+			@RequestParam String code,
+			@RequestParam String state,
+			HttpSession session,
+			HttpServletRequest request) 
+			throws Exception {
+		OAuth2AccessToken oauthToken;
+		oauthToken = kakaoLoginBO.getAccessToken(session, code, state);	
+		// 로그인 사용자 정보를 읽어옴.
+		apiResult = kakaoLoginBO.getUserProfile(oauthToken);
+		
+		JSONParser jsonParser = new JSONParser();
+		JSONObject jsonObj;
+		
+		jsonObj = (JSONObject) jsonParser.parse(apiResult);
+		JSONObject response_obj = (JSONObject) jsonObj.get("kakao_account");	
+		JSONObject response_obj2 = (JSONObject) response_obj.get("profile");
+		// 프로필 조회
+		String email = (String) response_obj.get("email");
+		String nickname = (String) response_obj2.get("nickname");
+
+//		HashMap<String, String> paramMap = new HashMap<String, String>();
+//		paramMap.put("snsId", );
+//		paramMap.put("accType", "kakao");
+//		int result = mService.selectMemberById(paramMap);
+//		if(result > 0) {
+//			Member loginMember = mService.snsLogin(paramMap);
+//			if(loginMember != null) {
+//				session = request.getSession();
+//				session.setAttribute("loginMember", loginMember); // session에 로그인한 회원의 모든 정보(loginMember) 저장
+//				// 구독권 가져오는 부분 시작
+//				String lastDate = pService.seasonTicketDate(loginMember.getMemberId());			
+//				session.setAttribute("lastDate", lastDate);
+//				//구독권 가져오는 부분 종료
+//				// 로그인한 회원이 저장한 도서 수 가져오기
+//				int savedBooks = mService.countSavedBooks(loginMember.getMemberId());
+//				session.setAttribute("savedBooks", savedBooks);
+//				// 로그인한 회원이 등록한 작품 수 가져오기
+//				int writtenBooks = mService.countWrittenBooks(loginMember.getMemberId());
+//				session.setAttribute("writtenBooks", writtenBooks);
+//				// 알림 개수 가져오기
+//				int countNews = nService.countNews(loginMember.getMemberId());
+//				session.setAttribute("countNews", countNews);
+//				mv.setViewName("redirect:/main"); // 로그인 성공 시 로그인 후 메인 페이지로 이동
+//			}
+//		}else {
+//			mv.addObject("msg", "해당 SNS로 등록된 회원정보가 없습니다.\n계정이 없는 경우 회원가입이 필요합니다.");
+//			mv.addObject("url", "/member/snsjoinView.pb?snsId="++"&mEmail="+email+"&mNickname="+nickname+"&accType=kakao");
+//			mv.setViewName("common/alert");
+//		}
+
+		return mv;
 	}
 	
 	/**
@@ -277,6 +475,12 @@ public class MemberController {
 			ModelAndView mv,
 			HttpServletRequest request) {
 		try {
+			// 비밀번호 암호화 시작
+			System.out.println("회원가입-암호화 전 비밀번호: " + member.getMemberPw());
+			String encryptedPw = Sha256.encrypt(member.getMemberPw()); // 회원가입 jsp에서 입력된 비밀번호를 암호화해서 encryptedPw에 넣기
+			member.setMemberPw(encryptedPw); // 암호화된 비밀번호를 멤버 객체의 비밀번호로 넣음
+			System.out.println("회원가입-암호화 후 비밀번호: " + member.getMemberPw());
+			// 비밀번호 암호화 끝
 			Member loginMember = mService.loginMember(member);
 			if(loginMember != null) {
 				HttpSession session = request.getSession();
@@ -308,6 +512,12 @@ public class MemberController {
 	public String loginCheck(
 			@RequestParam("memberId") String memberId,
 			@RequestParam("memberPw") String memberPw) {
+		// 비밀번호 암호화 시작
+		System.out.println("로그인-암호화 전 비밀번호: " + memberPw);
+		String encryptedPw = Sha256.encrypt(memberPw); // 회원가입 jsp에서 입력된 비밀번호를 암호화해서 encryptedPw에 넣기
+		memberPw = encryptedPw; // 암호화된 비밀번호를 멤버 객체의 비밀번호로 넣음
+		System.out.println("로그인-암호화 후 비밀번호: " + memberPw);
+		// 비밀번호 암호화 끝
 		HashMap<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("memberId", memberId);
 		paramMap.put("memberPw", memberPw);
@@ -407,6 +617,16 @@ public class MemberController {
 		return "member/pwCheck";
 	}
 	
+	// 정보 수정-비밀번호 확인-기존 비밀번호와 비교 전 입력 값 암호화
+	@ResponseBody
+	@RequestMapping(value="/member/encryptPw.pb", method=RequestMethod.GET)
+	public String encryptPw(@RequestParam("inputPw") String inputPw) {
+		System.out.println("정보 수정-암호화 전 비밀번호: " + inputPw);
+		String encryptedPw = Sha256.encrypt(inputPw); // 회원가입 jsp에서 입력된 비밀번호를 암호화해서 encryPw에 넣기
+		System.out.println("정보 수정-암호화 후 비밀번호: " + encryptedPw);
+		return encryptedPw;
+	}
+	
 	/**
 	 * 정보 관리 - 회원 정보 수정 화면
 	 * @return
@@ -414,6 +634,28 @@ public class MemberController {
 	@RequestMapping(value="/member/modifyView.pb", method=RequestMethod.GET)
 	public String modifyView() {
 		return "member/modifyInfo";
+	}
+	
+	// 정보 수정 submit 전 데이터 검사용 비밀번호 암호화
+	@ResponseBody
+	@RequestMapping(value="/member/encryptPws.pb", method=RequestMethod.GET)
+	public String encryptPws(
+			@RequestParam("memberPwChk") String memberPwChk,
+			@RequestParam("newPw") String newPw) {
+		// 입력된 기존비번확인 암호화
+		System.out.println("기존비번확인-암호화 전 비밀번호: " + memberPwChk);
+		String e_memberPwChk = Sha256.encrypt(memberPwChk);
+		System.out.println("기존비번확인-암호화 후 비밀번호: " + e_memberPwChk);
+		// 입력된 새비번 암호화
+		System.out.println("새비번-암호화 전 비밀번호: " + newPw);
+		String e_newPw = Sha256.encrypt(newPw);
+		System.out.println("새비번-암호화 후 비밀번호: " + e_newPw);
+		
+		ArrayList<String> pwDataList = new ArrayList<String>();
+		pwDataList.add(e_memberPwChk);
+		pwDataList.add(e_newPw);
+		
+		return pwDataList.toString();
 	}
 	
 	/**
@@ -431,7 +673,7 @@ public class MemberController {
 		try {
 			String memberPw = member.getMemberPw();
 			if(memberPw == "") { // jsp에서 전달 받은 비밀번호 값이 null일 경우(별명만 수정하거나 아무것도 수정하지 않는 경우)
-				member.setMemberPw(originPw); // 로그인 정보에서 가져온 기존 비밀번호 값을 넣어줌
+				member.setMemberPw(originPw); // 로그인 정보에서 가져온 기존 비밀번호 값을 넣어줌(안 넣으면 null 값이 그대로 업데이트 되므로)
 			}
 			int result = mService.modifyInfo(member);
 			if(result > 0) { // 회원 정보 수정 성공

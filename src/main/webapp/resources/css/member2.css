@@ -379,6 +379,13 @@ form{
 }
 
 /* 회원 정보 수정 */
+#naver-icon{
+	width: 25px;
+	height: 25px;
+}
+#accType-msg{
+	margin-bottom: 32px;
+}
 .modify-area{
 	padding-top: 80px;
 	width: 700px;

@@ -123,5 +123,23 @@ public class MemberServiceImpl implements MemberService{
 		int result = mStore.updateMemberPw(session, paramMap);
 		return result;
 	}
+	// 네아로 회원 확인
+	@Override
+	public int selectMemberById(HashMap<String, String> paramMap) {
+		int result = mStore.selectMemberById(session, paramMap);
+		return result;
+	}
+	// sns 회원가입 기능
+	@Override
+	public int snsJoin(Member member) {
+		int result = mStore.snsJoin(session, member);
+		return result;
+	}
+	// 네아로
+	@Override
+	public Member snsLogin(HashMap<String, String> paramMap) {
+		Member loginMember = mStore.snsLogin(session, paramMap);
+		return loginMember;
+	}
 
 }

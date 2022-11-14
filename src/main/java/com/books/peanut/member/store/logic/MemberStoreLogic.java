@@ -118,5 +118,23 @@ public class MemberStoreLogic implements MemberStore{
 		int result = session.update("MemberMapper.updateMemberPw", paramMap);
 		return result;
 	}
+	// 네아로 회원 확인
+	@Override
+	public int selectMemberById(SqlSession session, HashMap<String, String> paramMap) {
+		int result = session.selectOne("MemberMapper.selectMemberById", paramMap);
+		return result;
+	}
+	// sns 회원가입 기능
+	@Override
+	public int snsJoin(SqlSession session, Member member) {
+		int result = session.insert("MemberMapper.snsJoin", member);
+		return result;
+	}
+	// 네아로
+	@Override
+	public Member snsLogin(SqlSession session, HashMap<String, String> paramMap) {
+		Member loginMember = session.selectOne("MemberMapper.snsLogin", paramMap);
+		return loginMember;
+	}
 	
 }
