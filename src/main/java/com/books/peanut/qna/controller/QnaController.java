@@ -571,26 +571,41 @@ public class QnaController {
 	public ModelAndView adminQnaCategoryList(
 			ModelAndView mv
 			, @RequestParam("qnaCategory") String qnaCategory
-			, @RequestParam(value="page", required=false) Integer page
-			) {
+			, @RequestParam(value="page", required=false) Integer page) {
 		try {
+			System.out.println(qnaCategory);
 			int totalQna = qService.totalQna();
 			int totalAnswer = qService.totalAnswer();
 			int totalNoAnswer = qService.totalNoAnswer();
 			
+			int currentPage = (page != null) ? page : 1;
 			int totalCount = qService.getTotalCount(qnaCategory);
 			int categoryLimit = 10;
-			BookPageController bpCont = new BookPageController();
-			BookPage bPage = bpCont.boardList(page, totalCount, categoryLimit);
-			
-			if(totalCount>0) {
-				List<Qna> aList = qService.printAllByCategory(qnaCategory, bPage.getCurrentPage(), categoryLimit);
-				mv.addObject("aList", aList);
+			int naviLimit = 5;
+			int maxPage;
+			int startNavi;
+			int endNavi;
+			maxPage = (int)((double)totalCount/categoryLimit + 0.9);
+			startNavi = ((int)((double)currentPage/naviLimit+0.9)-1)*naviLimit+1;
+			endNavi = startNavi + naviLimit - 1;
+			if(maxPage < endNavi) {
+				endNavi = maxPage;
 			}
+			List<Qna> aList = qService.printAllByCategory(qnaCategory, currentPage, categoryLimit);
+		
+			if(!aList.isEmpty()) {
+				mv.addObject("aList", aList);
+			}else {
+				mv.addObject("aList", null);
+			}
+			mv.addObject("urlVal", "categoryCount");
+			mv.addObject("maxPage", maxPage);
+			mv.addObject("currentPage", currentPage);
+			mv.addObject("startNavi", startNavi);
+			mv.addObject("endNavi", endNavi);
 			mv.addObject("totalQna", totalQna);
 			mv.addObject("totalAnswer", totalAnswer);
 			mv.addObject("totalNoAnswer", totalNoAnswer);
-			mv.addObject("bPage", bPage);
 			mv.addObject("page", page);
 			mv.addObject("qnaCategory", qnaCategory);
 			mv.setViewName("admin/aqnaCategoryView");

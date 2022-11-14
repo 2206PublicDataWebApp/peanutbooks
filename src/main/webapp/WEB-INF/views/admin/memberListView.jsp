@@ -6,79 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>회원리스트</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="/resources/img/icons8-book-32.png">
+<link rel="stylesheet" href="/resources/css/admin/member/css.css" ></link>
 </head>
- <style>
-	.btn {
-	  appearance: none;
-	    -webkit-appearance: none;
-	  font-family: sans-serif;
-	  cursor: pointer;
-	  padding: 12px;
-	  min-width: 150px;
-	  border: none;
-	    -webkit-transition: background-color 100ms linear;
-	    -ms-transition: background-color 100ms linear;
-	     transition: background-color 100ms linear;
-	}
-	.mainUl {
-		list-style-type: none;
-		padding: 0px;
-	}
-	
-	.mainLi {
-		display: inline-block;
-		margin-left: 18px;
-		margin-right: 18px;
-		font-size: 18px;
-		/* font-weight: bold; */
-	}
-	#colText{
-		padding-top: 0.7rem;
-	}
-	 #page-area {
-		font-size: 0.8rem;
-		font-weight: bolder;
-		text-align:center;
-	}
-	
-	#page-area span{
-		border-radius: 0.5rem;
-		line-height:2rem;
-		
-	}
-	
-	.pageNow, .pages{
-		display: inline-block;
-		width: 3rem;
-		height: 2rem;
-		transition: 0.2s;
-		
-	}
-	.pages{
-		background-color:#FFD384;
-		transition: 0.2s;	
-	}
-	.pageNow, .pages:hover{
-		background-color:#FF884B;
-		color:white;
-		transition : 0.2s;
-	}
-	
-	.prev, .next {
-		display: inline-block;
-		width: 3rem;
-		height: 2rem;
-		
-		
-	}
-    .pages a {
-		width:100%;
-		height:100%;
-		display:inline-block;
-	} 
-</style> 
+ 
 <body>
 <!-- header start -->
 <jsp:include page="../header/adminheader.jsp"></jsp:include>
@@ -87,167 +19,152 @@
 
 <!-- main contents start -->
 <main>
-	<section class="container">
 	<!-- 세부페이지 head 시작 -->
+	<!-- 세부페이지 큰 제목 -->
+	<div class="board_wrap">
 		<!-- 세부페이지 큰 제목 -->
-		<div class="container text-center">
-			<div class="row row-cols-1">
-				<div class="col" id="colText" style="background-color: #5e5e5e; color: white; height:45px; vertical-align: middle;">회원리스트</div>
-			</div>
+		<div class="main_title">
+		   <h6>회원리스트</h6>        
+		</div>
 		<!-- 세부페이지 큰 제목 끝 -->
-		<br>
-		<hr>
 			<!-- 세부 메뉴 시작 -->
-			<ul class="mainUl">
-	    		<li class="mainLi"><div style="text-align:center">
-			    		<a href="/admin/adminListView.kh?code=all">전체회원<br>${totalCount }</a>
-			    	</div>
-			    </li>
-			    <li class="mainLi">
-			    	<div class="col"><img src="/resources/img/sidebar.png"></div>
-			    </li>
-	    		<li class="mainLi">
-	    			<div style="text-align:center">
-			    		<a href="/admin/adminListView.kh?code=today">오늘가입<br>${todayCount }</a>
-			    	</div>
-				</li>
-				<li class="mainLi">
-			    	<div class="col"><img src="/resources/img/sidebar.png"></div>
-			    </li>
-	    		<li class="mainLi">
-	    			<div style="text-align:center">
-			    		<a href="/admin/adminListView.kh?code=del">탈퇴회원<br>${deleteCount }</a>
-			    	</div>
-				</li>
-	 		</ul>
-	 		<!-- 세부 메뉴 끝 -->
+			<div class="sub_menu">
+			     <ul class="amount">
+			        <li>
+			          <div>
+			            <div class="contents1"><a href="/admin/adminListView.kh?code=all">전체회원</a></div>
+			            <div class="result"><a href="/admin/adminListView.kh?code=all">${totalCount }</a></div>
+			          </div>
+			        </li>
+			        <li>
+			          <div>
+			            <div class="contents1"><a href="/admin/adminListView.kh?code=today">오늘가입</a></div>
+			            <div class="result"><a href="/admin/adminListView.kh?code=today">${todayCount }</a></div>
+			          </div>
+			        </li>
+			        <li>
+			          <div>
+			            <div class="contents1"><a href="/admin/adminListView.kh?code=del">탈퇴회원</a></div>
+			            <div class="result"><a href="/admin/adminListView.kh?code=del">${deleteCount }</a></div>
+			          </div>
+			        </li>
+			     </ul>
+		     </div>
 		<hr>
+		<!-- amount end -->
+
+
 		<br><br>
 		<!-- 세부페이지 head 시작 -->
 		
-		<!-- 검색 -->
-			<div class="row row-cols-1">
-				<table align="center" class="table col-6" style="width:80%";>
-					<tr>
-						<td style="border:none;">
-							<div style="display: inline-block; margin: 0 5px;  float: left;">
-							<h4 align="center">회원리스트</h4>
-							</div>
-							<!-- div 오른쪽 정렬 -->
-							<div style="display: inline-block; margin: 0 5px;  float: right;">
-							<form action="/admin/MemberSearch.kh" method="get" >
-								<div style= "display: inline-block">
-									<select class="form-select" name="searchCondition" >
-										<option value="all" <c:if test="${searchCondition eq 'all'}">selected</c:if>>전체</option>
-										<option value="name" <c:if test="${searchCondition eq 'name'}">selected</c:if>>닉네임</option>
-										<option value="id" <c:if test="${searchCondition eq 'id'}">selected</c:if>>아이디</option>
-									</select>
-								</div>
-								<div style= "display: inline-block">
-								<input type="text" name="searchValue" placeholder="검색"  value="${searchValue }">
-								</div>
-								<div style= "display: inline-block">
-								<input type="submit" value="검색" class="btn btn-dark">
-								</div>
-							</form>
-							</div>
-						</td>
-					</tr>
-					
-				</table>
-			</div>
-		<!-- 검색 -->
+		<!-- 리스트 출력, 제목, 검색 -->
+		<div class="board_title">
+		<!-- 제목 & 검색 폼 -->
+			<div class="b_title">
+            	<strong>문의 게시판</strong>
+            </div>
+            <div class="b_search">
+            	<!-- 검색 -->
+	    		<form action="/admin/MemberSearch.kh" method="get" >
+			        <ul class="search_area">
+			        	<li>
+			         		<select class="form-select" name="searchCondition" >
+								<option value="all" <c:if test="${searchCondition eq 'all'}">selected</c:if>>전체</option>
+								<option value="name" <c:if test="${searchCondition eq 'name'}">selected</c:if>>닉네임</option>
+								<option value="id" <c:if test="${searchCondition eq 'id'}">selected</c:if>>아이디</option>
+							</select>
+			          	</li>
+						<li>
+							<input type="text" name="searchValue" placeholder="검색"  value="${searchValue }">
+						</li>
+			          	<li>
+			          		<input type="submit" value="검색" class="btn btn-dark">
+						</li>
+			        </ul>
+		        </form>
+			<!-- 검색 -->
+            </div>
+        </div>
 	
 	
 		<!-- 리스트 출력 -->
-			<div class="row row-cols-1">
-				<table align="center" class="table col-6" style="width:80%";>
-					<tr>
-							<th>No</th>
-							<th>이름</th>
-							<th>아이디</th>
-							<th>땅콩</th>
-							<th>상태</th>
-							<th>가입일</th>
-						</tr>
-				<c:if test="${!empty mList }">
-					<c:forEach items="${mList }" var="member" varStatus="i">
-						<tr>
-							<td>${i.count }</td>
-							<td>
-								<a href="/admin/memberDetailView.kh?memberId=${member.memberId }&page=${bPage.currentPage }" style="color: black">${member.mNickname}</a>
-							</td>
-							<td>
-								<a href="/admin/memberDetailView.kh?memberId=${member.memberId }&page=${bPage.currentPage }" style="color: black">${member.memberId }</a>
-							</td>
-							<td>${member.mPoint }</td>
-							<td>
-								<c:if test="${member.deleteYN eq 'N' }">회원</c:if>
-								<c:if test="${member.deleteYN eq 'Y' }">탈퇴</c:if>
-							</td>
-							<td>
-								${member.joinDate }
-							</td>
-						</tr>
-					</c:forEach>
-				</c:if>
+		<div class="board_list_wrap">
+            <div class="board_list">
+                <div class="top">
+                    <div class="num">번호</div>
+                    <div class="writer">이름</div>
+                    <div class="id">아이디</div>
+                    <div class="title">땅콩</div>
+                    <div class="status">상태</div>
+                    <div class="date">가입일</div>
+                </div>
+	            <c:if test="${!empty mList }">
+	               	<c:forEach items="${mList }" var="member" varStatus="i">
+	                <div>
+	                    <div class="num">${i.count }</div>
+	                    <div class=id>
+	                    	<c:if test="${member.deleteYN eq 'N' }">회원</c:if>
+							<c:if test="${member.deleteYN eq 'Y' }">탈퇴</c:if>
+						</div>
+	                    <div class="writer"><a href="/admin/memberDetailView.kh?memberId=${member.memberId }&page=${bPage.currentPage }" style="color: black">${member.mNickname}</a></div>
+	                    <div class="title"><a href="/admin/memberDetailView.kh?memberId=${member.memberId }&page=${bPage.currentPage }" style="color: black">${member.memberId }</a></div>
+	                    <div class="status">
+	                    	${member.mPoint }
+	                    </div>
+	                    <div class="date">${member.joinDate }</div>
+	                </div>
+		        	</c:forEach> 
+	            </c:if>    
 				<c:if test="${empty mList }">
-					<tr>
-						<td colspan="6" align="center"><b>조회한 내역이 없습니다.</b></td>
-					</tr>
+					<br>
+	        		<b style="color: darkgray; font-size: 16px">조회한 내역이 없습니다.</b>
 				</c:if>
-					<tr align="center" height="20">
-			            <td colspan="6" style="border:none;">
-						    <!--  페이징 영역 -->
-							<article id="page-area">
-				
-								<!-- 이전 페이지 출력 -->
-								<c:if test="${bPage.startNavi != 1 && bPage.startNavi > 0  }">
-									<span class="prev"> <a
-										href="/admin/adminListView.kh?page=${bPage.startNavi-1 }"> < </a>
-									</span>
-								</c:if>
-				
-								<!-- 페이지 번호 출력 -->
-								<c:forEach var="p" begin="${bPage.startNavi}"
-									end="${bPage.endNavi}">
-				
-									
-									<c:if test="${p == bPage.currentPage  }">
-										<span class="pageNow"> 
-											${p }
-										</span>	
-									</c:if> 
-									<c:if test="${p == 0  }">
-										<span class="pageNow"> 
-											${p+1 }	
-										</span>	
-									</c:if>
-									
-				
-									<c:if test="${p != bPage.currentPage && p !=0}">
-										<span class="pages"> <a href="/admin/adminListView.kh?page=${p }&code=${code}">${p }</a>
-										</span>
-									</c:if>
-				
-								</c:forEach>
-								<!-- 다음 페이지 출력 -->
-								<c:if test="${bPage.endNavi ne bPage.maxPage  }">
-									<span class="next"> <a href="/admin/adminListView.kh?page=${bPage.endNavi+1 }&code=${code}"> > </a>
-									</span>
-								</c:if>
-				
-				
-							</article>
-							<!-- 페이징 영역 종료 -->
-			            </td>
-			        </tr>
-				</table>
+				<!-- 페이징 -->
+			<article id="page-area">
+
+				<!-- 이전 페이지 출력 -->
+				<c:if test="${bPage.startNavi != 1 && bPage.startNavi > 0  }">
+					<span class="prev"> 
+						<a href="/admin/qnaList.kh?page=${bPage.startNavi-1 }&qnaStatus=${qna.qnaStatus}"> [이전] </a>
+					</span>
+				</c:if>
+
+				<!-- 페이지 번호 출력 -->
+				<c:forEach var="p" begin="${bPage.startNavi}"
+					end="${bPage.endNavi}">
+
+					
+					<c:if test="${p == bPage.currentPage  }">
+						<span class="pageNow"> 
+							${p }
+						</span>	
+					</c:if> 
+					<c:if test="${p == 0  }">
+						<span class="pageNow"> 
+							${p+1 }	
+						</span>	
+					</c:if>
+					
+
+					<c:if test="${p != bPage.currentPage && p !=0}">
+						<span class="pages"> <a href="/admin/qnaList.kh?page=${p }&qnaStatus=${qna.qnaStatus}">${p }</a>
+						</span>
+					</c:if>
+
+				</c:forEach>
+				<!-- 다음 페이지 출력 -->
+				<c:if test="${bPage.endNavi ne bPage.maxPage  }">
+					<span class="next"> <a
+						href="/admin/qnaList?page=${bPage.endNavi+1 }&qnaStatus=${qna.qnaStatus}"> [다음] </a>
+					</span>
+				</c:if>
+			</article>
+			<!-- 페이징 영역 종료 -->
 			</div>
 		</div>
+	</div>
 	<br>
 	<hr>
-	</section>
 </main>
 <!-- main contents End -->
 
