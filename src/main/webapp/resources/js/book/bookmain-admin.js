@@ -533,7 +533,20 @@ document.querySelector('#popUp').style.display='none';
 function openPop(){
 	var PopUp = document.querySelector('#popUp');
 	PopUp.style.display="flex";
-	shareKakao();
+	Kakao.init('851b05e5a04e6de56c5c90e2d2a0470c');
+  	Kakao.Link.createDefaultButton({
+	    container: '#btnKakao', // 카카오공유버튼ID
+	    objectType: 'feed',
+	    content: {
+	      title: title, // 보여질 제목
+	      description: "땅콩북스의 "+title, // 보여질 설명
+	      imageUrl: "https://raw.githubusercontent.com/2206PublicDataWebApp/peanutbooks/master/src/main/webapp/resources/bookImg/"+img, // 콘텐츠 URL
+	      link: {
+	         mobileWebUrl: "http://127.0.0.1:9999/book/oriBookInfo?bookNo"+bookNo,
+	         webUrl: "http://127.0.0.1:9999/book/oriBookInfo?bookNo"+bookNo
+	      }
+	    }
+	  });
 }
 
 

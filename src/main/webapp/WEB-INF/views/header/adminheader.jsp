@@ -149,11 +149,18 @@
                   	</div>
 
 					<div id="admin-icon-area" class="row">
-						<div class="col-4">
-							<a href="/news/newsList.do">
-							<img src="/resources/img/header/icons8-notification-64.png"
-								alt=""> <br>알림</a>
+						
+							<div class="col-4"  onclick="location.href='/news/newsList.pb'">
+														
+								<img src="/resources/img/header/icons8-notification-50.png" alt="알림">
+								<c:if test="${sessionScope.countNews > 0}">
+									<div id="news-circle">${sessionScope.countNews}</div>
+								</c:if>
+								
+								<br>알림
+							
 						</div>
+						
 						<div class="col-4">
 							<a href="/admin/adminListView.kh">
 							<img src="/resources/img/header/icons8-gear-50.png" alt="">
