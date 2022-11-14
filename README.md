@@ -85,7 +85,7 @@
  ||작가료 정산||이벤트 및 미니게임|
  
 
-## 스택
+## 개발스택
 ### 주요언어
 <div align=>
   <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white">
