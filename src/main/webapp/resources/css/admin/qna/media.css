@@ -1,0 +1,53 @@
+@media (max-width: 500px) {
+	.main_title{
+		width: 100%;
+	}
+	.sub_menu{
+		width: 100%;
+	}
+    .board_wrap {
+        width: 100%;
+        min-width: 320px;
+        padding: 0 30px;
+        box-sizing: border-box;
+    }
+
+    .category_list{
+    	display: flex;
+    	flex-wrap : wrap; 
+    	
+    }
+
+    .board_list .num,
+    .board_list .writer,
+    .board_list .date,
+    .board_list .category {
+        display: none;
+    }
+
+	.board_list .title {
+        width: 75%;
+    }
+    .board_list .status {
+        width: 25%;
+    }
+
+    .board_list .title {
+        text-indent: 10px;
+    }
+
+    .board_list .top .title {
+        text-indent: 0;
+    }
+
+   
+}
+
+@media (max-width: 768px) {
+	.board_wrap {
+        width: 100%;
+        min-width: 320px;
+        padding: 0 30px;
+        box-sizing: border-box;
+    }
+}

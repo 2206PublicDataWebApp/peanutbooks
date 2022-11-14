@@ -6,25 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 홈</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<style>
-	.mainUl {
-		list-style-type: none;
-		padding: 0px;
-	}
-	
-	.mainLi {
-		display: inline-block;
-		margin-left: 18px;
-		margin-right: 18px;
-		font-size: 18px;
-		/* font-weight: bold; */
-	}
-	#colText{
-		padding-top: 0.7rem;
-	}
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/resources/css/admin/css.css" ></link>
 </head>
 
 <body>
@@ -34,7 +17,7 @@
 
 <!-- main contents start -->
 <main>
-	<section class="container">
+	<div class="board_wrap">
 	<!-- 세부페이지 body 시작 -->
 		<div class="container text-center">
 		 	<div class="row row-cols-1">
@@ -291,9 +274,8 @@
 			</div>
 			<!-- 커뮤니티 게시판  -->
 			
-		
+		</div>
 	</div>
-	</section>
 </main>
 <!-- main contents End -->
 
