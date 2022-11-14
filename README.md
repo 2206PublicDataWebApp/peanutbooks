@@ -15,8 +15,9 @@
   ## 🚩 목차
   - [기획의도](#기획의도)
   - [역할분담](#역할분담)
-  - [기술스탯](#기술스탯)
+  - [개발스택](#개발스택)
     - [주요언어](#주요언어)
+    - [스택](#기술스택)
     - [개발환경](#개발환경)
   - [주요기능](#주요기능)
     - [회원관리](#회원관리)
@@ -84,7 +85,7 @@
  ||작가료 정산||이벤트 및 미니게임|
  
 
-## 기술스탯
+## 스택
 ### 주요언어
 <div align=>
   <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white">
@@ -92,22 +93,27 @@
   <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">
   <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
   </div>
- 
- #### 사용빈도
+  
+  #### 사용빈도
   <div align=>
   <img src="/readMeResource/java-61%25(1).svg">
   <img src="/readMeResource/javascript-30%25.svg">
   <img src="/readMeResource/css-8%25.svg">
   </div>
   
-  
-  
-### 개발환경
-<div align=>
+### 기술스택
+<div>
   <img src="https://img.shields.io/badge/oracle-F80000?style=for-the-badge&logo=oracle&logoColor=white">
   <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white">
   <img src="https://img.shields.io/badge/jquery-0769AD?style=for-the-badge&logo=jquery&logoColor=white"> 
   <img src="https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white">
+ </div>
+ 
+  
+  
+  
+### 개발환경
+<div align=>
   <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
   <img src="https://img.shields.io/badge/apache tomcat-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=black">
   <img src="https://img.shields.io/badge/apache maven-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white">
