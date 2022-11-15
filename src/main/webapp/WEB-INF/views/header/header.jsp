@@ -92,8 +92,6 @@
 						</div>
 					</c:if>
 					<div id="mypage-icon-area" class="row">
-					
-					
 						<div class="col-4" id="header-news" onclick="location.href='/news/newsList.pb'">
 							<div id="news-icon">
 								<img src="/resources/img/header/icons8-notification-50.png" alt="알림">
@@ -151,11 +149,14 @@
 						구독<br>
 					</div>
 					<div id="admin-icon-area" class="row">
-						<div class="col-4">
-							<a href="/news/newsList.pb">
-							<img src="/resources/img/header/icons8-notification-50.png"
-								alt=""> <br>알림
-							</a>
+						<div class="col-4" id="header-news" onclick="location.href='/news/newsList.pb'">
+							<div id="news-icon">
+								<img src="/resources/img/header/icons8-notification-50.png" alt="알림">
+								<c:if test="${sessionScope.countNews > 0}">
+									<div id="news-circle">${sessionScope.countNews}</div>
+								</c:if>
+							</div>
+							알림
 						</div>
 						<div class="col-4">
 							<a href="/member/memberInfo.pb">

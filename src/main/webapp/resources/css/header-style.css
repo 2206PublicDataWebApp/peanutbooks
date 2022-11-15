@@ -108,6 +108,10 @@ header li {
 }
 
 @media (max-width:500px) {
+	main{
+	    padding-top: 4rem;
+	}
+	
     #logo {
         width: 120%;
         height: auto;

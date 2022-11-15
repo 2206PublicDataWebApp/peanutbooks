@@ -120,8 +120,8 @@ public class MemberStoreLogic implements MemberStore{
 	}
 	// 네아로 회원 확인
 	@Override
-	public int selectMemberById(SqlSession session, HashMap<String, String> paramMap) {
-		int result = session.selectOne("MemberMapper.selectMemberById", paramMap);
+	public int selectMemberById(SqlSession session, String id) {
+		int result = session.selectOne("MemberMapper.selectMemberById", id);
 		return result;
 	}
 	// sns 회원가입 기능
@@ -132,8 +132,8 @@ public class MemberStoreLogic implements MemberStore{
 	}
 	// 네아로
 	@Override
-	public Member snsLogin(SqlSession session, HashMap<String, String> paramMap) {
-		Member loginMember = session.selectOne("MemberMapper.snsLogin", paramMap);
+	public Member snsLogin(SqlSession session, String id) {
+		Member loginMember = session.selectOne("MemberMapper.snsLogin", id);
 		return loginMember;
 	}
 	

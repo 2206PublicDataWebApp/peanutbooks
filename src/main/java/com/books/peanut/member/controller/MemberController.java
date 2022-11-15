@@ -321,31 +321,26 @@ public class MemberController {
 	 * 로그인 화면
 	 * @return
 	 */
-	@RequestMapping(value="/member/loginView.pb", method=RequestMethod.GET)
+	@RequestMapping(value="/member/loginView.pb", method = { RequestMethod.GET, RequestMethod.POST })
 	public String memberLoginView(Model model, HttpSession session) {
 		
 		/* 네아로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
 		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
-		/* 객체 바인딩 */
-		model.addAttribute("urlNaver", naverAuthUrl);
+		System.out.println("네이버 url: " + naverAuthUrl);
+		model.addAttribute("urlNaver", naverAuthUrl); /* 객체 바인딩 */
 		
 		/* 카카오 URL */
 		String kakaoAuthUrl = kakaoLoginBO.getAuthorizationUrl(session);
+		System.out.println("카카오 url: " + kakaoAuthUrl);
 		model.addAttribute("urlKakao", kakaoAuthUrl);
 		
 		return "member/login";
 	}
 	
-	@RequestMapping(value="common/alert.pb", method=RequestMethod.GET)
-	public String alertPage() {
-		return "common/alert";
-		
-	}
-	
 	// 네이버 로그인 성공 시 callback 호출 메소드
 	@RequestMapping(value = "/callbackNaver.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView callbackNaver(
-			ModelAndView mv,
+	public String callbackNaver(
+			Model model,
 			@RequestParam String code,
 			@RequestParam String state,
 			HttpSession session,
@@ -365,19 +360,10 @@ public class MemberController {
 		String id = (String) response_obj.get("id");
 		String email = (String) response_obj.get("email");
 		String nickname = (String) response_obj.get("nickname");
-		
-//		mv.addObject("id", id);
-//		mv.addObject("email", email);
-//		mv.addObject("nickname", nickname);
-//		mv.addObject("accType", "naver");
-//		mv.setViewName("member/snsJoin");
 
-		HashMap<String, String> paramMap = new HashMap<String, String>();
-		paramMap.put("snsId", id);
-		paramMap.put("accType", "naver");
-		int result = mService.selectMemberById(paramMap);
+		int result = mService.selectMemberById(id);
 		if(result > 0) {
-			Member loginMember = mService.snsLogin(paramMap);
+			Member loginMember = mService.snsLogin(id);
 			if(loginMember != null) {
 				session = request.getSession();
 				session.setAttribute("loginMember", loginMember); // session에 로그인한 회원의 모든 정보(loginMember) 저장
@@ -394,21 +380,21 @@ public class MemberController {
 				// 알림 개수 가져오기
 				int countNews = nService.countNews(loginMember.getMemberId());
 				session.setAttribute("countNews", countNews);
-				mv.setViewName("redirect:/main"); // 로그인 성공 시 로그인 후 메인 페이지로 이동
+				return "redirect:/main"; // 로그인 성공 시 로그인 후 메인 페이지로 이동
 			}
 		}else {
-			mv.addObject("msg", "해당 SNS로 등록된 회원정보가 없습니다.\n계정이 없는 경우 회원가입이 필요합니다.");
-			mv.addObject("url", "/member/snsjoinView.pb?snsId="+id+"&mEmail="+email+"&mNickname="+nickname+"&accType=naver");
-			mv.setViewName("common/alert");
+			session.setAttribute("msg", "해당 SNS로 등록된 회원정보가 없습니다. 계정이 없는 경우 회원가입이 필요합니다.");
+			session.setAttribute("url", "/member/snsjoinView.pb?snsId="+id+"&mEmail="+email+"&mNickname="+nickname+"&accType=naver");
+			return "redirect:/alertView.pb";
 		}
-		
-		return mv;
+
+		return null;
 	}
 	
 	// 카카오 로그인 성공 시 callback
 	@RequestMapping(value = "/callbackKakao.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView callbackKakao(
-			ModelAndView mv,
+	public String callbackKakao(
+			Model model,
 			@RequestParam String code,
 			@RequestParam String state,
 			HttpSession session,
@@ -418,6 +404,7 @@ public class MemberController {
 		oauthToken = kakaoLoginBO.getAccessToken(session, code, state);	
 		// 로그인 사용자 정보를 읽어옴.
 		apiResult = kakaoLoginBO.getUserProfile(oauthToken);
+		System.out.println(apiResult);
 		
 		JSONParser jsonParser = new JSONParser();
 		JSONObject jsonObj;
@@ -428,42 +415,60 @@ public class MemberController {
 		// 프로필 조회
 		String email = (String) response_obj.get("email");
 		String nickname = (String) response_obj2.get("nickname");
+		String id = jsonObj.get("id")+"";
 
-//		HashMap<String, String> paramMap = new HashMap<String, String>();
-//		paramMap.put("snsId", );
-//		paramMap.put("accType", "kakao");
-//		int result = mService.selectMemberById(paramMap);
-//		if(result > 0) {
-//			Member loginMember = mService.snsLogin(paramMap);
-//			if(loginMember != null) {
-//				session = request.getSession();
-//				session.setAttribute("loginMember", loginMember); // session에 로그인한 회원의 모든 정보(loginMember) 저장
-//				// 구독권 가져오는 부분 시작
-//				String lastDate = pService.seasonTicketDate(loginMember.getMemberId());			
-//				session.setAttribute("lastDate", lastDate);
-//				//구독권 가져오는 부분 종료
-//				// 로그인한 회원이 저장한 도서 수 가져오기
-//				int savedBooks = mService.countSavedBooks(loginMember.getMemberId());
-//				session.setAttribute("savedBooks", savedBooks);
-//				// 로그인한 회원이 등록한 작품 수 가져오기
-//				int writtenBooks = mService.countWrittenBooks(loginMember.getMemberId());
-//				session.setAttribute("writtenBooks", writtenBooks);
-//				// 알림 개수 가져오기
-//				int countNews = nService.countNews(loginMember.getMemberId());
-//				session.setAttribute("countNews", countNews);
-//				mv.setViewName("redirect:/main"); // 로그인 성공 시 로그인 후 메인 페이지로 이동
-//			}
-//		}else {
-//			mv.addObject("msg", "해당 SNS로 등록된 회원정보가 없습니다.\n계정이 없는 경우 회원가입이 필요합니다.");
-//			mv.addObject("url", "/member/snsjoinView.pb?snsId="++"&mEmail="+email+"&mNickname="+nickname+"&accType=kakao");
-//			mv.setViewName("common/alert");
-//		}
+		int result = mService.selectMemberById(id);
+		if(result > 0) {
+			Member loginMember = mService.snsLogin(id);
+			if(loginMember != null) {
+				session = request.getSession();
+				session.setAttribute("loginMember", loginMember); // session에 로그인한 회원의 모든 정보(loginMember) 저장
+				// 구독권 가져오는 부분 시작
+				String lastDate = pService.seasonTicketDate(loginMember.getMemberId());			
+				session.setAttribute("lastDate", lastDate);
+				//구독권 가져오는 부분 종료
+				// 로그인한 회원이 저장한 도서 수 가져오기
+				int savedBooks = mService.countSavedBooks(loginMember.getMemberId());
+				session.setAttribute("savedBooks", savedBooks);
+				// 로그인한 회원이 등록한 작품 수 가져오기
+				int writtenBooks = mService.countWrittenBooks(loginMember.getMemberId());
+				session.setAttribute("writtenBooks", writtenBooks);
+				// 알림 개수 가져오기
+				int countNews = nService.countNews(loginMember.getMemberId());
+				session.setAttribute("countNews", countNews);
+				return "redirect:/main"; // 로그인 성공 시 로그인 후 메인 페이지로 이동
+			}
+		}else {
+			session.setAttribute("msg", "해당 SNS로 등록된 회원정보가 없습니다. 계정이 없는 경우 회원가입이 필요합니다.");
+			session.setAttribute("url", "/member/snsjoinView.pb?snsId="+id+"&mEmail="+email+"&mNickname="+nickname+"&accType=kakao");
+			return "redirect:/alertView.pb";
+		}
 
-		return mv;
+		return null;
 	}
 	
 	/**
-	 * 로그인 기능
+	 * alert만 뜨는 화면
+	 * @return
+	 */
+	@RequestMapping(value="/alertView.pb", method=RequestMethod.GET)
+	public String alertView() {
+		return "common/alert";
+	}
+	
+	/**
+	 * 이메일 인증 안 된 회원 로그인 전 인증 유도 화면
+	 * @return
+	 */
+	@RequestMapping(value="/member/reAuthView.pb", method=RequestMethod.GET)
+	public String reAuthView(Model model, @RequestParam("memberId") String memberId, @RequestParam("mEmail") String mEmail) {
+		model.addAttribute("memberId", memberId);
+		model.addAttribute("mEmail", mEmail);
+		return "member/reAuthEmail";
+	}
+	
+	/**
+	 * 로그인 기능(일반)
 	 * @param member
 	 * @param mv
 	 * @param request
@@ -476,11 +481,16 @@ public class MemberController {
 			HttpServletRequest request) {
 		try {
 			// 비밀번호 암호화 시작
-			System.out.println("회원가입-암호화 전 비밀번호: " + member.getMemberPw());
+			System.out.println("로그인-암호화 전 비밀번호: " + member.getMemberPw());
 			String encryptedPw = Sha256.encrypt(member.getMemberPw()); // 회원가입 jsp에서 입력된 비밀번호를 암호화해서 encryptedPw에 넣기
 			member.setMemberPw(encryptedPw); // 암호화된 비밀번호를 멤버 객체의 비밀번호로 넣음
-			System.out.println("회원가입-암호화 후 비밀번호: " + member.getMemberPw());
+			System.out.println("로그인-암호화 후 비밀번호: " + member.getMemberPw());
 			// 비밀번호 암호화 끝
+//			if(member.getEmailYN() == "N") {
+//				mv.addObject("msg", "회원가입이 완료되지 않았습니다. 이메일을 인증해 주세요.");
+//				mv.addObject("url", "/member/member/reAuthView.pb?memberId="+member.getMemberId()+"&mEmail="+member.getmEmail()); // 인증번호 입력 페이지로 이동
+//				mv.setViewName("common/alert");
+//			}
 			Member loginMember = mService.loginMember(member);
 			if(loginMember != null) {
 				HttpSession session = request.getSession();

@@ -317,6 +317,13 @@ form{
 	padding-left: 16px;
     padding-right: 16px;
 }
+@media (max-width: 500px){
+    .menu-area{
+	width: 100%;
+	padding-left: 0;
+	padding-right: 0;
+	}
+}
 .info-menu{ /* 메뉴 영역 하나 */
 	padding: 24px 16px 24px 16px;
 	border-bottom: solid 1px lightgray;
@@ -361,6 +368,11 @@ form{
 	margin: 0 auto;
 	width: 700px;
 }
+@media (max-width: 500px){
+    .pw-input-area{ /* 비밀번호 입력 영역 */
+	width: 85%;
+	}
+}
 #pwChk-pw{ /* 비밀번호 입력 칸 */
 	width: 100%;
 	height: 50px;
@@ -379,12 +391,14 @@ form{
 }
 
 /* 회원 정보 수정 */
-#naver-icon{
+.social-icons{
 	width: 25px;
 	height: 25px;
+	margin-right: 5px;
 }
 #accType-msg{
 	margin-bottom: 32px;
+	font-weight: bold;
 }
 .modify-area{
 	padding-top: 80px;
@@ -393,6 +407,11 @@ form{
 	padding-left: 24px;
 	padding-right: 24px;
 	padding-bottom: 56px;
+}
+@media (max-width: 500px){
+    .modify-area{
+	width: 85%;
+	}
 }
 .modify-area input{
 	height: 50px;
@@ -421,6 +440,11 @@ form{
 	width: 80%;
 	color: gray;
 	background: #f5f5f5;
+}
+@media (max-width: 500px){
+    #modify-pw{
+	width: 78%;
+	}
 }
 .modify-pw-btn{
 	width: 18%;
@@ -484,6 +508,11 @@ form{
 	padding-left: 16px;
 	padding-right: 16px;
 	padding-bottom: 56px;
+}
+@media (max-width: 500px){
+    .delete-div-bottom{
+	width: 100%;
+	}
 }
 .div-square{
 	border: 1px solid #ccc;

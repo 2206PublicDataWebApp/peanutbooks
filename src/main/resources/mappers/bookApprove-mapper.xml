@@ -160,8 +160,7 @@
 		<result property="deleteYN" column="DELETE_YN"/> <!-- 회원 탈퇴 여부 -->
 		<result property="mPoint" column="M_POINT"/> <!-- 회원 포인트(땅콩) -->
 		<result property="subYN" column="SUB_YN"/> <!-- 월 구독 여부 -->
-		<result property="naverId" column="NAVER_ID"/> <!-- 네이버 아이디 -->
-		<result property="kakaoId" column="KAKAO_ID"/> <!-- 카카오 아이디 -->
+		<result property="snsId" column="SNS_ID"/> <!-- SNS 아이디 -->
 		<result property="accType" column="ACC_TYPE"/> <!-- 계정 종류(일반/네이버/카카오) -->
 		<result property="adminYN" column="ADMIN_YN"/> <!-- 관리자 여부 -->
 		<result property="authKey" column="AUTH_KEY"/> <!-- 이메일 인증 키(난수) -->

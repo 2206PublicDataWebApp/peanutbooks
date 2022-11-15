@@ -90,7 +90,7 @@
 		<div class="container" id="mypage-tooltip-area">
 			<div class="row" id="icon-tooltip">
 				<div class="col-md-2" id="mypage">
-					<div id="name-space">이용자님 환영합니다!</div>
+					<div id="name-space">${sessionScope.loginMember.mNickname}님 환영합니다!</div>
                   	<div id="subscribe">
 					 	<c:if test="${!empty sessionScope.lastDate}">
                     		 구독<br> ${sessionScope.lastDate } 까지
@@ -98,9 +98,14 @@
                  	 </div>
 
 					<div id="mypage-icon-area" class="row">
-						<div class="col-4">
-							<a href="/news/newsList.do"><img src="/resources/img/news/icons8-close-48.png"
-								alt=""> <br>알림</a>
+						<div class="col-4" id="header-news" onclick="location.href='/news/newsList.pb'">
+							<div id="news-icon">
+								<img src="/resources/img/header/icons8-notification-50.png" alt="알림">
+								<c:if test="${sessionScope.countNews > 0}">
+									<div id="news-circle">${sessionScope.countNews}</div>
+								</c:if>
+							</div>
+							알림
 						</div>
 						<div class="col-4">
 							<img src="/resources/img/header/icons8-gear-50.png" alt="">
@@ -141,7 +146,7 @@
 		<div class="container" id="admin-tooltip-area">
 			<div class="row" id="admin-icon-tooltip">
 				<div class="col-md-2" id="admin">
-					<div id="name-space">${sessionScope.loginMember.mNickname} 관리자 입니다.</div>
+					<div id="name-space">${sessionScope.loginMember.mNickname} 입니다.</div>
                  	<div id="subscribe">
 						 <c:if test="${!empty sessionScope.lastDate}">
 	                     구독<br> ${sessionScope.lastDate } 까지
@@ -149,10 +154,14 @@
                   	</div>
 
 					<div id="admin-icon-area" class="row">
-						<div class="col-4">
-							<a href="/news/newsList.do">
-							<img src="/resources/img/header/icons8-notification-64.png"
-								alt=""> <br>알림</a>
+						<div class="col-4" id="header-news" onclick="location.href='/news/newsList.pb'">
+							<div id="news-icon">
+								<img src="/resources/img/header/icons8-notification-50.png" alt="알림">
+								<c:if test="${sessionScope.countNews > 0}">
+									<div id="news-circle">${sessionScope.countNews}</div>
+								</c:if>
+							</div>
+							알림
 						</div>
 						<div class="col-4">
 							<a href="/admin/adminListView.kh">

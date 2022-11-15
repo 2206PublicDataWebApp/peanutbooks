@@ -83,5 +83,5 @@ public class NewsController {
 		session.setAttribute("countNews", countNews);
 		return String.valueOf(countNews);
 	}
-	
+
 }

@@ -13,7 +13,7 @@ public class KakaoOAuthApi extends DefaultApi20 {
 	public static KakaoOAuthApi instance() {
 		return InstanceHolder.INSTANCE;
 	}
-	
+
 	@Override
 	public String getAccessTokenEndpoint() {
 		return "https://kauth.kakao.com/oauth/token";
@@ -21,7 +21,6 @@ public class KakaoOAuthApi extends DefaultApi20 {
 
 	@Override
 	protected String getAuthorizationBaseUrl() {
-		return "https://kauth.kakao.com/oauth/authorize?client_id=790165a64700b146767baf6da66e9f06&redirect_uri=http://127.0.0.1:7777/callbackKakao.do&response_type=code";
+		return "https://kauth.kakao.com/oauth/authorize";
 	}
-
 }

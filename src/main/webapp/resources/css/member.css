@@ -7,6 +7,10 @@ input:focus{
 input{
 	padding: 10px;
 }
+#email-msg{
+	font-size: 12px;
+	margin-top: 8px;
+}
 .guide{
 	display: none;
 	font-size: 12px;
@@ -197,6 +201,7 @@ form{
 	height: 40px;
 	border: 0.5px solid lightgray;
 	border-radius: 4px;
+	height: 50px;
 }
 
 /* 아이디 찾기 */

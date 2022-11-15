@@ -32,7 +32,7 @@
 	        </div>
         	<div class="pw-input-area">
         		<label for="pwChk-pw">비밀번호</label>
-        		<input id="pwChk-memberPw" type="text" value="${loginMember.memberPw}">
+        		<input id="pwChk-memberPw" type="hidden" value="${loginMember.memberPw}">
         		<input id="pwChk-pw" type="password" required>
         		<p class="guide error pw-error-4">비밀번호를 입력해 주세요.</p>
         		<button class="pwChk-btn" type="button" onclick="checkPw()">확인</button>
