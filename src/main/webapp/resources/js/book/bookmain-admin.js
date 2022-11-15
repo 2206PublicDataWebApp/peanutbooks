@@ -120,7 +120,7 @@ function reReplyAll(rPage,count){
 		success:function(result){
 			for(var i in result){
 				var str ="";
-					str ='<div class="row  d-flex justify-content-center repleOne mt-2 ps-5" id="rRe'+result[i].reReplyNo+'">';
+					str ='<div class="row  d-flex justify-content-center repleOne mt-2 ps-5 reReply" id="rRe'+result[i].reReplyNo+'">';
 					str+='<div class="card ps-3 pe-3 pt-2 pb-2">';	
 					str+='<div class="d-flex row justify-content-between align-items-center">';
 					str+='<div class="user col-12 d-flex flex-row align-items-center">';
@@ -495,6 +495,8 @@ function addMybooks(category,bookNo){
 
 //대댓창 만들기
 function Rereply(replylNo,rPage){
+	if($('#'+replylNo).children('.reReply').length<10){
+	
 
 		var str="";
 		str+='<div class="row mt-2">'
@@ -502,9 +504,11 @@ function Rereply(replylNo,rPage){
 		str+='<textarea name="reRContents'+replylNo+'" id="reply-text" rows="3"></textarea></div>'							
 		str+='<div class="col-md-1 col-3 reply-button-area">'
 		str+='<button id="reply-button1" onclick="reReplyAdd('+replylNo+','+rPage+')">답글</button> <button id="reply-button2" onclick="printReply('+bookNo+',\''+userId+'\','+rPage+')">취소</button></div></div>'
-
-	console.log($('#'+replylNo));
-	$('#'+replylNo).append(str)
+	
+		$('#'+replylNo).append(str)
+	}else{
+		alert('대댓글이 10개이상을 경우 작성할수 없습니다.')
+	}
 }
 
 //대댓 등록
@@ -533,7 +537,20 @@ document.querySelector('#popUp').style.display='none';
 function openPop(){
 	var PopUp = document.querySelector('#popUp');
 	PopUp.style.display="flex";
-	shareKakao();
+	Kakao.init('851b05e5a04e6de56c5c90e2d2a0470c');
+  	Kakao.Link.createDefaultButton({
+	    container: '#btnKakao', // 카카오공유버튼ID
+	    objectType: 'feed',
+	    content: {
+	      title: title, // 보여질 제목
+	      description: "땅콩북스의 "+title, // 보여질 설명
+	      imageUrl: "https://raw.githubusercontent.com/2206PublicDataWebApp/peanutbooks/master/src/main/webapp/resources/bookImg/"+img, // 콘텐츠 URL
+	      link: {
+	         mobileWebUrl: "http://127.0.0.1:9999/book/oriBookInfo?bookNo"+bookNo,
+	         webUrl: "http://127.0.0.1:9999/book/oriBookInfo?bookNo"+bookNo
+	      }
+	    }
+	  });
 }
 
 

@@ -112,6 +112,7 @@ main {
 	border-radius:0.5rem;
 	text-align:center;
 	color:white;
+    display: none;
 	
 }
 #menu1,#menu2{
