@@ -69,6 +69,7 @@
 					REGEXP_SUBSTR(ORDER_NO,'[^-]+',1,2) BETWEEN #{startDate } AND #{endDate } AND ORDER_STATUS='Y'				
 				</if>				
   			</where>
+  			ORDER BY REGEXP_SUBSTR(ORDER_NO,'[^-]+',1,2) DESC
   	</select>
   
 	<!--작가 정산관련 부분  -->

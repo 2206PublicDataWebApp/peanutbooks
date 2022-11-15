@@ -202,7 +202,7 @@
 				pay_method : 'card',
 				merchant_uid : merchant_uid, //주문번호 
 				name : orderContents, //주문내용
-				amount : 1000, //주문금액
+				amount : payMoney, //주문금액
 				buyer_email : mEmail, // 고객이메일
 				buyer_name : memberId, // 고객id
 				buyer_tel : '01011112222', //고객연락처

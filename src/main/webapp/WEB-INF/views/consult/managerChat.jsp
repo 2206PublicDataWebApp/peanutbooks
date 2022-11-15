@@ -46,16 +46,18 @@
 	var printer;
 
 	$('.context').scrollTop=$('.context').scrollHeight;	
-	var text=$('#usertext').val();
+	
 	$('#getResult').on('click',function(){
-		if(text != '' || text != null){
+		var text=$('#magText').val();
+		if(text.length != 0){
 		 sendChatMesage();
 		}
 	});	
 	
 	$('#magText').on('keyup',function(e){		
-		if(e.keyCode==13){
-			if(text != '' || text != null){
+		if(e.keyCode===13){
+			var text=$('#magText').text();
+			if(text.length != 0 ){
 				 sendChatMesage();
 			}
 		};
@@ -63,7 +65,7 @@
 	
 	function sendChatMesage(){	
 		var msg=$('#magText').val();
-		if(msg==''){
+		if(msg===''){
 			alert("입력되지 않았습니다");
 		}else{
 			var titleNo = ${param.titleNo};

@@ -93,16 +93,18 @@
 	}
 	
 	// 고객이 관리자와 채팅 시작
-	var text=$('#usertext').val();
+	
 	$('#getResult').on('click',function(){
-		if(text != '' || text != null){
+		var text=$('#usertext').val();
+		if(text.length != 0){
 		 sendChatMesage();
 		}
 	});
 	
 	$('#usertext').on('keyup',function(e){
+		var text=$('#usertext').text();
 		if(e.keyCode==13){
-			if(text != '' || text != null){
+			if(text.length != 0 ){
 				 sendChatMesage();
 			};
 		};
