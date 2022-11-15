@@ -21,13 +21,14 @@ function imgView(obj) {
         }
 
     }
-    imgCheck()
+    imgCheck(imgid)
 
 };
 function imgView1(obj) {
 
     var imgid = obj.parentElement.parentElement.previousElementSibling.previousElementSibling;
 
+    
     imgid.src = URL.createObjectURL(event.target.files[0]);
     imgid.onload = function() {
         URL.revokeObjectURL(imgid.src) // free memory
@@ -36,21 +37,28 @@ function imgView1(obj) {
         }
 
     }
-    imgCheck()
+    imgCheck(imgid)
 
 };
 
 
 var imgFile = document.querySelectorAll('.isFile');
 var fileForm = /(.*?)\.(jpg|jpeg|png|gif|bmp)$/i;
-var fileSize;
-function imgCheck() {
+var fileSize =2 * 1024 * 1024;
+function imgCheck(obj) {
     for (var i = 0; i < imgFile.length; i++) {
         if (imgFile[i].value != "") {
 
             if (!imgFile[i].value.match(fileForm)) {
                 alert("이미지 파일만 업로드 가능");
                 imgFile[i].value = "";
+                obj.src='/resources/bookImg/error.png';
+
+            }
+            if(imgFile[i].files[0].size>fileSize){
+                alert("2메가 이상은 등록할수 없습니다.");
+                imgFile[i].value = "";
+                obj.src='/resources/bookImg/error.png';
 
             }
         }

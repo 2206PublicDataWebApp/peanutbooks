@@ -121,7 +121,7 @@ function reReplyAll(rPage,count){
 		success:function(result){
 			for(var i in result){
 				var str ="";
-					str ='<div class="row  d-flex justify-content-center repleOne mt-2 ps-5" id="rRe'+result[i].reReplyNo+'">';
+					str ='<div class="row  d-flex justify-content-center repleOne reReply mt-2 ps-5" id="rRe'+result[i].reReplyNo+'">';
 					str+='<div class="card ps-3 pe-3 pt-2 pb-2">';	
 					str+='<div class="d-flex row justify-content-between align-items-center">';
 					str+='<div class="user col-12 d-flex flex-row align-items-center">';
@@ -485,16 +485,20 @@ function addMybooks(category,bookNo){
 
 //대댓창 만들기
 function Rereply(replylNo,rPage){
+	if($('#'+replylNo).children('.reReply').length<10){
 
-		var str="";
-		str+='<div class="row mt-2">'
-		str+='<div class="col-md-11 col-9">'
-		str+='<textarea name="reRContents'+replylNo+'" id="reply-text" rows="3"></textarea></div>'							
-		str+='<div class="col-md-1 col-3 reply-button-area">'
-		str+='<button id="reply-button1" onclick="reReplyAdd('+replylNo+','+rPage+')">답글</button> <button id="reply-button2" onclick="printReply('+bookNo+',\''+userId+'\','+rPage+')">취소</button></div></div>'
+			var str="";
+			str+='<div class="row mt-2">'
+			str+='<div class="col-md-11 col-9">'
+			str+='<textarea name="reRContents'+replylNo+'" id="reply-text" rows="3"></textarea></div>'							
+			str+='<div class="col-md-1 col-3 reply-button-area">'
+			str+='<button id="reply-button1" onclick="reReplyAdd('+replylNo+','+rPage+')">답글</button> <button id="reply-button2" onclick="printReply('+bookNo+',\''+userId+'\','+rPage+')">취소</button></div></div>'
 
-	console.log($('#'+replylNo));
-	$('#'+replylNo).append(str)
+		
+		$('#'+replylNo).append(str)
+	}else{
+		alert('대댓글이 10개이상인경우 작성할수 없습니다.')
+	}
 }
 
 //대댓 등록
