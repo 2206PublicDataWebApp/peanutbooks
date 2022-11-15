@@ -130,7 +130,7 @@
 			</c:if>
 			<c:if test="${empty aList }">
 				<br>
-	        	<b style="color: darkgray; font-size: 16px">게시물이 없습니다.</b>
+	        	<b style="color: #616161; font-size: 16px; text-align: center;">게시물이 없습니다.</b>
 	        </c:if>
 	        <!-- 페이징 -->
 			<article id="page-area">

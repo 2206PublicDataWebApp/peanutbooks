@@ -274,21 +274,35 @@ public class NoticeController {
 			int hideBoard = nService.hideBoard();
 			
 			int totalCount = nService.getTotalCount(noticeCategory);
+			int currentPage = (page != null) ? page : 1;
 			int categoryLimit = 10;
-
-			BookPageController bpCont = new BookPageController();
-			BookPage bPage = bpCont.boardList(page, totalCount, categoryLimit);
-			if(totalCount>0) {
-				List<Notice> nList = nService.printAllByCategory(noticeCategory, bPage.getCurrentPage(), categoryLimit);
-				mv.addObject("nList", nList);
+			int naviLimit = 5;
+			int maxPage;
+			int startNavi;
+			int endNavi;
+			maxPage = (int)((double)totalCount/categoryLimit + 0.9);
+			startNavi = ((int)((double)currentPage/naviLimit+0.9)-1)*naviLimit+1;
+			endNavi = startNavi + naviLimit - 1;
+			if(maxPage < endNavi) {
+				endNavi = maxPage;
 			}
-			mv.addObject("bPage", bPage);
+			List<Notice> nList = nService.printAllByCategory(noticeCategory, currentPage, categoryLimit);
+			if(!nList.isEmpty()) {
+				mv.addObject("nList", nList);
+			}else {
+				mv.addObject("nList",null);
+			}
+			mv.addObject("urlVal", "categoryCount");
+			mv.addObject("maxPage", maxPage);
+			mv.addObject("currentPage", currentPage);
+			mv.addObject("startNavi", startNavi);
+			mv.addObject("endNavi", endNavi);
 			mv.addObject("page", page);
 			mv.addObject("noticeCategory", noticeCategory);
 			mv.addObject("totalBoard",totalBoard);
 			mv.addObject("showBoard",showBoard);
 			mv.addObject("hideBoard",hideBoard);
-			mv.setViewName("notice/noticeListView");
+			mv.setViewName("notice/noticeCategoryView");
 		} catch (Exception e) {
 			mv.addObject("msg", e.toString()).setViewName("common/errorPage");
 		}

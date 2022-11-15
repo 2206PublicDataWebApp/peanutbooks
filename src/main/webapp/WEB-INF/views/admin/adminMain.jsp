@@ -7,7 +7,8 @@
 <meta charset="UTF-8">
 <title>관리자 홈</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/resources/css/admin/css.css" ></link>
+<link rel="shortcut icon" href="/resources/img/icons8-book-32.png">
+<link rel="stylesheet" href="/resources/css/admin/main/css.css" ></link>
 </head>
 
 <body>
@@ -19,262 +20,249 @@
 <main>
 	<div class="board_wrap">
 	<!-- 세부페이지 body 시작 -->
-		<div class="container text-center">
-		 	<div class="row row-cols-1">
-		 	<br><br>
-		 	  <!-- 도서 현황 -->
-		 		<p style="color: #5F6F94; font-size:28px; font-family:malgun gothic; text-align: center;">[ 도서 현황 ]</p>
-				<hr>
-					<!-- <div id="title">전체 시리즈 목록</div> -->
-					<ul class="mainUl">
-			    		<li class="mainLi"><div style="text-align:center">
-					    		<a href="/admin/approveYN.kh">전체도서<br>
-					    		${allBooks }</a>
-					    	</div>
-					    </li>
-					    <li class="mainLi">
-					    	<div class="col"><img src="/resources/img/sidebar.png"></div>
-					    </li>
-			    		<li class="mainLi">
-			    			<div style="text-align:center">
-					    		<a href="/admin/approveYN.kh?checkPermission=Y&step=date">승인도서<br>
-					    		${approveYes }</a>
-					    	</div>
-						</li>
-						<li class="mainLi">
-					    	<div class="col"><img src="/resources/img/sidebar.png"></div>
-					    </li>
-			    		<li class="mainLi">
-			    			<div style="text-align:center">
-					    		<a href="/admin/approveYN.kh?checkPermission=N&step=number">보류도서<br>
-					    		${approveNo }</a>
-					    	</div>
-						</li>
-						<li class="mainLi">
-					    	<div class="col"><img src="/resources/img/sidebar.png"></div>
-					    </li>
-			    		<li class="mainLi">
-			    			<div style="text-align:center">
-					    		<a href="/admin/reApproveList.kh">재승인도서<br>
-					    		${reApproveBooks }</a>
-					    	</div>
-			    		</li>
-			 		</ul>
-				<hr>
-				<br><br>
-		 		</div>
+		<!-- 도서 현황 -->
+		<div class="main_title">
+		   <h6>도서 리스트</h6>        
+		</div>
+		<!-- 세부 메뉴 시작 -->
+		<div class="sub_menu">
+		     <ul class="amount">
+		        <li>
+		          <div>
+		            <div class="contents1">
+		            	<a href="/admin/approveYN.kh">전체도서</a>
+		            </div>
+		            <div class="result"><a href="/admin/approveYN.kh">${allBooks }</a></div>
+		          </div>
+		        </li>
+		        <li>
+		          <div>
+		            <div class="contents1">
+		            	<a href="/admin/approveYN.kh?checkPermission=Y&step=date">승인도서</a>
+				    	</div>
+		            <div class="result">
+		            	<a href="/admin/approveYN.kh?checkPermission=Y&step=date">${approveYes }</a>
+				    </div>
+		          </div>
+		        </li>
+		        <li>
+		          <div>
+		            <div class="contents1">
+		            	<a href="/admin/approveYN.kh?checkPermission=N&step=number">보류도서</a>
+				    </div>
+		            <div class="result">
+		            	<a href="/admin/approveYN.kh?checkPermission=N&step=number">${approveNo }</a>
+		            </div>
+		          </div>
+		        </li>
+		        <li>
+		          <div>
+		            <div class="contents1">
+		            	<a href="/admin/reApproveList.kh">재승인도서</a>
+		            </div>
+		            <div class="result">
+		            	<a href="/admin/reApproveList.kh">${reApproveBooks }</a>
+		            </div>
+		          </div>
+		        </li>
+		     </ul>
+	     </div>
+		<hr>
+		<!-- 도서 현황 End-->
+	<!-- amount end -->
+	<br><br>
 			  
-			  <!-- 문의 게시판  -->
-			<div class="row row-cols-1">
-		      	<p style="color: #8ba525; font-size:28px; font-family:malgun gothic; text-align: center;">[ 문의 게시판 ]</p>
-		      	<hr>
-					<!-- 세부 메뉴 시작 -->
-					<ul class="mainUl">
-			    		<li class="mainLi"><div style="text-align:center">
-					    		<a href="/admin/qnaList.kh">총문의<br>
-					    		${totalQna }</a>
-					    	</div>
-					    </li>
-					    <li class="mainLi">
-					    	<div class="col"><img src="/resources/img/sidebar.png"></div>
-					    </li>
-			    		<li class="mainLi">
-			    			<div style="text-align:center">
-					    		<a href="/admin/qnaList.kh?qnaStatus=Y">답변완료<br>
-					    		${totalAnswer }</a>
-					    	</div>
-						</li>
-						<li class="mainLi">
-					    	<div class="col"><img src="/resources/img/sidebar.png"></div>
-					    </li>
-			    		<li class="mainLi">
-			    			<div style="text-align:center">
-					    		<a href="/admin/qnaList.kh?qnaStatus=N">처리중<br>
-					    		${totalNoAnswer }</a>
-					    	</div>
-						</li>
-			 		</ul>
-	 		<!-- 세부 메뉴 끝 -->
-					<table class="table col-7 table-striped table-hover">
+	<!-- 문의 게시판  -->
+		<div class="main_title">
+		   <h6>1:1문의 게시판</h6>        
+		</div>
+		<!-- 세부 메뉴 시작 -->
+		<div class="sub_menu">
+		     <ul class="amount">
+		        <li>
+		          <div>
+		            <div class="contents1"><a href="/admin/qnaList.kh">총문의</a></div>
+		            <div class="result"><a href="/admin/qnaList.kh">${totalQna }</a></div>
+		          </div>
+		        </li>
+		        <li>
+		          <div>
+		            <div class="contents1"><a href="/admin/qnaList.kh?qnaStatus=Y">답변완료</a></div>
+		            <div class="result"><a href="/admin/qnaList.kh?qnaStatus=Y">${totalAnswer }</a></div>
+		          </div>
+		        </li>
+		        <li>
+		          <div>
+		            <div class="contents1"><a href="/admin/qnaList.kh?qnaStatus=N">처리중</a></div>
+		            <div class="result"><a href="/admin/qnaList.kh?qnaStatus=N">${totalNoAnswer }</a></div>
+		          </div>
+		        </li>
+		     </ul>
+	     </div>
+	<!-- amount end -->
+	
+	<!-- 리스트 출력 제목 & 검색 폼 -->
+	      <div class="board_list_wrap">
+	          <div class="board_list">
+		 		<!-- 세부 메뉴 끝 -->
+				<table class="t1">
+					<thead>
 						<tr>
-							<th class="col-1">번호</th>
-							<th class="col-1">작성자</th>
-							<th class="col-1">문의유형</th>
-							<th class="col-2">제목</th>
-							<th class="col-1">상태</th>
-							<th class="col-1">작성일</th>
+							<th>작성자</th>
+							<th>문의유형</th>
+							<th>제목</th>
+							<th>상태</th>
+							<th>작성일</th>
 						</tr>
-					<c:if test="${!empty qList }">
-						<c:forEach items="${qList }" var="qna" varStatus="j">
+					</thead>
+					<tbody>
+						<c:if test="${!empty qList }">
+							<c:forEach items="${qList }" var="qna" varStatus="j">
+								<tr>
+									<td>${qna.memberId }</td>
+									<td>
+										<c:if test="${qna.qnaCategory == 'member' }">
+											회원관련
+										</c:if>
+										<c:if test="${qna.qnaCategory == 'point' }">
+											포인트관련
+										</c:if>
+										<c:if test="${qna.qnaCategory == 'books' }">
+											도서관련
+										</c:if>
+										<c:if test="${qna.qnaCategory == 'others' }">
+											기타
+										</c:if>
+									</td>
+									<td><a href="/admin/aqnaDetailView.kh?qnaNo=${qna.qnaNo }" style="color: black">${qna.qnaTitle }</a></td>
+									<td>
+										<c:if test="${qna.qnaStatus eq 'Y' }">
+											<b style="color: #2d532c;">답변완료</b>
+										</c:if>
+										<c:if test="${qna.qnaStatus eq 'N' }">
+											<b style="color: #d21853;">답변대기</b>
+										</c:if>
+									</td>
+									<td>${qna.qCreateDate }</td>
+								</tr>
+							</c:forEach>
+						</c:if>
+					</tbody>
+				</table>
+		   </div>
+		</div>
+	<br><br>
+	<!-- 문의 게시판 End -->
+			
+	<!-- 회원관리 게시판  -->
+	<div class="main_title">
+	   <h6>회원리스트</h6>        
+	</div>
+	<!-- 세부페이지 큰 제목 끝 -->
+		<!-- 세부 메뉴 시작 -->
+		<div class="sub_menu">
+		     <ul class="amount">
+		        <li>
+		          <div>
+		            <div class="contents1"><a href="/admin/adminListView.kh?code=all">전체회원</a></div>
+		            <div class="result"><a href="/admin/adminListView.kh?code=all">${totalCount }</a></div>
+		          </div>
+		        </li>
+		        <li>
+		          <div>
+		            <div class="contents1"><a href="/admin/adminListView.kh?code=today">오늘가입</a></div>
+		            <div class="result"><a href="/admin/adminListView.kh?code=today">${todayCount }</a></div>
+		          </div>
+		        </li>
+		        <li>
+		          <div>
+		            <div class="contents1"><a href="/admin/adminListView.kh?code=del">탈퇴회원</a></div>
+		            <div class="result"><a href="/admin/adminListView.kh?code=del">${deleteCount }</a></div>
+		          </div>
+		        </li>
+		     </ul>
+	     </div>
+	<!-- amount end -->
+		<div class="board_list_wrap">
+	    	<div class="board_list">
+				<table class="t2">
+					<thead>
 						<tr>
-							<td>${qna.qnaNo }${j.count }</td>
-							<td>${qna.memberId }</td>
-							<td>
-								<c:if test="${qna.qnaCategory == 'member' }">
-									회원관련
-								</c:if>
-								<c:if test="${qna.qnaCategory == 'point' }">
-									포인트관련
-								</c:if>
-								<c:if test="${qna.qnaCategory == 'books' }">
-									도서관련
-								</c:if>
-								<c:if test="${qna.qnaCategory == 'others' }">
-									기타
-								</c:if>
-							</td>
-							<td><a href="/admin/aqnaDetailView.kh?qnaNo=${qna.qnaNo }" style="color: black">${qna.qnaTitle }</a></td>
-							<td>
-								<c:if test="${qna.qnaStatus eq 'Y' }">
-									<b style="color: #2d532c;">답변완료</b>
-								</c:if>
-								<c:if test="${qna.qnaStatus eq 'N' }">
-									<b style="color: #d21853;">답변대기</b>
-								</c:if>
-							</td>
-							<td>${qna.qCreateDate }</td>
+							<th>닉네임</th>
+							<th>아이디</th>
+							<th>땅콩</th>
+							<th>상태</th>
+							<th>가입일</th>
 						</tr>
-						</c:forEach>
-					</c:if>
+					</thead>
+					<tbody>
+						<c:if test="${!empty mList }">
+							<c:forEach items="${mList }" var="member" varStatus="k">
+								<tr>
+									<td>${member.mNickname }</td>
+									<td><a href="/admin/memberDetailView.kh?memberId=${member.memberId }">${member.memberId }</a></td>
+									<td>${member.mPoint }</td>
+									<td>
+										<c:if test="${member.deleteYN eq 'N' }">
+											<b style="color: #2d532c;">회원</b>
+										</c:if>
+										<c:if test="${member.deleteYN eq 'Y' }">
+											<b style="color: #d21853;">탈퇴</b>
+										</c:if>
+									</td>
+									<td>${member.joinDate }</td>
+								</tr>
+							</c:forEach>
+						</c:if>
+					</tbody>
 				</table>
 			</div>
-			<br><br>
-			<!-- 문의 게시판  -->
-			
-			<!-- 회원관리 게시판  -->
-			<div class="row row-cols-1">
-			<br><br>
-	      	<p style="color: #43b2ea; font-size:28px; font-family:malgun gothic; text-align: center;">[ 회원관리 ]</p>
-		      	<!-- 세부 메뉴 시작 -->
-		      	<hr>
-				<ul class="mainUl">
-		    		<li class="mainLi"><div style="text-align:center">
-				    		<a href="/admin/adminListView.kh?code=all">전체회원<br>${totalCount }</a>
-				    	</div>
-				    </li>
-				    <li class="mainLi">
-				    	<div class="col"><img src="/resources/img/sidebar.png"></div>
-				    </li>
-		    		<li class="mainLi">
-		    			<div style="text-align:center">
-				    		<a href="/admin/adminListView.kh?code=today">오늘가입<br>${todayCount }</a>
-				    	</div>
-					</li>
-					<li class="mainLi">
-				    	<div class="col"><img src="/resources/img/sidebar.png"></div>
-				    </li>
-		    		<li class="mainLi">
-		    			<div style="text-align:center">
-				    		<a href="/admin/adminListView.kh?code=del">탈퇴회원<br>${deleteCount }</a>
-				    	</div>
-					</li>
-		 		</ul>
-		 		<!-- 세부 메뉴 끝 -->
-				<table class="table col-6 table-striped table-hover">
-					<tr>
-						<th class="col-1">번호</th>
-						<th class="col-1">닉네임</th>
-						<th class="col-1">아이디</th>
-						<th class="col-1">땅콩</th>
-						<th class="col-1">상태</th>
-						<th class="col-1">가입일</th>
-					</tr>
-				<c:if test="${!empty mList }">
-					<c:forEach items="${mList }" var="member" varStatus="k">
-					<tr>
-						<td>${k.count }</td>
-						<td>${member.mNickname }</td>
-						<td><a href="/admin/memberDetailView.kh?memberId=${member.memberId }">${member.memberId }</a></td>
-						<td>${member.mPoint }</td>
-						<td>
-							<c:if test="${member.deleteYN eq 'N' }">
-								<b style="color: #2d532c;">회원</b>
-							</c:if>
-							<c:if test="${member.deleteYN eq 'Y' }">
-								<b style="color: #d21853;">탈퇴</b>
-							</c:if>
-						</td>
-						<td>${member.joinDate }</td>
-					</tr>
-					</c:forEach>
-				</c:if>
-				</table>
-			</div>       
-			<br><br>
-	 <!-- 회원관리 게시판  --> 
-			<!-- 도서 게시판  -->
-			   <%--  <div class="col-lg-6 col-md-12">
-			      <div class="p-4 border bg-light">
-			      	<p style="color: #d21853; font-size:28px; font-family:malgun gothic; text-align: center;">[ 레시피 게시판 ]</p>
-						<table class="table table-striped table-hover">
+		</div>       
+	<br><br>
+	<!-- 회원관리 게시판 End -->
+
+	<!-- 작가 정산 게시판  -->
+		 <div class="main_title">
+			 <h6>작가 정산 리스트</h6>        
+		</div>
+		<div class="board_list_wrap">
+	    	<div class="board_list">
+				<table class="t3">
+					<thead>
+						<tr>
+							<th>접수번호</th>
+							<th>아이디</th>
+							<th>정산금액</th>
+							<th>지급은행</th>
+							<th>승인여부</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:if test="${!empty wrList }">
+							<c:forEach items="${wrList }" var="pay" varStatus="l">
 							<tr>
-								<th>번호</th>
-								<th>작성자</th>
-								<th>책제목</th>
-								<th>시리즈</th>
-								<th>승인여부</th>
-								<th>작성일</th>
-							</tr>
-						<c:if test="${!empty osList }">
-							<c:forEach items="${osList }" var="os" varStatus="i">
-								<td>${os.approveNo }</td>
-								<td>${os.memberId }</td>
-								<td>${os.bookTitle }</td>
-								<td>${os.title }</td>
+								<td>${pay.wrpayNo }</td>
+								<td>${pay.memberId }</td>
+								<td>${pay.payment }</td>
+								<td>${pay.bankName }</td>
 								<td>
-									<c:if test="${os.checkPermission eq 'Y' }">
+									<c:if test="${pay.bankStatus eq 'N' }">
 										<b style="color: #2d532c;">승인</b>
 									</c:if>
-									<c:if test="${os.checkPermission eq 'N' }">
-										<b style="color: #d21853;">보류</b>
+									<c:if test="${pay.bankStatus eq 'Y' }">
+										<b style="color: #d21853;">승인완료</b>
 									</c:if>
 								</td>
 							</tr>
 							</c:forEach>
 						</c:if>
-					</table>
-			      </div>
-			    </div> --%>
-			 <!-- 문의 게시판  -->   
-		
-			<div class="row row-cols-1">  
-			 <!-- 작가 정산 게시판  -->
-			 <br><br><br>
-		      	<p style="color: #ea61bc; font-size:28px; font-family:malgun gothic; text-align: center;">[ 작가 정산 리스트 ]</p>
-					<table class="table col-6 table-striped table-hover">
-						<tr>
-							<th class="col-1">접수번호</th>
-							<th class="col-1">아이디</th>
-							<th class="col-1">책번호</th>
-							<th class="col-1">정산금액</th>
-							<th class="col-1">지급은행</th>
-							<th class="col-1">승인여부</th>
-						</tr>
-					<c:if test="${!empty wrList }">
-						<c:forEach items="${wrList }" var="pay" varStatus="l">
-						<tr>
-							<td>${pay.wrpayNo }${l.count }</td>
-							<td>${pay.memberId }</td>
-							<td>${pay.payment }</td>
-							<td>${pay.bankName }</td>
-							<td>${pay.bankStatus }</td>
-							<td>
-								<c:if test="${pay.bankStatus eq 'N' }">
-									<b style="color: #2d532c;">승인</b>
-								</c:if>
-								<c:if test="${pay.bankStatus eq 'Y' }">
-									<b style="color: #d21853;">승인완료</b>
-								</c:if>
-							</td>
-						</tr>
-						</c:forEach>
-					</c:if>
+					</tbody>
 				</table>
-				<br><br>
+				<br>
 			</div>
-			<!-- 커뮤니티 게시판  -->
-			
 		</div>
+		<!-- 작가 정산 게시판 End -->
+		
 	</div>
 </main>
 <!-- main contents End -->

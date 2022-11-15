@@ -23,14 +23,47 @@ main{
 	font-size: 10px;
 }
 .main_title{
-	background: #5e5e5e; 
 	height: 45px;
 	width: 100%;
+	align-items: center;
+	margin: auto;
 }
 .main_title > h6{
 	text-align: center;
 	padding-top: 9px;
 	color: #fff; 
+}
+.main_title {
+	width: 100%;
+	height: 45px;
+	font-size: 17px;
+	text-align: center;
+	display: flex;
+	color: #fff;
+	
+}
+.main_t1,.main_t2 > a {
+    display:block;
+}
+.main_t1,.main_t2 > a:hover {
+	
+}
+.main_t1, .main_t2 {
+	display: inline-block;
+    cursor: pointer;
+    width:500px;
+    height:45px;
+    line-height: 20px;
+    padding-top: 12px;
+    
+    
+}
+.main_t1 {
+	background: #5e5e5e; 
+	color: #fff;
+}
+.main_t2 {
+	background: #c9c9c9;
 }
 .sub_menu{
 	width:100%;
@@ -44,7 +77,9 @@ main{
     font-size: 18px;
     font-weight: bold;
 }
-
+.category_list{
+	flex-direction: row-reverse;
+}
 .result{
     font-size: 20px;
 }
@@ -180,9 +215,6 @@ a {
 
 .board_list > div.top {
     border-bottom: 1px solid #999;
-    display: flex;
-    width: 100%;
-    align-items: center;
 }
 
 .board_list > div:last-child {
@@ -201,72 +233,28 @@ a {
 }
 
 .board_list .num {
+    width: 10%;
+}
+.board_list .category {
     width: 15%;
 }
 
-.board_list .writer {
-    width: 20%;
-}
 .board_list .title {
-    width: 15%;
-   /*  text-align: left; */
+    width: 50%;
+    text-align: left;
 }
 
 .board_list .top .title {
     text-align: center;
 }
 
-.board_list .mpoint{
-    width: 15%;
-}
 .board_list .status {
-    width: 15%;
+    width: 10%;
 }
 .board_list .date {
-    width: 20%;
+    width: 15%;
 }
 
-
-
-/* 페이징 
-.board_page {
-    margin-top: 30px;
-    text-align: center;
-    font-size: 0;
-}
-
-.board_page a {
-    display: inline-block;
-    width: 32px;
-    height: 32px;
-    box-sizing: border-box;
-    vertical-align: middle;
-    border: 1px solid #ddd;
-    border-left: 0;
-    line-height: 100%;
-}
-
-.board_page a.bt {
-    padding-top: 10px;
-    font-size: 1rem;
-    letter-spacing: -1px;
-}
-
-.board_page a.num {
-    padding-top: 9px;
-    font-size: 1.2rem;
-}
-
-.board_page a.num.on {
-    border-color: #000;
-    background: #000;
-    color: #fff;
-}
-
-.board_page a:first-child {
-    border-left: 1px solid #ddd;
-}
-*/
 .board_view {
     width: 100%;
     border-top: 2px solid #000;

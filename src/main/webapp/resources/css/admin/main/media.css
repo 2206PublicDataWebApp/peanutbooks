@@ -1,0 +1,82 @@
+@media (max-width: 500px) {
+	.main_title{
+		width: 100%;
+	}
+	.sub_menu{
+		width: 100%;
+	}
+    .board_wrap {
+        width: 100%;
+        min-width: 320px;
+        padding: 0 30px;
+        box-sizing: border-box;
+    }
+
+    .category_list{
+    	display: flex;
+    	flex-wrap : wrap; 
+    	
+    }
+
+}
+
+@media (max-width: 768px) {
+	.board_wrap {
+        width: 100%;
+        min-width: 320px;
+        padding: 0 30px;
+        box-sizing: border-box;
+    }
+	table, thead, tbody, th, td, tr { 
+		display: block; 
+	}
+	
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	
+	tr { border: 1px solid #ccc; }
+	
+	td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 50%; 
+	}
+	
+	td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+	}
+/*
+	Label the data
+	*/
+	.t1 td:nth-of-type(1):before { content: "작성자"; }
+	.t1 td:nth-of-type(2):before { content: "문의유형"; }
+	.t1 td:nth-of-type(3):before { content: "제목"; }
+	.t1 td:nth-of-type(4):before { content: "상태"; }
+	.t1 td:nth-of-type(5):before { content: "작성일"; }
+	
+	.t2 td:nth-of-type(1):before { content: "닉네임"; }
+	.t2 td:nth-of-type(2):before { content: "아이디"; }
+	.t2 td:nth-of-type(3):before { content: "땅콩"; }
+	.t2 td:nth-of-type(4):before { content: "상태"; }
+	.t2 td:nth-of-type(5):before { content: "가입일"; }
+	
+	.t3 td:nth-of-type(1):before { content: "접수번호"; }
+	.t3 td:nth-of-type(2):before { content: "아이디"; }
+	.t3 td:nth-of-type(3):before { content: "정산금액"; }
+	.t3 td:nth-of-type(4):before { content: "지급은행"; }
+	.t3 td:nth-of-type(5):before { content: "승인여부"; }
+
+}

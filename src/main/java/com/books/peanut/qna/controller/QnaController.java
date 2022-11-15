@@ -573,7 +573,6 @@ public class QnaController {
 			, @RequestParam("qnaCategory") String qnaCategory
 			, @RequestParam(value="page", required=false) Integer page) {
 		try {
-			System.out.println(qnaCategory);
 			int totalQna = qService.totalQna();
 			int totalAnswer = qService.totalAnswer();
 			int totalNoAnswer = qService.totalNoAnswer();

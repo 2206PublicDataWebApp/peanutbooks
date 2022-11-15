@@ -19,17 +19,19 @@
     }
 
     .board_list .num,
-    .board_list .writer,
     .board_list .date,
-    .board_list .category {
+    .board_list .status {
         display: none;
     }
 
-	.board_list .title {
-        width: 75%;
+	.board_list .writer {
+        width: 40%;
     }
-    .board_list .status {
-        width: 25%;
+    .board_list .title {
+        width: 30%;
+    }
+    .board_list .mpoint {
+        width: 30%;
     }
 
     .board_list .title {
