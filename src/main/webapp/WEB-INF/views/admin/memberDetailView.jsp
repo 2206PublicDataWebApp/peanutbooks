@@ -89,7 +89,7 @@
 			<div class="row row-cols-1">
 				<table align="center" class="table col-6" style="width:80%";>
 					<tr>
-						<th class="col-6" colspan="2" align="left" style="border:none";>${member.memberId }회원의 상세정보</th>
+						<th class="col-6" colspan="2" align="left" style="border:none";>${member.memberId } 회원의 상세정보</th>
 					</tr>
 					<tr>
 						<th class="col-2" scope="col" align="center">닉네임</th>
@@ -101,7 +101,14 @@
 					</tr>
 					<tr>
 						<th class="col-2" scope="col" align="center">비밀번호</th>
-						<td class="col-4"><input type="text" name="memberPw" class="form-control" value="${member.memberPw }" readonly></td>
+						<td class="col-4">
+							<c:if test="${member.memberPw ne null}">
+								<input type="password" name="memberPw" class="form-control" value="${member.memberPw}" readonly>
+							</c:if>
+							<c:if test="${member.memberPw eq null}">
+								<input type="text" name="memberPw" class="form-control" value="-" readonly>
+							</c:if>
+						</td>
 					</tr>
 					<tr>
 						<th class="col-2" scope="col" align="center">이메일</th>
@@ -112,22 +119,22 @@
 						<td class="col-4"><input type="text" name="joinDate" class="form-control" value="${member.joinDate }" readonly></td>
 					</tr>
 					<tr>
-						<th class="col-2">상태</th>
+						<th class="col-2">탈퇴 여부</th>
 						<td class="col-4">
 							<c:if test="${member.deleteYN eq 'N' }">
-								<input type="text" name="deleteYN" class="form-control" value="회원" readonly>
+								<input type="text" name="deleteYN" class="form-control" value="X" readonly>
 							</c:if>
 							<c:if test="${member.deleteYN eq 'Y' }">
-								<input type="text" name="deleteYN" class="form-control" value="탈퇴" readonly>
+								<input type="text" name="deleteYN" class="form-control" value="O" readonly>
 							</c:if>
 						</td>
 					</tr>
 					<tr>
-						<th class="col-2" scope="col" align="center">회원포인트</th>
+						<th class="col-2" scope="col" align="center">포인트(땅콩)</th>
 						<td class="col-4"><input type="text" name="mPoint" class="form-control" value="${member.mPoint }" readonly></td>
 					</tr>
 					<tr>
-						<th class="col-2" scope="col" align="center">월구독여부</th>
+						<th class="col-2" scope="col" align="center">월 구독 여부</th>
 						<td class="col-4">
 							<c:if test="${member.subYN eq 'Y' }">
 								<input type="text" name="subYN" class="form-control" value="O" readonly>
@@ -138,25 +145,38 @@
 						</td>
 					</tr>
 					<tr>
-						<th class="col-2" scope="col" align="center">네이버 아이디</th>
-						<td class="col-4"><input type="text" name="naverId" class="form-control" value="${member.naverId }" readonly></td>
-					</tr>
-					<tr>
-						<th  class="col-2" scope="col" align="center">카카오 아이디</th>
-						<td class="col-4"><input type="text" name="kakaoId" class="form-control" value="${member.kakaoId }" readonly></td>
+						<th class="col-2" scope="col" align="center">SNS 아이디</th>
+						<td class="col-4">
+							<c:if test="${member.snsId ne null}">
+								<input type="text" name="snsId" class="form-control" value="${member.snsId }" readonly>
+							</c:if>
+							<c:if test="${member.snsId eq null}">
+								<input type="text" name="snsId" class="form-control" value="-" readonly>
+							</c:if>
+						</td>
 					</tr>
 					<tr>
 						<th class="col-2" scope="col" align="center">계정 종류</th>
-						<td><input type="text" name="accType" class="form-control" value="${member.accType }" readonly></td>
+						<td>
+							<c:if test="${member.accType eq null || member.accType eq 'normal'}">
+								<input type="text" name="accType" class="form-control" value="일반" readonly>
+							</c:if>
+							<c:if test="${member.accType eq 'naver'}">
+								<input type="text" name="accType" class="form-control" value="네이버" readonly>
+							</c:if>
+							<c:if test="${member.accType eq 'kakao'}">
+								<input type="text" name="accType" class="form-control" value="카카오" readonly>
+							</c:if>
+						</td>
 					</tr>
 					<tr>
-						<th class="col-2" scope="col" align="center">회원 종류</th>
+						<th class="col-2" scope="col" align="center">관리자 여부</th>
 						<td class="col-4">
 							<c:if test="${member.adminYN eq 'Y' }">
-								<input type="text" name="adminYN" class="form-control" value="관리자" readonly>
+								<input type="text" name="adminYN" class="form-control" value="O" readonly>
 							</c:if>
 							<c:if test="${member.adminYN eq 'N' }">
-								<input type="text" name="adminYN" class="form-control" value="일반" readonly>
+								<input type="text" name="adminYN" class="form-control" value="X" readonly>
 							</c:if>
 						</td>
 					</tr>

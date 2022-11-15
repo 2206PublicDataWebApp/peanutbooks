@@ -86,11 +86,11 @@
 	</update>
 	<!-- 네아로 회원 확인 -->
 	<select id="selectMemberById" resultType="_int">
-		SELECT COUNT(*) FROM MEMBER_TBL WHERE ACC_TYPE = 'naver' AND SNS_ID = #{id}
+		SELECT COUNT(*) FROM MEMBER_TBL WHERE SNS_ID = #{id}
 	</select>
 	<!-- 네아로 -->
 	<select id="snsLogin" resultMap="memberResultMap">
-		SELECT * FROM MEMBER_TBL WHERE ACC_TYPE = #{accType} AND SNS_ID = #{snsId}
+		SELECT * FROM MEMBER_TBL WHERE SNS_ID = #{id}
 	</select>
 	
 	<resultMap type="OriginBookSeries" id="oriSeriesResultMap">

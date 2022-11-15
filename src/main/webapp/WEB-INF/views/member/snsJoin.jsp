@@ -38,6 +38,7 @@
 	                <p class="guide error id-error-4">아이디는 필수 정보입니다.</p>
 	                <label for="join-email">이메일</label>
 	                <div><input class="join-inputs" id="join-email" type="text" name="mEmail" required></div>
+	                <div id="email-msg">이메일은 본인인증에 사용되며 추후 수정이 불가능합니다.</div>
 	                <div class="guide ok email">사용 가능한 이메일입니다.</div>
 	                <div class="guide error email-error-1">이미 사용중인 이메일입니다.</div>
 	                <div class="guide error email-error-2">이메일 주소가 올바르지 않습니다.</div>

@@ -83,6 +83,8 @@
     			$("#authKey-input").focus();
     		}else if(authKey == ""){
     			alert("오류입니다. 잠시 후 다시 시도해 주세요.");
+    		}else if(inputAuthKey != authKey){
+    			alert("인증번호가 올바르지 않습니다. 다시 확인해 주세요.");
     		}else if(inputAuthKey == authKey){
     			alert("인증이 완료되었습니다.");
     			$("#sendId").submit();

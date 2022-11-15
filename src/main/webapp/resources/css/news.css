@@ -43,3 +43,13 @@ input:focus{
 	text-align: center;
 	color: #c1c1c1;
 }
+@media (max-width: 500px){
+    .news-area{
+		width: 100%;
+		padding-left: 0;
+		padding-right: 0;
+	}
+	main{
+    	padding-top: 4rem;
+	}
+}

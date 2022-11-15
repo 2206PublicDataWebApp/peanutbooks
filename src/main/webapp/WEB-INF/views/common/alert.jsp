@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>땅콩북스</title>
+<link rel="shortcut icon" href="/resources/img/icons8-book-32.png">
 </head>
 <body>
 	<script>

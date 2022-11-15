@@ -43,10 +43,10 @@ public interface MemberStore {
 	// 비밀번호 재설정
 	public int updateMemberPw(SqlSession session, HashMap<String, String> paramMap);
 	// 네아로 회원 확인
-	public int selectMemberById(SqlSession session, HashMap<String, String> paramMap);
+	public int selectMemberById(SqlSession session, String id);
 	// sns 회원가입 기능
 	public int snsJoin(SqlSession session, Member member);
 	// 네아로
-	public Member snsLogin(SqlSession session, HashMap<String, String> paramMap);
+	public Member snsLogin(SqlSession session, String id);
 
 }

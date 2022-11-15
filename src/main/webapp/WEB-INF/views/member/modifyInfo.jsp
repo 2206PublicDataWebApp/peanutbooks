@@ -5,6 +5,8 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>땅콩북스: 개인정보수정</title>
 	<link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="../resources/css/member2.css">
@@ -25,8 +27,14 @@
 				<div class="modify-area">
 					<c:if test="${sessionScope.loginMember.accType eq 'naver'}">
 						<div id="accType-msg">
-							<img id="naver-icon" src="../resources/img/member/naver_icon.png" alt="네이버">
+							<img class="social-icons" src="../resources/img/member/naver_icon.png" alt="네이버">
 							<span>네이버 계정 회원</span>
+						</div>
+					</c:if>
+					<c:if test="${sessionScope.loginMember.accType eq 'kakao'}">
+						<div id="accType-msg">
+							<img class="social-icons" src="../resources/img/member/kakao_icon.png" alt="카카오">
+							<span>카카오 계정 회원</span>
 						</div>
 					</c:if>
 					<div id="div-nick">
@@ -40,7 +48,7 @@
 						<label for="info-id">아이디</label><br>
 						<input id="info-id" type="text" value="${sessionScope.loginMember.memberId}" readonly>
 					</div>
-					<c:if test="${sessionScope.loginMember.accType ne 'naver'}">
+					<c:if test="${sessionScope.loginMember.accType eq 'normal' || sessionScope.loginMember.accType eq null}">
 						<div id="div-pw">
 							<label for="modify-pw">비밀번호</label><br>
 							<input id="modify-pw" type="password" value="${sessionScope.loginMember.memberPw}" name="originPw" readonly>
@@ -171,6 +179,9 @@
     			$("#modify-newPwChk").css("border", "solid 1px #ccc");
     		}
     	});
+    	
+		var e_memberPwChk = "";
+		var e_newPw = "";
 		// 확인 버튼 클릭 시
 		$(".modify-btn").on("click", function(){
 			var mNickname = $("#modify-nick").val(); // 닉네임 값
@@ -179,8 +190,6 @@
 			var newPw = $("#modify-newPw").val(); // 새 비밀번호 값
 			var newPwChk = $("#modify-newPwChk").val(); // 새 비밀번호 확인 값
 			var regEx = /(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]/; // 비밀번호 정규식
-			var e_memberPwChk = "";
-			var e_newPw = "";
 			
 			if(mNickname == "" || $("#modify-nick").css("border")=="solid 1px #FF577F"){
 				alert("별명을 다시 확인해 주세요.");
@@ -199,7 +208,6 @@
 					}
 				});
 				if(memberPwChk == "" || e_memberPwChk != memberPw){
-					console.log(e_memberPwChk);
 					alert("기존 비밀번호를 다시 확인해 주세요.");
 					$("#modify-pw2").css("border", "solid 1px #FF577F");
 					$("#modify-pw2").focus();
