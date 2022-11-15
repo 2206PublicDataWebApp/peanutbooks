@@ -148,45 +148,24 @@
 					<br>
 		        	<b style="color: #616161; font-size: 16px; text-align: center;">게시물이 없습니다.</b>
 		        </c:if>
-<%-- 		       <c:if test="notice.noticeCategory"></c:if> --%>
 
-			    <!--  페이징 영역 -->
-				<article id="page-area">
-					<!-- 이전 페이지 출력 -->
-					<c:if test="${bPage.startNavi != 1 && bPage.startNavi > 0  }">
-						<span class="prev"> <a
-							href="/notice/list.kh?page=${bPage.startNavi-1 }"> [이전] </a>
+			    <!-- 페이징 -->
+	            <article id="page-area">
+					<c:if test="${currentPage != 1 }">
+						<span class="prev"> 
+							<a href="/notice/${urlVal }.kh?page=${currentPage - 1 }&noticeCategory=${noticeCategory}"> < </a>
 						</span>
 					</c:if>
-	
-					<!-- 페이지 번호 출력 -->
-					<c:forEach var="p" begin="${bPage.startNavi}"
-						end="${bPage.endNavi}">
-	
-						
-						<c:if test="${p == bPage.currentPage  }">
-							<span class="pageNow"> 
-								${p }
-							</span>	
-						</c:if> 
-						<c:if test="${p == 0  }">
-							<span class="pageNow"> 
-								${p+1 }	
-							</span>	
+					<c:forEach var="p" begin="${startNavi }" end="${endNavi }">
+						<c:if test="${currentPage eq p }">
+							<span class="pageNow"> <b>${p }</b></span>
 						</c:if>
-						
-	
-						<c:if test="${p != bPage.currentPage && p !=0}">
-							<span class="pages"> <a href="/notice/list.kh?page=${p }&noticeCategory=${noticeCategory}">${p }</a>
-							</span>
+						<c:if test="${currentPage ne p }">
+							<span class="pages"> <a href="/notice/${urlVal }.kh?page=${p }&noticeCategory=${noticeCategory}">${p }</a></span>
 						</c:if>
-	
 					</c:forEach>
-					<!-- 다음 페이지 출력 -->
-					<c:if test="${bPage.endNavi ne bPage.maxPage  }">
-						<span class="next"> <a
-							href="/notice/list.kh?page=${bPage.endNavi+1 }&noticeCategory=${noticeCategory}"> [다음] </a>
-						</span>
+					<c:if test="${maxPage > currentPage }">
+						<span class="next"> <a href="/notice/${urlVal }.kh?page=${currentPage + 1 }&noticeCategory=${noticeCategory}"> > </a></span>
 					</c:if>
 				</article>
 				<!-- 페이징 영역 종료 -->

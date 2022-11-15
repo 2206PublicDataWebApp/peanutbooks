@@ -20,73 +20,136 @@
 <link rel="shortcut icon" href="/resources/img/icons8-book-32.png">
 <link rel="stylesheet" href="/resources/css/book/writemenu.css">
 <style>
-	.mainUl {
-		list-style-type: none;
-		padding: 0px;
+	*{
+		list-style: none;
+	    text-decoration: none;
+	}
+	.board_wrap {
+	    width: 1000px;
+	    margin: 0px auto;
+	}
+	.board_title {
+	    margin-bottom: 30px;
+	    padding: 0;
+	}
+	main{
+		font-size: 10px;
+	}
+	.main_title{
+		background: #5e5e5e; 
+		height: 45px;
+		width: 100%;
+	}
+	.main_title > h6{
+		text-align: center;
+		padding-top: 9px;
+		color: #fff; 
+	}
+	.sub_menu{
+		width:100%;
+		height: 80px;
+	}
+	.contents1{
+	    font-size: 17px;
+	    font-weight: 300;
+	}
+	.contents1_bold{
+	    font-size: 18px;
+	    font-weight: bold;
 	}
 	
-	.mainLi {
-		display: inline-block;
-		margin-left: 18px;
-		margin-right: 18px;
-		font-size: 18px;
-		/* font-weight: bold; */
+	.result{
+	    font-size: 20px;
 	}
-	
-	#colText{
-	padding-top: 0.7rem;
+	.amount{
+	    /* position: relative; */
+	    top:66px;
+	    display: flex;
+	    width: 100%;
+	    background: #fff;
+	    /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); */
+	    margin: auto;
+	    margin-top: 10px;
+	    padding: 0px;
 	}
-	
-
+	.amount > li{
+	    flex: 1;
+	    height: 80px;
+	}
+	.amount > li > div{
+	    text-align: center;
+	    margin-top: 10px;
+	    height: 57px;
+	}
+	.amount > li:not(:last-child) > div{
+	    border-right: 1px solid #8b8b8b;
+	}
+	@media (max-width: 500px) {
+		.board_wrap{
+			witdh: 100%;
+		}
+	}
+	@media (max-width: 768px) {
+		.board_wrap{
+			witdh: 100%;
+		}
+	}
 </style>
 </head>
 <body>
-	<jsp:include page="../header/adminheader.jsp" />
+<!-- header start -->
+<jsp:include page="../header/adminheader.jsp"></jsp:include>
+<!-- header End -->
 	<main>
-		<section class="container">
-			<div class="container text-center">
-				<div class="row row-cols-1">
-					<div class="col" id="colText" style="background-color: #5e5e5e; color: white; height:45px; vertical-align: middle;">도서 리스트</div>
-				</div>
-			<br>
-				<hr>
-					<!-- <div id="title">전체 시리즈 목록</div> -->
-					<ul class="mainUl">
-			    		<li class="mainLi"><div style="text-align:center">
-					    		<a href="/admin/approveYN.kh">전체도서<br>
-					    		${allBooks }</a>
-					    	</div>
-					    </li>
-					    <li class="mainLi">
-					    	<div class="col"><img src="/resources/img/sidebar.png"></div>
-					    </li>
-			    		<li class="mainLi">
-			    			<div style="text-align:center">
-					    		<a href="/admin/approveYN.kh?checkPermission=Y&step=date">승인도서<br>
-					    		${approveYes }</a>
-					    	</div>
-						</li>
-						<li class="mainLi">
-					    	<div class="col"><img src="/resources/img/sidebar.png"></div>
-					    </li>
-			    		<li class="mainLi">
-			    			<div style="text-align:center">
-					    		<a href="/admin/approveYN.kh?checkPermission=N&step=number">보류도서<br>
-					    		${approveNo }</a>
-					    	</div>
-						</li>
-						<li class="mainLi">
-					    	<div class="col"><img src="/resources/img/sidebar.png"></div>
-					    </li>
-			    		<li class="mainLi">
-			    			<div style="text-align:center">
-					    		<a href="/admin/reApproveList.kh">재승인도서<br>
-					    		${reApproveBooks }</a>
-					    	</div>
-			    		</li>
-			 		</ul>
-				<hr>
+		<div class="board_wrap">
+			<div class="main_title">
+			   <h6>도서 리스트</h6>        
 			</div>
+			<!-- 세부 메뉴 시작 -->
+			<div class="sub_menu">
+			     <ul class="amount">
+			        <li>
+			          <div>
+			            <div class="contents1">
+			            	<a href="/admin/approveYN.kh">전체도서</a>
+			            </div>
+			            <div class="result"><a href="/admin/approveYN.kh">${allBooks }</a></div>
+			          </div>
+			        </li>
+			        <li>
+			          <div>
+			            <div class="contents1">
+			            	<a href="/admin/approveYN.kh?checkPermission=Y&step=date">승인도서</a>
+					    	</div>
+			            <div class="result">
+			            	<a href="/admin/approveYN.kh?checkPermission=Y&step=date">${approveYes }</a>
+					    </div>
+			          </div>
+			        </li>
+			        <li>
+			          <div>
+			            <div class="contents1">
+			            	<a href="/admin/approveYN.kh?checkPermission=N&step=number">보류도서</a>
+					    </div>
+			            <div class="result">
+			            	<a href="/admin/approveYN.kh?checkPermission=N&step=number">${approveNo }</a>
+			            </div>
+			          </div>
+			        </li>
+			        <li>
+			          <div>
+			            <div class="contents1">
+			            	<a href="/admin/reApproveList.kh">재승인도서</a>
+			            </div>
+			            <div class="result">
+			            	<a href="/admin/reApproveList.kh">${reApproveBooks }</a>
+			            </div>
+			          </div>
+			        </li>
+			     </ul>
+		     </div>
+		<hr>
+		<!-- amount end -->
 			<br>
 		<article id="list-area" class="row" >
 				<!-- 내가 쓴 시리즈 출력 -->
@@ -128,7 +191,7 @@
 				</c:if>
 				<!-- 시리즈 출력 종료 -->
 				<c:if test="${osList==null }">
-					<p style="text-align:center;">승인할 도서가 없습니다.</p>
+					<b style="color: #616161; font-size: 16px; text-align: center;">승인할 도서가 없습니다.</b>
 				</c:if>
 			</article>
 
@@ -177,7 +240,7 @@
 			<!-- 페이징 영역 종료 -->
 
 		<hr>
-		</section>
+		</div>
 	</main>
 	<jsp:include page="../footer/footer.jsp" />
 <script>

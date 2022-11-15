@@ -12,6 +12,9 @@
 
 </head>
 <style>
+	.container{
+		width: 100%;
+	}
 	.btn {
 	  appearance: none;
 	    -webkit-appearance: none;
@@ -45,6 +48,22 @@
 		color: white; 
 		display:inline-block;
 	} 
+	@media (max-width: 400px) {
+		.container{
+			witdh: 100%;
+		}
+		.btn {
+			min-width: 80px;
+		}
+	}
+	@media (max-width: 768px) {
+		.container{
+			witdh: 100%;
+		}
+		.btn {
+			min-width: 80px;
+		}
+	}
 </style> 
 <body>
 <!-- header start -->
@@ -69,7 +88,7 @@
 	<form action="/notice/register.kh" method="post" enctype="multipart/form-data" name="noticeForm">
 		<table align="center" class="table col-10" style="width:80%;">
 			<tr>
-				<td  class="col-2" scope="col" align="center">선택</td>
+				<td  class="col-md-sm-2" scope="col" align="center">선택</td>
 				<td>
 					<select name="noticeCategory" id="noticeCategory" class="form-select" aria-label="Default select example" required>
 						<option value="notice" label="공지" selected></option>
@@ -79,19 +98,19 @@
 					</select>	
 				</td>
 			<tr>
-				<td  class="col-2" scope="col" align="center">작성자</td>
+				<td  class="col-md-sm-2" scope="col" align="center">작성자</td>
 				<td><input type="text" name="noticeWriter"  class="form-control" value="${sessionScope.loginMember.mNickname}" readonly></td>
 			</tr>
 			<tr>
-				<td  class="col-2" scope="col" align="center">제목</td>
+				<td  class="col-md-sm-2" scope="col" align="center">제목</td>
 				<td><input type="text" name="noticeTitle" onkeyup="titleLengthCk(this);" class="form-control"></td>
 			</tr>
 			<tr>
-				<td  class="col-2" scope="col" align="center">내용</td>
+				<td  class="col-md-sm-2" scope="col" align="center">내용</td>
 				<td> <textarea class="form-control" id="exampleFormControlTextarea1" cols="50" rows="20" name="noticeContents"></textarea>  </td>
 			</tr>
 			<tr>
-				<td  class="col-2" scope="col" align="center">첨부파일</td>
+				<td  class="col-md-sm-2" scope="col" align="center">첨부파일</td>
 				<td><input type="file" name="uploadFile"></td>
 			</tr>
 			<tr>
@@ -99,13 +118,13 @@
 					<input onclick="noticeCheck();" type="button" value="등록" class="btn btn-warning btn-sm">
 					<input type="reset" value="취소" class="btn btn-warning btn-sm">
 					<button type="button" onclick="location.href='/notice/list.kh'" class="btn btn-warning btn-sm">목록</button> 
-					 
 				</td>
 			</tr>
 		</table>
 	</form>
 	<br>
 	<hr>
+	</div>
 	</section>
 <br>
 </main>

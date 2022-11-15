@@ -20,7 +20,6 @@
     }
 
     .board_list .num,
-    .board_list .writer,
     .board_list .date,
     .board_list .category {
         display: none;

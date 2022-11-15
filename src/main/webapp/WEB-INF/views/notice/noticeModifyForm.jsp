@@ -69,7 +69,7 @@
 			<!-- <div id="title">전체 시리즈 목록</div> -->
 			<ul class="mainUl">
 	    		<li class="mainLi"><div style="text-align:center">
-			    		<a href="/notice/list.kh">전체공지사항<br>
+			    		<a href="/notice/list.kh">전체<br>
 			    		${totalBoard }
 			    		</a>
 			    	</div>
