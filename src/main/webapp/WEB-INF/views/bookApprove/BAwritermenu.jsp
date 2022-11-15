@@ -86,12 +86,12 @@
 	}
 	@media (max-width: 500px) {
 		.board_wrap{
-			witdh: 100%;
+			width: 100%;
 		}
 	}
 	@media (max-width: 768px) {
 		.board_wrap{
-			witdh: 100%;
+			width: 100%;
 		}
 	}
 </style>

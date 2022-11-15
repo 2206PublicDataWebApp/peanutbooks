@@ -67,7 +67,9 @@ function updateNewsCount() {
 		if (this.status >= 200 && this.status < 400) {
 			var result = this.response;
 			var newsCircle = document.querySelector('#news-circle');
-			newsCircle.innerHTML = result;
+            if(newsCircle!=null){
+			    newsCircle.innerHTML = result;
+            }
 	  	} else {
 		    var e = this.response;
 		    alert("error :"+e);

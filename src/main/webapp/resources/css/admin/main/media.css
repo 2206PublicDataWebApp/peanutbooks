@@ -1,12 +1,12 @@
 @media (max-width: 500px) {
 	.main_title{
-		width: 100%;
+		max-width: 100%;
 	}
 	.sub_menu{
-		width: 100%;
+		max-width: 100%;
 	}
     .board_wrap {
-        width: 100%;
+        max-width: 100%;
         min-width: 320px;
         padding: 0 30px;
         box-sizing: border-box;
@@ -18,11 +18,17 @@
     	
     }
 
+	.board_wrap{
+		padding: 0 1rem !important;
+	}
+
+
+
 }
 
 @media (max-width: 768px) {
 	.board_wrap {
-        width: 100%;
+        max-width: 100%;
         min-width: 320px;
         padding: 0 30px;
         box-sizing: border-box;

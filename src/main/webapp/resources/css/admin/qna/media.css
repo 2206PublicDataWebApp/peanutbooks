@@ -41,6 +41,12 @@
         text-indent: 0;
     }
 
+    dl{
+        padding: 0 0.2rem !important;
+    }
+    [type="button"], button{
+        margin: 0.3rem 0;
+    }
    
 }
 

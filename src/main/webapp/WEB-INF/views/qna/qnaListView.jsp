@@ -37,6 +37,23 @@
 	#colText{
 		padding-top: 0.7rem;
 	}
+	table{
+		width: 80%;
+	}
+
+	@media (max-width:500px) {
+		main ul{
+			display: flex;
+			justify-content:center;
+		}
+
+		.mainLi{
+			margin: 0;
+		}
+		table{
+			width: 100%;
+		}
+	}
 </style> 
 <body>
 <!-- header start -->
@@ -96,7 +113,7 @@
 
 		<!-- 검색 -->
 		<div class="row row-cols-1">
-			<table align="center" class="table col-7" border="0" style="width:80%;">
+			<table align="center" class="table col-7" border="0" >
 				<tr>
 					<td class="col-7" style="border:none;">
 						<div style="display: inline-block; margin: 5px;  float: left;">

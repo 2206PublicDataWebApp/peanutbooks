@@ -39,6 +39,28 @@
 	#colText{
 		padding-top: 0.7rem;
 	}
+
+	@media (max-width:500px) {
+		#qnaForm, #inputStart{
+			width: 100%;
+			padding: 0;
+		}
+
+		[type="button"], button{
+			display: block !important;
+			margin: 0.5rem 0 !important;
+		}
+
+		.mainUl{
+		display: flex;
+		justify-content: space-around;
+	}
+	.mainUl li{
+		margin: 0;
+
+	}
+		
+	}
 </style> 
 <body>
 <!-- header start -->
@@ -88,7 +110,7 @@
 			<div class="row row-cols-1">
 				<!-- 회원정보 수정 폼 -->
 				<form action="/admin/memberModify.kh" method="post">
-					<table align="center" class="table col-7" style="width:100%;">
+					<table align="center" class="table col-md-7 col-12" style="width:100%;">
 						<input type="hidden" name="page" value="${page }">
 						<tr>
 							<th class="col-7" colspan="2" align="left" style="border:none";>${member.memberId }회원의 정보 수정</th>

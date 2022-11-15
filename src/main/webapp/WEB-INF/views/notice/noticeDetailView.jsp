@@ -14,6 +14,30 @@
 </head>
  <style>
 
+	main{
+		width: 100%;
+		max-width: 100%;
+	}
+
+	section{
+		width: 1024px !important;
+	}
+	
+	[name="noticeTitle"]{
+		width: 80% !important;
+	}
+
+	#exampleFormControlTextarea1 img{
+		max-width: 100%;
+	}
+
+	.table tr{
+		max-width: 100%;
+	}
+	.table img{
+		max-width: 100%;
+	}
+
 	.btn {
 	  appearance: none;
 	    -webkit-appearance: none;
@@ -27,6 +51,12 @@
 	     transition: background-color 100ms linear;
 	}
 
+	.main_title{
+		justify-content: center;
+}
+	
+	
+
 	@keyframes blink-effect {
 		50% {
 		    opacity: 0;
@@ -37,19 +67,34 @@
 	 }
 	@media (max-width: 400px) {
 		.container{
-			witdh: 100%;
+			max-width: 100%;
 		}
 		.btn {
 			min-width: 80px;
 		}
+
+		main{
+		width: 100%;
+		max-width: 100%;
+	}
+	table {
+		width: 100%;
+		max-width: 100%;
+	}
+	
+
 	}
 	@media (max-width: 768px) {
 		.container{
-			witdh: 100%;
+			max-width: 100%;
 		}
 
 		.btn {
 			min-width: 80px;
+		}
+
+		section{
+			width: 100%;
 		}
 	}
 </style> 
@@ -114,10 +159,10 @@
  		<div class="board_title" style="font-size: 16px; text-align: center";>
 			<h4 align="center">[ 공지사항 상세 페이지 ]</h4>
 				<c:if test="${loginMember.adminYN=='Y' }">
-					<table align="center" class="table col-10" style="width:90%;">
+					<table align="center" class="table col-10">
 						<tr>
-							<td class="col-md-sm-3" scope="col" align="center">종류</td>
-							<td class="col-md-sm-7" align="left">
+							<td class="col-md-3 col-2" scope="col" align="center">종류</td>
+							<td class="col-md-7 col-8" align="left">
 								<c:if test="${notice.noticeCategory == 'notice'}">공지</c:if>
 								<c:if test="${notice.noticeCategory == 'update'}">업데이트</c:if>
 								<c:if test="${notice.noticeCategory == 'event'}">이벤트</c:if>
@@ -125,21 +170,21 @@
 							</td>
 						</tr>
 						<tr>
-							<td  class="col-md-sm-2 scope="col" align="center">작성자</td>
+							<td  class="col-md-2 scope="col" align="center">작성자</td>
 							<td><input type="text" name="noticeWriter"  class="form-control" value="${notice.noticeWriter }" readonly></td>
 						</tr>
 						<tr>
-							<td  class="col-md-sm-2" scope="col" align="center">제목</td>
-							<td><input type="text" name="noticeTitle" onkeyup="titleLengthCk(this);" class="form-control" value="${notice.noticeTitle }" style="width:300px";></td>
+							<td  class="col-md-2" scope="col" align="center">제목</td>
+							<td><input type="text" name="noticeTitle" onkeyup="titleLengthCk(this);" class="form-control" value="${notice.noticeTitle }"></td>
 						</tr>
 						<tr>
-							<td  class="col-md-sm-2" scope="col" align="center">내용</td>
+							<td  class="col-md-2" scope="col" align="center">내용</td>
 							<td><textarea class="form-control" id="exampleFormControlTextarea1" cols="5" rows="5" name="noticeContents">${notice.noticeContents }</textarea>
 								<br>
 								<c:if test="${!empty notice.noticeFileRename }">
 									<a href=""  onclick="fnImgPop(this.src)"><img alt="본문이미지" 
 									src="/resources/nuploadFiles/${notice.noticeFileRename }" 
-									style="width:600px; height:auto;" onclick="fnImgPop(this.src)"></a>
+									onclick="fnImgPop(this.src)"></a>
 								</c:if>
 								<c:if test="${empty notice.noticeFileRename }">
 									<input type="file" name="uploadFile">
@@ -157,7 +202,7 @@
 					</table>
 				</c:if>
 				<c:if test="${loginMember.adminYN=='N' }">
-					<table align="center" class="table col-10" style="width:90%;">
+					<table align="center" class="table col-10">
 						<tr>
 							<td>
 								<c:if test="${notice.noticeCategory == 'notice'}">[공지]</c:if>
@@ -171,7 +216,7 @@
 							<td>${notice.noticeContents }
 							<br>
 							<c:if test="${!empty notice.noticeFileRename }">
-								<img alt="본문이미지" style="width:700px; height:auto;" src="/resources/nuploadFiles/${notice.noticeFileRename }">
+								<img alt="본문이미지" src="/resources/nuploadFiles/${notice.noticeFileRename }">
 							</c:if>
 							<c:if test="${empty notice.noticeFileRename }">
 								&nbsp;
