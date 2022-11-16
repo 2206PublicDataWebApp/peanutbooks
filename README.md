@@ -311,8 +311,9 @@
 ### 채팅상담
 <hr>
 <p align=center>
-<img src="/readMeResource/user_chat1.JPG" width="400px">
-<img src="/readMeResource/user_chat2.JPG" width="400px">
+<img src="/readMeResource/user_chat1.JPG" width="1000px">
+<br>
+<img src="/readMeResource/user_chat2.JPG" width="100px">
 </p>
 
 ### 공지사항
@@ -324,8 +325,9 @@
 ### 관리자-채팅상담
 <hr>
 <p align=center>
-<img src="/readMeResource/manager_chat1.jpg" width="400px">
-<img src="/readMeResource/manager_chat2.jpg" width="400px">
+<img src="/readMeResource/manager_chat1.jpg" width="1000px">
+<br>
+<img src="/readMeResource/manager_chat2.jpg" width="1000px">
 </p>
 
 ### 관리자-메인
