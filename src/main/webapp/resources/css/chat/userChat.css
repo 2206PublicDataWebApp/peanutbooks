@@ -48,7 +48,7 @@ a {
 /* 본문부분 */
 .context{
 	width:104%;
-	height: 50%;
+	height: 470px;
 	overFlow-y: auto; 
     display: flex;
     align-items: flex-start;

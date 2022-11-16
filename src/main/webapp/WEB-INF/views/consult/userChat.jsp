@@ -39,7 +39,7 @@
 				</tr>
 			</table>
 	
-		</div>
+	</div>
 		<!--context 내용 입력부분 -->
 	
 	<div class="context">
@@ -75,12 +75,12 @@
 			data : afterMsg,
 			success : function(result) {
 				alert("접수성공");
+				$("#before").css("display", "none");
 				//성공시 대기 멘트 예정
 				$('<div>').appendTo('#after').text("접수완료되었습니다.");
 				$('<div>').appendTo('#after').text("잠시만 기다려주시기 바랍니다..");
 				$('<div>').appendTo('#after').text(
 						"다른 상담으로 인해 대시시간이 요소될수 있는 점 양해 부탁드립니다..")
-
 				$('#titleNo').val(result.titleNo);
 				printer = setInterval(collList, 500);
 
@@ -113,7 +113,7 @@
 	//메시지 보내기
 	function sendChatMesage(){	
 				
-		$("#before").css("display", "none");
+		
 		var msg = { //json형식으로 데이터set 	
 			cMemberId : $('#nickName').html(),
 			cContexts : $('#usertext').val(),

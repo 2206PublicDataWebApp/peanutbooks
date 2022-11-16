@@ -49,7 +49,7 @@ a {
 /* 본문부분 */
 .context{
 	width:104%;
-	height: 60%;
+	height: 80%;
 	overFlow-y: auto; 
     display: flex;
     align-items: flex-start;
