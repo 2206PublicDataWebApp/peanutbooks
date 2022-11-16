@@ -136,7 +136,7 @@
 	    
 	    $('#ordercheck').on('click', function(){
 	    	orderName= $('input[type="radio"]:checked').parent().parent().next().attr('name');//결제 분류명
-	    	payMoney=1000;             //$('input[type="radio"]:checked').val(); 								  // 결제할 값 
+	    	payMoney=$('input[type="radio"]:checked').val(); 								  // 결제할 값 
 	    	orderContents=$('input[type="radio"]:checked').parent().parent().next().text()+"구매"; // 주문내용
 	    	
 	    	if(orderName==null){
@@ -202,7 +202,7 @@
 				pay_method : 'card',
 				merchant_uid : merchant_uid, //주문번호 
 				name : orderContents, //주문내용
-				amount : payMoney, //주문금액
+				amount :1000, //주문금액
 				buyer_email : mEmail, // 고객이메일
 				buyer_name : memberId, // 고객id
 				buyer_tel : '01011112222', //고객연락처

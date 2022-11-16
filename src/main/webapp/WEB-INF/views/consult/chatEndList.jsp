@@ -155,9 +155,9 @@
 		
 	
 	/* 페이징  */
-	function pageChatSearch(page){
+	function pageChatSearch(page){  
 		
-		var csDate=$('input[type=date]').val();			
+		var csDate="${csDate}";			
 		var memberId="${csMemberId}";		
 		location.href="/consult/endList.kh?page="+page+"&csMemberId="+memberId+"&searchDate="+csDate;
 	}

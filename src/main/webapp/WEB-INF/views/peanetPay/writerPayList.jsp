@@ -49,14 +49,14 @@
                 </tr>
             </thead>
             <tbody id='tb'>
-            <c:if test="${count eq 'no'}">				
+            <c:if test="${empty wrList || count eq 'no'}">				
 				<tr>
 					<td>접수 이력이 없습니다.</td>
 				</tr>				
 			</c:if>
 			<c:if test="${!empty wrList  }">
+				<c:forEach items="${wrList }" var="WriterPay" varStatus="i">
 				<tr>
-					<c:forEach items="${wrList }" var="WriterPay" varStatus="i">
 						<td>${WriterPay.wrpayNo}</td>
 						<td>${WriterPay.memberId}</td>
 						<td>${WriterPay.seriesNo}</td>
