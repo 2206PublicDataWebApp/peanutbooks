@@ -136,7 +136,7 @@
 	    
 	    $('#ordercheck').on('click', function(){
 	    	orderName= $('input[type="radio"]:checked').parent().parent().next().attr('name');//결제 분류명
-	    	payMoney= $('input[type="radio"]:checked').val(); 								  // 결제할 값 
+	    	payMoney=1000;             //$('input[type="radio"]:checked').val(); 								  // 결제할 값 
 	    	orderContents=$('input[type="radio"]:checked').parent().parent().next().text()+"구매"; // 주문내용
 	    	
 	    	if(orderName==null){
@@ -259,7 +259,7 @@
 	function popUp(){
 		var windo = "status=no ,toolbar=no,scrollbars=no, menubar=no,resizable=no,titlebar=no, width=380,height=320";
 		popupObj=window.open("/pay/paySuccessPop.kh","PopupWin", windo);
-		var stoptime=setTimeout(closePopup,5000);		
+		var stoptime=setTimeout(closePopup, 10000);		
 	}
 	
 	function closePopup(){
