@@ -101,8 +101,6 @@
 
 </main>
 <script>	
-		
-	
 	/* 페이징  */
 	function pageChatSearch(page){
 		

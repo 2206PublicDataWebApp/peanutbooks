@@ -136,7 +136,7 @@
 	    
 	    $('#ordercheck').on('click', function(){
 	    	orderName= $('input[type="radio"]:checked').parent().parent().next().attr('name');//결제 분류명
-	    	payMoney= $('input[type="radio"]:checked').val();  // 결제할 값 
+	    	payMoney= $('input[type="radio"]:checked').val(); 								  // 결제할 값 
 	    	orderContents=$('input[type="radio"]:checked').parent().parent().next().text()+"구매"; // 주문내용
 	    	
 	    	if(orderName==null){
@@ -162,7 +162,7 @@
 	    dm=d.getFullYear();
 	    dm+=('0'+(d.getMonth()+1)).slice(-2);
 	    dm+=('0'+d.getDate()).slice(-2);
-	    orderNo=orderName+"-"+dm;                        //주문번호 분류명과 날짜 합친것
+	    orderNo=orderName+"-"+dm;                //주문번호 분류명과 날짜 합친것
 	    
 	    
 	    $.ajax({
@@ -258,9 +258,7 @@
 	var popupObj;
 	function popUp(){
 		var windo = "status=no ,toolbar=no,scrollbars=no, menubar=no,resizable=no,titlebar=no, width=380,height=320";
-
 		popupObj=window.open("/pay/paySuccessPop.kh","PopupWin", windo);
-		
 		var stoptime=setTimeout(closePopup,5000);		
 	}
 	
