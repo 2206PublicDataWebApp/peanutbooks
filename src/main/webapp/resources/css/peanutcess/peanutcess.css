@@ -71,7 +71,7 @@ main{
 
 #down-area{
     background-image: url('/resources/img/peanutcess/textbox.jpg');
-    background-size: contain;
+    background-size: 100% 100%;
     background-repeat: no-repeat;
     color:white;
     padding:1.5rem
