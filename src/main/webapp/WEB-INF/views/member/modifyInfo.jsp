@@ -58,7 +58,7 @@
 							<label for="modify-pw2">비밀번호</label><br>
 							<input id="modify-pw2" type="password" placeholder="기존 비밀번호 입력"><br>
 							<p class="guide error pw-error-4">비밀번호를 입력해 주세요.</p>
-							<label for="modify-newPw">새 비밀번호</label><br>
+							<label for="modify-newPw" class="newPw-label">새 비밀번호</label><br>
 							<input id="modify-newPw" type="password" placeholder="숫자, 영문 조합 최소 5자" name="memberPw"><br>
 							<p class="guide ok pw">안전한 비밀번호입니다.</p>
 							<p class="guide error pw-error-1">5~16자 이내로 입력해 주세요.</p>

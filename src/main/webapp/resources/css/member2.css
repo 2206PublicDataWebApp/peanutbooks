@@ -391,6 +391,9 @@ form{
 }
 
 /* 회원 정보 수정 */
+.newPw-label{
+	margin-top: 8px;
+}
 .social-icons{
 	width: 25px;
 	height: 25px;
@@ -474,7 +477,6 @@ form{
 }
 #modify-pw2{
 	width: 100%;
-	margin-bottom: 16px;
 }
 #div-nick{
 	padding-bottom: 24px;
