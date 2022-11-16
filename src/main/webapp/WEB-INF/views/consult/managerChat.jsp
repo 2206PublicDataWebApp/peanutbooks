@@ -51,15 +51,18 @@
 		var text=$('#magText').val();
 		if(text.length != 0){
 		 sendChatMesage();
+		 $('#magText').val('');
 		}
-	});	
-	
+	});
+
+
 	$('#magText').on('keyup',function(e){		
 		if(e.keyCode===13){
-			var text=$('#magText').text();
-			if(text.length != 0 ){
+			var text=$('#magText').val();
+			if(text.replace(/(^\s*)|(\s*$)/gi, "") ){
 				 sendChatMesage();
 			}
+		    $('#magText').val('');			
 		};
 	});
 	
