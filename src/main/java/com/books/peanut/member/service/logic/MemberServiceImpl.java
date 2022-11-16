@@ -141,5 +141,11 @@ public class MemberServiceImpl implements MemberService{
 		Member loginMember = mStore.snsLogin(session, id);
 		return loginMember;
 	}
+	// 회원 정보 삭제
+	@Override
+	public int deleteMemberInfo(String memberId) {
+		int result = mStore.deleteMemberInfo(session, memberId);
+		return result;
+	}
 
 }

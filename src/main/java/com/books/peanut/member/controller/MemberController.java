@@ -41,14 +41,14 @@ public class MemberController {
 	private NewsService nService;
 	@Autowired
 	private JavaMailSender mailSender; // mailSender Bean 의존성 주입
-	/* NaverLoginBO */
+	// 네이버 로그인
 	private NaverLoginBO naverLoginBO;
 	private String apiResult = null;
 	@Autowired
 	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
 		this.naverLoginBO = naverLoginBO;
 	}
-	/* KakaoLogin */
+	// 카카오 로그인
 	@Autowired
 	private KakaoLoginBO kakaoLoginBO;
 	
@@ -90,8 +90,19 @@ public class MemberController {
 	 * 회원가입 화면
 	 * @return
 	 */
-	@RequestMapping(value="/member/joinView.pb", method=RequestMethod.GET)
-	public String memberJoinView() {
+	@RequestMapping(value="/member/joinView.pb", method= {RequestMethod.GET, RequestMethod.POST})
+	public String memberJoinView(Model model, HttpSession session) {
+		
+		// 네아로 인증 url을 생성하기 위하여 NaverLoginBO 클래스의 getAuthorizationUrl 메소드 호출
+		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+		System.out.println("네이버 url: " + naverAuthUrl);
+		model.addAttribute("urlNaver", naverAuthUrl); // 객체 바인딩
+		
+		// 카카오 url
+		String kakaoAuthUrl = kakaoLoginBO.getAuthorizationUrl(session);
+		System.out.println("카카오 url: " + kakaoAuthUrl);
+		model.addAttribute("urlKakao", kakaoAuthUrl);
+		
 		return "member/join";
 	}
 	
@@ -272,8 +283,6 @@ public class MemberController {
 		int result = mService.authEmail(paramMap);
 		if(result > 0) {
 			mv.setViewName("redirect:/"); // 성공 시 로그인 전 메인 페이지로
-		}else {
-			mv.setViewName("redirect:/member/confirmEmailView.pb?memberId="+memberId); // 실패 시 parameter 가지고 기존 페이지로 돌아가기
 		}
 		return mv;
 	}
@@ -324,12 +333,12 @@ public class MemberController {
 	@RequestMapping(value="/member/loginView.pb", method = { RequestMethod.GET, RequestMethod.POST })
 	public String memberLoginView(Model model, HttpSession session) {
 		
-		/* 네아로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
+		// 네아로 인증 url을 생성하기 위하여 NaverLoginBO 클래스의 getAuthorizationUrl 메소드 호출
 		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
 		System.out.println("네이버 url: " + naverAuthUrl);
-		model.addAttribute("urlNaver", naverAuthUrl); /* 객체 바인딩 */
+		model.addAttribute("urlNaver", naverAuthUrl); // 객체 바인딩
 		
-		/* 카카오 URL */
+		// 카카오 url
 		String kakaoAuthUrl = kakaoLoginBO.getAuthorizationUrl(session);
 		System.out.println("카카오 url: " + kakaoAuthUrl);
 		model.addAttribute("urlKakao", kakaoAuthUrl);
@@ -355,7 +364,7 @@ public class MemberController {
 		JSONObject jsonObj;
 		
 		jsonObj = (JSONObject) jsonParser.parse(apiResult);
-		JSONObject response_obj = (JSONObject) jsonObj.get("response");
+		JSONObject response_obj = (JSONObject) jsonObj.get("response"); // 데이터 가져오기
 		// 프로필 조회
 		String id = (String) response_obj.get("id");
 		String email = (String) response_obj.get("email");
@@ -461,9 +470,9 @@ public class MemberController {
 	 * @return
 	 */
 	@RequestMapping(value="/member/reAuthView.pb", method=RequestMethod.GET)
-	public String reAuthView(Model model, @RequestParam("memberId") String memberId, @RequestParam("mEmail") String mEmail) {
-		model.addAttribute("memberId", memberId);
+	public String reAuthView(Model model, @RequestParam("mEmail") String mEmail, @RequestParam("memberId") String memberId) {
 		model.addAttribute("mEmail", mEmail);
+		model.addAttribute("memberId", memberId);
 		return "member/reAuthEmail";
 	}
 	
@@ -486,34 +495,46 @@ public class MemberController {
 			member.setMemberPw(encryptedPw); // 암호화된 비밀번호를 멤버 객체의 비밀번호로 넣음
 			System.out.println("로그인-암호화 후 비밀번호: " + member.getMemberPw());
 			// 비밀번호 암호화 끝
-//			if(member.getEmailYN() == "N") {
-//				mv.addObject("msg", "회원가입이 완료되지 않았습니다. 이메일을 인증해 주세요.");
-//				mv.addObject("url", "/member/member/reAuthView.pb?memberId="+member.getMemberId()+"&mEmail="+member.getmEmail()); // 인증번호 입력 페이지로 이동
-//				mv.setViewName("common/alert");
-//			}
 			Member loginMember = mService.loginMember(member);
-			if(loginMember != null) {
+			if(loginMember.getEmailYN().equals("N")) {
 				HttpSession session = request.getSession();
-				session.setAttribute("loginMember", loginMember); // session에 로그인한 회원의 모든 정보(loginMember) 저장
-				// 구독권 가져오는 부분 시작
-				String lastDate = pService.seasonTicketDate(loginMember.getMemberId());			
-				session.setAttribute("lastDate", lastDate);
-				//구독권 가져오는 부분 종료
-				// 로그인한 회원이 저장한 도서 수 가져오기
-				int savedBooks = mService.countSavedBooks(loginMember.getMemberId());
-				session.setAttribute("savedBooks", savedBooks);
-				// 로그인한 회원이 등록한 작품 수 가져오기
-				int writtenBooks = mService.countWrittenBooks(loginMember.getMemberId());
-				session.setAttribute("writtenBooks", writtenBooks);
-				// 알림 개수 가져오기
-				int countNews = nService.countNews(loginMember.getMemberId());
-				session.setAttribute("countNews", countNews);
-				mv.setViewName("redirect:/main"); // 로그인 성공 시 로그인 후 메인 페이지로 이동
+				session.setAttribute("msg", "회원가입이 완료되지 않았습니다. 이메일 인증을 완료해 주세요.");
+				session.setAttribute("url", "/member/reAuthView.pb?mEmail="+loginMember.getmEmail()+"&memberId="+loginMember.getMemberId()); // 인증번호 입력 페이지로 이동
+				mv.setViewName("redirect:/alertView.pb");
+			}else {
+				if(loginMember != null) {
+					HttpSession session = request.getSession();
+					session.setAttribute("loginMember", loginMember); // session에 로그인한 회원의 모든 정보(loginMember) 저장
+					// 구독권 가져오는 부분 시작
+					String lastDate = pService.seasonTicketDate(loginMember.getMemberId());			
+					session.setAttribute("lastDate", lastDate);
+					//구독권 가져오는 부분 종료
+					// 로그인한 회원이 저장한 도서 수 가져오기
+					int savedBooks = mService.countSavedBooks(loginMember.getMemberId());
+					session.setAttribute("savedBooks", savedBooks);
+					// 로그인한 회원이 등록한 작품 수 가져오기
+					int writtenBooks = mService.countWrittenBooks(loginMember.getMemberId());
+					session.setAttribute("writtenBooks", writtenBooks);
+					// 알림 개수 가져오기
+					int countNews = nService.countNews(loginMember.getMemberId());
+					session.setAttribute("countNews", countNews);
+					mv.setViewName("redirect:/main"); // 로그인 성공 시 로그인 후 메인 페이지로 이동
+				}
 			}
 		} catch (Exception e) {
 			mv.addObject("msg", e.toString()).setViewName("common/errorPage"); // 에러 확인용
 		}
 		return mv;
+	}
+	
+	// 회원 정보 삭제
+	@RequestMapping(value="/member/deleteMember.pb", method=RequestMethod.GET)
+	public String deleteMemberInfo(@RequestParam("memberId") String memberId) {
+		int result = mService.deleteMemberInfo(memberId);
+		if(result > 0) {
+			return "redirect:/";
+		}
+		return null;
 	}
 	
 	// 로그인 되는지 검사

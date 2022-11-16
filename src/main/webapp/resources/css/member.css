@@ -100,6 +100,15 @@ form{
 .naver-icon{
     margin-right: 10px;
 }
+#cancelJoin{
+	float: right;
+	width: 100px;
+	text-align: center;
+	margin-right: 49px;
+	margin-top: 20rem;
+	text-decoration: underline;
+	cursor: pointer;
+}
 @media (max-width: 500px){
     #login-img{
         display: none;
@@ -130,6 +139,38 @@ form{
 }
 
 /* 회원가입 */
+#join-hr {
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+#social-btns{
+	text-align: center;
+}
+#join-naver img{
+	height: 50px;
+	line-height: 50px;
+}
+#join-naver{
+	width: 100%;
+	height: 50px;
+	background-color: #03C75A;
+	border-radius: 4px;
+	margin-bottom: 8px;
+	cursor: pointer;
+}
+#join-kakao img{
+	height: 46px;
+	line-height: 50px;
+}
+#join-kakao{
+	width: 100%;
+	height: 50px;
+	background-color: #FEE500;
+	border-radius: 4px;
+	margin-bottom: 50px;
+	cursor: pointer;
+}
 #pn-logo img{ /* 땅콩북스 로고 이미지 */
     width: 200px;
     height: auto;
