@@ -136,22 +136,28 @@
 ### 공지문의게시판
 |기능명|상세|
 |---|---|
-|공시사항|(기능설명)|
+|공시사항|관리자가 공지사항을 작성한 후 홈페이지에 게재할지 게재하지 않도록 할지 선택할 수 있도록 버튼을 추가하여 게시물 리스트에서 바로 선택할 수 있다. |
 |1:1문의|(기능설명)|
 |1:1답변|(기능설명)|
 
 ### 관리자-회원관리
 |기능명|상세|
 |---|---|
-|회원조회|(기능설명)|
-|회원탈퇴|(기능설명)|
-|회원정보변경|(기능설명)|
+|회원조회 : 관리자는 사용자의 닉네임별로 아이디별로 검색할 수 있으며 검색한 검색어가 포함된 유사한 회원을 모두 검색할 수 있다. 전체 검색은 닉네임, 아이디 중에 포함된 모든 회원을 검색하도록 한다.|
+|회원탈퇴: 회원탈퇴는 사용자가 회원탈퇴를 하면 탈퇴한 사용자의 모든 정보는 로그인 포함 땅콩북스 홈페이지에서 사용할 수 없도록 하고 관리자가 최종 삭제하면 모든 정보는 삭제된다. |
+|회원정보변경: 회원정보변경 기능은 관리자가 사용자의 요청이 있거나 땅콩북스의 관리지침에 따른 수정을 해야할 사항이 있을 때 아이디, 닉네임 이외에 정보는 수정 가능하다.|
 
 ### 관리자-도서심의
 |기능명|상세|
 |---|---|
-|심의도서 조회|(기능설명)|
-|심의승인|(기능설명)|
+|심의도서 조회|사용자가 작성한 도서는 관리자가 승인해야지만 홈페이지에 게재할 수 있다. 
+전체도서는 승인된 도서와 보류도서 전체 개수와 전체리스트를 보여준다.
+승인도서는 관리자가 승인 완료한 도서 개수와 승인리스트를 보여준다.
+보류도서는 관리자가 도서 심의 후 승인규정에 미달할 경우 보류 상태로 두어 홈페이지에 게재할 수 없도록 한다.
+재승인도서는 사용자가 승인된 도서를 재수정 했을 경우 재승인 심사를 받아야하는 도서리스트이다.|
+|심의승인|관리자가 도서 내용을 확인 후 피넛북스의 심의사항에 부함된 도서물은 승인버튼을 눌러서 승인처리하면 홈페이지에 바로 게재된다.
+심의에 부적합한 도서는 승인하지 않으면 보류 상태가 된다.
+재승인 심사도 일반 승인심사와 동일하다.|
 
 ### 회원상담결제
 |기능명|상세|
@@ -255,20 +261,20 @@
 ### 포인트내역
 <hr>
 <p align=center>
-<img src="/readMeResource/peanet1.JPG">
+<img src="/readMeResource/peanet1.jpg">
 </p>
 
 ### 포인트충전
 <hr>
 <p align=center>
-<img src="/readMeResource/pay1.JPG" width="800px">
-<img src="/readMeResource/pay2.JPG" width="800px">
+<img src="/readMeResource/pay1.jpg">
+<img src="/readMeResource/pay2.jpg">
 </p>
 
 ### 포인트교환
 <hr>
 <p align=center>
-<img src="/readMeResource/writer1.JPG" width="800px">
+<img src="/readMeResource/writer1.jpg">">
 </p>
 
 ### 알림
@@ -311,9 +317,8 @@
 ### 채팅상담
 <hr>
 <p align=center>
-<img src="/readMeResource/user_chat1.JPG" width="1000px">
-<br>
-<img src="/readMeResource/user_chat2.JPG" width="100px">
+<img src="/readMeResource/user_caht1.jpg">
+<img src="/readMeResource/user_caht2.jpg">
 </p>
 
 ### 공지사항
@@ -325,9 +330,8 @@
 ### 관리자-채팅상담
 <hr>
 <p align=center>
-<img src="/readMeResource/manager_chat1.jpg" width="1000px">
-<br>
-<img src="/readMeResource/manager_chat2.jpg" width="1000px">
+<img src="/readMeResource/manager_chat1.jpg">
+<img src="/readMeResource/manager_chat2.jpg">
 </p>
 
 ### 관리자-메인
@@ -357,19 +361,19 @@
 ### 관리자-결제조회
 <hr>
 <p align=center>
-<img src="/readMeResource/pay3.JPG" width="800px">
+<img src="/readMeResource/pay3.jpg">
 </p>
 
 ### 관리자-땅콩확인
 <hr>
 <p align=center>
-<img src="/readMeResource/pnlist.jpg" width="800px">
+<img src="/readMeResource/pnlist.jpg">
 </p>
 
 ### 관리자-작가정산
 <hr>
 <p align=center>
-<img src="/readMeResource/writerlist.jPG" width="800px">
+<img src="/readMeResource/writerlist.jpg">
 </p>
 
 ### 관리자-전체회원관리
