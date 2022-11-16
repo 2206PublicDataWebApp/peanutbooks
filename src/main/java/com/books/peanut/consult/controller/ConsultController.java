@@ -280,7 +280,7 @@ public class ConsultController {
 			@RequestParam(value = "searchDate", required = false) String csDate,
 	    	@RequestParam(value = "page", required = false) Integer page,
 	    	@RequestParam(value = "csMemberId", required = false) String csMemberId) {
-		
+		cService.changebutten("N");
 		Pagemarker pm = new Pagemarker();
 		int totalCount = cService.getTotalCount(csMemberId,csDate);
 		int currentPage = (page != null) ? page : 1;

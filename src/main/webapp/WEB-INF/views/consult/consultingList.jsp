@@ -19,7 +19,7 @@
 </div>
 <!--관리자일 경우 들어갈수 있도록 다시한번 체크  -->
 <br>
-<main>
+<main id="c_L_main">
 	<div style="padding-left: 30%;">	
 	    <label class="switch">
 	        <input id="checkbox" type="checkbox" value="true" >

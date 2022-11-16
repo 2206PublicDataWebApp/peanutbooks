@@ -179,3 +179,17 @@ tdody>td{
     color: #FFF;
     box-shadow:-200px 0 0 0 rgba(0,0,0,0.5) inset;
   }
+  
+ @media (max-width:400px) {
+	#c_L_main{
+	max-width:100%;
+	}
+	#info{
+		left:0%;
+		max-width: 100%;
+	}
+	#pagename{
+		margin-left:0;
+		margin-right:0;
+		}
+}

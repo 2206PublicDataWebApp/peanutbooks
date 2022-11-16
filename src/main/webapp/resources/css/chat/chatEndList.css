@@ -6,40 +6,13 @@
     width: 100%; 
     height: auto; 
   }
-  main{
+  #c_end_main{
   margin : auto;
   width:100%;
   height:auto;
   font-family: 'Noto Sans KR', sans-serif;  
   }
 
-  /* 해더 */
-#headTwo{
-	padding-left:20px;
-	maggin-left:20px;
-    width: 1000px;
-    float: right;
-    text-align: right;
-    border-radius: 5px;
-}
-
-#headTwo button{
-    border : 0px;
-    background-color: white;
-
-}
-
-
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-  vertical-align:middle;
-}
-
-/* Hide default HTML checkbox */
-.switch input {display:none;}
 
  /* 제목 */
 #pagename{
@@ -48,7 +21,6 @@
     font-size: 30px;
     font-family: 'Noto Sans KR', sans-serif;
     color: rgb(7, 12, 43);
-    margin-top: 40px;    
     justify-content: center;     
 }
 
@@ -181,6 +153,25 @@ select {
   .detailBtn,#csBtn:hover{
     color: #FFF;
     box-shadow:-200px 0 0 0 rgba(0,0,0,0.5) inset;
+  }
+  
+  @media (max-width:400px){
+     #c_end_main{
+	     max-width:100%;
+	     padding-top: 5rem;
+     }
+     #select, input{
+  		width: 30%;
+     }
+     #csBtn{width:20%;}
+    .table-responsive{
+        width: 100%;
+    	font-size: 10px;
+    }
+    .detailBtn{
+	    width: 60px;
+	    font-size: 8px;
+    }
   }
 	    
 

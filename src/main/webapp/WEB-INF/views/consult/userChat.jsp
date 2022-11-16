@@ -102,11 +102,12 @@
 	});
 	
 	$('#usertext').on('keyup',function(e){
-		var text=$('#usertext').text();
+		var text=$('#usertext').val();
 		if(e.keyCode==13){
-			if(text.length != 0 ){
+			if(text.replace(/(^\s*)|(\s*$)/gi, "")){
 				 sendChatMesage();
 			};
+			$('#usertext').val('');
 		};
 	});
 	//메시지 보내기
