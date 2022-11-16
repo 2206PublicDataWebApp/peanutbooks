@@ -95,12 +95,10 @@ public class MemberController {
 		
 		// 네아로 인증 url을 생성하기 위하여 NaverLoginBO 클래스의 getAuthorizationUrl 메소드 호출
 		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
-		System.out.println("네이버 url: " + naverAuthUrl);
 		model.addAttribute("urlNaver", naverAuthUrl); // 객체 바인딩
 		
 		// 카카오 url
 		String kakaoAuthUrl = kakaoLoginBO.getAuthorizationUrl(session);
-		System.out.println("카카오 url: " + kakaoAuthUrl);
 		model.addAttribute("urlKakao", kakaoAuthUrl);
 		
 		return "member/join";
@@ -118,10 +116,10 @@ public class MemberController {
 			ModelAndView mv) {
 		try {
 			// 비밀번호 암호화 시작
-			System.out.println("암호화 전 비밀번호: " + member.getMemberPw());
+			
 			String encryptedPw = Sha256.encrypt(member.getMemberPw()); // 회원가입 jsp에서 입력된 비밀번호를 암호화해서 encryptedPw에 넣기
 			member.setMemberPw(encryptedPw); // 암호화된 비밀번호를 멤버 객체의 비밀번호로 넣음
-			System.out.println("암호화 후 비밀번호: " + member.getMemberPw());
+			
 			// 비밀번호 암호화 끝
 			
 			int result = mService.registerMember(member); // 회원가입
@@ -335,12 +333,12 @@ public class MemberController {
 		
 		// 네아로 인증 url을 생성하기 위하여 NaverLoginBO 클래스의 getAuthorizationUrl 메소드 호출
 		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
-		System.out.println("네이버 url: " + naverAuthUrl);
+		
 		model.addAttribute("urlNaver", naverAuthUrl); // 객체 바인딩
 		
 		// 카카오 url
 		String kakaoAuthUrl = kakaoLoginBO.getAuthorizationUrl(session);
-		System.out.println("카카오 url: " + kakaoAuthUrl);
+		
 		model.addAttribute("urlKakao", kakaoAuthUrl);
 		
 		return "member/login";
@@ -413,7 +411,7 @@ public class MemberController {
 		oauthToken = kakaoLoginBO.getAccessToken(session, code, state);	
 		// 로그인 사용자 정보를 읽어옴.
 		apiResult = kakaoLoginBO.getUserProfile(oauthToken);
-		System.out.println(apiResult);
+		
 		
 		JSONParser jsonParser = new JSONParser();
 		JSONObject jsonObj;
@@ -490,10 +488,10 @@ public class MemberController {
 			HttpServletRequest request) {
 		try {
 			// 비밀번호 암호화 시작
-			System.out.println("로그인-암호화 전 비밀번호: " + member.getMemberPw());
+			
 			String encryptedPw = Sha256.encrypt(member.getMemberPw()); // 회원가입 jsp에서 입력된 비밀번호를 암호화해서 encryptedPw에 넣기
 			member.setMemberPw(encryptedPw); // 암호화된 비밀번호를 멤버 객체의 비밀번호로 넣음
-			System.out.println("로그인-암호화 후 비밀번호: " + member.getMemberPw());
+			
 			// 비밀번호 암호화 끝
 			Member loginMember = mService.loginMember(member);
 			if(loginMember.getEmailYN().equals("N")) {
@@ -544,10 +542,10 @@ public class MemberController {
 			@RequestParam("memberId") String memberId,
 			@RequestParam("memberPw") String memberPw) {
 		// 비밀번호 암호화 시작
-		System.out.println("로그인-암호화 전 비밀번호: " + memberPw);
+		
 		String encryptedPw = Sha256.encrypt(memberPw); // 회원가입 jsp에서 입력된 비밀번호를 암호화해서 encryptedPw에 넣기
 		memberPw = encryptedPw; // 암호화된 비밀번호를 멤버 객체의 비밀번호로 넣음
-		System.out.println("로그인-암호화 후 비밀번호: " + memberPw);
+		
 		// 비밀번호 암호화 끝
 		HashMap<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("memberId", memberId);
@@ -621,9 +619,9 @@ public class MemberController {
 			@RequestParam("memberPw") String memberPw,
 			ModelAndView mv) {
 		// 비밀번호 암호화 시작
-		System.out.println("비밀번호 재설정-암호화 전: " + memberPw);
+		
 		memberPw = Sha256.encrypt(memberPw);
-		System.out.println("비밀번호 재설정-암호화 후: " + memberPw);
+		
 		// 비밀번호 암호화 끝
 		HashMap<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("memberId", memberId);
@@ -657,9 +655,9 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping(value="/member/encryptPw.pb", method=RequestMethod.GET)
 	public String encryptPw(@RequestParam("inputPw") String inputPw) {
-		System.out.println("정보 수정-암호화 전 비밀번호: " + inputPw);
+		
 		String encryptedPw = Sha256.encrypt(inputPw); // 회원가입 jsp에서 입력된 비밀번호를 암호화해서 encryPw에 넣기
-		System.out.println("정보 수정-암호화 후 비밀번호: " + encryptedPw);
+		
 		return encryptedPw;
 	}
 	
@@ -679,13 +677,13 @@ public class MemberController {
 			@RequestParam("memberPwChk") String memberPwChk,
 			@RequestParam("newPw") String newPw) {
 		// 입력된 기존비번확인 암호화
-		System.out.println("기존비번확인-암호화 전 비밀번호: " + memberPwChk);
+		
 		String e_memberPwChk = Sha256.encrypt(memberPwChk);
-		System.out.println("기존비번확인-암호화 후 비밀번호: " + e_memberPwChk);
+		
 		// 입력된 새비번 암호화
-		System.out.println("새비번-암호화 전 비밀번호: " + newPw);
+		
 		String e_newPw = Sha256.encrypt(newPw);
-		System.out.println("새비번-암호화 후 비밀번호: " + e_newPw);
+		
 		
 		ArrayList<String> pwDataList = new ArrayList<String>();
 		pwDataList.add(e_memberPwChk);

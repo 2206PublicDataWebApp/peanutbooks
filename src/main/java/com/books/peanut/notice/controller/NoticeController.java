@@ -106,7 +106,7 @@ public class NoticeController {
 				int noticeLimit = 10;
 				BookPageController bpCont = new BookPageController();
 				BookPage bPage = bpCont.boardList(page, totalCount, noticeLimit);
-				System.out.println(nStatus);
+				
 				if(totalCount>0) {
 					List<Notice> nList = nService.printAllNotice(bPage.getCurrentPage(), noticeLimit, nStatus);
 					mv.addObject("nList", nList);
@@ -336,7 +336,7 @@ public class NoticeController {
 			ModelAndView mv
 			, @RequestParam(value="noticeCategory", required=false, defaultValue="all") String noticeCategory) {
 		try {
-			System.out.println(noticeCategory);
+			
 			List<Notice> nList = nService.noticeUserList(noticeCategory);
 			mv.addObject("nList", nList);
 			mv.addObject("noticeCategory", noticeCategory);

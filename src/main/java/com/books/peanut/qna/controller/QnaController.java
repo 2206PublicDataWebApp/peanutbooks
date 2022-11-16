@@ -517,7 +517,7 @@ public class QnaController {
 			mv.setViewName("/common/errorPage");
 		}else {
 			try {
-				System.out.println(qna);
+				
 				int result = qService.answerQna(qna);
 				mv.setViewName("redirect:/admin/qnaList.kh?page="+page);
 			} catch (Exception e) {

@@ -237,10 +237,8 @@ public class ConsultController {
 	@RequestMapping(value = "/manager/chatbtn.kh", method = RequestMethod.GET)
 	public String chatbtn(@RequestParam("on_off") String on_off) {
 		JSONObject jsonObj = new JSONObject();
-		System.out.println(on_off);
 
 		int result = cService.changebutten(on_off);
-		System.out.println(result);
 		if (result > 0) {
 			jsonObj.put("result", "성공");
 		} else {
