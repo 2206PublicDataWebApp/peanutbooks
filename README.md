@@ -337,7 +337,7 @@
 ### 관리자-문의게시판
 <hr>
 <p align=center>
-<img src="/readMeResource/admin_qna.jpg">
+<img src="/readMeResource/admin_qna.png">
 </p>
 
 ### 관리자-공지사항
