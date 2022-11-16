@@ -15,10 +15,28 @@ var userOn = false;
 var pointOn = false;
 var adminOn= false;
 
-
+// 안 읽은 알림 개수 가져오기
+function updateNewsCount() {
+	var xhttp = new XMLHttpRequest();
+		xhttp.open('get', '/news/sendNewsCount.pb', true);
+	xhttp.onreadystatechange = function() {
+		if (this.status >= 200 && this.status < 400) {
+			var result = this.response;
+			var newsCircle = document.querySelector('#news-circle');
+            if(newsCircle!=null){
+			    newsCircle.innerHTML = result;
+            }
+	  	} else {
+		    var e = this.response;
+		    alert("error :"+e);
+		}
+	}
+	xhttp.send();
+}
 
 user.onclick = function () {
-	updateNewsCount();
+	updateNewsCount(); // 알림 개수 가져오기
+	
     if (mypage.style.display == 'none') {
         mypage.style.animation = 'fade-in 0.3s ease-out forwards'
         mypage.style.display = 'block';
@@ -57,27 +75,6 @@ function getPeanutPoint() {
 	}
 	xhttp.send();
 }
-
-
-// 안 읽은 알림 개수 가져오기
-function updateNewsCount() {
-	var xhttp = new XMLHttpRequest();
-		xhttp.open('get', '/news/sendNewsCount.pb', true);
-	xhttp.onreadystatechange = function() {
-		if (this.status >= 200 && this.status < 400) {
-			var result = this.response;
-			var newsCircle = document.querySelector('#news-circle');
-            if(newsCircle!=null){
-			    newsCircle.innerHTML = result;
-            }
-	  	} else {
-		    var e = this.response;
-		    alert("error :"+e);
-		}
-	}
-	xhttp.send();
-}
-
 
 //고객 채팅 연결
 	function chatStart() {

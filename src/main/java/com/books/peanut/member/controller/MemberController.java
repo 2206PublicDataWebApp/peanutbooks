@@ -617,9 +617,14 @@ public class MemberController {
 	// 비밀번호 재설정(수정) 기능
 	@RequestMapping(value="/member/resetPw.pb", method=RequestMethod.POST)
 	public ModelAndView resetPw(
-			@RequestParam("memberId") String memberId, 
+			@RequestParam("memberId") String memberId,
 			@RequestParam("memberPw") String memberPw,
 			ModelAndView mv) {
+		// 비밀번호 암호화 시작
+		System.out.println("비밀번호 재설정-암호화 전: " + memberPw);
+		memberPw = Sha256.encrypt(memberPw);
+		System.out.println("비밀번호 재설정-암호화 후: " + memberPw);
+		// 비밀번호 암호화 끝
 		HashMap<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("memberId", memberId);
 		paramMap.put("memberPw", memberPw);
