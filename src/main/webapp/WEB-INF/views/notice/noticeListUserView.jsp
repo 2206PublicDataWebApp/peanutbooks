@@ -141,7 +141,7 @@
 							<span>${notice.noticeContents }</span><br>
 							<div style="margin: auto;">
 								<c:if test="${!empty notice.noticeFileRename }">
-									<img alt="본문이미지" style="width:700px; height:auto;" src="/resources/nuploadFiles/${notice.noticeFileRename }">
+									<img alt="본문이미지" style="width:100%; height:auto;" src="/resources/nuploadFiles/${notice.noticeFileRename }">
 								</c:if>
 							</div>
 						</div>
