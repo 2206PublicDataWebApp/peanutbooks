@@ -255,19 +255,20 @@
 ### 포인트내역
 <hr>
 <p align=center>
-<img src="">
+<img src="/readMeResource/peanet1.jpg">
 </p>
 
 ### 포인트충전
 <hr>
 <p align=center>
-<img src="">
+<img src="/readMeResource/pay1.jpg">
+<img src="/readMeResource/pay2.jpg">
 </p>
 
 ### 포인트교환
 <hr>
 <p align=center>
-<img src="">
+<img src="/readMeResource/writer1.jpg">">
 </p>
 
 ### 알림
@@ -310,7 +311,8 @@
 ### 채팅상담
 <hr>
 <p align=center>
-<img src="">
+<img src="/readMeResource/user_caht1.jpg">
+<img src="/readMeResource/user_caht2.jpg">
 </p>
 
 ### 공지사항
@@ -322,7 +324,8 @@
 ### 관리자-채팅상담
 <hr>
 <p align=center>
-<img src="">
+<img src="/readMeResource/manager_chat1.jpg">
+<img src="/readMeResource/manager_chat2.jpg">
 </p>
 
 ### 관리자-메인
@@ -352,19 +355,19 @@
 ### 관리자-결제조회
 <hr>
 <p align=center>
-<img src="">
+<img src="/readMeResource/pay3.jpg">
 </p>
 
 ### 관리자-땅콩확인
 <hr>
 <p align=center>
-<img src="">
+<img src="/readMeResource/pnlist.jpg">
 </p>
 
 ### 관리자-작가정산
 <hr>
 <p align=center>
-<img src="">
+<img src="/readMeResource/writerlist.jpg">
 </p>
 
 ### 관리자-전체회원관리
