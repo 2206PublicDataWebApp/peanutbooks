@@ -34,6 +34,7 @@
     		var memberId = $("#email-memberId").val();
     		if(authKey == ""){
     			alert("인증번호를 입력해 주세요.");
+    			return false;
     		}else{
     			$.ajax({
     				url: "/member/checkAuthKey.pb",

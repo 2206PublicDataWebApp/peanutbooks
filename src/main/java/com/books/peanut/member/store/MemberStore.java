@@ -48,5 +48,7 @@ public interface MemberStore {
 	public int snsJoin(SqlSession session, Member member);
 	// 네아로
 	public Member snsLogin(SqlSession session, String id);
+	// 회원 정보 삭제
+	public int deleteMemberInfo(SqlSession session, String memberId);
 
 }

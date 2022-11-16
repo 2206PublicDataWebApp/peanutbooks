@@ -51,6 +51,11 @@
 	                <div class="guide error email-error-3">이메일은 필수 정보입니다.</div>
                		<div class="join-btn"><button id="join-btn" type="submit">이메일 인증하고 가입하기</button></div>
                		<!-- <div class="inactive-btn"><button id="inactive-btn" type="button">이메일 인증하고 가입하기</button></div> -->
+               		<div><hr id="join-hr"></div>
+               		<div id="social-btns">
+               			<div id="join-naver" onclick="location.href='${urlNaver}'"><img alt="네이버로 가입하기" src="../resources/img/member/naver-join-icon.png"></div>
+               			<div id="join-kakao" onclick="location.href='${urlKakao}'"><img alt="카카오로 가입하기" src="../resources/img/member/kakao_login_medium_narrow.png"></div>
+	            	</div>
 	            </div>
 	        </div>
     	</div>

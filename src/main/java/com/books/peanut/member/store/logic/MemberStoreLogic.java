@@ -136,5 +136,11 @@ public class MemberStoreLogic implements MemberStore{
 		Member loginMember = session.selectOne("MemberMapper.snsLogin", id);
 		return loginMember;
 	}
+	// 회원 정보 삭제
+	@Override
+	public int deleteMemberInfo(SqlSession session, String memberId) {
+		int result = session.delete("MemberMapper.deleteMemberInfo", memberId);
+		return result;
+	}
 	
 }

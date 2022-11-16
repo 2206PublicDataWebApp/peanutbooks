@@ -46,5 +46,7 @@ public interface MemberService {
 	int snsJoin(Member member);
 	// 네아로
 	Member snsLogin(String id);
+	// 회원 정보 삭제
+	int deleteMemberInfo(String memberId);
 
 }

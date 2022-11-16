@@ -92,6 +92,10 @@
 	<select id="snsLogin" resultMap="memberResultMap">
 		SELECT * FROM MEMBER_TBL WHERE SNS_ID = #{id}
 	</select>
+	<!-- 회원 정보 삭제 -->
+	<delete id="deleteMemberInfo">
+		DELETE FROM MEMBER_TBL WHERE MEMBER_ID = #{memberId}
+	</delete>
 	
 	<resultMap type="OriginBookSeries" id="oriSeriesResultMap">
 		<id property="seriesNo" column="SERIES_NO"/>
