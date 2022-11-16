@@ -32,9 +32,6 @@
 	    margin-bottom: 30px;
 	    padding: 0;
 	}
-	main{
-		font-size: 10px;
-	}
 	.main_title{
 		background: #5e5e5e; 
 		height: 45px;
@@ -100,16 +97,14 @@
 <!-- header start -->
 <jsp:include page="../header/adminheader.jsp"></jsp:include>
 <!-- header End -->
-
-
 	<main>
 		<div class="board_wrap">
 			<div class="main_title">
 			   <h6>도서 리스트</h6>        
 			</div>
-		<!-- 세부 메뉴 시작 -->
-			<div class="sub_menu" >
-			     <ul class="amount row">
+			<!-- 세부 메뉴 시작 -->
+			<div class="sub_menu">
+			     <ul class="amount">
 			        <li>
 			          <div>
 			            <div class="contents1">
@@ -151,7 +146,7 @@
 			     </ul>
 		     </div>
 		<hr>
-	<!-- amount end -->
+		<!-- amount end -->
 			
 			<br>
 		<article id="list-area" class="row" >
