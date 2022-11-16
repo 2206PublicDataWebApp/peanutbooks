@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="shortcut icon" href="/resources/img/icons8-book-32.png">
 </head>
  <style>
 	.btn {
@@ -46,6 +47,26 @@
 	}
 	.blink {
 	 	animation: blink-effect 1s step-end infinite;
+	 }
+	 table{
+		width:100%;
+	 }
+
+	 @media (max-width:500px) {
+		ul.mainUl{
+			display: flex;
+			justify-content: center;
+		}
+		.mainLi .col{
+			padding: 0;
+		}
+		table{
+			width: 100%;
+		}
+		td{
+			width: 50% !important;
+		}
+		
 	 }
 </style> 
 
@@ -106,9 +127,9 @@
 					<input type="hidden" name="noticeNo" value="${notice.noticeNo }">
 					<input type="hidden" name="noticeFilename" value="${notice.noticeFilename }">
 					<input type="hidden" name="noticeFileRename" value="${notice.noticeFileRename }">
-					<table align="center" class="table col-10" style="width:80%;">
+					<table align="center" class="table w-auto" >
 						<tr>
-							<td class="col-3" scope="col" align="center">종류</td>
+							<td class="col-3"  scope="col" align="center">종류</th>
 							<td class="col-7">
 								<select name="noticeCategory"  class="form-select" aria-label="Default select example" >
 									<option value="notice" <c:if test="${notice.noticeCategory == 'notice'}">selected</c:if>>공지</option>
@@ -117,6 +138,7 @@
 									<option value="info" <c:if test="${notice.noticeCategory == 'info'}">selected</c:if>>안내</option>
 								</select>
 							</td>
+						</tr>
 						<tr>
 							<td  class="col-3" scope="col" align="center">작성자</td>
 							<td><input type="text" name="noticeWriter"  class="form-control" value="${notice.noticeWriter }" readonly></td>

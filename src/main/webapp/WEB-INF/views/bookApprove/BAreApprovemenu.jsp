@@ -20,7 +20,7 @@
 <link rel="shortcut icon" href="/resources/img/icons8-book-32.png">
 <link rel="stylesheet" href="/resources/css/book/writemenu.css">
 <style>
-	*{
+	main *{
 		list-style: none;
 	    text-decoration: none;
 	}
@@ -86,12 +86,12 @@
 	}
 	@media (max-width: 400px) {
 		.board_wrap{
-			witdh: 100%;
+			max-width: 100%;
 		}
 	}
 	@media (max-width: 768px) {
 		.board_wrap{
-			witdh: 100%;
+			max-width: 100%;
 		}
 	}
 </style>
@@ -108,8 +108,8 @@
 			   <h6>도서 리스트</h6>        
 			</div>
 		<!-- 세부 메뉴 시작 -->
-			<div class="sub_menu">
-			     <ul class="amount">
+			<div class="sub_menu" >
+			     <ul class="amount row">
 			        <li>
 			          <div>
 			            <div class="contents1">

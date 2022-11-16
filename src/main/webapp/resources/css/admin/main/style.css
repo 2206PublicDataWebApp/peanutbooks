@@ -1,5 +1,5 @@
 @charset "UTF-8";
-*{
+main *{
     list-style: none;
     text-decoration: none;
     border-collapse: collapse;
@@ -8,7 +8,7 @@
     font-size: 16px;
     color: #000;
 }
-input[type="text"] {
+main input[type="text"] {
   line-height: 16px;
   vertical-align: middle;
   font-size: 1rem;
@@ -16,7 +16,7 @@ input[type="text"] {
   height:37px;
   /* border-color: orange; */
 }
-select{
+main select{
   height: 40px;
   vertical-align: middle;
 }
@@ -80,32 +80,32 @@ main{
     margin: auto;
     height: 60px;
 }
-.header_title{
+main .header_title{
     width: 300px;
     height: 40px;
     margin-top: 18px;
 }
-.search_area{
+main .search_area{
     display: flex;
     justify-content: flex-end;
     line-height: 60px;
     width: calc(800-300px);
     align-items:center
 }
-.search_area > li{
+main .search_area > li{
     margin-left: 5px;
 }
-.search_area > li > a{
+main .search_area > li > a{
     color: #000;
 }
 
 /* 게시판 */
-a {
+main a {
     text-decoration: none;
     color: inherit;
 }
 
-.board_wrap {
+main .board_wrap {
     width: 1000px;
     margin: 0px auto;
 }

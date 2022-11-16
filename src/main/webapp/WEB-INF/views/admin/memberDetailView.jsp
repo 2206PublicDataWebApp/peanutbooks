@@ -39,6 +39,36 @@
 	#colText{
 		padding-top: 0.7rem;
 	}
+	table{
+		width: 80%;
+	}
+	@media (max-width:500px) {
+		#qnaForm, #inputStart{
+			width: 100%;
+			padding: 0;
+		}
+
+		[type="button"], button{
+			display: block !important;
+			margin: 0.5rem 0 !important;
+		}
+
+		.mainUl{
+		display: flex;
+		justify-content: space-around;
+	}
+	.mainUl li{
+		margin: 0;
+
+	}
+
+	table{
+		width: 100%;
+	}
+		
+	}
+
+
 </style> 
 <body>
 <!-- header start -->
@@ -87,7 +117,7 @@
 	
 			<!--  세부페이지 body -->
 			<div class="row row-cols-1">
-				<table align="center" class="table col-6" style="width:80%";>
+				<table align="center" class="table col-6">
 					<tr>
 						<th class="col-6" colspan="2" align="left" style="border:none";>${member.memberId } 회원의 상세정보</th>
 					</tr>

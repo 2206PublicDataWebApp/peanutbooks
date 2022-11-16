@@ -42,6 +42,36 @@
 	#colText{
 		padding-top: 0.7rem;
 	}
+
+
+	#inputStart{
+		width:90% ; margin: 0 auto;
+	}
+	@media (max-width:500px) {
+		#qnaForm, #inputStart{
+			width: 100%;
+			padding: 0;
+		}
+
+		[type="button"], button{
+			display: block !important;
+			margin: 0.5rem 0 !important;
+		}
+
+		.mainUl{
+		display: flex;
+		justify-content: space-around;
+	}
+	.mainUl li{
+		margin: 0;
+
+	}
+		
+	}
+
+
+
+
 </style> 
 
 
@@ -98,7 +128,7 @@
 		<!-- 세부페이지 body 시작 -->
 		
 		<!-- 1:1 문의 입력 폼 Start -->
-			<div class="row row-cols-1" style="width:90% ; margin: 0 auto;">
+			<div class="row row-cols-1" id="inputStart">
 				<form action="/qna/modify.kh" method="post" enctype="multipart/form-data" name="qnaForm" id="qnaForm">
 				<input type="hidden" name="memberId" value="${loginMember.memberId }">
 				<input type="hidden" name="page" value="${page }">

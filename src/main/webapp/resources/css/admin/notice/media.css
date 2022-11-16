@@ -1,12 +1,15 @@
 @media (max-width: 500px) {
+    main{
+        max-width: 100%;
+    }
 	.main_title{
-		width: 100%;
+		max-width: 100%;
 	}
 	.sub_menu{
-		width: 100%;
+		max-width: 100%;
 	}
     .board_wrap {
-        width: 100%;
+        max-width: 100%;
         min-width: 320px;
         padding: 0 30px;
         box-sizing: border-box;
@@ -40,12 +43,16 @@
         text-indent: 0;
     }
 
+    main tr{
+        max-width: 100%;
+    }
+
    
 }
 
 @media (max-width: 768px) {
 	.board_wrap {
-        width: 100%;
+        max-width: 100%;
         min-width: 320px;
         padding: 0 30px;
         box-sizing: border-box;

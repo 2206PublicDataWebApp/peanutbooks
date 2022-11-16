@@ -41,6 +41,34 @@
 	#colText{
 		padding-top: 0.7rem;
 	}
+
+	
+
+	table{
+		width: 80%;
+	}
+	@media (max-width:500px) {
+		table{
+			width: 100%;
+		}
+
+		button{
+			display: block !important;
+			margin: 0.5rem 0 !important;
+		}
+
+		.mainUl{
+		display: flex;
+		justify-content: space-around;
+	}
+	.mainUl li{
+		margin: 0;
+
+	}
+		
+	}
+
+	
 </style> 
 
 <body>
@@ -95,7 +123,7 @@
 		<!-- 세부페이지 body 시작 -->
 	
 			<div class="row row-cols-1">
-				<table align="center" class="table col-6" border="0" style="width:80%;">
+				<table align="center" class="table col-6" border="0" >
 					<tr>
 						<td colspan="2"><h3>문의 내용</h3></td>
 					<tr>

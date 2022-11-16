@@ -41,6 +41,22 @@
 	#colText{
 		padding-top: 0.7rem;
 	}
+
+	#inputStart{
+		width:80%; margin: 0 auto;
+
+	}
+
+	@media (max-width:500px) {
+		#inputStart{
+			width: 100%;
+		}
+
+		[type="button"]{
+			margin: 0.3rem 0;
+		}
+		
+	}
 </style> 
 
 
@@ -70,7 +86,7 @@
 		<!-- 세부페이지 body 시작 -->
 	
 		<!-- 1:1 문의 입력 폼 Start -->
-		<div class="row row-cols-1" style="width:80%; margin: 0 auto";>
+		<div class="row row-cols-1" id="inputStart">
 			<form action="/qna/register.kh" method="post" enctype="multipart/form-data" name="qnaForm" id="qnaForm">
 			<%-- <input type="hidden" name="memberId" value="${loginMember.memberId }"> --%>
 				<table align="center" class="table col-6" style="border-color:skyblue;">
