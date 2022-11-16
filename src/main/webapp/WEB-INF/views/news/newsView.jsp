@@ -30,9 +30,16 @@
 				<c:if test="${!empty nList}">
 					<c:forEach items="${nList}" var="news" varStatus="i">
 						<div class="news-contents-area">
-							<span class="news-contents">
-								<a href="/book/oriBookInfo?bookNo=${news.refBookNo}&newsNo=${news.newsNo}" onclick="location.href='/news/readNews.pb?newsNo='+${news.newsNo}">${news.newsContents}</a>
-							</span>
+							<c:if test="${news.newsType eq 'my'}">
+								<span class="news-contents">
+									<a href="/book/oriBookInfo?bookNo=${news.refBookNo}&newsNo=${news.newsNo}" onclick="location.href='/news/readNews.pb?newsNo='+${news.newsNo}">${news.newsContents}</a>
+								</span>
+							</c:if>
+							<c:if test="${news.newsType eq 'event'}">
+								<span class="news-contents">
+									<a href="/book/attendaceEvent.do?newsNo=${news.newsNo}" onclick="location.href='/news/readNews.pb?newsNo='+${news.newsNo}">${news.newsContents}</a>
+								</span>
+							</c:if>
 							<span class="delete-icon">
 								<a href="/news/deleteNews.pb?newsNo=${news.newsNo}"><img alt="닫기" src="../resources/img/news/icons8-close-48.png"></a>
 							</span>

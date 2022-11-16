@@ -64,5 +64,16 @@ public class NewsStoreLogic implements NewsStore {
 		int result = session.update("NewsMapper.updateNewsStatus", newsNo);
 		return result;
 	}
+	// 출석 테이블에 해당 멤버 있는지 검사
+	@Override
+	public int checkAttendExist(SqlSession session, String memberId) {
+		int result = session.selectOne("NewsMapper.checkAttendExist", memberId);
+		return result;
+	}
+	@Override
+	public void insertEventNews(SqlSession session, HashMap<String, String> paramMap) {
+		session.insert("NewsMapper.insertEventNews", paramMap);
+		
+	}
 
 }
