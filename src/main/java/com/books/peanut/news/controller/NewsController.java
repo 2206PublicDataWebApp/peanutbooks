@@ -1,5 +1,6 @@
 package com.books.peanut.news.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.books.peanut.member.domain.Member;
 import com.books.peanut.news.domain.News;
 import com.books.peanut.news.service.NewsService;
+
 
 @Controller
 public class NewsController {
@@ -84,4 +86,22 @@ public class NewsController {
 		return String.valueOf(countNews);
 	}
 
+	// 출석체크
+	@ResponseBody
+	@RequestMapping(value="/news/addEventNews.pb", method=RequestMethod.GET)
+	public String addEventNews(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Member loginMember = (Member)session.getAttribute("loginMember");
+		String memberId = loginMember.getMemberId();
+		String mNickname = loginMember.getmNickname();
+		int result = nService.checkAttendExist(memberId);
+		if(result <= 0) {			
+				String newsContents = mNickname+"님 오늘 출석체크를 안 하셨네요! 출석체크하고 땅콩 받아가세요!";
+				HashMap<String, String> paramMap = new HashMap<String, String>();
+		        paramMap.put("memberId", memberId);
+		        paramMap.put("newsContents", newsContents);
+		        nService.insertEventNews(paramMap);
+		}
+		return null;
+	}
 }

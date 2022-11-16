@@ -21,5 +21,8 @@ public interface NewsService {
    int countNews(String memberId);
    // 알림 읽음 처리
    int readNews(int newsNo);
+   // 출석 테이블에 해당 멤버 있는지 검사
+   int checkAttendExist(String memberId);
+   void insertEventNews(HashMap<String, String> paramMap);
 
 }

@@ -27,7 +27,6 @@
 
 <body>
 	<header>
-
 		<div class="container">
 			<div class="row" id="header-area">
 				<div class="col-md-3 col-4">

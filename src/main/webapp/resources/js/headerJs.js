@@ -15,10 +15,25 @@ var userOn = false;
 var pointOn = false;
 var adminOn= false;
 
+// 출석체크 알림 보내기
+function addEventNews(){
+	var xhttp = new XMLHttpRequest();
+	xhttp.open('get', '/news/addEventNews.pb', true);
+	xhttp.onreadystatechange = function() {
+		if (this.status >= 200 && this.status < 400) {
+			var result = this.response;
+	  	} else {
+		    var e = this.response;
+		    alert("error :"+e);
+		}
+	}
+	xhttp.send();
+}
+
 // 안 읽은 알림 개수 가져오기
 function updateNewsCount() {
 	var xhttp = new XMLHttpRequest();
-		xhttp.open('get', '/news/sendNewsCount.pb', true);
+	xhttp.open('get', '/news/sendNewsCount.pb', true);
 	xhttp.onreadystatechange = function() {
 		if (this.status >= 200 && this.status < 400) {
 			var result = this.response;
@@ -35,6 +50,8 @@ function updateNewsCount() {
 }
 
 user.onclick = function () {
+	//addEventNews(); // 출석체크 알림 보내기
+
 	updateNewsCount(); // 알림 개수 가져오기
 	
     if (mypage.style.display == 'none') {

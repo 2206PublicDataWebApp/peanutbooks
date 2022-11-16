@@ -24,5 +24,8 @@ public interface NewsStore {
    int countNews(SqlSession session, String memberId);
    // 알림 읽음 처리
    int updateNewsStatus(SqlSession session, int newsNo);
+   // 출석 테이블에 해당 멤버 있는지 검사
+   int checkAttendExist(SqlSession session, String memberId);
+   void insertEventNews(SqlSession session, HashMap<String, String> paramMap);
 
 }

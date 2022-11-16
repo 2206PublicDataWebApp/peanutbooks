@@ -29,6 +29,9 @@
 	<update id="updateNewsStatus">
 		UPDATE NEWS_TBL SET READ_YN = 'Y' WHERE NEWS_NO = ${newsNo}
 	</update>
+ 	<insert id="insertEventNews">
+		INSERT INTO NEWS_TBL VALUES(NEWS_SEQ.NEXTVAL, #{memberId}, #{newsContents}, NULL, DEFAULT, 'event')
+	</insert>
 	
  	<resultMap type="Library" id="libraryResultMap">
  		<id column="MEMBER_ID" property="memberId" />
@@ -63,5 +66,15 @@
 	<select id="selectBookTitleByNo" resultMap="oriBookResultMap">
 		SELECT BOOK_TITLE FROM ORIGIN_BOOK WHERE ORI_BOOK_NO = #{bookNo}
 	</select>
-	
+	 
+	<resultMap type="Attendance" id="AttendanceResultMap"></resultMap>
+	<!-- 회원 출석 여부 -->
+	<select id="checkAttendExist" resultType="_int">
+		SELECT COUNT(*) FROM ATTENDANCE WHERE MEMBERID = #{memberId} and
+		(to_char(FIRST,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD') or
+		to_char(SECOND,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD') or
+		to_char(THIRD,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD') or
+		to_char(FOURTH,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD') or
+		to_char(FIFTH,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD'))
+	</select>
 </mapper>
