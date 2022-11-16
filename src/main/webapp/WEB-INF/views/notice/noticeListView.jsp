@@ -148,7 +148,6 @@
 					<br>
 		        	<b style="color: #616161; font-size: 16px; text-align: center;">게시물이 없습니다.</b>
 		        </c:if>
-<%-- 		       <c:if test="notice.noticeCategory"></c:if> --%>
 
 			    <!--  페이징 영역 -->
 				<article id="page-area">

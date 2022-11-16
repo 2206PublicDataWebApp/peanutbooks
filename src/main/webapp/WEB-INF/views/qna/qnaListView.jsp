@@ -54,6 +54,49 @@
 			width: 100%;
 		}
 	}
+	/* 페이징 */
+	#page-area {
+		margin-top: 15px;
+		font-size: 0.8rem;
+		font-weight: bolder;
+		text-align:center;
+	}
+	
+	#page-area span{
+		border-radius: 0.5rem;
+		line-height:2rem;
+		
+	}
+	
+	.pageNow, .pages{
+		display: inline-block;
+		width: 3rem;
+		height: 2rem;
+		transition: 0.2s;
+		
+	}
+	.pages{
+		background-color:#FFD384;
+		transition: 0.2s;	
+	}
+	.pageNow, .pages:hover{
+		background-color:#FF884B;
+		color:white;
+		transition : 0.2s;
+	}
+	
+	.prev, .next {
+		display: inline-block;
+		width: 3rem;
+		height: 2rem;
+		
+		
+	}
+	.pages a {
+		width:100%;
+		height:100%;
+		display:inline-block;
+	} 
 </style> 
 <body>
 <!-- header start -->
@@ -74,7 +117,7 @@
 		<!-- 세부페이지 큰 제목 -->
 		<div class="container text-center">
 			<div class="row row-cols-2">
-				<div class="col" id="colText" style="background-color: #5e5e5e; color: white; height:45px; vertical-align: middle;"><a href="/qna/list.kh">문의내역</a></div>
+				<div class="col" id="colText" style="background-color: #5e5e5e; color: white; height:45px; vertical-align: middle;"><a href="/qna/list.kh"><p style="color:white";>문의내역</p></a></div>
 				<div class="col" id="colText" style="background-color: #c9c9c9; color: white; height:45px; vertical-align: middle;"><a href="/qna/writeView">문의작성</a></div>
 			</div>
 		<!-- 세부페이지 큰 제목 끝 -->
