@@ -337,19 +337,19 @@
 ### 관리자-문의게시판
 <hr>
 <p align=center>
-<img src="">
+<img src="/readMeResource/admin_qna.jpg">
 </p>
 
 ### 관리자-공지사항
 <hr>
 <p align=center>
-<img src="">
+<img src="/readMeResource/admin_noticeDetail.jpg">
 </p>
 
 ### 관리자-도서승인
 <hr>
 <p align=center>
-<img src="">
+<img src="/readMeResource/admin_books.jpg">
 </p>
 
 ### 관리자-결제조회
