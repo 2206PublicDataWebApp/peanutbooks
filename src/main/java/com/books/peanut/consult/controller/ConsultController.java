@@ -250,30 +250,6 @@ public class ConsultController {
 	}
 
 	// 관리자가 종료건 검색 화면으로 이동
-	
-	
-/*			@RequestParam(value = "searchDate", required = false) String csDate,
-	    	@RequestParam(value = "page", required = false) Integer page,
-	    	@ModelAttribute ConsultServer cs) throws ParseException {
-		Pagemarker pm = new Pagemarker();
-		SimpleDateFormat smf = new SimpleDateFormat("yyyy-MM-dd");
-		if(csDate != null && !csDate.equals("")) {
-			cs.setCsDate(smf.parse(csDate));
-		}
-
-		int totalCount = cService.getTotalCount(cs);
-		int currentPage = (page != null) ? page : 1;		
-		
-		pm.pageInfo(currentPage, totalCount);
-		mv.addObject("pm", pm);
-		
-		List<ConsultServer> chatList = cService.printEndListChat(pm, cs);
-		mv.addObject("chatList", chatList);
-		mv.addObject("csMemberId", cs.getCsMemberId());
-		mv.addObject("csDate", csDate);		
-		mv.setViewName("/consult/chatEndList");
-		return mv;
-	}*/
 	//csDate값을 내가 원하는 형식을 표시할수 없어서 그냥 String값으로 가져가 봅니다.
 	@RequestMapping(value = "/consult/endList.kh", method = RequestMethod.GET)
 	public ModelAndView endListSearch(ModelAndView mv,
