@@ -72,5 +72,10 @@ public class NewsServiceImpl implements NewsService {
 		nStore.insertEventNews(session, paramMap);
 		
 	}
+	@Override
+	public int checkEventExist(String memberId) {
+		int result = nStore.checkEventExist(session, memberId);
+		return result;
+	}
 
 }

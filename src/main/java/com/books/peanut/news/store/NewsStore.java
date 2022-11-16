@@ -27,5 +27,6 @@ public interface NewsStore {
    // 출석 테이블에 해당 멤버 있는지 검사
    int checkAttendExist(SqlSession session, String memberId);
    void insertEventNews(SqlSession session, HashMap<String, String> paramMap);
+   int checkEventExist(SqlSession session, String memberId);
 
 }

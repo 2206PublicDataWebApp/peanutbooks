@@ -32,12 +32,12 @@
 						<div class="news-contents-area">
 							<c:if test="${news.newsType eq 'my'}">
 								<span class="news-contents">
-									<a href="/book/oriBookInfo?bookNo=${news.refBookNo}&newsNo=${news.newsNo}" onclick="location.href='/news/readNews.pb?newsNo='+${news.newsNo}">${news.newsContents}</a>
+									<a href="/news/readNews.pb?newsNo=${news.newsNo}&bookNo=${news.refBookNo}">${news.newsContents}</a>
 								</span>
 							</c:if>
 							<c:if test="${news.newsType eq 'event'}">
 								<span class="news-contents">
-									<a href="/book/attendaceEvent.do?newsNo=${news.newsNo}" onclick="location.href='/news/readNews.pb?newsNo='+${news.newsNo}">${news.newsContents}</a>
+									<a href="/news/readNews.pb?newsNo=${news.newsNo}&newsType=event">${news.newsContents}</a>
 								</span>
 							</c:if>
 							<span class="delete-icon">

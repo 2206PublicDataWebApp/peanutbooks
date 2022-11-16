@@ -75,5 +75,10 @@ public class NewsStoreLogic implements NewsStore {
 		session.insert("NewsMapper.insertEventNews", paramMap);
 		
 	}
+	@Override
+	public int checkEventExist(SqlSession session, String memberId) {
+		int result = session.selectOne("NewsMapper.checkEventExist", memberId);
+		return result;
+	}
 
 }

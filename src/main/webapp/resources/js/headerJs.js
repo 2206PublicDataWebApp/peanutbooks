@@ -50,7 +50,7 @@ function updateNewsCount() {
 }
 
 user.onclick = function () {
-	//addEventNews(); // 출석체크 알림 보내기
+	addEventNews(); // 출석체크 알림 보내기
 
 	updateNewsCount(); // 알림 개수 가져오기
 	
