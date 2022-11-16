@@ -324,7 +324,8 @@ public class ControllerPay {
 		Pagemarker pm=new Pagemarker();
 		int count=pService.getwritetP_Count(memberId, bankStatus, putDate);
 		if(count==0) {			
-			mv.addObject("count", "no");
+			mv.addObject("count", "no");		
+			mv.setViewName("/peanetPay/writerPayList");
 		}else {
 			pm.setTotalCount(count);
 			pm.setCurrentPage((page != null) ? page : 1);
