@@ -311,14 +311,14 @@
 ### 채팅상담
 <hr>
 <p align=center>
-<img src="/readMeResource/user_chat1.jpg">
-<img src="/readMeResource/user_chat2.jpg">
+<img src="/readMeResource/user_caht1.jpg">
+<img src="/readMeResource/user_caht2.jpg">
 </p>
 
 ### 공지사항
 <hr>
 <p align=center>
-<img src="">
+<img src="/readMeResource/user_notice.png">
 </p>
 
 ### 관리자-채팅상담
@@ -343,13 +343,13 @@
 ### 관리자-공지사항
 <hr>
 <p align=center>
-<img src="/readMeResource/admin_noticeDetail.jpg">
+<img src="/readMeResource/admin_noticeDetail.png">
 </p>
 
 ### 관리자-도서승인
 <hr>
 <p align=center>
-<img src="/readMeResource/admin_books.jpg">
+<img src="/readMeResource/admin_books.png">
 </p>
 
 ### 관리자-결제조회
@@ -373,7 +373,7 @@
 ### 관리자-전체회원관리
 <hr>
 <p align=center>
-<img src="">
+<img src="/readMeResource/admin_member.png">
 </p>
 
 ### 출석이벤트
