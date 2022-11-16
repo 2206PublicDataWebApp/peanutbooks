@@ -331,7 +331,7 @@
 ### 관리자-메인
 <hr>
 <p align=center>
-<img src="">
+<img src="/readMeResource/admin_main.png">
 </p>
 
 ### 관리자-문의게시판
