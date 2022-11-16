@@ -92,7 +92,7 @@
 			<a href="/admin/categoryCount.kh?qnaCategory=member&page=1" style="color: black"> 회원문의 |</a>
 			<a href="/admin/categoryCount.kh?qnaCategory=point&page=1" style="color: black"> 포인트문의 |</a>
 			<a href="/admin/categoryCount.kh?qnaCategory=books&page=1" style="color: black"> 도서문의 |</a>
-			<a href="/admin/categoryCount.kh?qnaCategory=others&page=1" style="color: black"> 기타 </a> | 
+			<a href="/admin/categoryCount.kh?qnaCategory=others&page=1" style="color: black"> 기타 </a>  
 		</div>
         <div class="board_list_wrap">
             <div class="board_list">

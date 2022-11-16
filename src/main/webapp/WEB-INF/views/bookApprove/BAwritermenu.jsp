@@ -32,9 +32,6 @@
 	    margin-bottom: 30px;
 	    padding: 0;
 	}
-	main{
-		font-size: 10px;
-	}
 	.main_title{
 		background: #5e5e5e; 
 		height: 45px;
