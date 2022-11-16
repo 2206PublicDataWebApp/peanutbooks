@@ -10,10 +10,11 @@
 		<result property="refBookNo" column="REF_BOOK_NO"/> <!-- 참고 도서 번호 -->
 		<result property="readYN" column="READ_YN"/> <!-- 알림 읽음 여부 -->
 		<result property="newsType" column="NEWS_TYPE"/> <!-- 알림 종류 -->
+		<result property="sendDate" column="SEND_DATE"/> <!-- 알림 발송일 -->
 	</resultMap>
 	<!-- 내 알림 등록(내 서재 등록 도서 신작 알림) -->
  	<insert id="insertNews">
-		INSERT INTO NEWS_TBL VALUES(NEWS_SEQ.NEXTVAL, #{memberId}, #{newsContents}, #{refBookNo}, DEFAULT, 'my')
+		INSERT INTO NEWS_TBL VALUES(NEWS_SEQ.NEXTVAL, #{memberId}, #{newsContents}, #{refBookNo}, DEFAULT, 'my', SYSDATE)
 	</insert>
 	<!-- 알림 목록 조회 -->
 	<select id="selectNewsList" resultMap="newsResultMap">
@@ -27,11 +28,14 @@
 		SELECT COUNT(*) FROM NEWS_TBL WHERE MEMBER_ID = #{memberId} AND READ_YN = 'N'
 	</select>
 	<update id="updateNewsStatus">
-		UPDATE NEWS_TBL SET READ_YN = 'Y' WHERE NEWS_NO = ${newsNo}
+		UPDATE NEWS_TBL SET READ_YN = 'Y' WHERE NEWS_NO = #{newsNo}
 	</update>
  	<insert id="insertEventNews">
-		INSERT INTO NEWS_TBL VALUES(NEWS_SEQ.NEXTVAL, #{memberId}, #{newsContents}, NULL, DEFAULT, 'event')
+		INSERT INTO NEWS_TBL VALUES(NEWS_SEQ.NEXTVAL, #{memberId}, #{newsContents}, NULL, DEFAULT, 'event', SYSDATE)
 	</insert>
+	<select id="checkEventExist" resultType="_int">
+		SELECT COUNT(*) FROM NEWS_TBL WHERE MEMBER_ID = #{memberId} AND NEWS_TYPE = 'event' AND TO_CHAR(SEND_DATE,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD')
+	</select>
 	
  	<resultMap type="Library" id="libraryResultMap">
  		<id column="MEMBER_ID" property="memberId" />

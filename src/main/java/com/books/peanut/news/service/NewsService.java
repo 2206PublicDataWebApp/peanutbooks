@@ -24,5 +24,6 @@ public interface NewsService {
    // 출석 테이블에 해당 멤버 있는지 검사
    int checkAttendExist(String memberId);
    void insertEventNews(HashMap<String, String> paramMap);
+   int checkEventExist(String memberId);
 
 }

@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,11 +21,12 @@ import com.books.peanut.member.domain.Member;
 import com.books.peanut.news.domain.News;
 import com.books.peanut.news.service.NewsService;
 
-
 @Controller
 public class NewsController {
 	@Autowired
 	private NewsService nService;
+	
+	private static final Logger logger = LoggerFactory.getLogger(NewsController.class);
 
 	/**
 	 * 알림 목록 조회
@@ -70,9 +73,22 @@ public class NewsController {
 	 * @param newsNo
 	 */
 	@RequestMapping(value="/news/readNews.pb", method=RequestMethod.GET)
-	public void readNews(
-			@RequestParam("newsNo") int newsNo) {
-		nService.readNews(newsNo);
+	public ModelAndView readNews(
+			@RequestParam("newsNo") int newsNo,
+			@RequestParam(value="newsType", defaultValue = "null") String newsType,
+			@RequestParam(value="bookNo", defaultValue = "0") int bookNo,
+			ModelAndView mv) {
+		logger.info("알림읽음");
+		int result = nService.readNews(newsNo);
+		logger.info(result+"알림결과");
+		
+		if(newsType.equals("event")) {
+			mv.setViewName("redirect:/book/attendaceEvent.do?newsNo="+newsNo);
+		}else {
+			mv.setViewName("redirect:/book/oriBookInfo?bookNo="+bookNo+"&newsNo="+newsNo);
+		}
+		
+		return mv;
 	}
 	
 	// header - mypage tooltip으로 알림 개수 보내기
@@ -95,12 +111,15 @@ public class NewsController {
 		String memberId = loginMember.getMemberId();
 		String mNickname = loginMember.getmNickname();
 		int result = nService.checkAttendExist(memberId);
-		if(result <= 0) {			
-				String newsContents = mNickname+"님 오늘 출석체크를 안 하셨네요! 출석체크하고 땅콩 받아가세요!";
-				HashMap<String, String> paramMap = new HashMap<String, String>();
-		        paramMap.put("memberId", memberId);
-		        paramMap.put("newsContents", newsContents);
-		        nService.insertEventNews(paramMap);
+		if(result <= 0) {
+				int result2 = nService.checkEventExist(memberId);
+				if(result2 <= 0) {
+					String newsContents = mNickname+"님 오늘 출석체크를 안 하셨네요! 출석체크하고 땅콩 받아가세요!";
+					HashMap<String, String> paramMap = new HashMap<String, String>();
+					paramMap.put("memberId", memberId);
+					paramMap.put("newsContents", newsContents);
+					nService.insertEventNews(paramMap);
+				}
 		}
 		return null;
 	}

@@ -1,5 +1,7 @@
 package com.books.peanut.news.domain;
 
+import java.sql.Date;
+
 public class News {
 	private int newsNo; // 알림 번호
 	private String memberId; // 회원 아이디
@@ -7,6 +9,7 @@ public class News {
 	private int refBookNo; // 참고 도서 번호
 	private String readYN; // 알림 읽음 여부
 	private String newsType; // 알림 종류
+	private Date sendDate; // 알림 발송일
 	
 	public int getNewsNo() {
 		return newsNo;
@@ -44,11 +47,17 @@ public class News {
 	public void setNewsType(String newsType) {
 		this.newsType = newsType;
 	}
+	public Date getSendDate() {
+		return sendDate;
+	}
+	public void setSendDate(Date sendDate) {
+		this.sendDate = sendDate;
+	}
 	
 	@Override
 	public String toString() {
 		return "News [newsNo=" + newsNo + ", memberId=" + memberId + ", newsContents=" + newsContents + ", refBookNo="
-				+ refBookNo + ", readYN=" + readYN + ", newsType=" + newsType + "]";
+				+ refBookNo + ", readYN=" + readYN + ", newsType=" + newsType + ", sendDate=" + sendDate + "]";
 	}
 	
 }
