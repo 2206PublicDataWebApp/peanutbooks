@@ -70,7 +70,7 @@
 		<hr>
 		<!-- 도서 현황 End-->
 	<!-- amount end -->
-	<br><br>
+	<br>
 			  
 	<!-- 문의 게시판  -->
 		<div class="main_title">
