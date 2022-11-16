@@ -255,20 +255,20 @@
 ### 포인트내역
 <hr>
 <p align=center>
-<img src="/readMeResource/peanet1.jpg">
+<img src="/readMeResource/peanet1.JPG">
 </p>
 
 ### 포인트충전
 <hr>
 <p align=center>
-<img src="/readMeResource/pay1.jpg" width="800px">
-<img src="/readMeResource/pay2.jpg" width="800px">
+<img src="/readMeResource/pay1.JPG" width="800px">
+<img src="/readMeResource/pay2.JPG" width="800px">
 </p>
 
 ### 포인트교환
 <hr>
 <p align=center>
-<img src="/readMeResource/writer1.jpg" width="800px">
+<img src="/readMeResource/writer1.JPG" width="800px">
 </p>
 
 ### 알림
@@ -311,8 +311,8 @@
 ### 채팅상담
 <hr>
 <p align=center>
-<img src="/readMeResource/user_caht1.jpg">
-<img src="/readMeResource/user_caht2.jpg">
+<img src="/readMeResource/user_chat1.JPG" width="400px">
+<img src="/readMeResource/user_chat2.JPG" width="400px">
 </p>
 
 ### 공지사항
@@ -324,8 +324,8 @@
 ### 관리자-채팅상담
 <hr>
 <p align=center>
-<img src="/readMeResource/manager_chat1.jpg">
-<img src="/readMeResource/manager_chat2.jpg">
+<img src="/readMeResource/manager_chat1.jpg" width="400px">
+<img src="/readMeResource/manager_chat2.jpg" width="400px">
 </p>
 
 ### 관리자-메인
@@ -355,19 +355,19 @@
 ### 관리자-결제조회
 <hr>
 <p align=center>
-<img src="/readMeResource/pay3.jpg">
+<img src="/readMeResource/pay3.JPG" width="800px">
 </p>
 
 ### 관리자-땅콩확인
 <hr>
 <p align=center>
-<img src="/readMeResource/pnlist.jpg">
+<img src="/readMeResource/pnlist.jpg" width="800px">
 </p>
 
 ### 관리자-작가정산
 <hr>
 <p align=center>
-<img src="/readMeResource/writerlist.jpg">
+<img src="/readMeResource/writerlist.jPG" width="800px">
 </p>
 
 ### 관리자-전체회원관리
