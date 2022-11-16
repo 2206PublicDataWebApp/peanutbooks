@@ -311,8 +311,8 @@
 ### 채팅상담
 <hr>
 <p align=center>
-<img src="/readMeResource/user_caht1.jpg">
-<img src="/readMeResource/user_caht2.jpg">
+<img src="/readMeResource/user_chat1.jpg">
+<img src="/readMeResource/user_chat2.jpg">
 </p>
 
 ### 공지사항
