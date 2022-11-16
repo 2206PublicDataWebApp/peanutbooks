@@ -261,14 +261,14 @@
 ### 포인트충전
 <hr>
 <p align=center>
-<img src="/readMeResource/pay1.jpg">
-<img src="/readMeResource/pay2.jpg">
+<img src="/readMeResource/pay1.jpg" width="800px">
+<img src="/readMeResource/pay2.jpg" width="800px">
 </p>
 
 ### 포인트교환
 <hr>
 <p align=center>
-<img src="/readMeResource/writer1.jpg">">
+<img src="/readMeResource/writer1.jpg" width="800px">
 </p>
 
 ### 알림
