@@ -16,91 +16,88 @@
     
 </head>
 <body>
-		<div id="searchbtn">						
-			<button id="csBtn" onclick="exit();">종 료</button>
-		</div>
+	<div id="searchbtn">
+		<button id="csBtn" onclick="exit();">종 료</button>
+	</div>
 
-<br>
-<main>
-	<div>
+	<br>
+	<main>
 		<div>
-			<div id="pagename" align="center">${param.cMemberId }님의 상담내용</div>
-			<div class="table-responsive">
-				<table class="table table-striped table-hover" 
-					id="togglePart">
-					<thead class="table-light">
-						<tr>
-							<th scope="col">번호</th>
-							<th scope="col">말한사람</th>							
-							<th scope="col">대화시간</th>
-							<th scope="col">대화내용</th>							
-						</tr>
-					</thead>					
-					
-					<tbody>
-						<c:forEach items="${cList }" var="Consult" varStatus="i">
-							<tr style="height : 40px;">
-								<td>${i.count +((pm.currentPage-1)*10)}</td>
-								<td>${Consult.cMemberId }</td>
-								<td><fmt:formatDate value="${Consult.cDate }"
-										pattern="yy.MM.dd HH:mm:ss" /></td>
-								<td>${Consult.cContexts }</td>				
-								
+			<div>
+				<div id="pagename" align="center">${param.cMemberId }님의상담내용</div>
+				<div class="table-responsive">
+					<table class="table table-striped table-hover" id="togglePart">
+						<thead class="table-light">
+							<tr>
+								<th scope="col">번호</th>
+								<th scope="col">말한사람</th>
+								<th scope="col">대화시간</th>
+								<th scope="col">대화내용</th>
 							</tr>
-						</c:forEach>
-					</tdody>
-				</table>
+						</thead>
+
+						<tbody>
+							<c:forEach items="${cList }" var="Consult" varStatus="i">
+								<tr style="height: 40px;">
+									<td>${i.count +((pm.currentPage-1)*10)}</td>
+									<td>${Consult.cMemberId }</td>
+									<td><fmt:formatDate value="${Consult.cDate }"
+											pattern="yy.MM.dd HH:mm:ss" /></td>
+									<td>${Consult.cContexts }</td>
+
+								</tr>
+							</c:forEach>
+							</tdody>
+					</table>
 
 
-			<div class="page_wrap">
-				<div class="pagination">
+					<div class="page_wrap">
+						<div class="pagination">
 
-					<c:if test="${pm.startNavi !=1}">
-						<a href="javascript:void(0);"
-							onclick="pageChatSearch(${1});"
-								title="firstpage"><svg
-								fill="currentColor">
+							<c:if test="${pm.startNavi !=1}">
+								<a href="javascript:void(0);" onclick="pageChatSearch(${1});"
+									title="firstpage"><svg fill="currentColor">
 				<path
-									d="M17.59 18L19 16.59 14.42 12 19 7.41 17.59 6l-6 6zM11 18l1.41-1.41L7.83 12l4.58-4.59L11 6l-6 6z" /></svg>
-							First</a>
-						<a href="javascript:void(0);"
-							onclick="pageChatSearch(${pm.startNavi -1});"										
-								title="previouspage"><svg fill="currentColor">
+											d="M17.59 18L19 16.59 14.42 12 19 7.41 17.59 6l-6 6zM11 18l1.41-1.41L7.83 12l4.58-4.59L11 6l-6 6z" /></svg>
+									First</a>
+								<a href="javascript:void(0);"
+									onclick="pageChatSearch(${pm.startNavi -1});"
+									title="previouspage"><svg fill="currentColor">
 					<path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" /></svg> </a>
-					</c:if>
-					<c:forEach begin="${pm.startNavi}" end="${pm.endNavi }" var="p">
-						<c:if test="${pm.currentPage eq p}">
-							<a class="page-active" href="javascript:void(0);"
-								onclick="pageChatSearch(${p});"
-								style="background-color: grey;"> ${p} </a>
-						</c:if>
-						<c:if test="${pm.currentPage ne p}">
-							<a class="page-active" href="javascript:void(0);"
-								onclick="pageChatSearch(${p});"> ${p} </a>
-						</c:if>
-					</c:forEach>
+							</c:if>
+							<c:forEach begin="${pm.startNavi}" end="${pm.endNavi }" var="p">
+								<c:if test="${pm.currentPage eq p}">
+									<a class="page-active" href="javascript:void(0);"
+										onclick="pageChatSearch(${p});"
+										style="background-color: grey;"> ${p} </a>
+								</c:if>
+								<c:if test="${pm.currentPage ne p}">
+									<a class="page-active" href="javascript:void(0);"
+										onclick="pageChatSearch(${p});"> ${p} </a>
+								</c:if>
+							</c:forEach>
 
 
-					<c:if test="${pm.maxPage > pm.currentPage && (pm.maxPage != pm.endNavi)}">
-						<a title="next page" href="javascript:void(0);"
-							onclick="pageChatSearch(${pm.endNavi+1});"><svg
-								fill="currentColor">
+							<c:if
+								test="${pm.maxPage > pm.currentPage && (pm.maxPage != pm.endNavi)}">
+								<a title="next page" href="javascript:void(0);"
+									onclick="pageChatSearch(${pm.endNavi+1});"><svg
+										fill="currentColor">
 					<path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" /></svg></a>
-					</c:if>
-					<c:if test="${(pm.endNavi %5)==0 && pm.maxPage != pm.endNavi }">
-						<a href="javascript:void(0);"
-							onclick="pageChatSearch(${pm.maxPage});" title="last page">Last<svg
-								fill="currentColor">
+							</c:if>
+							<c:if test="${(pm.endNavi %5)==0 && pm.maxPage != pm.endNavi }">
+								<a href="javascript:void(0);"
+									onclick="pageChatSearch(${pm.maxPage});" title="last page">Last<svg
+										fill="currentColor">
 				<path
-									d="M6.41 6L5 7.41 9.58 12 5 16.59 6.41 18l6-6zM13 6l-1.41 1.41L16.17 12l-4.58 4.59L13 18l6-6z" /></svg></a>
-					</c:if>
+											d="M6.41 6L5 7.41 9.58 12 5 16.59 6.41 18l6-6zM13 6l-1.41 1.41L16.17 12l-4.58 4.59L13 18l6-6z" /></svg></a>
+							</c:if>
+						</div>
+					</div>
 				</div>
 			</div>
-	</div>
-	</div>
-
-</main>
-<script>	
+	</main>
+	<script>	
 	/* 페이징  */
 	function pageChatSearch(page){
 		
@@ -111,10 +108,10 @@
 	}
 	/* 종료  */
 	function exit(){
-		self.close();			
+		self.close();		
 	}
-
 	
 </script>
+
 </body>
 </html>

@@ -14,48 +14,49 @@
     
 </head>
 <body>
-<div id="header">
-<jsp:include page="../header/adminheader.jsp"></jsp:include>
-</div>
-<!--관리자일 경우 들어갈수 있도록 다시한번 체크  -->
-<br>
-<main id="c_L_main">
-	<div style="padding-left: 30%;">	
-	    <label class="switch">
-	        <input id="checkbox" type="checkbox" value="true" >
-	        <span class="slider round"></span>
-	    </label>
-	      
-	      <p style="display: '';">OFF</p>
-	      <p style="display: none;">ON</p>
+	<div id="header">
+		<jsp:include page="../header/adminheader.jsp"></jsp:include>
 	</div>
-	<div id="info" style="display: none;">자리 비움 및 종료시 반드시 OFF하셔야 합니다.</div>
-	<div style="padding-left: 30%;">
-	    <div style="padding-bottom: 0.5em;">
-	        <span >상담 대기인원 :</span> <span id="count">명</span>
-	    </div>
-	    <div id="searchbtn">
-	    	<button id="csBtn" onclick="endList();">종료건 조회</button>
-	    </div>
-	</div>                             
-	<div id="pagename" align="center">채팅상담리스트</div>
-	<div class="table-responsive">
-         <table class="table table-striped table-hover" border="1"  id="togglePart" style="display:none;">
-             <thead class="table-light">
-                 <tr>
-                      <th scope="col">번호</th>
-                      <th scope="col">고객ID</th>
-                      <th scope="col">문의주제</th>
-                      <th scope="col">신청시간</th>
-                      <th scope="col">상담결과</th>
-                      <th scope="col"></th>                
-                  </tr>
-              </thead>
-              <tbody></tbody>
-          </table>
-	</div>
-</main>
-<jsp:include page="../footer/footer.jsp"></jsp:include>
+	<!--관리자일 경우 들어갈수 있도록 다시한번 체크  -->
+	<br>
+	<main id="c_L_main">
+		<div style="padding-left: 30%;">
+			<label class="switch"> <input id="checkbox" type="checkbox"
+				value="true"> <span class="slider round"></span>
+			</label>
+
+			<p style="display: '';">OFF</p>
+			<p style="display: none;">ON</p>
+		</div>
+		<div id="info" style="display: none;">자리 비움 및 종료시 반드시 OFF하셔야
+			합니다.</div>
+		<div style="padding-left: 30%;">
+			<div style="padding-bottom: 0.5em;">
+				<span>상담 대기인원 :</span> <span id="count">명</span>
+			</div>
+			<div id="searchbtn">
+				<button id="csBtn" onclick="endList();">종료건 조회</button>
+			</div>
+		</div>
+		<div id="pagename" align="center">채팅상담리스트</div>
+		<div class="table-responsive">
+			<table class="table table-striped table-hover" border="1"
+				id="togglePart" style="display: none;">
+				<thead class="table-light">
+					<tr>
+						<th scope="col">번호</th>
+						<th scope="col">고객ID</th>
+						<th scope="col">문의주제</th>
+						<th scope="col">신청시간</th>
+						<th scope="col">상담결과</th>
+						<th scope="col"></th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
+	</main>
+	<jsp:include page="../footer/footer.jsp"></jsp:include>
 	<script>
 		$('.context').scrollTop = $('.context').scrollHeight;
 		var printer;
@@ -65,21 +66,21 @@
 				$('p').toggle();
 				$('#togglePart').toggle();
 				$('#info').toggle();
-				printer=true;
+				printer = true;
 				$.ajax({ //종료시 on/off변경								
-					url : "/manager/chatbtn.kh",
+					url : '/manager/chatbtn.kh',
 					type : 'get',
 					data : {
-						on_off : "Y"
+						on_off : 'Y'
 					},
-					dataType : "json",
+					dataType : 'json',
 					success : function(result) {
 
 						if (result.result == "성공") {
-							printer=true;
+							printer = true;
 							alert("채팅접수를 시작합니다");
-							if(printer){
-							 printer=setInterval(printList, 5000);								
+							if (printer) {
+								printer = setInterval(printList, 5000);
 							}
 						} else {
 							console.log("접수 오류입니다. 다시 진행부탁드립니다.");
@@ -92,25 +93,25 @@
 				});
 			} else {
 				chatEnd();
-			};
+			}
+			;
 		});
-		
+
 		function chatEnd() {
 			if (confirm("정말로 종료하시겠습니까?")) {
 				$('p').toggle();
 				$('#togglePart').toggle();
 				$('#info').toggle();
 				clearInterval(printer);
- 				printer=false;
-
+				printer = false;
 
 				$.ajax({ //종료시 on/off변경								
-					url : "/manager/chatbtn.kh",
+					url : '/manager/chatbtn.kh',
 					type : 'get',
 					data : {
-						on_off : "N"
+						on_off : 'N'
 					},
-					dataType : "json",
+					dataType : 'json',
 					success : function(result) {
 						if (result.result == "성공") {
 							alert("채팅접수를 마감합니다.");
@@ -125,40 +126,48 @@
 						alert('error' + e);
 					},
 				});
-			};
+			}
+			;
 		}
 
 		/// 리스트 반복 출력구간  //이때 db on/off버튼도 컨트롤러에서 변경한다.
-		function printList(){
-		   $('tbody').html('');
-	    	$.ajax({
-	         url:"/consult/chatSession.kh",
-	         type:'get',
-	         //data:requestTime,                   
-	         dataType:"json",
-	         success:function(result) {
-	        	 var count=0;
-	         	 for (var i in result){
-	            	   var a='<tr>'+
-	            			'<td name="info'+i+'" scope="row">'+result[i].titleNo+'</td>'+
-	                		'<td name="info'+i+'" scope="row">'+result[i].csMemberId+'</td>'+
-	                        '<td name="info'+i+'" scope="row">'+result[i].csTitle+'</td>'+                            
-	                        '<td name="info'+i+'" scope="row">'+result[i].csDate+'</td>'+ 
-	                        '<td name="info'+i+'" scope="row">'+result[i].csResult+'</td>';
-				    if(result[i].csResult=='N'){
-				    		count+=1;
-	            			a+='<td><input type="button" onclick="serverchat('+i+');" value="상담시작"></td>';
-	                }else{
-	                	a+='<td></td>';
-	                }
-				   
-	                $('tbody').append(a);
-	              }
-	                $('#count').html(count);
-	                
-			  }        	
-	      })
-	   };
+		function printList() {
+			$('tbody').html('');
+			$
+					.ajax({
+						url : '/consult/chatSession.kh',
+						type : 'get',
+						//data:requestTime,                   
+						dataType : 'json',
+						success : function(result) {
+							var count = 0;
+							for ( var i in result) {
+								var a = '<tr>'
+										+ '<td name="info'+i+'" scope="row">'
+										+ result[i].titleNo + '</td>'
+										+ '<td name="info'+i+'" scope="row">'
+										+ result[i].csMemberId + '</td>'
+										+ '<td name="info'+i+'" scope="row">'
+										+ result[i].csTitle + '</td>'
+										+ '<td name="info'+i+'" scope="row">'
+										+ result[i].csDate + '</td>'
+										+ '<td name="info'+i+'" scope="row">'
+										+ result[i].csResult + '</td>';
+								if (result[i].csResult == 'N') {
+									count += 1;
+									a += '<td><input type="button" onclick="serverchat('
+											+ i + ');" value="상담시작"></td>';
+								} else {
+									a += '<td></td>';
+								}
+
+								$('tbody').append(a);
+							}
+							$('#count').html(count);
+
+						}
+					})
+		};
 
 		///버튼 클릭시 해당 상담창으로 이동   
 		function serverchat(i) {
@@ -173,18 +182,20 @@
 					+ "&csMemberId=" + csMemberId + "&csTitle=" + csTitle,
 					"PopupWin", windo);
 		}
-		
-		function endList(){
+
+		function endList() {
 			var p1btn = $('p').eq(1).css('display');
 			if (p1btn == 'none') {
 				alert('채팅검색으로 이동합니다.');
-				location.href="/consult/endList.kh";
-			}else{
-				if(confirm('상담접수종료하고 검색합니다.')){
-					location.href="/consult/endList.kh";
-				};
-			};
-		} 
+				location.href = "/consult/endList.kh";
+			} else {
+				if (confirm('상담접수종료하고 검색합니다.')) {
+					location.href = "/consult/endList.kh";
+				}
+				;
+			}
+			;
+		}
 	</script>
 </body>
 </html>

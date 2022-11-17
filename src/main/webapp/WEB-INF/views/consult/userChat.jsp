@@ -40,8 +40,8 @@
 			</table>
 	
 	</div>
-		<!--context 내용 입력부분 -->
 	
+	<!--context 내용 입력부분 -->	
 	<div class="context">
 		<div id="after"></div>	
 	</div>
@@ -92,8 +92,7 @@
 
 	}
 	
-	// 고객이 관리자와 채팅 시작
-	
+	// 고객이 관리자와 채팅 시작	
 	$('#getResult').on('click',function(){
 		var text=$('#usertext').val();
 		if(text.length != 0){
@@ -142,8 +141,7 @@
 	//DB에서 데이터 가져와서 화면에 출력해주기		
 	var countData=-1;
 	function collList() {
-		console.log("출력준비");
-		//$('#after').html('');
+		console.log("출력준비");	
 
 		$.ajax({
 			url : "/client/listprint.kh",
@@ -185,19 +183,10 @@
 							+ cContext + '</span>'
 							+ '<span class="dateBox">' + cDate
 							+ '</span></div></div>');
-			
-/* 			$('#after').append(
-					'<div class="chat left" data-consultNo="' + consultNo + '">'
-					+ '<div class="icon"><img src="../resources/img/live-chat.png"></div>'
-							+ '<div class="middleBox"><span class="contextBox">'
-							+ cContext + '</span>'
-							+ '<span class="dateBox">' + cDate
-							+ '</span></div></div>'); */
 		}
 	}
 	//종료 버튼 누를경우
 	function chatfinish() {
-
 		if (confirm("정말로 종료하시겠습니까?")) {
 			clearInterval(printer);
 			setTimeout(function(){

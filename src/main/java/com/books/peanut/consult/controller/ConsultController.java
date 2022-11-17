@@ -113,7 +113,6 @@ public class ConsultController {
 			jsonObj.put("status", "success");
 		} else {
 			jsonObj.put("status", "error");
-
 		}
 		return jsonObj.toJSONString();
 	}
@@ -150,14 +149,13 @@ public class ConsultController {
 	// 관리자가 리스트 페이지 들어와서 관리페이지로 올때.
 	@RequestMapping(value = "/chat/move.kh", method = RequestMethod.GET)
 	public ModelAndView move(ModelAndView mv, HttpSession session) {
-
 		Member member = (Member) session.getAttribute("loginMember");
 		mv.setViewName("/consult/consultingList");
 
 		return mv;
 	}
 
-//관리자 전체 리스트 가져오는 것
+	//관리자 전체 리스트 가져오는 것
 	@ResponseBody
 	@RequestMapping(value = "/consult/chatSession.kh", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
 	public String managerList() {
@@ -181,8 +179,7 @@ public class ConsultController {
 				// 데이트형 문자열로 바꾸기
 				SimpleDateFormat format1 = new SimpleDateFormat("yy.MM.dd HH:mm:ss");
 				String csDate = format1.format(consultServer.getCsDate());
-				jsonObj.put("csDate", csDate);
-				///////////
+				jsonObj.put("csDate", csDate);				
 				jsonObj.put("csResult", consultServer.getCsResult());
 				jsonArr.add(jsonObj);
 				jsonObj = new JSONObject();
@@ -276,9 +273,6 @@ public class ConsultController {
 			@ModelAttribute Consult consult,
 			@RequestParam(value = "page", required = false) Integer page) {
 		Pagemarker pm = new Pagemarker();
-		//int totalCount = cService.getConsultCount(consult);
-		//int currentPage = (page != null) ? page : 1;
-		//pm.pageInfo(currentPage, totalCount);
 		pm.setTotalCount(cService.getConsultCount(consult));
 		pm.setCurrentPage((page != null) ? page : 1);
 		pm.pageInfo(pm.getCurrentPage(), pm.getTotalCount());

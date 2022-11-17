@@ -55,8 +55,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		<c:if test="${empty payList }">
-			
+		<c:if test="${empty payList }">			
 				<tr>
 					<td>결제 내역이 없습니다.</td>
 				</tr>
@@ -73,8 +72,8 @@
 					<td data-title="결제내용" data-type="currency">${Pay.orderContents }</td>
 				</tr>
 			</c:forEach>
-			</tbody>
-		</table>
+		</tbody>
+	</table>
 		<div class="page_wrap">
 			<div class="pagination">
 
@@ -109,7 +108,7 @@
 				</c:if>
 			</div>
 		</div>
-		</c:if>
+	</c:if>
 
 </div>
 	<jsp:include page="../footer/footer.jsp"></jsp:include>

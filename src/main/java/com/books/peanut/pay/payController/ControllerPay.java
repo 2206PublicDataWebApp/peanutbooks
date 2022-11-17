@@ -54,13 +54,11 @@ public class ControllerPay {
 		pay.setPay(Integer.valueOf(payMoney));
 		pay.setMemberId(memberId);		
 		pay.setOrderContents(orderContents);
-		int result=pService.orderin(pay);
-		
+		int result=pService.orderin(pay);		
 	
 		if(result>0) {
 			pay=pService.orderNoOne(pay);			
-			return new Gson().toJson(pay);
-			
+			return new Gson().toJson(pay);			
 		}else {
 			JSONObject json=new JSONObject();
 			json.put("error","error");
@@ -165,11 +163,9 @@ public class ControllerPay {
 		mv.addObject("end_date", endDate);
 		mv.addObject("payList", payList);
 		mv.setViewName("/peanetPay/payList");		
-		return mv;	
-		
+		return mv;			
 
 	}
-
 	
 ///////////////////////////////////////////////////////////////////	
 	//일반 id별 땅콩리스트 - 관리자와 틀린것은 admin도 그냥 멤버로 고려된다는 것
@@ -197,10 +193,8 @@ public class ControllerPay {
 			if(!(pp.getBookName()==null)) {
 				if(pp.getBookName().length()>10) {
 					pp.setBookName(pp.getBookName().substring(0,10)+"...");
-					pList.set(i, pp);			
-				
-				}
-				
+					pList.set(i, pp);					
+				}				
 			}
 		}
 		mv.addObject("printID", memberId);
@@ -217,8 +211,7 @@ public class ControllerPay {
 				, @RequestParam(value= "page", required = false) Integer page
 				, @RequestParam(value = "memberId", required = false) String memberId
 				, @RequestParam(value = "searchDate", required = false) String ppDate
-				){
-			//int ppSum = pService.searchPNsum(memberId);
+				){		
 			Pagemarker pm=new Pagemarker();
 			pm.setTotalCount(pService.searchPNcount(memberId,ppDate));
 			pm.setCurrentPage((page != null) ? page : 1);
@@ -232,10 +225,9 @@ public class ControllerPay {
 					if(!(pp.getBookName()==null)) {
 						if(pp.getBookName().length()>10) {
 							pp.setBookName(pp.getBookName().substring(0,10)+"...");
-							pList.set(i, pp);			
+							pList.set(i, pp);		
 						
-						}
-						
+						}						
 					}
 				}
 				mv.addObject("pList", pList);
@@ -243,16 +235,8 @@ public class ControllerPay {
 				mv.addObject("pList", pList);
 			}			
 
-			//if(memberId.equals("admin") || memberId.equals("") || memberId==null){
-//			if(memberId.equals("") || memberId==null ){
-//				mv.addObject("printId","all");			
-//			
-//			}else {
-//				mv.addObject("printId",memberId);	
-//			}
 			mv.addObject("printId",memberId);
-			mv.addObject("searchppDate", ppDate);			
-			//mv.addObject("ppSum", ppSum);
+			mv.addObject("searchppDate", ppDate);	
 			mv.addObject("pList", pList);
 			mv.setViewName("/peanetPay/adminPNList");		
 			return mv;		
@@ -362,7 +346,5 @@ public class ControllerPay {
 
 		return mv;		
 	}
-
-
-
+	
 }
