@@ -116,10 +116,8 @@ public class MemberController {
 			ModelAndView mv) {
 		try {
 			// 비밀번호 암호화 시작
-			
 			String encryptedPw = Sha256.encrypt(member.getMemberPw()); // 회원가입 jsp에서 입력된 비밀번호를 암호화해서 encryptedPw에 넣기
 			member.setMemberPw(encryptedPw); // 암호화된 비밀번호를 멤버 객체의 비밀번호로 넣음
-			
 			// 비밀번호 암호화 끝
 			
 			int result = mService.registerMember(member); // 회원가입
@@ -757,6 +755,14 @@ public class MemberController {
 			mv.addObject("msg", e.toString()).setViewName("common/errorPage");
 		}
 		return mv;
+	}
+	
+	// 회원탈퇴 확인용 비밀번호 암호화
+	@ResponseBody
+	@RequestMapping(value="/member/encryptDeletePw.pb", method=RequestMethod.GET)
+	public String encryptDeletePw(@RequestParam("checkPw") String checkPw) {
+		checkPw = Sha256.encrypt(checkPw);
+		return checkPw;
 	}
 
 	//은정이가 잠깐 사용할 예정
