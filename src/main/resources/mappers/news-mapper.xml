@@ -72,13 +72,14 @@
 	</select>
 	 
 	<resultMap type="Attendance" id="AttendanceResultMap"></resultMap>
-	<!-- 회원 출석 여부 -->
+	<!-- 회원 출석 존재 여부 -->
 	<select id="checkAttendExist" resultType="_int">
-		SELECT COUNT(*) FROM ATTENDANCE WHERE MEMBERID = #{memberId} and
-		(to_char(FIRST,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD') or
-		to_char(SECOND,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD') or
-		to_char(THIRD,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD') or
-		to_char(FOURTH,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD') or
-		to_char(FIFTH,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD'))
+		SELECT COUNT(*) FROM ATTENDANCE WHERE MEMBERID = #{memberId} AND
+			(TO_CHAR(FIRST,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD') OR
+			TO_CHAR(SECOND,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD') OR
+			TO_CHAR(THIRD,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD') OR
+			TO_CHAR(FOURTH,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD') OR
+			TO_CHAR(FIFTH,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD') OR
+			FIFTH IS NOT NULL)
 	</select>
 </mapper>

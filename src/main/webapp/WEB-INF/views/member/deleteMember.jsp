@@ -22,7 +22,7 @@
 			<div class="info-header">
 			    <div>회원탈퇴</div>
 			</div>
-			<form action="/member/delete.pb" method="post">
+			<form action="/member/delete.pb" method="post" id="memberDeleteForm">
 			<input type="hidden" value="${sessionScope.loginMember.memberId}" name="memberId">
 			<input type="hidden" value="${sessionScope.loginMember.memberPw}" id="delete-memberPw">
 				<div class="delete-div-bottom">
@@ -64,7 +64,7 @@
 						<p class="guide error pw-error-4">비밀번호를 입력해 주세요.</p>
 					</div>
 					<div class="div-btn">
-						<button type="submit" class="delete-btn">회원 탈퇴</button>
+						<button type="button" class="delete-btn">회원 탈퇴</button>
 					</div>
 				</div>
 			</form>
@@ -88,23 +88,30 @@
 			var infoChk = $("#delete-check").is(":checked");
 			var pwChk1 = $("#delete-pw1").val();
 			var memberPw = $("#delete-memberPw").val();
+			
 			if(infoChk == false){
 				alert("탈퇴 회원 유의 사항을 읽고 동의해 주세요.");
-				return false;
-			}else if(pwChk1 == "" || pwChk1 != memberPw){
-				alert("비밀번호를 다시 확인해 주세요.");
-				$("#delete-pw1").focus();
-				$("#delete-pw1").css("border", "solid 1px #FF577F");
-				return false;
 			}else{
-				if(confirm("정말 탈퇴하시겠습니까?\n회원 탈퇴는 되돌릴 수 없습니다.") == true){
-					alert("회원 탈퇴가 완료되었습니다.\n감사합니다.");					
-					return true;
-				}else{
-					window.location.href="/member/memberInfo.pb";
-					return false;
-				}
-			}
+				$.ajax({
+					url: "/member/encryptDeletePw.pb",
+					data: {"checkPw": pwChk1},
+					type: "get",
+					success: function(result){
+						if(pwChk1 == "" || result != memberPw){
+							alert("비밀번호를 다시 확인해 주세요.");
+							$("#delete-pw1").focus();
+							$("#delete-pw1").css("border", "solid 1px #FF577F");
+						}else{
+							if(confirm("정말 탈퇴하시겠습니까?\n회원 탈퇴는 되돌릴 수 없습니다.") == true){
+								alert("회원 탈퇴가 완료되었습니다.\n감사합니다.");
+								$("#memberDeleteForm").submit();
+							}else{
+								window.location.href="/member/memberInfo.pb";
+							}
+						}
+					}
+				});
+			} 
 		});
 	</script>
 </body>

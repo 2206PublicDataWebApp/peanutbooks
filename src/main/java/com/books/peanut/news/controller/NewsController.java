@@ -6,8 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,8 +23,6 @@ import com.books.peanut.news.service.NewsService;
 public class NewsController {
 	@Autowired
 	private NewsService nService;
-	
-	private static final Logger logger = LoggerFactory.getLogger(NewsController.class);
 
 	/**
 	 * 알림 목록 조회
@@ -40,10 +36,10 @@ public class NewsController {
 			HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		Member member = (Member)session.getAttribute("loginMember"); // 로그인한 회원 정보를 member 객체에 담음
-		String memberId = member.getMemberId(); // member 객체에서 id 값 가져와서 memberId 변수에 넣음
+		String memberId = member.getMemberId(); // member 객체에서 id 값 가져와서 memberid 변수에 넣음
 		List<News> nList = nService.showNewsList(memberId); // 로그인한 회원의 id 사용해서 해당 회원의 알림 목록 가져오기
 		if(!nList.isEmpty()) { // 가져온 알림 목록이 비어있지 않으면
-			mv.addObject("nList", nList); // 아래의 jsp로 알림 정보가 담긴 nList 값을 넘김
+			mv.addObject("nList", nList); // 아래의 jsp로 알림 정보가 담긴 nlist 값을 넘김
 		}
 		mv.setViewName("news/newsView");
 		return mv;
@@ -60,9 +56,10 @@ public class NewsController {
 			Model model,
 			@RequestParam("newsNo") int newsNo) {
 		try {
-			nService.deleteNewsByNo(newsNo);
-			return "redirect:/news/newsList.pb";
+			nService.deleteNewsByNo(newsNo); // newsno(기본키)로 알림 선택해 삭제
+			return "redirect:/news/newsList.pb"; // 삭제 후 알림 목록 화면으로 이동
 		} catch (Exception e) {
+			// 에러 확인용
 			model.addAttribute("msg", e.toString());
 			return "common/errorPage";
 		}
@@ -78,14 +75,13 @@ public class NewsController {
 			@RequestParam(value="newsType", defaultValue = "null") String newsType,
 			@RequestParam(value="bookNo", defaultValue = "0") int bookNo,
 			ModelAndView mv) {
-		logger.info("알림읽음");
 		int result = nService.readNews(newsNo);
-		logger.info(result+"알림결과");
-		
-		if(newsType.equals("event")) {
-			mv.setViewName("redirect:/book/attendaceEvent.do?newsNo="+newsNo);
-		}else {
-			mv.setViewName("redirect:/book/oriBookInfo?bookNo="+bookNo+"&newsNo="+newsNo);
+		if(result > 0) {
+			if(newsType.equals("event")) {
+				mv.setViewName("redirect:/book/attendaceEvent.do?newsNo="+newsNo);
+			}else {
+				mv.setViewName("redirect:/book/oriBookInfo?bookNo="+bookNo+"&newsNo="+newsNo);
+			}
 		}
 		
 		return mv;
@@ -102,7 +98,7 @@ public class NewsController {
 		return String.valueOf(countNews);
 	}
 
-	// 출석체크
+	// 출석체크 알림
 	@ResponseBody
 	@RequestMapping(value="/news/addEventNews.pb", method=RequestMethod.GET)
 	public String addEventNews(HttpServletRequest request) {
@@ -112,14 +108,14 @@ public class NewsController {
 		String mNickname = loginMember.getmNickname();
 		int result = nService.checkAttendExist(memberId);
 		if(result <= 0) {
-				int result2 = nService.checkEventExist(memberId);
-				if(result2 <= 0) {
-					String newsContents = mNickname+"님 오늘 출석체크를 안 하셨네요! 출석체크하고 땅콩 받아가세요!";
-					HashMap<String, String> paramMap = new HashMap<String, String>();
-					paramMap.put("memberId", memberId);
-					paramMap.put("newsContents", newsContents);
-					nService.insertEventNews(paramMap);
-				}
+			int result2 = nService.checkEventExist(memberId);
+			if(result2 <= 0) {
+				String newsContents = mNickname+"님 오늘 출석체크를 안 하셨네요! 출석체크하고 땅콩 받아가세요♥";
+				HashMap<String, String> paramMap = new HashMap<String, String>();
+				paramMap.put("memberId", memberId);
+				paramMap.put("newsContents", newsContents);
+				nService.insertEventNews(paramMap);
+			}
 		}
 		return null;
 	}

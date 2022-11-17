@@ -95,7 +95,7 @@
 							<div id="news-icon">
 								<img src="/resources/img/header/icons8-notification-50.png" alt="알림">
 								<c:if test="${sessionScope.countNews > 0}">
-									<div id="news-circle">${sessionScope.countNews}</div>
+									<div id="news-circle"></div>
 								</c:if>
 							</div>
 							알림
