@@ -103,11 +103,15 @@
 		</if>
 		</where> 
 		<if test="step.toString() == 'date'">
-		order by APPROVE_DATE DESC nulls last
+		order by APPROVE_NO DESC nulls last
 		</if>
 		<if test="step.toString() == 'number'">
 		order by APPROVE_NO
 		</if>
+		<if test="step.toString() == 'all' || step.toString() == null ">
+		order by APPROVE_NO desc
+		</if>
+		
 	</select>
 	
 	<!--  재승인 리스트 갯수 가져오기 -->

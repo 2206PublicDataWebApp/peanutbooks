@@ -29,7 +29,11 @@ public class QnaController {
 	@Autowired
 	private QnaService qService;
 
-	//qna등록 화면
+	/**
+	 * 문의사항 등록화면
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value="/qna/writeView", method=RequestMethod.GET)
 	public String showQnaWriter(HttpSession session) {
 //		로그인 유저용
@@ -504,7 +508,15 @@ public class QnaController {
 		return mv;
 	}
 	
-	//관리자 문의게시글 답변작성
+	/**
+	 * 관리자 문의게시글 답변작성
+	 * @param mv
+	 * @param qna
+	 * @param page
+	 * @param Request
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value="/admin/answer.kh", method=RequestMethod.POST)
 	public ModelAndView adminQnaAnswer(
 			ModelAndView mv
@@ -529,7 +541,16 @@ public class QnaController {
 		return mv;
 	}
 
-	//관리자 게시글 조건 검색
+	/**
+	 * 관리자 게시글 조건 검색
+	 * @param mv
+	 * @param searchCondition
+	 * @param searchValue
+	 * @param page
+	 * @param qnaStatus
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value="/admin/search.kh", method=RequestMethod.GET)
 	public ModelAndView adminQnaSearch(
 			ModelAndView mv
@@ -566,7 +587,14 @@ public class QnaController {
 			}		
 		return mv;
 	}
-	//문의게시판 카테고리별 리스트
+	
+	/**
+	 * 문의게시판 카테고리별 리스트
+	 * @param mv
+	 * @param qnaCategory
+	 * @param page
+	 * @return
+	 */
 	@RequestMapping(value="/admin/categoryCount.kh", method=RequestMethod.GET)
 	public ModelAndView adminQnaCategoryList(
 			ModelAndView mv

@@ -30,7 +30,11 @@ public class NoticeController {
 	@Autowired
 	private NoticeService nService;
 	
-	//공지사항 작성 페이지 이동
+	/**
+	 * 공지사항 작성 페이지 이동
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value="/notice/writeView.kh", method=RequestMethod.GET)
 	public String reviewWriteView(HttpSession session) {
 		Member loginMember = (Member)session.getAttribute("loginMember");
@@ -40,7 +44,14 @@ public class NoticeController {
 		return "member/login";
 	}
 
-	//공지사항 게시물 등록
+	/**
+	 * 공지사항 게시물 등록
+	 * @param mv
+	 * @param notice
+	 * @param uploadFile
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="/notice/register.kh", method=RequestMethod.POST)
 	public ModelAndView registerNotice(
 			ModelAndView mv
@@ -83,7 +94,14 @@ public class NoticeController {
 		
 	}
 
-	//공지사항 전체 리스트
+	/**
+	 * 공지사항 전체 리스트 
+	 * @param mv
+	 * @param session
+	 * @param page
+	 * @param nStatus
+	 * @return
+	 */
 	@RequestMapping(value="/notice/list.kh", method = RequestMethod.GET)
 	public ModelAndView noticeListView(
 			ModelAndView mv
@@ -127,7 +145,14 @@ public class NoticeController {
 		return mv;
 	}
 	
-	//공지사항 상세보기
+	/**
+	 * 공지사항 상세보기
+	 * @param mv
+	 * @param noticeNo
+	 * @param page
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value="/notice/noticeDetailView.kh", method=RequestMethod.GET)
 	public ModelAndView noticeDetailView(
 			ModelAndView mv
@@ -153,7 +178,13 @@ public class NoticeController {
 		return mv;
 	}
 	
-	//공지사항 게시글 삭제
+	/**
+	 * 공지사항 게시글 삭제
+	 * @param session
+	 * @param page
+	 * @param noticeNo
+	 * @return
+	 */
 	@RequestMapping(value="/notice/remove.kh", method=RequestMethod.GET)
 	public String noticeRemove(
 			HttpSession session
@@ -170,7 +201,13 @@ public class NoticeController {
 		return "redirect:/notice/list.kh?page="+page;
 	}
 	
-	//공지사항 수정화면
+	/**
+	 * 공지사항 게시글 수정 화면
+	 * @param mv
+	 * @param page
+	 * @param noticeNo
+	 * @return
+	 */
 	@RequestMapping(value="/notice/modifyView.kh", method=RequestMethod.GET)
 	public ModelAndView noticeModifyView(
 			ModelAndView mv
@@ -193,7 +230,16 @@ public class NoticeController {
 		}
 		return mv;
 	}
-	//공지사항 수정
+
+	/**
+	 * 공지사항 게시글 수정
+	 * @param notice
+	 * @param mv
+	 * @param reloadFile
+	 * @param page
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="/notice/modify.kh", method=RequestMethod.POST)
 	public ModelAndView boardModify(
 			@ModelAttribute Notice notice
@@ -229,7 +275,15 @@ public class NoticeController {
 		}
 		return mv;
 	}
-	//조건 검색
+	/**
+	 * 공지사항 조건 검색
+	 * @param mv
+	 * @param searchCondition
+	 * @param searchValue
+	 * @param page
+	 * @param nStatus
+	 * @return
+	 */
 	@RequestMapping(value="/notice/search.kh", method=RequestMethod.GET)
 	public ModelAndView noticeSearchList(
 			ModelAndView mv
@@ -261,7 +315,14 @@ public class NoticeController {
 		return mv;
 		
 	}
-	//공지사항 카테고리별 리스트
+	/**
+	 * 공지사항 카테고리별 리스트 출력
+	 * @param mv
+	 * @param noticeCategory
+	 * @param page
+	 * @param nStatus
+	 * @return
+	 */
 	@RequestMapping(value="/notice/categoryCount.kh", method=RequestMethod.GET)
 	public ModelAndView noticeCategoryList(
 			ModelAndView mv
@@ -310,7 +371,14 @@ public class NoticeController {
 		
 	}
 	
-	//공지사항 노출/비노출 선택
+	/** 
+	 * 공지사항 노출/비노출 리스트
+	 * @param mv
+	 * @param noticeNo
+	 * @param nStatus
+	 * @param page
+	 * @return
+	 */
 	@RequestMapping(value="/notice/chooseNotice.do", method=RequestMethod.GET)
 	public ModelAndView noticeChoose(
 			ModelAndView mv
@@ -330,7 +398,12 @@ public class NoticeController {
 		
 	}
 	
-	//공지사항 회원 리스트
+	/** 
+	 * 공지사항 유저사이드 리스트
+	 * @param mv
+	 * @param noticeCategory
+	 * @return
+	 */
 	@RequestMapping(value="/notice/noticeUserList.do", method=RequestMethod.GET)
 	public ModelAndView noticeUserView(
 			ModelAndView mv

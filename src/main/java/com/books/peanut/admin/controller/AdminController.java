@@ -29,7 +29,14 @@ public class AdminController {
 	@Autowired
 	private PayService pService;
 	
-	//전체회원 리스트
+	/**
+	 * 전체 회원 출력
+	 * @param mv
+	 * @param session
+	 * @param page
+	 * @param code
+	 * @return
+	 */
 	@RequestMapping(value="/admin/adminListView.kh", method = RequestMethod.GET)
 	public ModelAndView adminAllList(
 			ModelAndView mv
@@ -67,7 +74,13 @@ public class AdminController {
 		return mv;
 	}
 	
-	//회원상세보기
+	/**
+	 * 회원정보 상세보기
+	 * @param mv
+	 * @param page
+	 * @param memberId
+	 * @return
+	 */
 	@RequestMapping(value="/admin/memberDetailView.kh", method=RequestMethod.GET)
 	public ModelAndView adminMemberDetail(
 			ModelAndView mv
@@ -93,7 +106,13 @@ public class AdminController {
 		return mv;
 	}
 	
-	//회원삭제
+	/** 
+	 * 회원삭제
+	 * @param session
+	 * @param page
+	 * @param memberId
+	 * @return
+	 */
 	@RequestMapping(value="/admin/memberRemove.kh", method=RequestMethod.GET)
 	public String adminMemberRemove(
 			HttpSession session
@@ -110,7 +129,14 @@ public class AdminController {
 		}
 		return "redirect:/admin/adminListView.kh?page="+page;
 	}
-	//회원 정보 수정화면
+
+	/**
+	 * 회원정보 수정 창
+	 * @param mv
+	 * @param page
+	 * @param memberId
+	 * @return
+	 */
 	@RequestMapping(value="/admin/memberModifyView.kh", method=RequestMethod.GET)
 	public ModelAndView memberModifyView(
 			ModelAndView mv
@@ -134,7 +160,16 @@ public class AdminController {
 		}
 	return mv;
 	}
-	//회원 정보 수정
+	/**
+	 * 회원정보 수정
+	 * @param mv
+	 * @param request
+	 * @param st
+	 * @param pp
+	 * @param page
+	 * @param member
+	 * @return
+	 */
 	@RequestMapping(value="/admin/memberModify", method=RequestMethod.POST)
 	public ModelAndView memberModify(
 			ModelAndView mv
@@ -184,7 +219,15 @@ public class AdminController {
 		}
 		return mv;
 	}
-	//회원 검색
+	/**
+	 * 회원 검색
+	 * @param mv
+	 * @param session
+	 * @param page
+	 * @param searchCondition
+	 * @param searchValue
+	 * @return
+	 */
 	@RequestMapping(value="/admin/MemberSearch.kh", method=RequestMethod.GET)
 	public ModelAndView memberSearch(
 			ModelAndView mv
@@ -215,7 +258,5 @@ public class AdminController {
 		}
 		return mv;
 	}
-	
-	//알림
 	
 }

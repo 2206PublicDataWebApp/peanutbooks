@@ -147,7 +147,7 @@
 						</div>
 					</c:forEach>
 				</c:if>
-		</div>
+			</div>
 				<c:if test="${empty nList }">
 						<b>데이터가 존재하지 않습니다.</b>
 				</c:if>
