@@ -126,7 +126,7 @@
 
 	<jsp:include page="../footer/footer.jsp"></jsp:include>
 
-<script>
+	<script>
 	/* chat내용 상세보기 */
 	function popUpOpen(csMemberId,titleNo){
 		var windo = 'status=no ,toolbar=no,scrollbars=no, menubar=no,resizable=no,titlebar=no, width=780,height=750';
@@ -169,8 +169,7 @@
 		};
 			
 	}
-
 	
-</script>
+	</script>
 </body>
 </html>

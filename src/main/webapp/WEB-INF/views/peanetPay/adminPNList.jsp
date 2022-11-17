@@ -91,55 +91,56 @@
 						<tr class="line"></tr>
 					</table>
 				</c:forEach>
+			</c:if>	
+		</div>
+		<c:if test="${!empty pList  }">
+			<div class="page_wrap">
+				<div class="pagination">
+					<c:if test="${pm.startNavi !=1}">
+						<a href="javascript:void(0);" 
+							onclick="pagePNSearch(${1});"
+							title="firstpage"><svg
+								fill="currentColor">
+			<path
+									d="M17.59 18L19 16.59 14.42 12 19 7.41 17.59 6l-6 6zM11 18l1.41-1.41L7.83 12l4.58-4.59L11 6l-6 6z" /></svg>
+							First</a>
+						<a href="javascript:void(0);"
+							onclick="pagePNSearch(${pm.startNavi -1});"										
+							title="previouspage"><svg
+								fill="currentColor">
+				<path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" /></svg> </a>
+					</c:if>
+					<c:forEach begin="${pm.startNavi}" end="${pm.endNavi }" var="p">
+						<c:if test="${pm.currentPage eq p}"  >					
+							<a class="page-active" href="javascript:void(0);"
+							   onclick="pagePNSearch(${p });" style="background-color:grey;">
+								${p} </a>
+						</c:if>
+						<c:if test="${pm.currentPage ne p}"  >					
+							<a class="page-active" href="javascript:void(0);"
+							   onclick="pagePNSearch(${p });" >
+								${p} </a>
+						</c:if>
+
+					</c:forEach>
+
+
+					<c:if test="${pm.maxPage > pm.currentPage && pm.maxPage != pm.endNavi}">
+						<a title="next page" href="javascript:void(0);"
+							onclick="pagePNSearch(${pm.endNavi+1});"><svg
+								fill="currentColor">
+				<path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" /></svg></a>
+					</c:if>
+					<c:if test="${(pm.endNavi %5)==0 && pm.maxPage != pm.endNavi }">
+						<a href="javascript:void(0);"
+							onclick="pagePNSearch(${pm.maxPage});" title="last page">Last<svg
+								fill="currentColor">
+			<path
+									d="M6.41 6L5 7.41 9.58 12 5 16.59 6.41 18l6-6zM13 6l-1.41 1.41L16.17 12l-4.58 4.59L13 18l6-6z" /></svg></a>
+					</c:if>
 				</div>
-				<div class="page_wrap">
-					<div class="pagination">
-						<c:if test="${pm.startNavi !=1}">
-							<a href="javascript:void(0);" 
-								onclick="pagePNSearch(${1});"
-								title="firstpage"><svg
-									fill="currentColor">
-				<path
-										d="M17.59 18L19 16.59 14.42 12 19 7.41 17.59 6l-6 6zM11 18l1.41-1.41L7.83 12l4.58-4.59L11 6l-6 6z" /></svg>
-								First</a>
-							<a href="javascript:void(0);"
-								onclick="pagePNSearch(${pm.startNavi -1});"										
-								title="previouspage"><svg
-									fill="currentColor">
-					<path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" /></svg> </a>
-						</c:if>
-						<c:forEach begin="${pm.startNavi}" end="${pm.endNavi }" var="p">
-							<c:if test="${pm.currentPage eq p}"  >					
-								<a class="page-active" href="javascript:void(0);"
-								   onclick="pagePNSearch(${p });" style="background-color:grey;">
-									${p} </a>
-							</c:if>
-							<c:if test="${pm.currentPage ne p}"  >					
-								<a class="page-active" href="javascript:void(0);"
-								   onclick="pagePNSearch(${p });" >
-									${p} </a>
-							</c:if>
-
-						</c:forEach>
-
-
-						<c:if test="${pm.maxPage > pm.currentPage && pm.maxPage != pm.endNavi}">
-							<a title="next page" href="javascript:void(0);"
-								onclick="pagePNSearch(${pm.endNavi+1});"><svg
-									fill="currentColor">
-					<path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" /></svg></a>
-						</c:if>
-						<c:if test="${(pm.endNavi %5)==0 && pm.maxPage != pm.endNavi }">
-							<a href="javascript:void(0);"
-								onclick="pagePNSearch(${pm.maxPage});" title="last page">Last<svg
-									fill="currentColor">
-				<path
-										d="M6.41 6L5 7.41 9.58 12 5 16.59 6.41 18l6-6zM13 6l-1.41 1.41L16.17 12l-4.58 4.59L13 18l6-6z" /></svg></a>
-						</c:if>
-					</div>
-				</div>
-			</c:if>
-		
+			</div>
+		</c:if>		
 	</main>
 	<jsp:include page="../footer/footer.jsp"></jsp:include>
 	
