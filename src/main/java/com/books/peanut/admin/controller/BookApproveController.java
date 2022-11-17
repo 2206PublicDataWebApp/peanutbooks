@@ -81,7 +81,15 @@ public class BookApproveController {
 		return mv;
 	}
 	
-	//도서 승인
+	/**
+	 * 도서 승인
+	 * @param bookNo
+	 * @param seriesNo
+	 * @param page
+	 * @param mv
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value="/admin/approve.kh", method=RequestMethod.GET)
 	public ModelAndView bookApprove(
 			@RequestParam("bookNo") Integer bookNo
@@ -124,7 +132,12 @@ public class BookApproveController {
 	}
 	
 	
-	//재승인 리스트
+	/**
+	 * 재승인 리스트
+	 * @param mv
+	 * @param page
+	 * @return
+	 */
 	@RequestMapping(value="/admin/reApproveList.kh", method=RequestMethod.GET)
 	public ModelAndView reApproveList(
 			ModelAndView mv
@@ -158,7 +171,15 @@ public class BookApproveController {
 		return mv;
 		
 	}
-	//도서 재승인 기능
+	/**
+	 * 도서 재승인 기능
+	 * @param bookNo
+	 * @param seriesNo
+	 * @param page
+	 * @param mv
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value="/admin/reApprove.kh", method=RequestMethod.GET)
 	public ModelAndView bookReApprove(
 			@RequestParam("bookNo") Integer bookNo
@@ -189,7 +210,11 @@ public class BookApproveController {
 		return mv;
 	}
 	
-	//adminMain
+	/**
+	 * 어드민 메인페이지
+	 * @param mv
+	 * @return
+	 */
 	@RequestMapping(value="/adminMain.kh", method=RequestMethod.GET)
 	public ModelAndView adminMain(
 			ModelAndView mv) {
