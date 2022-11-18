@@ -285,7 +285,7 @@
 ### 알림
 <hr>
 <p align=center>
-<img src="/readMeResource/notification.png">
+<img src="/readMeResource/noti.png">
 </p>
 
 
@@ -319,7 +319,7 @@
 ### 상담게시판
 <hr>
 <p align=center>
-<img src="/readMeResource/qna.png">
+<img src="">
 </p>
 
 ### 채팅상담
