@@ -198,19 +198,19 @@
 ### 로그인
 <hr>
 <p align=center>
-<img src="">
+<img src="/readMeResource/login.png">
 </p>
 
 ### 회원가입
 <hr>
 <p align=center>
-<img src="">
+<img src="/readMeResource/join.png">
 </p>
 
-### 아이디비밀번호찾기
+### 아이디/비밀번호찾기
 <hr>
 <p align=center>
-<img src="">
+<img src="/readMeResource/forgotId.png">
 </p>
 
 ### 피넛픽
