@@ -289,12 +289,13 @@
 </p>
 
 
-### 정보수정
+### 정보관리
 <hr>
 <p align=center>
 <img src="/readMeResource/modifyInfo-1.png">
 <img src="/readMeResource/modifyInfo-2.png">
 <img src="/readMeResource/modifyInfo-3.png">
+<img src="/readMeResource/deleteInfo.png">
 </p>
 
 ### 등록도서목록
