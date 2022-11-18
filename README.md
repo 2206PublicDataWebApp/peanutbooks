@@ -285,14 +285,16 @@
 ### 알림
 <hr>
 <p align=center>
-<img src="">
+<img src="/readMeResource/notification.png">
 </p>
 
 
 ### 정보수정
 <hr>
 <p align=center>
-<img src="">
+<img src="/readMeResource/modifyInfo-1.png">
+<img src="/readMeResource/modifyInfo-2.png">
+<img src="/readMeResource/modifyInfo-3.png">
 </p>
 
 ### 등록도서목록
