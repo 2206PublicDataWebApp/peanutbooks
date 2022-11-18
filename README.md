@@ -319,7 +319,7 @@
 ### 상담게시판
 <hr>
 <p align=center>
-<img src="">
+<img src="/readMeResource/qna.png">
 </p>
 
 ### 채팅상담
